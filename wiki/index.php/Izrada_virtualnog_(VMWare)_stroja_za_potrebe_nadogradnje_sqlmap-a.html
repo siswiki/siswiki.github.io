@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Izrada virtualnog (VMWare) stroja za potrebe nadogradnje sqlmap-a - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Izrada_virtualnog_VMWare_stroja_za_potrebe_nadogradnje_sqlmap-a skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Izrada virtualnog (VMWare) stroja za potrebe nadogradnje sqlmap-a</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#mw-head">orijentacija</a>,
+					<a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirali: Filip Vuković i Filip Strunjak
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#.C5.A0to_je_sqlmap.3F"><span class="tocnumber">1</span> <span class="toctext">Što je sqlmap?</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Cilj_projekta"><span class="tocnumber">2</span> <span class="toctext">Cilj projekta</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Kori.C5.A1tene_tehnologije"><span class="tocnumber">3</span> <span class="toctext">Korištene tehnologije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Apache"><span class="tocnumber">3.1</span> <span class="toctext">Apache</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Hadoop"><span class="tocnumber">3.2</span> <span class="toctext">Hadoop</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Hive"><span class="tocnumber">3.3</span> <span class="toctext">Hive</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Ingres"><span class="tocnumber">4</span> <span class="toctext">Ingres</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Ranjiva_web_stranica"><span class="tocnumber">5</span> <span class="toctext">Ranjiva web stranica</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id=".C5.A0to_je_sqlmap.3F"> Što je sqlmap? </span></h2>
+<p><br />
+Sqlmap je besplatan alat za penetracijsko ispitivanje koji automatizira proces detekcije i otkrivanja SQL injection ranjivosti, kao i ranjivosti poslužitelja baza podataka. Razvijen je u  jeziku Python, a podržan je na većini popularnih platformi što uključuje operacijske sustave Linux, Windows i Mac OS X. Sadrži podršku za razne sustave za upravljanje bazama podataka kao što su MySQL, Oracle, PostgreSQL i Microsoft SQL Server, kao i razvijen skup opcija za izvođenje ispitivanja. Možemo reći da posjeduje moćan engine za detekciju kao i mnoge značajke za ultimativno penetriranje, a one su&#160;:
+</p><p><br />
+</p><p>• Potpuna podrška za sustave MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase, SAP MaxDB, HSQLDB and Informix.
+</p><p>• Potpuna podrška za 6 SQL injection tehnika&#160;: boolean-based blind, time-based blind, error-based, UNION query-based, stacked queries and out-of-band.
+</p><p>• Podršku za izravno spajanje na bazu podataka, bez prolaska kroz SQL injekcije, pružajući DBMS podatke, IP adrese, porto i naziv baze podataka.
+</p><p>• Podrška za pregled korisnika, hasirane lozinke , privilegija, uloge, baze podataka, tablice.
+</p><p>• Automatsko prepoznavanje lozinka hash formata i podršku za hakrianje takvih lozinka korištenjem dictionary-based napadana.
+</p><p>• Podrška za traženje određenih naziva baze podataka, određenih tablica u svim bazama podataka ili određene stupce kroz sve tablice svih baza podataka.
+</p><p>• Podrška za download i upload bilo koje datoteke s poslužitelja baze podataka, kada je software baze podataka  MySQL, PostgreSQL ili Microsoft SQL Server.
+</p><p>• Potpora za uspostavu out-of-band TCP konekciju između napadača i baze podataka.
+</p><p>• Potpora za uspostavu out-of-band TCP konekciju između napadača i baze podataka.
+</p><p><br />
+Još možemo reći da je Sqlmap jedan od najpopularnijih i moćnijih alata za ubrizgavanje sql injekcije, te osim opisanih funkcionalnosti, alat obilježava jednostavnost instalacije i uporabe, kao i brzina izvođenja ispitivanja pa se preporuča svim korisnicima.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Cilj_projekta"> Cilj projekta </span></h2>
+<p><br />
+</p><p>Naš zadatak za realizaciju ovog projekta je bio da kreiramo Virtulani (VMWare) stroj za potrebe nadogradnje sqlmap-a. Prvo smo morali odabrati DBMS koji trenutno nije podržan od strane sqlmap-a te ga instalirati na našem virtualnom stroju, dalje smo morali kreirati ranjivu PhP stranicu na SQL injection. U  bazi za tu stranicu moramo imati tablicu users sa stupcima id, ime i password, tu smo završili sa kreiranjem okolinom za rad. Naš najbitniji zadatak je napisati nadogradnju za sqlmap u pythonu kako bi DMBS koji smo instalirali i koji nije podržan od strane sqlmap-a bio podržan. U nastavku će biti navedene i kratko opisane sve korištene tehnologije.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Kori.C5.A1tene_tehnologije"> Korištene tehnologije </span></h2>
+<p><b>VMWare Workstation</b>  - Strunjak
+</p><p>Za izradu virtualnog stroja korišten je VMWare Workstation Pro. Na njemu je moguće pokretati različite operacijske sustave kao virtualne strojeve. Za izradu ovog projekta korišten je 64-bitni Ubuntu Linux operacijski sustav.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmware.jpg" class="image"><img alt="Vmware.jpg" src="../images/d/da/Vmware.jpg" width="450" height="323" /></a>
+</p><p><br />
+</p><p><b>Ubuntu</b>
+</p><p>Instalacija DBMS-a i povezivanje istoga sa PHP ranjivom stranicom izvršena je na 64-bitnom Ubuntu Linux operacijskom sustavu.
+</p><p><br />
+</p><p><b>PHP</b>
+</p><p>Za izradu ranjive stranice na napad SQL injekcije korišten je PHP programski jezik.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Apache"> Apache </span></h3>
+<p>Apache HTTP Server je otvoreni web server koji nosi titulu najkorištenijeg web servera u svijetu. Izvorno se temelji na NCSA httpd server, razvoj Apache je započeo početkom 1995. godine. Apache je razvila i održava otvorena zajednica programera pod pokroviteljstvom Apache Software Foundation. Najčešće se koristi na Unix sustavima (obično Linux).
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Hadoop"> Hadoop </span></h3>
+<p>- Strunjak   
+</p><p>Apache Hadoop je razvojni okvir koji omogućuje distribuiranu obradu velikih količina podataka putem mreže računala koristeći pri tome jednostavne programske modele. Osmišljen kao poslužitelj za tisuće strojeva, omoguććujući im pri tome lokalno pohranjivanje i obradu podataka. Dizajniran je za otkrivanje i obradu kvarova na aplikacijskom sloju. U ovome projektu bila je potrebna instalacija Hadoop-a kako bi bilo moguće instalirati Hive sustav.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hadoop.png" class="image"><img alt="Hadoop.png" src="../images/b/b5/Hadoop.png" width="323" height="156" /></a>
+</p><p>Instalacija Apache Hadoopa prilično je kompliciran posao.
+Za početak je potrebno instalirati neku noviju verziju Jave (1.5 na dalje).  Zatim je potrebno dodati novoga korisnika na kojemu će se pokretati Hadoop (u našem primjeru novi korisnik je  nazvan hduser). Kod novokreiranog korisnika treba izvršiti konfiguraciju SSH i onemogućiti IPv6.
+Hadoop je potrebno preuzeti na Appache Download Mirrors i raspakirati tu datoteku na željenoj lokaciji (kod nas /usr/local/Hadoop/).  Hadoop sadrži HDFS – Hadoop Distributed File System.
+Potrebno je napraviti ažuriranje konfiguracije datoteke ./bashrc. 
+Sa Hadoop-om dolazi nekoliko konfiguracijskih .xml datoteka koje je potrebno podesiti. Takve datoteke su  core-site.xml, mapred_site.xml, hdfs-site.xml i yarn site. Potrebno je strogo paziti kako ne bi došlo do pogrešaka u konfiguraciji jer su greške teško uočljive. 
+Hadoop se pokreće naredbama sbin/start-dfs.sh i sbin/start-dfs.sh (ili start-all.sh koja obuhvaća obje prethodne naredbe). 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hduser.PNG" class="image"><img alt="Hduser.PNG" src="../images/5/58/Hduser.PNG" width="653" height="414" /></a>
+</p><p>Hadoop se otvara na portovima 8088 i 50070.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Port.PNG" class="image"><img alt="Port.PNG" src="../images/4/45/Port.PNG" width="653" height="411" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Hive"> Hive </span></h3>
+<p>- Strunjak
+</p><p>Apache Hive jest softver za skladištenje podataka koji olakšava čitanje, pisanje i vođenje velikih kolekcija podataka. Za povezivanje korisnika sa Hive-om koristi se komandna linija i JDBC driver.  
+</p><p><br />
+</p><p><br />
+<b>Instalacija i korištenje</b>  -Strunjak
+</p><p>Nakon instalacije Hadoopa preostaje nekoliko koraka za instalaciju hive DBMS-a. Potrebno je skinuti i raspakirati neku verziju hive-a.  Potrebno je konfigurirati, odnosno dodati linije u .bashrc datoteku, kao i konfiguracijsku hive-env.sh datoteku. 
+Za pokretanje hive-a treba instalirati i Appache Derby čija instalacija sada neće biti detaljnije opisivana. 
+Jedina stvar koju je još potrbno učiniti jest promjena privatnosti za hive datoteke korištenjem naredbe chmod g+w. Instalacija je gotova i sljedećim naredbama se pokreće: 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Upit1.PNG" class="image"><img alt="Upit1.PNG" src="../images/8/80/Upit1.PNG" width="250" height="44" /></a>
+</p><p>Valja još jednom napomenuti da se hive sustav pokreće na aktivnom hadoop serveru. Daljnje izvršavanje sql upita u sustavu hive predstavlja standardan način korištenja sql jezika:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Upit2.PNG" class="image"><img alt="Upit2.PNG" src="../images/2/2d/Upit2.PNG" width="461" height="76" /></a> 
+</p><p><br />
+</p><p><br />
+<b>Thrift</b>  - Strunjak
+</p><p>Za povezivanje PHP skripte i hive baze podataka koristi se Thrift klijent. Thrift se izvršava na serveru Hiveserver2 (zadani port: 1000). Za početak je potrebno preuzeti potrebne thrift datoteke. Kako bi thrift funkcionirao potrebno je promijeniti konfiguracijske postavke u hive-site.xml konfiguracijskoj datoteci koju korisnik sam treba kreirati prema template datoteci. Ne smije se zanemariti da hadoop server također treba biti pokrenut jer inače hive neće raditi. Na slici ispod nalazi se primjer isječka PHP koda koji se koristi za thrift.  
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Thrift.PNG" class="image"><img alt="Thrift.PNG" src="../images/e/e5/Thrift.PNG" width="1022" height="372" /></a>
+</p><p><br />
+</p>
+<hr />
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Ingres"> Ingres </span></h2>
+<p>Vuković
+</p><p>Kao što je već ranije navedeno, za potrebe nadogradnje sqlmap-a potrebno je koristiti sustav upravljanja bazama podataka (dalje DBMS (engl. database management system)) koji do sada nije podržan od strane sqlmap-a. Odlučili smo koristiti Ingres. Ingres je sustav za upravljanje relacijskim bazama podataka. Trenutno je među vodećim upravljačkim DBMS-ovima dizajniran sa smanjenje IT-troškova i vremenskih zahtjeva. Posljednja verzija je verzija 10.2.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Actian-Ingres-4C-logotype.png" class="image"><img alt="Actian-Ingres-4C-logotype.png" src="../images/6/60/Actian-Ingres-4C-logotype.png" width="398" height="205" /></a>
+<br />
+Ingres baze podataka je open-source SQL sustav za upravljanje relacijskom bazom podataka namijenjen za podršku velike poslovne i vladine programe. Kao što smo i rekli Ingres je u potpunosti open-source sa globalnom zajednicom korisnika. Action Corporation kontrolira razvijanje ingresa i stvaranje sljedece certificirane verzije  za preuzimanje ako i suport za cijeli svijet.
+Ingres je započeo kao istraživački projekt na Sveučilištu Berkeley u Kaliforniji, s početkom u ranim 1970-ih, a završava 1985.  Izvorni kod, kao što je to bilo i kod drugih projekata na Berkeley, bio je dostupan na minimalne troškove pod verzijom BSD licencom. Ingres stvorio  brojne komercijalne aplikacije baze podataka, kao što su  Sybase, Microsoft SQL Server, nonstop SQL i brojne druge.
+</p><p>Instalacija 
+<br />
+<br />
+Prvi korak instalacije je naravno preuzimanje Ingresa sa službene stranice Actian-a <a href="http://esd.actian.com/" class="external free" rel="nofollow">http://esd.actian.com/</a> . Kako bi mogli pristupiti verziji koju smo odabrali kao Product&#160;: Comunity project, kao Relase&#160;: Ingres database i kao našu platformu: Linux 64 bita (ovisno o vašem procesoru)
+<br />
+<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Odabri_projekta.png" class="image"><img alt="Odabri projekta.png" src="../images/7/71/Odabri_projekta.png" width="846" height="370" /></a>
+<br />
+<br />
+<br />
+Odabrali smo najnoviju verziju, ali na izbor imamo različite formate, od izvornog koda,RPM formata i binarnog formata. Mi smo odabrali RPM format koji ima gui setup aplikacije. Njega smo raspakirali i pokrenuli smo setup. 
+<br />
+<br />
+<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Rpm.png" class="image"><img alt="Rpm.png" src="../images/8/83/Rpm.png" width="764" height="477" /></a> <br />
+<br />
+<br />
+Među važnijim koracima instalacije je odabir opcije korištenja Ingresa. Mi smo odabrali onu opciju koja nam i treba a to je tipičan server. 
+<br />
+<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Odabir_servera.png" class="image"><img alt="Odabir servera.png" src="../images/7/7a/Odabir_servera.png" width="554" height="478" /></a>
+<br />
+<br />
+<br />
+Uz ove postavke koje nam nam nudi setup. Morali smo još povezati ingresa sa php-om ( verzijom 5.6, zašto ta verzija, objasnit ćemo poslije) i sa apache2 serverom. Za povezivanje sa php, trebali smo u konfiguraciju php-a odnosno u file php.ini napisati sljedeće naredbe od kojih su php_ingres.dll i putanja do instaliranog ingresa.
+</p>
+<pre>extension=php_ingres.dll
+II_SYSTEM=/opt/IngresII/ingres 
+</pre>
+<p>I za povezivanje ingresa i apache2 u kongiguraciju apache2.config treba napisati sljedeće linije
+</p>
+<pre>LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$II_SYSTEM/ingres/lib 
+export II_SYSTEM LD_LIBRARY_PATH
+</pre>
+<p>Također potrebno je i urediti okolinu Ingresa u file-u .bashrc, sljedeće naredbe smo upisali u .bashrc gdje smo postavili putanju do Jave, putanju do instaliranog Ingresa itd.
+</p>
+<pre>export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0/
+export PENTAHO_JAVA_HOME=$JAVA_HOME
+export PATH=$JAVA_HOME/bin:$PATH
+#II_SYSTEM=/opt/Ingres/IngresII
+#PATH=$II_SYSTEM/ingres/bin:$II_SYSTEM/ingres/utility:$PATH
+#LD_LIBRARY_PATH=/lib:$II_SYSTEM/ingres/lib:$LD_LIBRARY_PATH
+export II_SYSTEM PATH LD_LIBRARY_PATH
+II_SYSTEM=/opt/Ingres/IngresI1
+PATH=$II_SYSTEM/ingres/bin:$II_SYSTEM/ingres/utility:$PATH
+LD_LIBRARY_PATH=/lib:$II_SYSTEM/ingres/lib:$LD_LIBRARY_PATH
+export II_SYSTEM PATH LD_LIBRARY_PATH
+</pre>
+<p><br />
+<br />
+<br />
+Nakon što smo sve instalirali i podesili, možemo pokrenuti naš Ingres. Sa naredbom Ingstart pokrećemo sustav. Za početak moramo kreirati bazu a to činimo sa createDB.
+Kada smo kreirali bazu, sad možemo i pisati neke upite. Upite pišemo tako, da prvo odaberemo bazu gdje ćemo pisati, a to radimo sa sljedećom naredbnom.
+</p>
+<pre>ingres NazivBaze
+</pre>
+<p>Sada nam je otvoren editor u terminalu i tu pišemo sql, jedino razlika je da na kraju upita pišemo \g za izvšenje upita. U bazi pod imenom "baza" kreirali smo tablicu users sa sljedećim stupcima&#160;: idUser (int) , username(varchar(255)) i password(varchar(255)). Naša baza i tablica je spremna za korištenje sada, pa hajmo je koristiti.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Ranjiva_web_stranica"> Ranjiva web stranica </span></h2>
+<p>Vuković
+</p><p><br />
+<br />
+Ranjivu web stranicu smo napravili u obliku klasične login stranice. Kao što vidimo na slici, imamo unos username-a i naravno unos lozinke odnosno passworda, te gumb za submitanje prijave. Ova stranica mora biti ranjiva na sql injection, kako bismo mogli provjeriti ispravnost naše nadogranje sqlmap-a za Ingres Database. Php verziju koju smo koristili za ovu web stranicu je verzije 5.6 jer php ingres modul 2.0.0. podržava verzije ispod 7. 
+<br />
+<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Forma_za_unos.png" class="image"><img alt="Forma za unos.png" src="../images/a/af/Forma_za_unos.png" width="553" height="367" /></a> 
+<br />
+<br />
+Kada smo instalirali napokon Ingres i php modul za povezivanje sa Ingresom, funkcija ingres_connect nam omogučava povezivanje sa našom bazom. Parametri za tu funkciju su naziv baze(baza) korisnicko ime (fvukovic) i lozinka (molimte).Sljedeći PHP kod je tipičan i možemo reći najjednostavnija logika za prijavu korisniku u određeni sustav. Kada se pritisne submit, povlačimo podatke iz text boxa username i password te kreiramo upit  "Select * from users where username='{$username}' and password = '{$password}'". Za ovaj upit vidimo da je ranjiv na SQL injection, gdje jednostavno unesemo username i zakomentiramo ostatak upita. 
+<br />
+</p>
+<pre>&lt;?php   
+$link = ingres_connect("baza", "fvukovic", "molimte")
+   or die("Ne moze se povezat");
+echo "Uspjesno ste povezani";
+ 
+if (isset($_POST['submit'])) {
+if (empty($_POST['username']) || empty($_POST['password'])) {
+$error = "Username or Password is invalid";
+}
+else
+{ 
+$username=$_POST['username'];
+$password=$_POST['password'];  
+$rezultat = ingres_query($link, " Select * from users where username='{$username}' and password = '{$password}'");
+if ($rezultat == 1) {
+$_SESSION['login_user']=$username; 
+header("location: profile.php");  
+} else {
+$error = "Username ili Password su krivi";
+ingres_close($link); 
+} 
+?&gt;
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. <a href="http://sqlmap.org/" class="external text" rel="nofollow">sqlmap</a> , dostupno 18.1.2017.<br />
+2. <a href="http://hadoop.apache.org/" class="external text" rel="nofollow">Hadoop</a>, dostupno 18.1.2017.<br />
+3.<a href="https://www.tutorialspoint.com/hive/hive_installation.htm" class="external text" rel="nofollow">Hive instalacija</a>, dostupno 18.1.2017.<br />
+4. <a href="https://github.com/garamon/php-thrift-hive-client" class="external text" rel="nofollow">Thrift</a>.<br />
+5. <a href="https://httpd.apache.org/" class="external text" rel="nofollow">Apache</a>, dostupno 18.1.2017.<br />
+6. <a href="https://esd.actian.com" class="external text" rel="nofollow">/ Ingres</a>, dostupno 18.1.2017.<br />
+7. <a href="https://github.com/grantc/pecl-ingres" class="external text" rel="nofollow">/ ingres modul</a>, dostupno 18.1.2017.<br />
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 35/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9253-0!*!0!!hr!2!edit=0 and timestamp 20190203204152 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html">http://security.foi.hr/wiki/index.php/Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a&amp;oldid=40730" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 08:15, 19. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 858 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Izrada_virtualnog_(VMWare)_stroja_za_potrebe_nadogradnje_sqlmap-a", "wgTitle": "Izrada virtualnog (VMWare) stroja za potrebe nadogradnje sqlmap-a", "wgAction": "view", "wgArticleId": 9253, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40730, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.329 secs. -->			</body>
+</html>

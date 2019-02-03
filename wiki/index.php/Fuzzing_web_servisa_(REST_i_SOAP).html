@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Fuzzing web servisa (REST i SOAP) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Fuzzing_web_servisa_(REST_i_SOAP)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Fuzzing_web_servisa_REST_i_SOAP skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Fuzzing web servisa (REST i SOAP)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Fuzzing_web_servisa_(REST_i_SOAP).html#mw-head">orijentacija</a>,
+					<a href="Fuzzing_web_servisa_(REST_i_SOAP).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Lovro Predovan,<br />
+Milan Pavlović
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Fuzzing_web_servisa_.28REST_i_SOAP.29"><span class="tocnumber">1</span> <span class="toctext">Fuzzing web servisa (REST i SOAP)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Primjer_fuzzinga"><span class="tocnumber">1.1</span> <span class="toctext">Primjer fuzzinga</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Prednosti"><span class="tocnumber">1.2</span> <span class="toctext">Prednosti</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Mane"><span class="tocnumber">1.3</span> <span class="toctext">Mane</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Zna.C4.8Dajke_fuzzinga_i_alata"><span class="tocnumber">2</span> <span class="toctext">Značajke fuzzinga i alata</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Fuzzing_i_web_servisi"><span class="tocnumber">3</span> <span class="toctext">Fuzzing i web servisi</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#REST"><span class="tocnumber">3.1</span> <span class="toctext">REST</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#SOAP"><span class="tocnumber">3.2</span> <span class="toctext">SOAP</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Odabrani_alati_za_fuzzing"><span class="tocnumber">3.3</span> <span class="toctext">Odabrani alati za fuzzing</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Testna_okolina"><span class="tocnumber">3.3.1</span> <span class="toctext">Testna okolina</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Testiranje_alata_za_fuzzing_web_servisa"><span class="tocnumber">4</span> <span class="toctext">Testiranje alata za fuzzing web servisa</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#WebScarab"><span class="tocnumber">4.1</span> <span class="toctext">WebScarab</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#JBroFuzz"><span class="tocnumber">4.2</span> <span class="toctext">JBroFuzz</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#WSFuzzer"><span class="tocnumber">4.3</span> <span class="toctext">WSFuzzer</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#SoapUI"><span class="tocnumber">4.4</span> <span class="toctext">SoapUI</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#ZAP"><span class="tocnumber">4.5</span> <span class="toctext">ZAP</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#BURP_Suite"><span class="tocnumber">4.6</span> <span class="toctext">BURP Suite</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Katyusha_fuzzer"><span class="tocnumber">5</span> <span class="toctext">Katyusha fuzzer</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Instalacija_i_pokretanje"><span class="tocnumber">5.1</span> <span class="toctext">Instalacija i pokretanje</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Zna.C4.8Dajke"><span class="tocnumber">5.1.1</span> <span class="toctext">Značajke</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Fuzz_vektori"><span class="tocnumber">5.1.2</span> <span class="toctext">Fuzz vektori</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Primjer_kori.C5.A1tenja"><span class="tocnumber">5.2</span> <span class="toctext">Primjer korištenja</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#REST_fuzzer"><span class="tocnumber">5.2.1</span> <span class="toctext">REST fuzzer</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#SOAP_fuzzer"><span class="tocnumber">5.2.2</span> <span class="toctext">SOAP fuzzer</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Pregled_rezultata"><span class="tocnumber">5.2.3</span> <span class="toctext">Pregled rezultata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-26"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Pobolj.C5.A1anja_u_budu.C4.87nosti"><span class="tocnumber">5.3</span> <span class="toctext">Poboljšanja u budućnosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#Izvori"><span class="tocnumber">6</span> <span class="toctext">Izvori</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Fuzzing_web_servisa_.28REST_i_SOAP.29">Fuzzing web servisa (REST i SOAP)</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika1.jpg" class="image"><img alt="Puzzle globe" src="../images/thumb/4/4e/Mpavlovi2_slika1.jpg/180px-Mpavlovi2_slika1.jpg" width="180" height="175" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika1.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Uobičajene aktivnosti tijekom ciklusa fuzz testiranja. Izvor: <a href="http://www.tutorialspoint.com/software_testing_dictionary/images/fuzz_testing.jpg" class="external free" rel="nofollow">http://www.tutorialspoint.com/software_testing_dictionary/images/fuzz_testing.jpg</a></div></div></div>
+<p>Prema [1] i [2], eng. fuzzing ili fuzz testing je tehnika testiranja računalnog softvera. Softver se testira na način da mu se kao ulazni podaci proslijede neke neobične i neočekivane vrijednosti te se promatra kako će softver reagirati u takvoj situaciji. Ulazni podaci često mogu biti i nasumični, a nerijetko se u program ubacuju automatiziranim tehnikama, primjerice, pomoću specijalnog programa namijenjenog ovoj vrsti testiranja. Ova tehnika testiranja obično se koristi prilikom testiranja sigurnosti u računalnim, programskim ili informacijskim sustavima. [4]
+</p><p>Iako je u [2] navedeno kako je fuzzing tehnika testiranja pomoću metode crne kutije (eng. black-box), izvor [1] navodi da fuzzing može biti testiranje metodom bijele, sive ili crne kutije. Naše mišIljenje jest da fuzzing nije samo tehnika crne kutije jer takvu vrstu testiranja ne provodi uvijek osoba koja ne poznaje način transformacije ulaznih u izlazne vrijednosti. Primjerice, ako programer testira vlastitu aplikaciju smatramo da se tada radi o tehnici bijele kutije. U slučaju da testiranje provodi tester koji djelomice poznaje aplikaciju iznutra može se govoriti o tehnici sive kutije, a tehnikom crne kutije smatramo slučaj u kojem testiranje provodi netko tko ni malo ne poznaje programski kod. 
+</p><p>Fuzzing se uglavnom svodi na sistematični pristup silom (eng. brute force).Treba naglasiti da sama ideja fuzzinga nije da se nasumično bacaju podaci prema (web) aplikaciji već da se taj proces odvija pažljivo i sistematično kako bi on bio što efikasniji. Ukupan prostor rješenja je svakog puta nepoznanica koju trebamo istražiti stoga možemo povući paralelu s kriptoanalizom čija je primarna svrha smanjivanje prostora rješenja kako bi brute force bio što “čišći”.
+</p>
+<h2> <span class="mw-headline" id="Primjer_fuzzinga">Primjer fuzzinga</span></h2>
+<p>Jednostavan primjer fuzzinga može biti prikazan na programskoj funkciji koja dijeli dva broja. Oba broja unosi korisnik (npr. radi se o kalkulatoru). Uobičajene vrijednosti za ovu operaciju su cijeli ili decimalni brojevi. Međutim, što ako korisnik unese nulu kao djelitelja&#160;? Hoće li se program srušiti&#160;?
+</p>
+<h2> <span class="mw-headline" id="Prednosti">Prednosti</span></h2>
+<p>Najveće prednosti fuzzinga prema [1] i [2] su njegova jednostavnost i neobična kombinacija sistematičnog pristupa s jedne i nasumičnog pristupa  s druge strane. To bi značilo da se prateći metodu može otkriti greška koju bi sam programer teško uočio i predstavlja odličan izbor kada je sustav koji se razvija potpuno izoliran.
+Fuzzing nudi odličan omjer uloženog i dobivenog jer ponekad osim otkrivanja trivijalnih grešaka može dovesti do razotkrivanja ozbiljnih sigurnosnih problema.
+Najučinkovitiji je upravo kod problema koji mogu uzrokovati rušenje programa poput buffer owerflowa, xss-a, DDOS napada ili sql injectiona, odnosno kod danas najpopularnijih metoda napada na web aplikacije.
+</p>
+<h2> <span class="mw-headline" id="Mane">Mane</span></h2>
+<p>Prema [1] i [4] ograničenja fuzzera su da uglavnom detektiraju jednostavne greške te da je kod  testiranja tipa crne kutije povećana težina procjene utjecaja pronađene ranjivosti. Fuzzing je neučinkovit kod sigurnosnih prijetnji koje ne izazivaju rušenje programa poput spyware-a,virusa, trojanaca, keyloggera itd.
+Ne može dati potpunu sliku sigurnosti sustava, kvalitete ili efikasnosti programa ali pri beta testiranju i debugiranju može biti izuzetno koristan.
+</p>
+<h1> <span class="mw-headline" id="Zna.C4.8Dajke_fuzzinga_i_alata">Značajke fuzzinga i alata</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika2.png" class="image"><img alt="Puzzle globe" src="../images/thumb/5/56/Mpavlovi2_slika2.png/180px-Mpavlovi2_slika2.png" width="180" height="162" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Još jedan workflow fuzz testiranja. Izvor: <a href="http://blog.mozilla.org/decoder/files/2012/03/fuzzing-overview1.png?8954f8" class="external free" rel="nofollow">http://blog.mozilla.org/decoder/files/2012/03/fuzzing-overview1.png?8954f8</a></div></div></div>
+<p>Alati za fuzzing (prema [2]) su prije svega ovisni o:
+</p>
+<ul><li><b>protokolu i formatu datoteka</b> zbog činjenice da se na neki način trebaju priključiti na ulazni tok podataka koji je vezan za metu koju napada
+</li><li><b>podacima</b> jer programi mogu interpretirati samo dovoljno strukturirane podatke. Primjerice, ukoliko se spajamo na web poslužitelj, moramo koristiti definirane metode jer web poslužitelj čita samo poruke (poslane GET ili POST metodom) koje su dovoljno strukturirane da ih prihvati.
+</li></ul>
+<p>Obično se fuzzeri svode na kombinaciju više tipova napada ubacivanjem različitog sadržaja poput:
+</p>
+<ul><li>brojeva (integera,floatova,long int)
+</li><li>znakova (urlova,cmd ova)
+</li><li>metapodataka&#160;: (id-eva)
+</li><li>sekvenci binarnih brojeva
+</li><li>ostalih deformiranih i neočekivanih podataka
+</li></ul>
+<p>Nisu sve vrijednosti jednako opasne. Granične vrijednosti su često stvar koju developeri olako shvaćaju stoga se te vrijednosti zovu fuzz vektori i svojstveni su za svaki tip podataka. Primjerice, za cijele brojeve su to nula,negativni brojevi ili jako veliki brojevi, za znakove je problem izbjegavanje problematičnih znakova (eng. escaping), SQL injection naredbe, posebni znakovi ili nekarakteristično kodirani znakovi. 
+</p><p><br />
+Svrha samog fuzzinga leži na pretpostavci da niti jedan program nije savršen i da ako smo dovoljno uporni možemo pronaći greške ukoliko poštujemo sustavski pristup problemu.
+Fuzzing može dati drugi pogled na klasične metode testiranja software-a poput debug-a ili ručnog pregledavanja koda jer fuzzing možemo u potpunosti automatizirati. Fuzzing neće i ne može zamjeniti sve klasične metode testiranja softwarea ali može ponuditi dodatnu vrijednost samom procesu testiranja.
+</p>
+<h1> <span class="mw-headline" id="Fuzzing_i_web_servisi">Fuzzing i web servisi</span></h1>
+<p>Prema [3], web servis ili eng. WEB API je definirani skup HTTP zahtjeva s definiranim i strukturiranim odgovorima koje su obično formatirane kao XML (Extensible Markup Language) ili JSON (JavaScript Object Notation). Postoji više vrsta web servisa od kojih su svakako najpoznatiji  REST (REpresentational State Trasnsfer) i SOAP (Simple Object Access Protocol) web servisi. 
+</p>
+<h2> <span class="mw-headline" id="REST">REST</span></h2>
+<p>Representational State Transfer (REST) je apstrakcija arhitekturalnih elemenata unutar distribuiranog hipermedijalnog sustava. Rest web servis ignorira detalje implementacije komponenti i sintakse protokola kako bi se fokusirao na same podatke, uloge komponenti i ograničenja u interakciji s drugim komponentama. [5]
+</p><p>Glavne karakteristike REST-a su:
+</p>
+<ul><li>stateless (bez sessiona i cookiea)
+</li><li>identifikcija resursa (URL)
+</li><li>prezentacija podataka(XML, JSON)
+</li><li>manipulacija resursima kroz prezentaciju
+</li><li>koristi pravila manipulacije resursima (dohvaćanje GET, kreiranje POST,update PUT, brisanje DELETE)
+</li></ul>
+<h2> <span class="mw-headline" id="SOAP">SOAP</span></h2>
+<p>Simple Object Acces Protocol (SOAP) je protokol aplikacijskog sloja OSI modela , te definira specifikacije za razmjenu strukturiranog sadržaja putem web servisa. Koristi XML pri formatiranju poruka, a HTTP za njihovo slanje i primanje. [6]
+Web servisi koji koriste SOAP četo su definirani WSDL (Web Service Descriptin Language) jezikom koji koristi XML kako bi opisao web servis. 
+SOAP može graditi web servise koji se sastoje od 3 glavna dijela:
+</p>
+<ul><li> Omotnice koja sadržava strukturu poruke i kako je obraditi
+</li><li> Skupa pravila za dekodiranje instanci podataka s kojima aplikacija radi
+</li><li> Konvencije za predstavljanje poziva procedura i odgovora
+</li></ul>
+<p>Glavne karakteristike SOAP-a su:
+</p>
+<ul><li>Proširivost (sigurnost)
+</li><li>Neutralnost (SOAP uspješno funkcionira s gotovo bilo kojim transportnim protokolom)
+</li><li>Neovisnost (proširiv je s gotovo svakim stilom programiranja OOP, deklarativno, agentno...)
+</li></ul>
+<p>Primjer HTTP POST zahtjeva čiji sadržaj je SOAP poruka s omotnicom pomoću koje se od web servisa zahtijeva cijena dionice na temelju njenog imena [6]:
+<code>
+</p>
+<pre>
+POST /InStock HTTP/1.1
+Host: www.example.org
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: 299
+SOAPAction: &quot;http://www.w3.org/2003/05/soap-envelope&quot;
+ 
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;soap:Envelope xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;
+  &lt;soap:Header&gt;
+  &lt;/soap:Header&gt;
+  &lt;soap:Body&gt;
+    &lt;m:GetStockPrice xmlns:m=&quot;http://www.example.org/stock&quot;&gt;
+      &lt;m:StockName&gt;IBM&lt;/m:StockName&gt;
+    &lt;/m:GetStockPrice&gt;
+  &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</pre>
+<p></code>
+</p>
+<h2> <span class="mw-headline" id="Odabrani_alati_za_fuzzing">Odabrani alati za fuzzing</span></h2>
+<p>Kao alate za fuzzanje odabrali sljedeće:
+</p>
+<ol><li>WebScarab <a href="https://www.owasp.org/index.php/WebScarab" class="external free" rel="nofollow">https://www.owasp.org/index.php/WebScarab</a>
+</li><li>JBroFuzz <a href="https://www.owasp.org/index.php/JBroFuzz" class="external free" rel="nofollow">https://www.owasp.org/index.php/JBroFuzz</a>
+</li><li>WSFuzzer <a href="https://www.owasp.org/index.php/WSFuzzer" class="external free" rel="nofollow">https://www.owasp.org/index.php/WSFuzzer</a>
+</li><li>fuzzer <a href="https://www.npmjs.org/package/fuzzer" class="external free" rel="nofollow">https://www.npmjs.org/package/fuzzer</a>
+</li><li>BURP <a href="http://portswigger.net/burp/" class="external free" rel="nofollow">http://portswigger.net/burp/</a> (Intruder mod)
+</li><li>ZAP <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project" class="external free" rel="nofollow">https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project</a> (Fuzzer mod)
+</li></ol>
+<h3> <span class="mw-headline" id="Testna_okolina">Testna okolina</span></h3>
+<p>Kako bismo mogli komparirati rezultate i mogućnosti koje pojedini alati za fuzzing daju, kao testna okolina s REST i SOAP servsima korišteno je besplatno virtualno okruženje OWASP BWA (Broken web apps), tj. aplikacija Mutillidae II (Web services - SQL Injection)  [7]. Kao fuzz vektori odabrani su vektori iz datoteka GenericBlind.fuzz.txt, MySQL.fuzz.txt i MySQL_MSSQL.fuzz.txt dostupnih u fuzzdb-u (<a href="https://code.google.com/p/fuzzdb/" class="external free" rel="nofollow">https://code.google.com/p/fuzzdb/</a>).
+</p>
+<h1> <span class="mw-headline" id="Testiranje_alata_za_fuzzing_web_servisa">Testiranje alata za fuzzing web servisa</span></h1>
+<p>Pokušali smo sa svakim fuzzerom fuzzati REST i SOAP web servis na spomenutoj Mutillidae II aplikaciji i opisati osnovne značajke i karakteristike alata.
+</p>
+<h2> <span class="mw-headline" id="WebScarab">WebScarab</span></h2>
+<p>WebScarab je framework za analizu aplikacija koje koriste HTTP i HTTPS protokole, a nastao je u sklopu OWASP projekta. Ima nekoliko modova rada, a proširiv je i pluginovima. Nažalost, u vrijeme pisanja ovog teksta na službenim stranicama alata navedeno je kako je ovaj projekt napušten i više neće biti razvijan, kao što je bio slučaj i s nekim drugim OWASP projektima. Od mogućnosti koje nudi, prisutna je većina koja je dostupna i u BURP-u ili ZAP-u. Neke od mogućnosti su proxy mod za presretanje HTTP(S) zahtjeva i odgovora, bandwith simulator, parameter fuzzer - sličan ZAP-u, može izvoditi automatski fuzzing, SOAP plugin za parsiranje WSDL-a, no trenutno je dobio status deprecated, uz preporuku da se za SOAP analize koristi SoapUI.
+</p>
+<h2> <span class="mw-headline" id="JBroFuzz">JBroFuzz</span></h2>
+<p>JBroFuzz je još jedan od OWASP-ovih projekata koji je trenutno neaktivan. To je (bio) fuzzer web aplikacija koje rade s HTTP(S) zahtjevima i odgovorima. Posljednja verzija omogućava rad u terminalu (osim u GUI-u), proxy mod, poboljšane fuzzing opcije i drugo. Alat može sam generirati zahtjeve i primati odgovore, no ne nastoji otkriti je li aplikacija ranjiva nego to prepušta ljudskoj analizi. Također, ovaj alat grupira fuzz payload-e u nekoliko kategorija ovisno o vrsti otprije poznate ranjivosti koja se traži. Prema dokumentaciji, trenutno postoji oko 50 vrsta payloada s kojima fuzzer radi pa tako je moguće koristiti replacive fuzzer, recursive fuzzer, double fuzzer, cross product fuzzer, zero fuzzer itd.
+</p>
+<h2> <span class="mw-headline" id="WSFuzzer">WSFuzzer</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika4.png" class="image"><img alt="Puzzle globe" src="../images/thumb/1/12/Mpavlovi2_slika4.png/180px-Mpavlovi2_slika4.png" width="180" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pogreška u WSFuzzeru</div></div></div>
+<p>WSFuzzer još je jedan OWASP-ov projekt. Radi se o Python fuzzeru namijenjenom profesionalnom fuzzanju SOAP web servisa. Neke od njegovih brojnih mogućnosti su testiranje SOAP servisa na temeju validnog WSDL zapisa, detektiranje WSDL-a za danu adresu servisa, jednostavno TCP port skeniranje, fuzzanje više parametara simultano, generiranje fuzz vektora, mjerenje vremena za odgovor na zahtjev, desetak IDS evasion opcija i druge. Fuzzer se koristi iz terminala, a moguće ga je solidno detaljno konfigurirati promjenom parametara u konfiguracijskim datotekama. Nažalost, nismo uspjeli izvršiti fuzzing s ovim alatom jer je prije početka fuzzanja konstantno dolazilo do pogreške. Neki glavni linkovi na službenim stranicama alata nisu ažurirani pa nismo sgurni radi li se trenutno na održavanju ovog fuzzera. Zadnja izmjena na njegovom wikiju napravljena je 2010. godine.
+</p>
+<h2> <span class="mw-headline" id="SoapUI">SoapUI</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika3.png" class="image"><img alt="Puzzle globe" src="../images/thumb/1/10/Mpavlovi2_slika3.png/180px-Mpavlovi2_slika3.png" width="180" height="95" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Testiranje u SoapUI alatu</div></div></div>
+<p>SoapUI je open source alat s vrlo mnogo mogućnosti za testiranje SOAP web servisa (djelomice je podržan i REST). Omogućava izradu automatiziranih funkcionalnih, regresijskijkih, <i>compliance</i> i <i>load</i> testova kroz grafičko sučelje. Nudi i analizu rezultata, snimanje testova, reporting i mogućnost razvoja vlastitih pluginova. Što se sigurnosnih testova tiče, dostupno je nekoliko <i>security scan</i>  opcija, među kojima su SQL Injection, fuzzing scan, XPath Injeciton i drugi. Mi smo ovaj alat prvo koristili kako bi na telemju učitanog WSDL-a generirao i poslao zahtjev SOAP servisu koji smo presreli u ZAP-u kako bismo njime mogli odraditi daljnji fuzzing. Također, u alatu smo izvršili osnovni fuzz scan i SQL injeciton scan. Fuzz scan na temelju konfiguriranih parametara generira nasumične stringove i šalje ih servisu, pritom bilježeći odgovor. SQL injeciton scan pak šalje unaprijed zadane ili učitane fuzz vektore za SQL injection. Nažalost pritom nismo pronašli opciju za učitavanje datoteke fuzz vektora. Prilikom kreiranje testa moguće je i dodati tzv. <i>assertions</i> koji provjeravaju je li uistinu došlo do ranjavanja aplikacije. Rezultate je moguće pregledavati u sklopu kreiranog projekta. Za potrebe ovog projekta iskoristili smo vrlo mali broj mogućnosti ovog dosta opsežnog alata, stoga je za temeljitu procjenu kvalitete potrebno provesti više vremena u radu s njim.
+</p>
+<h2> <span class="mw-headline" id="ZAP">ZAP</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika5.png" class="image"><img alt="Puzzle globe" src="../images/thumb/4/4e/Mpavlovi2_slika5.png/180px-Mpavlovi2_slika5.png" width="180" height="98" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika5.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>REST fuzzing u ZAP-u (otkrivena SQL injeciton ranjivost)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika6.png" class="image"><img alt="Puzzle globe" src="../images/thumb/4/44/Mpavlovi2_slika6.png/180px-Mpavlovi2_slika6.png" width="180" height="101" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mpavlovi2_slika6.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>SOAP fuzzing u ZAP-u</div></div></div>
+<p>Zed Attack Proxy je besplatan alat za penetracijska testiranja web aplikacija nastao u sklopu OWASP Zed Attack Proxy projekta. To je zapravo skup raznih alata koji profesionalcima, ali i početnicima omogućava razne vrste automatiziranih i ručnih sigurnosnih testova web aplikacija. Alat za fuzzing ima jednostavno ime Fuzzer. Kako bi se fuzzing mogao obaviti, potrebno je uključiti proxy mod u web pregledniku i ZAP-u te poslati HTTP 
+zahtjev prema web servisu. Zahtjev će biti presreten u ZAP-ovom proxyju i naknadno (ili trenuno) će mu biti moguće mijenjati parametre. Fuzzer 
+dolazi s određenim brojem datoteka sa fuzz vektorima za nekoliko vrsta ranjivosti, a omogućava i unos vlastite datoteke s vektorima. Fuzzing je u ZAP Fuzzeru prilično jednostavan, kao i pregled rezultata. U rezultatima je moguće vidjeti HTTP metodu, URI, statusni kod i poruku (mogu biti važni kod fuzzinga), zatim RTT, veličinu odgovora, fuzz vektor i state. State može imati vrijednosti reflected - vektor je pronađen u odgovoru na zahtjev, successful - zahtjev je uspješno poslan i odgovor primljen (bez fuzz vektora u tijelu odgovora), i error - došlo je do pogreške u slanju zahtjeva ili primanja odgovora. Kada se fuzza SOAP web servis, dosta nezgodno je to što su znakovi fuzz vektora u tijelu zahtjeva zamijenjeni escape kodovima pa je upitno je li fuzzing ispravno izvršen. Također, kako bismo uspješno mogli fuzzati SOAP servis, morali smo prije pomoću drugog alata (SoapUI) poslati "običan" SOAP zahtjev i presresti ga u ZAP-u. Rezultate fuzzinga nije moguće grupno izvesti u datoteku, već samo spremiti sesiju u ZAP-u.
+</p>
+<h2> <span class="mw-headline" id="BURP_Suite">BURP Suite</span></h2>
+<p>BURP Suite je uvelike sličan ZAP-u te je jedan od najpoznatijih alat za penetracijska testiranja web aplikacija. BURP je inače komercijalan alat no postoji i besplatna verzija koja je i više nego dovoljna potrebama našeg testiranja. BURP se kao i ZAP sastoji od skupa različitih alata među kojima je i fuzzer. Također potrebno je u web pregledniku namjestiti proxy mod kako bi BURP mogao uhvatiti HTTP zahtjev koji šaljemo prema serveru. Prilikom testitranja uz BURP korišten je firefox preglednik te foxy proxy dodatak. Nakon što odredimo port na kojem će proxy slušati requestove i prosljeđivati ih BURPU spremni smo za početi fuzzing. Nakon presretanja HTTP zahtjeva u BURPu se uključuje Proxy/Intercepter, što bi označavalo da je naš zahtjev uspješno uhvaćen. U ovom modu možemo određivati što želimo učiti s pojedinim zahtjevom. Sve ovo nam omogućava mjenjanje parametara stoga kao i kod ZAP-a možemo uhvatiti neki parametar ( primjerice username ili password kod prijave u sustav) te ga bombardirati (fuzzati) čudnim zahtjevima. Nakon što uhvatimo zahtjev koji želimo modificirati,desnim klikom odaberemo opciju "send to intruder", odaberemo Intruder opciju u izborniku te odaberemo neku od opcija koje nam se nude (Sniper, Pitchfork, Battering ram, Cluster bomb) te odabermo parametre koje želimo ispitati.Nakon toga sve što nam preostaje je odabrati payload (fuzzing vektori),odnosno podatke koje ćemo slati serveru. Također moguće je podesiti pretraživanje rezultata i vektora po ključnim riječima te postaviti parametre poput broja dretvi, vremena između zahtjeva i brojnih drugih opcija. Nakon odabira opcije "start attack" u Intruder tabu, fuzzing počinje te se može vidjeti izuzetno pregledna lista HTTP odgovora koja se može sortirati prema svakom parametru koji je dostupan (id zahtjeva,vektor,duljina odgovora i slično). 
+Za slanje SOAP zahtjeva je potrebno znati wsdl ili ga kreirati. BURP sam po sebi to nema, no postoje ekstenzije koje to omogućuju. Također možemo s nekim drugim alatom poput Soap UI kreirati zahtjev, presresti ga pomoću proxya te izmjenjati parametre.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_fuzz_1.png" class="image"><img alt="Puzzle globe" src="../images/thumb/0/0a/Lpredova_fuzz_1.png/180px-Lpredova_fuzz_1.png" width="180" height="120" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_fuzz_1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>SQL injection uzrokovan fuzzingom</div></div></div>
+<h1> <span class="mw-headline" id="Katyusha_fuzzer">Katyusha fuzzer</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_kaytusha1.png" class="image"><img alt="Puzzle globe" src="../images/thumb/f/f4/Lpredova_kaytusha1.png/180px-Lpredova_kaytusha1.png" width="180" height="174" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_kaytusha1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Korištenje Katyusha fuzzera - REST fuzzing</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_katyusha2.png" class="image"><img alt="Puzzle globe" src="../images/thumb/1/17/Lpredova_katyusha2.png/180px-Lpredova_katyusha2.png" width="180" height="111" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_katyusha2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Prikaz liste rezultata u Katyusha fuzzeru</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_katyusha3.png" class="image"><img alt="Puzzle globe" src="../images/thumb/a/ad/Lpredova_katyusha3.png/180px-Lpredova_katyusha3.png" width="180" height="117" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lpredova_katyusha3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Detaljni prikaz odgovora na GET request</div></div></div>
+<p>Katyusha fuzzer je osmišljen kao jednostavni fuzzer REST i SOAP web servisa. Pisan je u pythonu te koristi Angular.js za prikaz rezultata fuzzinga.
+</p><p>Github stranica projekta s uputama za korištenje dostupna je na <a href="https://github.com/lpredova/Katyusha" class="external text" rel="nofollow">lpredova/Katyusha</a>.
+</p><p>Kao testna okolina prilikom izrade fuzzera korištena je OWASP DVWA Mutillidae II okolina.
+</p>
+<h2> <span class="mw-headline" id="Instalacija_i_pokretanje">Instalacija i pokretanje</span></h2>
+<p>Prije prvog pokretanja fuzzera potrebno je instalirati dvije python biblioteke koje služe za napredno slanje i manipulaciju http zahtjeva u za REST i SOAP servise.
+</p>
+<ul><li>  Pysimpesoap - <a href="https://code.google.com/p/pysimplesoap/" class="external free" rel="nofollow">https://code.google.com/p/pysimplesoap/</a>
+</li><li>  Requests - <a href="http://docs.python-requests.org/en/latest/" class="external free" rel="nofollow">http://docs.python-requests.org/en/latest/</a>
+</li></ul>
+<h3> <span class="mw-headline" id="Zna.C4.8Dajke">Značajke</span></h3>
+<p>Katyusha fuzzer podržava slanje REST i SOAP zahtjeva. Kod slanja REST zahtjeva nam je omogućeno dodavanje N parametara i odabir želimo li taj parametar fuzzati ili ne. Budući da se nismo odlučili za izradu alata s grafičkim sučeljem,  ovaj pristup smo prihvatili kao najprikladniji. Osim definiranja parametara još postoji mogućnost odabira metode koju želimo odabrati (POST ili GET za sada).
+</p><p>Kod SOAP zahtjeva potrebno je dati putanju do WSDL datoteke iz koje čitamo parametre koje servis prima te nakon toga se korisnika za svaki parametar eksplicitno pita želi li ga fuzzati. Nakon što su parametri odabrani obavlja se fuzzing.
+</p><p>Nakon završetka fuzzanja korisniku je ponuđena opcija prezentacije rezultata u web pregledniku. Ukoliko korisnik želi vidjeti i pretraživati rezultate, browser će mu sam otvoriti novi tab s rezultatima, a ukoliko se to ne dogodi može kopirati generirani link u web preglednik. Rezultati fuzzanja su sortirani prema duljini odgovora.
+</p>
+<h3> <span class="mw-headline" id="Fuzz_vektori">Fuzz vektori</span></h3>
+<p>Također svaki fuzzer je samo alat za slanje HTTP zahtjeva a njegova posebnost i snaga leži u podacima koje šalje (fuzz vektorima).  
+Proces prikupljanja najučestalijih napada je izuzetno dugotrajan te smo odlučili preuzeti podatke za napad iz Fuzz db projekta koji koristi najučestalije uzorke napada, od sql injectiona,xss-a i brojnih drugih ranjivosti.
+</p><p>Fuzz db - <a href="https://code.google.com/p/fuzzdb/" class="external free" rel="nofollow">https://code.google.com/p/fuzzdb/</a>
+</p><p>Treba napomenuti kako je trenutno rješenje,odnosno izvor podataka za fuzzing uvelike omogućen fuzzdb-om, no ne koristimo sve njegove uzorke napada te u budućim iteracijama poboljšanja fuzzera svakako bi valjalo razmotriti kako učinkovitije koristiti sve opcije koje nam fuzzdb pruža.
+</p><p>Nakon instalacije potrebnih biblioteka dovoljno je pokrenuti main.py dadoteku. 
+Kako bi smo pokrenuli Katyusha fuzzer u konzolu unesimo:
+</p><p><code>
+python main.py
+</code>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Primjer_kori.C5.A1tenja">Primjer korištenja</span></h2>
+<p>Nakon pokretanja fuzzera ponuđen je izbornik s glavnim opcijama.
+<code>
+</p>
+<pre>
+Please choose your action:
+1) Fuzz API service
+2) View results
+3) Quit
+Select:1
+</pre>
+<p></code>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="REST_fuzzer">REST fuzzer</span></h3>
+<p><code>
+</p>
+<pre>
+################################################
+REST FUZZER
+################################################
+Please insert URL to API&#160;:http://192.168.56.101/mutillidae/webservices/rest/ws-user-account.php
+
+Method:
+1) GET
+2) POST
+3) Quit
+Select:1
+################################################
+Name of the parametar you want to fuzz&#160;:username
+Fuzz this parameter (Y/N):y
+Add more parameters (Y/N)&#160;? n
+Fuzzing started...
+</pre>
+<p></code>
+</p>
+<h3> <span class="mw-headline" id="SOAP_fuzzer">SOAP fuzzer</span></h3>
+<p><code>
+</p>
+<pre>
+################################################
+SOAP FUZZER
+################################################
+WSDL URL: http://192.168.194.128/mutillidae/webservices/soap/ws-lookup-user-information.php?wsdl
+Please wait...
+Do you want to fuzz operation getUserInformation&#160;? (y/n) y
+Fuzz argument username&#160;? (y/n) y
+Fuzz argument password&#160;? (y/n) y
+
+Fuzzing operation getUserInformation...
+
+Fuzzing done. Errors: 0
+Results saved at: 'results/'soap_result_2015_01_08_20_23_58.json
+</pre>
+<p></code>
+</p>
+<h3> <span class="mw-headline" id="Pregled_rezultata">Pregled rezultata</span></h3>
+<p><code>
+</p>
+<pre>
+Fuzzing done...
+Results saved at: 'results/'rest_result_2015_01_08_02_23_04.json
+
+View results:
+1) YES
+2) NO
+3) Quit
+Select:1
+Find results at:
+http://localhost:8088/#/rest_result_2015_01_08_02_23_04.json
+running local server...
+Listening on 8088
+</pre>
+<p></code>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Pobolj.C5.A1anja_u_budu.C4.87nosti">Poboljšanja u budućnosti</span></h2>
+<p>Katyusha fuzzer je poprilično direktan i jednostavan za korištenje te kao takav postoji mnogo prilika za poboljšanje.
+</p><p>Neka od područja koja autori razmatraju za poboljšanja u budućnosti su:
+</p>
+<ul><li>  Podrška za proxy,odnosno slušanje prometa poput mehanizama koji su implementirani u ZAP ili BURP
+</li><li>  Opcija fuzzinga parametara zaglavlja HTTP requesta
+</li><li>  Implementacija logike za filtriranje rezultata po procjeni njihove relevantnosti
+</li><li>  Odabir fuzz vektora za određeni tip napada, primjerice SQL ranjivosti,Timing attacks i slično.
+</li><li>  Opcija pretraživanja prošlih rezultata te analitika rezultata kroz povijest
+</li><li>  Uklanjanje pogreški koje se događaju kod određenih znakova fuzz vektora u SOAP fuzzeru
+</li></ul>
+<h1> <span class="mw-headline" id="Izvori">Izvori</span></h1>
+<p>[1] “Fuzz testing,” Wikipedia, the free encyclopedia. Dostupno: <a href="http://en.wikipedia.org/wiki/Fuzz_testing" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Fuzz_testing</a> [Pristupano: 4-Oct-2014].<br />
+[2] “Fuzzing - OWASP.” [Online]. Dostupno: <a href="https://www.owasp.org/index.php/Fuzzing" class="external free" rel="nofollow">https://www.owasp.org/index.php/Fuzzing</a>. [Pristupano: 29-Oct-2014].<br />
+[3] “Application programming interface,” Wikipedia, the free encyclopedia. Dostupnp: <a href="http://en.wikipedia.org/wiki/Application_programming_interface" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Application_programming_interface</a> [Pristupano: 04-Nov-2014].<br />
+[4] “Automated Penetration Testing with White-Box Fuzzing.” [Online]. Dostupno: <a href="http://msdn.microsoft.com/en-us/library/cc162782.aspx" class="external free" rel="nofollow">http://msdn.microsoft.com/en-us/library/cc162782.aspx</a>. [Pristupano: 05-Nov-2014].<br />
+[5] “Fielding Dissertation: CHAPTER 5: Representational State Transfer (REST).” [Online]. Dostupno: <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" class="external free" rel="nofollow">https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</a>. [Pristupano: 05-Nov-2014].<br />
+[6] “SOAP,” Wikipedia, the free encyclopedia. Dostupno: <a href="http://en.wikipedia.org/wiki/SOAP" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/SOAP</a> [Pristupano: 04-Nov-2014].<br />
+[7] “OWASP Broken Web Applications Project - OWASP.” [Online]. Dostupno: <a href="https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project" class="external free" rel="nofollow">https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project</a>. [Pristupano: 05-Nov-2014]<br />
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 152/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7915-0!*!0!!hr!2!edit=0 and timestamp 20190203204302 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Fuzzing_web_servisa_(REST_i_SOAP).html">http://security.foi.hr/wiki/index.php/Fuzzing_web_servisa_(REST_i_SOAP)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Fuzzing_web_servisa_(REST_i_SOAP)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Fuzzing_web_servisa_(REST_i_SOAP).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Fuzzing_web_servisa_(REST_i_SOAP)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Fuzzing_web_servisa_(REST_i_SOAP).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Fuzzing_web_servisa_(REST_i_SOAP)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Fuzzing_web_servisa_(REST_i_SOAP)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Fuzzing_web_servisa_(REST_i_SOAP).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Fuzzing_web_servisa_(REST_i_SOAP)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Fuzzing_web_servisa_(REST_i_SOAP)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Fuzzing_web_servisa_(REST_i_SOAP)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Fuzzing_web_servisa_(REST_i_SOAP)&amp;oldid=31617" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 17:23, 18. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 4.979 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Fuzzing_web_servisa_(REST_i_SOAP)", "wgTitle": "Fuzzing web servisa (REST i SOAP)", "wgAction": "view", "wgArticleId": 7915, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 31617, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.477 secs. -->			</body>
+</html>

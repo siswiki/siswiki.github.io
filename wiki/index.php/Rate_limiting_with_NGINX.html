@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Rate limiting with NGINX - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Rate_limiting_with_NGINX&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Rate_limiting_with_NGINX skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Rate limiting with NGINX</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Rate_limiting_with_NGINX.html#mw-head">orijentacija</a>,
+					<a href="Rate_limiting_with_NGINX.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu su rezervirali&#160;:
+Renato Punčec
+Petar Rog
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Rate_limiting_with_NGINX.html#NGINX"><span class="tocnumber">1</span> <span class="toctext">NGINX</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Rate_limiting_with_NGINX.html#Neke_od_koristi_Nginx-a"><span class="tocnumber">1.1</span> <span class="toctext">Neke od koristi Nginx-a</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Rate_limiting_with_NGINX.html#Nginx_vs_Apache"><span class="tocnumber">1.2</span> <span class="toctext">Nginx vs Apache</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Rate_limiting_with_NGINX.html#Drugi_o_NGINX-u"><span class="tocnumber">2</span> <span class="toctext">Drugi o NGINX-u</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Rate_limiting_with_NGINX.html#Vrste_limita"><span class="tocnumber">3</span> <span class="toctext">Vrste limita</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Rate_limiting_with_NGINX.html#Basic_rate_limiting"><span class="tocnumber">3.1</span> <span class="toctext">Basic rate limiting</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Rate_limiting_with_NGINX.html#Handling_burst"><span class="tocnumber">3.2</span> <span class="toctext">Handling burst</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Rate_limiting_with_NGINX.html#Handling_burst_.2B_nodelay"><span class="tocnumber">3.3</span> <span class="toctext">Handling burst + nodelay</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Rate_limiting_with_NGINX.html#Primjeri_iz_prakse"><span class="tocnumber">4</span> <span class="toctext">Primjeri iz prakse</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Rate_limiting_with_NGINX.html#Limitiranje_broja_ulaznih_upita"><span class="tocnumber">4.1</span> <span class="toctext">Limitiranje broja ulaznih upita</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Rate_limiting_with_NGINX.html#Limitiranje_broja_upita_u_login_formu"><span class="tocnumber">4.2</span> <span class="toctext">Limitiranje broja upita u login formu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Rate_limiting_with_NGINX.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Rate_limiting_with_NGINX.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="NGINX"> NGINX </span></h1>
+<p>Nginx je Web server i reverse proxy server. Izvorni kod Nginx-a napisao je Igor Sysoev. To je otvoreni i besplatni alat koji nam u praksi pomaže kako bi limitirali http zahtjeve. Protokoli koje Nginx podržava su HTTP, SMTP, IMAP i POP3. Konkurenciju ovom alatu čine Apache, Microsoft IIS, LiteSpeed, Google Servers, Tomcat itd. Nginnx vezan je uz C10K problem. To je problem koji se odnosi na pitanje kako upravljati s desetak tisuća http zahtjeva.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:NGINX_history.jpg" class="image"><img alt="NGINX history.jpg" src="../images/9/9a/NGINX_history.jpg" width="717" height="409" /></a>
+</p><p>Slika gore prikazuje nam razvoj http poslužitelja zadnjih 7 godina. Vidimo kako je Nginx iz godine u godinu sve zastupljeniji. Stoga nas ne čude najnoviji rezultati iz 2018.godine. Gdje je prikazano kako skoro trećina koristi ovaj alat. Nginx je u fazi rasta upravo zbog toga jer pogoduje stranicama koje imaju veliku posjećenost, odnosno stranice prema kojima se generira veliki broj http zahtjeva. Zašto je to tako, objasnit ćemo na našem primjeru iz prakse.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:NGINX_now.png" class="image"><img alt="NGINX now.png" src="../images/f/f0/NGINX_now.png" width="480" height="456" /></a>
+</p><p>Prema Netcraftu u siječnju 2018.godine, Nginx je posluživao 36,7&#160;% najprometnijih web stranica. Neki od najvećih „uspjeha“ ovog alata su web mjesta poput Netflixa, Dropboxa, Facebooka, Wordpress.com, FastMail.FM itd. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Neke_od_koristi_Nginx-a"> Neke od koristi Nginx-a </span></h2>
+<p>1. Limitiranje http zahtjeva moguće je koristiti u sigurnosne svrhe, kao npr. za zaštitu od DDOS napada.
+</p><p>2. Nginx omogućuje sigurniji pristup podacima. Zbog toga jer ima HttpSslModule. To je modul koji nam služi za podešavanje SSL-a (generiranje i potpisivanje certifikata).
+</p><p>3. Ukoliko dođe do kakve greške, sustav radi ali sa smanjenim kapacitetom.
+</p>
+<h2> <span class="mw-headline" id="Nginx_vs_Apache"> Nginx vs Apache </span></h2>
+<p>Nginx i Apache su podržani na Linux sustavima, no samo je Apache u cijelosti podržan od strane Microsoft Windowsa.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Drugi_o_NGINX-u">Drugi o NGINX-u</span></h1>
+<p>„Ocjenjivao sam NGINX Plus i bio sam zadivljen njegovom moći. Količina prometa koju NGINX Plus može podnijeti je nestvarna - čak i izvan naših potreba.“ –James Ridle, IT Operations Manager at Montana Interactive
+</p><p>„Dostupnost i skalabilnost su nevjerojatno važni, no sigurnost nam je najvažnija od svega. S obzirom kako zadovoljava sve naše uvjete NGINX  Plus je naše sredstvo za kretanje unaprijed.“
+Sean McElroy, VP of IT and CISO at Alkami Technology
+</p><p>Skalabilnost nam označuje ovisnost resursa u odnosu na količinu podataka. Dakle, ako za obradu duplo više podataka trebamo 4 puta više memorije ili 4 puta više vremena, to je loša skalabilnost. Ako nam treba duplo više vremena, to je prihvatljivo. Osobito ako se može paralelizirati.
+</p><p>„Imali smo skupu nadogradnju našeg trenutnog pružatelja usluga pa smo pogledali alternative. Otkrili smo da bi mogli više uraditi s NGINX Plus i to u četvrtini cijene trenutnog poslužitelja.“
+Matt Blaha , Sr. Systems Engineer at Discovery Education
+</p>
+<h1> <span class="mw-headline" id="Vrste_limita"> Vrste limita </span></h1>
+<p>Slijedi sintaksa i opis 3 vrste limitiranja koja smo koristili u praksi. Ima ih naravno puno više. Može se dodati na korisničkoj razini, serverskoj razini i geolokacijskog razini. 
+</p>
+<h2> <span class="mw-headline" id="Basic_rate_limiting"> Basic rate limiting</span></h2>
+<p><code>limit_req_zone zone=myLimit:10m rate=10r/s</code>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx3.jpg" class="image" title="Izrada autora"><img alt="Izrada autora" src="../images/1/1a/Nginx3.jpg" width="441" height="259" /></a>
+</p><p>Zone myLimit je naziv tog limita, a 10m označava 10 megabajta memorije koju može popuniti ovaj limiter (16 000 ip adresa zauzimaju cca 1 megabajt, tako da naša zona može primiti oko 160 000 ip adresa). Rate označava maksimalni broj upita (requesta) u sekundi. Taj period je podijeljen automatski na 10 jednakih perioda (slotova) po 100 milisekundi. Prvi upit se propušta, a svaki sljedeći u prvom slotu od 100 milisekundi se odbija (propada). I na taj način za svaki slot.
+</p><p>Ovaj limit radi na principu Leaky Bucket algoritma.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx11.jpg" class="image" title="Leaky Bucket algoritam"><img alt="Leaky Bucket algoritam" src="../images/4/43/Nginx11.jpg" width="548" height="402" /></a>
+</p>
+<h2> <span class="mw-headline" id="Handling_burst">Handling burst</span></h2>
+<p><code>limit_req  zone=myLimit burst=20;</code>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx4.jpg" class="image" title="Izrada autora"><img alt="Izrada autora" src="../images/e/e8/Nginx4.jpg" width="561" height="242" /></a>
+</p><p>Ime zone je myLimit i dodavanjem parametra burst=20 dobivamo dodatni slot od 20 pozicija koji koristimo. I dalje je period od 1 sekunde, te je moguce po 1 upit propustiti na svaki od 10 slotova. Kao u primjeru, u prvih 100 milisekundi dosla su dva upita (requesta),  prvi se propusta a drugi se zapisuje u Queue. Kad krene drugi slot prvo se taj upit propusta, a svi ostali opet zapisuju u Queue na čekanje. Svi koji ne uspije propustiti propadaju. 
+</p>
+<h2> <span class="mw-headline" id="Handling_burst_.2B_nodelay">Handling burst + nodelay</span></h2>
+<p><code>limit_req zone_myLimit burst=20 nodelay;</code>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx5.jpg" class="image" title="Izrada autora"><img alt="Izrada autora" src="../images/7/7b/Nginx5.jpg" width="562" height="168" /></a>
+</p><p>Upotrebom nodelay parametra svi koji dolaze upiti (requesti) se propustaju do 20 upita po sekundi. Ovdje se ne gleda po slotovima i po kontinuiranom propuštanju. Svi ostali propadaju.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Primjeri_iz_prakse">Primjeri iz prakse</span></h1>
+<p>Prvo otvorimo nginx.conf
+</p><p>Ovdje ćemo prikazati dva primjera i objasniti ih detaljnije. Prvi je limitiranje broja upita (requesta) na instalaciju. Preciznije, radi se o broju klikova, koji mogu preopteretiti instalaciju. Drugi je rate limit na login formu, prikazano je kako se zaštiti od forsiranja upisa korisničkog imena i lozinke te potvrđivanjem iste da bi se došlo možda do točne kombinacije i neovlaštenog ulaska u sustav. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx121.jpg" class="image"><img alt="Nginx121.jpg" src="../images/f/f7/Nginx121.jpg" width="655" height="346" /></a>
+</p><p>Obadva primjera su preventivne naravi i mogu pomoći u obrani od neželjenih posljedica. 
+</p>
+<h2> <span class="mw-headline" id="Limitiranje_broja_ulaznih_upita">Limitiranje broja ulaznih upita</span></h2>
+<p>Kako na instalaciju dolazi previše traffica u nerezonskim periodima dolazi do mogućnosti da se instalacija preopteretiti s ulaznim brojem upita (requestova). To može dovesti do nepravilnog rada (upiti propadaju, GUI sporo radi) ili do rušenja instalacije. Da bi se to spriječilo složen je NGINX rate limiting. 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx1.jpg" class="image" title="Izrada autora"><img alt="Izrada autora" src="../images/a/a4/Nginx1.jpg" width="732" height="93" /></a>
+</p><p>Definirano je par različitih limitera u glavnom configu za nginx (nginx.conf). Ime s kojim se pozivaju su rate400, rate450, rate500, rate600.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nginx2.jpg" class="image" title="Izrada autora"><img alt="Izrada autora" src="../images/a/a2/Nginx2.jpg" width="1040" height="266" /></a>
+</p><p>U ovom configu pozvan je jedan limiter (rate500). Dodan mu je parametar burst=50.
+</p>
+<h2> <span class="mw-headline" id="Limitiranje_broja_upita_u_login_formu">Limitiranje broja upita u login formu</span></h2>
+<p>Drugi primjer upotrebe rate limita nginxa je forsiranje login forme i pokušaj upada u sustav.
+Može se složiti limit na login formi tako da se izbjegne sigurnosni rizik.
+</p><p>Sljedećim primjerom ćemo limitirati broj upita (requesta) s jedne ip adrese, to jest neće biti moguće forsirati kombinaciju korisničkog imena i lozinke u nedogled.
+</p><p>Prvo se kreira novi novi rate limit:
+<code>limit_req_zone $binary_remote_addr zone=login:10m rate=1r/s</code>
+</p><p>Time se kreira memorija zvana „login“ da se sprema log svih IP adresa koje pristupaju webu i njezina veličina. U našem slučaju 10 megabajta što je dovoljno za  spremanje 160 000 upita. Ovim kodom dopušten je 1 upit(request) po sekundi.
+</p><p>Nakon toga u dodaje se  na server sljedeći kod:
+<code>location /account/login/ { limit_req zone=login burst=5 }</code>
+</p><p>Ovdje vidimo da se limitira URL /account/login sto je login page. S parametrom burst  propadaju upiti nakon što je red čekanja od 5 maksimalno napuni.
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h1>
+<p>Ovim alatom možemo preventivno djelovati na naš server te tako kontrolirati i definirati maksimalan broj upita (requesta).
+Koristi se da se spriječi neovlašteni pristup i preopterećenje sustava lažnim (fraud) prometom.
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<p>1. <a href="https://www.nginx.com/blog/rate-limiting-nginx/" class="external text" rel="nofollow">https://www.nginx.com/blog/rate-limiting-nginx </a>
+</p><p>2. <a href="https://lincolnloop.com/blog/rate-limiting-nginx/" class="external text" rel="nofollow">https://lincolnloop.com/blog/rate-limiting-nginx </a>
+</p><p>3. <a href="https://dzone.com/articles/nginx-rate-limiting/" class="external text" rel="nofollow">https://dzone.com/articles/nginx-rate-limiting </a>
+</p><p>4. <a href="https://product.reverb.com/first-line-of-defense-blocking-bad-post-requests-using-nginx-rate-limiting-507f4c6eed7b/" class="external text" rel="nofollow">https://product.reverb.com/first-line-of-defense-blocking-bad-post-requests-using-nginx-rate-limiting-507f4c6eed7b</a>
+</p><p>5. <a href="https://www.slideshare.net/Nginx/rate-limiting-with-nginx-and-nginx-plus/" class="external text" rel="nofollow">https://www.slideshare.net/Nginx/rate-limiting-with-nginx-and-nginx-plus</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 51/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9912-0!*!0!!hr!2!edit=0 and timestamp 20190203204144 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Rate_limiting_with_NGINX.html">http://security.foi.hr/wiki/index.php/Rate_limiting_with_NGINX</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Rate_limiting_with_NGINX" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Rate_limiting_with_NGINX.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Rate_limiting_with_NGINX&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Rate_limiting_with_NGINX.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Rate_limiting_with_NGINX.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Rate_limiting_with_NGINX&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Rate_limiting_with_NGINX&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Rate_limiting_with_NGINX.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Rate_limiting_with_NGINX" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Rate_limiting_with_NGINX" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Rate_limiting_with_NGINX&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Rate_limiting_with_NGINX&amp;oldid=43059" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:55, 1. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 304 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Rate_limiting_with_NGINX", "wgTitle": "Rate limiting with NGINX", "wgAction": "view", "wgArticleId": 9912, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43059, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.305 secs. -->			</body>
+</html>

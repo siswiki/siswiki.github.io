@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>PHP Security Static Analysis - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=PHP_Security_Static_Analysis&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-PHP_Security_Static_Analysis skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">PHP Security Static Analysis</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="PHP_Security_Static_Analysis.html#mw-head">orijentacija</a>,
+					<a href="PHP_Security_Static_Analysis.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Igor Rinkovec
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="PHP_Security_Static_Analysis.html#Uvod_u_stati.C4.8Dku_analizu"><span class="tocnumber">1</span> <span class="toctext">Uvod u statičku analizu</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="PHP_Security_Static_Analysis.html#Nedostatci"><span class="tocnumber">1.1</span> <span class="toctext">Nedostatci</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="PHP_Security_Static_Analysis.html#Pregled_dostupnih_rje.C5.A1enja"><span class="tocnumber">2</span> <span class="toctext">Pregled dostupnih rješenja</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="PHP_Security_Static_Analysis.html#Evaluacija_i_usporedba_najpopularnija_3_rje.C5.A1enja"><span class="tocnumber">3</span> <span class="toctext">Evaluacija i usporedba najpopularnija 3 rješenja</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="PHP_Security_Static_Analysis.html#RIPS_Tech"><span class="tocnumber">3.1</span> <span class="toctext">RIPS Tech</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="PHP_Security_Static_Analysis.html#Detekcija_ranjivosti"><span class="tocnumber">3.1.1</span> <span class="toctext">Detekcija ranjivosti</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="PHP_Security_Static_Analysis.html#Korisni.C4.8Dko_su.C4.8Delje"><span class="tocnumber">3.1.2</span> <span class="toctext">Korisničko sučelje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="PHP_Security_Static_Analysis.html#Parse"><span class="tocnumber">3.2</span> <span class="toctext">Parse</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="PHP_Security_Static_Analysis.html#Detekcija_ranjivosti_2"><span class="tocnumber">3.2.1</span> <span class="toctext">Detekcija ranjivosti</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="PHP_Security_Static_Analysis.html#Korisni.C4.8Dko_su.C4.8Delje_2"><span class="tocnumber">3.2.2</span> <span class="toctext">Korisničko sučelje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="PHP_Security_Static_Analysis.html#Vulny-Code-Static-Analysis"><span class="tocnumber">3.3</span> <span class="toctext">Vulny-Code-Static-Analysis</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="PHP_Security_Static_Analysis.html#Detekcija_ranjivosti_3"><span class="tocnumber">3.3.1</span> <span class="toctext">Detekcija ranjivosti</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="PHP_Security_Static_Analysis.html#Korisni.C4.8Dko_su.C4.8Delje_3"><span class="tocnumber">3.3.2</span> <span class="toctext">Korisničko sučelje</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="PHP_Security_Static_Analysis.html#Odabir_najboljeg_po_svim_faktorima"><span class="tocnumber">4</span> <span class="toctext">Odabir najboljeg po svim faktorima</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="PHP_Security_Static_Analysis.html#Najbolji_produkcijski_alat"><span class="tocnumber">4.1</span> <span class="toctext">Najbolji produkcijski alat</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="PHP_Security_Static_Analysis.html#Najvi.C5.A1e_potencijala_u_budu.C4.87nosti"><span class="tocnumber">4.2</span> <span class="toctext">Najviše potencijala u budućnosti</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod_u_stati.C4.8Dku_analizu"> Uvod u statičku analizu </span></h2>
+<p>Statička analiza izvornog koda je poces pronalaska grešaka/nepoželjnih implementacija bez izvršavanja samog programa. Iz te definicije i dolazi ime statička analiza jer se kod ne pokreće kako bi se ona izvršila nego se isključivo čita kao obična tekstualna datoteka. S obzirom na tu činjenicu ovo je vrlo zanimljiv način pronalaska sigurnosnih problema u web aplikaciji zbog vrlo niskog praga intervencije od strane samih razvojnih inženjera da bi se problemi otkrili. S obzirom da je ovaj proces u potpunosti automatiziran, on se također može uključiti i u continuous integration alat kako bi se ove provjere odvijale kod svakog check-ina u sustav za verzioniranje.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Nedostatci"> Nedostatci </span></h3>
+<p>Zbog iznad navedenih razloga ovakvi alati su vrlo zanimljivi sa strane korisnika, no pružaju i velike izazove kod same implementacije istih. Većina izazova proizlazi iz činjenice da je razvoj softwarea kreativna grana u kojoj svaka osoba ima svoj način pisanja koda i rješavanja problema. Ova činjenica uvelike otežava detekciju grešaka u tom svijetu punom varijacija jer je potrebno pokriti sve slučajeve korištenja kako bi bili 100% sigurni da se ta greška nije pojavila. Upravo to je često nemoguće što znači da statička analiza ne može biti pokazatelj da u kodu nema grešaka, no može biti efikasni pokazatelj da greška postoji.
+</p><p>Zbog težine implementacije kvalitetnog sustava statičke analize na tržištu postoji relativno slaba konkurencija. Većina proizvoda je krnja u smislu da ne pokriva neki važan aspekt ili je u obliku komercijalnih alata sa visokom cijenom. Ta visoka cijena otežava pristup ovoj tehnologiji onima kojima je najpotrebnija - manjim poduzećima i projektima koji nemaju politiku code-reviewa ili druge metode pronalaska sigurnosnih grešaka.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Pregled_dostupnih_rje.C5.A1enja"> Pregled dostupnih rješenja </span></h2>
+<p>Ovdje su navedena sva popularnija rješenja za statičku analizu sigurnosnih grešaka u PHP aplikacijama. Tri najpopularnija rješenja koja su bila dostupna za test su odabrana i testirana u sljedećem odlomku.
+</p>
+<table class="wikitable">
+<tr>
+<th>Ime
+</th>
+<th>Održavan?
+</th>
+<th>Cijena
+</th>
+<th>Podržane platforme
+</th></tr>
+<tr>
+<td><a href="https://github.com/Lixody/Eir" class="external text" rel="nofollow">Eir</a>
+</td>
+<td style="background-color: #F1A9A0;"> Ne
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://github.com/vesuppi/Garcon" class="external text" rel="nofollow">Garcon</a>
+</td>
+<td style="background-color: #F1A9A0;"> Ne
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://github.com/lowjoel/phortress" class="external text" rel="nofollow">Phortress</a>
+</td>
+<td style="background-color: #F1A9A0;"> Ne
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://github.com/psecio/parse" class="external text" rel="nofollow">Parse</a>
+</td>
+<td style="background-color: #C8F7C5;"> Da
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://www.checkmarx.com/technology/static-code-analysis-sca" class="external text" rel="nofollow">CxSAST</a>
+</td>
+<td style="background-color: #C8F7C5;"> Da
+</td>
+<td>$$$
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://github.com/oliverklee/pixy" class="external text" rel="nofollow">Pixy</a>
+</td>
+<td style="background-color: #C8F7C5;"> Da
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://www.ripstech.com/next-generation/" class="external text" rel="nofollow">RIPS</a>
+</td>
+<td style="background-color: #C8F7C5;"> Da
+</td>
+<td>$190/mjesečno po aplikaciji
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="http://awap.sourceforge.net/" class="external text" rel="nofollow">WAP</a>
+</td>
+<td style="background-color: #F1A9A0;"> Ne
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="http://www.devbug.co.uk/#" class="external text" rel="nofollow">DevBug</a>
+</td>
+<td style="background-color: #C8F7C5;"> Da
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr>
+<tr>
+<td><a href="https://github.com/swisskyrepo/Vulny-Code-Static-Analysis" class="external text" rel="nofollow">Vulny-Code-Static-Analysis</a>
+</td>
+<td style="background-color: #C8F7C5;"> Da
+</td>
+<td>Besplatan
+</td>
+<td>*nix i Windows
+</td></tr></table>
+<h2> <span class="mw-headline" id="Evaluacija_i_usporedba_najpopularnija_3_rje.C5.A1enja"> Evaluacija i usporedba najpopularnija 3 rješenja </span></h2>
+<h3> <span class="mw-headline" id="RIPS_Tech"> RIPS Tech </span></h3>
+<p>RIPS je jedini komercijalni alat na iznad navedenoj listi. Sa cijenom od 190 USD mjesečno po aplikaciji koju želite testirati nije mala cijena, no alat po formalnim specifikacijama napisanim na stranicama izgleda kao najrazvijeniji od svih dostupnih. Limitacija od testiranja samo jedne aplikacije se čvrsto primjenjuje što znači da nije moguće sa jednom licencom testirati više aplikacija odjednom. Ukoliko RIPS pronađe veliku razliku u strukturi programskog koda između uploadanih verzija on neće dopustiti testiranje novog uploadanog koda.
+</p>
+<h4> <span class="mw-headline" id="Detekcija_ranjivosti"> Detekcija ranjivosti </span></h4>
+<p>RIPS ima stvarno zadivljujuću listu ranjivosti koje je sposoban detektirati. Cijela lista detektiranih ranjivosti dostupna je na službenim <a href="https://www.ripstech.com/compliance/cwe/:stranicama" class="external autonumber" rel="nofollow">[1]</a>, no u svrhu kvalitetne usporedbe napravio sam standardiziranu tablicu koja će biti korištena za sva tri rješenja.
+</p>
+<table class="wikitable">
+<tr>
+<th> Lista ranjivosti
+</th>
+<th> Pokrivenost
+</th></tr>
+<tr>
+<td> <a href="https://www.owasp.org/index.php/Top_10_2013-Top_10" class="external text" rel="nofollow">OWASP Top 10 2013.</a>
+</td>
+<td style="background-color: #98FB98;"> 10/10
+</td></tr>
+<tr>
+<td> <a href="https://www.owasp.org/index.php/Top_10-2017_Top_10" class="external text" rel="nofollow">Top 10 2017.</a>
+</td>
+<td style="background-color: #FFFACD;"> 7/10
+</td></tr>
+<tr>
+<td> <a href="https://cwe.mitre.org/" class="external text" rel="nofollow">CWE</a>
+</td>
+<td style="background-color: #98FB98;"> 84/714
+</td></tr>
+<tr>
+<td> <a href="https://www.sans.org/top25-software-errors" class="external text" rel="nofollow">SANS top 25</a>
+</td>
+<td style="background-color: #98FB98;"> 25/25
+</td></tr></table>
+<h4> <span class="mw-headline" id="Korisni.C4.8Dko_su.C4.8Delje"> Korisničko sučelje </span></h4>
+<p>RIPS je SaaS (Software as a Service) rješenje te je njegovo korisničko sučelje dostupno isključivo putem browsera ili direktno preko RESTful API-ja. Ovo može dovesti u pitanje sigurnosti samog izvornog koda nakon slanja RIPSu na analizu. Oni tvrde da se kod automatski uništi nakon analize osim djelova koji se prikazuju kao pomoć pri popravku te daju korisniku opciju da ga u potpunosti obriše. No ovim otvaramo pandorinu kutiju o povjerenju prema RIPSu i njihovoj internoj sigurnosti sustava. Kako bi se ovaj rizik mitigirao postoji enterprise self-hosted verzija čiju cijenu ne otkrivaju na samom prodajnom sajtu što bi moglo značiti da nije mala.
+</p><p>Kada uzmemo ovu činjenicu u obzir i prihvatimo navedeni rizik možemo uočiti da je RIPS korisničko sučelje vrlo kvalitetno osmišljeno i implementirano.
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips-ui.png" class="image"><img alt="Rips-ui.png" src="../images/thumb/8/86/Rips-ui.png/800px-Rips-ui.png" width="800" height="438" /></a>
+</p><p>Nakon analize programskog koda možete provjeriti statistike o samoj analizi koja pokazuje kakve su ranjivosti pronađene po vrsti i opasnosti. Također s lijeve strane su sve ranjivosti razvrstane po kategorijama. Pritiskom na kategorjiu možete provjeriti točan isječak koda i tip ranjivosti koji je pronađen te pronaći detaljne upute kako isti ispraviti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips-vuln.png" class="image"><img alt="Rips-vuln.png" src="../images/thumb/9/9c/Rips-vuln.png/800px-Rips-vuln.png" width="800" height="438" /></a>
+</p><p>Ovdje je primjer jedne detektirane ranjivosti i sučelja koje RIPS pokazuje kada odaberemo tu ranjivost. Možemo istu označiti kao pregledanu kako bi se maknula iz backloga svih ranjivosti koje trebamo proučiti.
+</p>
+<h3> <span class="mw-headline" id="Parse"> Parse </span></h3>
+<p>Psecio Parse je alat u relativno ranoj fazi razvoja čiji je cilj upravo statička analiza PHP koda za ranjivostima. Alat je u potpunosti besplatan i open-source te se jednostavno može instalirati i pokrenuti kao composer paket. Takav setup omogućava vrlo jednostavnu integraciju u CI okolinu što osigurava da se alat pokreće kod svake promjene izvornog koda.
+</p><p>Činjenica što je alat open-source i što je pisan na moderan način i lako nadogradljiv je jedina pozitivna strana ovog alata. Kada bi se popravila baza detekcijskih pravila, ovaj alat bi bio odličan dodatak bilo kojem CI okruženju.
+</p>
+<h4> <span class="mw-headline" id="Detekcija_ranjivosti_2"> Detekcija ranjivosti </span></h4>
+<p>Detekcija ranjivosti je najveći nedostatak ovog alata. Naime podržan je samo mali set pravila za detekciju i ta pravila kreiraju jako puno false-positive detekcija. Neka pravila funkcioniraju više kao neki napredniji linter za kvalitetu koda. Na testnom codebaseu je pronašao čak 7025 "ranjivosti".
+</p>
+<table class="wikitable">
+<tr>
+<th> Lista ranjivosti
+</th>
+<th> Pokrivenost
+</th></tr>
+<tr>
+<td> <a href="https://www.owasp.org/index.php/Top_10_2013-Top_10" class="external text" rel="nofollow">OWASP Top 10 2013.</a>
+</td>
+<td style="background-color: #F1A9A0;"> 0/10
+</td></tr>
+<tr>
+<td> <a href="https://www.owasp.org/index.php/Top_10-2017_Top_10" class="external text" rel="nofollow">Top 10 2017.</a>
+</td>
+<td style="background-color: #F1A9A0;"> 0/10
+</td></tr>
+<tr>
+<td> <a href="https://cwe.mitre.org/" class="external text" rel="nofollow">CWE</a>
+</td>
+<td style="background-color: #F1A9A0;">&#160;???
+</td></tr>
+<tr>
+<td> <a href="https://www.sans.org/top25-software-errors" class="external text" rel="nofollow">SANS top 25</a>
+</td>
+<td style="background-color: #F1A9A0;"> 2/25
+</td></tr></table>
+<h4> <span class="mw-headline" id="Korisni.C4.8Dko_su.C4.8Delje_2"> Korisničko sučelje </span></h4>
+<p>Kao što sam ranije naveo Parse je dostupan isključivo preko CLI sučelja. Nakon instalacije sa composer-om potrebno je samo koristiti komandu "psecio-parse &lt;putanja_do_aplikacijskog_koda&gt;". Nakon toga se pokreće proces skeniranja čiji je napredak jasno prikazan u sučelju.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Parse-progress.png" class="image"><img alt="Parse-progress.png" src="../images/thumb/d/d3/Parse-progress.png/800px-Parse-progress.png" width="800" height="79" /></a>
+</p><p>Nakon uspješnog pokretanja prikazuje se lista svih pronađenih ranjivosti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Parse-rezultat.png" class="image"><img alt="Parse-rezultat.png" src="../images/thumb/7/7b/Parse-rezultat.png/800px-Parse-rezultat.png" width="800" height="470" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Vulny-Code-Static-Analysis"> Vulny-Code-Static-Analysis </span></h3>
+<p>Vulny-Code-Static-Analysis je alat koji je nastao tek prošle godine no jedan je od open-source alata sa kojim sam imao najbolje rezultate od svih navedenih. Detekcija nije na nekoj naprednoj razini, no barem ne daje toliko false-positivea kao što to radi Parse.
+</p><p>Ogroman problem s ovim alatom je što su detekcijska pravila pisana isključivo u regexu što predstavlja problem na više fronti. Kod nije pregledan, regex može točno detektirati samo jedan mali subset sigurnosnih ranjivosti u programskom kodu te je teško zaštiti pravila od false-positivea.
+</p>
+<h4> <span class="mw-headline" id="Detekcija_ranjivosti_3"> Detekcija ranjivosti </span></h4>
+<p>Detekcija ranjivosti je na najboljoj razini od svih isprobanih open-source alata za statičku analizu - što ne znači da je zadovoljavajuća.
+</p>
+<table class="wikitable">
+<tr>
+<th> Lista ranjivosti
+</th>
+<th> Pokrivenost
+</th></tr>
+<tr>
+<td> <a href="https://www.owasp.org/index.php/Top_10_2013-Top_10" class="external text" rel="nofollow">OWASP Top 10 2013.</a>
+</td>
+<td style="background-color: #FFFACD;"> 6/10
+</td></tr>
+<tr>
+<td> <a href="https://www.owasp.org/index.php/Top_10-2017_Top_10" class="external text" rel="nofollow">Top 10 2017.</a>
+</td>
+<td style="background-color: #FFFACD;"> 6/10
+</td></tr>
+<tr>
+<td> <a href="https://cwe.mitre.org/" class="external text" rel="nofollow">CWE</a>
+</td>
+<td style="background-color: #F1A9A0;">&#160;???
+</td></tr>
+<tr>
+<td> <a href="https://www.sans.org/top25-software-errors" class="external text" rel="nofollow">SANS top 25</a>
+</td>
+<td style="background-color: #FFFACD;"> 6/25
+</td></tr></table>
+<h4> <span class="mw-headline" id="Korisni.C4.8Dko_su.C4.8Delje_3"> Korisničko sučelje </span></h4>
+<p>Parse je dostupan isključivo u CLI sučelju što opet omogućuje jednostavnu integraciju u CI okruženja. Nedostatak ovog pristupa je što nije moguće označiti određene detekcije kao rješene ili neznačajne. Rezultati su prikazani, zajedno s linijama na kojima su ranjivosti nađene no ne pruža nikakve savjete za rješavanje istih.
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Vulny.png" class="image"><img alt="Vulny.png" src="../images/thumb/4/45/Vulny.png/800px-Vulny.png" width="800" height="600" /></a>
+</p>
+<h2> <span class="mw-headline" id="Odabir_najboljeg_po_svim_faktorima"> Odabir najboljeg po svim faktorima </span></h2>
+<h3> <span class="mw-headline" id="Najbolji_produkcijski_alat"> Najbolji produkcijski alat </span></h3>
+<p>Kao što je i vidljivo iz iznad navedenih analiza, iako je komercijalni i relativno skup alat RIPS po svojim detekcijskim mogućnostima prednjači nad svim drugim alatima dostupnim na tržištu. Njegova cijena predstavlja značajnu barijeru pri korištenju ovog alata - no u projektima gdje je sigurnost na prvom mjestu svakako valja uložiti u ovakvo rješenje.
+</p><p>Uz daleko najbolju detekciju korisničko sučelje koje RIPS pruža omogućava puno više od toga. Omogućava praćenje koje ranjivosti su rješene ili false-positive, vrši statistiku ranjivosti koja može biti korisna kao izvještaj za menadžment te pruža integraciju sa svim velikim CI okruženjima te development alatima.
+</p>
+<h3> <span class="mw-headline" id="Najvi.C5.A1e_potencijala_u_budu.C4.87nosti"> Najviše potencijala u budućnosti </span></h3>
+<p>Iako je Parseova detekcija trenutno jedna od gorih od svih testiranih alata, njegov kvalitetan codebase i modularan način pisanja detekcijskih pravila daje ovom alatu veliku prednost. Uz malo truda moguće je razviti kvalitetnu bazu pravila koja će učiniti ovaj alat puno moćnijim. Parse također koristi pravi parser izvornog koda i ne oslanja se na obična regex pravila za detekciju.
+</p><p>Ovo je alat kojem ću u budućnosti sigurno doprinjeti te koristiti na nekomercijalnim i manjim komercijalnim projektima kao dodatnu razinu zaštite.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 63/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9863-0!*!0!!hr!2!edit=0 and timestamp 20190203204126 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="PHP_Security_Static_Analysis.html">http://security.foi.hr/wiki/index.php/PHP_Security_Static_Analysis</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=PHP_Security_Static_Analysis" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="PHP_Security_Static_Analysis.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:PHP_Security_Static_Analysis&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="PHP_Security_Static_Analysis.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="PHP_Security_Static_Analysis.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security_Static_Analysis&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security_Static_Analysis&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="PHP_Security_Static_Analysis.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/PHP_Security_Static_Analysis" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/PHP_Security_Static_Analysis" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security_Static_Analysis&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security_Static_Analysis&amp;oldid=42528" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 15:44, 28. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 167 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "PHP_Security_Static_Analysis", "wgTitle": "PHP Security Static Analysis", "wgAction": "view", "wgArticleId": 9863, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42528, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.342 secs. -->			</body>
+</html>

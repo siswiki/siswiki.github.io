@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnost MongoDB baze podataka - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnost_MongoDB_baze_podataka&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnost_MongoDB_baze_podataka skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnost MongoDB baze podataka</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnost_MongoDB_baze_podataka.html#mw-head">orijentacija</a>,
+					<a href="Sigurnost_MongoDB_baze_podataka.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnost_MongoDB_baze_podataka.html#Mre.C5.BEna_izlo.C5.BEenost_i_sigurnost"><span class="tocnumber">1</span> <span class="toctext">Mrežna izloženost i sigurnost</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Sigurnost_MongoDB_baze_podataka.html#SSL_podr.C5.A1ka"><span class="tocnumber">2</span> <span class="toctext">SSL podrška</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Sigurnost_MongoDB_baze_podataka.html#Kontrola_pristupa"><span class="tocnumber">3</span> <span class="toctext">Kontrola pristupa</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Sigurnost_MongoDB_baze_podataka.html#Autorizacija_i_autentikacija"><span class="tocnumber">4</span> <span class="toctext">Autorizacija i autentikacija</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Sigurnost_MongoDB_baze_podataka.html#MONGODB-CR"><span class="tocnumber">5</span> <span class="toctext">MONGODB-CR</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Sigurnost_MongoDB_baze_podataka.html#x.509_Certifikati"><span class="tocnumber">6</span> <span class="toctext">x.509 Certifikati</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Sigurnost_MongoDB_baze_podataka.html#Autorizacija_kori.C5.A1tenjem_korisni.C4.8Dkih_uloga"><span class="tocnumber">7</span> <span class="toctext">Autorizacija korištenjem korisničkih uloga</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Sigurnost_MongoDB_baze_podataka.html#Upravljanje_korisnicima"><span class="tocnumber">8</span> <span class="toctext">Upravljanje korisnicima</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Sigurnost_MongoDB_baze_podataka.html#Default_Konfiguracija"><span class="tocnumber">9</span> <span class="toctext">Default Konfiguracija</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Sigurnost_MongoDB_baze_podataka.html#NOSQL_Injection"><span class="tocnumber">10</span> <span class="toctext">NOSQL Injection</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Sigurnost_MongoDB_baze_podataka.html#NoSQLMap"><span class="tocnumber">11</span> <span class="toctext">NoSQLMap</span></a></li>
+</ul>
+</td></tr></table>
+<h5> <span class="mw-headline" id="Mre.C5.BEna_izlo.C5.BEenost_i_sigurnost"> Mrežna izloženost i sigurnost </span></h5>
+<p>Standardne postavke MongoDB baze podataka omogućuju pristup bazi podataka svim vanjskim IP adresama koristeći port 27017. Iako je to dobra mogućnost za brzo testiranje i lakši ‘’deployment’’ aplikacije koja tu bazu koristi, ostavlja i velik broj ranjivosti i olakšava udaljen pristup podacima.
+</p><p>U konfiguracijskoj datoteci Mongo baze podataka postoji nekoliko rizičnih opcija koje daju kontrolu nad načinom povezivanja, dopuštenim sučeljima, IP adresama i portovima. 
+</p><p>Prva rizična opcija jest <b>nohttpinterface</b>. Navedena opcija omogućuje uvid u bitne aspekte postojeće baze podataka u obliku HTML izvještaja. Naime, potencijalni napadač može posjetom na <i>url_stranice:28017</i> dobiti potpuni opis baze podataka, počevši od verzije, broja kolekcija, načina korištenja i sl.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mnovosel2_nohttpint1.JPG" class="image"><img alt="Mnovosel2 nohttpint1.JPG" src="../images/thumb/4/4b/Mnovosel2_nohttpint1.JPG/600px-Mnovosel2_nohttpint1.JPG" width="600" height="371" /></a></center>
+<p>Osim generalnih podataka, napadač također može dobiti uvid u cijeli log te time popis direktorija u kojem se nalazi konfiguracijska datoteka i podatke o operacijskom sustavu.
+</p><p>Razlog zbog kojeg ova opcija postoji u standardnim postavkama je da administrator može jednostavno provjeriti ispravnost nove instalacije same baze ili nekog od modula. Način za deaktivaciju jest postavljanje opcije na <i>true</i> u mongodb.conf datoteci.
+</p><p>Sljedeća bitna opcija je sam port na kojem sluša baza podataka. Kombinacija <i>IP_adresa:Port</i> omogućuju udaljenu administraciju baze podataka. Standardni port na kojem Mongo baza sluša jest 27017 i to predstavlja dosta velik sigurnosni rizik. Uzmimo neku web aplikaciju za koju smo saznali da u pozadini koristi MongoDB bazu podataka. U našem primjeru to će biti vlastita aplikacija <i>uboxie.me</i>. Koristeći neki od postojećih alata za pretvorbu imena domene u IP adresu, dobit ćemo točan IP od željene aplikacije. <a href="http://www.hcidata.info/host2ip.htm" class="external text" rel="nofollow">HCIdata</a>.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mnovosel2_ipfromdomain.JPG" class="image"><img alt="Mnovosel2 ipfromdomain.JPG" src="../images/thumb/3/34/Mnovosel2_ipfromdomain.JPG/600px-Mnovosel2_ipfromdomain.JPG" width="600" height="144" /></a></center>
+<p><br />
+Pomoću alata Robomongo koji služi za jednostavnu administraciju Mongo baze podataka dobivenu IP adresu i port 27017 lako iskoristimo za spajanje na bazu podataka i uvid u sve kolekcije i podatke u njoj. Mongo po standardnim postavkama ne zahtjeva posebnu autentikaciju korisnika, te su podaci o IP adresi i portu na kojem radi baza podataka dovoljni za uvid u sve podatke u bazi.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mnovosel2_robomongo.JPG" class="image"><img alt="Mnovosel2 robomongo.JPG" src="../images/thumb/b/b5/Mnovosel2_robomongo.JPG/600px-Mnovosel2_robomongo.JPG" width="600" height="465" /></a></center>
+<p>Port je potrebno promijeniti u neki port koji je slobodan i različit od standardne postavke. U ovom slučaju postavljen je port 14412. Uz sam port, jako je važno definirati i IP adrese koje mogu pristupati bazi podataka. Definirana vrijednost za Mongo jest localhost (127.0.0.1) i na taj način onemogućuje udaljeni pristup bazi podataka. No zbog potreba razvoja aplikacija i mogućnosti udaljenog pristupa u polje bind_ip u config datoteci definiramo listu dozvoljenih IP adresa kojima se omogućuje udaljeni pristup.
+</p><p>Mongo također omogućuje i REST sučelje koje programeru daje način interakcije s bazom pomoću poziva validnih metoda. Tako i neovlaštena osoba može doći do podataka o samoj bazi. U najnovijoj verziji 2.6. Mongo baze opcija <b>rest</b> je podešena na false automatski, no na starijim verzijama to nije slučaj i mora se posebno definirati u config datoteci. <a href="https://github.com/cordazar/crest" class="external text" rel="nofollow">Crest</a>
+</p><p>Osim same konfiguracije baze podataka, na mrežnu sigurnost utječe i konfiguracija samog operacijskog sustava. Na Ubuntu operacijskom sustavu potrebno je koristiti <b>iptables </b>program koji daje mogućnost definiranja pravila za firewall. Pravila imaju nekoliko ‘’chain’’ elemenata kroz koje moraju proći, a ovdje ćemo spomenuti dva najvažnija: INPUT i OUTPUT. Pravila će koristiti politiku koja odbacuje sav promet koji nije eksplicitno dopušten. 
+</p><p>iptables -A INPUT -s  &lt; ip-address&gt; -p tcp --destination-port 14412 -m state --state NEW,ESTABLISHED -j ACCEPT
+</p><p>iptables -A OUTPUT -d   &lt; ip-address&gt; -p tcp --source-port 14412 -m state --state ESTABLISHED -j ACCEPT
+</p><p>Prvo pravilo definira sav ulazni promet prema bazi podataka na portu 14412. U polju &lt;ip-address&gt; potrebno je definirati adresu (ili raspon adresa) koje se odnose na aplikacijski server koji pristupa bazi podataka. Drugo pravilo definira odlazni promet od baze podataka prema aplikacijskom serveru. Postavljanjem ovih jednostavnih pravila uvelike smo poboljšali filtriranje prometa i osigurali pristup bazi podataka samo s ovlaštenih adresa. Kao što je spomenuto, pravila moraju odbaciti sav promet koji nije dopušten. 
+</p><p>Standardna konfiguracija dozvoljava sav promet pa je to potrebno promijeniti u DROP konfiguraciju:
+</p>
+<center>iptables -P INPUT DROPiptables -P OUTPUT DROP</center>
+<p>Nakon prilagodbe iptables konfiguracije, potrebno ju je spremiti trajno jer je konfiguracija inače spremljena samo u privremenu memoriju.
+</p>
+<center>iptables-save &gt; /etc/iptables.conf</center>
+<p>Također, nekonfigurirani MongoDB omogućuje napadaču zlouporabu pomoću REST apija kojeg podržava svaka instanca Mongo baze podataka. Napadač može jednostavno iskoristiti neki od postojećih alata kako bi dobio uvid u strukturu baze, kolekcije i sl. Kao praktični primjer iskoristili smo Node.js/Express razvojni okvir s dodatkom mongo-rest. Mongo rest pruža sljedeća sučelja za dobivanje informacija o bazi podataka:
+</p>
+<ul><li> GET /dbs - Vraća imena svih baza.
+</li><li> GET /&lt;db&gt;/ - Ime svih kolekcija u određenoj bazi
+</li><li> GET /&lt;db&gt;/&lt;collection&gt; - Svi dokumenti u određenoj kolekciji
+</li><li> GET /&lt;db&gt;/&lt;collection&gt;?output=csv - Svi dokumenti u određenoj kolekciji u csv formatu
+</li><li> GET /&lt;db&gt;/&lt;collection&gt;?query=%7B%22isDone%22%3A%20false%7D Dokumenti koje zadovoljaju određeni upit
+</li><li> GET /&lt;db&gt;/&lt;collection&gt;?query=%7B%22isDone%22%3A%20false%7D&amp;limit=2&amp;skip=2 - Mogućnost definiranja limit i skip opcija
+</li><li> GET /&lt;db&gt;/&lt;collection&gt;/id - Vraća dokument s određenim id-em
+</li><li> POST /&lt;db&gt;/&lt;collection&gt; - Sprema određeni dokument u kolekciju
+</li><li> PUT /&lt;db&gt;/&lt;collection&gt;/id - Ažurira dokument s određenm id-em
+</li><li> DELETE /&lt;db&gt;/&lt;collection&gt;/id - Briše dokument s id-em
+</li></ul>
+<h5> <span class="mw-headline" id="SSL_podr.C5.A1ka"> SSL podrška </span></h5>
+<p>Standardna, besplatna inačica Mongo baze podataka nema podršku za SSL. Da bi omogućili podršku, potrebno je instalirati plaćenu Enterprise verziju ili kompajlirati besplatnu inačicu iz source koda i pritom ju konfigurirati da omogućuje spajanje preko SSL-a. Mongo za build sustav koristi SCons koji je potrebno instalirati i pomoću njega kreirati Mongo instancu spremnu za instalaciju. Sam proces zahtjeva dosta radne memorije te neće raditi na većini osnovnih serverskih paketa.[<a href="http://www.scons.org/" class="external text" rel="nofollow">Scons</a>]
+</p><p>Sam certifikat je moguće kreirati (za potrebe testiranja) ili u produkcijskoj verziji koristiti potpisani SSL certifikat (.pem datoteku). Za potrebe ove konfiguracije kreiran je certifikat bez posebne lozinke, trajanja 365 dana:
+</p><p><i>cd /etc/ssl/openssl req -newkey rsa:2048 -new -x509 -days 365 -nodes -out mongodb-cert.crt -keyout mongodb-cert.key</i>
+</p><p>Kako bi sam proces izgradnje instalacijske verzije Mongo bio jednostavniji, kreirali smo bash skriptu koja poziva tražene naredbe
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mnovosel2_ssl_install_skripta.JPG" class="image"><img alt="Mnovosel2 ssl install skripta.JPG" src="../images/thumb/d/d4/Mnovosel2_ssl_install_skripta.JPG/600px-Mnovosel2_ssl_install_skripta.JPG" width="600" height="394" /></a></center>
+<h5> <span class="mw-headline" id="Kontrola_pristupa"> Kontrola pristupa </span></h5>
+<p>Kontrola se pristupa definira na razini kolekcije te omogućuje definiranje dozvoljenih akcija nad pojedinim resursima (kolekcijama).
+</p><p>Kod specifikacije privilegije, administrator sustava može definirati bazu, kolekciju te listu privilegija koje se nad navedenom kolekcijom mogu izvoditi.
+</p><p>Kontrola pristupa definira se kod kreiranja uloge kao polje objekata koje specificiraju privilegije na različitim kolekcijama.
+</p><p>Za svaku kolekciju moguće je dobiti korisnika i dodijeljene mu privilegije pomoću naredbe:
+</p>
+<center><i>db.getUser('demoUser',{showPrivileges:true});</i></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mnovosel2_privileges.JPG" class="image"><img alt="Mnovosel2 privileges.JPG" src="../images/1/12/Mnovosel2_privileges.JPG" width="600" height="719" /></a>'</center>
+<p><br />
+Privilegije su uvijek polje objekata oblika:
+</p><p>privileges: [ { resource: { db: "dbName", collection: "colName" }, actions: [ &quot;find", "update", "insert" ] }, { resource: { db: "dbName", collection: "colName" }, actions: [ &quot;find" ] }]
+</p>
+<h5> <span class="mw-headline" id="Autorizacija_i_autentikacija"> Autorizacija i autentikacija </span></h5>
+<p>MongoDB baza podataka prije određivanja razine pristupa od korisnika zahtjeva da se on autenticira. Nadalje, MongoDB baza podataka podržava više mehanizama autentikacija identiteta korisnika od kojih su neki <i><b>x.509</b></i> certifikati te autentikacija pomoću<i><b> MONGODB-CR</b></i>a. Kod Enterprise verzije postoje još dodatna dva mehanizma, a oni su autentikacija pomoću <i><b>Kerberos</b></i> servisa te <i><b>LDAP</b></i> autentikacija. Također, dodatno se mogu autenticirati<b> </b>članstva krajnjih korisnika prilikom njihovog pristupanja određenom <b>klasteru </b>koji se može održavati između više instanci MongoDB baze podataka.
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="MONGODB-CR"> MONGODB-CR </span></h5>
+<p>Ovaj način autentikacije unutar MongoDB baze podataka predstavlja autentikaciju putem korisničkih imena te lozinki. Ovakva autentikacija predstavlja načelni odnosno zadani oblik autentikacije kod MongoDB baze podataka. 
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="x.509_Certifikati"> x.509 Certifikati </span></h5>
+<p>Jedan od načina autentikacija<b> </b>identiteta korisnika jest korištenjem x.509 certifikata koji se koriste kod SSL pristupa. Umjesto klasičnog načina razmjene korisničkog imena te lozinke korisnika sa samim poslužiteljima se razmjenjuju certifikati. Kako bi certifikat bio ispravan on mora biti izdan i za sam poslužitelj i za krajnjeg klijenta od strane jednog <b>tijela</b>. Kako bi omogućili ovakav način autentikacija<b> </b>potrebno je unutar same konfiguracije MongoDB baze podataka postaviti sljedeće (datoteka je u YAML formatu):
+</p><p><br />
+</p>
+<pre>security:
+  clusterAuthMode: x509
+net:
+  ssl:
+     mode: requireSSL
+     PEMKeyFile: &lt;putanja do SSL certifikata te KEY PEM datoteke&gt;
+     CAFile: &lt;putanja do CA PEM datoteke&gt;
+</pre>
+<p><br />
+Kako bi se autentikacija<b> </b>preko samog x.509 certifikata mogla obaviti potrebno je kreirati novog korisnika same baze podataka koji će odgovarati samom certifikatu krajnjeg klijenta. Prilikom toga sam subjekt certifikata se pretvara u novog korisnika baze podataka. Prilikom ovog postupka autentikacije<b> </b>jedan certifikat uvijek odgovara samo jednom korisniku te nije moguće autenticirati<b> </b>više različitih korisnika baze podataka preko jednog jedinstvenog x.509 certifikata.
+</p>
+<h5> <span class="mw-headline" id="Autorizacija_kori.C5.A1tenjem_korisni.C4.8Dkih_uloga"> Autorizacija korištenjem korisničkih uloga </span></h5>
+<p>Prilikom ovog postupka samom korisniku baze podataka se određuje razina pristupa samim resursima te operacijama nad bazom podataka. MongoDB baza podataka u osnovi nema omogućenu autorizaciju, no ona se može jednostavno uključiti kada je potrebno. Kako bi se sama autorizacija uključila u rad baze podataka potrebno je koristiti --auth ili --keyFile opcije, također autorizacija može biti uključena i korištenjem konfiguracijske datoteke. MongoDB kao baza podataka sadrži nekoliko ugrađenih korisničkih uloga koje se mogu odmah koristiti ili ukoliko je potrebno nove uloge za same korisnike mogu biti kreirane od strane administratora baze podataka. Kod kreiranja novih korisničkih uloga koristi se naredba <i><b>createRole </b></i>dok se kod uklanjanja i ažuriranja koriste naredbe <i><b>dropRole </b></i>te <i><b>updateRole</b></i>. Krajnji korisnik može sadržavati više uloga prilikom čega on ima sve privilegije koje sadrže pojedina od uloga koje su mu dodjeljene. Privilegije koje su dodjeljene korisničkim ulogama sadržavaju određeni resurs te akcije koje su omogućene nad samim danim resursom. Resurs u toj domeni predstavlja sama baza podataka, određena kolekcija ili skup kolekcija podataka unutar same baze itd.. Akcije s druge strane predstavljaju određene metode ili komande koje sam korisnik koji sadrži privilegiju smije izvršavati nad danim resursom.
+</p><p><br />
+Prilikom korištenja metode <i><b>db.createRole()</b></i>, potrebno je definirati naziv nove uloge, privilegije koja će sama uloga imati te uloge od kojih će novokreirana uloga preuzeti privilegije. Primjer korištenja ove metode možemo vidjeti na slici ispod:
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_createrole.JPG" class="image"><img alt="Dpavlovi createrole.JPG" src="../images/thumb/e/e6/Dpavlovi_createrole.JPG/600px-Dpavlovi_createrole.JPG" width="600" height="150" /></a></center>
+<p><br />
+Ukoliko želimo pobrisati određenu korisničku ulogu koristiti ćemo metodu <i><b>db.dropRole() </b></i>te u istu prosljediti naziv uloge koju želimo ukloniti. Primjer korištenja ove metode možemo vidjeti niže: 
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_droprole.JPG" class="image"><img alt="Dpavlovi droprole.JPG" src="../images/thumb/7/7c/Dpavlovi_droprole.JPG/600px-Dpavlovi_droprole.JPG" width="600" height="167" /></a></center>
+<p><br />
+Ako smo krivo definirali korisničku ulogu ili na istu želimo dodati nove privilegije to ćemo postići korištenjem metode <i><b>db.updateRole()</b></i>. U samu metodu potrebno je proslijediti naziv korisničke uloge te objekt koji opisuje nove privilegije koje će sama uloga dobiti ili naslijediti od strane već postojećih korisničkih uloga. Primjer možemo vidjeti ispod:
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_updaterole.JPG" class="image"><img alt="Dpavlovi updaterole.JPG" src="../images/thumb/1/1d/Dpavlovi_updaterole.JPG/600px-Dpavlovi_updaterole.JPG" width="600" height="153" /></a></center>
+<h5> <span class="mw-headline" id="Upravljanje_korisnicima"> Upravljanje korisnicima </span></h5>
+<p>Unutar MongoDB baze podataka kako bi kreirali novog korisnika potrebno je definirati osnovne korisničke podatke te novom korisniku dodjeliti jednu ili više korisničkih uloga ukoliko to želimo. Ako koristimo autentikaciju<b> </b>unutar same baze podataka potrebno je prilikom kreiranja novih korisnika autenticirati<b> </b>se kao administrator korisnika. Ukoliko administrator korisnika ne postoji potrebno ga je kreirati. Administrator korisnika predstavlja korisnika sa ulogom <i><b>userAdminAnyDatabase</b></i> ili <i><b>userAdmin</b></i>. Nadalje, kreiranje novog korisnika se provodi korištenjem <i><b>db.createUser()</b></i> metode. Primjer korištenja ovakve metode možemo vidjeti na slici ispod:
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_addinguser.JPG" class="image"><img alt="Dpavlovi addinguser.JPG" src="../images/thumb/b/b4/Dpavlovi_addinguser.JPG/600px-Dpavlovi_addinguser.JPG" width="600" height="132" /></a></center>
+<p><br />
+Kako se novi korisnik kreira na razini određene zadane baze podataka isti se može autenticirati unutar te zadane baze. Taj postupak možemo vidjeti na slici ispod:
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_connect.JPG" class="image"><img alt="Dpavlovi connect.JPG" src="../images/f/f7/Dpavlovi_connect.JPG" width="600" height="74" /></a></center>
+<p><br />
+Nadalje ukoliko zbog određenih razloga trebamo ukloniti jednog ili više korisnika iz same baze podataka to možemo napraviti pozivom metode <i><b>db.dropUser()</b></i> koja kao argument uzima korisničko ime korisnika kojeg želimo ukloniti iz baze podataka. Primjer korištenja ove metode možemo vidjeti na slici ispod:
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_dropuser.JPG" class="image"><img alt="Dpavlovi dropuser.JPG" src="../images/thumb/d/d4/Dpavlovi_dropuser.JPG/600px-Dpavlovi_dropuser.JPG" width="600" height="86" /></a></center>
+<p><br />
+Ukoliko želimo dohvatit određenog korisnika te podatke vezane uz njega to možemo preko poziva metode <i><b>db.getUser()</b></i> čiji će rezultat dati sve potrebne informacije o samom korisniku te njemu dodjeljenim ulogama i privilegijama. Jedan primjer korištenja ove metode možemo vidjeti ispod:
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_getuser.JPG" class="image"><img alt="Dpavlovi getuser.JPG" src="../images/thumb/d/d4/Dpavlovi_getuser.JPG/600px-Dpavlovi_getuser.JPG" width="600" height="201" /></a></center>
+<h5> <span class="mw-headline" id="Default_Konfiguracija"> Default Konfiguracija </span></h5>
+<p>Pokretanje MongoDB-a uz navođenje konfiguracijske datoteke se vrši pomoću izvršne datoteke mongod ( ili mongos) uz naredbu --config (-f):
+</p>
+<center>mongod --config /etc/mongodb.config ili</center>
+<center>mongos -f /etc/mongodb.conf</center>
+<p><br />
+Konfiguracijska datoteka je u YAML formatu, koji podatke predstavlja u hijerarhijskoj strukturi. YAML format je uveden kao zadani format od verzije 2.6, no podržan je i stari klasični format koji nije strukturiran poput YAML-a. Primjer konfiguracije sa par postavki je vidljiv ispod.
+</p>
+<pre>systemLog: 
+  destination: file 
+  path: "/var/log/mongodb/mongodb.log" 
+  logAppend: true
+storage: 
+  journal: 
+    enabled: true
+processManagement: 
+  fork: true
+net: 
+  bindIp: 127.0.0.1 
+  port: 27017
+</pre>
+<p>U zadanoj konfiguraciji, postoji mnogo postavki koji su predefinirane, te ih je moguće promjeniti.
+</p><p>U systemLog kategoriji moguće je postaviti različite postavke vezane za log datoteku. Format vremena (<i><b>systemLog.timeStampFormat</b></i>) je zadan na lokalno vrijeme u ISO-8601 formatu. Također, postavkom <i><b>systemLog.logAppend</b></i> zadano je da prilikom restartiranja mongod (mongos) procesa log datoteka ne čuva prethodno upisani sadržaj, te je moguće navedenu postavku podesiti na vrijednost <i>True </i>kako bi se novi unosi dodali na kraj postojeće log datoteke.
+</p><p>Zadani TCP port na kojoj MongoDB osluškuje veze je 27017. Moguće ga je podesiti pomoću <i><b>net.port </b></i>postavke. Povezivanje IP adresa je moguće pomoću <i><b>net.bindIp</b></i> postavke koja je zadana na 127.0.0.1. Maksimalni broj istovremenih veza je ograničen na 1000000, te ga je moguće promjeniti postavkom <i><b>net.maxIncomingConnections</b></i>. Po zadanim postavkama uključena je validacija svih zahtjeva od klijenta (<i><b>net.wireObjectCheck</b></i>) kako bi se spriječio nevažeći ili neispravni unos u MongoDB bazu. Zadana distribucija MongoDB-a ne uključuje podršku za SSL, te ukoliko želimo tu opciju uključiti, instalacija se mora lokalno izvršiti sa dodatnim parametrom za SSL nakon čega se u konfiguraciji može podesiti postavka. <i><b>net.ssl.mode</b></i> zajedno sa nizom drugih postavki u kategoriji <i><b>net.ssl</b></i>.
+</p><p>MongoDB instance koriste djeljenu tajnu (engl. shared secret) kako bi autentificirali jednu drugu unutar tzv. sharded clustera ili replica set. Postavkom <i><b>security.keyFile</b></i> navodimo putanju do te datoteke. Za klastersku autentifikaciju zadano se koristi keyFile, no preporučeno je koristiti x.509 certifikat za autentifikaciju, što je moguće navesti pomoću <i><b>security.clusterAuthMode: x509</b></i>. Ukoliko koristimo x509, potrebno je podesiti putanje do <i><b>PEMKeyFile</b></i> te do <i><b>CAFile</b></i> koje prethodno moramo dobaviti. Autorizacija, odnosno kontrola pristupa na temelju uloga (engl. Role-Based Access Control) je zadano isključena i moguće ju je uključiti postavkom <i><b>security.authorization: enabled</b></i>. Pošto MongoDB može izvršavati JavaScript naredbe, moguće ih je i isključiti postavkom <i><b>security.javascriptEnabled: false</b></i>, u tom slučaju naredbe <b>$where</b>, <b>mapReduce</b>, <b>group </b>te mnoge druge su također onemogućene.
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="NOSQL_Injection"> NOSQL Injection </span></h5>
+<p>Kod klasičnih relacijskih baza podataka dolazi do problema SQL Injection-a. Sam SQL Injection predstavlja vrstu napada koja se najčešće koristi protiv aplikacija bogatih podacima koji se ujedno i čuvaju unutar samih baza podataka. Prilikom SQL Injection napada maliciozni SQL kod se dodaje na same krajnje podatke koji se vežu uz SQL upite koje sama baza podataka ili aplikacija izvodi. 
+</p><p><br />
+Prilikom toga napadač može naštetit samim podacima ili doznati određene privatne podatke vlasnika samih baza odnosno aplikacija. S druge strane NoSQL baze podataka poput MongoDB baze podataka ne onemogućuju napade preko SQL Injection-a no omogućuju napade poput NoSQL Injection-a. NoSQL baze podataka sadrže manje ograničenja nego klasične SQL baze podataka pa radi toga NoSQL baze podataka često pružaju razne benificije u obliku skaliranja i performansi. 
+</p><p>NoSQL Injection napadi se mogu izvrišiti unutar proceduralnog jezika umjesto deklarativnog poput SQL-a, pa samim time rizici zbog toga su veći nego kod klasičnih napada putem SQL Injection-a. Pozivi unutar NoSQL baza podataka su često napisani unutar samog programskog jezika aplikacije ili u obliku dogovorenom prema određenoj konvenciji. Maliciozni podaci preko kojih se izvodi sam napad u ovom slučaju mogu proči same validacijske provjere aplikacije poput isključivanja dodatnih HTML znakova poput <i><b>&lt;</b></i>,<i><b> &gt;</b></i>,<i><b>&#160;;</b></i>,<i><b> &amp;</b></i> no i nadalje to ne znači da će doći do uspješnog zaustavljanja napada. Jedan primjer ovdje jest JSON API unutar kojeg specijalni simboli uključuju i sljedeće simbole: <i><b>/</b></i>, <i><b>{</b></i>, <i><b>}</b></i>, <i><b>:</b>. </i>
+</p><p><br />
+Prednost koja se javlja kod korištenja NoSQL baza podataka jest njihova raznovrsnost. Baš zbog te raznolikosti i različitih funkcionalnosti pojedini Injection napadi neće uspjeti na svim različitim NoSQL bazama podataka na isti način. NoSQL Injection napadi se mogu dogoditi unutar različitih područja aplikacije. S druge strane SQL Injection se događa unutar samog engine-a baze dok kod NoSQL Injection-a do napada može doći na razini same aplikacije ali isto tako i na razini baze podataka ovisno o samoj bazi podataka te podatkovnom modelu. Najčešće NoSQL Injection napadi se izvršavaju prilikom parsiranja te validiranja samog poslanog podatka.
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="NoSQLMap"> NoSQLMap </span></h5>
+<p>NoSQLMap predstavlja jedan od alata koji ima mogućnosti testiranja samih NoSQL baza podataka u vezi Injection napada. MongoDB te CouchDB baze podataka predstavljaju baze koje sam alat trenutno cilja prilikom provođenja napada. Kako bi instalirali alat potrebno je isti klonirati sa github repozitorija koji se nalazi na sljedećem linku:
+</p><p><br />
+</p>
+<center><a href="https://github.com/tcstool/NoSQLMap" class="external text" rel="nofollow">NoSQLMap</a></center>
+<p><br />
+Nadalje, potrebno je nakon kloniranja samog github repozitorija pokrenuti instalaciju alata tako da pokrenemo datoteku <i><b>setup.py</b></i>. Nakon instalacije alata pokrenuti ga možemo preko konzole pozivanjem naredbe <i><b>NoSQLMap</b></i>. Kako bi proveli napad na NoSQL bazu podataka moramo prvo podesiti opcije unutar samog alata. Prvo potrebno je definirati IP adresu i port baze podataka koja je cilj napada. Nakon postavljanja IP adrese i porta potrebno je definirati IP adresu lokalne NoSQL baze podataka unutar koje će se spremiti podaci koji budu dohvaćeni sa ciljane baze podataka. Nakon postavljanja ovih parametara potrebno je vratiti se na početni izbornik na kojem ovaj put biramo opciju <i><b>NoSQL DB Access Attacks</b></i> prilikom čega će se provjeriti pristup ciljanoj bazi podataka. Ukoliko se uspješno pristupi udaljenoj bazi podataka mogu se krenuti koristiti dodatne opcije poput kloniranja baza te listanja baza. Alat također omogućuje opciju skeniranja IP range-a ili IP adresa iz datoteke te prilikom toga daje informacije ukoliko je moguće spojiti se na određenu NoSQL bazu koja se nalazi na zadanoj IP adresi. Primjer postupka provođenja napada možemo vidjeti na sljedećim slikama: 
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_startscreen.JPG" class="image"><img alt="Dpavlovi startscreen.JPG" src="../images/thumb/f/f2/Dpavlovi_startscreen.JPG/600px-Dpavlovi_startscreen.JPG" width="600" height="382" /></a></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_sethostip.jpg" class="image"><img alt="Dpavlovi sethostip.jpg" src="../images/thumb/d/dd/Dpavlovi_sethostip.jpg/600px-Dpavlovi_sethostip.jpg" width="600" height="386" /></a></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_setlocalmongoinstance.JPG" class="image"><img alt="Dpavlovi setlocalmongoinstance.JPG" src="../images/thumb/8/88/Dpavlovi_setlocalmongoinstance.JPG/600px-Dpavlovi_setlocalmongoinstance.JPG" width="600" height="385" /></a></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_checkconnection.JPG" class="image"><img alt="Dpavlovi checkconnection.JPG" src="../images/thumb/d/d7/Dpavlovi_checkconnection.JPG/600px-Dpavlovi_checkconnection.JPG" width="600" height="379" /></a></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_options.JPG" class="image"><img alt="Dpavlovi options.JPG" src="../images/thumb/4/41/Dpavlovi_options.JPG/600px-Dpavlovi_options.JPG" width="600" height="132" /></a></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_clonedatabse.JPG" class="image"><img alt="Dpavlovi clonedatabse.JPG" src="../images/thumb/f/f4/Dpavlovi_clonedatabse.JPG/600px-Dpavlovi_clonedatabse.JPG" width="600" height="387" /></a></center>
+<p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dpavlovi_stolendata.JPG" class="image"><img alt="Dpavlovi stolendata.JPG" src="../images/thumb/a/ac/Dpavlovi_stolendata.JPG/600px-Dpavlovi_stolendata.JPG" width="600" height="457" /></a></center>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 303/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7969-0!*!0!!hr!2!edit=0 and timestamp 20190203204258 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnost_MongoDB_baze_podataka.html">http://security.foi.hr/wiki/index.php/Sigurnost_MongoDB_baze_podataka</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnost_MongoDB_baze_podataka" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnost_MongoDB_baze_podataka.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnost_MongoDB_baze_podataka&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnost_MongoDB_baze_podataka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnost_MongoDB_baze_podataka.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_MongoDB_baze_podataka&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_MongoDB_baze_podataka&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnost_MongoDB_baze_podataka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnost_MongoDB_baze_podataka" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnost_MongoDB_baze_podataka" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_MongoDB_baze_podataka&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_MongoDB_baze_podataka&amp;oldid=33285" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 08:04, 20. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 2.331 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnost_MongoDB_baze_podataka", "wgTitle": "Sigurnost MongoDB baze podataka", "wgAction": "view", "wgArticleId": 7969, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33285, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.518 secs. -->			</body>
+</html>

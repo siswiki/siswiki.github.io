@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Zaštita web poslužitelja - Moduli za apache i ostali mehanizmi zaštite - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Zaštita web poslužitelja - Moduli za apache i ostali mehanizmi zaštite</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mw-head">orijentacija</a>,
+					<a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<pre>Ivan Kos Grabar | Jurica Hlevnjak
+</pre>
+<hr />
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Napadi_na_web_poslu.C5.BEitelje"><span class="tocnumber">2</span> <span class="toctext">Napadi na web poslužitelje</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#DoS_napadi"><span class="tocnumber">2.1</span> <span class="toctext">DoS napadi</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#DDoS_napadi"><span class="tocnumber">2.2</span> <span class="toctext">DDoS napadi</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Indirektni_napadi"><span class="tocnumber">2.3</span> <span class="toctext">Indirektni napadi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Ostali_problemi_od_kojih_se_se_potrebno_za.C5.A1tititi"><span class="tocnumber">3</span> <span class="toctext">Ostali problemi od kojih se se potrebno zaštititi</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Lo.C5.A1e_konfiguriran_web_server"><span class="tocnumber">3.1</span> <span class="toctext">Loše konfiguriran web server</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Lo.C5.A1e_programirane_web_aplikacije"><span class="tocnumber">3.2</span> <span class="toctext">Loše programirane web aplikacije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Preporuke_za_za.C5.A1titu_web_poslu.C5.BEitelja_.28NIST_guidelines.29"><span class="tocnumber">4</span> <span class="toctext">Preporuke za zaštitu web poslužitelja (NIST guidelines)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Planiranje_i_upravljanje_web_poslu.C5.BEiteljima"><span class="tocnumber">4.1</span> <span class="toctext">Planiranje i upravljanje web poslužiteljima</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Za.C5.A1tita_operacijskog_sustava_web_poslu.C5.BEitelja"><span class="tocnumber">4.2</span> <span class="toctext">Zaštita operacijskog sustava web poslužitelja</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Instalacija_i_konfiguracija_OS-a"><span class="tocnumber">4.2.1</span> <span class="toctext">Instalacija i konfiguracija OS-a</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Sigurnosno_testiranje"><span class="tocnumber">4.2.2</span> <span class="toctext">Sigurnosno testiranje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Za.C5.A1tita_web_poslu.C5.BEitelja"><span class="tocnumber">4.3</span> <span class="toctext">Zaštita web poslužitelja</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Sigurna_instalacija_web_poslu.C5.BEitelja"><span class="tocnumber">4.3.1</span> <span class="toctext">Sigurna instalacija web poslužitelja</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Konfiguracija_kontrola_pristupa"><span class="tocnumber">4.3.2</span> <span class="toctext">Konfiguracija kontrola pristupa</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Konfiguracija_dopu.C5.A1tenja_za_web_aplikacije"><span class="tocnumber">4.3.3</span> <span class="toctext">Konfiguracija dopuštenja za web aplikacije</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Konfiguracija_direktorija_sigurnog_sadr.C5.BEaja"><span class="tocnumber">4.3.4</span> <span class="toctext">Konfiguracija direktorija sigurnog sadržaja</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#URI_i_kola.C4.8Di.C4.87i"><span class="tocnumber">4.3.5</span> <span class="toctext">URI i kolačići</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Kontrola_web_botova_na_web_poslu.C5.BEitelju"><span class="tocnumber">4.3.6</span> <span class="toctext">Kontrola web botova na web poslužitelju</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-21"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Za.C5.A1tita_web_sadr.C5.BEaja"><span class="tocnumber">4.4</span> <span class="toctext">Zaštita web sadržaja</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Objava_informacija_na_web_stranicama"><span class="tocnumber">4.4.1</span> <span class="toctext">Objava informacija na web stranicama</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Provjera_regulacija_o_prikupljanju_osobnih_informacija"><span class="tocnumber">4.4.2</span> <span class="toctext">Provjera regulacija o prikupljanju osobnih informacija</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Ubla.C5.BEivanje_indirektnih_napade_na_sadr.C5.BEaj"><span class="tocnumber">4.4.3</span> <span class="toctext">Ublaživanje indirektnih napade na sadržaj</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Za.C5.A1tita_aktivnog_sadr.C5.BEaja"><span class="tocnumber">4.4.4</span> <span class="toctext">Zaštita aktivnog sadržaja</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-26"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Kori.C5.A1tenje_autentifikacijske_i_tehnologije_kriptiranja"><span class="tocnumber">4.5</span> <span class="toctext">Korištenje autentifikacijske i tehnologije kriptiranja</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Implementacija_sigurne_mre.C5.BEne_infrastrukture"><span class="tocnumber">4.6</span> <span class="toctext">Implementacija sigurne mrežne infrastrukture</span></a>
+<ul>
+<li class="toclevel-3 tocsection-28"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Struktura_i_kompozicija_mre.C5.BEe"><span class="tocnumber">4.6.1</span> <span class="toctext">Struktura i kompozicija mreže</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Konfiguracija_mre.C5.BEnih_elemenata"><span class="tocnumber">4.6.2</span> <span class="toctext">Konfiguracija mrežnih elemenata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-30"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Administracija_web_poslu.C5.BEitelja"><span class="tocnumber">4.7</span> <span class="toctext">Administracija web poslužitelja</span></a>
+<ul>
+<li class="toclevel-3 tocsection-31"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Logovi"><span class="tocnumber">4.7.1</span> <span class="toctext">Logovi</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Backup_procedure"><span class="tocnumber">4.7.2</span> <span class="toctext">Backup procedure</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Oporavak_od_kompromitiranja"><span class="tocnumber">4.7.3</span> <span class="toctext">Oporavak od kompromitiranja</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Sigurnosno_testiranje_poslu.C5.BEitelja"><span class="tocnumber">4.7.4</span> <span class="toctext">Sigurnosno testiranje poslužitelja</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Remote_administracija"><span class="tocnumber">4.7.5</span> <span class="toctext">Remote administracija</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-36"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Za.C5.A1tita_Apache_web_poslu.C5.BEitelja"><span class="tocnumber">5</span> <span class="toctext">Zaštita Apache web poslužitelja</span></a>
+<ul>
+<li class="toclevel-2 tocsection-37"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Apache_web_poslu.C5.BEitelj"><span class="tocnumber">5.1</span> <span class="toctext">Apache web poslužitelj</span></a></li>
+<li class="toclevel-2 tocsection-38"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Apache_sigurnosni_principi"><span class="tocnumber">5.2</span> <span class="toctext">Apache sigurnosni principi</span></a>
+<ul>
+<li class="toclevel-3 tocsection-39"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Osnovni_sigurnosni_principi"><span class="tocnumber">5.2.1</span> <span class="toctext">Osnovni sigurnosni principi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-40"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Savjeti_za_sigurniji_Apache"><span class="tocnumber">5.3</span> <span class="toctext">Savjeti za sigurniji Apache</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Moduli_za_Apache"><span class="tocnumber">5.4</span> <span class="toctext">Moduli za Apache</span></a>
+<ul>
+<li class="toclevel-3 tocsection-42"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_access"><span class="tocnumber">5.4.1</span> <span class="toctext">mod_access</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_auth"><span class="tocnumber">5.4.2</span> <span class="toctext">mod_auth</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_cband"><span class="tocnumber">5.4.3</span> <span class="toctext">mod_cband</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_chroot"><span class="tocnumber">5.4.4</span> <span class="toctext">mod_chroot</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_ssl"><span class="tocnumber">5.4.5</span> <span class="toctext">mod_ssl</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_filter"><span class="tocnumber">5.4.6</span> <span class="toctext">mod_filter</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_ratelimit"><span class="tocnumber">5.4.7</span> <span class="toctext">mod_ratelimit</span></a></li>
+<li class="toclevel-3 tocsection-49"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_limits"><span class="tocnumber">5.4.8</span> <span class="toctext">mod_limits</span></a></li>
+<li class="toclevel-3 tocsection-50"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_suexec"><span class="tocnumber">5.4.9</span> <span class="toctext">mod_suexec</span></a></li>
+<li class="toclevel-3 tocsection-51"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_log_config"><span class="tocnumber">5.4.10</span> <span class="toctext">mod_log_config</span></a></li>
+<li class="toclevel-3 tocsection-52"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#mod_log_forensic"><span class="tocnumber">5.4.11</span> <span class="toctext">mod_log_forensic</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-53"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Ostali_mehanizmi_za.C5.A1tite"><span class="tocnumber">5.5</span> <span class="toctext">Ostali mehanizmi zaštite</span></a>
+<ul>
+<li class="toclevel-3 tocsection-54"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Apache_u_.22zatvoru.22"><span class="tocnumber">5.5.1</span> <span class="toctext">Apache u "zatvoru"</span></a></li>
+<li class="toclevel-3 tocsection-55"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Sustavi_za_otkrivanje_upada_.28intrusion_detection.29"><span class="tocnumber">5.5.2</span> <span class="toctext">Sustavi za  otkrivanje upada (intrusion detection)</span></a>
+<ul>
+<li class="toclevel-4 tocsection-56"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Mod_Security_.28mod_sec.29"><span class="tocnumber">5.5.2.1</span> <span class="toctext">Mod Security (mod_sec)</span></a></li>
+<li class="toclevel-4 tocsection-57"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#OSSEC"><span class="tocnumber">5.5.2.2</span> <span class="toctext">OSSEC</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-58"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Prakti.C4.8Dni_dio_.3E.3E_Sigurna_instalacija_i_konfiguracija_Apache_Web_Servera"><span class="tocnumber">6</span> <span class="toctext">Praktični dio &gt;&gt; Sigurna instalacija i konfiguracija Apache Web Servera</span></a>
+<ul>
+<li class="toclevel-2 tocsection-59"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Instalacija"><span class="tocnumber">6.1</span> <span class="toctext">Instalacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-60"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Postupak_instalacije"><span class="tocnumber">6.1.1</span> <span class="toctext">Postupak instalacije</span></a></li>
+<li class="toclevel-3 tocsection-61"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Provjera_instalacije"><span class="tocnumber">6.1.2</span> <span class="toctext">Provjera instalacije</span></a></li>
+<li class="toclevel-3 tocsection-62"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Instalacija_modula"><span class="tocnumber">6.1.3</span> <span class="toctext">Instalacija modula</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-63"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Konfiguracija"><span class="tocnumber">6.2</span> <span class="toctext">Konfiguracija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-64"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Postavljanje_korisni.C4.8Dkog_ra.C4.8Duna_na_serveru"><span class="tocnumber">6.2.1</span> <span class="toctext">Postavljanje korisničkog računa na serveru</span></a></li>
+<li class="toclevel-3 tocsection-65"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Postavljanje_dozvola_za_izvr.C5.A1avanje_Apache_binary_datoteka"><span class="tocnumber">6.2.2</span> <span class="toctext">Postavljanje dozvola za izvršavanje Apache binary datoteka</span></a></li>
+<li class="toclevel-3 tocsection-66"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Pode.C5.A1avanje_zadanih_postavki"><span class="tocnumber">6.2.3</span> <span class="toctext">Podešavanje zadanih postavki</span></a>
+<ul>
+<li class="toclevel-4 tocsection-67"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Options_direktiva"><span class="tocnumber">6.2.3.1</span> <span class="toctext">Options direktiva</span></a></li>
+<li class="toclevel-4 tocsection-68"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#AllowOveride_direktiva"><span class="tocnumber">6.2.3.2</span> <span class="toctext">AllowOveride direktiva</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-69"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Omogu.C4.87avanje_CGI_skripti"><span class="tocnumber">6.2.4</span> <span class="toctext">Omogućavanje CGI skripti</span></a></li>
+<li class="toclevel-3 tocsection-70"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Bilje.C5.BEenje_aktivnosti.28logging.29"><span class="tocnumber">6.2.5</span> <span class="toctext">Bilježenje aktivnosti(logging)</span></a></li>
+<li class="toclevel-3 tocsection-71"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Postavljanje_konfiguracijskih_limita_na_serveru"><span class="tocnumber">6.2.6</span> <span class="toctext">Postavljanje konfiguracijskih limita na serveru</span></a></li>
+<li class="toclevel-3 tocsection-72"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Sprje.C4.8Davanje_curenja_informacija.28information_leaks.29"><span class="tocnumber">6.2.7</span> <span class="toctext">Sprječavanje curenja informacija(information leaks)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-73"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-74"><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#Zadu.C5.BEenja_.C4.8Dlanova_tima"><span class="tocnumber">8</span> <span class="toctext">Zaduženja članova tima</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Web server, odnosno web poslužitelj, općenito označava bilo koje računalo ili uređaj na kojem se mogu nalaziti različiti podaci. Web poslužitelj najčešće služi za pohranu web stranica koje nude raznolik sadržaj, drugim riječima, kako bi neka stranica bila dostupna na internetu, potrebno ju je smjestiti na neki web poslužitelj. Kako bi se osigurala funkcionalnost samog web poslužitelja, on mora biti opremljen odgovarajućim softverom koji se brine za pravilnu razmjenu podataka između klijenata i samog poslužitelja. Osim što se pod pojmom web server, odnosno web poslužitelj, smatra računalo ili uređaj na kojem su smješteni podaci, češće se u praksi pod ovim pojmom smatra upravo softver zadužen za pravilan prikaz sadržaja i pravilnu komunikaciju između klijenta i servera. 
+Danas se u praksi koristi dosta veliki broj web poslužitelja, no neki od najpoznatijih i najkorištenijih su:
+</p>
+<ul><li>Apache
+</li><li>Microsoft-IIS
+</li><li>Nginx
+</li><li>LiteSpeed
+</li></ul>
+<p>Na sljedećoj slici, dan je grafički prikaz najviše korištenih web poslužitelja po pojedinoj regiji u svijetu, prema podacima iz kolovoza 2012. godine.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Web_server.jpg" class="image"><img alt="" src="../images/3/3b/Web_server.jpg" width="700" height="375" class="thumbimage" /></a>  <div class="thumbcaption">Najpopularniji web poslužitelji(Izvor:<a href="http://w3techs.com/blog/entry/most_popular_web_servers_by_country" class="external text" rel="nofollow">Most popular web servers by country</a>)</div></div></div></div>
+<p>Iz slike možemo uočiti kako je daleko najpopularniji web poslužitelj Apache, a slijede ga Microsoft-IIS, te Nginx. Apache web poslužitelj nalazi se na preko 60% poslužitelja, dok Microsoft-IIS i Nginx zauzimaju 16.7% te 14.3%. Detaljniji pregled statistike korištenja pojedinog web poslužitelja nalazi se na sljedećoj slici.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:429px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Statistika.png" class="image"><img alt="" src="../images/c/c7/Statistika.png" width="427" height="386" class="thumbimage" /></a>  <div class="thumbcaption">Postotak korištenja pojedinog web servera(Izvor:<a href="http://w3techs.com/technologies/overview/web_server/all" class="external text" rel="nofollow">Usage of web servers for websites</a>)</div></div></div></div>
+<p>Zbog činjenice kako se na poslužiteljima nalaze različiti podaci, koji su često povjerljivi i od velike važnosti za organizaciju, pitanje sigurnosti web poslužitelja od velike je važnosti, te se njemu treba pristupiti sa velikom pažnjom. Prilikom odabira odgovarajućeg web poslužitelja, jedna od najvažnijih stavki je upravo razina sigurnosti koju web poslužitelj pruža. Danas postoji veliki broj različitih oblika napada koji predstavljaju sigurnosne prijetnje na koje je potrebno reagirati odgovarajućim mehanizmima zaštite, te će se u ovom radu obraditi načini zaštite web poslužitelja. 
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 15:30, 13. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Napadi_na_web_poslu.C5.BEitelje"> Napadi na web poslužitelje </span></h2>
+<p>Zaštita web poslužitelja je lakša ukoliko znamo od čega sve se treba braniti.
+</p><p>Napadi na web poslužitelje su brojni i svakodnevni. Opasnosti koje prijete ovise o aplikacijama koje se nalaze na poslužitelju, o operacijskom sustavu ili npr. o konfiguraciji kompletnog sustava.
+</p><p>Ovdje će ukratko biti opisani najčešći, odnosno tipični napadi na web poslužitelje.
+</p>
+<h3> <span class="mw-headline" id="DoS_napadi"> DoS napadi </span></h3>
+<p>DoS ili "denial of service" napad je zapravo jednostavan napad u kojem jedan sustav napada drugi s namjerom da spriječi legitimnog korisnika u korištenju usluga tog sustava na način da zauzme sve resurse koji osiguravaju te usluge.
+</p><p>Resursi koji se napadaju su procesor (CPU), radna memorija (RAM), disk, propusnost (bandwidth) ili povezanost na mrežu.
+</p><p>Posljednja dva resursa su najčešća meta. Dakle, napadom se najčešće želi postići to da računalo nema pristup mreži ili da se umanji propusnost tako da se mreža zatrpa prometom.
+</p><p>DoS uključuje sljedeće napade:
+</p>
+<ul><li>Jamming networks
+</li><li>Flooding service ports
+</li><li>Misconfiguring routers
+</li><li>Flooding mail servers
+</li></ul>
+<h3> <span class="mw-headline" id="DDoS_napadi"> DDoS napadi </span></h3>
+<p>Razlika u odnosu na DoS napad je u tome što se kod DDoS-a za napad koriste brojna računala koja koordinirano pokreću DoS napade protiv jedne ili više meta. Koristeći klijent-server tehnologiju značajno se multiplicira učinkovitost napada.
+Ovakvi napadi su obično prejaki čak i za one najveće web stranice.
+</p><p>DDoS napadi provode se najčešće tako da automatizirane skripte traže ranjivosti i upadaju u takve ranjive sustave te ih stavljaju pod kontrolu jednog master sustava. Ti ranjivi sustavi su kompromitirani te se nazivaju zombi računala (zombies). Takva računala mogu se koristiti "po volji" za napade ili vrlo često za slanja neželjene (spam) pošte.
+</p><p>Na slici se nalazi prikaz scenarija ovakvog napada.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dos_scenarij_jh.gif" class="image"><img alt="" src="../images/a/aa/Dos_scenarij_jh.gif" width="720" height="540" class="thumbimage" /></a>  <div class="thumbcaption">Scenarij DoS napada (Izvor:<a href="http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf" class="external autonumber" rel="nofollow">[1]</a>)</div></div></div></div>
+<p><br />
+Neki od najpoznatijih DDoS napada navedeni su ispod:
+</p>
+<ul><li>FTP bounce back
+</li></ul>
+<pre>Ovaj napad, vezan uz FTP protokol, se koristi za zaobilaženje aplikacijskog vatrozida.
+Napadač postavi datoteku na FTP server koja se zahtjevom šalje unutrašnjeg (internal) serveru. 
+Ako datoteka sadrži maliciozni kod (npr. skripta) može okupirati resurse na internal serveru kao što su memorija ili procesor.
+Napad se može spriječiti regularnim ažuriranjem FTP alata te praćenjem svih nepoznatih prijenosa datoteka na serveru. 
+Rješenje  je i podešavanje vatrozida tako da filtrira sadržaj i blokira određene ekstenzije datotetka.
+</pre>
+<ul><li>Port scanning
+</li></ul>
+<pre>Skeniranje portova radi se tako da napadač koristi softver za sistematsko skeniranje ulaznih točaka računala. 
+Napadač može ostvljati uznemirujuće poruke, saznati lozinke ili mijenjati konfiguracije.
+Obrana od napada je stalno praćenje mreže za što postoje određeni alati.
+</pre>
+<ul><li>Ping flooding
+</li></ul>
+<pre>Ping uključuje slanje signala drugom računalu očekujući odgovor na signal.
+Tako se može saznati koji servisi su na tom računalu dostupni.
+Ping flooding je napad koji šalje tisuće ili milijune "pingova" u sekundi što može čak dovesti i do rušenja npr. cijelog web mjesta.
+Preplavljivanje se, dakle, radi tako da se na računalo žrtve šalju ping paketi.
+Na ovaj napad su ranjivi brojni sustavi.
+</pre>
+<ul><li>Smurf napadi
+</li></ul>
+<pre>Ovaj napad je modifikacija prethodno opisanog napada. 
+Razlika je u tome što se ping upit ne šalje direktno sustavu koji se napada već na broadcast adresu koja sadrži povratnu adresu žrtve.
+Tako čitav niz IP adresa šalje ping zahtjeve na jedno računalo.
+Zaštititi se od ovog napada može tako da se server ne koristi za broadcast prijenos. 
+Ruter mora odbiti takav način prijenosa iz drugih mreža na internetu.
+</pre>
+<ul><li>SYN flooding
+</li></ul>
+<pre>Napadom se iskorištava ranjivost na TCP/IP komunikacijskom protokolu.
+Napadnuto računalo odgovara na zahtjeve sustava koji ne postoji.
+Žrtva šalje pakete i čeka odgovor od sustava koji ima pogrešnu IP adresu.
+Tako se prilikom odgovora sustav preplavi sa zahtjevima. Zahtjev čeka na odgovor dok ne istekne vrijeme (timeout).
+Tijekm čekanja, sustav žrtve je zauzet trošenjem zahtjev i ne može odgovoriti na one legitimne zahtjeve.
+Prilikom uspostavljanja veze, odredište prima SYN paket i šalje odgovor (SYN ACK). 
+Kada se primi odgovor veza je uspostavljena. Tu se radi o TCP trostrukom rukovanju.
+Ako se npr. smanji vrijeme čekanja (timeout) smanjit će se i rizik od ovog napada. 
+Današnji sustavi su uglavnom otporni na ove napade. 
+</pre>
+<ul><li>IP fragmentation/overlapping
+</li></ul>
+<pre>IP paketi mogu se smanjiti na način da se paket podijeli na više manjih paketa.
+Ako su paketi dovoljno mali, ruteri kao ni intrusion detection sustavi ne mogu identificirati sadržaj paketa
+te ih propuštaju dalje bez provjere. Kada paketi stignu te se na drugoj strani slože u jedan, izazvan je
+buffer overflow ili preljev spremnika.
+Sustav će se najvjerojatnije ponovno pokrenuti (reboot), ali postoji i vjerojatnost da neće biti nikakvog efekta.
+</pre>
+<ul><li>IP sequence prediction
+</li></ul>
+<pre>Napadač može uspostaviti vezu s računalom žrtve i saznati slijedni broj IP paketa.
+S tim brojem, napadač može kontrolirati sustav žrtve na način da uvjerava sustav da komunicira s nekim drugim sustavom.
+Napad je sprječen na način da danas operacijski sustavi organiziraju te brojeve nasumično pa ih je teško predvidjeti.
+</pre>
+<ul><li>SNMP napad
+</li></ul>
+<pre>Većina mrežnih uređaja poodržava SNMP protokol i obično je aktivan po default postavkama. 
+Ovim napadom moguće je mapirati mrežu ili pratiti i usmjeravati promet.
+Najbolji način obrane je korištenje SNMP3 protokola jer on kriptira lozinke i podatke. 
+Ipak prelazak na SNMP3 nije lagan pošto gotovo svi mrežni uređaji (ruteri, hubovi, switchevi, printeri, serveri) koriste SNMP.
+</pre>
+<p>Pregled mogućih napada na web poslužitelje ovdje je dan ukratko jer je dobro vidjeti kakvi sve napadi postoje, odnosno što sve administratori web poslužitelja moraju uzeti u obzir prilikom instalacije i konfiguracije web poslužitelja.
+Ovdje nije dan pregled svih napada, već onih vrlo čestih.
+</p><p>Više o temi napada na web poslužitelje može se naći sljedećim linkovima:
+</p>
+<ul><li><a href="http://www.techiwarehouse.com/engine/21b0d480/Types-of-Attacks-on-Web-Servers" class="external free" rel="nofollow">http://www.techiwarehouse.com/engine/21b0d480/Types-of-Attacks-on-Web-Servers</a>
+</li><li><a href="http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf" class="external free" rel="nofollow">http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf</a>
+</li><li><a href="http://en.wikipedia.org/wiki/Denial-of-service_attack" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Denial-of-service_attack</a>
+</li><li><a href="http://www.ibm.com/developerworks/web/library/wa-secureweb/" class="external free" rel="nofollow">http://www.ibm.com/developerworks/web/library/wa-secureweb/</a>
+</li></ul>
+<p>Isto tako prilikom zaštite web poslužitelja u obzir treba uzeti i napade na web aplikacije pošto se one nalaze na web poslužiteljima, te ih se također može tretirati kao napade na sam web poslužitelj.
+Takvi napadi su nama dobro poznati. Riječ je naravno o SQL injection napadima, XSS (cross-site scripting) napadima i sličnim napadima.
+Nešto više se o tim napadima može naći na sljedećim  linkovima:
+</p>
+<ul><li><a href="http://en.wikipedia.org/wiki/Web_application_security" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Web_application_security</a>
+</li><li><a href="https://www.owasp.org/index.php/Category:Attack" class="external free" rel="nofollow">https://www.owasp.org/index.php/Category:Attack</a>
+</li></ul>
+<h3> <span class="mw-headline" id="Indirektni_napadi"> Indirektni napadi </span></h3>
+<p>Ove napade karakterizira uzimanje informacija korisncima kao što su npr. brojevi kreditnih kartica. Korisnika se obično preusmjeri automatski na neku malicioznu web stranicu koja se čini kao dobra, tj. legitimna stranica.
+Na taj način mogu se ukrasti informacije o identitetu korisnika koje mogu dovesti do krađe identiteta. Uspješni napad kompromitira pouzdanost web mjesta.
+</p><p>Indirektni napadi javljaju se u dva oblika:
+</p>
+<ul><li>Phishing
+</li></ul>
+<pre>Napadači koriste socijalni inženjering za prijevare.
+Korisnika se navodi da se prijavi na lažnu stranicu te mu se uzimaju korisnički podaci.
+</pre>
+<ul><li>Pharming
+</li></ul>
+<pre>Kompromitiraju se DNS serveri ili korisnički hostovi za preusmjeravanje korisnika na maliciozne stranice slične legitimnim.
+</pre>
+<p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 18:26, 16. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Ostali_problemi_od_kojih_se_se_potrebno_za.C5.A1tititi"> Ostali problemi od kojih se se potrebno zaštititi </span></h2>
+<p>Danas postoje razvijeni programi koji automatski traže ranjivosti web aplikacija i web poslužitelja te su aktivni stalno. Poznato je da se od velike većine napada moguće obraniti. 
+Ako gradimo web aplikacije, mora nam biti jasno da postoje napadi koji mogu našu aplikaciju srušiti, izmijeniti ili preuzeti. Moramo imati na umu napade koji mogu manipulirati našim podacima, tj. podacima korisnika naše web aplikacije. Napadi kao što su SQL injection, XSS i slični napadi na web aplikacije vrlo jednostavno se mogu izbjeći pravilnim programiranjem aplikacije.
+</p><p>Isto tako, većina napada na same web poslužitelje može se izbjeći njihovim pravilnim podešavanjem. Administratori su sami vrlo često krivi za  sigurnosne propuste. Prilikom instalacije, ažuriranja ili konfiguracije, vrlo često se ostavljaju predefinirane (default) postavke. Kada su u pitanju web poslužitelji, najčešće je problem konfiguracija. Sustavi složeni po tim predefiniranim postavkama vrlo su česta meta napada.
+</p>
+<h3> <span class="mw-headline" id="Lo.C5.A1e_konfiguriran_web_server"> Loše konfiguriran web server </span></h3>
+<p>Kako bi poslužitelj mogao odgovoriti na brojne zahtjeve istovremeno, potrebno je pokrenuti veliki broj procesa koji na te zahtjeve odgovaraju. Ako se ostave predefinrane postavke, broj zahtjeva na koje će poslužitelj odgovoriti može biti prevelik ili premali. Npr. u Apache serveru taj broj je 256, što znači da server ne može pokrenuti više od 256 procesa. Problem na koji treba paziti je i memorija s kojom treba postupati racionalno jer nije neograničena.
+Obično poslužitelji ne postižu ekstremne kapacitete jer je dobra praksa ograničiti broj procesa koji mogu biti pokrenuti. Ako se taj broj postavi previsoko vrlo je moguće da će se događati prekidi.
+Isto tako treba pažljivo konfigurirati i promet prema serveru, te pristup pojedinim direktorijima servera. Vrlo je važna i konfiguracija vatrozida.
+Vrlo česti su propusti upravo u navedenim slučajevima. Takvi propusti, a to su samo neki, napadačima uvelike olakšavaju posao.
+</p>
+<h3> <span class="mw-headline" id="Lo.C5.A1e_programirane_web_aplikacije"> Loše programirane web aplikacije </span></h3>
+<p>Kako danas gotovo svaka web aplikacija u pozadini ima bazu podataka ili više njih, problem nastaje upravo u komunikaciji s bazom. Ako je aplikacija loše programirana, napadač može lako doći do podataka iz baze podataka ili čak preuzeti kontrolu nad bazom, a samim time i nad aplikacijom.
+Ako npr. web stranica komunicira s bazom na svaki zahtjev za stranicom pa čak i onda kada to uopće nije potrebno, već postoji problem koji će napadač znati iskoristiti. Pogotovo ako se radi o web mjestu koje posjećuje veliki broj korisnika. Ovdje treba ograničiti broj upita na bazu.
+Ovdje vidimo da je problem najčešće u povezivanju na bazu podataka, a znamo da je to najvažniji dio aplikacije od same autentifikacije korisnika pa sve do njegove odjave sa sustava.
+</p><p>Iako veća web mjesta imaju baze podataka na odvojenim database serverima, loše programirane web aplikacije mogu uzrokovati probleme i web serveru i serveru baze podataka.
+Zaštita web aplikacija vrlo je važna u kontekstu zaštite web poslužitelja.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 18:55, 17. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Preporuke_za_za.C5.A1titu_web_poslu.C5.BEitelja_.28NIST_guidelines.29"> Preporuke za zaštitu web poslužitelja (NIST guidelines) </span></h2>
+<p>NIST ili National Institute of Standards and Technology <a href="http://www.nist.gov/index.html" class="external autonumber" rel="nofollow">[5]</a> objavio je publikaciju u kojoj su navedene preporuke i savjeti vezani uz sigurnost web poslužitelja (zadnje izdanje 2007. godine).
+</p><p>Publikacija se može naći na sljedećem linku:
+<a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external text" rel="nofollow">NIST preporuke za zaštitu web poslužitelja</a>
+</p><p>Publikacija je vrlo cijenjena te se smatra najboljom publikacijom za ovo područje. Svi koji se na neki način bave web poslužiteljima trebali bi pročitati ovu publikaciju.
+</p><p>Primarna namjena ovog dokumenta je pomoć organizacijama u instaliranju, konfiguraciji i održavanju web poslužitelja. Detaljnije su opisane preporuke vezane uz:
+</p>
+<ul><li>sigurnost, instalaciju i konfiguraciju operacijskog sustava
+</li><li>sigurnost, instalaciju i konfiguraciju web poslužitelja
+</li><li>postavljanja primjerenih mehanizama za zaštitu mreže kao što su  vatrozidi, ruteri i sustavi za otkrivanje upada
+</li><li>održavanje sigurne konfiguracije aplikacija kroz ažuriranja i nadopune, sigurnosna testiranja, praćenje i logove, sigurnosne kopije podataka
+</li><li>korištenje, objavljivanje i zaštita informacija i podataka na pažljiv i sistematičan način
+</li></ul>
+<p>Važno je naglasiti da je dokument primarno napisan za organizacije kao što su državni odjeli i agencije na području SAD-a. Međutim, preporuke vrijede za sve sustave.
+</p><p>Također, preporuke vrijede i za Apache i za IIS web poslužitelj, kao i za ostale.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Planiranje_i_upravljanje_web_poslu.C5.BEiteljima"> Planiranje i upravljanje web poslužiteljima </span></h3>
+<p>Planiranje osigurava da je web poslužitelj sigurniji što je više moguće. Provodi se na samom početku životnog ciklusa sustava kako bi se maksimizirala sigurnost i smanjili troškovi. 
+</p><p>Planiranje web poslužitelja uključuje sljedeće:
+</p>
+<ul><li>identificirati namjenu web poslužitelja
+<ul><li>koje informacije će biti pohranjene na poslužitelju
+</li><li>koje informacije će se obrađivati i prenositi kroz poslužitelj
+</li><li>koji su sigurnosni zahtjevi za te informacije
+</li><li>hoće li informacije biti pohranjene na nekom drugom poslužitelju (backend database)
+</li><li>koje su ostale usluge koje če poslužitelj osiguravati
+</li><li>koji su sigurnosni zahtjevi za te dodatne usluge
+</li><li>koji su zahtjevi za kontinuitet usluga osiguranih od strane poslužitelja
+</li><li>gdje će na mreži biti lociran poslužitelj
+</li></ul>
+</li></ul>
+<ul><li>identificirati mrežnu uslugu koja će biti osigurana na poslužitelju, supplied kroz sljedeće protokole
+<ul><li>http
+</li><li>https
+</li><li>icp (internet caching protocol)
+</li><li>htcp (hyper text caching protocol
+</li><li>wccp (web cache coordination protocol)
+</li><li>socks
+</li><li>database service (ODBC)
+</li></ul>
+</li></ul>
+<ul><li>identificirati sav mrežni softver, klijentski i serverski, koji će biti instaliran na poslužitelju
+</li></ul>
+<ul><li>identificirati korisnike ili kategorije korisnika poslužitelja
+</li></ul>
+<ul><li>odrediti privilegije koje će koja kategorija korisnika imati
+</li></ul>
+<ul><li>odrediti kako će se upravljati web poslužiteljem (lokalno, remotely iz unutarnje mreže ili vanjske mreže)
+</li></ul>
+<ul><li>odlučiti kako će korisnici biti autentificirani i kako će podaci biti zaštićeni
+</li></ul>
+<ul><li>odrediti primjereni pristup informacijama
+</li></ul>
+<ul><li>odrediti koje aplikacije na serveru će pratiti zahtjeve
+</li></ul>
+<ul><li>raditi usko s proizvođačem u fazi planiranja
+</li></ul>
+<ul><li>odabrati operacijski sustav uzimajući u obzir sljedeće
+<ul><li>mogućnost ograničenja admin/root razine aktivnosti na samo autorizirane korisnike
+</li><li>mogućnost kontrole pristupa podacima na serveru
+</li><li>mogućnost onemogućavanja nepotrebnih mrežnih servisa
+</li><li>mogućnost kontrole pristupa raznim programima, kao što su CGI skripte i pluginovi
+</li><li>mogućnost logiranja određenih aktivnosti
+</li><li>host-based firewall
+</li></ul>
+</li></ul>
+<ul><li>planirati lokaciju web poslužitelja razmatrajući sljedeće
+<ul><li>primjereni sigurnosno-zaštitni mehanizmi (brave, kartice, zaštitari, kamere itd.)
+</li><li>primjerene kontrole okoline (vlaga i temperatura)
+</li><li>rezervni izvor energije i kako dugo osigurava energiju
+</li><li>redundantna veza na internet (barem 2 ISP)
+</li><li>lokacija je poznata po prirodnim katastrofama ili je izvan takvog područja
+</li></ul>
+</li></ul>
+<ul><li>osoblje uključeno u planiranje web poslužitelja, implementaciju i administraciju
+</li></ul>
+<ul><li>primjerena upravljačka praksa je kritična za održavanja sigurnog web poslužitelja
+</li></ul>
+<ul><li>sistemski sigurnosni plan za poboljšanje zaštite resursa
+</li></ul>
+<ul><li>osiguravanje ljudskih resursa za adekvatno izvođenje određenih funkcija
+</li></ul>
+<ul><li>korištenje alternativne platforme za web poslužitelj
+<ul><li>Trusted Operating System (TOS)
+</li><li>Web server Appliances
+</li><li>Pre-Hardened OS
+</li><li>Virtualizirane platforme
+</li></ul>
+</li></ul>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_operacijskog_sustava_web_poslu.C5.BEitelja"> Zaštita operacijskog sustava web poslužitelja </span></h3>
+<p>Prvi korak u zaštiti web poslužitelja je kaljenje ili očvršćivanje OS-a. Mnogi sigurnosni problemi se mogu izbjeći ako je operacijski sustav na kojem leži web poslužitelj dobro konfiguriran. Gotovo svi web poslužitelji funkcioniraju na višenamjenskim operacijskim sustavima. Predefinirane postavke postavljene od strane proizvođača nisu najbolje rješenje i problem su za sigurnost. Razlog je u tome što proizvođači o tome niti ne razmišljaju.
+</p><p>Preporuka je pet potrebnih koraka za održavanje OS-a sigurnim:
+</p>
+<pre>1) planiranje instalacije i postavljanja OS-a i drugih komponenti na poslužitelj (računalo)
+2) nadopune i ažuriranja OS-a
+3) očvršćivanje i konfiguracija OS-a za adekvatnu sigurnost
+4) instalacija i konfiguracija dodatnih sigurnosnih kontrola, ukoliko je to potrebno
+5) testiranje OS-a za osiguranje da su prethodni koraci odrađeni dobro
+</pre>
+<h4> <span class="mw-headline" id="Instalacija_i_konfiguracija_OS-a"> Instalacija i konfiguracija OS-a </span></h4>
+<p><b>Nadopune i ažuriranja</b>
+</p><p>Kad je OS instaliran, potrebno ga je ažurirati i nadograditi kako bi se ispravile sve poznate ranjivosti. Sve ranjivosti koje su poznate je potrebno ukloniti prije nego se na njega postavi web poslužitelj.
+</p><p><b>Onemogućavanje nepotrebnih servisa i aplikacija</b>
+</p><p>Samo u idealnom slučaju, web poslužitelj je jednonamjenski host. Prilikom konfiguracije potrebno je onemogućiti sve osim onoga što je prijekopotrebno. Dakle, potrebno je isključiti sve servise i aplikacije, i uključiti samo one koje su potrebne web poslužitelju. Preostale je nakon toga potrebno i obrisati. Ako je moguće u nekom slučaju, dobro je instalirati minimalnu konfiguraciju OS-a i zatim isključiti navedeno. 
+</p><p>Neke od servisa i aplikacija koje je dobro isključiti su:
+</p>
+<ul><li>file and printer sharing
+</li><li>wireles networking
+</li><li>remote control and remote acces
+</li><li>directory service
+</li><li>email service
+</li><li>language compilers and libraries
+</li><li>system development tools
+</li><li>system and network management tools and utilities (uključujući SNMP protokol)
+</li></ul>
+<p><br />
+<b>Konfiguracija autentifikacije korisnika</b>
+</p><p>Potrebno je limitirati broj autoriziranih korisnika koji mogu konfigurirati OS na mali broj (administratori i webmasteri).
+</p><p>Kako bi se osigurala primjerena autentifikacija korisnika potrebno je pratiti sljedeće korake:
+</p>
+<ul><li>ukloniti ili onemogućiti nepotrebne predefinirane račune i grupe
+</li><li>onemogućiti račune koji nisu interaktivni
+</li><li>stvoriti korisničke grupe
+</li><li>stvoriti korisničke račune
+</li><li>provjeriti police lozinki organizacije (duljina, složenosti, ponovna iskoristivost, sigurnost)
+</li><li>konfigurirati računalo kako bi se spriječilo pogađanje lozinki
+</li><li>instalirati i konfigurirati ostale sigurnosne mehanizme za poboljšanje autentifikacije
+</li></ul>
+<p><br />
+<b>Konfiguracija kontrole resursa</b>
+</p><p>Pažljivim postavljanjem kontrole pristupa i odbijanjem neautoriziranog pristupa, administratori poslužitelja mogu smanjiti sigurnosne „breaches“. Ako se npr. odbije pravo čitanja datoteke može se zaštititi informacija, ako se odbije pisanje može se očuvati integritet informacija. Limitiranje prava na pokretanje programa samo na administratore može spriječiti korisnike u promjeni konfiguracija i slično.
+</p><p><b>Instalacija i konfiguracija dodatnih sigurnosnih kontrola</b>
+</p><p>OS često ne uključuje sve sigurnosne kontrole, servise ili aplikacije. Stoga je potrebno odabrati, instalirati i konfigurirati dodatni softver kako bi se nadopunile nedostajuće kontrole. To su najčešće anti-malware softver, aplikacijski vatrozid, sustav za otkrivanje i prevenciju upada, softver koji ažurira drugi softver i slično.
+</p>
+<h4> <span class="mw-headline" id="Sigurnosno_testiranje"> Sigurnosno testiranje </span></h4>
+<p>Svako periodično testiranje je važno u identificiranju ranjivosti. Primjerene metode za testiranje OS-a uključuju skeniranje ranjivosti i penetracijska testiranja. To se obično provodi automatskim skenerima. 
+</p><p>Penetracijsko testiranje je testiranje procesa dizajniranih za kompromitiranje mreže koristeći alate i metodologije napadača. Uključuje iterativno identificiranje i eksploataciju najslabijih područja mreže kako bi pristupilo ostatku mreže, kompromitirajući cjelokupnu sigurnost mreže.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_web_poslu.C5.BEitelja"> Zaštita web poslužitelja </span></h3>
+<p>Zaštita web poslužitelja počela je zaštitom operacijskog sustava koji se vrti u pozadini. Kada je OS instaliran i siguran, može početi instalacija web server softvera. Instalacija se mora vršiti u okruženju u kojem nema povezanosti na mrežu (Internet). Razlog je taj što se server može kompromitirati u svega nekoliko minuta ako je povezan na mrežu, a da nije do kraja konfiguriran.
+</p>
+<h4> <span class="mw-headline" id="Sigurna_instalacija_web_poslu.C5.BEitelja"> Sigurna instalacija web poslužitelja </span></h4>
+<p>Potrebno je instalirati samo one servise koji su potrebni web serveru. Svaka nepotrebna aplikacija, servis ili skripta mora biti uklonjena odmah.
+</p><p>Tijekom instalacije preporučaju se sljedeći koraci:
+</p>
+<ul><li>instalirati web server softver na „dedicated host“ ili „dedicated guest“ OS ako se koristi virtualizacija
+</li><li>uključiti sve nadopune i ažuriranja
+</li><li> kreirati fizički disk ili logičku particiju kako bi se odvojio sadržaj od OS-a i aplikacija servera
+</li><li>ukloniti ili onemogućiti sve nepotrebne servise koji se kreiraju prilikom instalacije servera a nisu potrebni
+</li><li> ukloniti ili onemogućiti sve nepotrebne račune za prijavu kreirane tijekom instalacije servera
+</li><li>ukloniti svu dokumentaciju proizvođača
+</li><li>ukloniti primjere ili testne datoteke, uključujući skripte i kod
+</li><li>primijeniti primjereni sigurni predložak
+</li><li>rekonfigurirati HTTP service banner
+</li></ul>
+<h4> <span class="mw-headline" id="Konfiguracija_kontrola_pristupa"> Konfiguracija kontrola pristupa </span></h4>
+<p>OS i web poslužitelj najčešće omogućuju postavljanje prava pristupa za individualne datoteke, uređaje ili druge komunikacijske resurse. Vrlo je važno postaviti ista prava kako na OS-u tako i na web poslužitelj softveru. Ono na što se posebno pazi su ograničavanje pristupa web server aplikacija podskupu računalnih resursa te ograničavanje pristupa korisnicima kroz dodatne kontrole pristupa gdje su potrebne detaljnije razine kontrole pristupa.
+</p><p>Kontrola pristupa može se također iskoristiti za ograničenje resursa prilikom DOS napada.
+</p><p>Obično se kontrola pristupa postavlja za sljedeće:
+</p>
+<ul><li>aplikacije i konfiguracijske datoteke
+</li><li>datoteke vezane direktno sa sigurnosnim mehanizmima
+</li><li>log datoteke i system audit datoteke
+</li><li>sustavske datoteke i njegove konfiguracijske datoteke
+</li><li>datoteke web sadržaja
+</li></ul>
+<h4> <span class="mw-headline" id="Konfiguracija_dopu.C5.A1tenja_za_web_aplikacije"> Konfiguracija dopuštenja za web aplikacije </span></h4>
+<p>Kada se neka aplikacija pokreće na serveru važno je da se ona pokreće samo za nekog individualnog korisnika ili za neku grupu. Novi korisnici i grupe trebaju biti nezavisni od ostalih korisnika i grupa, te jedinstveni.
+</p><p>Preporuke su sljedeće:
+</p>
+<ul><li>servisi se trebaju pokretati kao korisnički sa ograničenim privilegijama (ne kao root ili admin)
+</li><li>web sadržaj se može čitati, ali servisi ne smiju pisati po njemu
+</li><li>procesi ne smiju pisati u direktorije u kojima je pohranjen javni sadržaj
+</li><li>samo autorizirani procesi mogu pisati po web sadržaju
+</li><li>web aplikacije mogu pisati u log datoteke, ali log datoteke se ne smiju čitati od strane tih aplikacija (njima smije pristupiti samo root/admin proces)
+</li><li>privremene datoteke kreirane na serveru moraju biti ograničene u specificiran i zaštićen poddirektorij
+</li><li>pristup privremenim datotekama smije imati samo proces koji ih je kreirao
+</li></ul>
+<p>Također je važno da aplikacije ne može spremati ili čitati datoteke izvan specificirane strukture datoteka. Treba osigurati da se direktorijima i datotekama ne može pristupati izvan specificiranog stabla direktorija. Datotekama se ne smije pristupiti niti preko URL-a te datoteke.
+</p>
+<h4> <span class="mw-headline" id="Konfiguracija_direktorija_sigurnog_sadr.C5.BEaja"> Konfiguracija direktorija sigurnog sadržaja </span></h4>
+<p>Poveznice ili prečaci na direktorije koji se nalaze na serveru ne smiju postojati na javnom dijelu servera, odnosno u javnom dijelu stabla direktorija.  Ako je moguće treba onemogućiti mogućnost da se prate ti linkovi. Također, log datoteke ili konfiguracijske datoteke moraju biti izvan specificiranog stabla direktorija.
+</p><p>Kako bi se ograničio pristup određenim direktorijima treba pratiti sljedeće korake:
+</p>
+<ul><li>odrediti jedan tvrdi disk ili logičku particiju za web sadržaj i uspostaviti povezane poddirektorije za web sadržaj uključujući npr. slike, ali ne i skripte i druge programe
+</li><li>definirati jedinstvenu strukturu direktorija za sve vanjske skripte i programe koji se izvršavaju kao dio web sadržaja
+</li><li>onemogućiti pokretanje skripti koje nisu pod kontrolom admin ili root računa
+</li><li>onemogućiti korištenje simboličnih poveznica
+</li><li>definirati cjelokupnu matricu pristupa sadržaju, identificirati koji direktorij ili datoteka treba biti ograničen, a kojem se može pristupiti
+</li></ul>
+<h4> <span class="mw-headline" id="URI_i_kola.C4.8Di.C4.87i"> URI i kolačići </span></h4>
+<p>URI je zanimljiv iz razloga što s njim dolazi i nekoliko sigurnosnih pitanja. Npr. URI se pamti u logovima web preglednika, proxy logovima ili HTTP povezanim logovima trećih strana. Stoga se ne preporuča sakrivanje osjetljivih podataka kao što su korisničko ime i lozinka u URI. Brojni napadači i maliciozni botovi traže osjetljive URI podatke kroz izvorni kod.
+</p><p>Kolačići sadrže informacije koje se mogu zapisati na korisnički disk kad korisnik posjeti stranicu. Namjena kolačića je prepoznavanje korisnika od strane servera. Poznate su ranjivosti koje su vezane uz kolačiće (cookies). Stoga kolačići ne smiju sadržavati podatke koje napadač može direktno iskoristiti.
+</p>
+<h4> <span class="mw-headline" id="Kontrola_web_botova_na_web_poslu.C5.BEitelju"> Kontrola web botova na web poslužitelju </span></h4>
+<p>Web botovi (crawleri ili pauci) su aplikacije korištene za prikupljanje podataka, analizu i indeksiranje web sadržaja. Koriste se i zbog brojnih drugih namjena.
+</p><p>Botovi mogu biti izazov za administratore jer serveri sadrže direktorije koji ne trebaju biti indeksirani, neke stranice ne žele biti dostupne kroz tražilice, botovi mogu otkriti informacije koje su trebale ostati tajna. Ipak, moguće je utjecati na ponašanje većine botova. 
+</p><p>Ako se želi limitirati akcije botova, potrebno je kreirati tekstualnu datoteku robots.txt u root ili admin direktoriju. To je jednostavna datoteka koja treba sadržavati neke ključne riječi i povezane informacije. Ključne riječi pokazuju botovima koje dijelove treba isključiti iz pretraživanja. 
+Npr. ključna riječ User-agent je ime bota, a Disallow kaže botu koji dijelovi su isključeni (npr. User-agent:* Disallow:/images/ Disallow:/banners/ itd. ). Moguće je i isključiti sve botove (User-gent:* Disallow:/).
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_web_sadr.C5.BEaja"> Zaštita web sadržaja </span></h3>
+<p>Zaštita web sadržaja je druga komponenta zaštite web poslužitelja. Prva se odnosi na zaštitu aplikacija i softvera koji se nalazi u pozadini, uključujući sam web poslužitelj softver i operacijski sustav. 
+</p><p>Sigurnost sadržaja često se zanemaruje. Ipak važne su dvije komponente zaštite sadržaja.
+Prva je da se vlasnički i klasificirani podaci, te osjetljive informacije ne stavljaju kao javno dostupne na poslužitelj, ako nisu poduzete mjere zaštite (kriptiranje i autentifikacija). Druga je izbjegavanje kompromisa uzrokovanih načinom kako se sadržaj obrađuje na poslužitelju.
+</p>
+<h4> <span class="mw-headline" id="Objava_informacija_na_web_stranicama"> Objava informacija na web stranicama </span></h4>
+<p>Često se ne vodi briga o sadržaju koji se objavljuje na webu. 
+</p><p>Preporuka je da se sljedeći sadržaj ne postavlja na stranice:
+</p>
+<ul><li>klasificirani zapisi
+</li><li>unutrašnja pravila i procedure osoblja
+</li><li>osjetljive i vlasničke informacije
+</li><li>osobne informacije osoblja i korisnika
+</li><li>brojevi telefona i mail adrese osoblja
+</li><li>raspored i lokacije osoblja
+</li><li>osjetljive informacije vezane uz nacionalnu sigurnost
+</li><li>istraživački zapisi
+</li><li>financijski zapisi
+</li><li>medicinski zapisi
+</li><li>procedure informacijske sigurnosti
+</li><li>informacije o ranjivostima
+</li><li>sadržaj zaštićen autorskim pravima
+</li></ul>
+<h4> <span class="mw-headline" id="Provjera_regulacija_o_prikupljanju_osobnih_informacija"> Provjera regulacija o prikupljanju osobnih informacija </span></h4>
+<p>Ovdje je nemoguće zaobići zakone kojima je propisano koje informacije se smiju prikupljati o korisnicima. Zakoni, regulacije i preporuke su važne i treba ih se držati. Preporuča se traženje savjeta od stručnjaka iz tog područja. Ako organizacija želi prikupljati podatke, mora biti svjesna promjena legalnih, regulatornih i ugovornih zahtjeva. Agencije koje prikupljaju podatke trebaju to raditi u sukladno konstituciji i zakonu.
+</p><p>Prihvatljiva praksa je upoznati individualca o informacijama koje se o njemu prikupljaju, uključujući opise podataka koji se prikupljaju, s kime se dijele i što će se činiti s njima.
+Informacije mogu biti sljedeće: ime, e-mail adresa, adresa, broj telefona, SSN, informacije o financijama.
+</p>
+<h4> <span class="mw-headline" id="Ubla.C5.BEivanje_indirektnih_napade_na_sadr.C5.BEaj"> Ublaživanje indirektnih napade na sadržaj </span></h4>
+<p>Indirektni napadi nisu direktni napadi na web poslužitelj ili sadržaj, već uključuju načine prikupljanja informacija od korisnika koji posjete maliciozne web stranice.
+</p><p>Tipovi ovih napada su phishing i pharming. 
+O ovim napadima više se može pročitati na ovom <a href="http://www.pharming-phishing.com/" class="external text" rel="nofollow">linku</a>
+</p><p>Phishing se ne može spriječiti u potpunosti tehničkim mjerama zaštite na web poslužitelju, ali neke mjere koje nisu tehničke prirode mogu smanjiti broj takvih napada:
+</p>
+<ul><li>uvjeravanje korisnika na opasnost takvog napada i usmjeriti ih u to kako te napade izbjeći
+<ul><li>ne odgovaranjem na poruke koje dolaze kao popup prozori
+</li><li>ne treba vjerovati telefonskim brojevima u takvim porukama
+</li><li>koristiti protuvirusnu zaštitu, ant-spyware i vatrozid
+</li><li>ne slati osobne informacije putem e-maila
+</li><li>pregledavati kreditne kartice i bankovne račune regularno i tražiti kopije izvještaja
+</li></ul>
+</li><li>validiranjem službene komunikacije personaliziranjem maila i identificiranjem informacija tako da ih zna samo organizacija i korisnik
+</li><li>korištenjem digitalnog potpisa
+</li><li>validacijom sadržaja unutar web aplikacije
+</li><li>korištenjem token-bazirane autentifikacije
+</li></ul>
+<p>Pharming se također može ublažiti raznim tehnikama:
+</p>
+<ul><li>korištenjem nove verzije DNS softvera s uključenim posljednjim nadopunama
+</li><li>instaliranjem DNS zaštitnih mehanizama na serveru
+</li><li>praćenjem domena i registracija sličnih domena
+</li><li>pojednostavljenjem strukture i broja naziva domena
+</li><li>korištenjem sigurne konekcije (https) za prijavu
+</li><li>provjerom rezolucija hostova trećih strana
+</li><li>korištenje pre-shared tajni
+</li></ul>
+<h4> <span class="mw-headline" id="Za.C5.A1tita_aktivnog_sadr.C5.BEaja"> Zaštita aktivnog sadržaja </span></h4>
+<p>Odnosi se na dinamičke web stranice sa interaktivnim elementima. Povezano je s tehnologijama kao što su ActiveX, Java, VBScript, JavaScript, AJAX.
+</p><p>Potrebno je posebno razmatrati zaštitu aktivnog sadržaja pošto postoje brojne ranjivosti web tehnologija na strani klijenata. Tu treba u obzir uzeti prethodno navedene tehnologije i njihove nedostatke.
+</p><p>Ranjivosti na strani servera se očituju u sljedećem:
+</p>
+<ul><li>pristup bazi podataka
+</li><li>aplikacije e-trgovine/e-government
+</li><li>chat sobe
+</li><li>diskusijske grupe
+</li></ul>
+<p>Problem su tehnologije kao što su CGI, ASP.NET, PHP, Java EE i slične.
+</p><p>U ovom dijelu vidljivo je da se razmatra zaštita web aplikacija. Ovdje se u sve probleme pojedine tehnologije neće ulaziti.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kori.C5.A1tenje_autentifikacijske_i_tehnologije_kriptiranja"> Korištenje autentifikacijske i tehnologije kriptiranja </span></h3>
+<p>Koriste se brojne tehnologije za identifikaciju i autentifikaciju korisnika od kojih se neke baziraju na kriptografskim funkcijama. Kriptiranje se koristi za zaštitu informacija koje se prenose mrežom ili su pohranjene negdje. Bez kriptiranja svatko može lako saznati sadržaj poruke koja se prenosi čime se krši integritet i pouzdanost podataka.
+</p><p><b>Zahtjevi za autentifikaciju i kriptiranje</b>
+</p><p>Periodički je potrebno ispitati sve informacije dostupne na poslužitelju. Za informacije koje zahtijevaju neku razinu autentifikacije, potrebno je odrediti tehnologije i metode koje će osigurati primjerenu razinu autentifikacije i enkripcije.
+</p><p><b>Autentifikacija temeljena na adresi</b>
+</p><p>Najjednostavnijji mehanizam autentifikacije podržan na većini poslužitelja. Kontrola pristupa se temelji na IP adresi. Osjetljiva je na napade uključujući IP spoofing i DNS poisoning. Korištenje ove autentifikacije nije preporučljivo osim ako se radi o minimalnim sigurnosnim zahtjevima.
+</p><p><b>Osnovna autentifikacija</b> 
+</p><p>Koristi strukturu direktorija web poslužitelja. Za pristup datotekama istog direktorija obično su iste privilegija pristupa. Osnovna ili basic autentifikacija je podržana od standardnih preglednika te korisna za zaštitu informacija od malicioznih botova, ali za neke češće i sofisticiranije napade nije dovoljna.
+</p><p><b>Digest autentifikacija</b>
+</p><p>Pojavila se u verziji 1.1 HTTP protokola. Koristi tzv. challenge-response mehanizam za autentifikaciju. Korisniku koji je pitan za korisničke podatke se šalje nonce (broj korišten samo jednom) ili neka druga vrijednost. Informacije koje korisnik unosi se sažimaju kriptografskim hash funkcijama koje koriste i nonce. Ovo štiti od sniff napada, ali i malicioznih botova.
+</p><p><b>SSL/TLS</b>
+</p><p>SSL i TLS osguravaju i server i klijent autentifikaciju i enkripciju komunikacija. Više se o ovim protokolima može pročitati <a href="http://technet.microsoft.com/en-us/library/cc784450(v=ws.10).aspx" class="external text" rel="nofollow">ovdje</a>.
+</p><p>SSL i TLS dopuštaju korisniku potvrdu identiteta poslužitelja. Omogućuje klijentu standardne tehnike kriptografije. Dopušta web poslužitelju da potvrdi identitet korisnika provjeravajući certifikat.
+SSL/TLS imaju i nedostatke, ali su prepoznati kao najrašireniji protokoli koji osiguravaju siguran HTTPS prijenos podataka između klijenta i servera.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Implementacija_sigurne_mre.C5.BEne_infrastrukture"> Implementacija sigurne mrežne infrastrukture </span></h3>
+<p>Mrežna infrastruktura kao podrška web poslužitelju je kritični dio sigurnosti web poslužitelja. Mrežna infrastruktura je prva linija obrane između Interneta i web poslužitelja, što naravno uvelike ovisi o konfiguraciji infrastrukture. Međutim, sama konfiguracija mreže nije dovoljna za zaštitu web poslužitelja.
+</p><p>U ovom dijelu razmatraju moraju se razmotriti sve one mrežne komponente koje mogu podržati i štititi web poslužitelj kao dio cjelokupne njegove sigurnosti.
+</p>
+<h4> <span class="mw-headline" id="Struktura_i_kompozicija_mre.C5.BEe"> Struktura i kompozicija mreže </span></h4>
+<p>Uređaji koji kontroliraju mrežni promet između mreža su ruteri i vatrozidi. Time oni mogu štititi web poslužitelj od ranjivosti u TCP/IP-u i time mogu smanjiti sigurnosna pitanja vezana uz nesigurne aplikacije i OS.
+U mnogim situacijama, kompozicija i struktura mreže je prva kritična odluka koja djeluje na sigurnost poslužitelja jer određuje kako elementi mrežne infrastrukture štite poslužitelj.
+</p><p><b>Nepreporučljivi mrežni raspored</b>
+</p><p>Ako se npr. poslužitelj nalazi u unutrašnjoj produkcijskoj mreži, odnosno ako se nalazi u istoj mreži u kojoj su i unutarnji korisnici i poslužitelji, postoji glavna slabost tog rasporeda koja izlaže unutarnju mrežu i njezine komponente dodatnom riziku. Ako u ovom slučaju napadač kompromitira poslužitelj, imat će pristup cijeloj unutrašnjoj mreži.
+Također, ne preporuča se ni raspored u kojem se poslužitelj stavlja ispred vatrozida ili rutera koji osiguravaju IP filtriranje. U tom slučaju zaštite praktički ni nema.
+</p><p><b>Demilitarizirana zona</b>
+</p><p>Demilitarizirana zona opisuje mrežni segment  kao neutralnu zonu između neke mreže (npr. organizacijske mreže) i Interneta. Sprječava vanjskog korisnika u dobivanju pristupa unutrašnjoj mreži (intranetu). Ova zona umanjuje rizik lociranja web poslužitelja u unutrašnjoj mreži ili njegovog izlaganja Internetu. DMZ pruža najviše beneficija s najmanje rizika za neku organizaciju.
+</p><p>Postoji veći broj DMZ konfiguracija.
+</p><p>Stvaranje DMZ uključuje stavljanje vatrozida između graničnog rutera i unutrašnje mreže, i stvaranje novog mrežnog segmenta kojem se može pristupiti samo kroz DMZ uređaj. Web poslužitelj se nalazi na novom segmentu, zajedno s ostalim komponentama infrastrukture i poslužiteljima koji ne moraju biti dostupni izvana.  Spomenuti granični ruter često može  biti i osnovni vatrozid.
+</p><p>Sljedeća slika prikazuje primjer jednostavne DMZ koristeći ruter s listom kontrole pristupa.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:839px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Simple_single_firewall_jh.png" class="image"><img alt="" src="../images/d/d9/Simple_single_firewall_jh.png" width="837" height="359" class="thumbimage" /></a>  <div class="thumbcaption">Jednostavni firewall (Izvor:<a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external text" rel="nofollow">NIST</a>)</div></div></div></div>
+<p>DMZ kakva je prikazana iznad predstavlja pristup s malim troškovima. Nedostatak postoji u pogledu ovog graničnog rutera. Nešto bolji pristup dodaje još jedan vatrozid između Interneta i DMZ kao što je prikazano na slici ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:732px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Two_firewall_jh.png" class="image"><img alt="" src="../images/f/f9/Two_firewall_jh.png" width="730" height="396" class="thumbimage" /></a>  <div class="thumbcaption">Dvostruki firewall (Izvor:<a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external text" rel="nofollow">NIST</a>)</div></div></div></div>
+<p>Dvostruki vatrozid povećava sigurnost jer može imati složeniji i moćniji skup sigurnosnih pravila.
+Ako je pristup s dva vatrozida preskup, dobro rješenje je postojanje tzv. „service leg“ DMZ. U toj konfiguraciji vatrozid ima nekoliko (npr. 3) mrežnih sučelja od kojih je jedno zakopčano na granični ruter, drugo na unutrašnju mrežu, treće na DMZ kao što se vidi na slici ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:642px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Service_leg_jh.png" class="image"><img alt="" src="../images/9/9e/Service_leg_jh.png" width="640" height="393" class="thumbimage" /></a>  <div class="thumbcaption">Service leg DMZ (Izvor:<a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external text" rel="nofollow">NIST</a>)</div></div></div></div>
+<p>Prednosti DMZ sa stajališta sigurnosti:
+</p>
+<ul><li>web poslužitelj je bolje zaštićen i promet se može pratiti
+</li><li>kompromitiranje web poslužitelja nije direktna prijetnja unutrašnjoj mreži
+</li><li>mogu se osigurati veće kontrole jer se može kontrolirati sav promet na i od servera.
+</li><li>DMZ se može konfigurirati i optimizirati za podršku i zaštitu web poslužitelja
+</li></ul>
+<p><b>Vanjski (outsourced) hosting</b>
+</p><p>Može se donijeti odluka da se hosting web poslužitelja preda vanjskoj trećoj strane (ISP-u ili npr. vladinoj agenciji).  Tako se poslužitelj neće nalaziti u mreži organizacije.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:487px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Outsorcedwebserver_hosting_jh.png" class="image"><img alt="" src="../images/b/b1/Outsorcedwebserver_hosting_jh.png" width="485" height="530" class="thumbimage" /></a>  <div class="thumbcaption">Outsourced web server hosting (Izvor:<a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external text" rel="nofollow">NIST</a>)</div></div></div></div>
+<p><b>Upravljana mreža (managed network)</b>
+</p><p>Moguće je postaviti vezu između web poslužitelja i ostalih komponenti na način da veza ide kroz odvojenu mrežu poznatu kao managed network, umjesto da veza ide kroz standardnu mrežu organizacije. Ako se ta mreža koristi, svaki host koristi dodatno mrežno sučelje kojim se povezuje na tu mrežu. Isto tako, taj host neće moći slati promet između managed sučelja i bilo kojeg drugog mrežnog sučelja. Arhitektura efektivno izolira mreže. Korist se vidi u tome što se omogućuje zaštita komponenti od napada (npr. DDoS-a).
+</p>
+<h4> <span class="mw-headline" id="Konfiguracija_mre.C5.BEnih_elemenata"> Konfiguracija mrežnih elemenata </span></h4>
+<p>Kada se poslužitelj smjesti na mrežu, potrebno je konfigurirati sve elemente mrežne infrastrukture. Primarni elementi su vatrozidi, ruteri, IDS i IPS (intrusion detection i prevention sustavi), switch, load balanseri i reverse proxy. Svaki element ima svoju ulogu u cjelokupnoj strategiji zaštite web poslužitelja.
+</p><p><b>Ruter/vatrozid (firewall)</b>
+</p><p>Postoji više vrsta vatrozida. Npr. osnovni vatrozid je zapravo ruter koji osigurava pristup IP paketima. Najjači vatrozidi su vatrozidi aplikacijskih slojeva ili proxy vatrozidi koji mogu razumjeti i filtrirati web sadržaj.
+Iako se smatra da ruter i vatrozid mogu eliminirati sav rizik i zaštititi protiv miskonfiguracije web poslužitelja, to nažalost nije tako.  I vatrozid i ruter su također ranjivi.
+</p><p>Moderni ruteri mogu se ponašati kao mrežni i transportni filteri, tj. osnovni vatrozid. Ruter može osigurati filtriranje sadržaja bazirano na sljedećem:
+</p>
+<ul><li>izvornoj IP adresi
+</li><li>destinacijskoj IP adresi
+</li><li>vrsti prometa
+</li><li>TCP/UDP broju porta
+</li></ul>
+<p>Snaga rutera očituje se najčešće u njegovoj cijeni.
+</p><p>Aplication layer vatrozidi smatraju se najsigurnijim i imaju veliki broj prednosti kao što su mogućnosti:
+</p>
+<ul><li>sposobnost logiranja (logging)
+</li><li>sposobnost filtriranja
+</li><li>sukladnost protokola
+</li><li>validacija ponašanja protokola
+</li><li>jednostavna konfiguracija
+</li><li>sposobnost korisničke autentifikacije
+</li><li>integriranu detekciju napada temeljenu na potpisu
+</li></ul>
+<p><b>Intrusion detection i prevention sustavi (IDS i IPS)</b>
+</p><p>To su aplikacije koje prate događaje koji se javljaju u sustavu ili mreži i analiziraju ih kao znakove potencijalnih incidenata. Oba sustava nude vrlo slične sposobnosti pa se često nazivaju IDPS. Kada takav sustav detektira potencijalni incident obavještava administratora kroz poruke putem konzole, maila, stranice ili nekog drugog mehanizma.
+</p><p>Dva su najvažnija tipa IDPS-a. To su host baziran i mrežno bazirani tip.
+</p><p>IDPS mora biti konfiguriran za:
+</p>
+<ul><li>praćenje mrežog prometa na i od servera
+</li><li>praćenje promjena na kritičnim datotekama
+</li><li>praćenje resursa sustava
+</li><li>blokiranje IP adresa koje napadaju mrežu
+</li><li>obavještavanje
+</li><li>otkrivanje raznih skeniranja i napada
+</li><li>bilježenje logova
+</li><li>hvatanje paketa
+</li><li>ažuriranje novih potpisa napada
+</li></ul>
+<p><b>Switch</b>
+</p><p>Switch je uređaj koji osigurava vezu između dva ili više hostova lociranih na istom mrežnom segmentu. Često uključuje specifične sigurnosne postavke. Npr. vrlo često je da switch ima mogućnost minimiziranja rizika napada ARP spoofinga i ARP trovanja. Naravno, ako switch ima te mogućnosti potrebno ih je uključiti prema dokumentaciji proizvođača.
+</p><p><b>Load balancers</b>
+</p><p>Distribuiraju HTTP zahtjeve kroz višestruke poslužitelje, dopuštajući povećanje kapaciteta web stranica dodavajući dodatne poslužitelje. Ponašaju se kao virtualni serveri, primajući HTTP zahtjeve na web stranice. Ono što se karakteristika je to da load balancer pokušava osigurati da svaki server prima podjednaki  broj zahtjeva. Ima i mogućnost praćenja servera.
+</p><p><b>Revers proxies</b>
+</p><p>To je uređaj koji se nalazi između poslužitelja i njegovog klijenta. Tok podataka je povratni za razliku od tradicionalnog (forward) proxy-ja. Može služiti kao dodatna zaštita poslužitelja. Može sadržavati sljedeće funkcionalnosti:
+</p>
+<ul><li>ubrzavače kriptiranja
+</li><li>sigurnosne gateway-e koji prate promet
+</li><li>filtre sadržaja
+</li><li>autentifikacijske gateway-e
+</li></ul>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Administracija_web_poslu.C5.BEitelja"> Administracija web poslužitelja </span></h3>
+<p>Nakon što je web poslužitelj u potpunosti razvijen, administratori ga moraju kontinuirano sigurno održavati. U ovom dijelu dane su preporuke za sigurnu administraciju web poslužitelja vezane uz glavne aktivnosti kao što su rukovanje i analiziranje log datoteka, izvođenje regularnih backupova (izrada sigurnosnih kopija), oporavak od kompromitiranja, regularno testiranje sigurnosti i provođenje remote administracije na siguran način. 
+</p>
+<h4> <span class="mw-headline" id="Logovi"> Logovi </span></h4>
+<p>Bilježenje logova je temelj sigurnosni stav. Bilježenjem ispravnih podataka u log datoteke i praćenje tih zapisa je vitalno za svaki sustav. Osim osnovnih logova kao što su mrežni i sustavski, često se provode i oni dodatni.
+</p><p>Log zapisi osiguravaju sljedeće:
+</p>
+<ul><li>uzbuna na sumnjive aktivnosti koje zahtijevaju daljnja istraživanja
+</li><li>praćenje aktivnosti napadača
+</li><li>pomoć pri oporavku sustava
+</li><li>pomoć u poslije događajnom istraživanju
+</li><li>potrebe informacije za legalne postupke
+</li></ul>
+<p>Administratori moraju pratiti sljedeće instrukcije kako bi konfigurirali i omogućili logove:
+</p>
+<pre>1. Identificiranje sposobnosti bilježenje logova web poslužitelja
+   - transfer log
+   - error log
+   - agent log
+   - referrer log
+2. Identificiranje dodatnih zahtjeva za bilježenje logova
+3. Preporučene opće konfiguracije logova
+4. Pregled i zadržavanje log datoteka
+5. Alate za automatiziranu analizu log datoteka
+</pre>
+<h4> <span class="mw-headline" id="Backup_procedure"> Backup procedure </span></h4>
+<p>Očuvanje integriteta podataka je jedna od najvažnijih funkcija poslužitelja. Dva su osnovna principa kojih se treba držati prilikom izrade sigurnosnih kopija: regularni backup podataka i OS-a i održavanje odvojenih zaštićenih kopija sadržaja.
+</p><p><b>Strategije i police izrade sigurnosnih kopija</b>
+</p><p>Kopije se izrađuju iz legalnih i financijskih razloga. Sve organizacije trebaju izraditi police sigurnosnih kopija podataka. 
+</p><p>Tu treba uključiti utjecaj tri faktora:
+</p>
+<ul><li>legalni zahtjevi (zakoni i regulacije, zahtjevi sporova)
+</li><li>zahtjevi misije (ugovorni, dobra praksa, kritičnost podataka za organizaciju)
+</li><li>organizacijske preporuke i police
+</li></ul>
+<p><b>Održavanje test poslužitelja</b>
+</p><p>Donosi obično nove troškove, ali nudi brojne prednosti:
+</p>
+<ul><li>osigurava platformu za testiranje novih nadopuna (patches, service packs)
+</li><li>osigurava razvojnu platformu za webmastere i administratore
+</li><li>osigurava platformu za konfiguracijske testove
+</li></ul>
+<p><b>Održavanje autoritativne kopije web sadržaja</b>
+</p><p>Svaka organizacija treba održavati kopije sadržaja web poslužitelja. 
+</p><p>Za zaštitu i osiguravanje tih kopija treba pratiti sljedeće zahtjeve:
+</p>
+<ul><li>zaštita kopija od neautoriziranog pristupa
+</li><li>postavljanje primjerenih procedura za ažuriranje kopija
+</li><li>uspostava procesa kopiranja kopija na glavni poslužitelj
+</li><li>uključiti procedure za povrat kopija
+</li><li>razmotriti automatska ažuriranja periodički
+</li></ul>
+<h4> <span class="mw-headline" id="Oporavak_od_kompromitiranja"> Oporavak od kompromitiranja </span></h4>
+<p>Prvi korak oporavka je izrada i dokumentiranje potrebnih polica i procedura za odgovaranje na  uspješne upade prije samog upada.
+</p><p>Primjer koraka koje je dobro provoditi nakon otkrivanja uspješnog upada:
+</p>
+<ul><li>prijava incidenta
+</li><li>izoliranje kompromitiranog sustava
+</li><li>konzultiranje s upravljačkim, legalnim i zakonskim tijelima
+</li><li>istraživanje sličnih upada koji su kompromitirali druge sustave
+</li><li>analiziranje upada
+</li><li>vraćanje sustava
+</li><li>testiranje sustava
+</li><li>ponovno povezivanje na mrežu
+</li><li>praćenje sustava i mreže za ponovne pokušaje upada
+</li><li>dokumentiranje naučene lekcije
+</li></ul>
+<h4> <span class="mw-headline" id="Sigurnosno_testiranje_poslu.C5.BEitelja"> Sigurnosno testiranje poslužitelja </span></h4>
+<p>Potrebno je testove provoditi periodički. Bez periodičkih testova nema saznanja da su trenutne mjere dobre. Postoje razne tehnike testiranja. Najčešće je skeniranje ranjivosti. Penetracijsko testiranje se također široko koristi.
+</p><p>Preporuka je, dakle:
+</p>
+<ul><li>skeniranje ranjivosti
+<ul><li>identificiranje aktivnih hostova na mreži
+</li><li>identificiranje aktivnih portova na hostovima i  traženje ranjivih
+</li><li>identificiranje aplikacija i bannera
+</li><li>identificiranje OS-a
+</li><li>identificiranje ranjivosti povezanih s otkrivanjem OS-a i aplikacija
+</li></ul>
+</li><li>penetracijsko testiranje
+<ul><li>testiranje mreže koristeći iste metodologije i alate koje korite i napadači
+</li><li>provjera postojanja ranjivosti
+</li><li>demonstracija kako se ranjivosti mogu eksploatirati iterativno i dobiti veći pristup
+</li><li>demonstrirati kako ranjivosti nisu samo teoretske
+</li><li>osigurati realnost potrebnu za imenovanje sigurnosnih pitanja
+</li><li>dopustiti testiranje procedura i uključivanje ljudskog elementa te socijalni inženjering
+</li></ul>
+</li></ul>
+<h4> <span class="mw-headline" id="Remote_administracija"> Remote administracija </span></h4>
+<p>Ovo se preporuča samo ako su pažljivo razmotreni svi rizici. Ako organizacija smatra da je potrebno remote administriranje ili promjena sadržaja, potrebno je pratiti sljedeće korake koji osiguravaju da je sadržaj postavljen na najsigurniji mogući način:
+</p>
+<ul><li>korištenje jakih autentifikacijskih mehanizama
+</li><li>ograničenje hostova koji će biti korišteni za remote administriranje
+</li><li>korištenje sigurnih protokola (SSH, HTTPS, SSL, IPSec)
+</li><li>uključiti koncept najmanje privilegije
+</li><li>ne dopustiti remote administraciju kroz vatrozid osim ako se ne koristi npr. VPN
+</li><li>promjena svih predefiniranih računa i lozinka
+</li><li>ne namještati dijeljenje datoteka na unutrašnju mrežu sa web poslužitelja
+</li></ul>
+<p>(Izvor: <a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external free" rel="nofollow">http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 17:12, 17. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Za.C5.A1tita_Apache_web_poslu.C5.BEitelja"> Zaštita Apache web poslužitelja </span></h2>
+<h3> <span class="mw-headline" id="Apache_web_poslu.C5.BEitelj"> Apache web poslužitelj </span></h3>
+<p>Kao što je navedeno u uvodu, Apache web poslužitelj danas je najpopularniji web poslužitelj te se koristi za pogon velike većine servera te za rukovanje različitim web sadržajem. Apache web poslužitelj pojavio se 1995. godine, a prvu verziju je izradio Robert McCool zajedno sa svojim suradnicima, te je tako nastala prva verzija Apache HTTP poslužitelja. Nakon samog izlaska Apache web poslužitelja, njegova popularnost naglo je porasla, te je i tu popularnost zadržao i do danas. Prednosti koje su korisnici Apache web poslužitelja prepoznali su jednostavnost, efikasnost te činjenica što je Apache web poslužitelj besplatan, odnosno open source. Također, jedna od najbitnijih značajki Apache web poslužitelja, koja je ujedno i najznačajnija za njegove korisnike je razina sigurnosti koju on pruža, a ta razina sigurnosti dostignuta je konstantnim postupcima ispravaka i optimizacije, te se u pravilu, nova verzija Apache web poslužitelja izdaje samo kako bi se uklonili sigurnosni propusti, no njih je vrlo mali broj.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:406px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apache_logo1.jpg" class="image"><img alt="" src="../images/8/8b/Apache_logo1.jpg" width="404" height="227" class="thumbimage" /></a>  <div class="thumbcaption">Apache web poslužitelj logo(Izvor:<a href="http://www.techcentral.ie/20223/risk-from-unprotected-status-pages-on-apache-servers" class="external autonumber" rel="nofollow">[2]</a>)</div></div></div></div>
+<p>Za Apache web poslužitelj važna je i 2002. godina, kada izlazi 2.0 inačica, koja je donijela mnoga poboljšanja, a neka od tih su:
+</p>
+<ul><li> Threading - podrška za rad na računalima sa više procesora
+</li><li> Apache API - poboljšanje efikasnosti i fleksibilnosti poslužitelja
+</li><li> IPv6 Support - podrška za internet protokol verzije 6
+</li><li> Support for non-Unix platforms - više pažnje posvetilo se prvenstveno Windows okruženju
+</li><li> Simplified configuration - naredbe za podešavanje web servera pojednostavljene su
+</li></ul>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 15:29, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Apache_sigurnosni_principi"> Apache sigurnosni principi </span></h3>
+<p>Sigurnost se može definirati na razne načine. 
+</p><p>Jedan način je definiranje sigurnosti kroz tri cilja:
+</p>
+<ul><li>pouzdanost
+</li><li>integritet
+</li><li>dostupnost
+</li></ul>
+<p>Još jedan način uključuje pogled na sigurnost kroz procese koji se sastoje od faza:
+</p>
+<ul><li>procjena
+</li><li>zaštita
+</li><li>otkrivanje
+</li><li>odgovor
+</li></ul>
+<p>Ovdje se prvenstveno ne misli na tehničku zaštitu, već onu taktičku razinu zaštite.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Osnovni_sigurnosni_principi"> Osnovni sigurnosni principi </span></h4>
+<p>Ovo su principi koje svaka osoba koja se bavi sigurnošću mora poznavati:
+</p>
+<ul><li>Pregrađivanje
+</li></ul>
+<pre>Prema principu podmornice, pregrađivanje čuva cijelu podmornicu od curenja vode u nekom dijelu.
+Ako podmornica ne bi bila pregrađena, cijela podmornica bi se ispunila vodom.
+Dakle, misli se na kontrolu štete. Ideja je da se cijeli dizajn sastoji od brojnih malih povezanih dijelova.
+</pre>
+<ul><li>Korištenje načela najmanje privilegije
+</li></ul>
+<pre>Svaki dio sustava treba imati svoje privilegije za izvođenje svog posla i nikakve druge privilegije.
+Ako je jedan dio sustava kompromitiran, šteta će biti ograničena.
+</pre>
+<ul><li>Provođenje obrane u dubinu
+</li></ul>
+<pre>Ovdje se misli na postojanje višestrukih nezavisnih slojeva sigurnosti.
+</pre>
+<ul><li>Skrivanje informacija
+</li></ul>
+<pre>Informacije treba čuvati skrivene od napadača čim više je moguće i time napadaču otežati posao što je više moguće.
+</pre>
+<ul><li>Sigurno podbacivanje
+</li></ul>
+<pre>Ako neka komponenta sustava padne, treba osigurati da podbaci tako da se promijeni u još sigurnije stanje.
+Npr. ako sustav za prijavu padne, onda treba odbiti sve moguće pokušaje prijave u sustav.
+</pre>
+<ul><li>Osiguravanje najslabije karike
+</li></ul>
+<pre>Sustav je jak koliko je jaka najslabija karika. Potrebno je razumijeti sve dijelove sustava i fokusirati se na one slabije dijelove.
+</pre>
+<ul><li>Prakticiranje jednostavnosti
+</li></ul>
+<pre>Pošto se ljudi teško nose sa složenošću (7 koncepata), teško je razumijeti stvari koje su složene.
+Jednostavne sustave lako je konfigurirati, provjeravati i koristiti.
+</pre>
+<p><b>Koraci sigurnosnog procesa</b>
+</p><p>Ako uzmemo u obzir ona početna definiranja sigurnosti može se doći do sedam praktičnih koraka koji pokrivaju sigurnosni proces:
+</p><p>1. Razumijeti okolinu i sigurnosne zahtjeve
+</p><p>2. Uspostaviti sigurnosne police i dizajn sustava
+</p><p>3. Razviti operacijske procedure
+</p><p>4. Pažljivo konfigurirati
+</p><p>5. Provoditi održavanje i redovito ažurirati
+</p><p>6. Pratiti
+</p><p>7. Nositi se s napadima
+</p><p><br />
+<b>Apache pogled na aplikacijsku strukturu</b>
+</p><p>Osim Apache pogleda, na aplikacijsku strukturu možemo gledati s korisničkog stajališta i stajališta mreže.
+</p><p>Apache pogled na sustav je vrlo složen. Uključuje sve komponente koje poznajemo, ali ne razmišljamo o njima na taj način.
+</p><p>To su:
+</p>
+<ul><li>sam Apache
+</li><li>Apache moduli
+</li><li>Apache konfiguracija
+</li><li>CGI skripte
+</li><li>Aplikacije
+</li><li>Konfiguracija aplikacija
+</li><li>Podaci aplikacija na datotečnom sustavu
+</li><li>Podaci u bazama podataka
+</li><li>Vanjski servisi
+</li><li>Datoteke sustava
+</li><li>System binaries
+</li></ul>
+<p>Sljedeća slika najbolje islustrira ove navedene komponente.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:683px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apache_view_jh.png" class="image"><img alt="" src="../images/e/e3/Apache_view_jh.png" width="681" height="381" class="thumbimage" /></a>  <div class="thumbcaption">Apache pogled (Izvor: Ristić, I. Apache Security)</div></div></div></div>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 15:26, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Savjeti_za_sigurniji_Apache"> Savjeti za sigurniji Apache </span></h3>
+<p>Prilikom postavki Apache web poslužitelja dobro se držati nekih sugestija. Neke su općenite, dok su neke vezane upravo za Apache.
+</p><p>Savjeti se detaljnije mogu pročitati na web stranicama Apache poslužitelja: <a href="http://httpd.apache.org/docs/2.2/misc/security_tips.html" class="external text" rel="nofollow">Apache savjeti</a>
+</p><p>Ovdje je dan kraći pregled najvažnijih sigurnosnih savjeta od Apache tima:
+</p>
+<ul><li>Redovito ažuriranje
+</li></ul>
+<pre>Apache Community stalno brine o novim sigurnosnim pitanjima, stoga se često objavljuju nove verzije i dopune.
+Ipak, potrebno je ažurirati redovito i ostali softver te operacijski sustav.
+</pre>
+<ul><li>Dopuštenja na root direktoriju poslužitelja
+</li></ul>
+<pre>Apache se pokreće kao root korisnik, i prebacuje na drugog korisnika kako je definirano u User direktivi.
+Potrebno je brinuti o zaštiti pristupa od strane ne-root korisnika.
+U datoteke smije pisati samo onaj tko ima root privilegiju, ali isto mora vrijediti za datoteke koje se nalaze 
+u direktorijima koje su u strukturi iznad.
+Ako se root direktorij poslužitelja stavi u /usr/local/apache onda je taj direktorij potrebno kreirati kao root korisnik 
+na sljedeći način:
+
+mkdir /usr/local/apache 
+cd /usr/local/apache 
+mkdir bin conf logs 
+chown 0 . bin conf logs 
+chgrp 0 . bin conf logs 
+chmod 755 . bin conf logs
+
+Ako se dopusti da neki drugi korisnik ima pristup root direktoriju sustav je već kompromitiran.
+</pre>
+<ul><li>SSI (Server Side Include)
+</li></ul>
+<pre>Predstavlja administratoru nekoliko potencijalnih prijetnji.
+Prva je povećano opterećenje servera. Isto tako SSI ima isto rizik povezan s CGI skriptama.
+Koristeći exec cmd naredbu SSI omogućava datoteci da se izvrši kao CGI skripta ili program s dopuštenjem 
+korisnika ili grupe koja pokreće Apache kako je konfigurirano u httpd.conf
+Za izolaciju štete koju SSI može uzrokovati potrebno je omogućiti suexec.
+</pre>
+<ul><li>CGI općenito
+</li></ul>
+<pre>Prvo na pameti treba biti povjerenje u onoga tko je pisao CGI skriptu.
+CGI skripte se izvršavaju kao isti korisnik, stoga imaju potencijalni sukob s ostalim skriptama.
+</pre>
+<ul><li>Non Script Aliased CGI
+</li></ul>
+<pre>Korisniku se smije dopustiti pokretanje CGI skripte samo ako je razmotreno sljedeće:
+Ako se vjeruje korisniku da neće pisati skripte koje izlažu sustav napadima
+Ako se razmotri sigurnost stranice pa je ta prijetnja nevažna
+Ako nema korisnika, tj. ako nitko ne posjećuje server
+</pre>
+<ul><li>Script Aliased CGI
+</li></ul>
+<pre>Ograničenje CGI na posebne direktorije daje administratoru kontrolu nad onim što će ići u te direktorije.
+Većina stranica odabire uparvo ovu opciju umjesto Non Scripting CGI pristup.
+</pre>
+<ul><li>Drugi izvori dinamičkog sadržaja
+</li></ul>
+<pre>Ugrađene opcije skripti koje se pokreću kao dio servera kao što su mod_php, mod_perl, mod_tcl i slične,
+pokreću se pod identitetom samog servera pa mogu pristupiti svemu onome čemu i server sam može pristupiti.
+</pre>
+<ul><li>Zaštita sustavskih postavki
+</li></ul>
+<pre>Potrebno je spriječiti korisnike u postavljanju .httacces datoteke koja može zaobići sigurnosne postavke.
+To se može učiniti na sljedeći način postavljanjem naredbe u config datoteku:
+
+&lt;Directory /&gt; 
+AllowOverride None 
+&lt;/Directory&gt;
+</pre>
+<ul><li>Predefinirana zaštita datoteka servera
+</li></ul>
+<pre>Default pristup se često ne razumije. Ako se ne promijene te postavke, server može naći način da dođe
+do datoteke kroz URL mapping pravila i njima poslužiti klijenta.
+Kako bi spriječili da klijent izlista sadržaj kompletnog servera potrebno je dodati u config sljedeće:
+
+&lt;Directory /&gt; 
+Order Deny,Allow 
+Deny from all 
+&lt;/Directory&gt;
+
+Ovo brani pristup filesystem lokaciji.
+Ako pak se želi dati pristup samo nekim područjima potrebno je dodati ovo:
+
+&lt;Directory /usr/users/*/public_html&gt; 
+Order Deny,Allow 
+Allow from all 
+&lt;/Directory&gt; 
+&lt;Directory /usr/local/httpd&gt; 
+Order Deny,Allow 
+Allow from all 
+&lt;/Directory&gt;
+
+</pre>
+<ul><li>Pregled logova
+</li></ul>
+<pre>U logovima se moraju naći sve informacije o svemu što se događalo u sustavu.
+Primjer:
+
+grep -c "/jsp/source.jsp?/jsp/ /jsp/source.jsp??" access_log 
+grep "client denied" error_log | tail -n 10
+
+Naredba izlistava broj napada koji su htjeli eksploatirati Apache Tomcat Source.
+
+Log datoteka prikazuje samo ono što se već dogodilo.
+
+</pre>
+<p>(Izvor: <a href="http://httpd.apache.org/docs/2.2/misc/security_tips.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/misc/security_tips.html</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 14:29, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Moduli_za_Apache"> Moduli za Apache </span></h3>
+<p>Apache obuhvaća brojne Multi-Processing module koji otpremaju podatke na obradu dretvama ili procesima. Brojni dodatni moduli su dostupni za proširenje funkcionalnosti samog Apache poslužitelja. Broj modula danas je negdje oko 540.
+</p><p>Ovdje će biti opisani moduli Apache poslužitelja vezani uz sigurnost ovog web  poslužitelja.
+</p>
+<h4> <span class="mw-headline" id="mod_access"> mod_access </span></h4>
+<p><b>mod_access</b> ili access_module osigurava kontrolu pristupa baziranu na klijentovom imenu (hostname), IP adresi ili nekoj drugoj karkteristici zahtjeva kojeg klijent šalje serveru.
+</p><p>Direktive (smjernice) koje osigurava ovaj modul koriste se u &lt;Directory&gt;,&lt;Files&gt; i &lt;Location&gt; sekciji kao i u .htaccess datoteci za kontrolu pristupa pojedinim dijelovima poslužitelja. 
+</p><p>Pristup se može kontrolirati na temelju klijentovog imena, IP adrese ili karakteristike njegovog zahtjeva koje se bilježe u environment varijablama (varijable okoline).
+</p><p>Direktive koje se koriste su:
+</p>
+<ul><li>Allow
+</li><li>Deny
+</li><li>Order
+</li></ul>
+<p>Allow i Deny smjernice se koriste kako bi se specificiralo koji klijent može, a koji ne može pristupiti poslužitelju. Order smjernica postavlja default stanje pristupa i konfigurira kako Allow i Deny smjernice međusobno djeluju jedna s drugom.
+</p><p>Općenito, zabrana pristupa se primjenjuje na sve metode pristupa (GET, PUT, POST). Ipak, moguće je ograničiti neke metode, a druge dopustiti. Te metode stavljaju se onda u &lt;Limit&gt; sekciju.
+</p><p><b>Allow smjernica</b>
+</p><p>Kontrolira koji host možee pristupiti nekom području poslužitelja.
+</p><p>Sintaksa je sljedeća:
+</p><p><i><b>Allow from all|host|env=env-variable [host|env=env-variable]</b></i>
+</p><p>Prvi argument je uvijek from.
+Allow from all dopušta pristup svima. Ako se želi specificirati samo neki korisnik ili grupa, tada se može koristiti neki od ovih formata:
+</p><p><i>Allow from apache.org</i>
+</p><p><i>Allow from .hr example.edu</i>
+</p><p><i>Allow from 10.1.2.3</i>
+</p><p><i>Allow from 192.168.1.104 192.168.1.205</i>
+</p><p><i>Allow from 10.1</i>
+</p><p><i>Allow from 10 172.20 192.168.2</i>
+</p><p><i>Allow from 10.1.0.0/255.255.0.0</i>
+</p><p><i>Allow from 10.1.0.0/16</i>
+</p><p>Za IPv6 se također može specificirati  na sljedeći način:
+</p><p><i>Allow from 2001:db8::a00:20ff:fea7:ccea</i>
+</p><p><i>Allow from 2001:db8::a00:20ff:fea7:ccea/10</i>
+</p><p><br />
+<b>Deny smjernica</b>
+</p><p>Kontrolira koji hostovi nemaju pristup poslužitelju prema imenu hosta, IP adresi ili varijabli okoline.
+</p><p>Sintaksa je sljedeća:
+</p><p><i><b>Deny from all|host|env=env-variable [host|env=env-variable]</b></i> 
+</p><p>Argumenti smjernice jednaki su argumentima Allow smjernice.
+</p><p><br />
+<b>Order smjernica</b>
+</p><p>Kontrolira predefinirano stanje pristupa i uređuje kako su Allow i Deny procijenjeni.
+</p><p>Sintaksa: 
+</p><p><i><b>Order ordering</b></i> (Allow,Deny; Deny,Allow ili Mutual-failure)
+</p><p><i>Order Deny,Allow</i>
+</p><p>Primjer:
+</p><p><i>Order Allow,Deny</i>
+</p><p><i>Allow from apache.org</i>
+</p><p><i>Deny from foo.apache.org</i>
+</p><p><br />
+(Izvor: <a href="http://httpd.apache.org/docs/2.0/mod/mod_access.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.0/mod/mod_access.html</a>)
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 18:42, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_auth"> mod_auth </span></h4>
+<p>Modul služi za autentifikaciju koristeći tekstualne datoteke. Modul dopušta korištenje HTTP osnovne autentifikacije za ograničavanje pristupa na način da provjerava korisnika u plain text password i group datotekama. Slične funkcionalnosti ima i mod_auth_dbm i mod_auth_digest.
+</p>
+<ul><li>AuthAuthoritative smjernica
+</li></ul>
+<pre>Smjernicom se postavlja kako je autorizacija  i autentifikacija proslijeđena modulima nižih razina.
+Sintaksa: AuthAuthoritative On|Off
+Ako se vrijednost postavi na Off tada se dopušta da se autentifikacija i autorizacija proslijede na module niže razine.
+</pre>
+<ul><li>AuthGroupFile smjernica
+</li></ul>
+<pre>Postavlja ime tekst datoteke koja sadrži listu grupa korisnika za autentifikaciju.
+Sintaksa: AuthGroupFile file-path
+File-path je putanja do datoteke grupe. Ako nije apsolutna, tretira se kao relativna.
+Primjer: mygroup: bob joe anne
+</pre>
+<ul><li>AuthUserFile smjernica
+</li></ul>
+<pre>Postavlja naziv tekst datoteke koja sadrži listu korisnika i lozinki za autentifikaciju.
+Sintaksa: AuthUserFile file-path
+</pre>
+<p>(Izvor: <a href="http://httpd.apache.org/docs/2.0/mod/mod_auth.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.0/mod/mod_auth.html</a> ovdje)
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 18:54, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_cband"> mod_cband </span></h4>
+<p>Ukoliko postoji potreba za ograničavanjem mrežnog prometa, odnosno mrežne propusnosti, modul cband za Apache web poslužitelj dolazi do izražaja. Osnovna namjena cband modula je ograničavanje mrežne propusnosti prema korisnicima i virtualnim hostovima (eng. <i>virtual host</i>). Pojam virtualni host, označava praksu kod koje se na jednom uređaju, odnosno poslužitelju nalazi više web mjesta, pa tako svako web mjesto koje se nalazi na tom poslužitelju, može se razlikovati prema IP adresi, ili prema imenu, odnosno web mjesto može biti <i>IP-Based</i> ili <i>name-base</i>. Više o virtual host-u se nalazi na sljedećem linku, <a href="http://httpd.apache.org/docs/2.2/vhosts/" class="external text" rel="nofollow">Apache Virtual Host documentation</a>.
+Upotrebom modula cband, mogu se postavljati ograničenja prema virtualnim hostovima, te korisnicima u obliku dodijeljenih kvota vezanih uz mrežnu propusnost, zatim najveću brzinu downloada, najveći broj istovremenih zahtjeva sa različitih IP adresa.
+</p><p>Značajke Apache modula cband:
+</p>
+<ul><li> jednostavan modul za ograničavanje bandwidtha
+</li><li> ograničavanje bandwidth-a prema korisnicima
+</li><li> ograničavanje bandwidth-a prema virtualnim hostovima
+</li><li> ograničavanje bandwidth-a prema određenima adresama
+</li><li> ograničavanje:
+<ul><li> najvećeg dopuštenog prometa
+</li><li> najveće brzine download-a
+</li><li> najvećeg broja istovremenih zahtjeva
+</li></ul>
+</li></ul>
+<p>Što se tiče same instalacije modula cband, ona je poprilično jednostavna te se sastoji od nekoliko koraka.
+Prvi korak kod instalacije modula na Linux okruženju je njegovo preuzimanje, modul cband preuzet je sa adrese prikazane ispod.
+</p>
+<pre>
+wget http://dembol.org/downloads/cband/mod-cband-0.9.7.5.tgz
+
+</pre>
+<p>Modul dolazi u obliku tar arhive te ga je potrebno raspakirati.
+</p>
+<pre>tar -xzf mod-cband-0.9.7.5.tgz
+</pre>
+<p>Nakon raspakiravanja, unutar direktorija u kojem je raspakiran modul potrebno je pokrenuti instalaciju.
+</p>
+<pre>cd mod-cband-0.9.7.5
+./configure
+make
+make install
+</pre>
+<p>Nakon završene instalacije potrebno je restartati Apache kako bi se pohranile promjene.
+</p>
+<pre>/etc/apache2/restart
+</pre>
+<p>Sljedeći primjer prikazuje na koji način se može ograničiti promet nad nekoliko virtualnih hostova. Potrebno je kreirati pravilo kojim se kasnije mogu povezivati virtualni hostovi, u ovom primjeru to je myUser.
+</p>
+<pre>
+&lt;CBandUser myUser&gt;
+    # 100Mb limit, 10 tjedana
+    CBandUserLimit 100Mi
+    CBandUserPeriod 10W
+    # datoteka u koju se zapisuje bandwidth po hostu
+    CBandUserScoreboard /somewhere/user.myUser.scoreboard
+&lt;/CBandUser&gt;
+    #nad svakim virtualnim hostom primjenjuje se myUser
+&lt;VirtualHost firstvhost&gt;
+    ...
+    CBandUser myUser
+&lt;VirtualHost&gt;
+&lt;VirtualHost secondvhost&gt;
+    ...
+    CBandUser myUser
+&lt;/VirtualHost&gt;
+
+</pre>
+<p><br />
+Primjer kako ograničiti bandwidth određenoj IP adresi je prikazan ispod. Prvi korak kod ograničavanja bandwidtha je da se definira skup, odnosno klasa koja sadrži sve IP adrese kojima se ograničava propusnost
+</p>
+<pre>
+&lt;CBandClass myClass&gt;
+    CBandClassDst IP1
+    CBandClassDst IP2/mask
+    CBandClassDst IP3
+    ....
+&lt;/CBandClass&gt;
+
+</pre>
+<p>Zatim se nad tom stvorenom klasom IP adresa mogu stavljati različita pravila, odnosno ograničenja.
+</p>
+<pre>
+&lt;VirtualHost&gt;
+    ...
+    # limit prometa od 1GB, na period od 4 tjedna
+    CBandClassLimit myClass 1G
+    CBandPeriod 4W
+&lt;/VirtualHost&gt;
+
+</pre>
+<p>Nešto više o modulu cband nalazi se na sljedećim linkovima, <a href="http://dembol.org/blog/mod_cband/documentation/" class="external text" rel="nofollow">cband Documentation</a>, <a href="http://dembol.org/blog/mod_cband/faq/" class="external text" rel="nofollow">cband FAQ</a>.
+Vrlo sličan modul cbandu, je i modul bandwidth, odnosno mod_bandwidth. Njegova namjena je prilično slična kao i namjena mod_cband, dakle, mod_bandwidth omogućava postavljanje limita, odnosno ograničenja bandwidtha ili propusnosti prema serveru ili prema korisnicnima.
+Na sljedećim linkovima nalazi se više informacija o samom mod_bandwidthu kao i njegova instalacija i konfiguracija, <a href="http://linuxpoison.blogspot.com.ar/2012/02/setup-and-configure-bandwidth-limiting.html" class="external text" rel="nofollow">Setup and configure bandwidth limiting</a>, <a href="http://www.cohprog.com/mod_bandwidth.html" class="external text" rel="nofollow">mod_bandwidth</a>.
+</p><p>(Izvor: <a href="http://dembol.org/blog/mod_cband/documentation/" class="external free" rel="nofollow">http://dembol.org/blog/mod_cband/documentation/</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 19:55, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_chroot"> mod_chroot </span></h4>
+<p>Ovaj modul omogućuje pokretanje Apache poslužitelja u sigurnoj chroot okolini. Ovaj modul uključen je u neke linux distribucije kao što su FreeBSD, Gentoo Linux, NetBSD, PLD Linux itd.
+</p><p>chroot mijenja root direktorij procesa u neki direktorij koji nije "/". To znači da se proces zaključa unutar nekog virtualnog file system root-a. Ako se chroot konfigurira dobro, Apache procesi i svi procesi djeca uključujući CGI skripte neće moći pristupiti ničemu osim onog što  je u tom kontejneru ili zatvoru (jail). Ne root procesi ne mogu napustiti chroot jail.
+</p><p>Ako se koristi mod_chroot tada se Apache može smjestiti u "zatvor" bez dodatnih datoteka. Međutim, pokretanje Apache poslužitelja u tom zatvorenom kontejneru može biti problematično.
+</p><p>mod_chroot može se uključiti u Apache pomoću sljedećih naredbi u Linux okruženju:
+</p>
+<pre>./configure --add-module /usr/src/mod_chroot-x.y/src/apache13/mod_chroot.c
+
+make &amp;&amp; make install
+
+apachectl start
+
+</pre>
+<p>(Izvor: <a href="http://core.segfault.pl/~hobbit/mod_chroot/" class="external free" rel="nofollow">http://core.segfault.pl/~hobbit/mod_chroot/</a>)
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 19:31, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_ssl"> mod_ssl </span></h4>
+<p>Modul ssl za Apache web poslužitelj služi za uspostavljanje sigurne veze upotrebom kriptografije putem SSL(<i>Secure Socket Layer</i>) protokola. Modul ssl pojavio se 1998. godine za Apache verziju 1.3., dok se izlaskom verzije 2.0., modul ssl nalazi kao dio Apache web poslužitelja. 
+<i>Secure Socket Layer</i> protokol koristi se za obavljanje sigurnih transakcija preko interneta. Njegova osnovna namjena je osigurati zaštićeni prijenos podataka između klijenta i servera. SSL je danas jedan od najšire korištenih protokola koji nudi privatnost i pouzdanost kod komunikacije između klijenta i servera. Uz pomoć kriptografskih algoritama i ključeva između dvije komunikacijske strane, uspostavlja enkripcijski kanal kroz koji ostali protokoli poput HTTP mogu obavljati svoj dio posla. Kao dodatna značajka SSL protokola, javlja se autentifikacija svih strana komunikacijskog kanala pomoću certifikata. SSL protokol se sastoji od nekoliko slojeva: 
+</p>
+<ul><li> SSL Handshake Protocol 
+</li><li> SSL Change Cipher Spec Protocol 
+</li><li> SSL Alert Protocol
+</li><li> SSL Record Layer
+</li></ul>
+<p>Prema TCP/IP mrežnom modelu, SSL protokol se nalazi u aplikacijskom sloju, što je i prikazano na slici ispod. Osim osiguravanja spomenutog HTTP protokola, za kojega je i inicijalno bio namijenjen, SSL se koristi i za osiguravanje SMTP, POP, IMAP, te FTP protokola.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:606px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ssl_01.jpg" class="image"><img alt="" src="../images/6/6e/Ssl_01.jpg" width="604" height="307" class="thumbimage" /></a>  <div class="thumbcaption">SSL protokol u TCP/IP modelu(Izvor:<a href="http://www.symantec.com/connect/articles/apache-2-ssltls-step-step-part-1" class="external autonumber" rel="nofollow">[3]</a>)</div></div></div></div>
+<p>SSL protokol u osnovi uključuje identifikaciju servera, identifikaciju klijenta te kriptiranu razmjenu podataka između klijenta i servera, a tu razmjenu ostvaruje preko prije spomenutih tehnika kriptiranja. U osnovi svaka SSL konekcija odnosno veza ostvaruje se u dva koraka ili faze, <i>handshake</i> faza, i <i>data-exchange</i> faza.
+SSL protokol u osnovi uključuje identifikaciju servera, identifikaciju klijenta te kriptiranu razmjenu podataka između klijenta i servera, a tu razmjenu ostvaruje preko prije spomenutih tehnika kriptiranja. U osnovi svaka SSL konekcija odnosno veza ostvaruje se u dva koraka ili faze, <i>handshake</i> faza, i <i>data-exchange</i> faza.
+</p>
+<ul><li> Handshake
+<ul><li>U handshake fazi, ili fazi rukovanja, server šalje klijentu certifikat koji sadrži javni ključ, a klijent potvrđuje identitet servera pomoću PKI(<i>Private Key Infrastructure</i>) tehnologije. Također, server na isti način provodi verifikaciju klijentovog certifikata. Nakon uspješne verifikacije, klijent i server dogovaraju algoritam kojim će se kriptirati podaci, te dogovaraju ključeve koji će se koristiti za vrijeme trajanja sesije, odnosno sjednice.
+</li></ul>
+</li><li> Data-exchange
+<ul><li>U ovoj fazi, nakon definiranja tajnih ključeva, komunikacija između klijenta i servera se nastavlja, a razmjena podataka je kriptirana nekim od dogovorenim simetričnim algoritmom
+</li></ul>
+</li></ul>
+<p>Deataljniji prikaz komunikacije putem SSL protokola prikazan je na sljedećoj slici. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:578px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ssl_02.jpg" class="image"><img alt="" src="../images/e/e4/Ssl_02.jpg" width="576" height="778" class="thumbimage" /></a>  <div class="thumbcaption">Način uspostavljanja veze kod SSL protokola(Izvor:<a href="http://www.symantec.com/connect/articles/apache-2-ssltls-step-step-part-1" class="external autonumber" rel="nofollow">[4]</a>)</div></div></div></div>
+<p>Iz slike možemo vidjeti kako klijent uspostavlja vezu sa serverom putem <i>handshake</i> postupka, te razmjenu ključeva i certifikata. Nakon uspostavljanja veze, odnosno uspješnog <i>handshakinga</i> ili rukovanja, do izražaja dolazi <i>Record layer</i> SSL protokola u kojem se svi podaci koji se razmjenjuju kriptiraju dogovorenim algoritmom. Važan dio SSL-a je i njegov <i>SSL Alert Protocol</i> koji, ukoliko dođe do nekakve greške javlja upozorenje. Koliko je sigurna veza, odnosno sjednica uspostavljena SSL protokolom ovisi o mogućnostima klijenta i servera, te ukoliko server podržava 128-bitne ključeve, dok klijent podržava samo 40-bitne ključeve, veza ili sjednica će biti ostvarena putem 40-bitnog ključa.
+</p><p>Modul ssl sadrži veliki broj direktiva čiji kompletan popis se nalazi na <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/mod/mod_ssl.html</a>. 
+Također, mod_ssl se može konfigurirati na način da može implementirati mnoge značajke SSL protokola putem različith varijabli. Neke od tih varijabli su: 
+</p>
+<ul><li> SSL_PROTOCOL - string, verzija protokola
+</li><li> SSL_SESSION_ID - string, hex zapis ID sjednice
+</li><li> SSL_VERSION_INTERFACE - string, verzija mod_ssl
+</li></ul>
+<p>Najjednostavnija konfiguracija mod_ssl-a sastoji se od sljedećih direktiva:
+</p>
+<pre>
+# omogućavanje SSL
+SSLEngine On
+# definiranje lokacije certifikata od servera
+SSLCertificateFile /usr/local/apache/conf/ssl/server.crt
+# definiranje lokacije privatnog ključa servera
+SSLCertificateKeyFile /usr/local/apache/conf/ssl/server.key
+
+
+</pre>
+<p>(Izvor: <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/mod/mod_ssl.html</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 20:59, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_filter"> mod_filter </span></h4>
+<p>mod_filter za Apache web poslužitelj omogućava pametnu konfiguraciju koja je sposobna prepoznati određeni izlazni sadržaj.
+Koristeći ovaj modul, Apache može biti konfiguriran na način da obrađuje različite vrste sadržaja preko različitih filtera, te može i obraditi sadržaj nepoznate vrste.
+mod_filter, web administratorima omogućava fleksibilnost u stvaranju lanca filtriranja
+Smjernice, odnosno direktive ovog modula su sljedeće:
+</p>
+<ul><li> AddOutputFilterByType
+</li><li> FilterChain
+</li><li> Filter Declare
+</li><li> FilterProtocol
+</li><li> FilterProvider
+</li><li> Filter Trace
+</li></ul>
+<p>Postoje tri koraka kod konfiguracije lanca filtriranja:
+</p>
+<ul><li> Declare Filters
+</li></ul>
+<pre>
+Pomoću FilterDeclare smjernice deklarira se filter, dodjeljuje mu se ime te tip filtera
+
+</pre>
+<ul><li> Register Providers
+</li></ul>
+<pre>
+Smjernica FilterProvider registrira tzv. ''providera'' sa filterom. Ukoliko filter nije deklariran sa FilterDeclare, dodjeljuje mu
+se defaultni tip. Zadnji argument kojega FilterProvider prima je izraz, koji omogućava provideru izvršavanja zahtjeva, samo ukoliko
+je taj izraz ispravan.
+
+</pre>
+<ul><li> Configure the Chain
+</li></ul>
+<pre>
+Prethodne dvije smjernice potrebne su za izgradnju lanca filtriranja, ali za njegov pravilan rad potrebna je smjernica FilterChain,
+koja je zadužena za konstrukciju lanca filtriranja od prethodno deklariranih pametnih filtara, također ova smjernica 
+omogućava fleksibilnost ubacivanja filtera na kraj ili početak lanca, te brisanje filtera.
+
+</pre>
+<p>(Izvor: <a href="http://httpd.apache.org/docs/2.4/mod/mod_filter.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.4/mod/mod_filter.html</a> linku)
+</p>
+<h4> <span class="mw-headline" id="mod_ratelimit"> mod_ratelimit </span></h4>
+<p>Apache modul mod_ratelimit služi kao filter za limitiranje klijentu mreženu propusnost, odnosno bandwidth. Brzina konekcije definira se u KiB/s, pomoću varijable rate_limit.
+Primjer konfiguracije pomoću mod_ratelimit:
+</p>
+<pre>
+&lt;Location /downloads&gt;
+    SetOutputFilter RATE_LIMIT
+    SetEnv rate-limit 400 
+&lt;/Location&gt;
+
+</pre>
+<p>(Izvor: <a href="http://httpd.apache.org/docs/2.4/mod/mod_ratelimit.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.4/mod/mod_ratelimit.html</a>)
+</p>
+<h4> <span class="mw-headline" id="mod_limits"> mod_limits </span></h4>
+<p>Apache modul mod_limits ima dvije osnovne namjene, da limitira najveći broj istovremenih ostvarenih konekcija, te da server odbija zahtjev ukoliko je opterećenje iznad neke određene granice.
+Primjer upotrebe mod_limits, gdje se ograničava broj konekcija sa IP adresa, te dopušteno preopterećenje:
+</p>
+<pre>
+&lt;IfModule mod_limits.c&gt;
+LimitMaxConnsPerUid 20
+LimitMaxConnsPerIP 30
+LimitMaxLoadAVG 10
+CheckLoadInterval 5
+&lt;/IfModule&gt;
+
+</pre>
+<p>(Izvor: <a href="https://github.com/hackman/mod_limits" class="external free" rel="nofollow">https://github.com/hackman/mod_limits</a>)
+</p>
+<h4> <span class="mw-headline" id="mod_suexec"> mod_suexec </span></h4>
+<p>Apache modul mod_suexec omogućava izvršavanje CGI skripta određenom korisniku ili grupi korisnika.
+mod_suexec zajedno sa <a href="http://httpd.apache.org/docs/2.2/programs/suexec.html" class="external text" rel="nofollow">suexec</a> programom se koristi za izvršavanje spomenutih CGI skripti.
+Sintaksa mod_suexec:
+</p>
+<pre>SuexecUserGroup User Group
+
+</pre>
+<p>mod_suexec sadrži smjernicu SuexecUserGroup koja omogućava definiranje korisnika ili grupe korisnika za izvršavanje određenih CGI skripti.
+Primjer upotrebe mod_suexec:
+</p>
+<pre>
+SuexecUserGroup nobody nogroup 
+
+</pre>
+<p>(Izvor: <a href="http://httpd.apache.org/docs/2.2/mod/mod_suexec.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/mod/mod_suexec.html</a>)
+</p>
+<h4> <span class="mw-headline" id="mod_log_config"> mod_log_config </span></h4>
+<p>Modul mod_log_config omogućava evidenciju i bilježenje svih zahtjeva prema poslužitelju. Omogućava fleksibilnu evidenciju svih zahtjeva sa strane klijenta, odnosno evidenciju korisničkih zahtjeva. Bilješke se mogu zapisivati u prilagodljivom formatu, te se mogu zapisivati direktno u datoteku ili na neki vanjski program.
+Smjernice, odnosno direktive ovog modula su:
+</p>
+<ul><li> BufferedLogs
+</li><li> CustomLog
+</li><li> LogFormat
+</li><li> TransferLog
+</li></ul>
+<p>TransferLog se koristi za stvaranje datoteke dnevnika, odnosno <i>log</i> datoteke, LogFormat se koristi za postavljanje prilagođenog formata, te CustomLog za definiranje log datoteke i formata. BufferedLogs se koristi kada se se zapisi prvo spremaju u radnu memoriju, a zatim se zapisuju na tvrdi disk, čime se ne mora nakon svakog zahtjeva izvršavati zapisivanje u dnevnik i spremanje na disk. Ovakvim načinom bilježenje zahtjeva, učinkovitije se koristi disk, te se povećavaju performanse.
+</p><p>(Izvor: <a href="http://httpd.apache.org/docs/2.4/mod/mod_log_config.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.4/mod/mod_log_config.html</a>)
+</p>
+<h4> <span class="mw-headline" id="mod_log_forensic"> mod_log_forensic </span></h4>
+<p>mod_log_forensic omogućava forenzičko bilježenje klijentskih zahtjeva prema serveru. Bilježenje, odnosno <i>logiranje</i>, se obavlja prije i poslije obrade zahtjeva, pa tako forenzički dnevnik sadrži dva retka za svaki zahtjev prema serveru, također format zapisa u dnevnik je fiksan, što znači da se nakon zapisa on ne može mijenjati.
+Zapisivanje u dnevnik prvi put se provodi prije daljnje obrade zahtjeva, a drugi put nakon obrade zahtjeva u isto vrijeme u kojem bi se u dnevnik bilježio zapis kod normalnog logiranja.
+ForensicLog smjernica zadužena je za zapisivanje zahtjeva prema serveru za forenzičku analizu. Sintaksa ForensicLog direktive:
+</p>
+<pre>ForensicLog filename|pipe
+</pre>
+<p>Svaki zapis u dnevnik dobiva jedinstveni ID preko kojega se može povezati određeni zahtjev koristeći CustomLog direktivu. Argumenti koje ForensicLog prima su ime datoteke na koju se zapisuje, te vanjski program koji prihvaća zabilješke o zahtjevima.
+</p><p>(Izvor: <a href="http://httpd.apache.org/docs/2.4/mod/mod_log_forensic.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.4/mod/mod_log_forensic.html</a>)
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 21:00, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Ostali_mehanizmi_za.C5.A1tite"> Ostali mehanizmi zaštite </span></h3>
+<h4> <span class="mw-headline" id="Apache_u_.22zatvoru.22"> Apache u "zatvoru" </span></h4>
+<p>Koliko god se trudili zaštiti neki sustav, upadi i u najzaštićeniji sustav su mogući. Ukoliko napadač uspije probiti mehanizme zaštite, njegova namjena je pronaći što više ranjivosti te postati <i>superuser</i> korisnik, te na taj način imati nesmetan pristup i kontrolu nad poslužiteljem. Cilj <i>jail</i> mehanizma zaštite je, ukoliko dođe do upada u sustav, ograničiti napadaču pristup određenim dijelovima sustava, te ga zadržati u samo određenom dijelu sustava u kojem ne može prouzrokavati značajniju štetu.
+Blokiranje napadača ostvaruje se sistemskim pozivom chroot, koji omogućava postavljanje restrikcija na različite procese, te se tako limitira pristup tog procesa određenim datotečnim sustavima. chroot funkcionira na način da odabere direktorij koji postaje novi root datotečnog sustava. Nakon izvršavanja sistemskog poziva chroot nad procesom, proces se ne može vratiti u prethodno stanje, odnosno on se nalazi u 'zatvoru', <i>jail</i>.
+Implementiranjem <i>jail</i> mehanizma u web server pruža mnogo prednosti, a neke od njih su:
+</p>
+<ul><li> Blokiranje(<i>Containment</i>) - ukoliko napadač ostvari pristup poslužitelju, pomoću ovog mehanizma blokiranja, 'dopušta' mu se samo pristup ograničenim direktorijima, odnosno onemogućen mu je pristup važnim podacima
+</li><li> Nepostojanje jezgre(<i>No shell</i>) - mnoge vrste napada koriste se jezgrom kako bi provele napad, ovaj mehanizam ne otklanja jezgru operacijskog sustava, nego ju zaštićuje od upada
+</li><li> Limitirana dostupnost alata -ukoliko je napadač ostvario pristup poslužitelju, daljnji napadi su spriječeni na način da mu se onemogući korištenje alata
+</li><li> Nepostojanje <i>suid root</i> binarnih datoteka - izlazak iz <i>jail</i> okruženja je moguće ukoliko napadač posjeduje privilegije <i>root</i> korisnika, te se zbog toga preporuča stavljanje ovakvih datoteka u <i>jail</i> okruženje
+</li></ul>
+<p>Sljedeći primjer prikazuje kako uz pomoć chroot staviti Apache u 'zatvor'.
+Prvi korak je da se kreira novi home direktorij za Apache te se Apache premjesti u tu novu lokaciju.
+</p>
+<pre>
+# mkdir -p /chroot/apache/usr/local
+# mv /usr/local/apache /chroot/apache/usr/local
+# ln -s /chroot/apache/usr/local/apache /usr/local/apache
+# mkdir -p /chroot/apache/var
+# mv /var/www /chroot/apache/var/
+# ln -s /chroot/apache/var/www /var/www
+
+</pre>
+<p>Razlog zbog kojega se Apache kopira u novi direktorij je da se mogu upotrebljavati obje verzije Apache-a, 'slobodna' i 'zatvorena'.
+Za ispravan rad, Apache-u su potrebne biblioteke, pa se uz pomoć <i>ldd</i> alata može dobiti popis tih biblioteka.
+</p>
+<pre>
+# ldd /chroot/apache/usr/local/apache/bin/httpd
+        libm.so.6 =&gt; /lib/tls/libm.so.6 (0x005e7000)
+        libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0x00623000)
+        libgdbm.so.2 =&gt; /usr/lib/libgdbm.so.2 (0x00902000)
+        libexpat.so.0 =&gt; /usr/lib/libexpat.so.0 (0x00930000)
+        libdl.so.2 =&gt; /lib/libdl.so.2 (0x0060b000)
+        libc.so.6 =&gt; /lib/tls/libc.so.6 (0x004ac000)
+        /lib/ld-linux.so.2 =&gt; /lib/ld-linux.so.2 (0x00494000)
+
+</pre>
+<p>Kopije ovih biblioteka potrebno je staviti u 'zatvor'.
+</p>
+<pre>
+# mkdir /chroot/apache/lib
+# cp /lib/tls/libm.so.6 /chroot/apache/lib
+# cp /lib/libcrypt.so.1 /chroot/apache/lib
+# cp /usr/lib/libgdbm.so.2 /chroot/apache/lib
+# cp /usr/lib/libexpat.so.0 /chroot/apache/lib
+# cp /lib/libdl.so.2 /chroot/apache/lib
+# cp /lib/tls/libc.so.6 /chroot/apache/lib
+# cp /lib/ld-linux.so.2 /chroot/apache/lib
+
+</pre>
+<p>Sljedeći koraci obuhvaćaju način na koji se korisnici, grupe korisnika i datoteke stavljaju u 'zatvor'.
+Defaultni korisnik <i>httpd</i> ne postoji u jail okruženju, pa i jail mora sadržavati njegove autentifikacijske sadržaje.
+</p>
+<pre>
+# mkdir /chroot/apache/etc
+# cp /etc/nsswitch.conf /chroot/apache/etc/
+# cp /lib/libnss_files.so.2 /chroot/apache/lib
+
+</pre>
+<p>Kako bi Apache funkcionirao u jail okruženju, potrebne su neke dodatne datoteke kako bi se omogućilo raspoznavanje imena domena.
+</p>
+<pre>
+# cp /lib/libnss_dns.so.2 /chroot/apache/lib
+# cp /etc/hosts /chroot/apache/etc
+# cp /etc/resolv.conf /chroot/apache/etc
+
+</pre>
+<p>Ovim postupkom Apache se nalazi u jail okruženju.
+</p><p>Sljedeći primjer prikazuje kako konfigurirati PHP za pravilan rad unutar jail okruženja.
+Prvi korak je normalna instalacija PHP-a, te je zatim potrebno napraviti listu dijeljenih biblioteka te ih kopirati u jail okruženje.
+</p>
+<pre># ldd /chroot/apache/usr/local/apache/libexec/libphp4.so
+       libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0x006ef000)
+       <b>libresolv.so.2 =&gt; /lib/libresolv.so.2 (0x00b28000)</b>
+       libm.so.6 =&gt; /lib/tls/libm.so.6 (0x00111000)
+       libdl.so.2 =&gt; /lib/libdl.so.2 (0x00472000)
+       <b>libnsl.so.1 =&gt; /lib/libnsl.so.1 (0x00f67000)</b>
+       libc.so.6 =&gt; /lib/tls/libc.so.6 (0x001df000)
+       /lib/ld-linux.so.2 =&gt; /lib/ld-linux.so.2 (0x00494000)
+</pre>
+<p>Ukoliko se neke biblioteke nalaze već u jail okruženju, kopiraju se samo one koje nedostaju, u ovom primjeru one su boldane.
+</p>
+<pre>
+# cp /lib/libresolv.so.2 /chroot/apache/lib
+# cp /lib/libnsl.so.1 /chroot/apache/lib
+
+</pre>
+<p>Ovime je PHP konfiguriran da radi u jail okruženju.
+</p><p>(Izvor: Ristić I. Apache Security)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 17:31, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Sustavi_za_otkrivanje_upada_.28intrusion_detection.29"> Sustavi za  otkrivanje upada (intrusion detection) </span></h4>
+<p>Sustavi za otkrivanje neovlaštenih upada(IDS - <i>Intrusion Detection System</i>) danas predstavljaju jednu od najvažnijih komponenti sigurnosnog sustava. Upravo zbog tog razloga treba voditi računa o izradi sigurnosnih mehanizama koji onemogućavaju neovlašteni pristup računalnim resursima i podacima. No, potpuno sprječavanje neovlaštenog pristupa ponekad nije moguće izvesti. Današnji sigurnosni sustavi pokušavaju pravovremeno detektirati takve napade, te samim time i pravovremeno poduzeti potrebne akcije sprječavanja neovlaštenog pristupa.
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="Mod_Security_.28mod_sec.29"> Mod Security (mod_sec) </span></h5>
+<p>Mod Security, odnosno mod_sec, jedan je od najpoznatijih modula za Apache web poslužitelj. Njegova osnovna namjena je da djeluje kao zaštitni mehanizam za detekciju i prevenciju neovlaštenih aktivnosti koje su usmjerene prema web aplikacijama, kao i na web poslužitelj.
+Mod Security funkcionira kao integrirani dio web poslužitelja, a neke od njegovih najvažnijih značajki su:
+</p>
+<ul><li> Filtriranje zahtjeva(<i>Request Filtering</i>) - dolazni zahtjevi se analiziraju prije nego se obrađuju
+</li><li> Presretanje i pregledavanja svih HTTP/HTTPS zahtjeva
+</li><li> Detekcija naprednih metoda zaobilaženja IDS sustava(eng. <i>Anti-evasion</i>)
+</li><li> Provjera POST sadržaja - sav sadržaj koji se prenosi POST metodom se analizira
+</li><li> Detaljno bilježenje svih zahtjeva(eng. <i>Audit logging</i>)
+</li><li> Mogućnost kreiranja vlastitih pravila zaštite
+</li></ul>
+<p>Postupak instalacije Mod Security modula razlikuje se ovisno o odabranoj platformi, te o inačici Apache web poslužitelja. mod_sec radi na 1.3.x te na 2.x inačicama Apache web poslužitelja te je kompatibilan sa obje verzije.
+ModSecurity moguće je dohvatiti u obliku izvornog koda(<i>tar</i> arhiva), ili kao izvršnu datoteku sa adrese <a href="http://www.modsecurity.org/download/" class="external free" rel="nofollow">http://www.modsecurity.org/download/</a>.
+Preporučena instalacija ModSecurity je preko izvornog koda, jer time se osigurava instalacija najnovije verzije, kao i eventualne izmjene kod instalacije od strane korisnika, no jednostavnija i bržža opcija je instalacija preko izvršne datoteke.
+Za instalaciju ModSecurity potrebno je zadovoljiti neke uvjete. Uz pretpostavku kako je Apache web poslužitelj već instaliran, kao i modul <a href="http://httpd.apache.org/docs/2.2/mod/mod_unique_id.html" class="external text" rel="nofollow">mod_unique_id</a> potrebno je instalirati dodatne biblioteke <a href="http://www.pcre.org/" class="external text" rel="nofollow">libpcre</a>(biblioteka koja sadrži skup funkcija za regularne izraze), <a href="http://xmlsoft.org/downloads.html" class="external text" rel="nofollow">libxml2</a>(biblioteka za XML obradu), <a href="http://curl.haxx.se/libcurl/" class="external text" rel="nofollow">libcurl</a>(služi za udaljeno bilježenje logova,<i>remote logging</i>). Također, opcionalna biblioteka koja se preporuča je <a href="http://www.lua.org/download.html" class="external text" rel="nofollow">liblua</a>, koja služi za kreiranje složenijih pravila pomoću Lua skriptnog jezika.
+</p><p>Na Debian i Ubuntu distribucijama instalacija preko izvršne datoteke moguća je preko jedne naredbe:
+</p>
+<pre># apt-get install libapache-mod-security
+</pre>
+<p>Pomoću ove naredbe, ModSecurity paket se downloada te instalira, i aktivira se modul u Apache konfiguracijskoj datoteci.
+</p><p>Instalacija na Windows okruženju također je prilično jednostavna, nakon downloada odgovarajućeg paketa, potrebno je kopirati dinamičke biblioteke u mapu <b>modules</b>, zatim je potrebno modificirati konfiguraciju Apache web servera kako bi se aktivirao ModSecurity:
+</p>
+<pre>LoadModule security2_module modules/mod_security2.so
+</pre>
+<p>Također, kako bi ModSecurity pravilno funkcionirao na Windows okruženju potrebno je aktivirati mod_unique_id, potrebno je u konfiguraciju Apache-a dodati:
+</p>
+<pre>LoadModule unique_id_module modules/mod_unique_id.so
+</pre>
+<p>Nakon instalacije ModSecurity potrebno ga je pravilno podesiti kako bi on pravilno funkcionirao.
+</p><p><b>Konfiguracijske direktive</b>
+</p><p>ModSecurity koristi poveći broj direktiva, te će ovdje biti navedene samo neke od njih.
+Konfiguracija ModSecurity obavlja se preko konfiguracijske datoteke httpd.conf, te ga je potrebno u toj datoteci uključiti kako bi ga Apache mogao koristiti. ModSecurity se uključuje pomoću IfModule direktive:
+</p>
+<pre>
+IfModule mod security.c&gt;
+   #popis pravila
+   ...
+/IfModule&gt;
+
+</pre>
+<p>Prema početnim postavkama, mnoge opcije ModSecurity su onemogućene, pa ih je potrebno omogućiti i podesiti.
+</p><p><b>Uključivanje filtriranja</b> prometa obavlja se preko sljedeće direktive:
+</p>
+<pre>SecFilterEngine On
+</pre>
+<p>Vrijednosti koje SecFilterEngine parametri mogu imati su:
+</p>
+<pre>
+On - analiza svih dolazećih zahtjeva
+Off - analiza zahtjeva isključena, ne analizira se niti jedan zahtjev
+DynamicOnly - analiziraju se zahtjevi koji su generirani dinamički za vrijeme izvođenja
+
+</pre>
+<p><b>Provjera POST sadržaja</b>
+</p><p>Provjera sadržaja koji se prosljeđuje serveru preko POST metode također je isključena prilikom inicijalne instalacije, te ju je potrebno uključiti odgovarajućom direktivom. POST metodom se prosljeđuju vrijednosti koje upisuju korisnici putem web formi, a i na ovaj način se provodi većina napada, pa se svakako preporuča uključiti provjeru POST sadržaja putem direktive:
+</p>
+<pre>SecFilterScanPost On
+</pre>
+<p><b>Nasljeđivanje filtera</b>
+</p><p>U Apache web poslužitelju poddirektoriji nasljeđuju pravila filtriranja od nadređenih direktorija, ovakav pristup je vrl čest, no postoje situacije u kojima je potrebno definirati drugačija pravila filtriranja, pa se u tom slučaja nasljeđivanje sigurnosnih postavki iz nadređenog direktorija onemogućava sljedećom direktivom:
+</p>
+<pre>
+&lt;Location /web/direktorij&gt;
+   SecFilterInheritance Off
+&lt;/Location&gt;
+
+</pre>
+<p><b>Provjera URL kodiranja</b>
+</p><p>Za korištenje specijalnih znakova unutar URL adrese, HTTP dozvoljava prikazivanje znakova u heksadecimalnom obliku, u tom slučaju znakovi se prikazuju u obliku&#160;%XY, gdje su X i Y znakovi od A do F u heksadecimalnom obliku. No, često se javlja slučaj da napadači koriste druge znakove kako bi zaobišli sigurnosne mehanizme. Upravo zbog tog razloga, ModSecurity provjerava sve podržane tipove kodiranja kako bi se osiguralo da su svi upiti pravilno kodirani, te se ta provjera ispravnosti kodiranja URL niza uključuje pomoću direktive:
+</p>
+<pre>SecFilterCheckURLEncoding On
+</pre>
+<p>Za modul ModSecurity postoji opširna i detaljna dokumentacija, koja pokriva sve aspekte ovog vrlo korisnog modula. Na sljedećim linkovima može se pronaći više informacija o samom modulu:
+</p>
+<ul><li> <a href="http://www.modsecurity.org/" class="external free" rel="nofollow">http://www.modsecurity.org/</a>
+</li><li> <a href="http://www.modsecurity.org/documentation/modsecurity-apache/1.9.3/modsecurity-manual.html#N10152" class="external free" rel="nofollow">http://www.modsecurity.org/documentation/modsecurity-apache/1.9.3/modsecurity-manual.html#N10152</a>
+</li><li> <a href="http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual#ModSecurity.C2.AE_Reference_Manual" class="external free" rel="nofollow">http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual#ModSecurity.C2.AE_Reference_Manual</a>
+</li><li> <a href="http://www.atomicorp.com/wiki/index.php/Atomic_ModSecurity_Rules" class="external free" rel="nofollow">http://www.atomicorp.com/wiki/index.php/Atomic_ModSecurity_Rules</a>
+</li></ul>
+<p><br />
+(Izvor: <a href="http://www.modsecurity.org/" class="external free" rel="nofollow">http://www.modsecurity.org/</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 14:34, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="OSSEC"> OSSEC </span></h5>
+<p>OSSEC <a href="http://www.ossec.net/" class="external autonumber" rel="nofollow">[6]</a> je besplatan, open source sustav za otkrivanje upada (intrusion detection system). Sustav omogućuje analize logova, provjeru integriteta datoteka, praćenje polica, otkrivanje rootkita, real-time obavještavanje i aktivno odgovaranje.
+</p><p>OSSEC radi na gotovo svim operacijskim sustavima (Linux, MacOS, Solaris, Windows, OpenBSD...).
+</p><p>Prednost mu je što ima centraliziranu arhitekturu koja mu omogućuje praćenje i upravljanje višestrukim sustavima.
+</p><p>Autor OSSEC-a je Daniel B. Cid, a objavio ga je 2004. godine.
+</p><p><b>Kako OSSEC funkcionira</b>
+</p><p>OSSEC se sastoji od brojnih dijelova. Ima centralni Manager koji prati sve i prima informacije od agenata, sysloga, baze i agentnih uređaja.
+</p><p>Manager koji je glavni dio, pohranjuje sljedeće:
+</p>
+<ul><li>bazu podataka pomoću koje provjerava integritet datoteka
+</li><li>logove
+</li><li>događaje
+</li><li>unos revizije sustava
+</li></ul>
+<p>Agent je manji program instaliran u sustav koji se želi pratiti. Prikuplja informacije u realnom vremenu te ih prosljeđuje Manageru na analizu.
+</p><p>Moguće je instalirati i sustav bez agenta u slučaju da ga sustav ne podržava, ali i dalje ostaje mogućnost izvođenja nekih operacija.
+</p><p>OSSEC je moguće instalirati unutar virtualne mašine te daje vrlo korisne informacije o svemu što se na njoj događa.
+</p><p>Također, sustav može prihvaćati podatke za analizu s brojnih uređaja kao što su vatrozidi, switchevi, ruteri i slično.
+</p><p><b>Instalacija i pokretanje</b>
+</p><p>Na Linux sustavima instalacija se provodi u svega par koraka.
+</p><p>Prije instalacije potrebno je skinuti posljednju verziju i po mogućnosti provjeriti sažetak.
+</p>
+<pre># wget <a href="http://www.ossec.net/files/ossec-hids-2.6.tar.gz" class="external free" rel="nofollow">http://www.ossec.net/files/ossec-hids-2.6.tar.gz</a>
+# wget <a href="http://www.ossec.net/files/ossec-hids-2.6_checksum.txt" class="external free" rel="nofollow">http://www.ossec.net/files/ossec-hids-2.6_checksum.txt</a>
+# cat ossec-hids-2.6_checksum.txt
+MD5 (ossec-hids-2.6.tar.gz) = f4140ecf25724b8e6bdcaceaf735138a
+SHA1 (ossec-hids-2.6.tar.gz) = 258b9a24936e6b61e0478b638e8a3bfd3882d91e
+# md5sum ossec-hids-2.6.tar.gz
+MD5 (ossec-hids-2.6.tar.gz) = f4140ecf25724b8e6bdcaceaf735138a
+# sha1sum ossec-hids-2.6.tar.gz
+SHA1 (ossec-hids-2.6.tar.gz) = 258b9a24936e6b61e0478b638e8a3bfd3882d91e
+</pre>
+<p>Zatim treba napraviti extract paketa i pokrenuti ./install.sh
+</p>
+<pre># tar -zxvf ossec-hids-*.tar.gz (or gunzip -d; tar -xvf)
+# cd ossec-hids-*
+# ./install.sh
+</pre>
+<p>i naravno pokrenuti OSSEC naredbom
+</p>
+<pre># /var/ossec/bin/ossec-control start
+</pre>
+<p><br />
+(Izvor: <a href="http://www.ossec.net/" class="external free" rel="nofollow">http://www.ossec.net/</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 23:13, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio_.3E.3E_Sigurna_instalacija_i_konfiguracija_Apache_Web_Servera"> Praktični dio &gt;&gt; Sigurna instalacija i konfiguracija Apache Web Servera </span></h2>
+<p>U dosadašnjem dijelu rada mogu se vidjeti načini zaštite web poslužitelja od čestih napada. Jedno od važnijih dijelova su preporuke za zaštitu web poslužitelja koje se mogu primijeniti na sve web poslužitelje. Zaštita poslužitelja počinje planiranjem. Nakon toga kreće se s osiguravanjem operacijskog sustava na kojem će se pokretati web poslužitelj. Zatim slijedi zaštita samog poslužitelja, zaštita mrežne infrastrukture pa zaštita sadržaja i sigurna administracija.
+</p><p>Dakle prije same instalacije i konfiguracije poslužitelja potrebno je ranije učiniti nekoliko koraka.
+</p><p>Zbog praktičnosti izvedbe i dostupnih resursa za ovaj dio rada krenut ćemo s pretpostavkom da su ti koraci napravljeni, te počinjemo s korakom zaštite web poslužitelja (Apache poslužitelj), čemu prethodi njegova sigurna instalacija i konfiguracija.
+</p><p>Dakle, ovdje će biti prikazano kako instalirati i konfigurirati web poslužitelj Apache na što je moguće sigurniji način, od samog preuzimanja paketa, instalacije i konfiguracije te instalacije i konfiguracije dodatnih modula kao što su mod_ssl, mod_cband, mod_security, koji su opisani iznad.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Instalacija"> Instalacija </span></h3>
+<h4> <span class="mw-headline" id="Postupak_instalacije"> Postupak instalacije </span></h4>
+<p>Instalacija je prvi korak koji se provodi kako bi naš poslužitelj bio funkcionalan. Naravno prije same instalacije potreban nam je instalacijski paket koji se lako može skinuti s web stranica Apache poslužitelja.
+</p><p>Prvo pitanje na koje se može pojaviti je instalacija poslužitelja iz izvornog koda ili koristeći binarni paket.
+</p><p>Ako se odlučimo za korak u kojem je prvo potrebno kompajlirati izvorni kod, možemo imati potpunu kontrolu iako postupak traje puno duže vrijeme. Instalacija iz binarnih paketa je vrlo često jednostavna, ali tu su česti problem predefinirane postavke.
+</p><p>Ovdje će biti prikazan ovaj prvi način instalacije. Dakle, potrebno je skinuti izvorni kod.
+</p>
+<pre>$ wget <a href="http://archive.apache.org/dist/httpd/httpd-2.4.3.tar.gz" class="external free" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.3.tar.gz</a> 
+</pre>
+<p>Ako želimo biti dosljedni u provođenju sigurnosnih mjera, provjerit ćemo integritet paketa kojeg smo skinuli uz pomoć MD5 ili SHA1, ili još složeniji pristup korištenjem kriptografije javnog ključa što se može učiniti uz pomoć PGP-a.
+</p><p>Ako se koristi npr. MD5, potrebno je s Apache web stranice (na <a href="http://archive.apache.org/dist/httpd/" class="external text" rel="nofollow">ovoj stranici</a> su sve distribucije uključujući i sažetke i ključeve) skinuti MD5 sažetak i usporediti s izračunatim sažetkom paketa kojeg smo skinuli.
+</p><p>Sljedećom naredbom izračunavamo sažetak paketa kojeg smo skinuli prethodno:
+</p>
+<pre>$ md5sum httpd-2.4.3.tar.gz 
+538dccd22dd18466fff3ec7948495417  httpd-2.4.3.tar.gz
+</pre>
+<p>Naredba ispod skida i prikazuje sadržaj MD5 sume sa stranice Apache poslužitelja:
+</p>
+<pre>$ wget -O - -q <a href="http://archive.apache.org/dist/httpd/httpd-2.4.3.tar.gz.md5" class="external free" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.3.tar.gz.md5</a>
+538dccd22dd18466fff3ec7948495417 *httpd-2.4.3.tar.gz
+</pre>
+<p>Sume naravno moraju biti identične, inače je paket koji smo skinuli ranije kompromitiran.
+</p><p><br />
+Ako želimo koristiti PGP, odnosno kompleksniju provjeru, treba učiniti sljedeće:
+</p>
+<pre>$ wget <a href="http://archive.apache.org/dist/httpd/httpd-2.4.3.tar.gz.asc" class="external free" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.3.tar.gz.asc</a>
+</pre>
+<p>Ako ovdje želimo provjeriti potpis, od nas će se tražiti ključ.
+</p>
+<pre>$ gpg httpd-2.4.3.tar.gz.asc
+</pre>
+<p>Ovdje će se u ovom slučaju pojaviti poruka da nema ključa.
+</p><p>Ključ možemo dobiti uz pomoć naredbe:
+</p>
+<pre>$ gpg --keyserver pgpkeys.mit.edu --recv-key DE885DD3
+</pre>
+<p>Kad se naredba izvrši, pojavi se poruka da je ključ uspješno importan.
+</p><p>Ako sada provjerimo potpis s naredbom
+</p>
+<pre>$ gpg httpd-2.4.3.tar.gz.asc
+</pre>
+<p>dobit ćemo željeni rezultat.
+</p><p>Mi smo za našu potrebu iskoristili MD5 funkciju za provjeru integriteta preuzetog paketa.
+</p><p><br />
+Nakon ovog koraka možemo biti sigurni da imamo dobar paket Apache poslužitelja.
+</p><p>Dodatno je moguće provjeriti na web stranicama poslužitelja postoje li kakvi dodatni patchevi.
+</p><p>Sljedeće što nas čeka je odabir između stvaranja jedinstvene statične biblioteke ili kompajliranje koristeći dinamičko učitavanje modula. Danas razlika između ovih pristupa gotovo da ne dolazi do izražaja.
+</p><p><br />
+Prije nego pokrenemo instalaciju, potrebno je provjeriti da je Apache svjestan okoline.
+</p><p>Naravno potrebno je napraviti extract skinutog paketa
+</p>
+<pre>$ gzip -d httpd-2.4.3.tar.gz
+$ tar xvf httpd-2.4.3.tar
+$ cd httpd-2.4.3
+</pre>
+<p>te obaviti provjeru sljedećom naredbom
+</p>
+<pre>$ ./configure --prefix=/PREFIX 
+</pre>
+<p>PREFIX = filesystem putanja unutar koje bi server trebao biti instaliran, default vrijednost je najčešće /usr/local/apache
+</p><p>Configure skripta istraži sustav i kreira Makefile, te je moguće pokrenuti proces (mogu se javiti problemi s bibliotekom APR koju je potrebno dodatno instalirati, a upute se mogu pronaći u readme.txt)
+</p>
+<pre>$ make
+# make install
+
+$ vi PREFIX/conf/httpd.conf
+$ PREFIX/bin/apachectl -k start
+# /usr/local/apache/bin/apachectl start
+</pre>
+<p>Ove naredbe instaliraju Apache te ga pokreću. Nakon toga dobro je konfigurirati operacijski sustav tako da se Apache pokrene prilikom pokretanja sustava.
+</p><p>Za moguće probleme ili dodatne upute najbolje je pogledati <a href="http://httpd.apache.org/docs/2.2/install.html" class="external text" rel="nofollow">ovdje</a>.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Provjera_instalacije"> Provjera instalacije </span></h4>
+<p>Jednostavno, otvorimo naš web preglednik i u URL ukucamo localhost ili 127.0.0.1. Ako se dobije poruka da je Apache uspješno instaliran onda je sve prošlo u redu.
+</p><p>Kako bi se u to uvjerili, mi smo učinili isto te dobili sljedeće:
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apache_works2_jh.png" class="image" title="Početna stranica"><img alt="Početna stranica" src="../images/thumb/b/b9/Apache_works2_jh.png/600px-Apache_works2_jh.png" width="600" height="374" /></a></div></div>
+<p>Također možemo pogledati koji Apache procesi su pokrenuti
+</p>
+<pre>$ ps -Ao user,pid,ppid,cmd | grep httpd
+// ispis
+</pre>
+<h4> <span class="mw-headline" id="Instalacija_modula"> Instalacija modula </span></h4>
+<p>Zajedno s Apache poslužiteljem instalira se tek manji broj modula. Kako bi osigurali naš poslužitelj što je više moguće, instalirat ćemo module koji su spomenuti na početku. Ovdje također treba biti oprezan, jer nije dobro instaliravati module koji nam nisu potrebni.
+</p><p>Vrlo lako možemo provjeriti koji moduli su instalirani naredbom
+</p>
+<pre>$ ./configure --help
+</pre>
+<p>Modul koji pored sebe ima oznaku yes aktiviran je po defaultu.
+</p><p>Koristeći naredbe --enable-module i --disable-module određujemo koji moduli će biti aktivirani, a koji ne.
+</p>
+<pre>$ ./configure \
+&gt; --prefix=/usr/local/apache \
+&gt; --enable-module=rewrite \
+&gt; --enable-module=so \
+&gt; --disable-module=imap \
+&gt; --disable-module=userdir
+</pre>
+<p>Za pogled na cijelu listu predefinirano aktiviranih modula možemo ukucati naredbu
+</p>
+<pre>$ ./httpd -l
+</pre>
+<p>Ako želimo promijeniti default listu modula treba nam sljedeća naredba:
+</p>
+<pre>$ ./configure \
+&gt; --prefix=/usr/local/apache \
+&gt; --enable-rewrite \
+&gt; --enable-so \
+&gt; --disable-imap \
+&gt; --disable-userdir
+</pre>
+<p><br />
+Kao što je rečeno, kako bi osigurali dodatno Apache instalirat ćemo ove module: mod_cband, mod_ssl i mod_security.
+</p><p>Kako instalirati mod_cband već je ranije opisano.
+</p><p>Prvo je potrebno skinuti modul naredbom:
+</p>
+<pre>$ wget <a href="http://dembol.org/downloads/cband/mod-cband-0.9.7.5.tgz" class="external free" rel="nofollow">http://dembol.org/downloads/cband/mod-cband-0.9.7.5.tgz</a>
+</pre>
+<p>i raspakirati naredbom
+</p>
+<pre>$ tar -xzf mod-cband-0.9.7.5.tgz
+</pre>
+<p>Nakon raspakiravanja pokreću se sljedeće naredbe:
+</p>
+<pre>$ cd mod-cband-0.9.7.5
+$ ./configure
+$ make
+$ make install
+</pre>
+<p>Kako bi modul mogao funkcionirati potrebno je ponovno pokrenuti Apache poslužitelj.
+</p><p>Naravno, da bi ovim modulom mogli štiti poslužitelj od npr. DoS napada potrebno je u datoteci httpd.conf podesiti određene parametre o čemu se više može pročitati u dijelu Konfiguracija.
+</p><p><br />
+Što se tiče ssl modula, on je u većini slučaja instaliran po defaultu. Ipak, vrlo lako ga se može instalirati pomoću sljedeće naredbe:
+</p>
+<pre># sudo a2enmod ssl
+</pre>
+<p>Naravno, nakon toga potrebno je ponovno pokrenuti Apache, a kako bi se uvjerili da je modul instaliran i da radi može se iskoristiti sljedeće:
+</p>
+<pre>$ apache2ctl -t -D DUMP_MODULES | grep ssl
+</pre>
+<p>Naredba bi trebala vratiti sljedeće:
+</p>
+<pre># ssl_module (shared)
+#(The module is loaded.)
+</pre>
+<p><br />
+Mod Security koji je opisan ranije vrlo je koristan alat za Apache poslužitelj (i ostale). Modul predstavlja sustav za otkrivanje upada što je vrlo važno u zaštiti poslužitelja.
+</p><p>Ovaj modul se vrlo lako može instalirati na svaki Linux sustav, pa tako i ovaj koji mi koristimo, Ubuntu 12.4.
+</p><p>Prije same instalacije modula potrebno je bilo instalirati neke biblioteke:
+</p>
+<pre>$ sudo apt-get install libxml2 libxml2-dev libxml2-utils
+$ sudo apt-get install libaprutil1 libaprutil1-dev
+</pre>
+<p>Sam Security mod instaliramo uz pomoć ove naredbe:
+</p>
+<pre>$ sudo apt-get install libapache-mod-security
+</pre>
+<p>Ono što je također dobro napraviti je uključiti OWASP Core Rule Set za Mod Security, te u njega uključiti neke postavke koje OWASP preporučuje, a nalaze se u datoteci modsecurity_crs_10_setup.conf.example.
+</p><p>To se može učiniti na sljedeći način:
+</p>
+<pre>$ cd /tmp
+$ sudo wget <a href="http://downloads.sourceforge.net/project/mod-security/modsecurity-crs/0-CURRENT/modsecurity-crs_2.2.5.tar.gz" class="external free" rel="nofollow">http://downloads.sourceforge.net/project/mod-security/modsecurity-crs/0-CURRENT/modsecurity-crs_2.2.5.tar.gz</a>
+$ sudo tar -zxvf modsecurity-crs_2.2.5.tar.gz
+$ sudo cp -R modsecurity-crs_2.2.5/* /etc/modsecurity/
+$ sudo rm modsecurity-crs_2.2.5.tar.gz
+$ sudo rm -R modsecurity-crs_2.2.5
+$ sudo mv /etc/modsecurity/modsecurity_crs_10_setup.conf.example  /etc/modsecurity/modsecurity_crs_10_setup.conf
+</pre>
+<p>Za kraj je također dobro provjeriti uspješnost instalacije
+</p>
+<pre>$ sudo a2enmod headers
+$ sudo a2enmod mod-security
+</pre>
+<p>i ponovno pokrenuti Apache.
+</p><p>Uz ovaj modul obično je potrebno instalirati i mod_evasive. Ovo je vrlo koristan modul koji osigurava potrebne akcije u slučaju DoS, DDoS ili Brute Force napada.
+</p>
+<pre>$ sudo apt-get install libapache2-mod-evasive
+</pre>
+<p>Osim toga potrebno je kreirati i njegovu konfiguracijsku datoteku, provjeriti instalaciju i ponovno pokrenuti Apache.
+</p>
+<pre>$ sudo vi /etc/apache2/mods-available/mod-evasive.conf
+$ sudo a2enmod mod-evasive
+</pre>
+<p><br />
+Za kraj instalacije ovdje je priložen jedan video u kojem je prikazano kako je na vrlo lagan i brz način moguće konfigurirati neke osnovne postavke Apache poslužitelja: <a href="http://www.example.com" class="external text" rel="nofollow">video</a>.
+</p><p><br />
+Sama instalacija kao u slučaju bilo kojeg drugog modula nije dovoljna. Potrebno je naravno u konfiguracijskim datotekama podesiti one elemente koji su nam potrebni.
+</p><p>(Izvori: apache.org; Ristić I. Apache Security)
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija"> Konfiguracija </span></h3>
+<p>Nakon što je naša instalacija u potpunosti gotova, potrebno je učiniti Apache poslužitelj još sigurnijim.
+</p><p>Konfiguracija se provodi u datoteci koja ima nastavak .conf (obično je to httpd.conf datoteka). 
+</p><p>U našem slučaju ova datoteka se nalazi na sljedećoj putanji: /usr/local/apache2/conf/httpd.conf
+</p><p>Ako pogledamo malo bolje tu datoteku, vidimo da je prepuna raznih konfiguracija, a ponajviše ima komentara. Datoteka je nepregledna na prvi pogled i predefinirano u sebi sadrži puno stvari koje nam zapravo ni ne trebaju.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Config_datoteka_jh.png" class="image" title="Datoteka httpd.conf"><img alt="Datoteka httpd.conf" src="../images/thumb/2/25/Config_datoteka_jh.png/500px-Config_datoteka_jh.png" width="500" height="554" /></a></div></div>
+<p><br />
+Stoga, dobra praksa je da datoteku ispraznimo i krenemo od početka, tj. hrabro od prazne konfiguracijske datoteke. 
+Najbolje je držati tu datoteku urednom, kratkom i jasnom.
+</p><p>Za početak u httpd.conf potrebno je upisati nekoliko direktiva opće namjene:
+</p>
+<pre>
+# lokacija datoteka web servera
+ServerRoot /usr/local/apache
+# lokacija direktorija stabla web servera
+DocumentRoot /var/www/htdocs
+# put do PID(Process ID) datoteke u kojoj je pohranjen PID glavnog Apache procesa
+PidFile /var/www/logs/httpd.pid
+# port na kojem osluškuje
+Listen 80
+# onemogućavanje pretvorbe klijentskih IP adresu u imena 
+HostNameLookups Off
+
+</pre>
+<h4> <span class="mw-headline" id="Postavljanje_korisni.C4.8Dkog_ra.C4.8Duna_na_serveru"> Postavljanje korisničkog računa na serveru  </span></h4>
+<p>Nakon instalacije, Apache je pokrenut kao korisnik <i>nobody</i>. Ovakav korisnički račun je uobičajen na Unix operacijskim sustavima, no dobra praksa je kreirati odvojeni korisnički račun za svaki pojedinačni zadatak. Ovaj način rada je koristan, ukoliko dođe do napada na poslužitelj u kojem napadač preuzima privilegije i prava određenog korisničkog računa.
+</p><p>Najčešće korišteno korisničko ime je <i>httpd</i>, ali se koristi i <i>apache</i>. Za kreiranje računa potrebno je izvršiti sljedeće naredbe(kao root):
+</p>
+<pre>
+#groupadd httpd
+# useradd httpd -g httpd -d /dev/null -s /sbin/nologin
+
+</pre>
+<p>Pomoću ovih naredbi kreira se grupa i korisnički račun, te se računu dodjeljuje home direktorij /dev/null i shell /sbin/nologin(čime se onemogućava login za račun). Na kraju je potrebno dodati sljedeće linije u httpd.conf:
+</p>
+<pre>User httpd
+Group httpd
+</pre>
+<h4> <span class="mw-headline" id="Postavljanje_dozvola_za_izvr.C5.A1avanje_Apache_binary_datoteka"> Postavljanje dozvola za izvršavanje Apache binary datoteka </span></h4>
+<p>Apache se izvršava preko porta 80, te on mora biti pokrenut kao root. Ukoliko se dopusti bilo kojem drugom korisničkom računu da mijenja httpd binary datoteku, taj račun bi mogao dobiti dozvole za izvršavanje bilo koje datoteke kao root. Iz ovoga se može uočiti koliki sigurnosni rizik ovaj propust predstavlja, ukoliko ga napadač iskoristi.
+Zbog gore navedenog razloga, root se mora konfigurirati na način da samo on ima dozvolu pisanja, odnosno write:
+</p>
+<pre>
+# chown -R root:root /usr/local/apache
+# find /usr/local/apache -type d | xargs chmod 755
+# find /usr/local/apache -type f | xargs chmod 644
+
+</pre>
+<h4> <span class="mw-headline" id="Pode.C5.A1avanje_zadanih_postavki"> Podešavanje zadanih postavki </span></h4>
+<p>Ukoliko dođe do greške koja može slučajno otkriti važne sistemske datoteke, potrebno je zabraniti pristup cjelokupnom datotečnom sustavu i nakon toga dopustiti pristup root dokumentu na način da se u httpd.conf datoteku ubace sljedeće direktive:
+</p>
+<pre>
+&lt;Directory /&gt;
+    Order Deny,Allow
+    Deny from all
+&lt;/Directory&gt;
+&lt;Directory /var/www/htdocs&gt;
+    Order Allow,Deny
+    Allow from all
+&lt;/Directory&gt;
+
+</pre>
+<h5> <span class="mw-headline" id="Options_direktiva"> Options direktiva </span></h5>
+<p>Gore spomenuti način zaštite ne štiti posve od netočno ili zlonamjerno postavljenih simboličnih linkova izvan direktorija <i>var/www/htdocs</i>. Korisnici sustav mogli bi kreirati simbolične linkove do resura čiji oni nisu vlasnici. Kontrola simboličnih linkova i druge kontrole pristupa datotekama kontroliraju se preko Options directive unutar &lt;Directive&gt; direktive.
+Options direktiva može imati jednu ili više sljedećih vrijednosti:
+</p>
+<pre>All - prikaz svih opcija
+None - niti jedna opcija nije omogućena
+ExecCGI - omogućava izvršavanje CGI skripti
+FollowSymLinks - omogućava pristup simboličnim linkovima
+Includes - dozvoljava server-side uključenja
+IncludesNOEXEC - dozvoljava SSI,ali ne dozvoljava exec naredbu koja se koristi za izvršavanje vanjskih skripti
+Indexes - dozvoljava serveru da generira listu datoteka u direktoriju kada zadana indeksna datoteka nedostaje
+MultiViews - dozvoljava pregovaranje o sadržaju, content negotiation
+SymLinksIfOwnerMatch - dozvoljava pristup simboličnim linkovima ako je vlasnik linka isti kao i vlasnik resursa na koji link
+                       pokazuje
+</pre>
+<p>Direktiva Options -FollowSymlinks onemogućuje upotrebu simboličnih linkova u Apache-u. Znak - ispred imena opcije pokazuje Apache-u da zadrži postojeću konfiguraciju i onemogući navedenu opciju. Isto tako, znak + znači dodavanje opcije u konfiguraciju.
+</p>
+<h5> <span class="mw-headline" id="AllowOveride_direktiva"> AllowOveride direktiva </span></h5>
+<p>Prema zadanim postavkama  dozvoljava pojedinim dijelovima konfiguracijskih podataka da budu smješteni unutar stabla direktorija web servera, u datotekama koje se nazivaju .htaccess. Konfiguracijski podaci koji se nalaze unutar te datoteke mogu nadjačati podatke unutar httpd.conf datoteke. Ovakav način može znatno usporiti rad servera, te može omogućiti bilo kome tko ima kontrolu nad stablom direktorija, limitiranu kontrolu nad serverom. Ova značajka se kontrolira putem AllowOverride direktive, koja se također pojavljuje unutar &lt;Directive&gt; direktive, koja specificira direktorij za koji se opcija odnosi.
+AllowOverride directiva podržava sljedeće opcije:
+</p>
+<pre>AuthConfig - omogućava korištenje(unutar .htacces datoteke) autorizacijskih direktiva
+FileInfo - omogućava korištenje direktiva vezanih uz kontroliranje tipova dokumenata
+Indexes - omogućava korištenje direktiva vezanih uz kontroliranje indeksiranja direktorija
+Limit - omogućava korištenje direktiva vezanih uz kontroliranje pristupa host-u
+Options - omogućava korištenje direktiva vezanih uz kontroliranje specifičnih funkcija direktorija(Options, XbitHack direktive)
+All - dozvoljava sve opcije
+None - ignorira .htacces konfiguracijsku datoteku
+</pre>
+<p>Za zadanu konfiguraciju odabrana je None opcija, pa prema tome &lt;Directory&gt; direktive su:
+</p>
+<pre>
+&lt;Directory /&gt;
+    Order Deny,Allow
+    Deny from all
+    Options None
+    AllowOverride None
+&lt;/Directory&gt;
+   
+&lt;Directory /var/www/htdocs&gt;
+    Order Allow,Deny
+    Allow from all
+&lt;/Directory&gt;
+
+</pre>
+<h4> <span class="mw-headline" id="Omogu.C4.87avanje_CGI_skripti"> Omogućavanje CGI skripti </span></h4>
+<p>Omogućavanje CGI skripta se preporuča samo ukoliko su one nužne. U tom slučaju, kao dobra praksa, ističe se grupiranje svih skripti u jedan direktorij koji najčešće nosi naziv <i>cgi-bin</i>. Na taj način možemo znati koje skripte se izvršavaju na serveru.
+Kako bi se dozvolilo izvršavanje CGI skripti u nekom direktoriju, u ovom slučaju /var/www/cgi-bin, potrebno je u httpd.conf dodati:
+</p>
+<pre>
+&lt;Directory /var/www/cgi-bin&gt;
+    Options ExecCGI
+    SetHandler cgi-script
+&lt;/Directory&gt;
+
+</pre>
+<h4> <span class="mw-headline" id="Bilje.C5.BEenje_aktivnosti.28logging.29"> Bilježenje aktivnosti(logging) </span></h4>
+<p>Vrlo važan čimbenik zaštite je zapisivanje svih aktivnosti na serveru u dnevnik. Postoje dvije vrste dnevnika, <i>acces log</i>, koji služi za zapisivanje svih zahtjeva prema serveru. Pomoću direktive LogFormat, definira se format zapisa u dnevnik, a zatim pomoću CustomLog direktive kreira se access dnevnik u tom formatu:
+</p>
+<pre>
+LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\
+          &quot;&quot; combined
+CustomLog /var/www/logs/access_log combined
+
+</pre>
+<p>Sljedeći dnevnik je <i>error log</i>, te se u njega bilježe sve sistemske aktivnosti, poput kada se web server pokrenuo i zaustavio, kao i sve eventualne pogreške nastale tijekom obrade zahtjeva. Primjer česte greške je greška koja se generira kada klijent zatraži neki nepostojeći resurs, tada HTTP generira pogrešku pod kodom 404, te se u tom slučaju bilježi aktivnost u access log te greška u error log. Za definiranje error log-a potrebne su direktive LogLevel i ErrorLog, gdje ErrorLog kreira stvarni dnevnik:
+</p>
+<pre>
+LogLevel info
+ErrorLog /var/www/logs/error_log
+
+</pre>
+<h4> <span class="mw-headline" id="Postavljanje_konfiguracijskih_limita_na_serveru"> Postavljanje konfiguracijskih limita na serveru </span></h4>
+<p>Slabo ili nepravilno podešeni limiti na serveru mogu server učiniti lakom metom za različite napade.
+Sljedeća konfiguracijska direktiva prikazuje zadanu(defaultnu) konfiguraciju vrijednosti Apache-a te se definira koliko dugo server čeka na sporog klijenta:
+</p>
+<pre>
+# čekaj do 300 sekundi sporije klijente
+TimeOut 300
+# dozvoli ponovnu upotrebu veze između zahtjeva 
+KeepAlive On
+# dozvoli maksimalno 100 zahtjeva po konekciji 
+MaxKeepAliveRequests 100
+# čekaj do 15 sekundi do sljedećeg 
+# zahtjeva na otvorenu vezu 
+KeepAliveTimeout 15
+
+</pre>
+<p>Defaultna, zadana vrijednost za timeout konekcije, odnosno prestanak konekcije je 300 sekundi, što je dosta dugo čekanje. Timeout se može postaviti na 60 sekundi i time se znatno povećava tolerancija prema DoS napadima.
+Sljedeće direktive nameću limite na različite aspekte jednog HTTP zahtjeva:
+</p>
+<pre>
+# ne nameće se nikakav limit na zahtjev
+LimitRequestBody 0
+# dozvoli do 100 zaglavlja u zahtjevu
+LimitRequestFields 100
+# svako zaglavlje može biti dužine do 8190 bitova
+LimitRequestFieldsize 8190
+# prva linija zahtjeva može biti
+# dužine do 8190 bitova 
+LimitRequestLine 8190
+# limitiraj XML zahtjev do milijun bitova(Apache 2.x)
+LimitXMLRequestBody 1000000
+
+</pre>
+<h4> <span class="mw-headline" id="Sprje.C4.8Davanje_curenja_informacija.28information_leaks.29"> Sprječavanje curenja informacija(information leaks) </span></h4>
+<p>Svaka informacija o serveru koja je na bilo koji način dostupna, omogućava napadačima izvšavanje različitih napada. Primjer odavanje informacija javlja se kod instalacijskog procesa, gdje se automatski stavlja email adresa korisnika koji kompilira Apache u konfiguracijski datoteku. Na taj način korisnički račun se otkriva javnosti, što predstavlja rizik.
+Sljedeća direktiva služi za zamjenu generirane adresa od strane Apache-a sa generičkom adresom:
+</p>
+<pre>ServerAdmin webmaster@apachesecurity.net
+</pre>
+<p>Prema početnim postavkama, email adresa definirana ovom direktivom pojavljuje se na stranicama generiranim od strane servera, ukoliko to ne želimo, ova opcija se isključuje pomoću direktive:
+</p>
+<pre>ServerSignature Off
+</pre>
+<p>HTTP protokol definira povratno polje zaglavlja pod nazivom server, čija namjena je identifikacija softvera koji odgovara na zahtjev. Prema početnim postavkama, Apache ovo polje popunjava sa imenom, verzijom, te imenima i verzijama svih modula. Primjer kako to izgleda na testnom zahtjevu:
+</p>
+<pre>
+$ telnet localhost 80
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+HEAD / HTTP/1.0
+   
+HTTP/1.1 200 OK
+Date: Fri, 19 Mar 2004 22:05:35 GMT
+Server: Apache/1.3.29 (Unix)
+Content-Location: index.html.en
+Vary: negotiate,accept-language,accept-charset
+TCN: choice
+Last-Modified: Fri, 04 May 2001 00:00:38 GMT
+ETag: &quot;4002c7-5b0-3af1f126;405a21d7&quot;
+Accept-Ranges: bytes
+Content-Length: 1456
+Connection: close
+Content-Type: text/html
+Content-Language: en
+Expires: Fri, 19 Mar 2004 22:05:35 GMT
+
+</pre>
+<p>Ovo polje zaglavlja otkriva neke potencijalno korisne informacije napadačima, pa se pomoću sljedeće direktive dozvoljava samo prikaz imena servera:
+</p>
+<pre>ServerTokens ProductOnly
+</pre>
+<p>Još jedan problem koji se javlja je automatsko indeksiranje direktorija, a on može prouzročiti nenamjerno otkrivanje različitih datoteka, pa se preporuča isključivanje automatskog indeksiranja, te konfiguriranje Apache-a na način da odbija sve zahtjeve koji odgovaraju nizu regularnih izraza. Sljedeća direktiva služi za traženje različitih datotečnih ekstenzija koje nebi smjele biti prisutne na web serveru:
+</p>
+<pre>
+&lt;FilesMatch &quot;(^\.ht|~$|\.bak$|\.BAK$)&quot;&gt;
+    Order Allow,Deny    
+    Deny from all
+&lt;/FilesMatch&gt;
+
+</pre>
+<p>FilesMatch direktiva gleda samo posljednji dio cijelog imena datoteke,odnosno ekstenziju, pa prema tome FilesMatch konfiguracijske specifikacije se ne mogu primijeniti na imena direktorija. Kako bi se u cijelosti ograničio pristup određenom direktoriju, na primjer pristup CVS administrativnim datotekama, to se može na ovaj način:
+</p>
+<pre>
+&lt;DirectoryMatch /CVS/&gt;
+    Order Allow,Deny
+    Deny from all
+&lt;/DirectoryMatch&gt;
+
+</pre>
+<p>(Izvori: apache.org; Ristić I. Apache Security)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jurica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jurica (stranica ne postoji)">Jurica</a> 21:49, 20. siječnja 2013. (CET) | --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivankos&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivankos (stranica ne postoji)">Ivankos</a> 21:53, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1.Ristić I.(2005). <i>Apache Security</i>
+</p><p>2.Gelbmann M.(2012). <i>Most popular web servers by country</i>, dostupno na <a href="http://w3techs.com/blog/entry/most_popular_web_servers_by_country" class="external free" rel="nofollow">http://w3techs.com/blog/entry/most_popular_web_servers_by_country</a> 
+</p><p>3.W3Techs.com(2012). <i> Usage of web servers for websites</i>, dostupno na <a href="http://w3techs.com/technologies/overview/web_server/all" class="external free" rel="nofollow">http://w3techs.com/technologies/overview/web_server/all</a>
+</p><p>4.Kargl F., Maier J., Weber M.(2001). <i>Protecting Web Servers from Distributed Denial of Service Attacks</i>, dostupno na <a href="http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf" class="external free" rel="nofollow">http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf</a>
+</p><p>5.TechiWarehouse(2004). <i>Types of Attacks on Web Servers</i>, dostupno na <a href="http://www.techiwarehouse.com/engine/21b0d480/Types-of-Attacks-on-Web-Servers" class="external free" rel="nofollow">http://www.techiwarehouse.com/engine/21b0d480/Types-of-Attacks-on-Web-Servers</a>
+</p><p>6.Oryano S.P.(2009). <i>Securing a Web server</i>, dostupno na <a href="http://www.ibm.com/developerworks/web/library/wa-secureweb/" class="external free" rel="nofollow">http://www.ibm.com/developerworks/web/library/wa-secureweb/</a>
+</p><p>7.Tracy M., Jansen W., Scarfone K., Winograd T.(2007). <i>Guidelines on Securing Public Web Servers</i>, dostupno na <a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external free" rel="nofollow">http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf</a>
+</p><p>8.Trustwave Holdings Inc., <i>ModSecurity® Reference Manual</i>, dostupno na <a href="http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual#ModSecurity.C2.AE_Reference_Manual" class="external free" rel="nofollow">http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual#ModSecurity.C2.AE_Reference_Manual</a>
+</p><p>9.Carnet,<i>Mod security modul</i>, dostupno na <a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-02-63.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-02-63.pdf</a>
+</p><p>10.Carnet(2008). <i>Usporedba sigurnosnih rizika poslužitelja Apache i IIS</i>, dostupno na <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2008-09-239.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2008-09-239.pdf</a>
+</p><p>11.ModSecurity Handbook, dostupno na <a href="https://www.feistyduck.com/books/modsecurity-handbook/" class="external free" rel="nofollow">https://www.feistyduck.com/books/modsecurity-handbook/</a>
+</p><p>12.<a href="http://en.wikipedia.org/wiki/Web_application_security" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Web_application_security</a>
+</p><p>13.<a href="https://www.owasp.org/index.php/Category:Attack" class="external free" rel="nofollow">https://www.owasp.org/index.php/Category:Attack</a>
+</p><p>14.Phishing and pharming Information Site, dostupno na <a href="http://www.pharming-phishing.com/" class="external free" rel="nofollow">http://www.pharming-phishing.com/</a>
+</p><p>15.What is TLS/SSL?, dostupno na <a href="http://technet.microsoft.com/en-us/library/cc784450%28v=ws.10%29.aspx" class="external free" rel="nofollow">http://technet.microsoft.com/en-us/library/cc784450%28v=ws.10%29.aspx</a>
+</p><p>16.Security tips, dostupno na <a href="http://httpd.apache.org/docs/2.2/misc/security_tips.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/misc/security_tips.html</a>
+</p><p>17.Kargl, Maier, Weber. Protecting Web Servers from Distributed Denial of Service Attacks. Princeton. Dostupno na <a href="http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf" class="external free" rel="nofollow">http://www.princeton.edu/~rblee/ELE572Papers/p514-kargl.pdf</a>
+</p><p>18.Guidelines on Securing Public Web Servers. NIST. Dostupno na <a href="http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf" class="external free" rel="nofollow">http://csrc.nist.gov/publications/nistpubs/800-44-ver2/SP800-44v2.pdf</a>
+</p><p>19.Apache Module Index. Dostupno na <a href="http://httpd.apache.org/docs/2.0/mod/" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.0/mod/</a>
+</p><p>20.OSSEC. Dostupno na <a href="http://www.ossec.net/" class="external free" rel="nofollow">http://www.ossec.net/</a>
+</p>
+<h2> <span class="mw-headline" id="Zadu.C5.BEenja_.C4.8Dlanova_tima"> Zaduženja članova tima </span></h2>
+<p>Ovdje je ukratko navedeno što je koji član tima radio, iako je ispod svakog poglavlja to naznačeno.
+</p><p><br />
+<b>Ivan Kos Grabar</b>
+</p>
+<ul><li>Uvod
+</li><li>Apache web poslužitelj
+</li><li>Moduli za Apache
+<ul><li>mod_cband
+</li><li>mod_ssl
+</li><li>mod_filter
+</li><li>mod_ratelimit
+</li><li>mod_limits
+</li><li>mod_suexec
+</li><li>mod_log_config
+</li><li>mod_log_forensic
+</li></ul>
+</li><li>Ostali mehanizmi zaštite
+<ul><li>Apache u 'zatvoru'
+</li><li>Sustavi za otkrivanje upada
+<ul><li>Mod Security(mod_sec)
+</li></ul>
+</li></ul>
+</li><li>Zajednički rad na praktičnom dijelu
+</li></ul>
+<p><br />
+</p><p><b>Jurica Hlevnjak</b>
+</p>
+<ul><li>Napadi na web poslužitelje
+</li><li>Ostali problemi od kojih se potrebno zaštititi
+</li><li>Preporuke za zaštitu web poslužitelja (NIST)
+</li><li>Apache sigurnosni principi
+</li><li>Savjeti za sigurniji Apache
+</li><li>Moduli za Apache
+<ul><li>mod_access
+</li><li>mod_auth
+</li><li>mod_chroot
+</li></ul>
+</li><li>OSSEC
+</li><li>Zajednički rad na praktičnom dijelu
+</li></ul>
+<p><br />
+</p>
+<hr />
+<p>siječanj 2013. | Ivan Kos Grabar | Jurica Hlevnjak
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 601/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4396-0!*!0!!hr!2!edit=0 and timestamp 20190203204001 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html">http://security.foi.hr/wiki/index.php/Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_web_poslu%C5%BEitelja_-_Moduli_za_apache_i_ostali_mehanizmi_za%C5%A1tite&amp;oldid=17341" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 09:08, 23. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 28.228 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Zaštita_web_poslužitelja_-_Moduli_za_apache_i_ostali_mehanizmi_zaštite", "wgTitle": "Zaštita web poslužitelja - Moduli za apache i ostali mehanizmi zaštite", "wgAction": "view", "wgArticleId": 4396, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17341, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 1.263 secs. -->			</body>
+</html>

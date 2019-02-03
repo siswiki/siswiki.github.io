@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnosna analiza NodeJS platforme za izradu skalabilnih aplikacija - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnosna analiza NodeJS platforme za izradu skalabilnih aplikacija</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#mw-head">orijentacija</a>,
+					<a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi:
+Danijel Vincijanović
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Danijel_Vincijanovi%C4%87&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Danijel Vincijanović (stranica ne postoji)">Danijel Vincijanović</a> 15:32, 6. studenog 2015. (CET)
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Hello_World"><span class="tocnumber">1.1</span> <span class="toctext">Hello World</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Kostur_web_servera"><span class="tocnumber">1.2</span> <span class="toctext">Kostur web servera</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Cross_Site_Scripting"><span class="tocnumber">2</span> <span class="toctext">Cross Site Scripting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Reflected_XSS"><span class="tocnumber">2.1</span> <span class="toctext">Reflected XSS</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Stored_XSS"><span class="tocnumber">2.2</span> <span class="toctext">Stored XSS</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#XSS_-_za.C5.A1tita"><span class="tocnumber">2.3</span> <span class="toctext">XSS - zaštita</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Server-Side_JavaScript_Injection"><span class="tocnumber">3</span> <span class="toctext">Server-Side JavaScript Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#SSJI_DoS"><span class="tocnumber">3.1</span> <span class="toctext">SSJI DoS</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#SSJI_Pristup_lokalnim_datotekama"><span class="tocnumber">3.2</span> <span class="toctext">SSJI Pristup lokalnim datotekama</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#SSJI_-_za.C5.A1tita"><span class="tocnumber">3.3</span> <span class="toctext">SSJI - zaštita</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#ReDoS"><span class="tocnumber">4</span> <span class="toctext">ReDoS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#ReDoS_-_za.C5.A1tita"><span class="tocnumber">4.1</span> <span class="toctext">ReDoS - zaštita</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Node_Package_Manager"><span class="tocnumber">5</span> <span class="toctext">Node Package Manager</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Insecure_Direct_Object_References"><span class="tocnumber">6</span> <span class="toctext">Insecure Direct Object References</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Brute_Force"><span class="tocnumber">7</span> <span class="toctext">Brute Force</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Cross-site_Request_Forgery"><span class="tocnumber">8</span> <span class="toctext">Cross-site Request Forgery</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#CSRF_-_za.C5.A1tita"><span class="tocnumber">8.1</span> <span class="toctext">CSRF - zaštita</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#CSRF_-_za.C5.A1tita_pomo.C4.87u_tokena"><span class="tocnumber">8.1.1</span> <span class="toctext">CSRF - zaštita pomoću tokena</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Konfiguriranje_HTTP_zaglavlja"><span class="tocnumber">9</span> <span class="toctext">Konfiguriranje HTTP zaglavlja</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#Literatura"><span class="tocnumber">10</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#tl.3Bdr"><span class="tocnumber">11</span> <span class="toctext">tl;dr</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Javascript se godinama koristi na klijentskoj strani kako bi pružio bogatije i kvalitetnije korisničko iskustvo. Zadnjih nekoliko godina pojavili su se interesi za korištenjem javascripta ne samo na klijentskoj strani već i na server strani. Stoga danas postoje SSJS (Server-side Javascript) mogućnosti korištene kod servera baza podataka poput CouchCB, servera datoteka kao Opera Unite i web servera (Node.js)
+</p><p>Node JS je platforma za razvoj skalabilnih web aplikacija. Izrađen je na Google V8 Javascript sustavu uz implementaciju web poslužiteljskog dijela. Kao takav sadrži web poslužiteljsku podršku pa nije potrebno drugo web poslužiteljsko programsko rješenje. Ideja na kojoj se zasniva Node je non-blocking i event-driven I/O model koji ga čine jednostavnim i brzim. Kreator Node-a - Ryan Dahl, težio je kreiranju real-time web aplikacija sa push tehnologijom, a nit vodilja su mi bile aplikacije poput Gmail-a. Real-time web aplikacije sa mogućnosti push tehnologije preko web socketa čine srž Node js-a. 
+Ono što je važno napomenuti je kako Node.js nije nova platforma koja će zavladati web svijetom već je ona tu da upotpuni određene potrebe. Slabost Node.js-a je u obavljanju procesorski intezivnih zadataka gdje će sve njegove prednosti biti zagušene. 
+Rad na samo jednoj dretvi je razlog zbog kojega procesorski intezivni zadaci nisu poželjni jer bi stvarali probleme za sve klijente koji šalju zahtjev koji će biti blokirani sve dok zadatak nije završen. Stoga je Node.js najbolje iskoristiti kada razvijamo aplikaciju koja će biti zadužena za upravljanje velikim brojem povezivanja gdje se ne obavljaju procesorski teške operacije. 
+</p><p>Node donosi određene sigurnosne prednosti u odnosu na ostale paradigme tradicionalnog razvoja server strane. 
+Npr. sljedeći kod prikazuje kostur jednostavnog web servera kojemu je zadatak da radi upravo ono za što je konfiguriran 
+i ništa više od toga za razliku od drugih web servera poput Tomcat, Apache ili IIS. Naime, ovakav način razvoja web servera predstavlja prednost jer povećanjem broja mogućnosti web servera, povećava se i mogućnost napada. [1]
+</p><p><i><b>Each new developer hire is a potential set of vulnerabilities, patch them with education. </b></i> — Lift Security Team
+</p><p><a href="https://github.com/davinci2015/node-js-security-project" class="external text" rel="nofollow"><b>GitHub repozitorij - NodeJS Security projekt</b></a>
+</p>
+<h3> <span class="mw-headline" id="Hello_World"> Hello World </span></h3>
+<p>Za početak ćemo se držati programerske tradicije i izraditi aplikaciju koja će ispisati 'Hello World'. Server sluša port 8080.
+</p>
+<pre>
+http = require('http');
+
+http.createServer(function(request, response) {
+	response.writeHead(200, {'Content-Type': 'text/html'});
+	response.write('&lt;p&gt;Hello World&lt;/p&gt;');
+	response.end();
+}).listen(8080);
+
+console.log('Server running at http://127.0.0.1:8080/');
+</pre>
+<p>PHP verzija 'Hello World' aplikacije:
+</p>
+<pre>
+&lt;?php echo &quot;&lt;p&gt;Hello World&lt;/p&gt;&quot;;&#160;?&gt;
+</pre>
+<p>Zatim ćemo usporediti brzinu kojom će Node.js i Apache server + PHP obraditi 100 000 zahtjeva na 'Hello World' aplikaciju. Testiranje radimo pomoću Apache Bench alata.
+Apache Bench ćemo instalirati i pokrenuti sljedećim naredbama u terminalu:
+</p>
+<pre>$sudo aptitude install apache2-utils
+$ab -r -n 100000 -c 100 &lt;url&gt;
+</pre>
+<p>Umjesto &lt;url&gt; stavljamo url kojega testiramo.
+Prethodna naredba će izvršiti 100 000 zahtjeva sa ukupno 1000 zahtjeva koji će se desiti u isto vrijeme.
+Rezultati dobiveni testiranjem Node.js-a:
+</p>
+<pre>
+Concurrency Level:      1000
+Time taken for tests:   10.352 seconds
+Complete requests:      100000
+Failed requests:        0
+Total transferred:      11800000 bytes
+HTML transferred:       1800000 bytes
+Requests per second:    9659.89 [#/sec] (mean)
+Time per request:       103.521 [ms] (mean)
+Time per request:       0.104 [ms] (mean, across all concurrent requests)
+Transfer rate:          1113.15 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0   73 450.4      0    7016
+Processing:     3   22  22.5     21     433
+Waiting:        3   22  22.5     21     433
+Total:          7   95 459.1     21    7441
+
+Percentage of the requests served within a certain time (ms)
+  50%     21
+  66%     24
+  75%     28
+  80%     29
+  90%     33
+  95%     68
+  98%   1030
+  99%   1220
+ 100%   7441 (longest request)
+</pre>
+<p>Sada ćemo ponoviti isto sa Apache serverom i PHP-om nakon čega dobivamo sljedeće rezultate:
+</p>
+<pre>
+Concurrency Level:      1000
+Time taken for tests:   25.685 seconds
+Complete requests:      100000
+Failed requests:        0
+Total transferred:      20600000 bytes
+HTML transferred:       1800000 bytes
+Requests per second:    3893.35 [#/sec] (mean)
+Time per request:       256.848 [ms] (mean)
+Time per request:       0.257 [ms] (mean, across all concurrent requests)
+Transfer rate:          783.23 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0   13 158.2      0    3004
+Processing:     2   75 947.7      6   25659
+Waiting:        1   75 947.7      6   25659
+Total:          5   87 1004.3      6   25677
+
+Percentage of the requests served within a certain time (ms)
+  50%      6
+  66%      6
+  75%      7
+  80%      7
+  90%      7
+  95%      8
+  98%     11
+  99%   1006
+ 100%  25677 (longest request)
+</pre>
+<p>Zaključujemo kako Node može obraditi više zahtjeva u jedinici vremena što predstavlja njegovu snagu. Kada bi u aplikaciju dodali određeni procesorski zahtjevniji zadatak Node bi izgubio svoju prednost i trebalo bi mu znatno više vremena da obradi sve zahtjeve jer bi obradom jednog drugi bili blokirani. Node zahvaljujući svojoj arhitekturi koristi malo sistemskog resursa za obradu zahtjeva.  Stoga, utvrđivanjem zahtjeva aplikacije možemo saznati pruža li nam Node željene prednosti te da li ga ima smisla koristiti u razvoju iste.
+</p>
+<h3> <span class="mw-headline" id="Kostur_web_servera"> Kostur web servera </span></h3>
+<p>Slijedi primjer prilično jednostavnog kostura web servera koji dohvaća i prikazuje datoteke ovisno o putanji. Ukoliko takve ne postoje vraća 404 - Not Found. Server sluša port 8080.
+</p>
+<pre>
+var http = require(&quot;http&quot;);
+var fs = require('fs');
+var url = require('url');
+
+http.createServer(function (request, response) {
+	var path = url.parse(request.url).pathname.substr(1);
+
+	fs.readFile(path, function(error, data){
+		if (error){
+			rSesponse.writeHead(404, {'Content-Type':'text/html'});
+			response.end();
+		}
+
+		else {
+			response.writeHead(200, {'Content-Type':'text/html'});
+			response.write(data.toString());
+			response.end();
+		}
+	});
+
+}).listen(8080);
+
+console.log('Server running at http://127.0.0.1:8080/');
+
+</pre>
+<h2> <span class="mw-headline" id="Cross_Site_Scripting"> Cross Site Scripting </span></h2>
+<p>Cross Site Scripting (XSS) je napad koji se dogodi kada stranica pokazuje podatke koji nisu prethodno provjereni. Na taj način napadač može u stranicu unijeti zlonamjerni Javascript kod koji će se izvršiti prilikom korisnikovog posjeta stranici. XSS ranjivost napadaču omogućuje pristup povjerljivim informacijama, kolačićima, slanje lažnih zahtjeva itd.. 
+Postoje dvije glavne vrste XSS napada: [2]
+</p>
+<ul><li> Reflected XSS ili non-persistent XSS
+</li><li> Stored XSS ili persistent XSS
+</li></ul>
+<h3> <span class="mw-headline" id="Reflected_XSS"> Reflected XSS </span></h3>
+<p>Kod Reflected XSS-a zlonamjerna skripta se šalje korisniku tako što korisnik sam pošalje zahtjev prema web aplikaciji. Napadač na taj način prevari korisnika da sam izvrši napad putem email-a, društvenih mreža ili bilo koje druge web stranice. Rezultat toga je da korisnik pristupi zlonamjernoj poveznici i potvrdi formu ili napravi zahtjev prema malicioznoj stranici. [2]
+</p><p>Sljedeći dijagram prikazuje na koji način se izvršava reflected XSS:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss1.png" class="image"><img alt="Xss1.png" src="../images/thumb/5/51/Xss1.png/600px-Xss1.png" width="600" height="449" /></a> 
+</p><p>Na dijagramu možemo vidjeti kako je implementiran pretraživač na endpointu <code>/search?=unos</code> Napadač na ovaj način može saznati da se unos ne provjerava čime se otvaraju mogućnosti za napad. Napad se može izvršiti na način da napadač na svojoj stranici postavi poveznicu sa zlonamjernim kodom prema ranjivoj stranici. 
+Napadač je vlasnik /index.html stranice koja izgleda ovako:
+</p>
+<pre>
+&lt;html&gt;
+  &lt;a href=&quot;https://site.com/search?q=&lt;script&gt;alert('hacked')&lt;/script&gt;&quot;&gt;
+    Click Here
+  &lt;/a&gt;
+&lt;/html&gt;
+</pre>
+<p>Ukoliko korisnik dođe na tu stranicu i klikne na poveznicu preglednik će napraviti zahtjev prema toj stranici zajedno sa malicioznim Javascript kodom. U ovome slučaju 'maliciozni' kod je samo <code>alert</code> funkcija, ali napadač može napraviti bilo koju drugu radnju pomoću Javascripta. Također je moguće napad izvršiti bez poveznice već automatskim preusmjeravanjem korisnika na ranjivu stranicu. 
+</p>
+<h3> <span class="mw-headline" id="Stored_XSS"> Stored XSS </span></h3>
+<p>Kod Stored XSS napada maliciozna skripta se unosi u bazu ranjive web aplikacije. Uneseni maliciozni kod će se izvršiti kada korisnik dođe na određenu rutu stranice koja dohvaća maliciozni kod iz baze i ubacuje ga u HTML.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss2.png" class="image"><img alt="Xss2.png" src="../images/thumb/b/b6/Xss2.png/600px-Xss2.png" width="600" height="449" /></a> 
+</p><p>Na dijagramu je vidljivo da je omogućen POST zahtjev na endpoint <code>/comment</code>. Stranica koja je XSS ranjiva ne provjerava korisnikov unos pa je tako omogućeno napadaču da unese maliciozni kod. 
+Nakon toga korisnik dođe na stranicu i šalje zahtjev kojim se dohvaća maliciozni kod iz baze. [2]
+</p>
+<h3> <span class="mw-headline" id="XSS_-_za.C5.A1tita"> XSS - zaštita </span></h3>
+<ul><li> Korištenjem nekog od template engine-a, u našem slučaju JADE, možemo se zaštititi od XSS napada. Svaki od template engine-ova imaju različitu zaštitu od XSS napada. Tako npr. JADE koristi sljedeći kod kako bi pretvorio potencijalno maliciozne znakove u njihove HTML ekvivalente:
+</li></ul>
+<pre>
+exports.escape = function escape(html){
+  var result = String(html)
+    .replace(/&amp;/g, '&amp;')
+    .replace(/&lt;/g, '&lt;')
+    .replace(/&gt;/g, '&gt;')
+    .replace(/&quot;/g, '&quot;');
+  if (result === '' + html) return html;
+  else return result;
+};
+</pre>
+<ul><li> Provjera korisnikovog unosa. Primijeniti whitelisting gdje god je to moguće.
+</li><li> HTTPOnly kolačić zastavica - korištenjem ove astavice u zaglavlju onemogućavamo pristup kolačiću na klijentskoj strani
+</li><li> Implementiranje CSP-a - CSP je mehanizam preglednika koji dopušta whitelisting resursa korištenih na stranici. Npr. moguće je definirati za Javascript, CSS, slike i ostalo iz kojih izvora su dopušteni.
+</li><li> Enkodirati output ovisno o kontekstu:
+</li></ul>
+<table class="wikitable">
+<tr>
+<th>Kontekst </th>
+<th> Primjer koda </th>
+<th> Enkodiranje
+</th></tr>
+<tr>
+<td> HTML Entity </td>
+<td> &lt;span&gt;NEPOVJERLJIVI SADRŽAJ&lt;/span&gt;</td>
+<td> Promijeniti &amp; u &amp;amp<br /> Promijeniti &lt; u &amp;lt<br />Promijeniti &gt; u &amp;gt<br />Promijeniti " u &amp;quot<br />Promijeniti ' u &amp;#x27 <br />Promijeniti / u &amp;#x2F<br />
+</td></tr>
+<tr>
+<td> HTML enkodiranje atributa </td>
+<td> &lt;input type='text' name='name' value='NEPOVJERLJIVI SADRŽAJ' </td>
+<td> escape-ati sve znakove (osim alfanumeričkih) sa HTML entitetom formata &amp;#xHV; gdje HV predstavlja hex. vrijednost.
+</td></tr>
+<tr>
+<td> URl enkodiranje </td>
+<td> &lt;a href='/site/search?value= 'NEPOVJERLJIVI SADRŽAJ'&gt; klikni me &lt;/a&gt;  </td>
+<td> escape-ati sve znakove (osim alfanumeričkih) sa ASCII vrijednošću manjom od 256 sa HTML entitetom formata &amp;#xHV gdje HV predstavlja hex. vrijednost
+</td></tr>
+<tr>
+<td> Javascript enkodiranje </td>
+<td> &lt;script&gt;var currentValue='NEPOVJERLJIVI SADRŽAJ';&lt;/script&gt; &lt;script&gt;someFunction('NEPOVJERLJIVI SADRŽAJ');&lt;/script&gt; </td>
+<td> Osigurati da su varijable pod navodnicima. escape-ati sve znakove (osim alfanumeričkih) sa ASCII vrijednošću manjom od 256 sa \uXXXX unicode formatom gdje je X integer ili xHV format gdje je HV hex. vrijednost
+</td></tr>
+<tr>
+<td> CSS enkodiranje </td>
+<td> &lt;div style=&quot;width: NEPOVJERLJIVI SADRŽAJ;&quot;&gt;Selection&lt;/div&gt;  </td>
+<td> escape-ati sve znakove (osim alfanumeričkih) sa ASCII vrijednošću manjom od 256 sa \HV formatom gdje je HV hex. vrijednost
+</td></tr></table>
+<p><br />
+Detaljnije o zaštiti od XSS napada - <a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" class="external free" rel="nofollow">https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet</a>
+</p>
+<h2> <span class="mw-headline" id="Server-Side_JavaScript_Injection"> Server-Side JavaScript Injection </span></h2>
+<p>Node je naslijedio kontroverznu javascript funkciju eval. Sintaksa funkcije eval je: eval(string)
+Funkcija eval izvršava proslijeđeni argument
+</p>
+<pre> //nakon što se izvrši naredbeni redak varijabla 'x' će sadržavati broj 4. 
+var x = eval(&quot;2 + 2&quot;); </pre> 
+<p>Eval() funkcija predstavlja ranjivost na strani klijenta tako što je moguće napraviti Cross-site Scripting (XSS) napad, a sada je pomoću iste moguće napraviti server side injection. Prema OWASP-u, XSS se trenutno nalazi na drugom mjestu opasnih prijetnji web aplikacija. 
+</p><p>Kako bi provjerili je li web aplikacija ranjiva na server side injection kao request ćemo poslati:
+</p><p><code> 
+response.end('Ranjiv sam')
+</code>
+</p><p>Nakon toga će server izvršiti naredbu i ispisati 'Ranjiv sam' kao tijelo HTTP odgovora. Ukoliko uspijemo na ovaj način dobiti odgovor od servera znači da je on ranjiv. [5]
+</p>
+<h3> <span class="mw-headline" id="SSJI_DoS"> SSJI DoS </span></h3>
+<p>Kako se Node izvodi na jednoj dretvi jednostavna greška može prouzročiti Denial of Service (DOS). Zbog toga je moguće srušiti server na način da kao request proslijedimo npr. <code>while(1)</code> gdje će eval funkcija izvršiti takvu naredbu i server će koristiti 100% svoga procesorskog vremena na beskonačnu petlju i time će biti u nemogućnosti procesuirati bilo kakav zahtjev sve dok administrator ručno ne resetira proces. 
+U ovome slučaju napadač ne mora izvršiti milijune zahtjeva kako bi onesposobio server već je potreban samo jedan HTTP zahtjev i server je srušen. Alternativa prethodne verzije bi bilo ubijanje ili izlazak iz procesa: <code>process.exit()</code> ili <code>process.kill(process.pid)</code> [4]
+</p>
+<h3> <span class="mw-headline" id="SSJI_Pristup_lokalnim_datotekama"> SSJI Pristup lokalnim datotekama </span></h3>
+<p>Sljedeća opasnost eval() funkcije je mogućnost pristupa lokalnim datotekama. Pristup datotekama sustava je moguć uključivanjem 'fs' modula. Moduli se mogu uključivati bilo kada što otvara mogućnosti napadaču da ju uključi i iskoristi za pristup datotekama. Na ovaj način je moguće dobiti popis svih datoteka u sustavu te ih čitati ili pisati u njih.
+</p><p>Kako bi dobili popis svih datoteka unutar trenutnog direktorija poslati ćemo sljedeće:
+</p><p><code> response.end(require('fs').readdirSync('.').toString()) </code>
+</p><p>Nakon toga je jednostavno otvoriti ili mijenjati postojeće datoteke pomoću naredbi 'fs' modula. 
+Valja napomenuti kako funkcije poput <b>setTimeout()</b> i <b>setInterval()</b> također mogu primiti kod u stringu kao argument te time prouzročiti iste probleme kao i eval() funkcija. [4]
+</p><p>Video primjer Server Side Injection-a: <a href="https://www.youtube.com/watch?v=krOx9QWwcYw" class="external free" rel="nofollow">https://www.youtube.com/watch?v=krOx9QWwcYw</a>
+</p>
+<h3> <span class="mw-headline" id="SSJI_-_za.C5.A1tita"> SSJI - zaštita </span></h3>
+<ul><li> Validacija korisnikovog unosa na klijentskoj i server strani prije procesiranja.
+</li><li> ne koristiti eval() i slične funkcije za parsanje korisnikovog unosa
+</li><li> umjesto eval() funkcije sigurnija alternativa je JSON.parse()
+</li><li> uključiti 'use strict' (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode" class="external free" rel="nofollow">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode</a>)
+</li></ul>
+<h2> <span class="mw-headline" id="ReDoS"> ReDoS </span></h2>
+<p>ReDos – Regular expression Denial of Service je vrsta Denial of Service napada koji leži na činjenici da se izvršavanje regex može znatno usporiti gdje je brzina izvršavanja eksponencijalno povezana sa korisnikovim unosom. Na ovaj način se napadaču otvara mogućnost da onemogući server na neko vrijeme.  Algoritam regexa provjerava sve moguće kombinacije dok ne pronađe poklapanje pa tu završava ili drugi slučaj kada prolazi kroz sve kombinacije i ne pronađe poklapanje. Što je korisnikov unos veći to je i veći broj mogućnosti koje se moraju provjeriti. Npr. Za regex <code>^(a+)+$</code> i unos 'aaaa' postoji ukupno 16 mogućnosti dok za unos 'aaaaaaaaaaaaaaaa' i isti regex postoji ukupno 65536 mogućnosti te se taj broj duplo povećava sa svakim dodatnim slovom 'a'. [10]
+</p><p>Za regex:
+</p><p><code> /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/ </code>
+</p><p>provjeriti ćemo vrijeme koje je potrebno da se ispitaju sljedeći unosi: 
+</p><p>'dvincija@foi.hr' =&gt; validan e-mail pa je potrebno kratko vrijeme za testiranje
+</p><p>'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbb.5555555555555555555555555555555555555555555555555555{' =&gt; nije validan e-mail pa je potrebno puno više vremena dok se ispitaju sve mogućnosti
+</p><p>Dobiveni rezultat testiranja: 
+</p>
+<pre>
+true 
+[ 0, 4435278 ] 
+false 
+[ 3, 351614980 ] 
+</pre>
+<h3> <span class="mw-headline" id="ReDoS_-_za.C5.A1tita"> ReDoS - zaštita </span></h3>
+<ul><li> koristiti modul 'safe-regex' koji provjerava potencijalno katastrofalan regex <a href="https://www.npmjs.com/package/safe-regex" class="external free" rel="nofollow">https://www.npmjs.com/package/safe-regex</a>
+</li><li> koristiti OWASP listu regexa za validaciju često korištenih unosa <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository" class="external free" rel="nofollow">https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository</a>
+</li></ul>
+<p>Korištenje safe-regex paketa je vrlo jednostavno. Prvo je potrebno instalirati paket naredbom: [19]
+</p>
+<pre>$ npm install safe-regex </pre>
+<p>Zatim u kodu pozivom jedne funkcije doznajemo da li je regex potencijalno katastrofalan:
+</p>
+<pre>
+var safe  = require('safe-regex');
+var regex = /^[a-z0-9_-]{3,16}$/;
+
+console.log(safe(regex));
+</pre>
+<h2> <span class="mw-headline" id="Node_Package_Manager"> Node Package Manager </span></h2>
+<p>NPM je package manager za Javascript te kao takav čini neizostavni dio Node aplikacije. Komponente poput biblioteka, frameworka i ostalih softverskih modula u većini slučajeva za pokretanje zahtjevaju puna prava pa valja biti oprezan. Važno je znati kako neke komponente koje instaliramo putem npm-a mogu biti ranjive odnosno sadržavati nesiguran kod i kao takve predstavljati napadaču priliku za napad. Oko 14%  npm paketa sadrži određene ranjivosti, a ova brojka je proizašla iz testiranja velikog broja najpopularnijih paketa. Napadač na taj način može kreirati i pokrenuti skripte u raznim stadijima instalacije i korištenja paketa, također može čitati, brisati, ažurirati i brisati datoteke sa sustava kao i prikupljati osjetljive podatke.
+</p><p>Kako bi spriječili da se ovo dogodi aplikacije ne treba pokretati sa root privilegijama. Potrebno je koristiti module koji sadrže statičku analizu koda, provedene unit testove i recenzije. Preporučljivo je pregledati kod da li pristupa nekim datotekama ili bazi podataka te prije korištenja istražiti koliko je popularan paket i koja je trenutna verzija. Osim toga, poželjno je pratiti github repozitorije na kojima možemo saznati ukoliko se otkriju određene ranjivosti.
+</p><p>Korisni alati za analizu node web aplikacije i npm paketa: 
+</p><p><a href="http://retirejs.github.io/retire.js/" class="external free" rel="nofollow">http://retirejs.github.io/retire.js/</a> 
+</p><p><a href="https://snyk.io/" class="external free" rel="nofollow">https://snyk.io/</a>
+</p>
+<h2> <span class="mw-headline" id="Insecure_Direct_Object_References"> Insecure Direct Object References </span></h2>
+<p>Nesiguran direktan pristup prema objektima poput datoteka, direktorija ili ključevima baze podataka. Bez kontrole pristupa napadač može manipulirati navedenim referencama i tako ostvariti neautorizirani pristup podacima. Ukoliko web aplikacija koristi ime ili određeni ključ objekta prilikom generiranja stranice te ne provjerava autorizaciju korisnika prema ciljanom objektu tada napadač može doći do nesigurnih referenci. Napadač tada može iskoristiti ranjivost i mijenjajući parametre doći do podataka za koje nema ovlašten pristup. 
+</p><p>Kao primjer možemo navesti web aplikaciju koja prilikom generiranja web stranice dohvaća 'id' korisnika koji je proslijeđen kao url parametar te zatim dohvaća podatke toga korisnika. Na ovaj način napadač može promijeniti url i doći do podataka drugih korisnika. [8]
+</p>
+<pre>
+app.get('/:id', function (request, response) { 
+	var id = request.params.id;
+	// ...dohvati korisnika
+	response.render('index.jade', {user: user});
+} 
+</pre>
+<p>Ovu ranjivost možemo otklonuti kontrolom pristupa korisnika određenom objektu. Sigurniji način od ovoga je dohvaćanje potrebnih ključeva iz sesije.
+</p>
+<h2> <span class="mw-headline" id="Brute_Force"> Brute Force </span></h2>
+<p>Brute force napad predstavlja sustavno pronalaženje svih mogućih kandidata za rješenje i uzastopnim pokušavanjem svakog od njih. Ovakav napad je jednostavan za implementaciju i često se koristi za probijanje zaporki ili raznih enkripcija. Ograničenje brute force napada su vrijeme i resursi koji su potrebni za rješavanje problema jer oni rastu povećanjem broja mogućih kandidata za rješenje. 
+</p><p>Kod web aplikacija login endpointovi su prilika za napadača za brute force napad. Kako bi spriječili brute force moramo na neki način omogućiti veliki broj requestova na način da ih ograničimo na određeni broj ili da eksponencijalno povećavamo vrijeme potrebno za svaki dodatni zahtjev. U ovom slučaju ćemo koristiti express-brute paket (<a href="https://www.npmjs.com/package/express-brute" class="external free" rel="nofollow">https://www.npmjs.com/package/express-brute</a>). Ukoliko se dogodi veći broj zahtjeva prema ruti '/login' server će vratiti 429 grešku, a vrijeme između dva zahtjeva će se povećavati u fibonaccijevom nizu čime se onemogućuje brute force napad. [8]
+</p><p>Instalacija express-brute paketa:
+</p>
+<pre>$ npm install express-brute</pre>
+<p>Jednostavan primjer implementacije express-brute paketa:
+</p>
+<pre>
+var ExpressBrute = require('express-brute'),
+var express      = require('express');
+var store        = new ExpressBrute.MemoryStore(); // MemoryStore za pohranu podataka lokalno, koristiti samo za razvoj! 
+var bruteforce   = new ExpressBrute(store);
+var app          = express();
+
+//ukoliko se dogodi veći broj zahtjeva prema /login ruti server će vratiti 429 grešku
+app.post('/login', bruteforce.prevent,  
+	function (req, res, next) {
+		res.send('Success!');
+	}
+);
+</pre>
+<h2> <span class="mw-headline" id="Cross-site_Request_Forgery"> Cross-site Request Forgery </span></h2>
+<p>CSRF predstavlja vrstu napada koji se izvodi posredstvom klijentskog programa. Direktno sa zloćudne stranice moguće je pokrenuti zahtjev prema drugoj ranjivoj stranici u ime korisnika koji se koristi web preglednikom. Takva zloćudna stranica sadrži kod za pokretanje određenog zahtjeva koji će se automatski učitati i pokrenuti prilikom učitavanja stranice. Stranica može postati ranjivom na CSRF napad ukoliko se ne izvode provjere sigurnosti i identiteta korisnika gdje će se zahtjev poslan sa zloćudne stranice obraditi kao da ga je poslao klijent. 
+</p><p>Da bi napad imao učinka koriste se GET i POST zahtjevi. GET zahtjev je predviđen za dohvat podataka te kao takav se ne provjerava dovoljno što otvara mogućnost podmetanja GET zahtjeva koji će izazvati štetne izmjene podataka na stranici. 
+CSRF napadi se najčešće izvode putem internetskih foruma koje koristi veliki broj korisnika. [13]
+</p><p>CSRF napad se može izvoditi pomoću: [14]
+</p>
+<ul><li> zlonamjerno oblikovanog HTML objekta
+</li><li> skriptnog koda umetnutog u HTML
+</li><li> zlouporabe automatskog generiranja zahtjeva u pregledniku
+</li></ul>
+<h3> <span class="mw-headline" id="CSRF_-_za.C5.A1tita"> CSRF - zaštita </span></h3>
+<ul><li> Onemogućiti CORS - zabraniti cross-origin zahtjeve. Ukoliko je potrebno omogućiti CORS onda to učiniti samo za OPTIONS, HEAD i GET zahtjeve
+</li><li> Koristiti GET zahtjeve samo za dohvaćanje podataka, a ne za rad i promjenu nad bazom podataka. 
+</li><li> Koristiti PUT, PATCH i DELETE umjesto POST zahtjeva gdje je to moguće jer se time smanjuje broj vektora napada
+</li><li> Ne koristiti method-override prilikom PUT, PATCH i DELETE zahtjeva
+</li><li> Izbjegavati starije preglednike jer ne podržavaju CORS i sigurnosne politike
+</li></ul>
+<h4> <span class="mw-headline" id="CSRF_-_za.C5.A1tita_pomo.C4.87u_tokena"> CSRF - zaštita pomoću tokena </span></h4>
+<p>Korištenjem jedinstvenog, tajnog i nasumičnog tokena koji se nalazi skriven u HTML-u web aplikacije moguće je otklonuti prijetnje od CSRF napada. Takav token se nakon poslanog zahtjeva provjerava na serverskoj strani.
+</p><p>Način rada CSRF tokena:
+</p>
+<ol><li> Server šalje token klijentu
+</li><li> Klijent šalje zahtjev server zajedno sa tokenom
+</li><li> Server prihvaća zahtjev ukoliko je token validan
+</li></ol>
+<p>CSRF tokene ne smije se moći dohvatiti AJAX-om, odnosno nije preporučljivo kreirati rutu /csrf samo kako bi dohvatili token. Ukoliko stranica ne podržava CORS onda ne postoji mogućnost da napadač dođe do CSRF tokena.
+</p><p>Instalacija csurf paketa: 
+</p>
+<pre>$ npm install csurf</pre>
+<p>Zatim u aplikaciji dodamo sljedeći kod pomoću kojega ćemo generirati token za formu na klijentskoj strani: [18]
+</p>
+<pre>
+var express      = require('express');
+var cookieParser = require('cookie-parser')
+var bodyParser   = require('body-parser')
+var csrf         = require('csurf')
+var app          = express();
+
+// postavljanje middleware-a
+var csrfProtection = csrf({ cookie: true });
+var parseForm      = bodyParser.urlencoded({ extended: false });
+
+// kako bi csurf funkcionirao potrebno je prvo inicijalizirati session middleware ili cookie-parser
+// ova linija je potrebna jer je &quot;cookie&quot; true u csrfProtection-u. 
+app.use(cookieParser());
+
+// postavljanje /form rute
+// GET zahtjev će prikazati traženu stranicu (pogled) i proslijediti joj csrf token koji ćemo kasnije koristiti u formi
+app.get('/form', csrfProtection, function(req, res) { 
+     res.render('form', { csrfToken: req.csrfToken() });
+});
+
+// Potvrdom forme izvršava se POST zahtjev prema /process ruti zajedno sa tokenom i ostalim podacima forme
+app.post('/process', parseForm, csrfProtection, function(req, res) {
+     res.send('data is being processed');
+});
+</pre>
+<p>Ovime smo dovršili serversku stranu. Sada je potrebno u pogledu definirati formu koja će imati skriveno polje sa dobivenim tokenom:
+(napomena: način prosljeđivanje vrijednosti tokena u skriveno polje ovisi o korištenom template engine-u, u našem slučaju to je JADE)
+</p>
+<pre>form(action=&quot;/process&quot;, method=&quot;POST&quot;)
+   input(type=&quot;hidden&quot;, name=&quot;_csrf&quot;, value=&quot;#{csrfToken}&quot;)
+   input(type=&quot;text&quot;, name=&quot;text&quot;&gt;
+   | Insert data
+   button(type=&quot;submit) Submit
+</pre>
+<h2> <span class="mw-headline" id="Konfiguriranje_HTTP_zaglavlja"> Konfiguriranje HTTP zaglavlja </span></h2>
+<p>Konfiguriranje HTTP zaglavlje na web serverima Apache ili nginx se može podesiti u samoj konfiguraciji web servera. Konfiguriranje HTTP zaglavlja u Node-u se izvršava u kodu aplikacije. 
+HTTP zaglavlja koja je potrebno podesiti: [11]
+</p>
+<ul><li> Strict-Transport-Security – prisiljava sigurnu vezu preko SSL/TLS na server
+</li><li> X-Frame-Options – clickjacking zaštita
+</li><li> X-XSS-Protection – omogućuje Cross-site scripting filter ugrađen u novije verzije preglednika
+</li><li> X-Content-Type-Options – onemogućuje MIME-sniffing
+</li><li> Content-Security-Policy – onemogućuje napade poput cross-site scriptinga, cross-site injectiona, neželjenog praćenja itd. 
+</li><li> X-Powered-By – ovo zaglavlje je potrebno ukloniti jer napadač može iskoristiti ranjivosti Node-a ukoliko zna da se stranica vrti na Express-u ili nekom drugom Node frameworku.
+</li></ul>
+<p>Prethodno navedena konfiguriranja se jednostavno mogu podesiti korištenjem Helmet paketa.
+<a href="https://www.npmjs.com/package/helmet" class="external free" rel="nofollow">https://www.npmjs.com/package/helmet</a>
+</p><p>Instalacija helmet npm paketa: 
+</p>
+<pre>$ npm install helmet --save</pre>
+<p>Zatim u aplikaciji dodamo sljedeći kod kojim ćemo konfigurirati HTTP zaglavlje: [17]
+</p>
+<pre>var express = require('express');
+var helmet = require('helmet');
+var app = express();
+ 
+app.use(helmet());
+</pre>
+<p>U zadanim postavkama helmet paket ne uključuje konfiguriranje Content-Security-Policy, HTTP Public Key Pinning i No-Cache zaglavlja.
+Budući da Content-Security-Policy zaglavlje može uvelike spriječiti XSS i ostale unose malicioznog koda u stranicu konfigurirati ćemo ga u nastavku. Konfiguriranjem CSP zaglavlja omogućen nam je whitelisting izvora stranice. Npr. možemo znati da je skripta sa stranice https://apis.google.com/js/plusone.js povjerljiva te da ne sadrži maliciozni kod, ali to preglednik ne može znati već će on učitati i izvršiti sve skripte koje mu damo. [20] Zbog toga postoji CSP zaglavlje kojim ćemo definirati kojim izvorima vjerujemo te ćemo samo od njih dopuštati učitavanje datoteka: [17]
+</p>
+<pre>
+app.use(helmet.csp({ 
+  directives: {
+    defaultSrc: [&quot;'self'&quot;, 'default.com'],
+    scriptSrc: [&quot;'self'&quot;, &quot;'unsafe-inline'&quot;],
+    styleSrc: ['style.com'],
+    imgSrc: ['img.com', 'data:'],
+    sandbox: ['allow-forms', 'allow-scripts'],
+    reportUri: '/report-violation',
+    objectSrc: []
+  }
+}));
+</pre>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> Node.js službena stranica - <a href="https://nodejs.org/en/" class="external free" rel="nofollow">https://nodejs.org/en/</a>
+</li><li> Secure node apps against owast top 10 - <a href="http://scottksmith.com/blog/2015/06/22/secure-node-apps-against-owasp-top-10-cross-site-scripting/" class="external free" rel="nofollow">http://scottksmith.com/blog/2015/06/22/secure-node-apps-against-owasp-top-10-cross-site-scripting/</a>
+</li><li> XSS Prevention Cheat Sheet - <a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" class="external free" rel="nofollow">https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet</a>
+</li><li> Server side javascript injection - <a href="https://media.blackhat.com/bh-us-11/Sullivan/BH_US_11_Sullivan_Server_Side_WP.pdf" class="external free" rel="nofollow">https://media.blackhat.com/bh-us-11/Sullivan/BH_US_11_Sullivan_Server_Side_WP.pdf</a>
+</li><li> Node.js Security - the good, bad and ugly - <a href="http://bishankochher.blogspot.hr/2011/12/nodejs-security-good-bad-and-ugly.html" class="external free" rel="nofollow">http://bishankochher.blogspot.hr/2011/12/nodejs-security-good-bad-and-ugly.html</a>
+</li><li> Javascript injection detection - <a href="https://blog.gdssecurity.com/labs/2015/4/15/nodejs-server-side-javascript-injection-detection-exploitati.html" class="external free" rel="nofollow">https://blog.gdssecurity.com/labs/2015/4/15/nodejs-server-side-javascript-injection-detection-exploitati.html</a>
+</li><li> OWASP Node.js Goat Project - <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" class="external free" rel="nofollow">https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project</a>
+</li><li> OWASP Top 10 Node Goat Tutorial - <a href="http://nodegoat.herokuapp.com/tutorial" class="external free" rel="nofollow">http://nodegoat.herokuapp.com/tutorial</a>
+</li><li> Udemy Node JS Security -<a href="https://www.udemy.com/nodejs-security-pentesting-and-exploitation" class="external free" rel="nofollow">https://www.udemy.com/nodejs-security-pentesting-and-exploitation</a>
+</li><li> Regular expression dos and Node.js - <a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js" class="external free" rel="nofollow">https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js</a>
+</li><li> Node.js Security Checklist - <a href="https://blog.risingstack.com/node-js-security-checklist" class="external free" rel="nofollow">https://blog.risingstack.com/node-js-security-checklist</a>
+</li><li> Simple steps to secure your express Node application - <a href="http://scottksmith.com/blog/2014/09/04/simple-steps-to-secure-your-express-node-application/" class="external free" rel="nofollow">http://scottksmith.com/blog/2014/09/04/simple-steps-to-secure-your-express-node-application/</a>
+</li><li> Understanding CSRF - <a href="https://github.com/pillarjs/understanding-csrf" class="external free" rel="nofollow">https://github.com/pillarjs/understanding-csrf</a>
+</li><li> CSRF - <a href="http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2010-04-297.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2010-04-297.pdf</a>
+</li><li> Lift Security Blog - <a href="https://blog.liftsecurity.io/" class="external free" rel="nofollow">https://blog.liftsecurity.io/</a>
+</li><li> Jade - Template Engine - <a href="http://jade-lang.com/" class="external free" rel="nofollow">http://jade-lang.com/</a>
+</li><li> NPM Helmet paket - <a href="https://www.npmjs.com/package/helmet" class="external free" rel="nofollow">https://www.npmjs.com/package/helmet</a>
+</li><li> NPM csurf paket - <a href="https://www.npmjs.com/package/csurf" class="external free" rel="nofollow">https://www.npmjs.com/package/csurf</a>
+</li><li> NPM safe-regex paket - <a href="https://www.npmjs.com/package/safe-regex" class="external free" rel="nofollow">https://www.npmjs.com/package/safe-regex</a>
+</li><li> Content-Security-Policy - <a href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/" class="external free" rel="nofollow">http://www.html5rocks.com/en/tutorials/security/content-security-policy/</a>
+</li></ol>
+<h2> <span class="mw-headline" id="tl.3Bdr"> tl;dr </span></h2>
+<ul><li> Izbjegavati <b>eval()</b>, biti oprezan sa <b>setTimeout()</b> i <b>setInterval()</b> funkcijama, koristiti JSON.parse za parsanje korisnikovog unosa
+</li><li> Izvršiti validaciju korisnikovog unosa na klijentskoj i serverskoj strani
+</li><li> Izbjegavati procesorski zahtjevne zadatke
+</li><li> Preporučljivo koristiti neki od template engine-a (<a href="http://jade-lang.com/" class="external text" rel="nofollow">Jade</a>  <a href="https://github.com/janl/mustache.js" class="external text" rel="nofollow">Mustache.js</a>   <a href="http://www.embeddedjs.com/" class="external text" rel="nofollow">EJS</a>...)
+</li><li> Kontrolirati pristup korisnika određenim objektima
+</li><li> id sesije ne smije biti vidljiv u URL
+</li><li> Postaviti timeout za sesije
+</li><li> Lozinke, id sesije i ostali kredencijali ne smiju biti slani putem nesigurne veze 
+</li><li> Hashirati lozinke i koristiti enkripciju
+</li><li> Provjeriti pouzdanost NPM paketa prije instalacije/korištenja
+</li><li> Konfigurirati HTTP zaglavlje - <a href="https://www.npmjs.com/package/helmet" class="external text" rel="nofollow">helmet</a>
+</li><li> CSRF zaštita - <a href="https://www.npmjs.com/package/csurf" class="external text" rel="nofollow">csurf</a>
+</li><li> Brute Force zaštita - <a href="https://www.npmjs.com/package/express-brute" class="external text" rel="nofollow">express-brute</a>
+</li><li> Provjeriti Regex - <a href="https://www.npmjs.com/package/safe-regex" class="external text" rel="nofollow">safe-regex</a>
+</li><li> Koristitit OWASP listu Regexa - <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository" class="external text" rel="nofollow">OWASP Validation Regex Repository</a>
+</li><li> Proučiti <a href="http://nodegoat.herokuapp.com/tutorial" class="external text" rel="nofollow">OWASP Node Goat Tutorial</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 330/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8689-0!*!0!!hr!2!edit=0 and timestamp 20190203204223 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html">http://security.foi.hr/wiki/index.php/Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija&amp;oldid=35183" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 10:17, 11. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 20.317 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnosna_analiza_NodeJS_platforme_za_izradu_skalabilnih_aplikacija", "wgTitle": "Sigurnosna analiza NodeJS platforme za izradu skalabilnih aplikacija", "wgAction": "view", "wgArticleId": 8689, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 35183, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.538 secs. -->			</body>
+</html>

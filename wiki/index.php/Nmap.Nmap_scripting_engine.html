@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Nmap.Nmap scripting engine - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Nmap.Nmap_scripting_engine&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Nmap_Nmap_scripting_engine skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Nmap.Nmap scripting engine</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Nmap.Nmap_scripting_engine.html#mw-head">orijentacija</a>,
+					<a href="Nmap.Nmap_scripting_engine.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Nmap.Nmap_scripting_engine.html#Nmap"><span class="tocnumber">1</span> <span class="toctext">Nmap</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Nmap.Nmap_scripting_engine.html#Funkcionalnost_alata"><span class="tocnumber">1.1</span> <span class="toctext">Funkcionalnost alata</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Nmap.Nmap_scripting_engine.html#Skeniranje_pomo.C4.87u_Nmap_alata"><span class="tocnumber">1.2</span> <span class="toctext">Skeniranje pomoću Nmap alata</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Nmap.Nmap_scripting_engine.html#Online_skener"><span class="tocnumber">1.3</span> <span class="toctext">Online skener</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Nmap.Nmap_scripting_engine.html#Zanimljive_.C4.8Dinjenice"><span class="tocnumber">1.4</span> <span class="toctext">Zanimljive činjenice</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Nmap.Nmap_scripting_engine.html#Zenmap"><span class="tocnumber">2</span> <span class="toctext">Zenmap</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Nmap.Nmap_scripting_engine.html#Preuzimanje_i_instalacija_alata"><span class="tocnumber">2.1</span> <span class="toctext">Preuzimanje i instalacija alata</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Nmap.Nmap_scripting_engine.html#Pokretanje_softvera"><span class="tocnumber">2.2</span> <span class="toctext">Pokretanje softvera</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Nmap.Nmap_scripting_engine.html#Rezultati_skeniranja"><span class="tocnumber">2.3</span> <span class="toctext">Rezultati skeniranja</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Nmap.Nmap_scripting_engine.html#Ostale_mogu.C4.87nosti"><span class="tocnumber">2.4</span> <span class="toctext">Ostale mogućnosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Nmap.Nmap_scripting_engine.html#Nmap_Scripting_engine_.28NSE.29"><span class="tocnumber">3</span> <span class="toctext">Nmap Scripting engine (NSE)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="Nmap.Nmap_scripting_engine.html#Jezgra_NSE-a"><span class="tocnumber">3.1</span> <span class="toctext">Jezgra NSE-a</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="Nmap.Nmap_scripting_engine.html#Lua_interpreter"><span class="tocnumber">3.1.1</span> <span class="toctext">Lua interpreter</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="Nmap.Nmap_scripting_engine.html#NSE_biblioteke"><span class="tocnumber">3.1.2</span> <span class="toctext">NSE biblioteke</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-15"><a href="Nmap.Nmap_scripting_engine.html#Kategorije_skripti"><span class="tocnumber">3.2</span> <span class="toctext">Kategorije skripti</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Nmap.Nmap_scripting_engine.html#Format_skripte"><span class="tocnumber">3.3</span> <span class="toctext">Format skripte</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="Nmap.Nmap_scripting_engine.html#Port_i_host_pravila"><span class="tocnumber">3.3.1</span> <span class="toctext">Port i host pravila</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="Nmap.Nmap_scripting_engine.html#Action"><span class="tocnumber">3.3.2</span> <span class="toctext">Action</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="Nmap.Nmap_scripting_engine.html#Nmap_API"><span class="tocnumber">3.4</span> <span class="toctext">Nmap API</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="Nmap.Nmap_scripting_engine.html#Primjeri"><span class="tocnumber">4</span> <span class="toctext">Primjeri</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="Nmap.Nmap_scripting_engine.html#Primjer_vlastite_skripte"><span class="tocnumber">4.1</span> <span class="toctext">Primjer vlastite skripte</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="Nmap.Nmap_scripting_engine.html#Pisanje_vlastite_skripte_i_rje.C5.A1avanje_problema"><span class="tocnumber">5</span> <span class="toctext">Pisanje vlastite skripte i rješavanje problema</span></a>
+<ul>
+<li class="toclevel-2 tocsection-23"><a href="Nmap.Nmap_scripting_engine.html#Head"><span class="tocnumber">5.1</span> <span class="toctext">Head</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="Nmap.Nmap_scripting_engine.html#Rule"><span class="tocnumber">5.2</span> <span class="toctext">Rule</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="Nmap.Nmap_scripting_engine.html#Action_2"><span class="tocnumber">5.3</span> <span class="toctext">Action</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="Nmap.Nmap_scripting_engine.html#Detaljni_source_kod"><span class="tocnumber">5.4</span> <span class="toctext">Detaljni source kod</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="Nmap.Nmap_scripting_engine.html#Primjer_rada_skripte:"><span class="tocnumber">6</span> <span class="toctext">Primjer rada skripte:</span></a></li>
+<li class="toclevel-1 tocsection-28"><a href="Nmap.Nmap_scripting_engine.html#Sources:"><span class="tocnumber">7</span> <span class="toctext">Sources:</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Nmap"><b>Nmap</b></span></h2>
+<p><b>Nmap</b> (eng. <i>Network mapper</i>) je besplatan program otvorenog koda za ispitivanje mreže i provjeru sigurnosti. Program omogućuje pregledavanje TCP i UDP portova na ciljanom računalu, otkrivanje servisa koji slušaju na otvorenim portovima, prepoznavanje operacijskog sustava i sl. Iako je Nmap najčešće korišten u sigurnosti, mnogi sistemski i mrežni administratori koriste ga i kao alat za rutinske zadatke poput sastavljanja popisa mrežnog inventara, upravljanja vremenima nadogradnje servisa i nadgledanja uptime-a računala ili servisa. Program je podržan na velikom broju operacijskih sustava (Linux, Microsoft Windows, FreeBSD, OpenBSD, Solaris, IRIX, Mac OS X, Amiga...)
+Tijekom godina doživio mnoga poboljšanja od kojih su samo neka: manja potrošnja memorije prilikom skeniranja portova, potpuno novi <i>engine</i> za skeniranje portova, interaktivnost za vrijeme izvršavanja i procjena vremena potrebnog za skeniranje. Program je objavljen pod GPL (eng. <i>General Public License</i>) licencom i trenutno se smatra najkvalitetnijim i najnaprednijim programom ove namjene. Iako je program primarno razvijen za Linux/Unix operacijske sustave, zbog njegove kvalitete razvijena je i Windows inačica. Posljednja verzija programa je 6.25, a objavljena je u studenom 2012.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Funkcionalnost_alata">Funkcionalnost alata</span></h3>
+<p>Nmap omogućava niz različitih načina pregleda portova i cijelog računala kroz mrežu - omogućavajući nevidljivost te lažiranje izvorišne adrese. Koristi IP pakete sa posebnim sadržajem i omogućava otkrivanje aktivnih/neakitvnih računala; skeniranje portova; detekcija verzije mrežnih servisa tj koji su tipovi aplikacije aktivni; koja im je radna verzija te detekciju verzije operacijskog sustava i vrste uređaja.
+</p><p>Razlikuje 6 različitih stanja portova:
+</p><p><br />
+</p>
+<ul><li><b>otvoren</b> (eng. <i>open</i>) – Postoji program koji aktivno sluša na portu i prima TCP ili UDP pakete, što je ujedno jedan od najčešćih razloga skeniranja jer time otkrivamo potencijalne slabosti sustava te koji su servisi u mreži dostupni. 
+</li></ul>
+<ul><li><b>zatvoren</b> (eng. <i>closed</i>) – Nijedan program ne sluša na portu, on je dostupan i odgovara na upit poslan od strane nmap-a.
+</li></ul>
+<ul><li><b>filtriran</b> (eng. <i>filtered</i>) – Nmap ne može odrediti da li je port otvoren ili zatvoren, zato što filtriranje paketa spriječava njegove upite da stignu do željenog porta. U većini slučajeva filtri samo odbacuju pakete koji stižu na ovakve portove i ne vraćaju nikakvu informaciju izvoru paketa, pa se na ovakve portove ponovno šalju upiti što produžuje trajanje pregleda računala.
+</li></ul>
+<ul><li><b>nefiltriran</b>  (eng. <i>unfiltered</i>) – Port je u potpunosti dostupan, ali ne može ustanoviti da li je port otvoren ili zatvoren.
+</li></ul>
+<ul><li><b>otvoren|filtriran</b> (eng. <i>open|filtered</i>) – Nmap klasificira port u ovakvo stanje kad ne može sa sigurnošću utvrditi da li je port otvoren ili filtriran, a događa se kod otvorenih portova koji ne daju nikakav odgovor. Razlog tome može biti odbacivanje paketa od strane programa za filtriranje paketa.
+</li></ul>
+<ul><li><b>zatvoren|filtriran</b> (eng. <i>closed|filtered</i>) – ovo se javlja u slučaju kad nmap ne može ustanoviti da li je port zatvoren ili filtriran.
+</li></ul>
+<p><br />
+Na stranici <a href="http://security.foi.hr/wiki/index.php?title=Insecure.org&amp;action=edit&amp;redlink=1" class="new" title="Insecure.org (stranica ne postoji)">insecure.org</a> stoji kako je Nmap:
+</p>
+<ul><li><b>fleksibilan</b>: Podržava desetke naprednih tehnika za mapiranje mreže s mnoštvo IP filtera, vatrozidova, rutera i drugih prepreka.
+</li><li><b>snažan</b>: Koristi se za skeniranje ogromnih mreža u koje su uključene tisuće računala.
+</li><li><b>prenosiv</b>: Podržava većinu operacijskih sustava: Linux, Windows, FreeBSD, OpenBSD, Solaris, IRIX Mac OSX, Sun OS, Amiga itd.
+</li><li><b>jednostavan</b>: Iako Nmap nudi bogat set naprednih mogućnosti za napredne pojedince, lako ga koriste i "laici".
+</li><li><b>besplatan</b>: Primarni cilj Nmap projekta je učiniti Internet sigurnijim te omogućiti napredan alat za pretraživanje mreže administratorima/sigurnjacima/hakerima. Besplatan je i dolazi sa punim izvornim kodom koji se može modificirati redistribuirati  pod istom licencom.
+</li><li><b>dobro dokumentiran</b>: Velik trud je uložen za pisanje dokumentacije, tutorijala i knjiga koji su tiskani na nekoliko jezika.
+</li><li><b>podržan</b>: Iako dolazi bez garancije, dobro je podržan od strane developera i korisnika. 
+</li><li><b>nagrađivan</b>: Ostvario je brojne nagrade, uključujući "Proizvod godine za informacijsku sigurnost", predložen u tisućama članaka, nekoliko filmova, desetke knjiga i jednom stripu.
+</li><li><b>popularan</b>: Tisuće ljudi preuzimaju Nmap svaki dan za različite operacijske sustave.
+</li></ul>
+<h3> <span class="mw-headline" id="Skeniranje_pomo.C4.87u_Nmap_alata">Skeniranje pomoću Nmap alata </span></h3>
+<p>Nmap šalje „sirove“ (eng. <i>row</i>) TCP pakete radi čega su nam većinom potrebne administratorske ovlasti. Točnost samih podataka ovisi isključivo o povratnim informacijima koje dobiju od ciljanih računala ili vatrozida iza kojih se ta računala nalaze, a oni mogu biti i lažni kako bi zavarali Nmap i slične programe. 
+</p><p><br />
+<b>-sS odnosno TCP SYN pregled</b>
+</p><p>Najčešće korišten tip pregleda poradi brzine, ali i zbog toga što ga je teško opaziti budući da nikad u potpunosti neuspostavlja TCP vezu, drugim riječima, ne ostvaruje se potpuno rukovanje nego se veza prekida čim se ustvrdi otvoreni port. Nmap šalje SYN paket na ciljano računalo, kao da želi uspostaviti vezu, ukoliko je port otvoren računalo će odgovoriti sa SYN/ACK paketom, a ako nije sa RST paketom.  Nakon određenog vremena, ukoliko Nmap ne primi nikakav odgovor ili da primi da je nedostupan, označit će takav port kao filtriran.
+</p><p><br />
+<b>-sT TCP connect pregled</b>
+</p><p>Ako korisniku nije dostupan SYN pregled, koristiti će TCP connect pregled, odnosno connect () funkciju koju pozivaju aplikacije kao što su web preglednici, P2P i sl. Manje je učinkovit  nego SYN pregled, ali ako je port otvoren  uvijek će uspostaviti vezu u postpunosti. Zbog toga se šalje veći broj paketa pa pregled traje duže. Ovakav tip skeniranja koristi se kada korisnik nema administratorske ovlasti.
+</p><p><br />
+<b>-sU UDP pregled</b> 
+</p><p>Prilično jedostavno skeniranje budući da nema potrebe za rukovanjem, paketi se šalju i primaju ili odbacuju. Problem ovog tipa skeniranje jest da većina TCP/IP stogova ima implementiranu kontrolu brzine primanja/slanja ICMP poruka, pa će poruke o neaktivnim portovima uzrokovati sporiji rad programa. Dakle, ako Nmap kao odgovor primi ICMP poruku  „port unreachable error“ znači da je port zatvoren, ako primi „port unreachable“ grešku port je filtiran, no ako port odgovori UDP paketom – otvoren je. Da bi port bio otvoren također ne mora biti nikakvog odgovora te ga Nmap označava kao otvoren|filtriran. Za precizniji pregled koristimo –sV.
+</p><p><br />
+<b>-sN, -sF, -sX TCP null, FIN i Xmas pregled</b>
+</p><p>Ovi tipovi pregleda omogućuje identifikaciju samo TCP portova i pritom zahtjevaju administratorske ovlasti. Može se reći da se ovdje radi o skrivenom skeniranju jer se koriste posebno generirani paketi koji uzrokuju paket s RST zastavicom kao odgovor kada je port zatvoren ili nikakav odgovor ako na njemu postoji aktivni servis, drugim riječima ako nema odgovora port je otvoren|filtriran, a u slučaju primljenog ICMP "port unreachable" greške port je filtriran. Ovdje je gotovo nemoguće razlikovati stanje između otvorenog porta i namjerno odbačenih paketa koristeći vatrozid. 
+</p><p><br />
+<b>-sA TCP ACK pregled</b>
+</p><p>Ova vrsta pregleda služi isključivo za mapiranje pravila vatrozida i za otkrivanje koji su portovi filtrirani. ACK pregled šalje samo ACK paket, a otvoreni i zatvoreni portovi kao odgovor šalju RST paket te ih Nmap označava kao nefiltrirane. Portovi koji ne odgovore ili
+odgovore nekom ICMP „port unreachable“ greškom se označavaju kao filtrirani.
+</p><p><br />
+<b>-sP Ping skeniranje</b>
+</p><p>Jedan od najjednostavniji tipova pregleda. Postoje samo dva razmijenjena paketa po pojedinom računalu, a oni ne služe identifikaciji portova, nego pronalaženju aktivnih računala ili uređaja po pojedinim IP adresama. 
+</p><p>Za skeniranje portova koriste se naredbe oblika Nmap [tip skeniranja] [opcije][specifikacija mete]. Tipovi skeniranja su npr: -sP tzv ping skeniranje, -sS SYN skeniranje, -sT connect skeniranje. Opcije koje želimo skenirati mogu se odnositi samo na određeni port (-pX), različite portove (–pX-Y), najpopularnije portove (--top-portsX), da se testiraju sve moguće metode identifikacije (--version-all), detektiranje tipa operacijskog sustava (-osscan-guess), brzinu skeniranje (-TX), detekciju verzija (-a)... Mete mogu biti po hostnameu, CIDR maski, rasponu ili preko datoteke. Postoji još mnoštvo naprednijih tipova pregleda koji zahtijevaju višu razinu poznavanja TCP/IP protokola, implementacije mrežnih stogova i sl. Nedostaci ovog alata su da ga pojedini antivirusni programi smatraju malicioznim te prema tome i blokiraju ga kao npr McAfee antivirusni program; drugi nedostatak je da se prilikom SYN skeniranja mogu srušiti pojedini sustavi.
+</p>
+<h3> <span class="mw-headline" id="Online_skener">Online skener</span></h3>
+<p>Ukoliko netko ne želi instalirati ili analizira mrežu preko posredničkog računala ne mora preuzeti Nmap s weba nego jednostavno otići na <a href="http://nmap.online-domain-tools.com/" class="external free" rel="nofollow">http://nmap.online-domain-tools.com/</a>. Nmap online skener podržava većinu funkcionalnosti Nmap sigurnosnog skenera. Može se koristiti  kao jednostavan i brz port skener da se dobije informacija o servisima koji rade na računalu u mreži. Korsteći Nmap online skener, mogu se otkriti računala u mreži i detektirati na kojim operacijskim sustavima rade.  Kako je Nmap sam po sebi složen alat, u online verziji postoje 3 različita načina rada. Prva dva su jednostavna za korištenje i mogu ih koristiti početnici. „Brzo“ (eng. <i>quick</i>) skeniranje računala brzo skenira poznate portove i daje brze informacije o portovima i uslugama dostupnih na računalu s interneta.  „Cijelokupno“ (eng. <i>full</i>) skeniranje računala je način u kojem Nmap online skener skenira niz portova koji su navedeni u ovom načinu, a to može potrajati ukoliko se želi skenirati više od 10.000 portova. U slučaju velikog broja portova i ograničenja usluge potrebno je podijeliti skeniranje u manje opsežne zahtjeve jer online skener će pretraživati mrežu maksimalno 45 minuta. Posljednja verzija jest prilagođeni (eng. <i>custom</i>) način skeniranja i tu se mogu iskoristiti sve čari Nmap alata. Iako tu postoje određene granice zbog sigurnosih razloga, ukoliko su nam namjere dobre, uvjerava nas autor,  trebali bi biti u mogućnosti koristiti Nmap skener za bilo što. U prilagođenom načinu rada skenera korisnik sam određuje način na koji nešto želi skenirati - slično kao da se koristi konzola. S jedne IP adrese moguće je dnevno napraviti 10 upita.
+</p>
+<h3> <span class="mw-headline" id="Zanimljive_.C4.8Dinjenice">Zanimljive činjenice</span></h3>
+<p>Nmap je alat koji nije poznat samo u IT svijetu nego također je uvelike prepoznat i korišten u Hollywoodu za prikaz scena hakiranja. Kako piše na stranici nmap.org korištenje Nmapa u svrhu hakiranja je puno realističnije nego u poznatim „hakerskim“ filmovima gdje se probije mreža unutar 5 sekundi neprekidno udarajući po tastaturi. Jedna od takvih banalnih scena, i moj osobni favorit može se pogledati na <a href="http://youtu.be/u8qgehH3kEQ" class="external autonumber" rel="nofollow">[1]</a>. Korištenje Nmapa prikazano je u filmovima kao što je „The Matrix Reloaded“, "Dreddu", "Bourn Ultimatumu", "Die Hard 4", te u „The Girl with the Dragon Tatto“. <a href="http://nmap.org/movies/matrix/trinity-nmapscreen-hd-crop-1200x728.jpg" class="external autonumber" rel="nofollow">[2]</a>
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Jedna_tastatura_-2_para_ruku.jpg" class="image"><img alt="Jedna tastatura -2 para ruku.jpg" src="../images/c/c5/Jedna_tastatura_-2_para_ruku.jpg" width="629" height="345" /></a></div></div>
+<div style="text-align: center;">Slika 1. Hard core hakiranje</div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zevilbunnyz&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zevilbunnyz (stranica ne postoji)">Marina Grubeša</a> 19:15, 12. siječnja 2013. (CET) 19:14, 12. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Zenmap">Zenmap</span></h2>
+<p>Zenmap je grafičko korisničko sučelje nmapa koje nudi pojednostavljene opcije mrežnog skeniranja, za razliku od nmap naredba, ponuđeni su profili skeniranja. 
+</p>
+<h3> <span class="mw-headline" id="Preuzimanje_i_instalacija_alata">Preuzimanje i instalacija alata</span></h3>
+<p>Softver je najbolje preuzeti sa službenih stranica nmapa u .exe formatu, te uz par jednostavnih klikova program će se instalirati, ali to nije kraj. Da bi ste se mogli služiti ovim softverom na Windowsima, potrebno je instalirati WinPcap, ukoliko ga nemate, zenmap će upozoriti da ga trebate instalirati. WinPcap je alat namijenjen pristupu mrežnim uslugama na niskoj razini i  u realnom vremenu te je namijenjen Windows operacijskim sustavima.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cpap.jpg" class="image"><img alt="Cpap.jpg" src="../images/0/0e/Cpap.jpg" width="384" height="301" /></a></div></div>
+<div style="text-align: center;">Slika 2. WinPcap</div>
+<h3> <span class="mw-headline" id="Pokretanje_softvera">Pokretanje softvera</span></h3>
+<p>Kada se pokrene softver prikaže se glavna forma kao na slici. Iz slike možemo vidjeti da je zenmap dostupan na i hrvatskom jeziku, no koliko je to zapravo korisno ovisi o svakom korisniku indvidualno. Skeniranje obavljamo na način da unesemo metu ili IP adresu i pokrenemo skeniranje. 
+Kao u konzoli, možemo odabrati specifični rang IP adresa, bitno je samo ne ostavljati nikakav razmak, ispravno bi bilo npr. 192.168.1.36-80. Po tom je potrebno odabrati tip skeniranja, zadani (eng. defaultni) jest intezivni tip skeniranja koji daje većinu informacija o meti koju pretražujemo. Nakon što odaberemo odredišni mrežni čvor i profil skeniranja, ono se pokreće te se prikazuju rezultati. Tijekom skeniranja zenmap nam daje uvid u trenutno stanje mreže te prikazuje odgovore odredišnog računala
+Postoji 10 različitih načina skeniranja: intezivno skeniranje, intezivno s UDP-om, intezivno sa svim TCP portovima, intezivno bez ping skeniranja, ping skeniranje, brzo skeniranje, brzo skeniranje s detaljnijim informacijama, brzo skreniranje s traceroutom, regularno skeniranje i sporo opsežno skeniranje.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zem.jpg" class="image"><img alt="Zem.jpg" src="../images/b/b6/Zem.jpg" width="451" height="486" /></a></div></div>
+<div style="text-align: center;">Slika 3. Zenmap</div>
+<h3> <span class="mw-headline" id="Rezultati_skeniranja">Rezultati skeniranja</span></h3>
+<p>Nakon što je skeniranje završeno podaci se prikazuju u obliku otvorenih servisa i njihovog stanja. U alatu postoji pet kartica koje nam daju uvid na različite ispise rezultata: nmap ispis, portovi/računala, toplogija, detalji skeniranja, te prikaz svih skeniranja koje smo napravili dosada. Nmap pomoću tracerouta broji mrežne skokove do odredišnog računala, pritom gradi sliku topologije mreže te prikazuje brzine između pojednih čvorova. S tim rezultatimo naravno možemo manipulirati. Alat dopušta pohranu na medij, ispis, usporedbu s drugim rezultatima, filtiranje i slično.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:1-2-3-4.jpg" class="image"><img alt="1-2-3-4.jpg" src="../images/thumb/d/d8/1-2-3-4.jpg/900px-1-2-3-4.jpg" width="900" height="210" /></a></div></div>
+<div style="text-align: center;">Slika 4. Rezultati detaljnog skeniranja </div>
+<h3> <span class="mw-headline" id="Ostale_mogu.C4.87nosti">Ostale mogućnosti</span></h3>
+<p>Osim navedenih, nmap pruža i neke naprednije mogućnosti. Jedna od takvih je pokretanje skripti u programskom jeziku Lua tijekom postupka mapiranja mreže i analize čvorova. Alat nudi, ovisno o vrsti mapiranja (port scanning / host discovery), pokretanje skripti koje izvršavaju dodatne upite o sustavu, ili testiraju njegovu sigurnost. Kategorije skripti i njihov opis dao je kolega Turić.
+Alat uz navedene mogućnosti nudi još i usporedbu rezultata skeniranja pomoću alata ndiff - u svrhu praćenja stanja nekog mrežnog čvora, te mogućnost otkrivanja greški u mreži pomoću alata ncat (napredna implementacija alata netcat).
+Nmap je kreiran prije 16 godina te se konstantno razvija, od jednog običnog skenera portova prerastao je u cjelovit skup alata za ispitivanje sigurnosti te za njega ne postoji adekvatna zamjena.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zevilbunnyz&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zevilbunnyz (stranica ne postoji)">Marina Grubeša</a> 19:16, 12. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Nmap_Scripting_engine_.28NSE.29">Nmap Scripting engine (NSE)</span></h2>
+<p>Nmap scritpting engine (NSE) je jedna od najvažnijih i najfleksibilnijih mogućnosti Nmap-a. Spomenuta mogućnost dozvoljava svojim korisnicima da pišu svoje vlastite skripte kako bi automatizirali veliki broj mrežnih zadataka i tako pojednostavili određene zadatke za krajnje korisnike. Jedna od važnijih činjenica je ta da broj skripi neprestano raste. NSE je dizajniran tako da je u mogućnosti izvršiti razne zadatke koje su tipa:
+</p>
+<ul><li>Network discovery – glavna značajka Nmap-a. Uz pomoć raznih upita Nmap omogućava istraživanje mreže.
+</li><li>More sophisticated version detection – Nmap ima mogućnost prepoznavanja velikog broja različitih servisa.
+</li><li>Vulnerability detection – NSE ima velik broj skripi koje omogućavaju detekciju ranjivost vašeg sustava.
+</li><li>Backdoor detection – omogućava detekciju backdooring-a.
+</li><li>Vulnerability exploitation – osim pronalaženja omogućava i eksploatacija pronađenih ranjivosti u sustavu.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.orsolic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.orsolic (stranica ne postoji)">Mario.orsolic</a> 12:17, 10. siječnja 2013. (CET)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Jezgra_NSE-a"> Jezgra NSE-a </span></h3>
+<p>NMap Scripting Engine (NSE) se smatra jednom od najačih i fleksibilnijih svojstava Nmapa. Uz pomoć NSEa korisnici mogu pisati i dijeliti skripte da automatiziraju razne mrežne zadatke. 
+Prema službenoj dokumentaciji NSE je dizajniran da bude prilagodljiv sa fokusom na sljedeće zadatke:
+</p>
+<ul><li>Skeniranje mreže
+</li><li>Otkrivanje operativnih sustava
+</li><li>Otkrivanje ranjivosti
+</li><li>Otkrivanje backdoora
+</li><li>Iskorištavanje ranjivosti
+</li></ul>
+<p>Jezgra NSEa se sastoji od:
+</p>
+<ul><li>ugrađenog Lua interpretera
+</li><li>NSE biblioteka
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.orsolic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.orsolic (stranica ne postoji)">Mario.orsolic</a> 12:17, 10. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="Lua_interpreter">Lua interpreter</span></h4>
+<p>Između raznih skriptnih jezika, Lua je izabrana iz više razloga. Prva stvar koju je tvorac NMapa htio postići jest usklađenost licenci, nakon toga lakoća samog interpretera. Pod ovim se misli na količinu resursa koje će interpreter zauzeti, te lako usklađivanje sa višedretvenosti i mutex isključivanjem pokrenutih skripti. Od svih skriptih jezika tvorcima NMapa Lua je najviše odgovarala, te uz to ima veliku zajednicu koja je konstantno održava.
+</p><p>Nmap API se nalazi unutar Lua namespacea <i><b>nmap</b></i>
+(što znači da pozivi prema nmap resursima sadrže <i>nmap</i> prefix npr. <i>nmap.new_socket()</i>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.orsolic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.orsolic (stranica ne postoji)">Mario.orsolic</a> 12:17, 10. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="NSE_biblioteke">NSE biblioteke</span></h4>
+<p>NSE biblioteke povezuju Lua jezik i Nmap. Ovaj sloj je zadužen za inicijalizaciju interpretera, izvođenje paralelnih skripti, dohvaćanje skripti i sl. U srži on predstavlja skup biblioteka koje olakšavaju i proširuju mogućnosti Nmapa. Većina ovih biblioteka pisana je u Lua jeziku dok su neke pisane u C i C++ jeziku zbog preformansi (bit, pcre biblioteke i sl.)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.orsolic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.orsolic (stranica ne postoji)">Mario.orsolic</a> 12:17, 10. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Kategorije_skripti"> Kategorije skripti </span></h3>
+<p>NSE definira nekoliko kategorija skripti, trenutačne kategorije su sljedeće:
+</p>
+<ul><li>auth – tip skripti koje pokušavaju odrediti podatke za autorizaciju. Poistovjećuje se sa brute-force napadom.
+</li><li>default – set standardnih skripti koje se pokreću sa zastavicama <i>–sC</i> ili <i>–A</i>. Neke od standardnih skripti su sljedeće
+<ul><li>Speed
+</li><li>Usefulness
+</li><li>Verbosity
+</li><li>Privacy i dr
+</li></ul>
+</li><li> discovery – skripte koje pokušavaju otkriti više o samoj mreži koristeći upite na javne registre, uređaje na kojima je omogućen SNMP, servisne direktorije i slično.
+</li><li> external – skripte koje mogu poslati podatke nekoj određenoj bazi podataka ili drugim mrežnim resursima. Postoji mogućnost da će vlasnici dotičnih baza podataka snimati podatke koje skripta šalje i na taj način iz tih podataka saznati IP adresu pošiljatelja i primatelja.
+</li><li> fuzzer – kategorija skripti koje se koriste za pronalaženje bug-ova i raznih drugih ranjivosti softvera.
+</li><li>intrusive – skripte koje se ne mogu klasificirati u kategoriju sigurnih skripti jer je rizik rušenja ciljanog sustava prevelik te koriste velike količine resursa.
+</li><li>malware – skripte koje testiraju da li je ciljana platforma zaražena sa određenim malicioznim kodom ili backdoor-om.
+</li><li>safe – skripte koje nisu dizajnirane za rušenje sustava, ne koriste velike količine bandwith-a ili drugih resursa te ne eksploatiraju „rupe“ u sigurnosti sustava.
+</li><li>version – posebna kategorija skripti koje se ne mogu eksplicitno izabrati, već se odabiru na taj način da se pokrene zastavica <i>-sV</i>.
+</li><li>vuln –skripte koje provjeravaju da li postoje specifične ranjivosti i samim time daju rezultat ako su pronađene određene ranjivosti sustava.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Format_skripte"> Format skripte </span></h3>
+<p>Svaka NSE skripta bi trebala imat format koji je zadan po NSE standardu. Taj format se sastoji od 2 do 5 polja zajedno sa port ili host pravilom te blokom koji se naziva action. Blok action sadrži stvarne instrukcije skripte.
+</p><p>Polje <i><b>description</b></i> predstavlja polje koje sadrži opis što točno skripta testira te razna upozorenja i upute za korisnika. Ovisno o kompleksnosti skripte ovo polje može se sastojati od par rečenica ili od nekoliko paragrafa.
+</p><p>Polje <i><b>categories</b></i> definira jednu ili više kategorija u koju pripada dotična skripta. Primjer: <i>categories = {„default“,“discovery“,“safe“}</i>
+</p><p>Sljedeće polje predstavlja polje naziva <i>author</i>. Kao što i sama riječ kaže ovo polje sadrži naziv autora skripte. Ovo polje također može sadržavati određene kontaktne informacije.
+</p><p>Polje <i><b>license</b></i>, koje je opcionalno, omogućava da Nmap ima legalna prava da distribuira dotičnu skriptu. Kako bi to učinili morate dodati ovu liniju koda:
+</p><p><i> license = "Same as Nmap--See <a href="http://nmap.org/book/man-legal.html" class="external free" rel="nofollow">http://nmap.org/book/man-legal.html</a>" </i>
+</p><p>Polje <i><b>dependencies</b></i> sadrži niz imena skripti koje se trebaju pokrenuti rije nego se pokrene skripta. Primjer zadavanje skripti koje se trebaju pokrenuti prije dotične skripte:
+<i>dependencies = {"smb-brute"}</i>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="Port_i_host_pravila">Port i host pravila</span></h4>
+<p>Skripta sadrži ili port pravilo ili host pravilo. Port pravilo govori o tome koji porotvi se mogu susresti sa skripom. Host pravilo govori o tome da određena skripta može biti pokrenuta samo jednom za određenu IP adresu i to samo onda ako su zadovoljeni svi postavljeni uvjeti. Pravila su funkcije koje vračaju ili <i>true</i> ili <i>false</i> vrijednost.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="Action">Action</span></h4>
+<p>Actions predstavljaju srce određene NSE skripte. Actions sadrže sve instrukcije koje se trebaju izvršiti kada se aktivira port ili host pravilo. Actions su također funkcije koje vračaju vrijednosti <i>nil</i> (u Lua jeziku <i>nil</i> vrijednost predstavlja vrijednost koja obično označava da je neka važna vrijednost odsutna)  ili određeni string.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Nmap_API"> Nmap API </span></h3>
+<p>Nmap API sprema razne informacije o stanjima portova, verzijama sustava i ostalim informacijama koje korisnik zahtjeva prilikom izvršavanja skripti. Uz to također omogućava sučelje prema Nsock biblioteci za efikasnije mrežne ulaze/izlaze.
+</p><p>Efikasan NSE zahtjeva više od samog Lua interpretera. Korisnici trebaju jednostavan pristup podacima koje je Nmap prikupio o ciljanim hostovima. Podaci su proslijeđeni kao argumenti za metodu <i>action</i>. Argumenti su <i>port</i> i <i>host</i>. Spomenuti argumenti su tablice iz programskog jezika Lua. Ako skripta odgovara određenom host pravilu onda dobiva samo <i>host</i> tablicu, u slučaju da odgovara port pravilu onda dobiva i <i>host</i> i <i>port</i> tablicu.
+Vrijednosti koje se nalaze u tim tablicama su spremljene u raznim varijablama, te  varijable su sljedeće: <i>host, host.os, host.name, host.targetname, host.directly_connected, host.mac_addr, host.mac_addr_next_hop, host.mac_addr_src, host.interface, host.bin_ip, host.bin_ip_src, host.ip, port, port.number, port.protocol, port.service, port.version</i>
+</p><p>Kako bi se dopustila efikasna i paralelna mreža I/O, <b>NSE osigurava sučelje prema Nsock-u</b>. Nsock je Nmap biblioteka za sockete.
+</p><p>NSE također osigurava mehanizam za obrađivanje iznimaka koji nije zastupljen u Lua programskom jeziku.
+</p><p>Registri u NSE-u je prikazan kao Lua tablica (<i><b>nmap.registry</b></i>). Ono što treba naglasiti je to da su registri vidljivi za sve skripte. Svaka skripta može čitati i pisati u registru.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Primjeri"> Primjeri </span></h2>
+<ul><li><i><b>nmap --script default [targetIP] </b></i>
+</li></ul>
+<p>Kategorija default skripti će vratiti rezultate o operativnom sustavu, workgruop nazivu, informacije o netbiosu
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Default.png" class="image"><img alt="Default.png" src="../images/5/5e/Default.png" width="1024" height="580" /></a>
+</p>
+<ul><li><i><b>nmap --script external [targetIP] </b></i>
+</li></ul>
+<p>Skripte koje vraćaju rezultate tipa geografskog položaja , naziv organizacije i dometu mreže.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:External.png" class="image"><img alt="External.png" src="../images/4/44/External.png" width="1024" height="580" /></a>
+</p>
+<ul><li><i><b>nmap --script vuln [targetIP] </b></i>
+</li></ul>
+<p>Skripte koje provjeravaju da li ciljani sustav ima određene, uobičajene, ranjivosti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vuln.png" class="image"><img alt="Vuln.png" src="../images/4/40/Vuln.png" width="1024" height="580" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Primjer_vlastite_skripte"> Primjer vlastite skripte </span></h3>
+<p>Ovo je kratka i jednostavna skripta koja će nakon skeniranja mreže ispisati koliko uređaja koristi koji operativni sustav.
+</p><p>Skriptu možete preuzeti <a href="https://github.com/Aksi0m/SIS-FOI/blob/master/os-sum.nse" class="external text" rel="nofollow">ovdje</a>.
+</p>
+<ul><li><i><b>nmap -F -O --script os-sum.nse 192.168.1.1-25</b></i>
+</li></ul>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Os-sum.png" class="image"><img alt="Os-sum.png" src="../images/a/a4/Os-sum.png" width="1011" height="494" /></a>
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Returic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Returic (stranica ne postoji)">Renato Turić</a> 17:31, 10. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pisanje_vlastite_skripte_i_rje.C5.A1avanje_problema"> Pisanje vlastite skripte i rješavanje problema  </span></h2>
+<p>Kao što je već navedeno većina skripti pisana za NSE je u Lua jeziku koji je dosta direktan. No osim što je potrebno poznavanje programskog jezika i samog problema kojeg programer želi riješiti postoje određene strukture kojih se mora držati prilikom pisanja skripti. Skripta se dijeli na tri dijela <i>head</i> , <i>rule</i> i <i>action</i>.
+</p>
+<h3> <span class="mw-headline" id="Head">Head</span></h3>
+<p>Glava skripte služi u svrhu određenih meta informacija za korisnike skripte, sastoji se od opisa, autora, licence, kategorije u koju skripta spada i same NSEDoc tj. dokumentacije same skripte.
+</p>
+<pre>description= [[
+Uhvati podatke od skeniranih portova i servisa te ih vraće
+u obliku os.name | port.number | port.service | port.version
+]]
+</pre>
+<pre>author = "Mario Orsolic"
+license = "Same as Nmap--See <a href="http://nmap.org/book/man-legal.html" class="external free" rel="nofollow">http://nmap.org/book/man-legal.html</a>"
+categories = {"default", "safe"}
+</pre>
+<p>Prije nastavka određene skripte još moramo uključiti potrebne module za izvršavanje koda ako je to potrebno, npr. za pristup stdnse biblioteci pišemo idući kod:
+</p>
+<pre>local stdnse = require("stdnse")
+</pre>
+<h3> <span class="mw-headline" id="Rule">Rule</span></h3>
+<p>Svaka skripta tijekom svog izvršavanja mora imati pravilo kada će se izvršiti a kada će biti preskočena.
+Postoji nekoliko vrsta pravila:
+</p>
+<ul><li>prerule
+</li><li>portrule
+</li><li>hostrule
+</li><li>postrule
+</li></ul>
+<p>Portrule pravila se koriste ako želimo izvršavati skriptu na temelju stanja portova, npr. ako je port 80 otvoren skripta će se izvršiti.
+Hostrule se za razliku od portrule pravila odnosi na stanje hosta, npr ako host postoji i odgovara tijekom pinganja izvršavamo skriptu.
+</p>
+<h3> <span class="mw-headline" id="Action_2">Action</span></h3>
+<p>Akcija je dio koda skripte koji se izvršava ako je zadovoljeno <i>pravilo</i>.
+Ona inače započinje sa definiranom strukturom
+</p>
+<pre>action = function(host,port)
+end 
+</pre>
+<p>Unutar ove funkcije pišemo kod koji želimo da skripta izvršava.
+</p><p>Prilikom pisanja skripti korisno je iskoristiti mogućnost Nmap API sučelja koje nam omogućava. Uz pomoć njega možemo pristupiti informacijama koje je određeni scan dohvatio, primjerice port.version, host.os i sl.
+Više o Nmap API se može pronaći u <a href="http://nmap.org/book/nse-api.html" class="external text" rel="nofollow">dokumentaciji</a> .
+</p>
+<hr />
+<p>Za problem uzeli smo ideju sa službene stranice Nmap skripti, bilo je potrebno dohvatiti podatke verzije i fingerprinta skeniranja te ih proslijediti na stranicu exploitsearch.net, te na taj način dobiti nekakve podatke o mogućim propustima koje bi bilo potrebno zatvoriti.
+Za ovu svrhu koristit ćemo nekoliko modula 
+</p>
+<pre>stdnse modul: = <a href="http://nmap.org/nsedoc/lib/stdnse.html" class="external free" rel="nofollow">http://nmap.org/nsedoc/lib/stdnse.html</a>  -- Standard Nmap Scripting Engine functions
+json modul:  <a href="http://nmap.org/nsedoc/lib/json.html" class="external free" rel="nofollow">http://nmap.org/nsedoc/lib/json.html</a> -- rad sa JSON podacima
+http modul: <a href="http://nmap.org/nsedoc/lib/http.html" class="external free" rel="nofollow">http://nmap.org/nsedoc/lib/http.html</a> -- rad sa http upitima
+</pre>
+<h3> <span class="mw-headline" id="Detaljni_source_kod">Detaljni source kod</span></h3>
+<p><a href="https://github.com/originx/SIS_repo" class="external free" rel="nofollow">https://github.com/originx/SIS_repo</a>
+</p><p><br />
+Skripta može primati 3 argumenta, te strukturno ispisivati rezultate u datoteke po potrebi.
+</p>
+<ul><li>forcedOS = "nazivOS-a"
+</li></ul>
+<p>U slučaju da nmap ne može detektirati OS da ispuni potrebne tablice, korisnik može ručno unijeti naziv sustava koji se nalazi na udaljenom serveru
+</p>
+<ul><li>exploitsOnly =true/false
+</li></ul>
+<p>Vrati samo rezultate koji odgovaraju oznaci exploit sa stranice exploitssearch.net
+</p>
+<ul><li>detailed = true/false
+</li></ul>
+<p>Detaljni ispis svakog exploita kojeg je skripta dohvatila 
+Ispis zna biti velik u ovisnosti koliko je ranjivosti pronađeno pa uz upotrebu ovog argumenta poželjno je rezultate spremiti u datoteku.
+</p>
+<h2> <span class="mw-headline" id="Primjer_rada_skripte:">Primjer rada skripte:</span></h2>
+<p>Naredba: 
+<b>nmap <i>server_name</i> -O -script xploitSearch.nse --script-args forcedOS="Linux 2.4.36"</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Morsolic_nmapXploit.png" class="image"><img alt="Morsolic nmapXploit.png" src="../images/8/81/Morsolic_nmapXploit.png" width="721" height="280" /></a>
+</p><p>Naredba: 
+<b>nmap <i>server_name</i> -O -script xploitSearch.nse --script-args=' detailed=true,forcedOS=Linux 2.4.36'</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Morsolic_nmapXploitDetailed.png" class="image"><img alt="Morsolic nmapXploitDetailed.png" src="../images/e/e7/Morsolic_nmapXploitDetailed.png" width="957" height="561" /></a>
+</p><p>Ako želite ispisati rezultate u datoteku, primjerice XML, koristite zastavicu <i><b>-oX nazivDatoteke.xml</b></i>.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:NmapXploitFileOutput.PNG" class="image"><img alt="NmapXploitFileOutput.PNG" src="../images/f/f9/NmapXploitFileOutput.PNG" width="486" height="530" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.orsolic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.orsolic (stranica ne postoji)">Mario.orsolic</a> 17:17, 12. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Sources:">Sources:</span></h2>
+<ul><li> Fyodor,Fifield. Nmap Scripting Engine. BlackHat USA 2010. Dostupno 07.01.2013 na:  <a href="http://media.blackhat.com/bh-us-10/whitepapers/Vaskovitch/BlackHat-USA-2010-Fyodor-Fifield-NMAP-Scripting-Engine-wp.pdf" class="external free" rel="nofollow">http://media.blackhat.com/bh-us-10/whitepapers/Vaskovitch/BlackHat-USA-2010-Fyodor-Fifield-NMAP-Scripting-Engine-wp.pdf</a>
+</li></ul>
+<ul><li>Nmap NSE dokumentacija. Nmap site. Dostupno 08.01.2013 na:  <a href="http://nmap.org/nsedoc/" class="external free" rel="nofollow">http://nmap.org/nsedoc/</a>
+</li></ul>
+<ul><li>Nmap API dokumentacija. Nmap site. Dostupno 09.01.2013 na: <a href="http://nmap.org/book/nse-api.html" class="external free" rel="nofollow">http://nmap.org/book/nse-api.html</a>
+</li></ul>
+<ul><li><i>Općenito o Nmapu:</i> <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-01-147.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-01-147.pdf</a>
+<ul><li><a href="http://insecure.org/" class="external free" rel="nofollow">http://insecure.org/</a>
+</li><li><a href="http://barok.foi.hr/~tkisason/dl/nmap-quick-reference.pdf" class="external free" rel="nofollow">http://barok.foi.hr/~tkisason/dl/nmap-quick-reference.pdf</a>
+</li></ul>
+</li></ul>
+<ul><li><i>Zenmap</i> <a href="http://www.cis.hr/sigurosni-alati/mapiranje-mree.html" class="external free" rel="nofollow">http://www.cis.hr/sigurosni-alati/mapiranje-mree.html</a>
+<ul><li><a href="http://www.ghacks.net/2009/08/09/map-your-network-with-zenmap/" class="external free" rel="nofollow">http://www.ghacks.net/2009/08/09/map-your-network-with-zenmap/</a>
+</li></ul>
+</li></ul>
+<ul><li><i>Noob youtube tuto's:</i>
+<ul><li><a href="http://youtu.be/uNTsURvslvc" class="external free" rel="nofollow">http://youtu.be/uNTsURvslvc</a>
+</li><li><a href="http://www.youtube.com/watch?v=0TJuipCrjZQ" class="external free" rel="nofollow">http://www.youtube.com/watch?v=0TJuipCrjZQ</a>
+</li></ul>
+</li></ul>
+<ul><li><i>Nmap intro:</i> <a href="http://www.slideshare.net/amiable_indian/hacking-with-nmap-scanning-techniques" class="external free" rel="nofollow">http://www.slideshare.net/amiable_indian/hacking-with-nmap-scanning-techniques</a>
+</li></ul>
+<ul><li><i>Nmap cheat sheet:</i> <a href="http://elf.foi.hr/file.php/254/nmap-quick-reference.pdf" class="external free" rel="nofollow">http://elf.foi.hr/file.php/254/nmap-quick-reference.pdf</a>
+</li></ul>
+<ul><li><i>Nmap bible:</i> <a href="http://nmap.org/book/toc.html" class="external free" rel="nofollow">http://nmap.org/book/toc.html</a>
+</li></ul>
+<ul><li><i>Port scanning:</i> <a href="http://nmap.org/book/man-port-scanning-techniques.html" class="external free" rel="nofollow">http://nmap.org/book/man-port-scanning-techniques.html</a>
+</li></ul>
+<ul><li><i>Fingerprinting (detecting the fingerprint [type] of the OS ):</i> <a href="http://nmap.org/book/osdetect.html" class="external free" rel="nofollow">http://nmap.org/book/osdetect.html</a>
+</li></ul>
+<ul><li><i>Sve NSE skripte: </i> <a href="http://nmap.org/nsedoc/" class="external free" rel="nofollow">http://nmap.org/nsedoc/</a>
+</li></ul>
+<p><br />
+</p><p>Mario Oršolić, Renato Turić, Marina Grubeša
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 114/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4408-0!*!0!!hr!2!edit=0 and timestamp 20190203204010 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Nmap.Nmap_scripting_engine.html">http://security.foi.hr/wiki/index.php/Nmap.Nmap_scripting_engine</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Nmap.Nmap_scripting_engine" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Nmap.Nmap_scripting_engine.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Nmap.Nmap_scripting_engine&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Nmap.Nmap_scripting_engine.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Nmap.Nmap_scripting_engine.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Nmap.Nmap_scripting_engine&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Nmap.Nmap_scripting_engine&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Nmap.Nmap_scripting_engine.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Nmap.Nmap_scripting_engine" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Nmap.Nmap_scripting_engine" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Nmap.Nmap_scripting_engine&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Nmap.Nmap_scripting_engine&amp;oldid=17371" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:04, 11. veljače 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 51.350 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Nmap.Nmap_scripting_engine", "wgTitle": "Nmap.Nmap scripting engine", "wgAction": "view", "wgArticleId": 4408, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17371, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.414 secs. -->			</body>
+</html>

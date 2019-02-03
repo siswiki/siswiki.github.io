@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Hash Functions and Data Integrity - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Hash_Functions_and_Data_Integrity&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hash_Functions_and_Data_Integrity skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Hash Functions and Data Integrity</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Hash_Functions_and_Data_Integrity.html#mw-head">orijentacija</a>,
+					<a href="Hash_Functions_and_Data_Integrity.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Hash_Functions_and_Data_Integrity.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Hash_Functions_and_Data_Integrity.html#Hash-funkcije"><span class="tocnumber">2</span> <span class="toctext">Hash-funkcije</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Hash_Functions_and_Data_Integrity.html#Klasifikacija_hash-funkcija"><span class="tocnumber">3</span> <span class="toctext">Klasifikacija hash-funkcija</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Hash_Functions_and_Data_Integrity.html#Implementacija_algoritama_za_izra.C4.8Dunavanje_sa.C5.BEetka"><span class="tocnumber">4</span> <span class="toctext">Implementacija algoritama za izračunavanje sažetka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Hash_Functions_and_Data_Integrity.html#MD5_algoritam"><span class="tocnumber">4.1</span> <span class="toctext">MD5 algoritam</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Hash_Functions_and_Data_Integrity.html#SHA-1_algoritam"><span class="tocnumber">4.2</span> <span class="toctext">SHA-1 algoritam</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Hash_Functions_and_Data_Integrity.html#MAC_algoritam"><span class="tocnumber">4.3</span> <span class="toctext">MAC algoritam</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Hash_Functions_and_Data_Integrity.html#bcrypt_i_scrypt"><span class="tocnumber">4.4</span> <span class="toctext">bcrypt i scrypt</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Hash_Functions_and_Data_Integrity.html#Usporedba_hash-funkcija_u_c.23"><span class="tocnumber">5</span> <span class="toctext">Usporedba hash-funkcija u c#</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Hash_Functions_and_Data_Integrity.html#Integritet_podataka_.28eng._Data_integrity.29"><span class="tocnumber">6</span> <span class="toctext">Integritet podataka (eng. Data integrity)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Hash_Functions_and_Data_Integrity.html#Digitalni_potpis"><span class="tocnumber">6.1</span> <span class="toctext">Digitalni potpis</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Hash_Functions_and_Data_Integrity.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Ova tema je fokusirana na kriptografske hash-funkcije (u daljnjem tekstu hash-funkcije), a naročito na njihovu upotrebu za integritet podataka i autentifikaciju poruka. Hash-funkcije imaju temeljnu ulogu u modernoj kriptografiji te ukratko hash-funkcije za ulaz uzimaju poruku koja je uglavnom fiksne duljine i kao izlaz vraćaju šifriranu poruku koja se naziva hash-code, hash-result, hash-value ili ukratko hash. Preciznije, hash-funkcija mapira niz znakova proizvoljne veličine u niz znakova fiksne duljine (n-bita).  Matematički gledano uvodimo posebnu funkciju h: D -&gt; R, gdje vrijedi |D| &gt; |R|. Funkciju h nazivamo hash-funkcija, skup D je domena, a skup R je kodomena. Kako domena mora biti veća od kodomene, zaključujemo da će se ovim postupkom gubiti informacije, a taj problem se naziva kolizija. Osnovna ideja hash-funkcija je da hash služi kao reprezentativna slika nizova znakova (digitalni potpis) i da se ne može dobiti pomoću nekih drugih nizova znakova.
+</p>
+<h2> <span class="mw-headline" id="Hash-funkcije"> Hash-funkcije </span></h2>
+<p>Kao što je navedeno u uvodu, kriptografske hash-funkcije su hash-funkcije s dodatnim sigurnosnim svojstvima kako bi ih se moglo koristiti za autentifikaciju i očuvanje integriteta podataka. Izlazni nizovi najčešće se prikazuju u heksadecimalnom obliku. Idealne hash funkcije zadovoljavaju nekoliko uvjeta:
+</p>
+<ul><li>Generiranje hash-a za svaku poruku bez obzira na njenu duljinu
+</li><li>Nemoguće je u razumnom vremenu iz hash-a generirati izvornu poruku
+</li><li>Nemoguće je promijeniti poruku bez da se promijeni hash
+</li><li>Nemoguće je naći dvije poruke koje imaju isti hash.
+</li></ul>
+<h2> <span class="mw-headline" id="Klasifikacija_hash-funkcija"> Klasifikacija hash-funkcija </span></h2>
+<p>Hash-funkcije dijelimo na hash-funkcije s ključem i hash-funkcije bez ključa. Međutim, za stvarnu upotrebu hash-funkcija, potrebna je detaljnija podjela temeljena na svojstvima koje posjeduju i zahtjevima za specifične aplikacije. U ovom poglavlju razmatrati će se dva tipa hash-funkcija:
+</p>
+<ul><li><ol><li> Algoritmi za izračunavanje sažetka bez ključa (eng. MDC - Modification Detection Codes)
+<ul><li> Za ulaz koriste samo jedan parametar (ulazna poruka). Svrha MDC-a je izrada sažetka kojima se osigurava integritet podataka koji je zahtjevan od različitih aplikacija. Mogu se još podijeliti na dvije podvrste:
+<dl><dt> jednosmjerne hash-funkcije (eng. OWHF - One-Way Hash Functions) - zahtijevaju svojstva jednosmjernosti i jednoznačnosti (slaba otpornost na koliziju)
+</dt><dt> hash-funkcije otporne na koliziju (eng. CRHF - Collision Resistant Hash Functions) - moraju zadovoljavati svojstva jake i slabe otpornosti na koliziju
+</dt></dl>
+</li></ul>
+</li></ol>
+</li></ul>
+<p><br />
+</p>
+<ul><li><ol><li> Algoritmi za izračunavanje sažetka s ključem (eng. MAC – Message Authentication Codes)
+<ul><li> Za ulaz koriste dva parametra (ulazna poruka i tajni ključ). Zahtijevaju kompresiju podataka i jednostavnost izračuna. Također, zahtijeva i računsku otpornost (eng. computation resistance) koji definira da niti za jedan ili više poznatih parova ulaznih podataka i izračunatog sažetka, računskinije moguće izračunatu neki drugi par ulaznog podatka i sažetka koji je različit od poznatih. Kada računska otpornost nije ispunjena, MAC algoritam je podložan krivotvorenju. 
+</li></ul>
+</li></ol>
+</li></ul>
+<h2> <span class="mw-headline" id="Implementacija_algoritama_za_izra.C4.8Dunavanje_sa.C5.BEetka"> Implementacija algoritama za izračunavanje sažetka </span></h2>
+<p>U ovom poglavlju biti će opisani danas najpopularniji i najčešće korišteni algoritmi.
+</p>
+<h3> <span class="mw-headline" id="MD5_algoritam"> MD5 algoritam </span></h3>
+<div class="thumb tnone"><div class="thumbinner" style="width:747px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Md5_hashfunkcija.JPG" class="image"><img alt="Alt text" src="../images/2/25/Md5_hashfunkcija.JPG" width="745" height="386" class="thumbimage" /></a>  <div class="thumbcaption">Slika 1. MD5 algoritam</div></div></div>
+<p>MD5 algoritam uzima kao ulaz podatak varijabilne dužine koji se kriptira u sažetak dužine 128 bita. Ulazni podatak se razdvaja u blokove od 512 bita, zadnji blok se po potrebi nadopunjuje do dužine 512 bita. Nadopunjuje se na način da se najprije dodaju bitovi vrijednosti 1, zatim bitovi vrijednosti 0 sve dok duljina poruke nije 64 bita manja od 512 bita, pri čemu zadnjih 64 bita označava dužinu ulaznog podatka. Glavni MD5 algoritam radi s 128-bitnim stanjem podijeljenim u četiri 32-bitne riječi označene s A, B, C, D koje su inicijalizirane na fiksne vrijednosti. Algoritam obrađuje jedan po jedan blok ulazne poruke gdje svaki blok prilagođava stanje algoritma. Obrada jednog bloka sastoji se od 4 stupnja gdje svaki stupanj sadrži 16 operacija baziranih na nelinearnoj funkciji F, modularnom zbrajanju i rotaciji u lijevo. Na gornjoj slici prikazana je jedna operacija unutar jednog stupnja. Funkcija F može biti jedna od sljedeće 4 definicije:
+</p><p>F(X,Y,Z) = (X AND Y) OR ((not X) AND Z)
+</p><p>G(X,Y,Z) = (X AND Z) OR (Y AND (not Z))
+</p><p>H(X,Y,Z) = X XOR Y xOR Z
+</p><p>I(X,Y,Z)=Y xOR (X OR (not Z)) 
+</p><p>MD5 se najčešće koristi za provjeru integriteta datoteka pomoću sažetka datoteke i za enkripciju kod pohranjivanja lozinka. Integritet datoteke se provjerava na način da se prilikom primitka datoteke izračunava njen sažetak i uspoređuje se sa sažetkom koji je dobiven uz datoteku pa ako su identični, onda je datoteka nepromijenjena, u suprotnom datoteka je promijenjena. Enkripcija kod pohranjivanja lozinka kod MD5 algoritma nije uvijek sigurna odnosno postoji velik broj načina da se zaštićene lozinke mogu dekriptirati, pa kao zaštita od takvih napada preporučeno je prije kriptiranja u tekst poruke dodati poznati slučajni niz bitova što će znatno otežati napad. Za dodatnu sigurnost koristi se metoda kojom enkripciju koristimo u više iteracija.
+</p>
+<h3> <span class="mw-headline" id="SHA-1_algoritam"> SHA-1 algoritam </span></h3>
+<div class="thumb tnone"><div class="thumbinner" style="width:769px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sha1.JPG" class="image"><img alt="Alt text" src="../images/e/ed/Sha1.JPG" width="767" height="430" class="thumbimage" /></a>  <div class="thumbcaption">Slika 2. SHA1 algoritam</div></div></div>
+<p>SHA-1 algoritam je najpopularnijih algoritama i koristi se u velikom broju današnjih aplikacija i sigurnosnih protokola. Također se smatra nasljednikom MD5 algoritma i mnogo mu je sličan. Algoritam radi na način da za ulaz uzima poruku maksimalne dužine 264 bita i iz nje izračunava sažetak dužine 160 bita. Isto kao i kod MD5 algoritma, princip rada također se bazira na iteracijama (mijenjanje nelinearnih funkcija F) koje mijenjaju stanje algoritma. SHA-1 je također dokazano probijen. Kao poboljšani nasljednik SHA-1 algoritma predstavljen je SHA-2 algoritam koji sadrže neke izmjene i kao rezultat daje duži sažetak u nekoliko varijanti: SHA-224, SHA-256, SHA-384 i SHA-512. Za sad ne postoje dokazani proboji jer nisu u široj upotrebi.
+</p>
+<h3> <span class="mw-headline" id="MAC_algoritam">MAC algoritam</span></h3>
+<p>MAC je algoritam koji se upotrebljava za autentikaciju i provjeru integriteta poruka tako što se uz poruku šalje i dodatni podatak koji se naziva MAC sažetak i koji se dobiva upotrebom MAC algoritma i tajnog ključa. Korisnik koji posjeduje identični tajni ključ upotrebom istog algoritma može provjeriti da li MAC sažetak odgovara primljenoj poruci te time verificirati integritet i autentičnost poruke. MAC algoritmi imaju odgovarajuće sigurnosne zahtjeve prema kojima takav algoritam mora biti siguran od krvotvorenja, tj. da nitko ne može generirati važeći MAC sažetak za bilo kakvu poruku korištenjem nekog ključa, u suprotnom takav algoritam nije siguran. Da bi se povećala sigurnost MAC algoritam se nadograđuje upotrebom drugih kriptografskih algoritama kao što su MD5 ili SHA-1, pa te kao takvi onda nazivaju prema funkciji koja se koristi, npr. HMAC-MD5 ili HMAC-SHA-1.
+</p>
+<h3> <span class="mw-headline" id="bcrypt_i_scrypt">bcrypt i scrypt</span></h3>
+<p>Bcrypt je funkcija za kriptiranje vrlo osjetljivih podataka. Jedna je od novijih hash-funkcija te se najčešće koristi za kriptiranje lozinka. Bolja je u odnosu na MD5 i SHA-2 jer je algoritam za kriptiranje namjerno napisan da bude spor. Bcrypt uzima oko 100ms za izračunavanje, što je oko 10.000 puta sporiji od SHA-1 i 300 puta sporiji od MD5. 100 ms je dovoljno brzo da korisnik neće niti primijetiti razliku kod prijave ili registracije, ali i dovoljno spor što je korisno kada hakeri pokušavaju probiti lozinku jer trebaju kriptirati velik broj potencijalnih lozinki. Za razliku od bcrypt-a, scrypt nije dizajniran za pohranu lozinka. Osmišljen je kao derivacijska funkcija za generiranje ključeva iz lozinka. Scrypt je jedna od novijih hash-funkcija te se najčešće koristi kod ruderenja (npr. Bitcoin).
+</p>
+<h2> <span class="mw-headline" id="Usporedba_hash-funkcija_u_c.23">Usporedba hash-funkcija u c#</span></h2>
+<p>Program koji će biti opisan izrađen je u programskom jeziku c#. Navedeni jezik u sebi sadrži biblioteku System.Security.Cryptography koja omogućuje kriptografske usluge, uključujući sigurno kodiranje i dekodiranje podataka, kao i mnoge druge operacije, kao što su generiranje nasumičnih brojeva i provjere autentičnosti poruka.
+</p>
+<pre>
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Security.Cryptography;
+
+namespace md5
+{
+    public partial class Form1&#160;: Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)//Gumb za izračun hash-funkcija za usporedbu
+        {
+            md5TextBox.Text = MD5Hash(prviTekst.Text);
+            sha1TextBox.Text = GetSHA1HashData(prviTekst.Text);
+            sha256TextBox.Text = GetSHA256HashData(prviTekst.Text);
+            sha512TextBox.Text = GetSHA512HashData(prviTekst.Text);
+            hmacsha256TextBox.Text = GetHMACSHA256HashData(prviTekst.Text, tajniKljucTextBox.Text);
+            hmacmd5TextBox.Text = GetHMACMD5HashData(prviTekst.Text, tajniKljucTextBox.Text);
+
+        }
+        private void button2_Click(object sender, EventArgs e)//Gumb za izračun hash-funkcija za usporedbu
+        {
+            md5TextBox1.Text = MD5Hash(drugiTekst.Text);
+            sha1TextBox1.Text = GetSHA1HashData(drugiTekst.Text);
+            sha256TextBox1.Text = GetSHA256HashData(drugiTekst.Text);
+            sha512TextBox1.Text = GetSHA512HashData(drugiTekst.Text);
+            hmacsha256TextBox1.Text = GetHMACSHA256HashData(drugiTekst.Text,tajniKljucTextBox1.Text);
+            hmacmd5TextBox1.Text = GetHMACMD5HashData(drugiTekst.Text,tajniKljucTextBox1.Text);
+        }
+        public static string MD5Hash(string input)//izračun MD5 hash
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i &lt; bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString(&quot;x2&quot;));
+            }
+            return hash.ToString();
+        }
+
+        private string GetSHA1HashData(string data)//izračun SHA-1 hash
+        {
+            SHA1 sha1 = SHA1.Create();//kreiranje instance
+            byte[] hashData = sha1.ComputeHash(Encoding.Default.GetBytes(data));//pretvaranje teksta u polje bitova
+            StringBuilder returnValue = new StringBuilder();//kreiranje nove instance za spremanje hash podatka
+            for (int i = 0; i &lt; hashData.Length; i++)
+            {
+                returnValue.Append(hashData[i].ToString());
+            }
+            // vracamo heksadekadski string
+            return returnValue.ToString();
+        }
+        private string GetSHA256HashData(string data)//izračun SHA256 hash
+        {
+            SHA256 sha256 = SHA256.Create();
+            byte[] hashData = sha256.ComputeHash(Encoding.Default.GetBytes(data));
+            StringBuilder returnValue = new StringBuilder();
+            for (int i = 0; i &lt; hashData.Length; i++)
+            {
+                returnValue.Append(hashData[i].ToString());
+            }
+            return returnValue.ToString();
+        }
+        private string GetSHA512HashData(string data)//izračun SHA512 hash
+        {
+            SHA512 sha512 = SHA512.Create();
+            byte[] hashData = sha512.ComputeHash(Encoding.Default.GetBytes(data));
+            StringBuilder returnValue = new StringBuilder();
+            for (int i = 0; i &lt; hashData.Length; i++)
+            {
+                returnValue.Append(hashData[i].ToString());
+            }
+            return returnValue.ToString();
+        }
+        private string GetHMACSHA256HashData(string data, string key)//izračun HMAC-SHA256 hash
+        {
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = encoding.GetBytes(key);
+
+            HMACSHA256 hmacsha256 = new HMACSHA256(keyByte);
+
+            byte[] messageBytes = encoding.GetBytes(data);
+            byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+            StringBuilder returnValue = new StringBuilder();
+
+            for (int i = 0; i &lt; hashmessage.Length; i++)
+            {
+                returnValue.Append(hashmessage[i].ToString());
+            }
+            return returnValue.ToString();
+        }
+        private string GetHMACMD5HashData(string data, string key)//izračun HMAC-MD5 hash
+        {
+            
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = encoding.GetBytes(key);
+
+            HMACMD5 hmacmd5 = new HMACMD5(keyByte);
+
+            byte[] messageBytes = encoding.GetBytes(data);
+            byte[] hashmessage = hmacmd5.ComputeHash(messageBytes);
+            StringBuilder returnValue = new StringBuilder();
+
+            for (int i = 0; i &lt; hashmessage.Length; i++)
+            {
+                returnValue.Append(hashmessage[i].ToString());
+            }
+            return returnValue.ToString();
+        }
+
+
+    }
+}
+
+</pre>
+<p><br /> 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:1002px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:HashProgram_istiTekst.JPG" class="image"><img alt="Alt text" src="../images/d/d4/HashProgram_istiTekst.JPG" width="1000" height="534" class="thumbimage" /></a>  <div class="thumbcaption">Slika 3. Aplikacija - promjena teksta</div></div></div>
+<p>Na <i>slika 3</i> i <i>slika 4</i> možemo vidjeti konačan izgled aplikacije. Aplikacija generira hashev-e pomoću algoritma u navedenim metodama u izvornom kodu. Za generiranje hash-eva koriste se hash-funkcije MD5, SHA-1, SHA-256, SHA-512, HMAC-MD5 i HMAC-SHA256. Kao i što je navedeno, aplikacija je izrađena u C# programskog jeziku jer sadrži već gotove hash-funkcije što pojednostavljuje način rada za generiranje istih. Izrađena aplikacija se sastoji od dva primjera koja su identična ali sa svrhom usporedbe kreiranih hash-eva. Na <i>slika 3</i> može se vidjeti da su u primjeru 1 i primjeru 2 uneseni identični tekstovi pri čemu je jedno slovo u primjeru 2 promijenjeno u veliko slovo. Promjenom samo jedne znamenke kreiraju se novi hash-evi te usporedbom hash-eva zaključujemo da uneseni tekst nije jednak. Isto bi vrijedilo i za bilo kakvu datoteku. Na primjer ako bi umjesto niza znakova koristili neku sliku, te ako bi toj slici u nekom alatu za uređivanje slika promijenili boju, nacrtali čak i najmanju točku koja je neprimjetna na slici, promijenio bi se hash prema kojem bi se vidjelo da nije primljena originalna slika.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:1004px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:HashProgram_promjenaKljuca.JPG" class="image"><img alt="Alt text" src="../images/a/a4/HashProgram_promjenaKljuca.JPG" width="1002" height="536" class="thumbimage" /></a>  <div class="thumbcaption">Slika 4. Aplikacija - promjena ključa</div></div></div>
+<p>Na <i>slika 4</i> je važno usporediti HMAC hash-funkcije. Pošto su to hash-funkcije sa ključem potrebno je istaknuti važnost istog. U oba dva primjera unesen je identičan tekst ali su uneseni različiti ključevi. U prvom slučaju ključ je SIS, a u drugom SIS-ključ. Promjenom ključa dobivamo novo kreirani hash te samo onaj korisnik koji posjeduje ključ može vidjeti unesenu informaciju, u navedenom slučaju tekst. Dodavanjem ključa povećava se sigurnost od hakiranja. 
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Name
+</th>
+<th> String
+</th>
+<th> Hash vrijednost (heksadecimalni znakovni niz)
+</th></tr>
+<tr>
+<td> MD5
+</td>
+<td> ""<br />"a"<br />"abcdefg"
+</td>
+<td> d41d8cd98f00b204e9800998ecf8427e<br />0cc175b9c0f1b6a831c399e269772661<br />7ac66c0f148de9519b8bd264312c4d64
+</td></tr>
+<tr>
+<td> SHA-1
+</td>
+<td> ""<br />"a"<br />"abcdefg"
+</td>
+<td> 218571632389410775135085191239149962414417521679<br />13424722855250165167252225932922018523423423455118103184<br />4718122552252521373610410123116336244118236987813564
+</td></tr>
+<tr>
+<td> SHA-256
+</td>
+<td> ""<br />"a"<br />"abcdefg"
+</td>
+<td> 22717619666152252282015425124420015311118536391746522810015514776164149153271208218485<br />2021511291820227189202250194491791543522077167134239248201247811418512811913317523872187<br />1252684181233437224518315595176128489721426824943552266010139186246101212218154
+</td></tr>
+<tr>
+<td> SHA-512
+</td>
+<td> ""<br />"a"<br />"abcdefg"
+</td>
+<td> 2071312255312623918418924184408021410912872143222851187212201312441693321110823320671208209609313324217625513124210135126236479918549189716512212916556501222493921862<br />31642521462183622148117912123810824513024221321521014224519322490188842088614158321341210143240141862821709411633570243105251187206140182071991491233882254154117<br />2152216424133105182138177182223172231428712020524023458281922272013419522818651881061186678140551713824015025213323915213420020399651352442532232466925191593124576107140
+</td></tr>
+<tr>
+<td> HMAC-MD5
+</td>
+<td> ""<br />"a"<br />"abcdefg"
+</td>
+<td> 202142207245248617526215381119023721786187<br />227205209369162325619622023114213115615245<br />173417465877333491623746415224717559
+</td></tr>
+<tr>
+<td> HMAC-SHA256
+</td>
+<td> ""<br />"a"<br />"abcdefg"
+</td>
+<td> 23827395536810718542221031542093889145211111871773624492771131052068413161698<br />211412910619051112299931038510635130212158156201221224681982006216922417859208248<br />572481427349013917182100128113150108229212159432551601742232121103129212246454117641
+</td></tr></table>
+<h2> <span class="mw-headline" id="Integritet_podataka_.28eng._Data_integrity.29">Integritet podataka (eng. Data integrity)</span></h2>
+<p>Za integritet podatak potrebno je koristiti MAC algoritme jer sadrže tajni ključ koji osigurava sigurnost prijenosa i pohrane podataka. Primjer integriteta podataka je komunikacija i prijenos paketa između pošiljatelja i primatelja. Računalno koje šalje podatke koristi HMAC algoritam i tajni ključ za izračunavanje kontrolnog broja poruke i uključuje ga s paketom. Primatelj je dužan obaviti HMAC računanje na primljenoj poruci i usporediti ga s originalnom porukom (uključeno s paketom pošiljatelja). Ako se poruka promijenilo putem transakcije, tada će hash vrijednosti biti drugačije i paket će biti odbijen.
+</p>
+<h3> <span class="mw-headline" id="Digitalni_potpis">Digitalni potpis</span></h3>
+<p>Digitalni potpis je matematička shema za demonstraciju autentičnosti digitalnih poruka ili dokumenata . Valjani digitalni potpis dokazuje primatelju da je poruka kreirana od poznatog pošiljatelja (autentifikacija), da pošiljatelj ne može poreći da je poslao poruku te da poruka nije promijenjena putem transakcije (integritet). Digitalni potpisi standardni su elementi većine kriptografskih protokolskih paketa, a obično se koriste za distribuciju softwera, financijske transakcije, softwer za upravljanje ugovorima i u drugim slučajevima gdje je važno otkriti krivotvorenje iil neovlašteno rukovanje istim. Primjer autentičnosti i integriteta možemo vidjeti u sljedećem primjeru: 
+</p>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+using System.Security.Cryptography;
+
+namespace Digitalni_potpis
+{
+    public partial class Form1&#160;: Form
+    {
+        public string originalText;
+        public byte[] originalTextBytes;
+
+        public string digitalSignature = Path.GetDirectoryName(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName) + &quot;\\digital_signature.txt&quot;;
+        public string textSummary = Path.GetDirectoryName(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName) + &quot;\\text_summary.txt&quot;;
+
+        public string privateKey;
+        public string publicKey;
+        public RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(2048);
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Stream myStream;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if ((myStream = openFileDialog.OpenFile())&#160;!= null)
+                {
+                    originalText = File.ReadAllText(openFileDialog.FileName);
+                    originalTextBytes = File.ReadAllBytes(openFileDialog.FileName);
+                    textBox1.Text = originalText;
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            byte[] textSummaryByte;
+
+            using (var sha256 = SHA256.Create())
+            {
+                try
+                {
+                    textSummaryByte = sha256.ComputeHash(originalTextBytes);
+
+                    File.WriteAllBytes(textSummary, textSummaryByte);
+
+                    publicKey = RSA.ToXmlString(false);
+                    privateKey = RSA.ToXmlString(true);
+
+                    var signature = Sign(textSummaryByte);
+
+                    File.WriteAllBytes(digitalSignature, signature);
+                    MessageBox.Show(&quot;Digitalni potpis je uspješno potpisan!&quot;);
+                }
+                catch (ArgumentNullException)
+                {
+                    MessageBox.Show(&quot;Digitalni potpis nije potpisan!&quot;);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            byte[] signature = File.ReadAllBytes(digitalSignature);
+            byte[] summary = File.ReadAllBytes(textSummary);
+
+            if (Check(signature, summary))
+            {
+                MessageBox.Show(&quot;Digitalni potpis je točan!&quot;);
+            }
+            else
+            {
+                MessageBox.Show(&quot;Digitalni potpis je netočan&quot;);
+            }
+        }
+        public byte[] Sign(byte[] hashData)
+        {
+            try
+            {
+                using (var rsa = new RSACryptoServiceProvider(2048))
+                {
+                    rsa.PersistKeyInCsp = false;
+                    rsa.FromXmlString(privateKey);
+                    var rsaFormatter = new RSAPKCS1SignatureFormatter(rsa);
+                    rsaFormatter.SetHashAlgorithm(&quot;SHA256&quot;);
+                    return rsaFormatter.CreateSignature(hashData);
+                }
+            }
+            catch (CryptographicException e)
+            {
+                MessageBox.Show(e.ToString());
+
+                return null;
+            }
+        }
+
+        public bool Check(byte[] signature, byte[] summary)
+        {
+            try
+            {
+                using (var RSA = new RSACryptoServiceProvider(2048))
+                {
+                    RSA.FromXmlString(publicKey);
+
+                    var rsaDeformatter = new RSAPKCS1SignatureDeformatter(RSA);
+                    rsaDeformatter.SetHashAlgorithm(&quot;SHA256&quot;);
+
+                    return rsaDeformatter.VerifySignature(summary, signature);
+                }
+            }
+            catch (CryptographicException e)
+            {
+                MessageBox.Show(e.ToString());
+
+                return false;
+            }
+        }
+    }
+}
+
+</pre>
+<table style="margin: 0 auto;">
+<tr>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisIzgledAplikacije.JPG" class="image"><img alt="Alt text" src="../images/a/ac/DigitalniPotpisIzgledAplikacije.JPG" width="450" height="422" class="thumbimage" /></a>  <div class="thumbcaption">Slika 5. Izgled aplikacije</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:453px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisUcitavanjeDatoteke.JPG" class="image"><img alt="Alt text" src="../images/a/a0/DigitalniPotpisUcitavanjeDatoteke.JPG" width="451" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 6. Učitavanje datoteke</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisU%C4%8DitanaDatoteka.JPG" class="image"><img alt="Alt text" src="../images/a/a1/DigitalniPotpisUčitanaDatoteka.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 7. Učitana datoteka</div></div></div>
+</td></tr></table>
+<p><br />
+</p>
+<table style="margin: 0 auto;">
+<tr>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisPotpisanaDatoteka.JPG" class="image"><img alt="Alt text" src="../images/e/ea/DigitalniPotpisPotpisanaDatoteka.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 8. Potpisana datoteka</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisPrimjerPotpisa.JPG" class="image"><img alt="Alt text" src="../images/a/ac/DigitalniPotpisPrimjerPotpisa.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 9. Primjer potpisa</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisPrimjerSadrzaja.JPG" class="image"><img alt="Alt text" src="../images/d/da/DigitalniPotpisPrimjerSadrzaja.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 10. Primjer sadržaja</div></div></div>
+</td></tr></table>
+<p><br />
+</p>
+<table style="margin: 0 auto;">
+<tr>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalnipotpisProvjeraPotpisa.JPG" class="image"><img alt="Alt text" src="../images/f/f9/DigitalnipotpisProvjeraPotpisa.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 11. Provjera potpisa</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisPromjenaPotpisa.JPG" class="image"><img alt="Alt text" src="../images/e/e1/DigitalniPotpisPromjenaPotpisa.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 12. Promjena potpisa</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisPromjenaSadrzaja.JPG" class="image"><img alt="Alt text" src="../images/e/ef/DigitalniPotpisPromjenaSadrzaja.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 13. Promjena sadržaja</div></div></div>
+</td></tr></table>
+<p><br />
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DigitalniPotpisJeNetocan.JPG" class="image"><img alt="Alt text" src="../images/f/fd/DigitalniPotpisJeNetocan.JPG" width="450" height="420" class="thumbimage" /></a>  <div class="thumbcaption">Slika 10. Provjera potpisa</div></div></div>
+<p><br />
+</p><p>Prikazane slike prikazuju rad aplikacije u c# programskom jeziku. <i>Slika 5</i> prikazuje izgled aplikacije prilikom pokretanja. Aplikacija se sastoji od tri gumba: učitaj, potpiši, provjeri potpis. Klikom na gumb učitaj, otvara se prozor u kojem je potrebno odabrati tekstualnu datoteka. Učitavanjem datoteke prikazati će se sadržaj datoteke unutar prozora kao na <i>slika 7</i>. Klikom na gumb potpiši kreirati će ce dvije tekstualne datoteke u koje su spremljene hash vrijednost sadržaja učitane datoteke i potpis iste. Primjer hash vrijednosti sadržaja i potpisa su prikazane na <i>slika 9</i> i <i>slika 10</i>. Pritiskom na gumb provjeri potpis provjerava se potpis učitane datoteke, ako je datoteka identična, digitalni potpis je točan. U ovoj aplikaciji sam testirao potpis datoteke u dva slučajeva:
+</p>
+<ul><li> Promjena digitalnog potpisa - <i>Slika 12</i>
+</li><li> Promjena sadržaja tekstualne datoteke - <i>Slika 13</i>
+</li></ul>
+<p>Promjenom digitalnog potpisa ili promjenom sadržaja tekstualne datoteke digitalni potpis nije točan što nam dokazuje da je datoteka prilikom transakcije bila promijenjena.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p><a href="http://cacr.uwaterloo.ca/hac/" class="external free" rel="nofollow">http://cacr.uwaterloo.ca/hac/</a>
+</p><p><a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-08-166.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-08-166.pdf</a>
+</p><p><a href="http://dustwell.com/how-to-handle-passwords-bcrypt.html" class="external free" rel="nofollow">http://dustwell.com/how-to-handle-passwords-bcrypt.html</a>
+</p><p><a href="https://www.usenix.org/legacy/events/usenix99/provos/provos_html/node4.html#sec:eksblowfish" class="external free" rel="nofollow">https://www.usenix.org/legacy/events/usenix99/provos/provos_html/node4.html#sec:eksblowfish</a>
+</p><p><br />
+Mateo Kantoci --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Matkantoc&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Matkantoc (stranica ne postoji)">Matkantoc</a> 22:12, 16. siječnja 2018. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 64/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9913-0!*!0!!hr!2!edit=0 and timestamp 20190203204145 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Hash_Functions_and_Data_Integrity.html">http://security.foi.hr/wiki/index.php/Hash_Functions_and_Data_Integrity</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Hash_Functions_and_Data_Integrity" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Hash_Functions_and_Data_Integrity.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Hash_Functions_and_Data_Integrity&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Hash_Functions_and_Data_Integrity.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Hash_Functions_and_Data_Integrity.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Hash_Functions_and_Data_Integrity&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Hash_Functions_and_Data_Integrity&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Hash_Functions_and_Data_Integrity.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Hash_Functions_and_Data_Integrity" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Hash_Functions_and_Data_Integrity" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Hash_Functions_and_Data_Integrity&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Hash_Functions_and_Data_Integrity&amp;oldid=42098" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 01:56, 19. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 367 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Hash_Functions_and_Data_Integrity", "wgTitle": "Hash Functions and Data Integrity", "wgAction": "view", "wgArticleId": 9913, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42098, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.472 secs. -->			</body>
+</html>

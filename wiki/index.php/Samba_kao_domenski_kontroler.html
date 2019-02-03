@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Samba kao domenski kontroler - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Samba_kao_domenski_kontroler&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Samba_kao_domenski_kontroler skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Samba kao domenski kontroler</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Samba_kao_domenski_kontroler.html#mw-head">orijentacija</a>,
+					<a href="Samba_kao_domenski_kontroler.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Autori:</p>
+<ul style="margin-bottom:10px;">
+<li>Tina Crnjak (1. dio)</li>
+<li>Luka Šoštarić (2. dio)</li>
+</ul>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Samba_kao_domenski_kontroler.html#Osnovni_pojmovi_va.C5.BEni_za_rad"><span class="tocnumber">1</span> <span class="toctext">Osnovni pojmovi važni za rad</span></a>
+<ul>
+<li class="toclevel-2"><a href="Samba_kao_domenski_kontroler.html#Debian"><span class="tocnumber">1.1</span> <span class="toctext">Debian</span></a></li>
+<li class="toclevel-2"><a href="Samba_kao_domenski_kontroler.html#Samba"><span class="tocnumber">1.2</span> <span class="toctext">Samba</span></a>
+<ul>
+<li class="toclevel-3"><a href="Samba_kao_domenski_kontroler.html#Kako_radi_Samba"><span class="tocnumber">1.2.1</span> <span class="toctext">Kako radi Samba</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Samba_kao_domenski_kontroler.html#Domenski_kontroler"><span class="tocnumber">1.3</span> <span class="toctext">Domenski kontroler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Samba_kao_domenski_kontroler.html#Samba_u_ulozi_domenskog_kontrolera"><span class="tocnumber">2</span> <span class="toctext">Samba u ulozi domenskog kontrolera</span></a>
+<ul>
+<li class="toclevel-2"><a href="Samba_kao_domenski_kontroler.html#Instalacija_Sambe"><span class="tocnumber">2.1</span> <span class="toctext">Instalacija Sambe</span></a></li>
+<li class="toclevel-2"><a href="Samba_kao_domenski_kontroler.html#Priprema_za_konfiguraciju_Sambe"><span class="tocnumber">2.2</span> <span class="toctext">Priprema za konfiguraciju Sambe</span></a></li>
+<li class="toclevel-2"><a href="Samba_kao_domenski_kontroler.html#Konfiguracija_Sambe"><span class="tocnumber">2.3</span> <span class="toctext">Konfiguracija Sambe</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Samba_kao_domenski_kontroler.html#Zaklju.C4.8Dak"><span class="tocnumber">3</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1"><a href="Samba_kao_domenski_kontroler.html#Literatura"><span class="tocnumber">4</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Osnovni_pojmovi_va.C5.BEni_za_rad">Osnovni pojmovi važni za rad</span></h2>
+<p>Na početku ovoga rada biti će ukratko opisani osnovni pojmovi koji su bitni za razumijevanje njegovog drugog dijela.</p>
+<h3> <span class="mw-headline" id="Debian">Debian</span></h3>
+<p>Debian je računalni operativni sustav sastavljen od jezgre, osnovnih alata i programske potpore za raznolike primjene, objavljen kao besplatan i open source softver. Nastao je 1993. godine a objavio ga je Ian Murdock kao novu distribuciju koja će raditi u duhu GNU/Linuxa. Ime je dobio kombinacijom imena objavljivača i njegove djevojke Debre.  Na početku je zamišljen kao projekt koji će se održavati pažljivo i svjesno od stane male skupine hakera, a s vremenom je prerastao u veliku zajednicu developera i korisnika. Dostupan je za sve arhitekture računala pa stoga za sebe kaže da je univerzalan operativni sustav sustav.
+ U jezgri operativnog sustava je kernel koji je najtemeljitiji program na računalu te omogućuje pokretanje drugih programa. Debian sustavi trenutno koriste Linux kernel. „Debian GNU / Linux pruža puno više od onog što se misli pod nazivom 'operativni sustav': dolazi s više od 29 000 paketa, već kompajliranih programa (binarni kod za različite strojne platforme) spakiranih u zgodan format za laganu instalaciju na računalo." (Informatička abeceda, Drago Radić, 2012.)</p>
+<p>Debian dolazi u nekoliko inačica:
+</p>
+<ul>
+<li>Stable – izdanje je vrlo stabilno, namijenjeno onim korisnicima kojima je najvažnija sigurnost i stabilnost operativnog sustava. Paketi su prošli brojne provjere te su ispravljene brojne greške i propusti, podržana je nadogradnjama pa se može koristiti u ozbiljne namjene – na poslužiteljima, baze podataka i slično.</li>
+<li>Testing – nije stabilan kao stable ali još uvijek dovoljno za prosječnog korisnika. Ispravljeni su kritični propusti pa bi zbog toga testig izdanje trebalo funkcionirati vrlo dobro, međutim nije stabilan kao stable jer se verzije paketa često mijenjaju. Za ovu verziju možemo reći da je stabilniji za svakodnevnu upotrebu od Ubuntu Linuxa koji je najpopularnija GNU/Linux distribucija bazirana na Debian unstable verziji.</li>
+<li>Unstable – nije namijenjen korištenju na produkcijskim sustavima. Paketi nisu testirani, dolaze izravno od upstream razvijatelja, nisu nužno konfigurirani za instalaciju i deinstalaciju. Najveći nedostatak je velik broj sigurnosnih propusta što sustav čini vrlo nestabilnim. Uglavnom je korišten od strane Debian developera, iskusnih korisnika te ljudi koji žele pomoći Debian projektu u razvoju prijavljivanjem bugova. Bez obzira na sve to, neki smatraju da je ova verzija vrlo stabilna i koriste ga u svakodnevnom životu.Osim navedenih postoji još i experimental izdanje sa najviše sigurnosnih propusta pa se stoga ne preporuča za upotrebu jer je vrlo nestabilno. (Sistemac.srce, 2012.)</li>
+</ul>
+<h3> <span class="mw-headline" id="Samba">Samba</span></h3>
+<p>Samba je jedan od najvažnijih programskih paketa na Linux/Unix platformi, izdan pod GNU licencom, koji radi na svim varijantama Linuxa i Unixa a vrši funkciju Windows poslužitelja i omogućuje razne mrežne usluge korisnicima na razini SMB protokola. „SMB (Server message block) je protokol za komunikaciju korisničkih računala (client) sa serverom koji funkcionira na principu zahtjev-odgovor (request-response). Na taj način računala u mreži mogu razmjenjivati podatke ili dijeliti printere, serijske portove, mail slotove i slično.“ (Seminarski rad <i>SMB Samba</i>, Nikola Džida, 2005.)</p>
+<p>Samba koristi TCP/IP protokol za komunikaciju preko raznih međusobno povezanih mreža, instaliran na host serveru koji nakon pravilne konfiguracije omogućuje interakciju sa klijentom ili serverom. Daje mrežnom administratoru fleksibilnost i slobodu u smislu konfiguracije i izbora sistema i opreme. (Samba.org, <i>What is Samba?</i>, 2012.) Prva inačica Sambe razvijena je 1992. godine. Razvio ju je Andrew Tridgell (Canberra, Australija). Koristi reverzni inženjering pomoću hvatanja paketa SMB protokola a ime dobiva dodavanjem samoglasnika u naziv protokola SMB: SaMBa. Glavne funkcionalnosti su:(<i>Samba kao PDC</i>, Robert Sedak i Miroslav Zubčić, 2012.)</p>
+<ul> 
+<li>Provjera vjerodostojnosti i dozvola pristupa korisnicima</li>
+<li>Dijeljenje diskovnog prostora i pisača</li>
+<li>Pronalaženje imena računala (name resolution)</li>
+<li>Pretraživanje računala</li>
+</ul>
+<h4> <span class="mw-headline" id="Kako_radi_Samba">Kako radi Samba</span></h4>
+<p>Dva su ključna programa: smbd i nmbd.
+Smbd služi za provjeru vjerodostojnosti i dozvole pristupa te dijeljenje diskovnog prostora i pisača. Također upravlja „share mode“ i „user mode“ autentifikacijom i autorizacijom. U share modu lozinka je dodijeljena nekoj datoteci ili pisaču (share-u) i ona je poznata svima koji imaju dopuštenje za korištenje toga share-a. Kod user moda svaki korisnik ima svoje korisničko ime i lozinku a administrator može dozvoliti ili zabraniti pristip na individualnoj bazi.
+Nmbd je poslužitelj imena NetBIOS-a i služi pretraživanju resursa na mreži. Prepoznavanje imena (name resolution) moguće je putem broadcast i point-to-point načina. Kod broadcast prepoznavanja korisnik traži uslugu na određenoj adresi i šalje upit svim računalima u mreži. Računalo s traženim imenom odgovara slanjem svoje IP adrese što može dovesti do povećanja prometa, ali bez puno problema zbog ograničenja na lokalnu mrežu. Point-to-point uvodi NetBIOS Name Service (NBNS) koji funkcionira na način da čuva informacije o NetBIOS imenu i IP adresi korisnika u svojoj jednostavnoj bazi podataka. Za razliku od broadcasta, ova metoda nije ograničena na lokalnu mrežu s obzirom da korisnici na različitim podmrežama mogu dijeliti isti NBNS server. Kod komunikacije između korisnika šalje se ime NBNS serveru a ako je ime na listi, NBNS šalje nazad IP adresu. Njegova lista imena je gotovo potpuno dinamična i ima malo kontrola za osiguravanje upisa imena pa lako dolazi do konflikata. Ostaje još pretraživanje po listama usluga koje su računala u mreži ponudila. Jedno računalo je odabrano za LMB (Local Master Browser) i dobiva posebno NetBIOS ime koje može stajati u dodatku imena koje već ima. Njegova zadaća je držati listu dostupnih usluga koja se pojavljuje kada kliknemo na Network Neighbourhood ikonu. 
+Najčešće korištene aplikacije su smbclient (prijenos podataka i slanje datoteka udaljenim jedinicama za ispis), nmblookup (za traženje imena u mreži, uzimanje njihovih IP adresa i ispitivanje udaljenih uređaja) i swat (udaljeno konfiguriranje Sambe pomoću web preglednika).(Seminarski rad <i>SMB Samba</i>, Nikola Džida, 2005.)</p>
+<h3> <span class="mw-headline" id="Domenski_kontroler">Domenski kontroler</span></h3>
+<p>Domenski kontroler je server za autentifikaciju instaliran na Active Directory (AD).
+
+<div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Active_directory.jpg" class="image"><img alt="" src="../images/thumb/2/2a/Active_directory.jpg/300px-Active_directory.jpg" width="300" height="214" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Active_directory.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 1.3.1: Domenski kontroler Izvor: Nuwan4u.wordpress, 2013.</div></div></div> 
+<p>Domenski kontroler služi za:
+</p>
+Autentifikaciju i autorizaciju korisnika – unutar AD-a čuva bazu podataka sa svim domenskim računima (Domain Accounts Database), ostalim informacijama o korisniku, računalu ili drugom mrežnom resursu. Odgovoran je za kreiranje korisničkih računa i dopuštenja. Centraliziran način administracije gdje je moguće kreirati korisničke račune tako da je moguća prijava na bilo koje računalo u mreži sa omogućenim ili onemogućenim pristupom mrežnim resursima.(Smart d.o.o. 2012.)</p> 
+<p>Flexible Single Master Operations (FSMO) uloge- fleksibilne operacije s jednim glavnim računalom. Postoje tri domenske uloge i dvije Forest-wide uloge. 
+Domenske uloge:
+</p>
+<ul>
+<li>Primary Domain Controller (PDC) emulator – služi kao server za sinkronizaciju sata u Windows forestu koji je bitan zbog moguće razlike u vremenu između računala, važan je stroj koji mora biti hardverski pouzdan i u mogućnosti podnijeti veća opterećenja. Također služi kao glavno računalo za obradu nepodudarnosti u lozinkama, a sve promjene u lozinkama, korisničkim računima ili Group Policiyu repliciraju se na PDC emlator kako bi se osigurala ispravna replikacija na ostale domenske kontrolere.</li>
+<li>Relative Identity (RID) Master – brine se da uvijek postoji dovoljan broj RID oznaka na način da prati stanje i raspoloživost RID raspona i generira nove RID-ove kako bi se osiguralo da uvijek postoji njihov minimalni potrebni broj. RID se dodjeljuje svakom novom objektu u domeni koji je dio kombinacije SID oznake (domenski SID + jedinstveni RID)</li>
+<li>Infrastructure Master – brine da se objektima sa referencama u više domena ispravno upravlja. Ukoliko ova uloga zakaže može doći do problema s članstvom u grupama, međutim ako postoji samo jedna domena onda ova uloga nema utjecaj.</li>
+<p>Forest-wide uloge:
+</p>
+<li>Schema Master – smješten je na prvom domenskom kontroleru koji je instaliran u domeni a kod kreiranja novog foresta smješten je u prvu domenu koja se kreira. U forestu može biti samo jedan Schema Master. Prati sve nadogradnje i promjene u shemi koje replicira na ostale domenske kontrolere.</li>
+<li>Domain Naming Master – služi za kontrolu dodavanja ili uklanjanja domena u forestu, glavno računalo za imenovanje domena bez kojeg nije moguće dodavati poddomene u već postojećoj domeni (Sistemac.srce, 2012.)</li>
+</ul>
+<h2> <span class="mw-headline" id="Samba_u_ulozi_domenskog_kontrolera">Samba u ulozi domenskog kontrolera</span></h2>
+<p>Nakon objašnjenja osnovnih pojmova bitnih za ovaj rad (Debian, Samba i domenski kontroler), može se krenuti u detaljnu razradu instalacije i konfiguracije Sambe, primarno za upotrebu u svrhu kontroliranja računalnih domena. Ona može igrati ulogu domenskog kontrolera na tri načina: kao primarni domenski kontroler (eng.: PDC - Primary Domain Controller), pomoćni domenski kontroler (eng.: BDC - Backup Domain Controller) ili ADS domenski kontroler (eng.: Active Directory Service Domain Controller). U ovom radu će detaljno biti objašnjene prve dvije vrste rada. Kada igra ulogu primarnog domenskog kontrolera, onda služi kao centralno mjesto za autentifikaciju za spoj računala u domenu te se s računala na kojem je ona instalirana i postavljena kao primarni domenski kontroler korisnički podaci propagiraju na sva ostala računala, odnosno poslužitelje koji igraju ulogu pomoćnih domenskih kontrolera. Na pomoćnim domenskim kontrolerima se ne može vršiti izmjena korisničkih podataka za spoj u domenu, oni samo služe za čisto posluživanje na temelju podataka koji su nastali na primarnom domenskom kontroleru. Kada se podaci na primarnom domenskom kontroleru promijene, podaci na pomoćnim domenskim kontrolerima se ažuriraju.</p>
+<h3> <span class="mw-headline" id="Instalacija_Sambe">Instalacija Sambe</span></h3>
+<p>Instalaciju Sambe moguće je odraditi na više načina. Jedan od načina je da se sa službenih stranica Sambe preuzme izvorni kod najnovije verzije 
+Sambe i zatim uz pomoć prevoditelja iz kompleta "GNU/GCC" (eng.: GNU Compiler Collection) konfigurira, prevede i instalira. Drugi način predstavlja 
+korištenje Debianovog ili nekog drugog repozitorija definiranog u "/etc/apt/sources.list". Ova putanja vrijedi za Debian i ostale distribucije 
+bazirane na njemu. Datoteku "sources.list" koja se nalazi na njoj koristi napredni sustav za upravljanje paketima na Debianovim distribucijama Linuxa 
+"APT" (eng.: Advanced Packaging Tool). Dio sustava "APT" za dohvaćanje, instalaciju i ažuriranje pokreće se naredbom "apt-get". Glavna sintaksa joj je 
+"apt-get <em>opcija</em>". Ova naredba ima više opcija (naznačeno kurzivom), a u ovoj trenutnoj priči najbitnije su opcije "update" i "install". Opcija "update" osvježava ili dodaje indekse paketa na temelju sadržaja datoteke "/etc/apt/sources.list", što znači da se dohvaćaju datoteke u kojima su popisi paketa dostupnih za automatiziranu instalaciju naredbom "apt-get install <em>naziv_paketa</em>", dok opcija "install" dohvaća te instalira željeni paket, ali i sve pakete o kojima željeni paket ovisi. Dakle, unošenjem naredbe "apt-get install samba" u ljusku (eng.: shell) sustav "APT" će automatski iz Debianovog repozitorija na internetu preuzeti i instalirati sve pakete o kojima ovisi Samba i sam paket u kojem je Samba. Treći način za instalaciju Sambe je pomoću naredbe "dpkg <em>opcija</em> <em>naziv_paketa.sufiks</em>" i opcije "--install" ili "-i", gdje je ".sufiks" ekstenzija datoteke paketa. Kod Debianovih distribucija ta ekstenzija će biti ".deb". Prvi i treći način spadaju u kompleksne metode instalacije jer obično svi paketi ovise o nekim drugim paketima pa instalacija na ta dva načina može postati vrlo teška i zamorna. Prednost tih načina je fleksibilnost jer korisnik sam odabire koju točno verziju paketa će preuzeti, a može i instalirati neki od paketa koji se ne nalaze u repozitoriju. Međutim, paketi koji nisu u repozitoriju i označeni kao stabilni (eng.: stable) nisu do kraja istestirani i njihova primjena se ne preporučuje za ozbiljan rad. Zato je instalacija pomoću naredbe "apt-get" najpreporučljivija jer nudi jednostavnost i sigurnost repozitorija (ova sigurnost repozitorija je posebno naglašena kod Debiana i sličnih vrlo stabilnih sustava). Zato će ova metoda biti iskorištena i u ovome radu. Koraci instalacije:
+<ul>
+	<li>izvršavanje ažuriranja indeksa paketa naredbom "apt-get update",</li>
+	<li>instaliranje Sambinog paketa naredbom "apt-get install samba",</li>
+	<li>odgovaranje s "yes",</li>
+	<li>čekanje dok ne završi instalacijska procedura.</li>
+</ul>
+<p>Nakon uspješnog izvršavanja ovih naredbi Samba je spremna za konfiguraciju i korištenje.
+</p>
+</p>
+<h3> <span class="mw-headline" id="Priprema_za_konfiguraciju_Sambe">Priprema za konfiguraciju Sambe</span></h3>
+<p>U ovom odjeljku biti će prikazana konfiguracija Sambe kroz naredbeno-linijsko sučelje, s time da će veliki naglasak biti na podešavanju primarnog i pomoćnog domenskog kontrolera. Samba je servis koji nudi izuzetno mnogo opcija, bilo u segmentu kontrole pristupa domeni ili u segmentu poslužitelja za dijeljenje datoteka između operativnih sustava "Windows" i onih baziranih na Unixu. Za postupak konfiguracije biti će dovoljan jedan od uređivača teksta na Unixu (Pico, Nano, VI Editor i sl.). U ovom primjeru konfiguracije biti će korišten VI Editor. Za početak konfiguracije treba prijeći iz običnog u administratorski način rada (prijaviti se kao korisnik s maksimalnim ovlastima na Unixu - "root"). Najjednostavnije je iskoristiti naredbu "sudo". Ukoliko paket koji je potreban za tu naredbu nije instaliran na sustavu, potrebno je odjaviti se iz običnog korisničkog moda ili otvoriti novi terminal pritiskom kombinacije tipki Ctrl+Alt+F2 te se prijaviti kao "root", a zatim instalirati paket "sudo" kako bi se moglo što jednostavnije prelaziti iz korisničkog u administrativni način rada i obrnuto:</p>
+<pre>
+	#...
+	korisnik@Dragon~$logout
+	Debian GNU/Linux 6.0 Dragon tty1
+	
+	Dragon login:root
+	Password:
+	Linux Dragon 2.6.32-5-686 #1 SMP Sun Sep 23 09:49:36 UTC 2012 i686
+
+	The programs included with the Debian GNU/Linux system are free software;
+	the exact distribution terms for each program are described in the
+	individual files in /usr/share/doc/*/copyright.
+
+	Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+	permitted by applicable law.
+	Last login: Fri Jan 18 17:22:27 2013 from 192.168.1.205
+	root@Dragon:~#apt-get update
+	root@Dragon:~#apt-get install sudo
+	#...
+	root@Dragon:~#logout
+	#Sada se treba ponovno prijaviti kao običan korisnik
+	#...
+	korisnik@Dragon~$sudo -i
+	[sudo] password for korisnik:
+	root@Dragon:~#
+</pre>
+<h3> <span class="mw-headline" id="Konfiguracija_Sambe">Konfiguracija Sambe</span></h3>
+<p>Sada je konačno sve savršeno i u potpunosti spremno za konfiguraciju. Na početku konfiguracije primarnog domenskog kontrolera najbolje je započeti kao da se podešava datotečni poslužitelj. Da bi od Sambe uopće bilo neke koristi, mora imati podešene sljedeće parametre:
+<ul>
+	<li><em>workgroup</em>,</li>
+	<li><em>netbios name</em> i</li>
+	<li>definirana dijeljenja u uglatim zagradama (npr. <em>[dijeljeno]</em>).</li>
+</ul>
+<p>Svaki od definiranih dijeljenih prostora mora imati definiranu putanju, na primjer: <em>path=/mapa/dijeljeno</em>. Sintaksa koja se koristi u 
+glavnoj konfiguracijskoj datoteci Sambe nije ništa novo. Naime, kako stoji u dokumentaciji (Tridgell i sur., 2010): <dl><dd>Datoteka "smb.conf" 
+koristi istu sintaksu kao razne stare ".ini" datoteke u operativnom sustavu "Windows 3.1": svaka se datoteka sastoji od različitih odjeljaka koji 
+počinju nazivom odjeljka između uglatih zagrada ([]) u novome redu. Svaki sadrži nula ili više parova "ključ/vrijednost" koji su razdvojeni znakom 
+jednakosti (=). Datoteka je obična, čisto-tekstualna pa ju možete otvoriti i uređivati u svojem omiljenom alatu za uređivanje.</dl> Prije nastavka 
+opisa konfiguracije, potrebno je objasniti gore izlistane elemente koje glavna konfiguracijska datoteka "smb.conf" obavezno mora sadržavati. 
+<em>Workgroup</em>, ili radna grupa, je pojam kojeg je uveo Microsoft za definiranje mreže ravnopravnih računala unutar iste mreže. Svako od tih 
+računala može jednostavno pristupati dijeljenim resursima drugog računala ili dijeliti svoje resurse s drugim računalom u radnoj grupi. Radne grupe 
+se u pravilu koriste za mreže od najviše par desetaka računala, dok se u velikim mrežama umjesto toga koriste domene i domenski kontroleri, što je i 
+glavna tema ovoga rada. <em>Netbios name</em> je niz znakova koji predstavlja naziv pomoću kojeg dvije aplikacije (iste ili različite) na dvama 
+različitim računalima međusobno komuniciraju putem mreže. Svaki Netbios naziv se mora pretvoriti u odgovarajuću IP adresu računala na kojem je 
+smještena aplikacija koja taj naziv koristi. Netbios API pruža usluge 5. sloju ISO OSI modela. Netbios naziv sastoji se od 16 ASCII znakova, no za 
+ovaj rad je zbog teme Sambe kao domenskog kontrolera najvažnije to da se na Microsoftovim sustavima 16. znak rezervira za dodatak Netbios nazivu 
+koji označava vrstu zapisa, odnosno servisa za koji se koristi određeni naziv: obični (eng.: host record), servis za održavanje liste računala unutar domene koja se prostire na više mreža (eng.: domain master browser) ili servis za domenski kontroler.
+</p>
+Carter i sur. (2007) navode minimalne uvjete konfiguracije koje mora ispunjavati primarni domenski kontroler (ovi minimalni zahtjevi se nadodaju na postojeću minimalnu konfiguraciju Sambe za dijeljenje datoteka):</p>
+<ul>
+	<li>sigurnosni način rada mora biti postavljen na "<em>security=user</em>",</li>
+	<li>mora biti uključena podrška za kriptirane lozinke (<em>encrypt passwords=yes</em>),</li>
+	<li>potreban je ispravno postavljen "netlogon" dijeljeni prostor,</li>
+	<li>Samba treba biti konfigurirana kao "Domain Master Browser" (<em>domain master = yes</em>) i</li>
+	<li>opcija za domenske prijave mora biti omogućena (<em>domain logons = yes</em>.</li>
+</ul>
+<p>Sigurnosni način rada definira koji način autentifikacije će poslužitelj zahtijevati od klijenata koji se pridružuju njegovoj domeni i spajaju na njega. Kao što Carter kaže, odabrani sigurnosni način rada neće izravno utjecati na sigurnosnu politiku koju provodi poslužitelj. Jedini posao poslužitelja je da specificira što klijent smije napraviti, što je dostupno, a što nije itd. Naravno, po potrebi mora moći odbiti zahtjev za pristup resursima koji nije ovlašten. Postavka <em>security = user</em> označava najjednostavniji, takozvani korisnički način autentifikacije u kojem klijentsko računalo šalje poslužitelju zahtjev za otvaranje sesije odmah nakon prve faze komunikacije definirane SMB/CIFS protokolom (prema njemu funkcioniraju računalne mreže bazirane na Windows sustavima). Zahtjev za otvaranje sesije uključuje korisničko ime i lozinku na temelju kojih poslužitelj može prihvatiti ili odbiti zahtjev.</p> <p>Ovdje poslužitelj ni u kojem slučaju ne može znati kojim resursima će korisnik pristupati i zato odbijanje zahtjeva ne može temeljiti na ničemu drugome osim na korisničkom imenu i lozinci ili imenu klijentskog računala (Tridgell i sur., 2010). U slučaju prihvaćanja korisničkog imena i lozinke, korisnik na svoje računalo može povezivati dijeljene prostore bez ponovnog unošenja istih podataka jer je sve već bilo definirano u fazi otvaranja sesije. Sustavi Windows iz NT obitelji imaju korisnička imena koja su neosjetljiva na kurentna i verzalna slova. Kao što je već spomenuto, korisnička razina sigurnosti definira se direktivom <em>security = user</em> unutar glavne Sambine konfiguracijske datoteke "smb.conf". </p><p>Osim upravo navedene korisničke razine postoji još i razina dijeljenog prostora (eng.: "Share-Level Security"). Prema dokumentaciji (Tridgell i sur. 2007), kod te razine klijenti se autentificiraju za svaki dijeljeni prostor posebno na način da se eksplicitno šalje samo lozinka, a na poslužitelju ostaje da zaključi koje korisničko ime klijent pokušava upotrijebiti, međutim Samba ovdje radi iznimku u smislu da su uvijek potrebni korisničko ime i lozinka za pristup dijeljenom prostoru. Opcija "<em>encrypted passwords</em>" označava koristi li poslužitelj kriptirane lozinke u svojoj datoteci s lozinkama za Sambine korisničke račune. Dijeljeni prostor "netlogon" definira se kao prostor koji klijenti mogu samo čitati kako bi mogli pristupiti svojim podacima važnim za prijavu i postavke. </p><p>Tamo se nalaze i skripte koje je potrebno pokrenuti kada se korisnik prijavi na svoju račun. Postavka <em>domain master</em> omogućuje konfiguraciju Sambe kao glavnog imenika za trenutnu mrežu ili podmrežu (važno u slučaju da se domena "prostire" preko više mreža), dok <em>domain logons</em> omogućuje uključivanje mogućnosti domenskog kontrolera općenito, bilo da se radi o primarnom ili pomoćnom domenskom kontroleru, <em>domain logons</em> mora biti postavljen na "yes" ukoliko je potrebna funkcija domenskog kontrolera. Pod pojmom imenika za trenutnu mrežu podrazumijeva se skup informacija o računalima unutar podmreže (računalo u ulozi "<em>domain master</em>" vrlo često je i u ulozi primarnog domenskog kontrolera, iako to ne mora nužno biti tako). Uključivanje te direktive će uzrokovati aktiviranje NMBD servisa na poslužitelju koji će odgovoriti na emitirajuće (eng.: broadcast) poruke zahtjeva za određivanjem IP adrese pripadajućeg Netbios naziva. Ako će računalo biti pomoćni domenski kontroler, na njemu ta postavka mora imati vrijednost "no". Na sljedećem primjeru je prikazana minimalna konfiguracija Sambe za funkciju primarnog domenskog kontrolera (Carter, 2007) - primjer je specijalno preuređen za potrebe testnog sustava baziranog na Debianu:</p>
+<pre>
+	[global]
+	netbios name = DRAGON
+	workgroup = DOMA
+	security = user
+	encrypt passwords = yes
+	domain master = yes
+	domain logons = yes
+	os level = 64
+	preferred master = yes
+	local master = yes
+	
+	[public]
+	path = /data/public
+	read only = no
+	
+	[netlogon]
+	comment = Net Logon service
+	path = /srv/samba/netlogon
+	read only = yes
+	write list = +ntadmin
+</pre>
+<p>Potrebno je objasniti još nekoliko novih parametara. Parametar <em>os level</em> predstavlja prioritet koji se koristi pri "izborima" za primarni domenski kontroler te je važno da na onom poslužitelju za kojeg želimo da bude primarni domenski kontroler taj prioritet bude više od onih prioriteta na ostalim poslužiteljima da ne dođe do kolizija (Red Hat Enterprise Linux Reference, Guide, 2013). Postavke <em>local master</em> i <em>preferred master</em> naznačuju treba li računalo biti preferirani domenski kontroler, odnosno lokalni domenski kontroler za trenutnu mrežu/podmrežu. Postavka <em>path</em> predstavlja putanju do dijeljenog prostora na računalu, dok direktiva <em>read only</em> specificira hoće li dijeljeni prostor biti samo za čitanje. Dijeljeni prostor "netlogon" koristi se za postavljanje skripti koje se trebaju izvršiti pri prijavi korisnika na domenski kontroler te podataka Svim korisnicima koji ne spadaju u grupu administratora mora biti dozvoljeno samo čitanje (zato u postavkama stoji "read only=yes"). Svi korisnici koji pripadaju grupi "ntadmin" imaju pravo zapisivanja sadržaja u dijeljeni prostor "netlogon". Nakon završetka konfiguracije potrebno je ponovno pokrenuti Sambu naredbom "/etc/init.d/samba restart".
+</p>
+<p>
+Sada je potrebno izvršiti naredbe kojima će se konfigurirati automatsko dodavanje domenske grupe lokalnoj administratorskoj grupi na računalu koje se spaja u domenu s jedinstvenim identifikatorom "512" (RID). "Domain Admins" je posebna grupa u Windows domenama čiji identifikator je uvijek isti (512). U nastavku konfiguracije potrebno je napraviti elevaciju i prijaviti se kao "root":
+
+<pre>
+	root@Dragon~#net getlocalsid DOMA
+	SID for domain DOMA is: S-1-5-21-1164989110-3658857341-1214683894
+</pre>
+<p>Sada treba osigurati da prije navedena grupa "ntadmin" postoji. To se može jednostavno napraviti sljedećom naredbom:
+</p>
+<pre>
+	root@Dragon~#groupadd ntadmin
+</pre>
+<p>U slučaju da grupa već postoji sustav će javiti da je grupa već prije bila stvorena, a u protivnom će ju stvoriti. Napomenimo da se ova grupa može zvati bilo kako, međutim najzgodnije je nazvati ju u asocijaciji s vrstom domene s kojom se radi. Ovdje se radi o Windows NT domenama pa je zato to nekako najprikladniji naziv. (Carter i sur.) u knjizi o uporabi Sambe također koriste isti naziv grupe.
+Dakle, sada kada je osigurano da grupa "ntadmin" postoji, može se izvršiti sljedeća naredba u ljusci:
+</p>
+<pre>
+	net groupmap add sid=S-1-5-21-1164989110-3658857341-1214683894-512 \ntgroup=&quot;Domain Admins&quot; unixgroup=ntadmin
+</pre>
+<p>Sljedeća stvar koju je potrebno napraviti je ovlastiti određeni korisnički račun da može računalo dodati u domenu. U primjeru se korisniku "luka" daju ovlasti da računalo s odgovarajućom lozinkom može povezati u domenu:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje1.png" class="image"><img alt="" src="../images/thumb/6/68/Pridruzivanje1.png/600px-Pridruzivanje1.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.1: Pridruživanje u domenu 1</div></div></div>
+<pre>
+	root@Dragon~#net groupadd srvadmin
+	root@Dragon~#net groupmap add unixgroup=srvadmin ntgroup=&quot;Server Admins&quot;
+	root@Dragon~#net rpc rights grant 'DOMA\Server Admins' SeMachineAccountPrivilege \ -S dragon -U luka
+	Password: &lt;enter luka's password&gt;
+	Successfully granted rights.
+</pre>
+<p>Svi Sambini korisnici moraju imati korisnički račun na Unixu. Proces stvaranja korisničkog računa na Unixu pri spajanju u domenu moguće je automatizirati skriptom. U konfiguracijskoj datoteci <em>/etc/samba/smb.conf</em> to se može definirati na sljedeći način:
+</p>
+<pre>
+	add machine script = /usr/sbin/useradd -g machines -c &quot;%u machine account&quot; -d /var/lib/samba -s /bin/false&#160;%u
+</pre>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje2.png" class="image"><img alt="" src="../images/thumb/2/29/Pridruzivanje2.png/600px-Pridruzivanje2.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.2: Pridruživanje u domenu 2</div></div></div>
+<p>Nakon toga potrebno je ponovno pokrenuti Sambu naredbom "/etc/init.d/samba restart". Sada je moguće spojiti se u domenu s nekog računala baziranog na Windows sustavu. Otvoriti "Control Panel", zatim otići na "System" pa "Computer Name". 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje3.png" class="image"><img alt="" src="../images/thumb/8/83/Pridruzivanje3.png/600px-Pridruzivanje3.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.3: Pridruživanje u domenu 3</div></div></div>
+<p>Nakon toga treba umjesto "WORKGROUP" odabrati "Domain" te upisati naziv domene, u testiranom primjeru je to "DOMA". Nakon toga kliknuti i "OK" i pričekati da sustav zatraži korisničko ime i lozinku. 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje4.png" class="image"><img alt="" src="../images/thumb/e/e5/Pridruzivanje4.png/600px-Pridruzivanje4.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.4: Pridruživanje u domenu 4</div></div></div>
+<p>Kada sustav zatraži lozinku, unijeti ono korisničko ime i lozinku za koje je unutar Unix ljuske postavljena autorizacija za spajanje u domenu.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje5.png" class="image"><img alt="" src="../images/thumb/c/c5/Pridruzivanje5.png/600px-Pridruzivanje5.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje5.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.5: Pridruživanje u domenu 5</div></div></div>
+<p>Završni korak nakon unosas korisničkog imena i lozinke sastoji se od klikanja na "OK" i ponovnog pokretanja računala.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje6.png" class="image"><img alt="" src="../images/thumb/d/d1/Pridruzivanje6.png/600px-Pridruzivanje6.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pridruzivanje6.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.6: Pridruživanje u domenu 6</div></div></div>
+<p>Nakon ponovnog pokretanja računala svaki korisnik ima svoje personalizirane postavke (izgled radne površine, raspored opcija i mogućnosti u skladu s postavljenim dozvolama).
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PrijavaDoma.png" class="image"><img alt="" src="../images/thumb/a/af/PrijavaDoma.png/600px-PrijavaDoma.png" width="600" height="331" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PrijavaDoma.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.3.7: Izgled radne površine za korisnika "luka" nakon spajanja u domenu</div></div></div>
+<p>Slike 2.3.1-2.3.7 prikazuju postupak spajanja Windows XP računala u domenu "DOMA".
+</p>
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>Domenski kontroleri u velikoj mjeri pojednostavljuju upravljanje velikim mrežama jer centraliziraju presudne korisničke informacije za prijavu, osnovne postavke i slično. Samba je jedan fantastičan servis koji omogućuje dijeljenje datoteka između Windows i Unix računala, ali i emuliranje Windows NT domene. Verzija Sambe iskorištena za ovaj rad je 3.5.6 jer je to u trenutku testiranja bila stabilna verzija na Debianovom repozitoriju. Primjenom Sambe kao domenskog kontrolera moguće je napraviti i sustav domenskih kontrolera gdje jedno računalo igra ulogu primarnog domenskog kontrolera (Samba), a druga računala su pomoćni domenski kontroleri koji preuzimaju informacije s primarnog domenskog kontrolera i skidaju s njega teret. Također, Samba omogućuje izvođenje ".CMD" skripti pri svakoj prijavi korisnika. Tako je moguće kontrolirati koje informacije će korisniku biti dostupne, koje postavke će moći koristiti i slično. Samba kao domenski kontroler je idealna za mreže koje se sastoje od mješovitih računala: onih baziranih na Unixu i onih baziranih na operativnom sustavu Windows: vrlo dobro se razvija (stigla je čak do verzije 4.01 koja podržava stvaranje čak i Windows NT 6.0 domena) te osim kao primarni i pomoćni domenski kontroler može raditi i kao AD domenski kontroler (Active Directory Domain Controller). Ovaj rad je ukratko prikazao osnovnu konfiguraciju Sambe kao domenskog kontrolera, no Samba prihvaća iznimno puno opcija te složenija konfiguracija za veće sustave može biti veoma složena. Međutim, ekipa zadužena za njen razvoj je izradila detaljnu dokumentaciju na službenim stranicama, a i podrška na internetskim zajednicama je dosta raširena. Sve u svemu, Samba kao domenski kontroler predstavlja zanimljivu alternativu Microsoftovoj Windows domeni.</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<ol>
+<li>Carter, G., Ts, J., Eckstein, R. Using Samba. (2007). O'Reilly Media, Inc. Sebastopol.</li>
+<li>Džida, N. SMB Samba - seminarski rad. (2005). Posjećeno 21.12.2012. &lt;<a href="http://spvp.zesoi.fer.hr/seminari/2005/DzidaNikola_SMB-Samba.pdf" class="external free" rel="nofollow">http://spvp.zesoi.fer.hr/seminari/2005/DzidaNikola_SMB-Samba.pdf</a>&gt;</li>
+<li>Nuwan4u.wordpress. Posjećeno 20.1.2013. <a href="http://nuwan4u.wordpress.com/2011/10/30/rename-windows-server-20082003-domain-controller-name/" class="external free" rel="nofollow">http://nuwan4u.wordpress.com/2011/10/30/rename-windows-server-20082003-domain-controller-name/</a></li>
+<li>Radić, D. Informatička abeceda. Posjećeno 20.12.2012. &lt;<a href="http://www.informatika.buzdo.com/s772.htm" class="external free" rel="nofollow">http://www.informatika.buzdo.com/s772.htm</a>&gt;</li>
+<li>Samba.org. What is Samba?. Posjećeno 21.12.2012. &lt;<a href="http://www.samba.org/samba/what_is_samba.html" class="external free" rel="nofollow">http://www.samba.org/samba/what_is_samba.html</a>&gt;</li>
+<li>Smart d.o.o. Posjećeno 23.12.2012. &lt;<a href="http://www.smart.rs/Start/Usluge/Impl/CoreInfrastructureOptimization/Stranice/ActiveDirectoryDizajn.aspx" class="external free" rel="nofollow">http://www.smart.rs/Start/Usluge/Impl/CoreInfrastructureOptimization/Stranice/ActiveDirectoryDizajn.aspx</a>&gt;</li>
+<li>Sveučilišni računski centar. Sistemac. Posjećeno 21.12.2012. &lt;<a href="http://sistemac.srce.unizg.hr/index.php?id=35&amp;no_cache=1&amp;tx_ttnews%5Btt_news%5D=619" class="external free" rel="nofollow">http://sistemac.srce.unizg.hr/index.php?id=35&amp;no_cache=1&amp;tx_ttnews%5Btt_news%5D=619</a>&gt;</li>
+<li>Sveučilišni računski centar. Sistemac. Posjećeno 23.12.2012. &lt;<a href="http://sistemac.srce.unizg.hr/index.php?id=35&amp;no_cache=1&amp;tx_ttnews%5Btt_news%5D=233" class="external free" rel="nofollow">http://sistemac.srce.unizg.hr/index.php?id=35&amp;no_cache=1&amp;tx_ttnews%5Btt_news%5D=233</a>&gt;</li>
+<li>Tridgell, A., Vernooij, Jelmer R., Terpstra, John J. Samba Man Pages - Server Types and Security Modes. Posjećeno 20.01.2013. &lt;<a href="http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html" class="external free" rel="nofollow">http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html</a>&gt;</li>
+<li>Wiki. (2012) Posjećeno 21.12.2012. &lt;<a href="http://wiki.open.hr/wiki/Debian_za_kućne_korisnike" class="external free" rel="nofollow">http://wiki.open.hr/wiki/Debian_za_kućne_korisnike</a>&gt;</li>
+<li>Zubčić, M., Sedak, R. Samba kao PDC. str. 4. Posjećeno 21.12.2012. &lt;<a href="http://jednostavno.linux.hr/pdf.radionice/Samba-PDC-LDAP.pdf" class="external free" rel="nofollow">http://jednostavno.linux.hr/pdf.radionice/Samba-PDC-LDAP.pdf</a>&gt;</li>
+</ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 66/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4409-0!*!0!!hr!2!edit=0 and timestamp 20190203204016 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Samba_kao_domenski_kontroler.html">http://security.foi.hr/wiki/index.php/Samba_kao_domenski_kontroler</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Samba_kao_domenski_kontroler" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Samba_kao_domenski_kontroler.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Samba_kao_domenski_kontroler&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Samba_kao_domenski_kontroler.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Samba_kao_domenski_kontroler.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Samba_kao_domenski_kontroler&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Samba_kao_domenski_kontroler&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Samba_kao_domenski_kontroler.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Samba_kao_domenski_kontroler" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Samba_kao_domenski_kontroler" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Samba_kao_domenski_kontroler&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Samba_kao_domenski_kontroler&amp;oldid=17017" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:09, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 9.891 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Samba_kao_domenski_kontroler", "wgTitle": "Samba kao domenski kontroler", "wgAction": "view", "wgArticleId": 4409, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17017, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.381 secs. -->			</body>
+</html>

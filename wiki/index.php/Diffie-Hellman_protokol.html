@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Diffie-Hellman protokol - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Diffie-Hellman_protokol&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Diffie-Hellman_protokol skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Diffie-Hellman protokol</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Diffie-Hellman_protokol.html#mw-head">orijentacija</a>,
+					<a href="Diffie-Hellman_protokol.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu prijavili: Oliver Grbavac, Marko Miletić
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Diffie-Hellman_protokol.html#Klju.C4.8Dni_pojmovi"><span class="tocnumber">1</span> <span class="toctext">Ključni pojmovi</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Diffie-Hellman_protokol.html#Uvod"><span class="tocnumber">2</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Diffie-Hellman_protokol.html#Diffie-Hellman_postupak_za_razmjenu_tajnog_klju.C4.8Da"><span class="tocnumber">3</span> <span class="toctext">Diffie-Hellman postupak za razmjenu tajnog ključa</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Diffie-Hellman_protokol.html#Primjer_razmjene_klju.C4.8Deva_upotrebom_protokola_Diffie-Hellman"><span class="tocnumber">4</span> <span class="toctext">Primjer razmjene ključeva upotrebom protokola Diffie-Hellman</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Diffie-Hellman_protokol.html#Diffie-Hellmanov_protokol_s_elipti.C4.8Dnom_krivuljom"><span class="tocnumber">5</span> <span class="toctext">Diffie-Hellmanov protokol s eliptičnom krivuljom</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Diffie-Hellman_protokol.html#Kriptografija_elipti.C4.8Dnom_krivuljom"><span class="tocnumber">5.1</span> <span class="toctext">Kriptografija eliptičnom krivuljom</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Diffie-Hellman_protokol.html#Diffie-Hellmanov_protokol_s_elipti.C4.8Dnom_krivuljom_2"><span class="tocnumber">5.2</span> <span class="toctext">Diffie-Hellmanov protokol s eliptičnom krivuljom</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Diffie-Hellman_protokol.html#Primjer_komunikacije_dvije_osobe_koriste.C4.87i_Diffie-Hellmanov_protokol_s_elipti.C4.8Dnim_krivuljama"><span class="tocnumber">6</span> <span class="toctext">Primjer komunikacije dvije osobe koristeći Diffie-Hellmanov protokol s eliptičnim krivuljama</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Diffie-Hellman_protokol.html#Primjena_Diffie-Hellmanovog_protokola"><span class="tocnumber">7</span> <span class="toctext">Primjena Diffie-Hellmanovog protokola</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Diffie-Hellman_protokol.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Klju.C4.8Dni_pojmovi"> Ključni pojmovi </span></h2>
+<ul><li>Diffie-Hellmanov postupak za razmjenu tajnog ključa
+</li><li>Diffie-Hellmanov protokol s eliptičnom krivuljom
+</li></ul>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Osnovni problem komunikacijskih zaštitnih mehanizama je zaštita poruke i kao najdjelotvornija zaštita poruka je njihovo kriptiranje. Jako je važno, pogotovo u umreženim računalnim sustavima, uspostaviti siguran mehanizam komunikacije. S obzirom da je podatke, u komunikacijskom sustavu, nemoguće zaštititi od prisluškivanja razumnom se pokazalo učiniti podatke nerazumljivima neovlaštenim korisnicima. Još u davnim vremenima Julije Cezar je vrlo često slao tajne poruke koje su bile kriptirane na jednostavan način, ali danas kada imamo moćna računala razlikujemo dva osnovna kriptosustava: simetrični i asimetrični. Današnji kriptosustavi zasnivaju se na postupcima koji se mogu učinkovito izvoditi na računalima, ti se postupci zasnivaju na algoritmima koji su opće poznati, ali s ključevima koji imaju vrlo veliki broj mogućnosti. Upravo to omogućuje stvaranje velikog broja različitih oblika kriptiranog teksta. Asimetrični kriptosustavi imaju različite ključeve kriptiranja i dekriptiranja, dok je dok simetričnih kriptosustava ključ kriptiranja jednak ključu dekriptiranja.  Diffie – Hellmanov postupak za razmjenu tajnog ključa koristi asimetrični algoritam. Tvorci ovog algoritma su Whitfield Diffie i Martin Hellman.
+</p>
+<h1> <span class="mw-headline" id="Diffie-Hellman_postupak_za_razmjenu_tajnog_klju.C4.8Da"> Diffie-Hellman postupak za razmjenu tajnog ključa </span></h1>
+<p>Diffie i Hellman su 1976. godine objavili svoj postupak za uspostavu simetričnog kriptosustava između dva partnera. Postupak se zasniva na bitnoj različitosti složenosti izračunavanja modularne potencije i izračunavanja diskretnog logaritma. Diffie i Hellman su bili prvi koji su objavili postupak za razmjenu tajnog ključa potrebog za kriptiranje poruka upotrebom simetričnog kriptosustava. Koraci Diffie – Hellman protokola su:
+</p>
+<ul><li>Dva se sudionika na bilo koji način(npr. objava na internetu) unaprijed dogovore o dva velika broja, n i g. Broj g je relativno prost broj u odnosu na n, a najveći zajednički djeljitelj im je broj 1: nzd(g,n) = 1. Najpraktičnije je za n odabrati veliki prosti broj p. Brojevi p i g ne moraju biti tajni. Oni se mogu javno objaviti.
+</li></ul>
+<ul><li>Zatim, korisnik 1, neka je to Ana, odabere veliki nasumični prirodni privatni broj x. Korisnik 2, neka je to Ivan, odabere na isti način svoj privatni tajni broj y. 
+</li></ul>
+<ul><li>Ana, koja želi uspostaviti komunikaciju s Ivanom, šalje rezultat izračunavanja operacije modulo: X=g^x (mod p).
+</li></ul>
+<ul><li>Pero šalje Ani rezultat izračunavanja operacije modulo te u jednadžbi koristi svoj privatni broj y: Y=g^y (mod p).
+</li></ul>
+<ul><li>Ana zatim izračunava: K = Y^x (mod p) = (g^y)^x (mod p) = g^xy (mod p) . Ana je izračunala ključ koji se može koristiti za kriptiranje poruka.
+</li></ul>
+<ul><li>Slično, Ivan izračunava: K = X^y (mod p) = (g^x)^y(mod p)= g^xy(mod p).Pero je takođerizračunao ključ kriptiranja koji je jednak onom kojeg je i Ana izračunala.
+</li></ul>
+<ul><li>Kako su ključevi koje su Ana i Pero izračunali jednaki, oni su upravo razmjenili simetrični ključ kriptiranja.
+</li></ul>
+<p>Izračunata vrijednost K je tajni ključ koji Ana i Ivan mogu
+koristiti za simetrično kriptiranje. Čak i ako neki napadač prisluškuje komunikaciju između Ane i Ivana
+te dozna vrijednosti g , p , X ,Y , on ne može izračunati ključ K , osim ako ne uspije izračunati
+diskretni logaritam od X ili Y . S obzirom da je to vrlo teško, ključ K ostaje tajnim. Dakle, Ana je
+primjenila svoj privatni ključ x na Ivanovu poruku i izračunala ključ K. Ivan je također primjenio svoj
+privatni ključ y na Aninu poruku i izračunao ključ K, koji je jednak onom kojeg je izračunala Ana. Na
+jednostavan način Ana i Ivan sada posjeduju broj koji je poznat samo njima.
+Sljedeća slika opisuje razmjenu tajnog ključa upotrebom Diffie-Hellmanovog postupka.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Diffie-Hellman.PNG" class="image" title="izvor [1]"><img alt="izvor [1]" src="../images/9/90/Diffie-Hellman.PNG" width="647" height="390" /></a>
+</p>
+<h1> <span class="mw-headline" id="Primjer_razmjene_klju.C4.8Deva_upotrebom_protokola_Diffie-Hellman"> Primjer razmjene ključeva upotrebom protokola Diffie-Hellman </span></h1>
+<p>Neka se Ana i Ivan dogovore oko brojeva p = 53 i g = 48. Ana odabire svoj privatni broj x = 36 i
+pošalje Ivanu:
+</p>
+<pre>   X = 48^36(mod 53) = 49
+</pre>
+<p>Ivan odabire svoj privatni broj i šalje ga Ani: 
+</p>
+<pre>   Y = 48^40(mod 53) = 44
+</pre>
+<p>Nakon toga Ivan i Ana izračunavaju zajednički ključ po sljedećim formulama. Ana ga računa na sljedeći način:
+</p>
+<pre>   K = Y^x(mod p) = 44^36(mod 53) = 49,
+</pre>
+<p>a Ivan: 
+</p>
+<pre>   K = X^y(mod p) = 49^40(mod 53) = 49.
+</pre>
+<p>Nakon izračuna Ana i Ivan se slažu da je tajni ključ jednak 49. [1]
+</p><p>Na sljedećoj slici je prikazan algortima implementiran u programskom jeziku Java.U stvarnosti se koriste mnogo veći brojevi, u implementiranom algoritmu se također mogu koristiti mnogo veći brojevi, ali smo uzeli brojeve iz ranije navedenog primjera.
+</p><p><br />
+</p>
+<pre>import java.io.DataInputStream;
+import java.math.BigInteger;
+import java.util.Scanner;
+</pre>
+<pre>public class Diffie3 {
+</pre>
+<pre>   public static void main(String[] args) 
+   {
+       Scanner stdin = new Scanner(System.in);
+       
+       BigInteger n, g, x, y, k1, k2, Ana, Ivan;
+       String message = "";
+       
+       System.out.println("Unesite dva broja: ");
+       n = new BigInteger(stdin.next());
+       g = new BigInteger(stdin.next());
+       
+       
+       System.out.println("Napišite poruku: ");
+       message = stdin.next().trim();
+       
+       System.out.println("ANA: Unesite svoj tajni ključ");
+       x = new BigInteger(stdin.next());
+       Ana = g.modPow(x, n);
+       
+       
+       System.out.println("IVAN: Unesite svoj tajni ključ");
+       y = new BigInteger(stdin.next());
+       Ivan = g.modPow(y, n);
+       
+       k1 = Ivan.modPow(x, n);
+       k2 = Ana.modPow(y, n);
+       
+       System.out.println("Anin tajni ključ: " +k1);
+       System.out.println("Ivanov tajni ključ: " +k2);
+       
+       
+       if(k1.equals(k2))
+           System.out.println(message);   
+       else
+           System.out.println("Autenfikacija nije prošla");
+           
+   }
+   
+</pre>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Diffie_primjer.PNG" class="image"><img alt="Diffie primjer.PNG" src="../images/3/34/Diffie_primjer.PNG" width="359" height="296" /></a>
+</p>
+<h1> <span class="mw-headline" id="Diffie-Hellmanov_protokol_s_elipti.C4.8Dnom_krivuljom"> Diffie-Hellmanov protokol s eliptičnom krivuljom </span></h1>
+<p>Diffie-Hellmanov postupak razmjene tajnog ključa eliptičnom krivuljom inačica je Diffie-Hellmanovog protokola kojom se dvije osobe mogu dogovoriti oko tajnog ključa koji će se upotrebljavati u daljnjoj komunikaciji.
+</p>
+<h2> <span class="mw-headline" id="Kriptografija_elipti.C4.8Dnom_krivuljom"> Kriptografija eliptičnom krivuljom </span></h2>
+<p>Kriptografija eliptičnom krivuljom pristup je asimetričnoj kriptografiji koja se temelji na algebarskoj strukturi eliptične krivulje nad konačnim poljima. Kriptografiju eliptičnom krivuljom otkrili su Victor Miller i Neal Koblitz sredinom osamdesetih godina.
+</p><p>Eliptična krivulja predstavlja skup rješenja (x,y) jednadžbe oblika y^2 = x^3 + ax + b te dodatna točka O koja se zove točka u beskonačnost. U kriptografiji razmatramo konačno polje q elemenata. Ako je q prost broj, polje elemenata su prirodni brojevi dobiveni operacijom modulo q. Pojam polja predstavlja generalizaciju skupa realnih brojeva zajedno s operacijama zbrajanja i množenja realnih brojeva.
+</p><p>Skup točaka na eliptičnoj krivulji čine grupu s određenim pravilom dodavanja, koje se označava simbolom +. Točka O je neutralni element grupe - element koji ne utječe na promjenu rezultata kada se kombinira s ostalim elementima grupe. Kada se u obzir uzima grupa nad konačnim poljem, nužno je da je i grupa konačna.
+</p><p>U kriptografiji s eliptičnom krivuljom, eliptična krivulja se koristi za definiranje elemenata skupa nad kojim se računa grupa, kao i za definiranje operacija među elementima grupe.
+</p><p>Neka postoji graf na čijim se osima nalaze brojevi polja []p, gdje je p prost broj. Ako se definira eliptična krivulja takva da se točke P=(x,y) nalaze na krivulji i zadovoljavaju uvjet da su x i y elementi polja []p, moguće je definirati grupu iz skupa točaka na krivulji. Uz danu točku P i pozitivni prirodni broj n, definira se: [n]P = P + P + ... + P. 
+</p><p>Red točke P jednak je najmanjem pozitivnom prirodnom broju n takovom da je [n]P = O. Grupa stvorena nad točkama P označava se sa &lt; P &gt; tj. vrijedi: &lt; P &gt; = {O, P, P + P, P + P + P, ...}
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Elipticna_krivulja.PNG" class="image"><img alt="Elipticna krivulja.PNG" src="../images/6/62/Elipticna_krivulja.PNG" width="291" height="273" /></a>
+</p><p>Sigurnost kriptografije eliptičnom krivuljom oslanja se na na problem diskretnog logaritma eliptične krivulje. Neka je E eliptična krivulja nad konačnim poljem []p. Neka je P jedna točka na krivulji E i neka je Q točka u grupi &lt; P &gt;. Potrebno je pronaći broj t takav da vrijedi Q = [t]P. Vrijedi opće uvjerenje da je problem diskretnog logaritma eliptične krivulje računski teško rješiv kada točku P čine veliki prosti brojevi.
+</p>
+<h2> <span class="mw-headline" id="Diffie-Hellmanov_protokol_s_elipti.C4.8Dnom_krivuljom_2"> Diffie-Hellmanov protokol s eliptičnom krivuljom </span></h2>
+<p>Kada se kriptografija temelji na eliptičnim krivuljama, sve osobe koje žele komunicirati kriptiranim porukama moraju se dogovoriti oko parametara koji definiraju eliptičnu krivulju, tj. o domenskim parametrima. Neka je konačno polje definirano oznakom []p u slučaju da se koriste prosti brojevi. Eliptičnu krivulju definiraju konstante a i b koje se koriste u jednadžbi krivulje. Potrebno je također definirati i cikličku grupu čiji je generator označen sa P. Za primjenu u kriptografiji red generatora P, odnosno najmanjeg nenegativnog broja n takvog da je nP=O, mora biti prost. Kada se koriste prosti brojevi, domenski parametri su (p, a, b, P, n, h), gdje se h naziva kofaktor i to je mali prirodni broj (h &lt; 4) koji se u većini slučajeva postavlja na vrijednost 1. Osim kada postoji uvjerenje da je domenske parametre generirala stranka od povjerenja, domenski se parametri moraju validirati prije upotrebe, što znači potvrditi da su ih generirale osobe koje žele komunicirati. Međutim, uobičajeno je da odabir domenskih parametara ne obavljaju osobe koje žele komunicirati jer proces uključuje prebrojavanje točaka koje se nalaze na eliptičnoj krivulji (što je teško implementirati i zahtjeva mnogo vremena). Zbog toga postoje organizacije koje objavljuju domenske parametre eliptičnih krivulja za polja poznatih veličina kao što su NIST (National Institute of Standards and Technology) i SECG (Standards for Efficient Cryptography Group).
+</p><p><br />
+Protokol ćemo objasniti na primjeru komunikacije između dvije osobe. Neka Ana želi razmijeniti tajni ključ s Ivanom, ali jedini komunikacijski kanal koji im je dostupan je javan i postoji mogućnost prisluškivanja. Postupak je sljedeći:
+</p>
+<ul><li>prvo je potreban dogovor oko domenskih parametara između Ane i Ivana
+</li><li>Ana i Ivan moraju odabrati par ključeva prikladnih za kriptografiju eliptičnom krivuljom. Par ključeva koji svaki treba odabrati su privatni ključ d, slučajno odabran iz intervala [1, n-1], i javni ključ Q, gdje je Q=dP. Neka par ključeva koje odabire Ana bude (da, Qa) i par ključeva koje odabire Ivan (db, Qb). Ana i Ivan objavljuju svoje javne ključeve.
+</li><li>Ana računa K = (xk, yk) = daQb i Ivan računa K = (xk, yk) = dbQa, iz čega slijedi da je razmjenjeni ključ K.
+</li></ul>
+<p>Točku K koju Ana i Ivan računaju jednaka je zbog toga što je daQb = dadbP = dbdaP = dbQa.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:ECDH.PNG" class="image"><img alt="ECDH.PNG" src="../images/5/54/ECDH.PNG" width="495" height="424" /></a>
+</p><p>Protokol je siguran jer su jedini podaci koji su objavljeni javni ključevi i osoba koja prisluškuje ne može otkriti privatni ključ (osim ako ne uspije riješiti problem diskretnog logaritma eliptične krivulje, što nije moguće u realnom vremenu).
+</p>
+<h1> <span class="mw-headline" id="Primjer_komunikacije_dvije_osobe_koriste.C4.87i_Diffie-Hellmanov_protokol_s_elipti.C4.8Dnim_krivuljama"> Primjer komunikacije dvije osobe koristeći Diffie-Hellmanov protokol s eliptičnim krivuljama </span></h1>
+<p><code>
+</p>
+<pre>using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+</pre>
+<pre>namespace ECDH
+{
+   class Program
+   {
+       static CngKey ivanKey;
+       static CngKey anakey;
+       static byte[] ivanPubKeyBlob;
+       static byte[] anaPubKeyBlob;
+</pre>
+<pre>       static void Main(string[] args)
+       {
+           KreirajKljučeve();
+           byte[] kripiraniPodaci = IvanSaljePoruku("ultra tajna poruka");
+           AnaPrimaPoruku(kripiraniPodaci);
+           Console.Read();
+       }
+</pre>
+<pre>       private static void KreirajKljučeve()
+       {
+           ivanKey = CngKey.Create(CngAlgorithm.ECDiffieHellmanP256);
+           anakey = CngKey.Create(CngAlgorithm.ECDiffieHellmanP256);
+           ivanPubKeyBlob = ivanKey.Export(CngKeyBlobFormat.EccPublicBlob);
+           anaPubKeyBlob = anakey.Export(CngKeyBlobFormat.EccPublicBlob);
+       }
+</pre>
+<pre>       private static byte[] IvanSaljePoruku (string poruka)
+       {
+           Console.WriteLine("Ivan šalje poruku: {0}", poruka);
+           byte[] podaci = Encoding.UTF8.GetBytes(poruka);
+           byte[] krpodaci = null;
+           using (var ivanAlgoritam = new ECDiffieHellmanCng(ivanKey))
+           using (CngKey anaPubKey = CngKey.Import(anaPubKeyBlob, CngKeyBlobFormat.EccPublicBlob))
+           {
+               byte[] simKljuč = ivanAlgoritam.DeriveKeyMaterial(anaPubKey);
+               Console.WriteLine("Ivan kreira simetrični ključ s Aninim javnim ključem: {0}", Convert.ToBase64String(simKljuč));
+               using (var aes = new AesCryptoServiceProvider())
+               {
+                   aes.Key = simKljuč;
+                   aes.GenerateIV();
+                   using (ICryptoTransform encryptor = aes.CreateEncryptor())
+                   using (MemoryStream ms = new MemoryStream())
+                   {
+                       var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write);
+                       ms.Write(aes.IV, 0, aes.IV.Length);
+                       cs.Write(podaci, 0, podaci.Length);
+                       cs.Close();
+                       krpodaci = ms.ToArray();
+                   }
+                   aes.Clear();
+               }
+           }
+           Console.WriteLine("Ivan: Poruka je kriptirana: {0}", Convert.ToBase64String(krpodaci));
+           Console.WriteLine();
+           return krpodaci;
+       }
+</pre>
+<pre>       private static void AnaPrimaPoruku(byte[] kriptiraniPodaci)
+       {
+           Console.WriteLine("Ana prima kriptiranu poruku");
+           byte[] podaci = null;
+           var aes = new AesCryptoServiceProvider();
+           int nBytes = aes.BlockSize &gt;&gt; 3;
+           byte[] iv = new byte[nBytes];
+           for (int i = 0; i &lt; iv.Length; i++) iv[i] = kriptiraniPodaci[i];
+           using (var anaAlgoritam = new ECDiffieHellmanCng(anakey))
+           using (CngKey ivanPubKey = CngKey.Import(ivanPubKeyBlob, CngKeyBlobFormat.EccPublicBlob))
+           {
+               byte[] simKljuč = anaAlgoritam.DeriveKeyMaterial(ivanPubKey);
+               Console.WriteLine("Ana kreira simetrični ključ s Ivanovim javnim ključem: {0}", Convert.ToBase64String(simKljuč));
+               aes.Key = simKljuč;
+               aes.IV = iv;
+               using (ICryptoTransform decryptor = aes.CreateDecryptor())
+               using (MemoryStream ms = new MemoryStream())
+               {
+                   var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Write);
+                   cs.Write(kriptiraniPodaci, nBytes, kriptiraniPodaci.Length - nBytes);
+                   cs.Close();
+                   podaci = ms.ToArray();
+                   Console.WriteLine("Ana dekriptira poruku: {0}", Encoding.UTF8.GetString(podaci));
+               }
+               aes.Clear();
+           }
+       }
+   }
+}
+</pre>
+<p></code>
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Program_screen.PNG" class="image"><img alt="Program screen.PNG" src="../images/2/2f/Program_screen.PNG" width="977" height="274" /></a>
+</p>
+<h1> <span class="mw-headline" id="Primjena_Diffie-Hellmanovog_protokola"> Primjena Diffie-Hellmanovog protokola </span></h1>
+<p>Diffie-Hellmanov protokol je postupak koji osigurava razmjenu tajnog ključa kriptiranja putem nezaštićenog komunikacijskog kanala. Kao takav, koristi se u mrežnim protokolima koji omogućuju zaštićenu komunikaciju:
+</p>
+<ul><li>kod autentifikacije u mrežama računala
+</li><li>u IPsec (IP security) protokolu
+</li><li>unutar IKE (Internet Key Exchange) strukture
+</li><li>SSH i TLS protokolima
+</li><li>u postupku stvaranja digitalnih potpisa i digitalnih certifikata
+</li></ul>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>1. Diffie-Hellman protokol, dostupno na <a href="http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2009-12-284.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/NCERT-PUBDOC-2009-12-284.pdf</a>
+</p><p>2. NIST, dostupno na <a href="https://www.nist.gov/" class="external free" rel="nofollow">https://www.nist.gov/</a>
+</p><p>3. SECG, dostupno na <a href="http://www.secg.org/" class="external free" rel="nofollow">http://www.secg.org/</a>
+</p><p>4. Korištenje eliptičnih krivulja u kripotografiji, dostupno na <a href="https://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2006-11-169.pdf" class="external free" rel="nofollow">https://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2006-11-169.pdf</a>
+</p><p>5. Diffie - Hellman Key Exchange, dostupno na <a href="https://www.youtube.com/watch?v=cM4mNVUBtHk&amp;t=34s" class="external free" rel="nofollow">https://www.youtube.com/watch?v=cM4mNVUBtHk&amp;t=34s</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 39/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9888-0!*!0!!hr!2!edit=0 and timestamp 20190203204135 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Diffie-Hellman_protokol.html">http://security.foi.hr/wiki/index.php/Diffie-Hellman_protokol</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Diffie-Hellman_protokol" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Diffie-Hellman_protokol.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Diffie-Hellman_protokol&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Diffie-Hellman_protokol.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Diffie-Hellman_protokol.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Diffie-Hellman_protokol&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Diffie-Hellman_protokol&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Diffie-Hellman_protokol.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Diffie-Hellman_protokol" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Diffie-Hellman_protokol" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Diffie-Hellman_protokol&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Diffie-Hellman_protokol&amp;oldid=43489" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 00:05, 6. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 314 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Diffie-Hellman_protokol", "wgTitle": "Diffie-Hellman protokol", "wgAction": "view", "wgArticleId": 9888, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43489, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.336 secs. -->			</body>
+</html>

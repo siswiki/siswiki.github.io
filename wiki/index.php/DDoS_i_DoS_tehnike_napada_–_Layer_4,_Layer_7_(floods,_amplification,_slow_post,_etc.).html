@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>DDoS i DoS tehnike napada – Layer 4, Layer 7 (floods, amplification, slow post, etc.) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-DDoS_i_DoS_tehnike_napada_–_Layer_4_Layer_7_floods_amplification_slow_post_etc skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">DDoS i DoS tehnike napada – Layer 4, Layer 7 (floods, amplification, slow post, etc.)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html#mw-head">orijentacija</a>,
+					<a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi tima:
+</p>
+<ul><li> Sven Vukelić
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Svukelic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Svukelic (stranica ne postoji)">Svukelic</a> 16:19, 1. studenog 2015. (CET)
+</p>
+<ul><li> Mario Tuđan 
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.tudan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.tudan (stranica ne postoji)">Mario.tudan</a> 16:19, 1. studenog 2015. (CET)
+</p>
+<ul><li> Matija Draženović
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mdrazeno&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mdrazeno (stranica ne postoji)">Mdrazeno</a> 20:23, 1. studenog 2015. (CET)
+</p><p><br />
+<b>1. Uvod</b>
+</p><p>Cybernapadi nisu ništa neuobičajeno u modernom svijetu.
+Štoviše, kako vrijeme teče, tako cybernapadi sve više postaju dio svakodnevnice.
+Cybernapadi nisu uopće bezazleni. Tako se npr. procjenjuje da je samo prošle godine u SAD-u kompromitirano preko milijardu podatkovnih zapisa, dok znanstveni rad iz Ponemon Institute of Cyber Crime Study tvrdi da je cijena cyberkriminala samo u SAD-u porasla za 96% između 2010. i 2014. godine.
+</p><p>Prema stranici za statistiku statista.com, distribucija godišnjih troškova vanjskih napada na globalne kompanije u 2015. godini izgleda ovako:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:FhxPqNx.png" class="image"><img alt="FhxPqNx.png" src="../images/5/51/FhxPqNx.png" width="625" height="378" /></a>
+</p><p>U ovom radu biti će navedena i objašnjena kategorizacija Denial-of-service i Distributed-denial-of-service Layer 3, 4 i 7 napada.
+</p><p><br />
+<b>2. Motivacija</b>
+</p><p>Važan čimbenik samih cybernapada je motivacija iza napada.
+Prema stranici hackmaggedon.com, motivacije iza napada se dijele na 4 kategorije:
+Cyber kriminal
+Hacktivizam (eng. hacktivism)
+Cyber špijunaža (eng. cyber espionage)
+Cyber ratovanje (eng. cyber warfare)
+</p><p>Statistika o udjelu motivacije za studeni 2015. godine izgleda ovako:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:L1Ea2Oj.png" class="image"><img alt="L1Ea2Oj.png" src="../images/9/9f/L1Ea2Oj.png" width="671" height="359" /></a>
+</p><p>Kao što se vidi iz navedenog grafa, cyber kriminal zauzima najveći dio napada. Interpol dijeli cyber kriminal na dvije vrste:
+napredni cyber kriminal - sofisticirani napadi na software i ili hardware
+računalno-omogućeni kriminal - tradicionalna kriminalna djela potpomognuta računalima
+</p><p>Odmah iza cyber kriminala, nalazi se hacktivizam. Iako je i to samo po sebi skoro uvijek kriminalno djelo, cilj hacktivizma je najčešće borba protiv korporacija, korupcije, itd.
+</p><p>Cyber špijunaža označava pridobivanje informacija putem računala. Najčešći počinitelj napada s ovom motivacijom je SAD. Primjer jednog ovakvog sigurnosnog događaja je špijuniranje Angele Merkel od strane NSA.
+</p><p>Cyber ratovanje se definira kao akcija ili niz akcija od strane neke države u svrhu penetriranja računala ili mreža neke druge države radi uzrokovanja štete ili ometanja rada.
+U slučaju gore navedenog grafa, cyber ratovanje je skoro ekskluzivno izvršeno od strane ili Indije ili Pakistana u njihovom sukobu.
+</p><p><br />
+<b>3. DoS/DDoS napadi</b>
+</p><p><b>3.1. Slojevi ISO/OSI modela</b>
+</p><p>OSI-model ili referentni model za otvoreno povezivanje sustava je najkorišteniji apstraktni opis arhitekture mreže.Opisuje komunikaciju sklopovlja, programa, software-a i protokola pri mrežnim komunikacijama.Koriste ga proizvođači pri projektiranju mreža, kao i stručnjaci pri proučavanju mreža.OSI model dijeli arhitekturu mreže u sedam logičkih razina, daje spisak funkcija, servisa i protokola koji funkcioniraju na svakoj razini.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Osi.jpg" class="image"><img alt="Osi.jpg" src="../images/d/db/Osi.jpg" width="541" height="423" /></a>
+</p><p>Detaljniji prikaz OSI modela:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tablica.PNG" class="image"><img alt="Tablica.PNG" src="../images/b/bf/Tablica.PNG" width="624" height="662" /></a>
+</p><p>OSI referentni model se sastoji od sedam različitih slojeva, podijeljenih u dvije grupe:
+</p>
+<ul><li>Prvu grupu čine gornja tri sloja, slojevi aplikacije, prezentacije i sesije. Ona ima ulogu opisivanja procesa komunikacije korisnik-računalo, rad korisnika sa aplikacijom i proces komunikacije aplikacija međusobno kao krajnjim točkama.
+</li></ul>
+<ul><li>Drugu grupu čine četiri donja sloja koja definiraju kako se prenose informacije od jednog do drugog korisnika.
+</li></ul>
+<p><br />
+<b>3.1.1. Aplikacijski sloj</b>
+</p><p>Ovaj je sloj OSI modela najbliži korisniku. On pruža mrežne usluge korisničkim aplikacijama. Od ostalih slojeva OSI modela razlikuje se po tome što ne pruža usluge drugim slojevima, već samo aplikacijama van OSI modela. Primjeri takvih aplikacija su programi za obradu teksta, tablica, bankovni terminali i sl. Sedmi sloj uspostavlja i sinkronizira procedure za prijenos podataka i kontrolu integriteta.Primjeri protokola na ovom sloju su: HTTP, FTP, Telenet, SMTP, NNTP i mnogi drugi.
+</p><p><br />
+<b>3.1.2. Transportni sloj</b>
+</p><p>Transportni sloj u OSI modelu služi kao veza između aplikacijskog sloja (preko prezentacijskog i sloja sesije) i mrežnog sloja. On se koristi kako se kod aplikacijskog sloja ne bi trebalo brinuti o tome na koji će se način uspostaviti veza, kako će se upravljati prometom, nego aplikacije za to jednostavno koriste transportni sloj. Njegova je zadaća dostaviti pakete nekom drugom uređaju, koji onda na istom sloju obrađuje dio paketa s zaglavljem nekih od protokola transportnog sloja, a takav obrađeni paket se dalje šalje nekom višem sloju na daljnu obradu. Dva glavna protokola su TCP i UDP. TCP se koristi za pouzdanije uspostavljanje veze tako da se koristi trostruko rukovanje i pri normalnom radu bi se TCP brinuo da se prime ili dostave paketi u slučaju izgubljenih paketa. UDP protokol nema mogućnost provjere izgubljenih paketa, pa se provjera može odraditi na aplikacijskom sloju. Ono što je još bitno za oba protokola je to da oba u zaglavlju paketa sadrže izvorišni i odredišni port.
+</p><p><br />
+<b>3.1.3. Mrežni sloj</b>
+</p><p>Mrežni sloj je sloj OSI modela između transportnog i podatkovnog sloja. Koristi se za komunikaciju putem IP adresa, koje tada pretvara u MAC adrese i obrnuto, a sve te podatke o IP i MAC adresama se upravo čuvaju kao dio mrežnog sloja. On omogućuje komunikaciju između dvije podmreže, povezivanje na internet uz pomoć servisa NAT tako da upravlja pretvaranjem javne adrese u lokalnu i obrnuto. On na konceptualnoj razini radi slično kao UDP protokol, tako da pokušava poslati pakete najbolje kako može i nada se da će oni sigurno stići, a sve daljne provjere se mogu odraditi na višem sloju. Važniji protokoli koji dio mrežnog sloja su: IPv4, IPv6, ARP i ICMP.
+</p><p><br />
+<b>3.2. DoS napadi</b>
+</p><p>Jedna od uobičajenih vrsta cyber napada su DoS napadi, odnosno Denial-of-service napadi.
+Svrha DoS napada je, kao što i ime sugerira, onemogućavanje normalnog funkcioniranja webstranica i drugih online resursa namijenjenim korisnicima.
+</p><p>DoS prijetnje dolaze u različitim oblicima: mogu ciljati serversku infrastrukturu, propuste u operacijskim sustavima, ranjivosti u aplikacijama i komunikacijskim protokolima, itd.
+</p><p>Za razliku od drugih oblika cyber napada, DoS napadi ne pokušavaju penetrirati sigurnost radi pristupa povjerljivim informacijama, nego samo onemogućuju pristup legitimnim korisnicima, iako se mogu koristiti kao odvraćanje pažnje za druge aktivnosti.
+</p><p>DoS napadi mogu trajati satima, danima, čak i tjednima i mjesecima, te je to sigurnosni događaj visoke uočljivosti, odnosno utječe na cjelokupnu korisničku bazu.
+</p><p><b>3.3. Razlika između DoS i DDoS napada</b>
+</p><p>Iako im je cilj i motivacija skoro uvijek izrazito slična ili identična, razlika između DoS i DDoS (Distributed denial of service) napada je poveća i važna za primjetiti.
+</p><p>U DoS napadima, napadač koristi jednu internet vezu kako bi iskoristio neku software-sku slabost ili preplavio (eng. flood) metu s lažnim zahtjevima kako bi iscrpio njenje resurse (CPU i RAM, najčešće).
+</p><p>S druge strane, DDoS napadi su pokrenuti s više povezanih uređaja distribuiranih preko interneta.
+</p><p><b>3.4. Vrste DoS napada</b>
+</p><p>Ping of death (ssping) - oblik napada na računalni sustav koji uključuje slanje izobličenog pinga.
+Pravilni ping je veličine 56 byteova, 84 kada se računa i IP zaglavlje, no svaki IPv4 paket može biti velik i do 65 535 byteova. Neka računala nisu dizajnirana da pravilno rukuju s ping paketima većim od maksimalne veličine paketa definiranoj Internet protokolom dokumentiranim u <a href="http://tools.ietf.org/html/rfc791" class="external mw-magiclink-rfc">RFC 791</a>. 
+Ping of death je fragmentiran u grupe od 8 okteta prije prijenosa. No kad ciljano računalo sastavi paket, može doći do prelijevanja buffera, uzrokujući pad sustava.
+Ova prijetnja se riješava tako da se dodaju koraci provjere u procesu sastavljanja, tj. radi se provjera za svaki dolazni IP fragment da li je suma “Fragment Offseta” (oznčava početnu poziciju) i “Total length” u IP zagljavlju svakog IP fragmenta manja od 65 535. Ako su veća, fragment se ignorira.
+</p><p>Teardrop - ovaj oblik napada šalje IP fragmente na ciljanu računalo te iskorištava ranjivost prisutnu u Windows 95, Windows NT i Windows 3.1 te Linux (prije 2.0.32.) operacijskim sustavima.
+Ovaj “bug” uzrokuje da kod za sastavljanje TCP/IP fragmentacije nepravilno rukuje s preklapanjem IP fragmenata. Ako se suma “Fragment offseta” i veličina fragmentiranog paketa razlikuju od onog iz sljedećeg fragmentiranog paketa, paketi se preklapaju, te server podložan ovom napadu ne može sastaviti pakete.
+Kada se pokrene ovaj napad, uzrokuje pad sustava, iako ne uzrokuje naročitu štetu te je najčešće obično ponovno pokretanje sustava dovoljno za popravak. Glavni problem s ovim napadom je gubitak nesačuvanih podataka.
+</p><p>ICMP nuke (click) - ovaj napad koristi se fragmentiranim ili neispravnim ICMP (Internet Control Message Protocol) paketima. Ti paketi se više puta šalju ciljanom računalu, postepeno ga usporavajući do potpunog zastoja.
+Jedan od poznatijih napada ovog tipa je WinNuke. WinNuke šalje niz neispravnih out of band podataka na ciljano računalo na TCP port 139,  uzrokujući zaključavanje računala i “Blue screen of death”. Ovaj napad se pojavio 1997. i 2002. na nizu Windows operacijskih sustava, i u oba slučaja je popravljen u roku nekoliko tjedana.
+</p><p>Permanent DoS - cilj ovog napada je oštetiti sustav toliko da je potrebna zamjena ili reinstalacija hardware-a. PDoS iskorištava sigurnosne propuste kako bi pridobio udaljeni pristup meti, te zatim iskorištava te propuste kako bi zamjenio firmware s modificiranom ili neispravnom varijantom, efektivno uništavajući dotični uređaj.
+Jedan od poznatijih primjera ovog napada, tj. alata za izvedbu napada, je alat PhlashDance, kreiran od strane Rich Smith-a za potrebe detektiranja i demonstracije PDoS ranjivosti na EUSecWest Applied Security konferenciji 2008. godine.
+</p><p><b>3.5. DDoS napadi</b>
+</p><p>DDoS je engleska skraćenica za Distributed Denial-of-service attack, i označava sprječavanje pristupa računalom sustavu korištenjem mnogobrojnih raspršenih resursa koji se većinom nalaze na Internetu. Uobičajeni način na koji se sprječava pristup računalnom sustavu ili sustavima je kroz preopterećivanje računalne mreže slanjem mnogostrukih zahtjeva prema poslužitelju, tako da se zaustavi legitimni promet prema tim poslužiteljima. Mete DDoS napada većinom su visokoprofilni web poslužitelji, banke, tvrtke koje obrađuju informacije sa kreditnim karticama, te korijenski (root) DNS poslužitelji. Cilj DDoS napada je razbiti sigurnosne sustave koji brane poslužitelje tako da se mogu dokopati vrijednih informacija koje poslužitelji pohranjuju. DDoS metode napada također se koriste u kibernetičkom ratovanju za onesposobljavanje internetskog sustava neke države.
+DDoS napadi su problematični jer se danas najčešće izvode putem tzv. botneta. To su mreže računala zaraženih nekim trojanskim konjem ili crvom koje je moguće kontrolirati i iskoristiti na način da sva računala istovremeno pošalju velik broj zahtjeva na neku IP adresu. Iz istog razloga prilično je teško otkriti počinitelja, a lako je moguće da se on ili ona nalazi u stranoj zemlji.
+</p><p>Najveći problem kod DDoS napada je to što ih je lakše pokrenuti nego se obraniti od njih. U praksi, tipičan DDoS napad izgleda ovako: netko s viškom slobodnog vremena pretraži određenu skupinu IP adresa dok ne nađe dovoljno računala koja su otprije zaražena određenim trojanskim konjem ili crvom. Onda uz pomoć već gotovih alata (kao što je, primjerice, Stacheldraht) jednostavno 'uposli' ta računala da napadnu neki web poslužitelj.
+</p><p>Ovakvi napadi u Hrvatskoj nisu rijetki - zabilježeni su napadi na mnoge prominentne internetske portale i uistinu mogu prouzročiti znatnu štetu. No, da bi se saznao počinitelj, stručnjaci moraju surađivati s ponuđačima internetskih usluga s čijih je IP adresa izveden napad te napraviti detaljnu analizu sistemskih log datoteka na web poslužitelju.
+S druge strane, obrana od ovakvog napada zahtijeva sposobne i dobro pripremljene sistemske administratore te hardver i softver koji omogućuje lakšu obranu. Prvi je korak ustvrditi s kojih IP adresa dolaze napadi te kontaktirati ponuđača internetskih usluga odgovornog za te adrese i obavijestiti ga da je napad u tijeku. Isto tako, valja obavijestiti policiju.
+</p><p>S tehničkog aspekta, postoje razne mogućnosti obrane, od jednostavnih, primjerice privremenog blokiranja čitavog prometa iz određene zemlje ili s određenog bloka IP adresa, preko naprednih i dobro konfiguriranih IDS (eng. Intrusion Detection System) sustava koji mogu pomoći u sprečavanju napada i detekciji napadača, pa do (prilično skupih) hardverskih rješenja kao što je TippingPoint.
+</p><p>Uspješnost obrane ovisi i o tome koliko je napad inteligentno konstruiran. Većina napada prilično je primitivna, no dobro organizirana grupa sposobnih, zlonamjernih hakera može prouzročiti probleme čak i dobro pripremljenom timu. Posljednji globalni primjer je napad na Googleov Blogger, Twitter, Facebook, i Livejournal koji se dogodio 6. kolovoza 2009. godine. Google je dobro podnio napad, no Twitter i Facebook za neke korisnike bili nedostupni nekoliko sati.
+</p><p>U svakom slučaju, DDoS napadi ozbiljan su problem koji definitivno valja prijaviti policiji, no valja imati i znanje i opremu da biste prepoznali i obranili se od takvog napada te pronašli počinitelja.
+</p><p><br />
+<b>3.5.1. Layer 3 i 4 napadi</b>
+</p><p>Jedna od vjerojatno najpoznatijih i najjednostavnijih vrsta DDoS napada je napad poplavom (engl. <b>Flood attack</b>). Takav se napad može manifestirati kroz više protokola (TCP, UDP, ICMP i ostale koji nisu u navedenim slojevima), a izvodi se tako da napadač s različitih računala (nadalje to podrazumijeva računala s različitim javnim IP adresama) napada maksimalnom brzinom slanja paketa koje mu pruža njegov internetski priključak. Kako bi napad bio uspješan, ukupna brzina svih računala napadača mora biti blizu maksimalne brzine (ili veća) priključka žrtve napada. Na taj se način zakrči promet žrtve napada i svi normalni korisnici žrtvinih servisa neće biti u mogućnosti normalno pristupiti tim servisima ili u najgorem slučaju uopće neće moći.
+</p><p>Općeniti napad koji vrijedi za sve navedene protokole može jednostavno biti uspostavljanje prave veze s poslužiteljem žrtve sa više računala i iscrpljivanje internetskog priključka, lokalne mreže ili resursa poslužitelja. Spomenuti će se sljedeće specifične vrste napada vezane uz poplavljivanje: TCP SYN Flood, TCP RST/FIN Flood, TCP ACK Flood, ICMP Ping Flood, Smurf attack, Fraggle attack i Land Attack.
+</p><p><b>TCP SYN Flood</b> napad je napad koji koristi TCP protokol za prvi dio uspostave trostrukog rukovanja (engl. 3-way handshake - SYN, SYN-ACK, ACK). Poslužitelju žrtvi se pošalje veliki broj TCP SYN paketa za početak uspostave veze s velikog broja računala i s lažnim IP adresama. Zbog tih lažnih IP adresa poslužitelj neće dobiti odgovor jer te IP adrese ne postoje ili ako postoje, one nisu pokrenule rukovanje pa neće ni odgovoriti. Poslužitelj će za svaki taj paket otvarati nove veze koje zauzimaju memoriju i ako napadač pošalje dovoljno velik broj paketa, poslužiteljeva memorija će se popuniti, početi će ispuštati veze s pravim klijentima što će dovesti do uskraćivanja dostupnosti servisa odnosno uspješnog napada.
+</p><p><b>TCP RST</b> i <b>TCP FIN Flood</b> su dva gotovo identična napada (razlika je samo u načinu zatvaranja veze) koja velikim brojem lažnih paketa prema poslužitelju mogu ili zakrčiti resurse poslužitelja ili njegovu internetsku vezu. TCP RST i FIN zatvaraju već neku postojeću vezu, a kada se koriste u spomenutim napadima onda napadač zapravo šalje pakete koji zatvaraju neku lažnu, nepostojeću vezu. Ako poslužitelj već ima neki veći broj veza, onda će za svaki taj lažni paket koji zatvara vezu tražiti koju vezu treba zatvoriti, a prolazit će kroz sve veze i na kraju neće naći tu koju treba. To će uzrokovati iscrpljivanjem resursa, a ako ima dovoljno resursa, onda zbog velikog broja paketa može doći do zakrčenja internetske veze poslužitelja.
+</p><p><b>TCP ACK Flood</b> je napad koji preplavljuje poslužitelj s TCP ACK paketima koji su zadnji dio trostrukog rukovanja koji bi trebali potvrditi uspostavu veze od strane klijenta. Taj napad je dosta sličan prethodnom spomenutom napadu jer se isto šalju paketi koji uzrokuju traženjem neke nepostojeće veze između poslužitelja žrtve i lažnog klijenta. Za taj svaki paket se traži neka veza za dovršavanje rukovanja, a u paketu je navedena nepostojeća te se isto iscrpljuju resursi poslužitelja ili njegova internetska veza.
+</p><p><b>ICMP Ping Flood</b> je napad koji koristi ICMP protokol za slanje ping zahtjeva prema poslužitelju žrtvi. Postoje razni drugi ICMP zahtjevi, ali je ping najčešće korišten za napad. Ono što taj napad radi je jednostavno slanje velikog broja ping zahtjeva s velikog broja računala prema nekom poslužitelju kojeg se napada. Dovoljno veliki broj ukupnih paketa prema poslužitelju može rezultirati zakrćenjem veze ili iscrpljivanjem resursa.
+</p><p><b>Smurf Attack</b> je napad koji za razliku od svih prije spomenutih ne koristi zombie računala, nego samo refleksiju. Naime, neki stariji routeri ili loše konfigurirani routeri mogu imati određene propuste tako da napadač može za napad koristiti neke obične korisnike interneta koji nisu inficirani. Tako pošalje ping zahtjev na neki poznati “loši” router korisnika te svi uređaji u toj mreži pošalju odgovor na lažnu adresu koju je napadač naveo u zahtjevu. Inače normalni ping na router ne pošalje svim uređajima zahtjeva, ali se u Smurf napadu koristi broadcast ping koji upravo to radi. Time se na tu lažnu adresu, koja je zapravo adresa poslužitelja žrtve pošalje veći broj paketa. Ukoliko napadač ima veliku listu takvih “loših” routera, onda može sa jednog vlastitog računala prouzročiti veliki DDoS napad koji za posljedicu ima isti rezultat kao ICMP Ping Flood.
+</p><p><b>Fraggle Attack</b> je jako sličan Smurf napadu samo što umjesto ICMP koristi UDP protokol i ne koristi broadcast ping nego generator znakova Chargen. Tako taj UDP zahtjev dolazi do “lošeg” routera koji svim uređajima u mreži javi za zahtjev, koji ako slušaju na tom portu 19 za Chargen odgovore na lažnu IP adresu odnosno odgovore žrtvi napada.
+</p><p><b>Land attac</b>k je napad koji koristi TCP SYN pakete koji se šalju velikom brzinom, a posebni su po tome što uz poplavljivanje također iscrpljuju resurse napadnutog poslužitelja na način da se u paketu izvorišna i odredišna IP adresa navedu kao jednake što može zbuniti vatrozid i/ili servere žrtve napada. To zbunjivanje poslužitelja košta puno resursa, te uz dovoljno takvih paketa, lako se iscrpe svi njegovi resursi.
+</p><p>Druga vrsta napada je napad fragmentacijom (engl. <b>Fragmentation Attack</b>) kojeg je moguće napraviti na više raznih protokola. Radi se o tome da napadač šalje velike fragmentirane pakete, svaki veći od 1500 bajtova, takve da se ne mogu natrag rekonstruirati jer su lažni. Uz to što se na poslužitelju može generirati veliki promet, za svaki taj fragmentirani paket poslužitelj troši resurse za neuspjele pokušaje rekonstrukcije paketa, a s velikim brojem takvih paketa se njegovi resursi mogu iscrpiti. Kod ACK napada fragmentacije se ti veliki fragmentirani paketi mogu slati nešto sporije, ali se svejedno bespotrebno iskorištavaju resursi poslužitelja jer i traži vezu trostrukog rukovanja i još pokušava rekonstruirati paket. Međutim, kada se takvi paketi šalju sporije, tada se oni ne moraju nužno koristiti za iscrpljivanje resursa ili veze poslužitelja, nego se uz te pakete šalju i neki dodatni koji ostaju skriveni u velikom broju lažnih paketa. Kako se oni šalju sporije, napadi na poput Slow Post, Slow Read i sl. ostaju relativno prikriveni te ih je teže otkriti.
+</p><p><b>IP NULL Attack</b> je napad vezan uz IP protokol takav da se u IPv4 zaglavlju pod polje za specifikaciju protokola transportnog sloja (UDP i/ili TCP) postavi vrijednost 0. Neki loše konfigurirani vatrozidi ne filtriraju takve pakete, pa se oni mogu koristiti u napadu poplavljivanja mreže poslužitelja odnosno za bespotrebno iskorištavanje resursa žrtve napada.
+</p><p><b>TCP NULL Attack</b> slično IP NULL napadu ima sve zastavice postavljene na vrijednost 0, tj. one nisu postavljene što je neispravno. Ukoliko se takvi paketi ne filtriraju, takav napad se može koristiti za neovlašteno pristupanje informacija o strukturi mreže kao što je npr. mapiranje portova što može još i bespotrebno trošiti resurse žrtve napada.
+</p><p><b>Christmas Tree Attack</b> je napad korištenjem Christmas Tree paketa koji imaju postavljene sve zastavice tako da je paket i dalje valjan. S obzirom da za svaku zastavicu router i/ili server mora dodatno obrađivati paket, velikim brojem takvih paketa se može dodatno usporiti njihova obrada s obzirom na paketa koji nemaju postavljene te zastavice, što u krajnjem slučaju rezultira iscrpljivanjem resursa poslužitelja. Za tu vrstu napada mogu se koristiti razni protokoli, no TCP je poseban kada se u TCP paketu postave zastavice SYN, FIN, URG i PSH, jer se osim DDoS-a taj napad može iskoristiti kao neovlašteno skeniranje sustava poslužitelja.
+</p><p><b>Slow Read Attack</b> je napad koji se koristi valjanim TCP trostrukim rukovanjem bez lažnih IP adresa izvora. Da bi se proizveo DDoS napad, prvo se otvori veliki broj veza prema poslužitelju sa velikog broja zombie računala te nakon uspostave tih veza, svako računalo počinje preuzimati više datoteka odjednom od tog poslužitelja kojeg se napada. Prilikom preuzimanja, ta računala smanjuju svoju brzinu preuzimanja, tako da poslužitelju izgleda kao da oni imaju slabu internetsku vezu tako da preuzimanje što duže traje. Uz veliki broj otvorenih veza koje se sporo ili uopće ne zatvaraju, poslužiteljevi resursi se vrlo lako iscrpe pa postaje nedostupan za prave korisnike.
+</p><p>Kao što je prethodno opisano, uglavnom se svi DDoS napadi svode na poplavljivanje internetskog priključka poslužitelja, jer se tako na najlakši način zauzmu svi njegovi resursi, dok su za bilo što drugo, poput krađe informacija, rušenje servera i sl., uglavnom dovoljni DoS napadi. Čak i napadi pojačavanja, koji će biti opisani uz aplikacijski sloj DDoS napada, u krajnoj liniji rezultiraju poplavljivanjem poslužitelja, žrtve napada.
+</p><p>Tablica 2. Alati za napade na mrežnom i transportnom sloju
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:DDoS_Tools_3_4.png" class="image"><img alt="DDoS Tools 3 4.png" src="../images/9/9b/DDoS_Tools_3_4.png" width="614" height="364" /></a>
+</p><p><br />
+Testirani su alati LOIC i UDP Unicorn, jer izgleda da su svi ostali maliciozni pa nije postojao jednostavan način korištenja tih alata bez da se ugroze ostali uređaji na vlastitoj neizoliranoj mreži.
+</p><p><b>LOIC</b> (Low Orbit Ion Cannon) je alat za generiranje prometa korištenjem TCP, UDP ili HTTP protokola. Ima samo 2 načina rada, a to su čekanje da meta napada odgovori na poslane zahtjeve ili da se samo generiraju i šalju paketi. Također ima mogućnost odabira kojom brzinom se šalju paketi te koliko dretvi se kreira za izvođenje napada. Za napad na željenu metu, unese se njena IP adresa ili URL, odabere se port i način rada te je alat spreman za napad. Analizom paketa prema testnom serveru uočeno je da šalje normalne pakete konstantne veličine i bez lažnih IP adresa. Za obranu od ovakvog napada dovoljno je da se postavi jednostavno pravilo za ispuštanje velikog broja paketa iz izvora napada i takav će alat prouzročiti napad zanemarivog obujma.
+</p><p><b>UDP Unicorn</b> je malo kompleksniji alat za DDoS napade, ali koristi samo UDP pakete. Ima opciju odabira mete napada, određeni port ili slučajni broj porta, veličinu paketa ili slučajnu veličinu paketa, trajanje odgode između paketa te brzinu napada. Ima još i dodatne opcije koje nisu direktno vezane uz DDoS napad, a to su opcija za slanje ping zahtjeva, pronalazak IP adrese pomoću DNS-a, te opciju za skeniranje otvorenih portova. Analiziranjem paketa, primjećeno je da šalje fragmentirane pakete veličine 1514 bajta, te se kao takav može koristiti za iscrpljivanje resursa mete napada ili za prikrivanje nekog drugog napada. S obzirom na fragmentirane pakete, nešto je opasniji od prethodnog alata, jer je takav napad malo teže otkriti i teže ga je spriječiti zbog težeg analiziranja takvih paketa.
+</p><p><br />
+<b>3.5.2. Layer 7 napadi</b>
+</p><p>DDoS napadi na aplkiacijski sloj su malo složeniji. DDoS napadi na 7. sloj su jedni od najteže izvedivih napada, zato što oponašaju ljudsko ponašanje tako da „komuniciraju“ sa grafičkim sučeljem. Malo sofiticiraniji DDoS napadi na 7. sloj ciljaju specifične dijelove web stranice, tako ih čineći još više teškim za razpoznati od normalnog prometa na internetu. Npr. takva vrsta napada može naciljati elemente web stranice, kao što je gumb ili logo i kontinuirano tražiti resurse za taj element, te na taj način iscrpe sve resurse od servera.
+</p><p>Napadi na 7. sloj se dijeli u 4 skupine:
+</p>
+<ul><li>Request-Flooding Attacks (Napad poplavljanja zahtjevima) - Navala legitimnih aplikacijskih zahtjeva , poput HTTP,GET,DNS upita i SIP INVITE poplavljuju web servere da bi smanjili i omeli normalno funckioniranje 
+</li></ul>
+<ul><li>Asymmetric Attacks (Asimetrični napad) - „High-workload“ zahtjevi uzimaju visoki danak od resursa kojima sever raspolaže, poput CPU-a, memorije ili diskovnog prostora 
+</li></ul>
+<ul><li>Repeated Single Attacks (Ponovljeni jednostruki napad) - Izolirani „High-workload“ zahtjevi poslani preko mnogo TCP sesija, više potajni način kombinacije Request-Flooding Attacks i Asymmetric Attacks
+</li></ul>
+<ul><li>Application-Exploit Attacks (Napad na izrabljivanje slabosti aplikacije) - Iskorištavaju se slabosti u samoj aplikaciji, npr. manipulacija skrivenog elementa, preplavljanje učitavanja, slabosti u skriptama, cross-site skripte, otrovanje kolačića, i SQL ubacivanje
+</li></ul>
+<p><b>3.5.3. Obrana od DDoS napada na aplikacijski sloj</b>
+</p><p>Obrana od napada na aplikacijski sloj je izuzetno zahtijevna, ako se nema potrebnih resursa, tj neke vrste anti-ddos programa ili dio hardware-a koji može izolirati napad i filtrirati ga. Neki od načina obrane su sljedeći:
+</p>
+<ul><li>Prevariti blok TCP-a prije nego što uđu u mrežu
+</li></ul>
+<ul><li>Zabraniti paketima sa „dark adress“ da prođu kroz perimetar
+</li></ul>
+<ul><li>Blokirati nekorištene protokole i portove
+</li></ul>
+<ul><li>Ograničiti broj pristupa po sekundi po izvornom IP
+</li></ul>
+<ul><li>Ograničiti broj istodobnih veza po izvornom IP
+</li></ul>
+<ul><li>Filter stranih TCP paketa
+</li></ul>
+<ul><li>Ne proslijediti pakete sa anomalijama u zaglavlju
+</li></ul>
+<ul><li>Pračenje sličnosti u prometu
+</li></ul>
+<ul><li>Držite neželjene goste daleko
+</li></ul>
+<ul><li>Koristite specijaliziranu opremu DDoS
+</li></ul>
+<p>Na kraju, zaštita svoje mreže od napada na aplikacijski sloj je izuzetno kompleksan, i zahtijeva podosta resursa i investicija. Investicija bilo u programe za obranu ili hardware.
+</p><p><b>3.5.4. Alati za DDoS napad na 7. sloj</b>
+</p><p>DDOSIM
+</p><p>Ovaj alat služi više za simuliranje što bi se moglo dogoditi u slučaju DDoS napada, nego za samo napad. Testovi koji se provode ovim alatom testiraju kapacitet servera, tj. koliko može podnijeti specifično aplikacijske DDoS napade. Alat simulira nekoliko „zombie“ host-ova sa random IP adresama koje tvore punu TCP povezanost prema odabranom serveru (žrtvin server). Nakon što se spoji DDOSIM započinje sa prisluškivanjem aplikacije (HTTP servera).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ddosim_topology1.png" class="image"><img alt="Ddosim topology1.png" src="../images/9/90/Ddosim_topology1.png" width="405" height="193" /></a>
+</p><p>HTTP DOS Alat
+</p><p>Ovaj alat vrši DoS napad na Apache i ostale servere, tako da iskoristi sve dostupne konekcije. Ovaj alat se razlikuje od ostalih prema tome što on drži vezu otvorenom dok šalje nepotpune HTTP zahtjeve prema serveru. U primjeru dolje navedenom server će držati vezu otvorenom i čekati će potpuna zaglavlja (tj. čekati će protokole, adrese klijenta, servera itd.). Alat koji će imati ulogu klijenta će u stvarnosti slati lažna zaglavlja koja će držati vezu alociranom(otvorenom).
+Legitimni HTTP zahtjev:
+</p><p>GET/HTTP/1.1\r\n
+Host:host\r\n
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.503l3;
+.NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; MSOffice 12)\r\n
+Content-Length: 42\r\n
+</p><p>Nakon slanja ovog zahtjeva, klijent čeka određeno vrijeme, u ovom slučaju nedostaje CLRF („Carrige return and Line feeder“), no još uvijek je zahtjev legitiman. Alat šalje lažno zaglavlje, tj. poslat će:  X-a: b\r\n , koji očigledno ništa ne znaći serveru, te server bude čekao ostatak zaglavlja da stigne. Prednost ovoga alata je ta da nije potrebno poslati puno prometa prema žrtvi da bi isušio resurse, drugim riječima čak i korisnik sa sporom mrežom može napasti nekoga sa brzim serverom. Malo što se može poduzeti protiv ovoga alata. Jedan od načina je povećanje „MAXClients“, no to bude samo povećalo zahtjeve koji se traže od napadača, ali značajan otpor ne bude napravili. Drugi malo efikasniji način je „Perlbal“.
+</p><p>Perlbal je rekurzivni proxy balancer i web server koji je utemeljen na Perl-u.alat se koristi na ogromnim web stranicama za distribuciju tereta preko nekoliko srevera. Perlbal učitava POST-ove u memoriji do određenog vremena ili određene veličine, i tek onda prenosi disku dok sve ne primi, na kraju šalje u backend kada u potpunosti primi sva zaglavlja.
+</p><p>R-U-Dead-Yet ( RUDY skraćeno)
+</p><p>RUDY napada tako da ruši servere tako da šalje velike „form fields“ (polje obrazaca). Ovaj alat napada legitimne aplikacijske slojeve tako da iz „izgladnjuje“ od slobodnih sesija na web serveru. RUDY drži sesiju zaustavljenom tako da šalje neprekidne POST zahtjeve također tako što šalje arbitrarno velika zaglavlja sa velikim „content-lengthom“ vrijednošću.  Informacije se šalju ne samo u malim dijelovima, nego i u jako sporim intervalima, npr. 10 sekunid između svakog bajta. Neke verzije RUDY-a će imati različite vremenske intervale da bi spriječio detekciju.šaljući nebrojeno malih paketa pa sporom tempu, ovaj alat tvori ogorman zaostatak aplikacijskih dretvi, dok ogromno „Content-Length“ polje spriječava server od zatvaranja veze. Ultimativno alat napravi da isuši sve resurse kojima server raspolaže i veze kojima upravlja, uzrokujući da se server ruši. Novije verzije alata omogućuju napadaću da odabere koje polje u obrazcu želi napasti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rudy-script.png" class="image"><img alt="Rudy-script.png" src="../images/1/14/Rudy-script.png" width="648" height="251" /></a>
+</p><p><br />
+<b>3.5.4.1. DNS amplification attack(„Napad DNS pojačavanje“)</b>
+</p><p>Ova vrsta napada postaje sve poopularnija. CloudFlare uspješno i rutinski ublažava napade koji prelaze i preko 100 Gbps, a nedavno je obranila i kupca od napada koji je dosegao 300 Gbps, onog napada koji je New York Times prozvao najvećim DDoS napadom u povijesti interneta.
+Da bi shvatili kako DNS amplifikacijski napada radi, prvo treba razumijeti kako sami DNS radi. Kada se prvi put prijavimo za internet konekciju, vaš ISP će pružiti reukrzivni DNS server, također poznat kao DNS prevoditelj(„DNS reslover“). Kada kliknete na link, vaše računalo šalje „lookup“ prema ISP-ovom DNS prevoditelju. „Lookup“ postavlja pitanje, poput: „koja je IP adresa servera za cloudfare.com?“. Ako DNS prevoditelj zna odgovor na pitanje, to je zato što je to netko već prije pitao i odgovor je spremljen, tada DNS prevoditelj odgovara. Ako nema odgovora tada prosljeđuje zahtjev prema autoritativnom DNS-u za tu domenu. Tipično bi ISP-ovi DNS prevoditelji trebali prihvaćati samo zahtjeve od ISP klijenata. Nažalost postoji veliki broj nekonfiguriranih ili krivo konfiguriranih DNS prevoditelja koji će prihvatiti svačiji zahtjev. DNS upiti se najčešće šalju preko UDP protokola. UDP protokol je protokol koji „pošalje i zaboravi“, što znaći da nema nikakvog „rukovanja“ kako bi se uspostavilo odakle paket kaže da dolazi, umjesto odakle stvarno dolazi. To znaći da napadać može krivotvoriti zaglavlje od UDP paketa da kaže da dolazi od specifičnog IP koji napadač želi napasti i poslati taj krivotvoreni paket prema otvorenom DNS prevoditelju. DNS će poslati odgovor prema krivotvorenom paketu sa lažnom IP adresam na bilo koje pitanje koje postavi.
+DNS amplifikacija je popularni reflektivni i amplifikacijski DDoS napad koji koristi otvorene rekurzivne DNS servere za jednostavno pojačavanje napada. Lažiranjem izvorišne IP adrese DNS zahtijeva, odgovori se upućuju na metu napada i veoma često stižu skroz do samog servera, s obzirom na to da je u pitanju tako uobičajen paket kao što je DNS odgovor. Koeficijent amplifikacije ovakvih napada zavisi od organiziranosti napadača i od odabira DNS zapisa sa kojima će biti izvršen napad. Na primer, upit za IP adresom hosta ga.me gotovo da ne daje amplifikaciju jer se vraća samo jedan rezultat pa je veličina odgovora približna veličini upita, ali zato upit za IP adresom hosta www.jrdga.info (15 bajtova + zaglavlja) vraća 256 IP adresa veličine 32 bita. Ovaj DNS zapis je legitiman ali je očigledno formiran prvenstveno radi izvođenja DNS amplifikacijskih napada. Iako je amplifikacija od 20-50 puta uloženog protoka daleko manja od amplifikacije koju može ostvariti CHARGEN amplifikacijski napad, DNS je daleko rasprostranjeniji i mnogo češće se ne filtrira, te ga je lakše iskoristiti za stvarni napad. CloudFlare je u 2012. godini prijavio da je pretrpio napad od 65Gbps izazvan DNS amplifikacijom.
+</p><p>Prije CloudFlare-a:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cloudf2.jpg" class="image"><img alt="Cloudf2.jpg" src="../images/e/ea/Cloudf2.jpg" width="708" height="400" /></a>
+</p><p>Poslije CloudFlare-a:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cloudf3.jpg" class="image"><img alt="Cloudf3.jpg" src="../images/e/e0/Cloudf3.jpg" width="708" height="400" /></a>
+</p><p><br />
+Kao što se može vidjeti na ilustracijama iznad, CloudFlare uspješno razaznaje prave od lažnih zahtjeva te na taj način omogućuje neometani pristup vašoj stranici.
+CloudFlare još brani od više vrsta napada na vaše web mjesto, ali njih nećemo sada spominjati tu. Kao što se može vidjeti, uz relativno malo napora moguće je serversko okruženje dovesti na dosta sigurnu razinu i to uz znatno poboljšanje performansi sustava. Velika mana mu je dosta visoka cijena, ali ukoliko imate popularnu stranicu, ponekad je bolje spriječiti nego liječiti.
+</p><p><b>3.5.4.2. CloudFlare</b>
+</p><p>CloudFlare udvostručava brzinu web stranica i štiti je od širokog spektra prijetnji na Internetu. Danas stotine tisuća stranica, od malih, osobnih blogova, pa do vrlo posječenih portala, vladinih stranica i stranica velikih kompanija, koriste ColudFlare da bi ubrzali učitavanje web stranica i svoje stranice učinili sigurnijima. CloudFlare ima više od 65 milijardi prikaza stranica mijesečno, što predstavlja veći promet nego što ga imaju Amazon, Wikipedia, Twitter, Zynga, AOL, Apple, Bing, eBay, PayPal i Instagram zajedno. 25% današnjeg web prometa prolazi kroz CloudFlare. CloudFlare je dizajniran na način da ubrza i štiti stranice koje imaju host-a na CloudFlare serverima, pružajući posjetiocima još bolje iskustvo. Od 23 datacentra, strateški smještenih širom svijeta, promet stranica biti će preusmjeren u datacentar najbliži stranici, bez razlike u brzini bio on u Aziji, Europi ili Americi ili negdje drugdje u svijetu. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Serveri.jpg" class="image"><img alt="Serveri.jpg" src="../images/8/85/Serveri.jpg" width="705" height="280" /></a>
+</p><p>Datacentri CloudFlare-a
+</p><p>Kako promet prolazi kroz CloudFlare sistem, obavlja se razlika između statičkog i dinamičkog sadržaja stranice . Statični dijelovi (slike, CSS, JavaScript i sl.) ostaju u CloudFlare cache sistemu određeni vremenski period kojeg korisnici sami prilagođavaju. Dok se statični sadržaj nalazi u cacheu, CloudFlare će ga posetitelju ponuditi s geografski najbliže lokacije i tako značajno ubrzati učitavanje vaše web stranice. Iako kroz CloudFlare prolazi i dinamički sadržaj, on se ne čuva u cache sistemu kako ne bi došlo do nepravilnosti u radu pojedinih dijelova stranica. 
+</p><p>Pametni cache sistem smanjuje potrošnju bandwidtha, što znači da se štedi i novac. Osim toga, smanjuje se opterećenje servera, a samim tim web aplikacije rade brže i efikasnije nego ikada prije. U prosjeku, stranice koji koriste CloudFlare troše 60% manje bandwidtha i imaju 65% manje zahtijeva upućenih prema web serveru. Konačan rezultat je otprilike 50% brže učitavanje stranica, što rezultira većom popularnosti stranica i zadovoljnijim posjetiocima.
+Tokom 2011. godine, otkriveno je 700% više DDOS napada nego godinu ranije. Korištenjem CloudFlare sistema, uveliko se smanje šteta koja takvim napadima može nastati. 
+</p><p>CloudFlare nudi sistem zaštite koji pokriva DDOS napade, razne metode hakiranja, objave spama na forumima, komentarima ili iskorištavanja kontakt obrazaca za slanje spama. Sistem je pametan, te je sposoban sam učiti i prilagođavati svoje mehanizme u zavisnosti o vrsti i načinu napada. Što više stranica i posetitelja koristi CloudFlare, to je manji broj “lažnih uzbuna” i više detektiranih pravih pretnji za stranicu. Promet se analizira u realnom vremenu, na bazi nekoliko stotina milijuna posetitelja, i prilagođava situacijama, tako da dobar, legitimni promet prolazi, a loš, maliciozni promet ne prolazi do stranica ili njihovih posjetioca. S vremenom, cilj je postizanje znatno veće sigurnosti na Internetu, a napade na stranice  učiniti stvarima prošlosti. S obzirom na sadašnju veličinu CloudFlare platforme, količini uspješno zaustavljenih napada na stranice, koji se već sada mjere u milijunskim brojkama svakog dana, CloudFlare sistem je na dobrom putu da to i postigne.
+</p><p><br />
+</p><p><b>Literatura</b>
+</p><p><a href="http://www.welivesecurity.com/2015/09/09/cybercrime-growing-concern-americans/" class="external free" rel="nofollow">http://www.welivesecurity.com/2015/09/09/cybercrime-growing-concern-americans/</a>
+</p><p><a href="http://www.statista.com/statistics/241255/main-consequences-of-cyber-attacks-in-selected-countries/" class="external free" rel="nofollow">http://www.statista.com/statistics/241255/main-consequences-of-cyber-attacks-in-selected-countries/</a>
+</p><p><a href="http://www.hackmageddon.com/2015/12/11/november-2015-cyber-attacks-statistics/" class="external free" rel="nofollow">http://www.hackmageddon.com/2015/12/11/november-2015-cyber-attacks-statistics/</a>
+</p><p><a href="http://deter-project.org/sites/default/files/files/hussain_heidemann_papadopoulos_identification%20of%20repeated%20denial%20of%20service%20attacks_ieee_infocom%20'06_barcelona%20spain_april%202006.pdf" class="external free" rel="nofollow">http://deter-project.org/sites/default/files/files/hussain_heidemann_papadopoulos_identification%20of%20repeated%20denial%20of%20service%20attacks_ieee_infocom%20'06_barcelona%20spain_april%202006.pdf</a>
+</p><p><a href="http://www.interpol.int/Crime-areas/Cybercrime/Cybercrime" class="external free" rel="nofollow">http://www.interpol.int/Crime-areas/Cybercrime/Cybercrime</a>
+</p><p><a href="http://www3.physnet.uni-hamburg.de/physnet/security/vulnerability/teardrop.html" class="external free" rel="nofollow">http://www3.physnet.uni-hamburg.de/physnet/security/vulnerability/teardrop.html</a>
+</p><p><a href="https://security.radware.com/ddos-knowledge-center/ddospedia/" class="external free" rel="nofollow">https://security.radware.com/ddos-knowledge-center/ddospedia/</a>
+</p><p><a href="http://www.irchelp.org/irchelp/nuke/info.html" class="external free" rel="nofollow">http://www.irchelp.org/irchelp/nuke/info.html</a>
+</p><p><a href="http://ddosattackprotection.org/blog/types-of-ddos-attacks/" class="external free" rel="nofollow">http://ddosattackprotection.org/blog/types-of-ddos-attacks/</a>
+</p><p><a href="http://ddosattackprotection.org/blog/layer-7-ddos-attack/" class="external free" rel="nofollow">http://ddosattackprotection.org/blog/layer-7-ddos-attack/</a>
+</p><p><a href="https://en.wikipedia.org/wiki/OSI_model" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/OSI_model</a>
+</p><p><a href="http://ddosattackprotection.org/blog/ask-ddos-mitigation-provider/" class="external free" rel="nofollow">http://ddosattackprotection.org/blog/ask-ddos-mitigation-provider/</a>
+</p><p><a href="http://resources.infosecinstitute.com/layer-seven-ddos-attacks/" class="external free" rel="nofollow">http://resources.infosecinstitute.com/layer-seven-ddos-attacks/</a>
+</p><p><a href="https://www.incapsula.com/ddos/ddos-attacks/" class="external free" rel="nofollow">https://www.incapsula.com/ddos/ddos-attacks/</a>
+</p><p><a href="https://blog.sucuri.net/2015/09/analyzing-popular-layer-7-application-ddos-attacks.html" class="external free" rel="nofollow">https://blog.sucuri.net/2015/09/analyzing-popular-layer-7-application-ddos-attacks.html</a>
+</p><p><a href="https://www.imperva.com/docs/DS_Incapsula_The_Top_10_DDoS_Attack_Trends_ebook.pdf" class="external free" rel="nofollow">https://www.imperva.com/docs/DS_Incapsula_The_Top_10_DDoS_Attack_Trends_ebook.pdf</a>
+</p><p><a href="http://whatis.techtarget.com/definition/DNS-amplification-attack" class="external free" rel="nofollow">http://whatis.techtarget.com/definition/DNS-amplification-attack</a>
+</p><p><a href="http://www.mcloud.rs/blog/ko-i-kako-napada-sajtove/" class="external free" rel="nofollow">http://www.mcloud.rs/blog/ko-i-kako-napada-sajtove/</a>
+</p><p><a href="https://blog.cloudflare.com/65gbps-ddos-no-problem/" class="external free" rel="nofollow">https://blog.cloudflare.com/65gbps-ddos-no-problem/</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 1/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8676-0!*!0!!*!2!edit=0 and timestamp 20190203204241 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html">http://security.foi.hr/wiki/index.php/DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=DDoS_i_DoS_tehnike_napada_%E2%80%93_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)&amp;oldid=35087" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 23:12, 10. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 625 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "DDoS_i_DoS_tehnike_napada_–_Layer_4,_Layer_7_(floods,_amplification,_slow_post,_etc.)", "wgTitle": "DDoS i DoS tehnike napada – Layer 4, Layer 7 (floods, amplification, slow post, etc.)", "wgAction": "view", "wgArticleId": 8676, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 35087, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.371 secs. -->			</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Analiza Ebury Linux malvera - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Analiza_Ebury_Linux_malvera&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Analiza_Ebury_Linux_malvera skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Analiza Ebury Linux malvera</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Analiza_Ebury_Linux_malvera.html#mw-head">orijentacija</a>,
+					<a href="Analiza_Ebury_Linux_malvera.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Tim:</b> 
+</p>
+<ol><li> Dario Belinić 
+</li><li> Filip Drašić    
+</li><li> Tomislav Novosel   
+</li></ol>
+<p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Linux_malware.jpg" class="image"><img alt="Linux malware.jpg" src="../images/9/98/Linux_malware.jpg" width="160" height="160" /></a>
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Analiza_Ebury_Linux_malvera.html#Pozadina_i_zanimljivi_info_-_Operacija_Windigo"><span class="tocnumber">1</span> <span class="toctext">Pozadina i zanimljivi info - Operacija Windigo</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Analiza_Ebury_Linux_malvera.html#Ebury_linux_malware"><span class="tocnumber">2</span> <span class="toctext">Ebury linux malware</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Analiza_Ebury_Linux_malvera.html#Glavne_zna.C4.8Dajke_Ebury-ja"><span class="tocnumber">2.1</span> <span class="toctext">Glavne značajke Ebury-ja</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Analiza_Ebury_Linux_malvera.html#Na.C4.8Dini_na_koje_napada.C4.8Di_inicijalno_dolaze_do_root_privilegija_kako_bi_zarazili_servere_Ebury-jem"><span class="tocnumber">2.2</span> <span class="toctext">Načini na koje napadači inicijalno dolaze do root privilegija kako bi zarazili servere Ebury-jem</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Analiza_Ebury_Linux_malvera.html#Za_.C5.A1to_napada.C4.8Di_koriste_kompromitirane_sustave.3F"><span class="tocnumber">2.3</span> <span class="toctext">Za što napadači koriste kompromitirane sustave?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Analiza_Ebury_Linux_malvera.html#Stati.C4.8Dka_analiza_Ebury.2FLinux_malware-a"><span class="tocnumber">3</span> <span class="toctext">Statička analiza Ebury/Linux malware-a</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Analiza_Ebury_Linux_malvera.html#Dinami.C4.8Dka_analiza_Ebury.2FLinux_malware-a"><span class="tocnumber">4</span> <span class="toctext">Dinamička analiza Ebury/Linux malware-a</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Analiza_Ebury_Linux_malvera.html#Analiza_Linux.2FEbury_malware-a_prema_ESET-u"><span class="tocnumber">5</span> <span class="toctext">Analiza Linux/Ebury malware-a prema ESET-u</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="Analiza_Ebury_Linux_malvera.html#Kra.C4.91a_korisni.C4.8Dkih_podataka_za_autentifikaciju"><span class="tocnumber">5.1</span> <span class="toctext">Krađa korisničkih podataka za autentifikaciju</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Analiza_Ebury_Linux_malvera.html#Izvla.C4.8Denje_lozinke"><span class="tocnumber">5.2</span> <span class="toctext">Izvlačenje lozinke</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Analiza_Ebury_Linux_malvera.html#Dodatne_naredbe"><span class="tocnumber">5.3</span> <span class="toctext">Dodatne naredbe</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Analiza_Ebury_Linux_malvera.html#Pra.C4.87enje_verzije"><span class="tocnumber">5.4</span> <span class="toctext">Praćenje verzije</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Analiza_Ebury_Linux_malvera.html#Indikatori_ugro.C5.BEenosti"><span class="tocnumber">5.5</span> <span class="toctext">Indikatori ugroženosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Analiza_Ebury_Linux_malvera.html#Kako_provjeriti_je_li_sustav_zara.C5.BEen_sa_Ebury-jem.3F"><span class="tocnumber">6</span> <span class="toctext">Kako provjeriti je li sustav zaražen sa Ebury-jem?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="Analiza_Ebury_Linux_malvera.html#.C5.A0to_u.C4.8Diniti_s_inficiranim_sustavima.3F"><span class="tocnumber">6.1</span> <span class="toctext">Što učiniti s inficiranim sustavima?</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Analiza_Ebury_Linux_malvera.html#Provjera_za_verzije_Ebury-ja_do_1.5"><span class="tocnumber">6.2</span> <span class="toctext">Provjera za verzije Ebury-ja do 1.5</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Analiza_Ebury_Linux_malvera.html#Provjera_za_verziju_1.5"><span class="tocnumber">6.3</span> <span class="toctext">Provjera za verziju 1.5</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="Analiza_Ebury_Linux_malvera.html#Identificiranje_inficiranih_sustava_provjerom_mre.C5.BEnog_prometa"><span class="tocnumber">6.4</span> <span class="toctext">Identificiranje inficiranih sustava provjerom mrežnog prometa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="Analiza_Ebury_Linux_malvera.html#Malware_sli.C4.8Dan_Ebury_Linux_malwareu"><span class="tocnumber">7</span> <span class="toctext">Malware sličan Ebury Linux malwareu</span></a>
+<ul>
+<li class="toclevel-2 tocsection-20"><a href="Analiza_Ebury_Linux_malvera.html#Linux.sshdkit_malware"><span class="tocnumber">7.1</span> <span class="toctext">Linux.sshdkit malware</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="Analiza_Ebury_Linux_malvera.html#Nova_verzija_Linux.sshdkit_malwarea"><span class="tocnumber">7.2</span> <span class="toctext">Nova verzija Linux.sshdkit malwarea</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="Analiza_Ebury_Linux_malvera.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Pozadina_i_zanimljivi_info_-_Operacija_Windigo"> Pozadina i zanimljivi info - Operacija Windigo </span></h1>
+<p>U veljači 2013. godine u cyber svijetu pojavio se malware koji za domaćine koristi (eng. <i>Host</i>) Linux operacijske sustave i na njegovu pojavu reagirale su mnoge security zajednice i nacionalni CERT-ovi europskih zemalja i SAD-a. Nakon toga je ubrzano osnovana grupa koja će obaviti analizu i izvještavati o broju infekcija diljem svijeta. Grupa se sastojala od ukupno tri organizacije, ESET-a, SNIC-a (Swedish National Infrastructure for Computing) i CERN-a (European Organization for Nuclear Research), uz veliku pomoć nacionalnih CERT timova. Od veljače 2013.-te do sada prijavljene su infekcije više tisuća računalnih sustava u više od 60 zemalja među kojima su Meksiko i Kanada. Od europskih zemalja infekcije su se pojavile u Njemačkoj, Italiji, Francuskoj, Velikoj Britaniji, Nizozemskoj, Ukrajini i Rusiji.
+</p><p><b>OPERACIJA WINDIGO</b>
+</p><p>Windigo operacija se provodi već godinama. Smatra se da je primarni cilj te operacije novčani profit kroz sljedeće aktivnosti:
+</p><p>•	Spam
+</p><p>•	Inficiranje računala korisnika preko automatskih download-a kojih korisnici nisu svjesni
+</p><p>•	Preusmjeravanje web prometa na oglašivačke mreže
+</p><p>Sljedeća slika prikazuje Windigo operaciju:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Atak.png" class="image"><img alt="Atak.png" src="../images/4/44/Atak.png" width="655" height="466" /></a>
+</p><p><br />
+Malware koji igra ključnu ulogu u Windigo operaciji je:
+</p><p>•	<b>Linux/Ebury</b> – izvršava se najčešće na Linux serverima. On pruža root backdoor shell napadačima i omogućuje krađu SSH autentifikacijskih podataka.
+</p><p>•	<b>Linux/Cdorked</b> – izvršava se najčešće na Linux Web serverima. On je root backdoor prema serveru i distribuira Windows malware krajnjim korisnicima preko automatskih downloada za koje korisnici ne znaju.
+</p><p>•	<b>Linux/Onimiki</b> – pokreće se na Linux DNS serverima. On razrješuje imena domena s određenim uzorkom za bilo koju IP adresu bez potrebe da se mijenja bilo kakva konfiguracija na strani servera.
+</p><p>•	<b>Perl/Calfbot</b> – pokreće se na većini Perl podržanih platformi. To je spam bot lake kategorije napisan u Perl-u.
+</p><p>•	<b>Win32/Boaxxe.G</b> – malware za prevare temeljen na klikanju.
+</p><p>•	<b>Win32/Glubteta.M</b> – genreički proxy koje se pokreće na Windows računalima. Oba ova Windows malware-a distribuiraju se preko automatskih download-a bez znanja korisnika.
+</p><p><br />
+<b>Kao što kaže naslov sa jedne od ESET-ovih web stranica:</b> 
+</p><p>„OPERACIJA WINDIGO: malware-om se napadalo preko 500 000 računala dnevno nakon što je 25 000 UNIX servera napadnuto backdoor trojancem“.
+</p><p>Baš ovaj backdoor trojanac, koji je omogućio ove napade, je Linux/Ebury.
+</p><p>Operacija Windigo traje od 2011. godine, pa i dan danas. Smatra se da je sav ovaj gore navedeni malware proizveden od jedne te iste grupe kojoj je cilj novčana zarada, a sudeći po broju zaraženih računala, to im i uspijeva. Linux/Ebury i Linux/Cdorked čak i dijele neke dijelove koda, kao što je objašnjeno i prikazano kasnije u tekstu. 
+Da bi podaci za autentifikaciju bili ukradeni, glavnu ulogu igra Linux/Ebury kojeg ćemo i objasniti i analizirati na ovom wikiju. Pošto je detaljna analiza prezahtjevna, a nemamo ni potrebne resurse za to, koristit ćemo analize velikih firmi koje se bave sigurnosti IS-a, a koliko nam naše mogućnosti dopuštaju, napravit ćemo i analizu sami.
+</p><p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 15:32, 28. prosinca 2014. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 20:18, 30. prosinca 2014. (CET)
+</p>
+<h1> <span class="mw-headline" id="Ebury_linux_malware"> Ebury linux malware </span></h1>
+<p>Ebury je malware koji inficira domaćine bazirane na Linux operacijskim sustavima kao što su FreeBSD, Solaris, itd. U njih su uključene sve RPM bazirane Linux distribucije, poput Fedore, openSUSE, Linkat, Red Hat Linux i još mnogo drugih. Ebury se klasificira kao SSH rootkit/backdoor trojanac što znači da ima dvostruku "prirodu", odnosno djeluje kao rootkit ili kao backdoor trojanac ili pak istovremeno kao oba oblika malwarea. Rootkit malware je maliciozni kod koji se "penje" u sustavu do root nivoa (eng. <i>privilege escalation</i>) i omogućuju napadaču da dobije privilegije kao superuser ili kao admnistrator i time može preuzeti potpunu kontrolu nad sustavom, dok se backdoor malware smatra trojancem koji nosi neki koristan teret (eng. <i>payload</i>), odnosno prikriva se kao neki koristan proces, ali zapravo omogućuje napadaču ulazak na "stražnja vrata" i stvara mu ranjivost koju napadač tada koristi za napad. 
+</p><p>Ebury za metu ima SSH korisnička imena i lozinke te privatne SSH ključeve. Napadači ga instaliraju na root-nivou već kompromitiranih poslužitelja tako da ili zamijene SSH povezane binary-je: ssh, sshd, ssh-add, itd., ili tako da promijene dijeljenu biblioteku libkeyutils koju koristi SSH protokol. Nakon što je Ebury postavljen na računalo, on počinje sakupljati SSH lozinke i privatne ključeve, te nakon što ih sakupi šalje ih na server koji je također kontroliran od strane napadača. Čak i ako se lozinka mijenja često, Ebury koristi svoju backdoor stranu "prirode" i omogućuje napadaču da iskoristi ranjivost i pristupi inficiranom računalu preko remote klijenta i radi štetu na tom računalu. Pošto napadač ima root privilegije i saznao je SSH lozinku i korisničko ime, on može pratiti promet, akcije i datoteke koje šaljete ili koje server šalje vama ako pristupate linux serveru pomoću remote linux klijenta, ili pak može mijenjati, brisati i premještati datoteke, odnosno potpuno preuzeti kontrolu nad vašim računalom.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 16:56, 28. prosinca 2014. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:59, 29. prosinca 2014. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Glavne_zna.C4.8Dajke_Ebury-ja"> Glavne značajke Ebury-ja </span></h2>
+<p>•	<b>Kradljivac podataka za autentifikaciju</b>
+</p><p>•	<b>OpenSSH Backdoor</b>
+</p><p>•	<b>Tajnost:</b>
+</p>
+<ol><li> Koristi UNIX kanale što više je moguće prilikom postavljanja backdoora kako bi izbjegao postavljanje datoteka u filesystemu
+</li><li> Ne ostavlja zapise u loggovima kada se koristi backdoor
+</li><li> Mijenja originalne potpise u upravitelju paketa za promijenjene datoteke
+</li><li> Izbjegava izvlačenje podataka na vanjske napadačke servere kada je mrežno sučelje u slobodnom (promiscuous) modu
+</li><li> Koristi POSIX dijeljene memorijske segmente (SHM-s) da bi pohranio ukradene autentifikacijske podatke
+</li><li> Injektira kod u pokretačkom (runtime) modu u OpenSSH binary-je umjesto da modificira originalne OpenSSH datoteke na disku
+</li><li> Mijenja konfiguraciju OpenSSH daemon programa u memoriji umjesto na disku
+</li><li> Centralizira svoj backdoor u biblioteci libkeyutils.so umjesto u nekoj izvršnoj datoteci
+</li></ol>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 16:52, 28. prosinca 2014. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 16:21, 29. prosinca 2014. (CET)
+</p>
+<h2> <span class="mw-headline" id="Na.C4.8Dini_na_koje_napada.C4.8Di_inicijalno_dolaze_do_root_privilegija_kako_bi_zarazili_servere_Ebury-jem"> Načini na koje napadači inicijalno dolaze do root privilegija kako bi zarazili servere Ebury-jem </span></h2>
+<p>Postoji nekoliko načina:
+</p><p>•	Podaci za prijavu sa korisničkog računa sa root privilegijama, ukradeni su sa Windows operacijskih sustava zaraženima sa nekim tipom infostealer-a, odnosno keylogger-a, i to kada se administrator prijavljuje sa te zaražene Windows mašine na još neinficirani server.
+</p><p>•	Preko iskorištavanja ranjivosti u outdate-anom software-u koji je još u uporabi.
+</p><p>•	Podaci za prijavu sa root privilegijama također se mogu ukrasti ako se sa zaraženog servera uspostavlja SSH sesija sa "čistim" serverom.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 21:30, 7. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Za_.C5.A1to_napada.C4.8Di_koriste_kompromitirane_sustave.3F"> Za što napadači koriste kompromitirane sustave? </span></h2>
+<p>Zaraženi sustavi se koriste za razne kriminalne aktivnosti: 
+Napadači stječu root privilegije na zaraženom sustavu te mogu preuzeti potpunu kontrolu na sustavom uključujući i pristupanje, brisanje ili mijenjanje bilo koje vrste pohranjenih podataka ili u obradi, koja se nalazi u sustavu.
+Napadač može koristiti vaše inficirano računalo kao server za slanje masovnih SPAM poruka, preusmjeravati posjetitelje (ukoliko je računalo korišteno kao web server) na kompomitirane linkove koji sadrže maliciozni kod (eng. <i>drive-by exploit</i> - napadač koristi ranjivosti na plugin-ovima kao što su Java, Adobe Reader, Adobe Flash i tako injektira maliciozni kod na vaše računalo). Također može doći do osjetljivih korisničkih podataka, uključujući i račune za online transakcije, jer ukoliko se računalo koristi kao web server online shop-a, napadač krade podatke kao što su imena, adrese, kupovne navike, brojevi kreditnih kartica itd.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 16:56, 28. prosinca 2014. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:59, 29. prosinca 2014. (CET)
+</p>
+<h1> <span class="mw-headline" id="Stati.C4.8Dka_analiza_Ebury.2FLinux_malware-a"> Statička analiza Ebury/Linux malware-a </span></h1>
+<p>Za izradu statičke analize koristili smo alat IDA (Interactive Disassambler) Pro 5.0 koji je freeware. On podržava analizu samo 32-bitnih binary-ja za sve platforme: Windows, DOS, UNIX, Mac, ali i za Java klase, .NET biblioteke, itd. Da bi se radila analiza 64-bitnih datoteka potrebno je kupiti noviji paket IDA software-a.
+</p><p>Datoteku Ebury malware-a našli smo na malwr.com web lokaciji. Tražili smo ju prema njezinom SHA256 sažetku: 5a7627820254abea2ae180e6ef5db029f2a612b510736723f0d94c2e49f09065. Tip datoteke je ELF 32-bit LSB shared object, i kao takav pogodan je za analizu u IDA-i. Verzija Linux/Ebury-ja je 1.3.2. Analizu smo radili na 32-bitnoj Windows XP virtualnoj mašini sa Service Pack-om 3. Windows je zbog arhitekture svoje jezgre otporan na ovakav oblik zločudnog koda, pa je zbog toga i najpogodniji za statičku analizu.
+</p><p>Alatom IDA Pro 5.0 statičku analizu možemo raditi na dva načina:
+</p>
+<ol><li> Možemo analizirati datoteku kao binary
+</li><li> i Kao ELF izvršnu datoteku
+</li></ol>
+<p><br />
+<b>1. KAO BINARY</b>
+</p><p>IDA nam omogućava da rastavimo datoteku na sastavne dijelove i onda proučavamo svaki zasebno. To je alat za reversni inženjering. Kada smo odabrali da datoteku želimo analizirati kao binary file, autoanaliza ne počinje sama jer treba ručno odrediti od kuda se želi započeti s analizom pošto binary nema standardno zadane entry pointove. U ovom slučaju nisam pokretao analizu jer je se ona pokreće automatski kada tu datoteku analiziramo kao ELF datoteku, pa je to obrađeno u sljedećom dijelu dokumenta. Postoji dosta pogleda koji nam daju informacije o malware-u, poput: IDA View-A, Hex View-A, Exports, Imports, Names, Functions, Strings, Structures, Enums. Svi ti pogledi i početni zaslon prikazani su na sljedećoj slici:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:IDA_start_bin.png" class="image"><img alt="IDA start bin.png" src="../images/b/b7/IDA_start_bin.png" width="424" height="400" /></a>
+</p><p><br />
+Pregledao sam Hex View-A, pogled na heksadecimalni zapis datoteke, i naletio na zanimljivi dio koji se nalazi na sljedećem screenshotu. Ovaj HEX zapis je bio najkorisniji i najviše nam je rekao o tome što bi datoteka mogla raditi, i naravno pokazao je da je datoteka maliciozna.
+Sa lijeve strane su segmenti zapisa u heksadecimalnom obliku i njihovi redni brojevi, dok su sa desne strane uglavnom nečitljivi znakovi koji su najvjerojatnije kodirani u Base64 ili nekom drugom obliku sa određenim uzorcima. Između mnogo takvih nečitvljivih zapisa pronašao sam jedan dio koji je razumljiv i prikazan na slici. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hex_viewa.png" class="image"><img alt="Hex viewa.png" src="../images/6/6b/Hex_viewa.png" width="335" height="500" /></a>
+</p><p>Tu je dosta funkcija ali neke se posebno ističu: 
+</p><p><b>keyctl</b> varijacije: funkcija koja se koristi za kontrolu ključeva - može se vidjeti da se poziva mnogo puta u kombinaciji sa memorijskim lokacijama ključeva, instanciranjem ključeva, njihovim premještanjem,   ažuriranjem, smještanjem na tzv. "keyring", vremenskim istekom, postavljanjem sesija, itd. Sve ovo izgleda kao da se želi manipulirati privatnim ključevima korisnika kako bi se oni mogli pročitati i poslati na vanjski server ili se želi omogućiti backdoor pristup serveru.
+</p><p><b>fseek</b>: funckija za traženje datoteke
+</p><p><b>fopen</b>: funkcija za otvaranje datoteke
+</p><p><b>fread</b>: funkcija za čitanje datoteke
+</p><p>Pretpostavljam da sve ove funkcije služe za pronalaženje, otvaranje i čitanje datoteke libkeyutils.so.
+</p><p><b>keyutils.build_string.libc.so</b>: ova funkcija kao što ESET-ova analiza predlaže, generira inficiranu verziju libkeyutils.so datoteke koju pak učitavaju sve OpenSSH izvršne datoteke tipa ssh, sshd i ssh-agent, i ona omogućava da se postavi backdoor. 
+</p><p><br />
+<b>2. KAO ELF DATOTEKA</b>
+</p><p>Kada datoteku analiziramo specifično kao ELF datoteku, tada je moguća i autoanaliza te se ona sama pokreće. Zanimljivo je da kao rezultat autoanalize ne dobivamo isti Hex View kao kada datoteku rastavljamo kao binary. U ovo slučaju nema onog čitljivog koda koji je prikazan na gornjoj slici. Ali postoje i neke prednosti, ELF analizom dobivamo graf koji opisuje ponašanje programa. Taj graf pokazuje kamo se proslijeđuju koji parametri, na koju memorijsku lokaciju i kojom operacijom (npr. XOR). Graf je opisan u asembleru i kao takav je težak za čitanje. Slijedi prikaz složenosti grafa:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Graf_ida.png" class="image"><img alt="Graf ida.png" src="../images/d/d0/Graf_ida.png" width="520" height="350" /></a>
+</p><p>Kao što se može vidjeti graf je veoma složen. Međutim, u našoj verziji Ebury-ja 1.3.2 ne uspjevamo naći iste odjeljke u grafu kao što su oni prikazani u ESET-ovoj analizi. Najvjerojatnije je da se ove dvije verzije razlikuju i da su oni koristili neku stariju verziju.
+</p><p>No unatoč tome, u ELF analizi dobivamo kompletan popis funkcija koje se koriste za izvoz i uvoz podataka. Sve te funkcije se podudaraju s onima koje smo dobili Binary analizom u prvom koraku, tako da je ovo samo potvrda da se radi o zločundom komadu software-a. Screenshot slijedi:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Elf_impexp.png" class="image"><img alt="Elf impexp.png" src="../images/2/2b/Elf_impexp.png" width="586" height="400" /></a>
+</p><p>Kao što se može vidjeti iz prozora Imports, sve od ovih gore funkcija iz 1. koraka analize su tu i djeluju nad datotekom libc.so.6, iz koje čitaju podatke koje inficirana datoteka libkeyutils.so treba. U kasnijoj verziji Linux/Ebury 1.5. inficirana datoteka libkeyutils.so se više ne veže na tu datoteku nego na datoteku libns2.so.
+U prozoru Exports vidimo sve varijante keyctl funkcije koje malware koristi kako bi došao do ključeva. To su opet sve funkcije iz 1. dijela analize.
+</p><p>U prozoru Functions vidimo da je ukupan zbroj funkcija koje Ebury poziva više nego dvostruko veći (139 zaokruženo crveno na screenshotu) od zbroja funckija iz Imports i Exports prozora. To nas upućuje na činjenicu da Ebury ima mnogo provjera kako bi održao svoju anonimnost i usppješno dohvatio i poslao podatke prema napadačkom serveru. Taj kompletan popis olakšava njegovo razumijevanje i način na koji djeluje u sustavu. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Funct_ida.png" class="image"><img alt="Funct ida.png" src="../images/7/78/Funct_ida.png" width="388" height="400" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 18:39, 31. prosinca 2014. (CET)
+</p>
+<h1> <span class="mw-headline" id="Dinami.C4.8Dka_analiza_Ebury.2FLinux_malware-a"> Dinamička analiza Ebury/Linux malware-a </span></h1>
+<p>Odlučili smo napraviti i dinamičku analizu ove vsrte Linux malwarea koristeći neke od Linux utilitya kao što su GNUdebugger, strace, tcpdump i network traffic sniffer WIreshark. Pokušali smo zaraziti virtualni Ubuntu server, ali ELF datoteka malwarea je promijenjena na način da ne može kompromitirati sustav, a da sa druge strane bude pogodna za dublju analizu, odnosno da sadrži svoje glavne funkcije. Kasnije je ispod prikazano zašto se ELF file malwarea nije dao izvršiti unutar terminala Ubuntu servera.
+</p><p>Za dinamičku analizu Linux/Ebury malwarea podigli smo i konfigurirali virtualni Linux Ubuntu Server 10.04 32bit bez instalacije updatea kako bi sustav bio nepokrpan i ranjiv na dotični malware. Ebury smo preuzeli u obliku ELF datoteke (32-bit) sa stranice malwr.com, isti file kojeg smo koristili i za statičku analizu. Na vritualni Ubuntu server smo ga postavili pomoću SSH FTP File Transfer klijenta i pozicionirali se na direktorij u kojem se nalazi ELF file malwarea. Nad istim smo izvršili naredbu "file" kao što je na slici ispod.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:FIle_ebury.png" class="image"><img alt="FIle ebury.png" src="../images/6/6a/FIle_ebury.png" width="640" height="91" /></a>
+</p><p><br />
+Kao što se može vidjeti, to je ELF datoteka za Intel386 arhitekturu i 32-bitna je te je dinamically linked što znači da prilikom izvršavanja unutar sustava pozive prema svojim funkcijama obavlja dinamički.
+Kako bi promijenili permisije nad ELF datotekom da ju je moguće izvršavati koristili smo slijedeću naredbu:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chmod_ebury.png" class="image"><img alt="Chmod ebury.png" src="../images/f/f0/Chmod_ebury.png" width="640" height="33" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ls_ebury.png" class="image"><img alt="Ls ebury.png" src="../images/7/79/Ls_ebury.png" width="640" height="146" /></a>
+</p><p>Nakon što smo promijenili permisije, upotrijebili smo naredbu "./*" gdje je * naziv datoteke i dobili kao feedback SIGSEV signal (segmentation fault), odnosno da je došlo do greške u izvršavanju programa. Kako bi provjerili gdje je program "pukao" pokušali smo sa GNUdebuggerom (gdb) koji na mje pokazao da u source kodu ne postoji funkcija "main". Na slici se vidi da program hoće ući u funkciju "main" koje nema. Nakon toga smo izvršili naredbu "bt" (backtrace) koja daje funkcije koje program snima na stog kada iz iste ulazi u druge funckije, te vidjeli da ni na stogu nema funkcije "main". Time smo zaključili da ELF datoteka nije pogodna za izvršavanje te da ne možemo napraviti dinamičku analizu malwarea.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Gdb_ebury.png" class="image"><img alt="Gdb ebury.png" src="../images/b/bc/Gdb_ebury.png" width="640" height="417" /></a>
+</p><p>Ovakav ozbiljan malware koji daje backdoor napadačima je sa namjerom pisan tako da ga je teško i praktički nemoguće dinamički analizirati, te ima ugrađene mehanizme da ga debugger unutar virtualnog OS-a ne može prepoznati, odnosno pokrenuti. To je ilustrirano na slici ispod. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:GDB.png" class="image"><img alt="GDB.png" src="../images/8/8f/GDB.png" width="700" height="365" /></a>
+</p><p><br />
+</p><p>Na slici su prikazani memorijski segmenti radne memorije unutar kojih se nalazi pokrenuti debugger (u ovom slučaju memorijske adrese nisu bitne) te maliciozni kod ozbiljnog zloćudnog virusa kojeg je teško dinamički analizirati jer ima mehanizme skrivanja pred primjerice debuggerom ili bilo kojim utilityem kojim se može pratiti komunikacija programa sa jezgrom OS-a i sl.
+</p><p>Strelica (1) ilustrira kretnju izvršavanja malicioznog koda ukoliko taj isti kod prepozna da je pokrenut pomoću debuggera, kod odmah skače na segment u memoriji koji je kriptiran (kriptiran od strane pisaca malicioznog koda) te pri tome debugger više ne zna pokrenuti tako kriptirani kod, time se virus štiti od analize. Istu stvar ilustrira i strelica (2). Ukoliko je virus siguran da nije na virtualnoj mašini, adresira memorijski segment koji nije kriptiran (strelica 3) gdje su smještene njegove vlastite funkcije za dekriptiranje i izvršavanje se prebacuje na segment koji je kriptiran (strelica 4). Ista kretnja se događa ukoliko je virus siguran da njegov kod nije pokrenut pomoću debuggera (strelice 5 i 6).
+</p><p><br />
+</p><p>Kao još jedan pokazatelj teške i vremenski zahtjevne dinamičke analize ovog malwarea je i ovaj pregled funkcija i dijagrama toka poziva funkcija u alatu IDA disassembleru. Slika prikazuje da malware sadrži petlju što je vidljivo prema istom izlaznom i ulaznom toku te unuatr petlje malware premješta i poziva različite funkcije sa istim offsetom što može biti znak da su pisci ovog malwarea htjeli otežati analitičarima proučavanje ovakve vrste malwarea.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Loop_ebury.png" class="image"><img alt="Loop ebury.png" src="../images/1/1e/Loop_ebury.png" width="410" height="183" /></a>
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 22:37, 13. siječnja 2015. (CET)
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Analiza_Linux.2FEbury_malware-a_prema_ESET-u"> Analiza Linux/Ebury malware-a prema ESET-u </span></h1>
+<p>Linux/Ebury dolazi u dvije varijante, kao maliciozna biblioteka i kao zakrpa za glavni OpenSSH binary. Maliciozna datoteka je modificirana verzija datoteke libkeyutils.so. Ovu dijeljenu biblioteku učitavaju sve OpenSSH izvršne datoteke kao što su ssh, sshd i ssh-agent. U ovoj analizi biti će opisano kako funkcionira backdoor, kako su pozvane OpenSSH funkcionalnosti i kako se prikupljaju i izvlače lozinke na vanjske napadačke servere.
+</p><p><b>Poznate varijante</b>
+</p><p>Iako je uobičajeno na Windows operacijskim sustavima, ovo je prvi puta da se maliciozna biblioteka viđa na POSIX operacijskim sustavima. Linux/Ebury koristi inovativne metode da prikači funkcije, otkrije adresni prostor ELF (Exetuable and Linkable Format) izvršne datoteke koja je učitala zaraženu biblioteku i piše zakrpe za njezin kod kod izvršavanja. Prve varijante su modificirale binary-je ostavljene na disku. Tri pridodane datoteke su ssh, sshd i ssh-add. Također su se koristile rpm naredbe da se ukloni potpis iz originalnih OpenSSH package-a: openssh-server, openssh-clients; i da se modificira RPM baza podataka tako da se ažuriraju hash-evi s onim vrijednostima malicioznih datoteka. S time se postiže da je rezultat naredbe 'rpm --verify openssh-servers' nepromijenjen. Međutim, rezultat naredbe 'rpm -qi openssh-servers' će jasno prikazati da ovom paketu nedostaju njegovi potpisi. 
+Kasnije varijante Linux/Ebury-ja ne modificiraju direktno OpenSSH datoteke. Umjesto toga, dijeljena biblioteka koja se učitava u sve OpenSSH izvršne datoteke je promijenjena tako da utječe na izvršavanje programa. Ta biblioteka je već prije spomenuta libkeyutils.so, koja je obično veličine 10-15KB, dok je maliciozni kod koji se u nju upisuje veličine kojih 20KB, tak oda inficirana iznosi oko 30KB. 
+Ovdje su dva primjera kako se implementira backdoor. 
+</p><p>Prvi screenshot prikazuje nemodificiranu uz modificiranu i sivo obilježenu libkeyutils.so datoteku:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Image00.png" class="image"><img alt="Image00.png" src="../images/c/c5/Image00.png" width="638" height="52" /></a>
+</p><p>Izvor: eset.com
+</p><p>Drugi screenshot prikazuje libkeyutils.so zamijenjenu sa Linux/Ebury verzijom:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Image01.png" class="image"><img alt="Image01.png" src="../images/c/cc/Image01.png" width="618" height="53" /></a>
+</p><p>Izvor: eset.com
+</p><p>U libkeyutils.so je dodana i funkcija konstruktor kako bi se postigle drugačije funkcionalnosti malware-a, i ona se poziva kada se učita biblioteka. Ta funkcija detektira iz kojeg binry-ja je učitana, pokrpa originalni kod i prikači funkcije iz originalne import tablice. 
+U najnovijim varijantama ovog malware-a, znakovi/string se skrivaju s jednostavnom XOR enkripcijom sa statičkim ključem. Poslije raspakiranja malware učitava razne funkcije koje su mu potrebne pozivima prema dlsym funkciji. Nakon toga Linux/Ebury otkriva originalni izvršni adresni prostor pozivom dlopen(NULL, RTLD_NOW) i preusmjerava vraćenog rukovatelja funkcije prema dlinfo(handle, RTLD_DI_LINKMAP, …). Ovo će raditi ako je ASLR (Address Space Layout Randomization) omogućen na sustavu. Ovime Ebury dobiva mogućnost šetanja kroz import tablicu ELF izvršne datoteke i zamjenjuje adresu originalne uvezene funkcije u memoriji. Rezultat ovog postupka je da kada programi ssh, sshd, ssh-add pozovu jednu od prikačenih funkcija, biti će preusmjereni na malicioznu libkeyutils.so biblioteku koja može zamijeniti originalno ponašanje programa. 
+</p><p>Sljedeća slika prikazuje pozive prema dlopen i dlinfo da bi se pronašao adresni prostor glavnog programa i pristupilo informacijama u zaglavlju ELF-a:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Symbol_parsing.png" class="image"><img alt="Symbol parsing.png" src="../images/8/8c/Symbol_parsing.png" width="479" height="400" /></a> 
+</p><p>Izvor: eset.com
+</p><p>Također su prikačene i funkcije za kreiranje loggova, pa kada god se korisit backdoor ništa se ne šalje sustavu za zapis loggova, pa nema nikakvih zapisa na disku o backdoor-u. Ako se backdoor ne koristi, zapis loggova će se odvijati normalno i funkcijski pozivi će biti preusmjereni originalnoj funkciji.
+</p><p>Ove funkcije su prikačene kada se inficirana biblioteka libkeyutils.so učita unutar sshd procesa:
+</p><p>• audit_log_user_message
+</p><p>• audit_log_acct_message
+</p><p>• hosts_access
+</p><p>• connect
+</p><p>• __syslog_chk
+</p><p>• write
+</p><p>• syslog
+</p><p>• popen
+</p><p>• hosts_access
+</p><p>• crypt
+</p><p>• pam_start
+</p><p><br />
+Druge funkcije poput pam_start i crypt koriste se za dobivanje lozinke kojom se korisnik autentificira. Pam_start funkcija će prikačiti dodatnu funkciju pam_authenticate da bi dohvatila lozinku. Funckija connect je prikačena tako da se kod korištenja naredbe Xbnd postavlja poziv prema socketu prije nego je izvršen pravi poziv prema funkciji connect.
+</p><p><b>Modifikacija runtime koda</b>
+</p><p>Kad prikačivanje funkcija iz import tablice nije moguće, Linux/Ebury će modificirati segment koda tako da izmjeni određene dijelove programa da oni preusmjeravaju pozive instrukcijama u njegovoj implementaciji. Na sljedećoj slici je primjer gdje ssh program poziva svoju funkciju key_parse_private_pem i tijek izvršavanja je preusmjeren na maliciozni kod. Adresa je prikazana crveno zato što je to adresni prostor datoteke libkeyutils.so , izvan ssh-ova. Prikačena funkcija će pozvati originalnu implementaciju i zabilježiti privatni ključ u memoriju koja će se kasnije dohvaćati raznim operatorima.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ssh_key_parse_clean.png" class="image"><img alt="Ssh key parse clean.png" src="../images/2/2a/Ssh_key_parse_clean.png" width="405" height="250" /></a>
+</p><p>Izvor: eset.com
+</p><p>Prije pokušaja promjene dijela koda, program postavlja rukovatelja koji pazi na segmentacijske greške koje bi mogao prouzrokovati. Detaljnije, rukovatelj će biti pozvan ako proces primi signal SIGSEGV ili SIGBUS. U takvom slučaju da se signal i ulovi, Ebury će prekinuti svoje specifične zadatke i dopustiti da OpenSSH radi svoj legitimni posao. Zanimljiv je način oporavka od segmentacijske greške. Prije počinjanja nečeg što bi potencijalno moglo prekinuti proces, poziva se funkcija sigsetjmp da napravi snimku/snapshot trenutnog stanja. Tada, ako se desi povreda pristupa koristi se siglongjmp da se povrati prijašnje stanje.
+Ova promjena, odnosno patchiranje koda je ograničeno, zato što su različiti dijelovi koda za ptachiranje nepromijenjivi i već upisani unutar libkeyutils.so trojanca. Zbog toga je njegova učinkovitost ograničena na određenu varijantu binary-ja koji je na meti napada. Svaka libkeyutils.so varijanta će raditi na 3 – 5 različitih OpenSSH verzija određene Linux distribucije.
+</p><p><b>Funkcionalnosti</b>
+</p><p>Backdoor se aktivira slanjem posebno kreiranih podataka u identifikacijski string klijentske verzije SSH protokola. O identifikaciji verzije SSH protokola, SSH specifikacija (<a href="http://www.openssh.com/txt/ssh-rfc-v1.5.txt" class="external free" rel="nofollow">http://www.openssh.com/txt/ssh-rfc-v1.5.txt</a>) kaže slijedeće&#160;:
+</p><p>Nakon što se otvori socket, poslužitelj šalje identifikacijski string u ovom obliku: "SSH-&lt;protocolmajor&gt;.&lt;protocolminor&gt;-&lt;version&gt;\n", gdje su &lt;protocolmajor&gt; i &lt;protocolminor&gt; integeri i određuju broj verzije protokola (a ne verziju distribucije softeware-a).  &lt;version&gt; je oznaka koja govori o verziji protokola na strani servera (maksimalno 40 znakova); ona se ne interpretira na klijentskoj strani ali može biti korisna za debuggiranje.
+</p><p>Oznaka &lt;version&gt; može sadržavati bilo što i ne smije biti interpretirana na SSH serveru. U slučaju Linux/Ebury backdoor konekcije, oznaka &lt;version&gt; sadrži heksadecimalni string dužine 22 znaka ili više. Sadrži lozinku od 11 znakova koja se prvo kriptira sa klijentskom IP adresom i tada se kodira kao heksadecimalni string. Opcionalno se uz lozinku može kriptirati i kodirati i 4-bajtna naredba. 
+</p><p>Ova enkripcijska metoda je potpuno jednaka onoj koja se koristi u malware-u Linux/Cdorked za kriptiranje njegovih konfiguracijskih naredbi (još jedan Linux malware za krađu autentifikacijskih podataka). Postupak je prikazan na slici:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Enkripcija_ebury.png" class="image"><img alt="Enkripcija ebury.png" src="../images/5/51/Enkripcija_ebury.png" width="534" height="308" /></a>
+</p><p>Izvor: eset.com
+</p><p>Primijetite da prije nego što se napravi handshaking/rukovanje za enkripciju, šalje se identifikacija verzije protokola što omogućava da se uoči potencijalan napad preko mrežne analize.
+Primjer verzije SSH protokola za pokretanje root shell-a izgleda ovako:
+</p><p>SSH-2.0-fb54c28ba102cd73c1fe43
+</p><p>Jednom kada se potvrdi backdoor lozinka, sshd proces dozvoljava da bilo koja lozinka bude upotrijebljena prilikom autentifikacije lozinkom. 
+Ako je jedno od: PermitRootLogin, PasswordAuthentication ili PermitEmptyPassword onemogućeno, neće biti potrebna lozinka za autentifikaciju i biti će sigurno da će ovaj napad gore proći. Također će se isključiti stvaranje loggova za uspješno započinjanje sesija. Jednostavno će sve izgledati kao da se ništa nije dogodilo. U verzijama 1.3.1 i novijima, SHA-1 suma lozinke, umjesto stringa od 11 znakova, se sada čuva u binary-ju. Ovo čini pogađanje lozinke dosta teškim osim ako nemate paket za hvatanje znakova prilikom uspješne prijave legitimnih korisnika. Što je još zanimljivije, lozinka je drugačija od varijante do varijante. To stručnjake navodi na razmišljanje da napadači imaju bazu podataka s popisom inficiranih servera i njihovim backdoor lozinkama, kako bi svaki backdoor mogli uspješno aktivirati.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Passwd_sha1.png" class="image"><img alt="Passwd sha1.png" src="../images/7/7b/Passwd_sha1.png" width="328" height="350" /></a>
+</p><p>Izvor: eset.com
+</p><p>Glavna svrha Linux/Ebury modula je krađa privatnih podataka o prijavi. Ti podaci se najvjerojatnije koriste kako bi se zarazilo još više servera. U Linux/Ebury-ju ne postoji kod koji bi širio taj malware, tako da backdoor najvjerojatnije pojedinačno šire napadači ili ga se instalira kroz maliciozne skripte.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 19:19, 30. prosinca 2014. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Kra.C4.91a_korisni.C4.8Dkih_podataka_za_autentifikaciju"> Krađa korisničkih podataka za autentifikaciju </span></h2>
+<p>Korisnički podaci presreću se na više lokacija, kada se tipkaju na tipkovnici ili kada ih koristi žrtva napada.
+</p><p><br />
+•	<b>Lozinka za uspješnu prijavu na inficiranom serveru:</b> - Kada god se netko prijavi na sustav inficiran sa Linux/Ebury-jem, sshd program sprema lozinku i šalje ju napadački server za pohranu ukradenih lozinki.
+</p><p>•	<b>Bilo koji pokušaj prijave sa lozinkom na inficirani server:</b> - Čak i ako je pokušaj prijave neuspješan, lozinka i korisničko ime bit će poslani napadačima. Oni će ipak biti drugačije formatirani kako bi omogućili napadačima da razlikuju pogrešne od točnih podataka za autentifikaciju.
+</p><p>•	<b>Lozinka za uspješnu prijavu na inficirani server:</b> - Kada netko koristi ssh klijent za prijavu na inficirani server, Ebury će presresti lozinku i poslati je na napadački server za prikupljanje podataka.
+</p><p>•	<b>Lozinka (passphrase) za tajni ključ:</b> - Kada ssh klijent sa inficiranog servera traži korisnika lozinku za tajni ljuč, ta će lozinka također biti poslana na server napdača.
+</p><p>•	<b>Nekriptirani privatni ključ:</b> - Kada se koristi privatni ključ za autentificiranje na udaljenom serveru, nekriptirana verzija će biti uhvaćena Ebury-jem. Za razliku od lozinki, ključ neće biti poslan na napadački server. Umjesto toga, Ebury će spremiti memorijsku lokaciju tog tajnog ključa i čekati napadača da dohvati ključ Xcat naredbom.
+</p><p>•	<b>Privatni ključevi se dodaju OpenSSH agentu sa potprogramom ssh-add:</b> - Ključeve dodane OpenSSH agentu također će presresti Ebury. Oboje, i nekriptirani tajni ključ i lozinka za korištenje tajnog ključa će na kraju biti zabilježeni.
+</p><p>Bez obzira na oblik autentifikacije, Ebury će uloviti sve potrebne podatke, poput korisničkog imena, IP adrese mete i njezin OpenSSH port za prisluškivanje, kako bi ih napadači mogli koristiti prema želji.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 16:55, 1. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Izvla.C4.8Denje_lozinke"> Izvlačenje lozinke </span></h2>
+<p>Kada Linux/Ebury presretne lozinku, informacija se šalje na udaljen server preko DNS zahtjeva poslanog na određenu IP adresu. Malware kreira zahtjev za regularnim A zapisom koji će biti poslan na UDP port 53. Ime zahtjevane domene sadrži kriptiran i hekadecimalno kodiran sadržaj kao i IP adresu zapisanu u sljedećem formatu&#160;:
+</p><p>&lt;heksadecimalno kodiran sadržaj&gt;.&lt;IP adresa&gt;
+</p><p>Heksadecimalno kodiran sadržaj sadrži stavke opisane u predhodnom dijelu rada. Taj sadržaj je kriptiran logičkom funkcijom XOR sa statičkim ključem duljine 4 bajta 0x000d5345 prije nego se kodira hexsadecimalno. IP adresa uključena u upit ovisi o tipu ukradenih podataka. Ako su podaci za zaražen server onda se koristi IP adresa klijenta. U protivnom se koristi IP adresa zaraženog servera.
+</p><p>Izgleda da su autori malwarea odabrali da se šalju paketi koji izgledaju kao legitimni DNS upiti preko UDP porta 53 kako bi se izbjeglo da ih firewall blokira. Vrlo je često da se u postavkama firewalla podesi puštanje DNS upita stavljenjem ih u tzv. bijele liste (whitelist) jer njihovim blokiranjem može doći do remećenja rezolucije imena.
+</p><p>Postoje 2 metode kojima Linux/Ebury bira servere na koje se šalju DNS paketi:
+</p>
+<ol><li> Može se postaviti ekplicitno operatorom pri slanju Xver naredbe.
+</li><li> Korištenjem algoritma za generiranje imena domene dinamički. To ime domene se ispituje za svoj A i TXT zapis. TXT zapis se koristi za provjeru da je pod kontrolom operatora koji koristi javni kriptografski ključ.
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Darbelini&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Darbelini (stranica ne postoji)">Darbelini</a> 22:09, 18. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Dodatne_naredbe"> Dodatne naredbe </span></h2>
+<p>Onome tko je zarazio računalo su dostupne 3 naredbe za lakše upravljenje ugroženim serverom. Naredba je priložena backdoor lozinci prije nego je ona kriptirana. Kada backdoor identificira naredbu on ju iterpretira umjesto da pokreće shell. Naredbe koje backdoor moze procesirati su&#160;:
+</p><p><b>Xcat</b> – ispisuje sve lozinke,zaporke i ključeve zapisane u zajedničkoj memoriji i izlazi.
+</p><p><b>Xver</b> – ispisuje verziju instaliranog Linux/Ebury i izlazi. Xver može imati 4-bytni argument koji postavlja IP adresu servera izvlačenja na zadanu.
+</p><p><b>Xbnd</b> – ima 4-bytni argument. Kod kreiranje tunela do udaljenog hosta, veže socket klijenta na zadanu IP adresu koju taj argument predstavlja.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Darbelini&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Darbelini (stranica ne postoji)">Darbelini</a> 22:09, 18. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pra.C4.87enje_verzije"> Praćenje verzije </span></h2>
+<p>Autori Linux/Ebury-a se drže dobre prake ostavljanja broja verzije unutra binary-a. To omogučava operatorima da znaju koja verzija je instalirana na kojem sustavu. To također omogućava i analitičarima malwarea da bolje shvate kronologiju događaja te lakšu analizu malwarea. Npr. od verzije Linux/Ebury-a 1.3.2 nadalje ne šalju se nikakve informacije na udaljeni server ukoliko je sučelje u slobodnom načinu rada. Sučelje se automatski stavlja u slobodan način rada kada neki od softwarea kao što su libpcap ili tcpdump zabilježavaju promet na mrežnom sučelju. Autori su ovo svojstvo dodali najvjerojatnije nakon izlaska članka koji govori kako se korištenjem takvih alata može ispitati zaraženost sustava Linux/Ebury-em.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Darbelini&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Darbelini (stranica ne postoji)">Darbelini</a> 22:09, 18. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Indikatori_ugro.C5.BEenosti"> Indikatori ugroženosti </span></h2>
+<p>Ovdje ćemo prikazati dva različita načinja identificiranja prisustva Linux/Ebury SSH backdoora. Najlakši način provjere da li je server zaražen se oslanja na prisustvo svojstva koje malware dodaje u SSH binary. Drugi način zahtjeva pregled zajedničke memorije koju koristi malware. Naredbom ssh -G je dobro započeti provjeru zaraženosti sustava. Ta naredba se drugačije ponaša kod čistog sustava i sustava zaraženog Linux/Ebury-jem. Čist server će ispisivati&#160;:
+</p><p><i>ssh: illegal option -- G</i> 
+</p><p>dok će zaražen server ispisati tipičnu "usage" poruku. Da li je server ugrožen, možemo provjeriti naredbom&#160;:
+</p><p><i>$ ssh -G 2&gt;&amp;1 | grep -e illegal -e unknown &gt; /dev/null &amp;&amp; echo "System clean" || echo "System infected"</i> 
+</p><p>Linux/Ebury se oslanja na korištenje POSIX segmenta zajedničke memorije (SHMs) za komunikaciju između procesa. Trenutna verzija koristi velike segmente preko 3MB memorije s širokim dozvolama koje svima omogučavaju čitanje i pisanje u taj segment.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Darbelini&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Darbelini (stranica ne postoji)">Darbelini</a> 22:09, 18. siječnja 2015. (CET)
+</p>
+<h1> <span class="mw-headline" id="Kako_provjeriti_je_li_sustav_zara.C5.BEen_sa_Ebury-jem.3F"> Kako provjeriti je li sustav zaražen sa Ebury-jem? </span></h1>
+<p>Svaki malware, pa tako i Ebury, postoji u nekoliko verzija, jer napadači razvijaju malware isto kao što i klasični developeri razvijaju legalan software, u fazama, i stalno ga poboljšavaju. Prema tome postoji više načina na koje se to može otkriti. Neki od načina su prema verziji malware-a, drugi pak provjerom mrežnog prometa, odnosno provjerom paketa koji se šalju preko mrežnog sučelja prema van. Neki antivirusni programi su u mogućnosti detektirati Ebury, obično kao 'SSHDoor' ili 'Sshdkit', ali ClamAV ili alati kao što su chkrootkit ili rkhunter u svojim trenutnim verzijama nisu u mogućnosti otkriti Ebury. Također, alati poput debsums i rpm ne mogu otkriti prisustvo Ebury-a.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:52, 29. prosinca 2014. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Darbelini&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Darbelini (stranica ne postoji)">Darbelini</a> 22:09, 18. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id=".C5.A0to_u.C4.8Diniti_s_inficiranim_sustavima.3F"> Što učiniti s inficiranim sustavima? </span></h2>
+<p>Svaki sustav koji je kompromitiran, zbog pristupa rootu, ne može više biti smatran sigurnim niti mu se može vjerovati. Napadači su najvjerojatnije napravili izmjene u postavkama sigurnosti i/ili instalirali dodatni malware. 
+Zbog toga se preporuča reinstalacija kompletnog sustava, a ne pokušavanje čišćenja istog. Svi podaci za prijavu koji se koriste za SSH konekcije i tajni SSH ključevi pohranjeni na poslužitelju moraju se smatrati kompromitiranima, jer također treba uzeti u obzir kada se ovaj malware otkrije da je sustav njime zaražen već tjednima, ako ne i mjesecima. 
+Ako postoje još neki sustavi za koje ste odgovorni, preporuče se provjera jesu li i oni zaraženi. Kada se reinstalira sustav treba koristiti nove jake lozinke za sve korisničke račune i zamijeniti sve SSH ključeve sa autentifikacijom baziranom na ključevima.
+Posebno treba paziti da se ne nikada ne prijavljuje na reinstalirane sustave koristeći SSH sa sustava zaraženih sa Ebury-jem, jer će se u tom slučaju novi podaci za prijavu za nanovo instalirani sustav pobrati sa SSH odlaznom vezom i poslati na napadački server.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:31, 29. prosinca 2014. (CET)
+</p><p><br /> 
+</p>
+<h2> <span class="mw-headline" id="Provjera_za_verzije_Ebury-ja_do_1.5"> Provjera za verzije Ebury-ja do 1.5 </span></h2>
+<p>Ebury verzije do verzije 1.5 koriste segmente dijeljene memorije (SHMs – Shared Memory Segments) za međuprocesnu komunikaciju. Lista trenutno postojećih segmenata dijeljene memorije može biti dohvaćena pozivanjem naredbe „ipcs -m“ u root načinu u terminalu. 
+Sve do verzije 1.3.5, maliciozni segmenti imaju veličinu minimalno 3MB i postavljenu dozvolu (666). Na primjer:
+</p><p># ipcs -m
+------ Shared Memory Segments --------
+</p>
+<pre>key        shmid      owner     perms      bytes      nattch
+65538      root      666        3283128    0
+</pre>
+<p>Sa naredbom "ipcs -m -p" možemo vidjeti memorijske segmente prema procesima koji su ih napravili te PID tih procesa:
+</p><p># ipcs -m -p 
+------ Shared Memory Creator/Last-op PIDs --------
+</p>
+<pre>shmid      owner     cpid      lpid      
+65538      root      15029     17377
+</pre>
+<p>Nakon toga sa naredbom "ps aux | grep &lt;pid&gt;" gdje je &lt;pid&gt; ID procesa možemo vidjeti procese, njihove ID-eve, direktorij i ostale opise:
+</p><p># ps aux | grep &lt;pid&gt; 
+</p>
+<pre>root     11531  0.0  0.0 103284   828 pts/0    S+   16:40   0:00 grep 15029
+root     15029  0.0  0.0  66300  1204&#160;?        Ss   Jan26   0:00 /usr/sbin/sshd
+</pre>
+<p>Ako pod upisanim &lt;pid&gt; koji koristi memorijski segment nešto veći od 3MB i proces se naziva sshd, to je jaki pokazatelj komprimitiranosti sustava.  
+</p><p><br />
+</p><p>Segmenti dijeljene memorije se kreiraju samo na prvom događaju izvlačenja podataka, tako da se vjerojatno neposredno nakon pokretanja sustava inficirani SHMs neće pokazati kao rezultat naredbe „ipcs -m“. Postoje također i legitimne aplikacije koje koriste SHM tako da stanje sustava prikazano gore ne mora nužno značiti da je sustav inficiran. 
+Međutim, ako dođe obavijest od ISP-a ili strane koja nam iznajmljuje poslužitelj da je sustav inficiran, tada je SHM najvjerojatnije kreiran od strane Ebury-ja. U slučaju sumnje na Ebury, najbolje je pogledati malicioznu libkeyutils datoteku ili provjeravati mrežni promet kao dodatku pretragu.
+Sa verzijom 1.3.5 autori malware-a su postrožili dozvole SHM-a i postavili ih na (600). Također je i veličina segmenta u ovom slučaju dosta manja, tako da je od ove verzije Ebury još teže uočiti.
+</p><p># ipcs -m
+------ Shared Memory Segments --------
+</p>
+<pre>key        shmid      owner     perms      bytes      nattch
+0x0000091a     0      root      600        463084     0
+</pre>
+<p><br />
+Zamjena dijeljene biblioteke libkeyutils može se identificirati po njezinoj veličini. Legitimne verzije ove biblioteke obično su manje od 15kB, dok su maliciozne veće od 25kB. Da bi se Linux baziranim sustavima provjerila veličina ove datoteke može se pokrenuti naredba: 
+</p>
+<pre># find /lib* -type f -name libkeyutils.so* -exec ls -la {} \;
+</pre>
+<p><br />
+Ovisno o načinu kako su napadači instalirali malicioznu biblioteku, vidjet će se jedna ili više datoteka kao rezultat naredbe. Ako je bilo koja od dobivenih datoteka veća od 25kB, najvjerojatnije je i maliciozna. Primjer malicioznog rezultata:
+</p>
+<pre>-rwxr-xr-x 1 root root 27568 Dec 22  2014 /lib64/libkeyutils.so.1.3
+</pre>
+<p><br />
+Za SSH binary-je identificiranje malicioznih zamjena datoteka nije tako lako jer se veličine datoteka razlikuju ovisno o različitim distribucijama Linuxa i drugim operacijskim sustavima. 
+1.3.2.	
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:52, 29. prosinca 2014. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 21:19, 13. siječnja 2015. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Provjera_za_verziju_1.5"> Provjera za verziju 1.5 </span></h2>
+<p>Na Linux baziranim sustavima, instalirana je dodatna dijeljena biblioteka je libns2.so i postojeća libkeyutils datoteka je patchirana tako da se poveže na ovu biblioteku libns2.so umjesto datoteke libc.so.6. Maliciozna datoteka libns2.so može se pronaći pokretanjem ove naredbe , koja ne bi trebala vratiti ništa na čistim sustavima:
+</p>
+<pre># find /lib* -type f -name libns2.so
+/lib64/libns2.so
+</pre>
+<p><br />
+U verziji 1.5 Ebury koristi sockete Unix domene umjesto dijeljenih memorijskih segmenata za međuprocesnu komunikaciju. Maliciozni socket može se locirati korištenjem netstat-a kao što slijedi:
+</p>
+<pre># netstat -nap | grep "@/proc/udevd"
+unix  2      [ ACC ]     STREAM     LISTENING     5597     2529/atd     @/proc/udevd
+</pre>
+<p><br />
+I u ovom slučaju, ova naredba ne smije vratiti ništa na čistim sustavima. Postoje neki alati koji mogu detektirati Ebury, najčešće kao SSHDoor ili Sshdkit. Programi kao ClamAV ili alati poput chkrootkit ili rkhunter trenutno ne mogu prepoznati Ebury.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:36, 29. prosinca 2014. (CET)
+</p>
+<h2> <span class="mw-headline" id="Identificiranje_inficiranih_sustava_provjerom_mre.C5.BEnog_prometa"> Identificiranje inficiranih sustava provjerom mrežnog prometa </span></h2>
+<p>Kao što je već navedeno, Ebury koristi posebno sastavljene DNS pakete za izvlačenje prikupljenih podatak za prijavu na svoje servere. Sustavi inficirani sa Ebury-jem mogu se identificirati provjerom mrežnom prometa na ovaj način:
+Legitimni DNS paketi za DNS upite sa klijenta prema DNS serveru najčešće izgledaju ovako formatirani u tcpdump izlaznom formatu:
+</p>
+<pre>10:53:21.377449 IP [Client].20374 &gt; [DNS server].53:
+</pre>
+<pre>36027+ A? www.google.com. (32)
+</pre>
+<p><br />
+IP paketi poslani sa Ebury zaraženih sustava izgledaju kao DNS upiti za heksadecimalne stringove koje slijedi IP adresa:
+</p>
+<pre>21:44:24.506801 IP [Ebury infected system].42177 &gt; [IP address].53:
+</pre>
+<pre>4619+ A? 5742e5e76c1ab8c01b1defa5.[IP address]. (56)
+</pre>
+<p><br />
+Ako se uoči bilo koji paket sličan ovome u mrežnom prometu, sustav koji je poslao ovaj paket najvjerojatnije je zaražen sa Ebury-jem.
+Kada se pokreće tcpdump za provjeru mrežnog prometa na zaraženoj mašini, treba pokrenuti tcpdump sa opcijom –p jer se tako sprečava tcpdump da pokrene mrežno sučelje u tzv. „promiscuous“ modu. Novije verzije Ebury-ja neće poslati prikupljene podatke na svoj server sve dok je mrežno sučelje u promiscuous modu.
+</p><p>Prema svemu ovome vidimo da je Linux/Ebury veoma složen malware te dosta inteligentno osmišljen kao bi se izbjeglo njegovo otkrivanje.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Filip.drasic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Filip.drasic (stranica ne postoji)">Filip.drasic</a> 15:46, 29. prosinca 2014. (CET)
+</p>
+<h1> <span class="mw-headline" id="Malware_sli.C4.8Dan_Ebury_Linux_malwareu"> Malware sličan Ebury Linux malwareu </span></h1>
+<h2> <span class="mw-headline" id="Linux.sshdkit_malware"> Linux.sshdkit malware </span></h2>
+<p>U veljači 2013-te veliki broj infekcija je potaknuo rusku antivirusnu tvrtku Doctor Web da istraže kako trojanac kojeg su nazvali Linux.sshdkit napada Linux servere i krade SSH lozinke. Trojanac je u obliku biblioteke za 32-bitne i 64-bitne Linux operacijske sustave i na servere se mogao instalirati koristeći neke ranjivosti na samim serverima. Tadašnja verzija je bila 1.2.1. 
+</p><p>Nakon uspješne instalacije trojanac ubacuje svoj kod u proces sshd koji sadrži rutine za autorizaciju. Nakon što ubaci svoj kod i nakon što je pokrenuta sesija, trojanac šalje login lozinku i korisničko ime na udaljeni server koristeći UDP protokol. IP adresa udaljenog zloćudnog servera je sadržana u samom source kodu trojanca. Svaka dva dana trojanac Linux.sshdkit generira novu IP adresu servera na kojem se sakupljaju ukradeni login podaci koristeći kompleksne rutine. Na donjoj slici je prikazan dijagram toka kako malware generira IP adresu zloćudnog servera koji služi kao drop-zone server. Specijalan algoritam malwarea generira dva DNS-a koristeći jednu rutinu, i ako se takva dva DNS-a odnose na istu IP adresu, koristeći drugu rutinu generira drugačiju IP adresu na koju malware tada šalje ukradene login podatke. Analitičari tvrtke Doctor Web iskoristili su propust kako bi oteli jedan od takvih zloćudnih servera i dodali potpis malwarea u svoju bazu virusa. Upozorili su administratore da provjere sustave za koje su odgovorni, te ako nađu datoteku  /lib/libkeyutils*, to je znak infekcije sustava.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sshdkit1.png" class="image"><img alt="Sshdkit1.png" src="../images/c/cc/Sshdkit1.png" width="300" height="305" /></a>
+</p><p>Izvor: drweb.com
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 14:42, 31. prosinca 2014. (CET)
+</p>
+<h2> <span class="mw-headline" id="Nova_verzija_Linux.sshdkit_malwarea"> Nova verzija Linux.sshdkit malwarea </span></h2>
+<p>Nedugo nakon što su analitičari otkrili malware pod naziovm Linux.ssdkit, pojavila se nova verzija malwarea kojeg su nazvali Linux.sshdkit.6. Malware je bio isto u obliku biblioteke za 32bit i 64 bit Linux bazirane servere, a jedina razlika je bila rutina kojom malware generira IP adresu zloćudnog servera kojem se šalju ukradeni login podaci. U novoj verziji rutina za generiranje IP adrese servera koristi tekstualni string koji je kriptiran 128-bitnim ključem i RSA kriptosustav što je otežalo analitičarima da presretnu ukradene login podatke i odrede IP adrese zloćudnih servera. Na donjoj slici je prikazan dijagram toka generiranja IP adrese koristeći RSA kriptosustav. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sshdkit2.png" class="image"><img alt="Sshdkit2.png" src="../images/6/62/Sshdkit2.png" width="214" height="536" /></a>
+</p><p>Izvor: drweb.com
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tonovosel&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tonovosel (stranica ne postoji)">Tonovosel</a> 14:42, 31. prosinca 2014. (CET)
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<ol><li> <a href="https://www.cert-bund.de/ebury-faq" class="external free" rel="nofollow">https://www.cert-bund.de/ebury-faq</a>
+</li><li> <a href="http://www.theinquirer.net/inquirer/news/2234637/driveby-exploits-are-the-top-web-security-threat-says-enisa" class="external free" rel="nofollow">http://www.theinquirer.net/inquirer/news/2234637/driveby-exploits-are-the-top-web-security-threat-says-enisa</a>
+</li><li> <a href="http://www.welivesecurity.com/2014/02/21/an-in-depth-analysis-of-linuxebury/" class="external free" rel="nofollow">http://www.welivesecurity.com/2014/02/21/an-in-depth-analysis-of-linuxebury/</a>
+</li><li> <a href="http://www.symantec.com/security_response/writeup.jsp?docid=2001-062614-1754-99" class="external free" rel="nofollow">http://www.symantec.com/security_response/writeup.jsp?docid=2001-062614-1754-99</a>
+</li><li> <a href="http://news.drweb.com/?i=3332&amp;lng=en" class="external free" rel="nofollow">http://news.drweb.com/?i=3332&amp;lng=en</a>
+</li><li> <a href="http://news.drweb.com/show/?i=3600&amp;lng=en&amp;c=5" class="external free" rel="nofollow">http://news.drweb.com/show/?i=3600&amp;lng=en&amp;c=5</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based</a>
+</li><li> <a href="http://www.linuxquestions.org/questions/linux-security-4/ebury-how-check-system-4175484467/" class="external free" rel="nofollow">http://www.linuxquestions.org/questions/linux-security-4/ebury-how-check-system-4175484467/</a>
+</li><li> <a href="http://kb.iweb.com/entries/47439816-Ebury-SSH-Rootkit" class="external free" rel="nofollow">http://kb.iweb.com/entries/47439816-Ebury-SSH-Rootkit</a>
+</li><li> <a href="http://tools.cisco.com/security/center/viewAlert.x?alertId=33687" class="external free" rel="nofollow">http://tools.cisco.com/security/center/viewAlert.x?alertId=33687</a>
+</li><li> <a href="http://www.microsoft.com/security/portal/threat/encyclopedia/entry.aspx?Name=Backdoor:Linux/Ebury.A#tab=2" class="external free" rel="nofollow">http://www.microsoft.com/security/portal/threat/encyclopedia/entry.aspx?Name=Backdoor:Linux/Ebury.A#tab=2</a>
+</li><li> <a href="http://www.wilderssecurity.com/threads/an-in-depth-analysis-of-linux-ebury.360457/" class="external free" rel="nofollow">http://www.wilderssecurity.com/threads/an-in-depth-analysis-of-linux-ebury.360457/</a>
+</li><li> <a href="http://www.openssh.com/txt/ssh-rfc-v1.5.txt" class="external free" rel="nofollow">http://www.openssh.com/txt/ssh-rfc-v1.5.txt</a>
+</li><li> <a href="http://www.welivesecurity.com/wp-content/uploads/2014/03/operation_windigo.pdf" class="external free" rel="nofollow">http://www.welivesecurity.com/wp-content/uploads/2014/03/operation_windigo.pdf</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 222/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7963-0!*!0!!hr!2!edit=0 and timestamp 20190203204306 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Analiza_Ebury_Linux_malvera.html">http://security.foi.hr/wiki/index.php/Analiza_Ebury_Linux_malvera</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Analiza_Ebury_Linux_malvera" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Analiza_Ebury_Linux_malvera.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Analiza_Ebury_Linux_malvera&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Analiza_Ebury_Linux_malvera.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Analiza_Ebury_Linux_malvera.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_Ebury_Linux_malvera&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_Ebury_Linux_malvera&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Analiza_Ebury_Linux_malvera.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Analiza_Ebury_Linux_malvera" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Analiza_Ebury_Linux_malvera" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_Ebury_Linux_malvera&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_Ebury_Linux_malvera&amp;oldid=32130" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 09:38, 19. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 26.266 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Analiza_Ebury_Linux_malvera", "wgTitle": "Analiza Ebury Linux malvera", "wgAction": "view", "wgArticleId": 7963, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 32130, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.648 secs. -->			</body>
+</html>

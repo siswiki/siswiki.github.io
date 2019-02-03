@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>SPDY - dizajn, prednosti i mane - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=SPDY_-_dizajn,_prednosti_i_mane&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-SPDY_-_dizajn_prednosti_i_mane skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">SPDY - dizajn, prednosti i mane</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="SPDY_-_dizajn,_prednosti_i_mane.html#mw-head">orijentacija</a>,
+					<a href="SPDY_-_dizajn,_prednosti_i_mane.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Jelena Jelinić, Nikolina Magdić
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#SPDY_dizajn_i_svojstva"><span class="tocnumber">2</span> <span class="toctext">SPDY dizajn i svojstva</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Dva_sloja_SPDY_protokola"><span class="tocnumber">3</span> <span class="toctext">Dva sloja SPDY protokola</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#SPDY_Framing_Layer"><span class="tocnumber">3.1</span> <span class="toctext">SPDY Framing Layer</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Framing"><span class="tocnumber">3.1.1</span> <span class="toctext">Framing</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Stream"><span class="tocnumber">3.1.2</span> <span class="toctext">Stream</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Vrste_kontrolnih_okvira"><span class="tocnumber">3.1.3</span> <span class="toctext">Vrste kontrolnih okvira</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#HTTP_raslojavanje_preko_SPDY-a_.28eng._HTTP_Layering_over_SPDY.29"><span class="tocnumber">3.2</span> <span class="toctext">HTTP raslojavanje preko SPDY-a (eng. HTTP Layering over SPDY)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Usporedba_sa_HTTP-om"><span class="tocnumber">4</span> <span class="toctext">Usporedba sa HTTP-om</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#HTTP.2F2.0"><span class="tocnumber">5</span> <span class="toctext">HTTP/2.0</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Microsoft_HTTP_Speed.2BMobility"><span class="tocnumber">5.1</span> <span class="toctext">Microsoft HTTP Speed+Mobility</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Primjer:_SPDY_performanse_na_mobilnim_mre.C5.BEama"><span class="tocnumber">6</span> <span class="toctext">Primjer: SPDY performanse na mobilnim mrežama</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Primjer_2"><span class="tocnumber">7</span> <span class="toctext">Primjer 2</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="SPDY_-_dizajn,_prednosti_i_mane.html#Podjela_posla"><span class="tocnumber">9</span> <span class="toctext">Podjela posla</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Google developeri Mike Belshe i Roberto Peon krajem 2009. godine krenuli s razvojem bržeg interneta i to su pokušali ostvariti novim protokolom SPDY. Posljednjih trinaest godina u upotrebi je ista verzija HTTP-a koja više nije dovoljno dobra za današnje zahtjeve. 
+</p><p>Ciljevi SPDY-a su [4]:
+</p>
+<pre>  •50% smanjenja vremena učitavanja stranice
+  •Smanjiti složenost implementacije
+  •Izbjegnuti promjene sadržaja putem web autora
+  •Riješiti suradnju preko open-source softvera
+</pre>
+<p>Trenutno SPDY podržava Google Chrome, Mozilla Firefox i Amazonov Silk pretraživač za Kindle, implementirana je verzija 2, a na verziji 3 se trenunto radi.
+</p>
+<h1> <span class="mw-headline" id="SPDY_dizajn_i_svojstva"> SPDY dizajn i svojstva </span></h1>
+<p>SPDY dodaje sloj veze na vrh SSL-a koji dopušta višestruke istovremene streamove preko jedne jedine TCP veze. Uobičajeni HTTP GET i POST poruke su ostale iste, a SPDY je specificirao novi <i>framing format</i> za šifriranje i prijenos podataka preko žice. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:SLOJ.jpg" class="image"><img alt="SLOJ.jpg" src="../images/4/4b/SLOJ.jpg" width="414" height="228" /></a></center>
+<center>Slika 2.1: SPDY dizajn</center>
+<p>SPDY/2 temelji se na HTTP/1.1. tj. zadržava istu semantiku, ali zamjenjuju aspekte prijenosa sa jednostavnijim pristupom. Tri osnovne značajke koje utječu na ubrzanje učitavanje stranice [4]:
+</p><p><b>Multipleksirani stream</b> - temeljna prednost SPDY-a je da se višestruki resurs može preuzeti putem jedne TCP veze. Pretpostavlja se da će klijent otvoriti jednu TCP vezu na svaki poslužitelj i zatražiti sve resurse poslužitelja preko te jedne veze. Takav način korištenja TCP veze omogućuje algoritam u TCP da izbjegne zagušenje za učinkovitije upravljanje protokom podataka preko mreže. Također klijent može uključivati više zahtjeva u jednoj poruci, čime se smanjuje opterećenje i broj vremena obilaska potrebnih za početak prijenosa datoteka za <b>request beyond the first</b>. Iako je takav način sličan HTTP-ovom '<b>pipelining-u'</b>, razlika koju je uveo SPDY je ta da poslužitelj može prenijeti sve resurse paralelno bez HOL <b>blocking </b> problema koji se može pojaviti u HTTP pipeliningu.
+</p><p><b>Zahtjev prioriteta</b> – dok SPDY može poslužiti za smanjenje ukupnog vremena učitavanja stranice, jedna nuspojava stream multipleksiranja je da resurs kritične stranice može biti dostavljen sporije zbog istodobne isporuke manje kritičnih resursa. Da bi to spriječili, SPDY pruža način klijentima koji označava relativne prioritete za traženim resursima. Na primjer, ako JavaScript biblioteka traži u poretku za generiranje URL-ova za resurse dodatne stranice, klijent može zatražiti da biblioteka bude dostavljena s najvećim prioritetom tako da se ne drži do onih naknadno zahtjevanih. 
+</p><p><b>HTTP zaglavlje kompresije</b> – SPDY nalaže da HTTP zaglavlja budu kompresirana da bi smanjila broj prenesenih bajtova. HTTP kompresija zaglavlja je Internet standard, ali se ne koristi često dok Googleov SPDY to zahtjeva. To bi mogao biti prilično mali dobitak na odgovor zaglavlja, ali to može pružiti značajnu prednost na zahtjeve (koji u mnogim slučajevima su u cijelosti zaglavlja). Na primjer, svaki zahtjev od posebnog klijenta posebnom serveru uključuje identičan korisnički-agent string (koji može biti u više od 100 bajtova) i u nekim slučajevima isti kolačić je poslan u svakom zahtjevu. Chromovi i Firefox developeri su postigli približno 90% kompresije zaglavlja koristeći predloženu zlib kompresiju. To bi moglo omogućiti mnogo više zahtjeva upakiranih u svaki paket zahtjeva.
+</p><p>SPDY također ima dvije napredne značajke koje se mogu koristiti u određenim slučajevima[4]:
+</p><p>'<i><b>Push poslužitelj (eng. Server Push)'</b></i>
+Glavna razlika s obzirom na dosadašnji način rada interneta, jest da poslužitelj može također inicirati stream da bi poslao web resurse koje klijent uopće nije zatražio, a poslužitelj je prepoznao da mu trebaju. Očekuje se da će klijent 
+gurnuti resurse u <i>cache</i> i dohvatiti po potrebi. Ova funkcija se može koristiti i za guranje resursa za srodne stranice koje bi korisnik vjerojatno zatražio.
+</p><p><br />
+<b>Savjet poslužitelja (eng. Server Hint)</b>
+Server Hint je mehanizam gdje server može obavijestiti klijenta o resursima koji će biti potrebni prije nego ih klijent može otkriti. Server ne šalje cijeli sadržaj resursa,nego samo URL kao dio ranijeg dogovora. Klijent tada može potvrditi svoju cache memoriju (potencijalno čak eliminirajući potrebu za GET-if-modified-since) i formalno će zatražiti resurs samo ako je potrebno. Server Hint je implementiran korištenjem LINK zaglavlja s HTTP i preklapa se s postojećim semantikama veze. 
+Usporedna te divje napredne značajke prikazana je u tablici
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Push.jpg" class="image"><img alt="Push.jpg" src="../images/c/c4/Push.jpg" width="576" height="392" /></a></center>
+<center>Slika 2.2: Usporedba</center>
+<p>Za sigurniju komunikaciju SPDY/2 korisiti šifriranu (TLS) vezu. 
+</p><p>Razlozi su sljedeći [4]:
+</p><p><b>TLS (eng. Transport Layer Security)</b> radi tako da se poslužitelj i klijent dogovaraju o načinu šifriranja prije uspostavljanja veze.Umjesto da SPDY uvede novi URI(eng. Uniform Resource Identifier) spdy://URI, pomoću NPN-a (eng. Next Protocol Nefotiation) dopušta korištenje https:// URI i za klijente koji ne podržavaju SPDY kao što je Internet Explorer.
+</p><p><b>TLS prolazi kroz <i>firewall</i> i zaobilazi posrednike.</b> Mnogi HTTP zahtjevi obrađeni su transparentim <i>proxy-em</i>bez znanja korisnika. To može predstavljati problem za primjenu SPDY-a ako bude potrebno unaprijediti posrednike za novi protokol.
+</p><p><br />
+</p><p><b>Implementacija SPDY-a na poslužitelju</b>
+</p><p>Postoje mnoge implementacije SPDY-a na poslužitelju, međutim još su u fazi razvoja. Trenutno postoje dvije implementacije koje podržavaju SPDY/2. Prva je Chrome "FLIP poslužitelj" koja je također <i>opensource</i>, a služi za testiranje razlika između HTTP-a i SPDY-a. Druga je Javascrip implementacija <i>node-spdy</i> koja je razvijena na node.js. Također postoji i modul za Apache web poslužitelj i naziva se <i>mod_pagespeed</i> kojem je cilj automatski izvršiti optimizaciju na web aplikacijama. Trenutno SPDY koriste pretraživači Chrome, Mozilla Firefox i Opera. Također, Silk pretraživač na Amazon Kindle Fire tabletu koristi SPDY/2 da bi se spajao na Amazon BC2. Web stranice koje koriste SPDY su Facebook, Twitter, te svi Google-ovi servisi kao što su Gmail, Googledocs, Picasa, Google+ i Googleovo kodirano istraživanje.
+</p>
+<h1> <span class="mw-headline" id="Dva_sloja_SPDY_protokola"> Dva sloja SPDY protokola </span></h1>
+<p>HTTP koristi višestruka povezivanja za istodobnost i to uzrokuje probleme kao što su: vrijeme obilaska za uspostavljanje veze, kašnjenja sporog starta i racionalizacija veze od strane klijenta. Zbog toga SPDY dodaje <i>framing layer</i> za multipleksirane višestruke streamove koji se odvijaju istodobno preko jedne TCP veze. <i>Framing layer</i> je optimalan za aplikacije koje rade preko HTTP-a, a sada mogu raditi i preko SPDY uz minimalne ili nikakve izmjene.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="SPDY_Framing_Layer"> SPDY Framing Layer </span></h2>
+<p>SPDY <i>framing layer</i> (sesija) izvršava se na vrhu pouzdanog TCP protokola. Klijent je inicijator TCP veze.
+</p>
+<h3> <span class="mw-headline" id="Framing"> Framing </span></h3>
+<p>Nakon što je veza uspostavljena klijenti i poslužitelji razmjenjuju uokvirene poruke (eng. Framed messages). Postoje dvije vrste okvira, a to su: kontrolni i podatkovni. Zaglavlje je uobičajeno od 8 bajtova. Prvi je kontrolni bit koji upućuje na to koja je vrsta okvira, znači podatkovni ili kontrolni. U kontrolnom okviru nalazi se broj verzije, tip okvira, zastavice i duljina. Podatkovni okviri sadrže ID strujanja (ID stream), zastavice i duljinu <i>payloada</i>. 
+</p><p><b>Kontrolni okvir</b> [3]
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Control_frames.jpg" class="image"><img alt="Control frames.jpg" src="../images/0/03/Control_frames.jpg" width="354" height="120" /></a></center>
+<center>Slika 3.1: Kontrolni okvir</center>
+<p><br />
+Kontrolni bit: 'C' bit nagoviještava da li se radi o kontrolnoj poruci i u ovom sluačju ta vrijednost je uvijek 1. 
+</p><p>Verzija: broj verzije SPDY protokola, trenutno je zadnje verzija 3.
+</p><p>Vrsta kontrolnog okvira: SYN_STREAM, SYN_REPLAY, RST_STREAM, SETTINGS, PING, GOAWAY, HEADERS, WINDOW_UPDATE, CREDENTIAL.
+</p><p>Zastavice: Zastavice koje se odnose na kontrolni okvir i razlikuju se od podatkovnog.
+</p><p>Duljina: neododijeljena 24-bitna vrijednost koja predstavlja broj bajtova nakon polja duljine.
+</p><p>Podatak: dužina i oblik podatka ovise o vrsti kontrolnog okvira
+</p><p><b>Podatkovni okvir</b> [3]
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Data_frames.jpg" class="image"><img alt="Data frames.jpg" src="../images/2/2d/Data_frames.jpg" width="371" height="111" /></a></center>
+<center>Slika 3.2: Podatkovni okvir</center>
+<p>Kontrolni bit: za podatkovne okvire ova vrijednost je uvijk 0
+</p><p>Stream-ID: 31-bitna vrijednost identificira strujanje
+</p><p>Zastavice: 
+</p><p>0x01 = FLAG_FIN – označava da je taj okvir zadnji koji se prenosi tim strujanjem
+</p><p>0x02 = FLAG_COMPRESS – označava da su podaci u tom okviru kompresirani
+</p><p>Dužina: nedodijeljena 24-bitna vrijednost koja predstavlja broj bajtova nakon polja dužine. Ukupna veličina podatkovnog okvira je 8 bajtova + duljina. 
+</p><p>Podaci: varijabilna dužina <i>payloada</i> koja je definirana u polju dužine.
+</p>
+<h3> <span class="mw-headline" id="Stream"> Stream </span></h3>
+<p>Streamovi su nezavisne sekvence  dvosjmernih podataka podijljenih u okvire sa sljedećim svojstvima:
+</p><p>Mogu bit kreirani od strane klijenta kao i poslužitelja
+</p><p>Mogu nositi set zaglavlja parova ime/vrijednost 
+</p><p>Mogu istovremeno slati podatke izmjenično s drugim streamovima
+</p><p>Mogu biti otkazani
+</p><p><b>Stream okviri</b>
+Da bi SPDY upravljao životnim ciklusom streama definirana su 3 kontrolna okvira:
+</p><p>SYN_STREAM – otvara stream
+</p><p>SYN_REPLY – daljinsko saznanje o novom streamu
+</p><p>RST_STREAM – zatvara stream
+</p><p><br />
+<b>Stvaranje streama</b>
+</p><p>Stream se kreira slanjem kontrolnog okvira SYN_STREAM. Ako poslužitelj inicira stream tada Stream_ID mora biti paran, a ako je klijent tajkoji započinje tada Stream_ID mora biti neparan. Stvaranjem streama  sa svake strane veze Stream_ID obavezno mora rasti. Ako dođe do nepravilnosti primjerice da krajnja točka primi SYN_STREAM kojem je ID manji nego bilo koji prethodno primljeni SYN_STREAM tada mora izbaciti PROCOL_ERROR. Odmah nakon kreiranja streama šalje se  HEADERS ili DATA okvir, nije potrebno čekati primatelja da potvrdi.
+</p><p><b>Prioritet streama</b>
+</p><p>Onaj tko kreira stream odmah mu dodjeljuje i prioritet koji se kreće u rasponu od 0 do 7. 0 predstavlja najviši prioritet, a 7 najniži.
+</p><p><b>Izmjena podataka</b>
+</p><p>Nakon što je stream kreiran njime se može slati proizvoljan iznos podataka, tj. podaci će slati sve dok ne dođe okvir koji sadrži FLAG_FIN zastavicu. FLAF_FIN zastavica može biti postavljena na SYN_STREAM, SYN_REPLY, HEADERS i DATA okvirima. Nakon što je poslana FLAG_FIN zastavica, stream se smatra poluzatvorenim.
+</p><p><b>Poluzatvoreni stream</b>
+</p><p>Kada jedna strana pošalje okvir s postavljenom zastavicom FLAG_FIN tada se stream smatra poluzatvorenim. Pošiljatelj okvira s tom postavljenom zastavicom dalje ne smije slati okvire na taj stream, a kada su obje strane poluzatvorene tada je stream prekinut.
+</p><p><b>Zatvaranje streama</b>
+</p><p>Postoje tri različita načina na koji se stream može završiti:
+</p><p>Normalni završetak: kada obje strane imaju poluzatvoreni stream slanjem okvira sa FLAG_FIN zastavicom, stream je završen.
+</p><p>Isprekidani završetak: klijent i poslužitelj u bilo kojem trenutnu mogu poslati kontrolni okvir RST_STREAM koji sadrži kod pogreške i upozorava da nešto nije u redu. U slučaju da pošiljatelj šalje taj okvir on ukazuje da ne može dovršiti stream i da neće dalje slati podatke. Ako je RST_STREAM poslan od primatelja tada pošiljatelj opet treba prestati sa slanjem podataka.
+</p><p>Rušenje TCP veze: moguće je da dođe do problema s TCP vezom dok stream još nije završen, tada krajnja točka mora pretpostaviti da se dogodila neka neubičajena situacija i da stream neće biti potpun. 
+</p><p><b>Upravljanje problemima sesije</b>
+</p><p>Pogreške koje smetaju u oblikovanju framing layera ili koje mogu pokvariti stanje komprestije spadaju u probleme upravljanja sesijom. Kada se dogodi pogreška krajnja točka mora poslati GOAWAY okvir sa brojem posljednjeg streama udaljene krajnje točke  i kod pogreške koji objašnjava zašto je sesija prekinuta. Krajnja točka nakon slanja GOAWAY strema također mora zatvoriti TCP vezu. 
+</p><p><b>Upravljanje problemima streama</b>
+</p><p>Pogreške streama odnose se na posebne ID streama koje ne utječu na obradu drugih streamova u framing layeru. Ako se dogodi takva vrsta pogreške, krajnja točka mora poslati okvir RST_STREAM koji sadrži ID streama gdje se pogreška dogodila i status te pogreške. Nakon slanja RST_STREAMA stream je zatvorena za krajnju točku koja je slala podatke.
+</p><p><b>Protok podataka</b>
+</p><p>Putem TCP-a šalju se pojedinačni streamovi na kojima SPDY multipleksira više logičkih streamova, klijenti i poslužitelji moraju inteligentno izmjenjivati poruke za istodobne sesije.
+</p>
+<h3> <span class="mw-headline" id="Vrste_kontrolnih_okvira"> Vrste kontrolnih okvira </span></h3>
+<p><b>SYN_STREAM</b>
+</p><p><b>SYN_STREAM</b> kontrolni okvir dopušta pošiljatelju asinkrono kreiranje streama između krajnjih točaka. 
+</p><p><b>SYN_REPLY</b> ukazuje na prihvaćanje streama kreiranog od strane primatelja okvira SYN_STREAM.
+</p><p><b>RST_STREAM</b> omogućava nepravilna prekidanja streama. Ako je poslan od strane pošiljatelja ukazuje na to da on sam želi prekinuti stream, u suprotnom slučaju poslan je od primatelja i ukazuje da ne želi primiti podatke ili da se dogodila neka pogreška. 
+</p><p><b>PING</b> je kontrolni okvir koji služi za mjerenje minimalnog vremena obilaska (RTT) od pošialjtelja. Može biti poslan od klijenta i poslužitelja. Primatelji PING okvira trebaju što prije poslati identičan okvir pošilajtelju, tj. ako postoje neki drugi podaci na čekanju PING dobiva najviši prioritet. 
+</p><p><b>GOAWAY</b>  je kontrolni okvir koji ukazuje udaljenoj strani veze da prestane s kreiranjem streama za tu sesiju. Također može biti poslana od strane klijenta i poslužitelja. Svrha ove poruke je omogućiti krajnjoj točki da jednostavno prestane primati nove streamove, dok još uvijek procesira streamove koje je ranije uspostavila. Primjerice ako HTTP klijent šalje POST u isto vrijeme kada poslužitelj prekine vezu, klijent ne može znati da li je poslužitelj započeo s obradom POST zahtjeva, zbog toga poslužitelj šalje GOAWAY da bi pokazao da je prestao raditi.
+</p>
+<h2> <span class="mw-headline" id="HTTP_raslojavanje_preko_SPDY-a_.28eng._HTTP_Layering_over_SPDY.29"> HTTP raslojavanje preko SPDY-a (eng. HTTP Layering over SPDY) </span></h2>
+<p>SPDY je kompatibilan s trenutnim temeljnim web aplikacijama, tj. semantika zaglavlja zahtjev/odgovor je sačuvana iako je sintaksa prenesene semantike promijenjena. 
+</p><p><b>Korištenje GOAWAY</b>
+</p><p>GOAWAY poruka koju pruža SPDY se koristi kada se zatvara veza od strane klijenta ili servera. Bez GOAWAY poruke, HTTP ima situaciju gdje klijent šalje zahtjev (novi SYN_STREAM) u trenutku kada server zatvara vezu i tada klijent ne može znati da li je server primio stream ili ne. Server može ukazati klijentu da li je zahtjev obrađen ili nije korištenjem brojem zadnjeg streama (eng. last-stream-id). Neki poslužitelji mogu poslati GOAWAY i odmah prekinuti vezu bez čekanja završetka aktivnog streama. 
+</p><p>GOAWAY će koristiti poslužitelji koji žele jednostavan prekid, te će poslati GOAWAY kako bi osigurali vrijeme za završetak aktivnog streama prije okončanja veze. 
+</p><p>Ako SPDY klijent zatvara vezu, on isto mora poslati GOAWAY poruku. 
+</p><p>Ako ishod prekida veze nije primio daljinski SYN_STREAM, GOAWAY će sadržavati nulu kao broj zadnjeg streama. 
+</p><p><b>HTTP Zahtjev/Odgovor</b>
+</p><p><b>Zahtjev</b>
+</p><p>Slanjem SYN_STREAM okvira klijent inicira zahtjev. SYN_STREAM okvir postavlja FLAG_FIN za zahtjeve koji ne sadrže tijela, dok kod zahtjeva koji sadrže tijela ne postavlja. Da bi se naznačio kraj tijela, posljednji okviri će postaviti FLAG_FIN.
+</p><p>Poglavlje SYN_STREAM ime/vrijednost će sadržavati sva HTTP zaglavlja koja su povezana sa HTTP zahtjevom. SPDY blok zaglavlja je nepromijenjen u odnosu na HTTP blok zaglavlja sa sljedećim razlikama:
+</p><p>Prva linija zahtjeva se odvija u ime/vrijednost paru kao i druga HTTP zaglavlja i mora biti prisutna: 
+</p><p>„metoda“ – HTTP metoda za taj zahtjev (npr. „GET“, „POST“, „HEAD“, itd.)
+</p><p>„put“ – URL put za URL s prefiksom „/“. Npr. <a href="http://www.google.com/search?q=dogs" class="external free" rel="nofollow">http://www.google.com/search?q=dogs</a> gdje bi put bio „/search?q=dogs“.
+</p><p>„verzija“ – HTTP verzija ovog zahtjeva (npr. HTTP/1.1“)
+</p><p>Osim toga, sljedeće dva para ime/vrijednost također moraju biti predstavljeni u svakom zahtjevu. 
+</p><p>„:host“ – hostport dio URL-a za ovaj zahtjev (npr www.google.com:1234). Ovo zaglavlje je isto kao HTTP 'Host' zaglavlje. 
+</p><p>„shema“ – shema za URL zahtjev, npr. „https“
+</p><p>Korisnički agenti moraju podržavati gzip kompresiju, te poslužitelj uvijek mora poslati sadržaj kodiran s gzip. 
+</p><p><b>Odgovor</b>
+</p><p>Na klijentov zahtjev server odgovara SYN_REPLY okvirom. Podaci će biti poslani nakon SYN_REPLY okvira putem niza podatkovnih okvira, a posljednji podatkovni okvir će sadržavati FLAG_FIN koji ukazuje na uspješni kraj streama. 
+</p><p>Linija statusa odgovora se odvija u parovima ime/vrijednost kao i druga HTTP zaglavlja i moraju biti prisutni:
+</p><p>„.status“ – HTTP kod statusa odgovora (npr. „200“ ili „200 OK“)
+</p><p>„.version“ – the HTTP verzija odgovora (npr. „HTTP/1.1“)
+</p><p><b>Provjera</b>
+</p><p>Ako klijent šalje zahtjev na server koji zahtjeva provjeru, server može odgovoriti s odgovorom "401 neovlašteni" i uključiti zaglavlje koje definira shemu provjere koja će se koristiti. 
+</p><p>Postoje četiri opcije za proxy provjeru. Basic i Digest su stateless provjere što znači da su identične kao i kod obavljanja provjere preko HTTP-a. NTLM i Negotiate (SPNEGO) su razvijene od strane Microsofta te su stateful. 
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Usporedba_sa_HTTP-om"> Usporedba sa HTTP-om </span></h1>
+<p>Danas svima poznat pojam HTTP (Hyper Text Transfer Protocol) odnosi se na skup pravila za prijenos hipertekstualnih dokumenta između dva računala. Radi na principu zahtjev – odgovor. Računalo 'A' (klijent) uspostavlja vezu sa računalom 'B' (poslužitelj) tijekom koje zahtjeva neki sadržaj. Poslužitelj prima zahtjev i šalje ga klijentu. Taj način funkcionirao je već desetak godina, međutim današnje web stranice zahtijevaju puno veću propusnost (eng. latency) nego prije i tu je Google odlučio ponuditi brže rješenje.
+Značajke HTTP-a koje spriječavaju optimalne performanse: 
+Jedan zahtjev po vezi.HTTP može dohvatiti samo jedan resurs po vremenu, kašnjenje poslužitelja od 500 ms sprječava ponovno korištenje TCP protokola za dodatne zahtjeve. Pretraživači zaobilaze takav problem koristeći višestruka spajanja, od 2008. godine  većina pretraživača koristi 6 spajanja po domeni.
+</p><p>Poslužitelj ne može poslati zahtjev, već samo korisnik, čak i u slučaju kada zna da korisnik treba resurs. Poslužitelj može samo čekati da primi zahtjev od korisnika.
+</p><p>Nekompresirani zahtjevi i zaglavlja odgovora. Zaglavlje zahtjeva variva od 200 bajta do preko 2KB. Danas web stranice koriste jako puno kolačića i korisničkih agenata stoga je 700 – 800 B tipična veličina zaglavlja. Smanjenjem podataka u zaglavlju može se utjecati na propusnost pri slanju zahtjeva.
+</p><p>Suvišna zaglavlja. Postoje zaglavlja koja se neprestano šalju, a to je nepotrebno. Primjerice, zaglavlja korisničkog agenta, poslužitelja i primitka su generalno statična i ne treba ih ponovno slati. 
+</p><p>Sadržaj uvijek treba slati u kompresiranom formatu, a kod HTTP je to opcionalno.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="HTTP.2F2.0"> HTTP/2.0 </span></h1>
+<p>Iz prethodnog poglavlja vidljiva su ograničenja HTTP kojeg poznajemo i zato tim Hypertext Protocol Bis (httpbis) iz IEFT (Internet Engineering Task Force) radi na njegovom nasljedniku. HTTP 2.0. mora bit performansama bolji od starog, ali semantika i kompatibilnost s postojećim aplikacijama ostaju iste. 
+</p><p>Očekuje se da će HTTP 2.0:
+</p><p>U većini slučajeva znatno i mjerljivo poboljšati percipirajuću latentnost krajnjeg korisnika, preko HTTP 1.1 koristeći TCP
+Rješavanje HOL blokiranja (head of line blocking) u HTTP-u
+</p><p>Ne zahtijeva višestruka spajanja na poslužitelj da bi omogućio usporednost, tako poboljšava iskoristivost TCP-a, pogotovo s obzirom na kontrolu zagušenja. 
+</p><p>Zadržava semantiku HTTP 1.1., koristeći postojeću dokumentaciju, uključujući HTTP metode, status kodove, URI-ove i ako je moguće polja zaglavlja
+</p><p>Za novu inačicu HTTP-a, osim Google-a i Microsoft je ponudio rješenje koje je slično SPDY-u, ali s dodatkom za aplikacije i mobilne uređaje. Generalno, Google-ov glavni cilj je SPDY-jem ubrzati učitavanje web stranica, a Microsoft tvrdi da to nije jedino što se može unaprijediti. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Microsoft_HTTP_Speed.2BMobility"> Microsoft HTTP Speed+Mobility </span></h2>
+<p>Sa HTTP Speed+Mobility žele ukazati na neke druge probleme kao što je trajnost baterije mobilnih uređaja i trošak propusnosti internet veze koji igraju veliku ulogu u Windows 8. Primjerice Push poslužitelj (Server Push) je jedan od zadanih svojstava SPDY-a a to bi moglo smetati uređajima koji koriste internetsku vezu s ograničenim prometom, stoga predlažu da se takva svojstva dodaju kao ekstenzije umjesto da su zadana u HTTP 2.0 specifikacijama. 
+</p><p>Protokol obuhvaća četiri dijela:[6] 
+</p><p>1. Pregovaranje - uspostavljanje veze (eng. Handshake)je WebSocker Upgrade s dodatnim zaglavljima
+</p><p>2. Sloj veze - definira održavanje i <i>framing</i> HTTP Speed+Mobility veze kao što je definirano u WebSocket ekstenziji
+</p><p>3. Multipleksiranje unutar sesije:definira framing i održavanje za višestruke HTTP zahtjeve preko jedne HTTP Spees+Mobility veze. Taj prijedlog je preuzet iz SPDY-a.
+</p><p>4. Stvaranje slojeva u HTTP-u: jednako kao u SPDY
+</p><p><br />
+WebSocket protokol osigurava osnovni model za uspostavljanje dvostrane veze između klijenta i poslužitelja. To je mehanizam za uspostavljanje veze između klijenta i poslužitelja i opcionalno osigurava vezu TLS-om. Također i set kontrolnih poruka za  odražavanje veze (PING-PONG) kao i za zatvaranje (CLOSE).
+</p><p><b>U njihovom prijedlogu navodi se sljedeće:</b>
+</p><p>Zadržavanje postojeće HTTP semantike kao i postojećeg načina zahtjev/odgovor. Svaka promjena treba biti dodana kao ekstenzija
+</p><p>Zadražva integritet slojevite arihtekture
+</p><p>Korisiti postojeće standarde kada je to lakše za protokol koji radi s trenutnom web infrastrukturom  uključujući switch, rutere, proxy, load balancers, sustave sigurnosti, DNS poslužitelje i NAT. Primjerice predlažu ponovnu upotrebu WebSocket rukovanja i framing mehanizama za uspostavljanje dvosmjerne veze koja je kompatibilna s postojećim proxy poslužiteljima i modelima povezivanja.
+</p><p>Biti široko primjenjiv i fleksibilan kao i trenutni protokol te zadržati kontrolu klijenta nad sadržajem. Primjerice nije nužno koristiti TLS ili kompresiju, već to daju na izbor korisniku ovisno o njegovim komunikacijskim potrebama i sigurnosti.
+</p><p>Računaju na potrebe klijenata moderinh tehnologija, uključujući efikasno korištenje energije i internetsku vezu s ograničenim pristupom.
+</p><p><br />
+Može se zaključiti da zaista postoje velike sličnosti između Microsoftovog i Googleovog prijedloga. Primjerice za većinu <i>framing layera</i> imaju istu sintaksu SYN_STREAM, SYN_RESET, SYN_REPLAY, HEADERS itd.
+</p>
+<h1> <span class="mw-headline" id="Primjer:_SPDY_performanse_na_mobilnim_mre.C5.BEama"> Primjer: SPDY performanse na mobilnim mrežama </span></h1>
+<p>U istraživanju je korišteno:[6]
+</p><p>Mobitel i pretraživač: Chrome za Android ima SPDY verziju 2 i trenutno je jedini mobilni pretraživač koji podržava SPDY. Na mobitelu je instalirana Android 4.0 verzija softvera poznatija pod imenom<i> Ice Cream Sandwich</i>, a model mobitela je Samusng Galaxy Nexus. Za potrebe istraživanja korišten je Chromov <i>remote debugging interface</i> koji pokreće pretraživač na mobitelu, čisti <i>cache</i> i druga stanja, inicira učitavanje web stranice i prima Chrome developer tools poruke  za određivanje vremena učitavanja stranica i druga mjerenja performansi.
+</p><p>Mjerene web stranice: izabrano je 77 URL-ova sa 31 poznate web stranice. Da bi osigurali da će mobitel svaki put dohvatiti isti sadržaj koristili su Web Page Replay.
+</p><p>Konfiguracija poslužitelja: potrebno je koristiti poslužitelj koji podržava SPDY, pa je za potrebe ovog istraživanja upotrjebljen interni Googleov poslužitelj Google Front End. GFE i Web Page Replay poslužitelj odvijali su se na različitim Linux stolnim računalima unutar iste LAN mreže. Sav sadržaj web stranica je bio spremljen na lokalnom serveru kako bi se eliminirali dodatni izvori propusnosti. Mobitelova /etc/host datoteka je modificirana da vraća IP GFE poslužitelja za sva traženja domene, posebno izolirajući mobitel i stolno računalo od Interneta. Istraživanje nije uključivalo stvarno DNS vrijeme traženja.
+</p><p>Nepromijenjeni mrežni uvjeti: da bi smanjili varijabilnost vremena učitavanja web stranica, mobiteli su bili povezani USB-om na stolno računalo, a Dummynet-om su mjereni efekti učitavanja. Simulirana je 3G mreža sa bandwithom od 1 Mbps prema mreži, a 2 Mbps sa mreže i RTT-om od 150 ms.  
+</p><p>Skupljanje podataka: za svako učitavanje snimano je vrijeme učitavanja stranice zabilježeno u pretraživaču, kao i detaljno praćenje Chrome remote debug poruka koje su korištene za rekonstrukciju waterfalla vremena učitavanja svake stranice. 
+</p><p>Gornja konfiguracija je prikazana na slici
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pm.jpg" class="image"><img alt="Pm.jpg" src="../images/6/6b/Pm.jpg" width="844" height="174" /></a>
+</p><p><br />
+Istraživanje se odvijalo u dvije postavke:
+</p><p>1. SPPY: dohvaća 77 URL-ova preko GFE-a koristeći SPDY
+</p><p>2. HTTP: dohvaća 77 URL-ova preko GFE koristeći HTTP
+</p><p>SPDY koristi jednu SSL konekciju po domeni, dok HTTP koristi višestruke paralelne konekcije da bi dohvatio resurse sa poslužitelja.
+</p><p>Graf pokazuje vrijeme učitavanja za svih 77 web stranica koristeći HTTP i SPDY. Gotovo u svim slučajevima SPDY je brži nego HTTP, vrijeme učitavanja smanjilo se za oko 23%
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Usporedba1.jpg" class="image"><img alt="Usporedba1.jpg" src="../images/6/6c/Usporedba1.jpg" width="867" height="582" /></a>
+</p><p>Graf pokazuje prosječno smanjeno vrijeme učitavanja stranica SPDY-em za svaku mjerenu web streanicu.  
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Reduction.jpg" class="image"><img alt="Reduction.jpg" src="../images/4/4a/Reduction.jpg" width="939" height="588" /></a>  
+</p><p>Vidljivo da je ostvarena ušteda učitavanje web stranica mobilnom mrežom 3G, naravno da postoje uvjeti na koje se ne može utjecati ali smanjenje učitavanja od 23% nije zanemarivo.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Primjer_2"> Primjer 2 </span></h1>
+<p>Pomoću Googleovog alata Benchmark Page Load time, ispitali smo brzinu učitavanja stranice www.twitter.com za koju znamo da podržava SPDY.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Page.jpg" class="image"><img alt="Page.jpg" src="../images/6/60/Page.jpg" width="976" height="483" /></a>
+</p><p>Na slici je vidljivo da je stranica www.twiter.com učitana 10 puta. Alatom se mogu testirati samo stranice koje podržavaju SPDY, stoga su rezultati testiranja približni. 
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>[1] <a href="https://developers.google.com/speed/articles/spdy-for-mobile" class="external free" rel="nofollow">https://developers.google.com/speed/articles/spdy-for-mobile</a>
+</p><p>[2] <a href="http://tools.ietf.org/html/draft-ietf-httpbis-http2-00#section-2.2.2" class="external free" rel="nofollow">http://tools.ietf.org/html/draft-ietf-httpbis-http2-00#section-2.2.2</a>
+</p><p>[3] <a href="http://www.chromium.org/spdy/spdy-whitepaper" class="external free" rel="nofollow">http://www.chromium.org/spdy/spdy-whitepaper</a>
+</p><p>[4] <a href="http://tools.ietf.org/html/draft-white-httpbis-spdy-analysis-00" class="external free" rel="nofollow">http://tools.ietf.org/html/draft-white-httpbis-spdy-analysis-00</a>
+</p><p>[5] <a href="http://blogs.msdn.com/b/interoperability/archive/2012/03/25/speed-and-mobility-an-approach-for-http-2-0-to-make-mobile-apps-and-the-web-faster.aspx" class="external free" rel="nofollow">http://blogs.msdn.com/b/interoperability/archive/2012/03/25/speed-and-mobility-an-approach-for-http-2-0-to-make-mobile-apps-and-the-web-faster.aspx</a>
+</p><p>[6] <a href="http://tools.ietf.org/html/draft-montenegro-httpbis-speed-mobility-02" class="external free" rel="nofollow">http://tools.ietf.org/html/draft-montenegro-httpbis-speed-mobility-02</a>
+</p>
+<h1> <span class="mw-headline" id="Podjela_posla"> Podjela posla </span></h1>
+<p>Jelena Jelinić: SPDY dizajn i svojstva, SPDY Framing Layer, HTTP 2.0, Microsoft HTTP Speed+Mobility, Primjer
+</p><p>Nikolina Magdić:Uvod,SPDY dizajn i svojstva, HTTP raslojavanje preko SPDY-a, Usporedba sa HTTP-om, Primjer
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 59/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4385-0!*!0!!hr!2!edit=0 and timestamp 20190203204054 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="SPDY_-_dizajn,_prednosti_i_mane.html">http://security.foi.hr/wiki/index.php/SPDY_-_dizajn,_prednosti_i_mane</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=SPDY_-_dizajn,_prednosti_i_mane" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="SPDY_-_dizajn,_prednosti_i_mane.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:SPDY_-_dizajn,_prednosti_i_mane&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="SPDY_-_dizajn,_prednosti_i_mane.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="SPDY_-_dizajn,_prednosti_i_mane.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=SPDY_-_dizajn,_prednosti_i_mane&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=SPDY_-_dizajn,_prednosti_i_mane&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="SPDY_-_dizajn,_prednosti_i_mane.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/SPDY_-_dizajn,_prednosti_i_mane" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/SPDY_-_dizajn,_prednosti_i_mane" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=SPDY_-_dizajn,_prednosti_i_mane&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=SPDY_-_dizajn,_prednosti_i_mane&amp;oldid=17173" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:39, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 7.131 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "SPDY_-_dizajn,_prednosti_i_mane", "wgTitle": "SPDY - dizajn, prednosti i mane", "wgAction": "view", "wgArticleId": 4385, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17173, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.359 secs. -->			</body>
+</html>

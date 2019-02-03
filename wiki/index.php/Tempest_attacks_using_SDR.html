@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Tempest attacks using SDR - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Tempest_attacks_using_SDR&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Tempest_attacks_using_SDR skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Tempest attacks using SDR</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Tempest_attacks_using_SDR.html#mw-head">orijentacija</a>,
+					<a href="Tempest_attacks_using_SDR.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirali: Ivan Oršolić, Patrik Dolovski.
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Tempest_attacks_using_SDR.html#SDR"><span class="tocnumber">1</span> <span class="toctext">SDR</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Tempest_attacks_using_SDR.html#TEMPEST"><span class="tocnumber">2</span> <span class="toctext">TEMPEST</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Tempest_attacks_using_SDR.html#Kori.C5.A1tena_oprema"><span class="tocnumber">3</span> <span class="toctext">Korištena oprema</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Tempest_attacks_using_SDR.html#HDSDR"><span class="tocnumber">4</span> <span class="toctext">HDSDR</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Tempest_attacks_using_SDR.html#TempestSDR"><span class="tocnumber">5</span> <span class="toctext">TempestSDR</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Tempest_attacks_using_SDR.html#Video"><span class="tocnumber">6</span> <span class="toctext">Video</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="SDR"> SDR </span></h2>
+<p>Software-defined radio je koncept u kojem je RF komunikacija u obliku procesiranja signala postignuta softverskim putem umjesto klasičnog hardverskog. Software-defined radio, kao sam uređaj, je RF komunikacijski sistem koji implementira taj softver u svrhu procesiranja signala. Takav uređaj sposoban je primati i odašiljati radiovalove isključivo na temelju korištenog softvera. 
+</p><p>Idealni SDR prijemnik sastoji se od antene, AD konvertera spojenog na antenu, procesora digitalnog signala (DSP) koji čita izlaz konvertera te softvera koji bi to dalje obrađivao prema potrebi korisnika. U slučaju odašiljača proces je obrnut, DSP generira niz podataka koji se šalju DA konverteru koji je spojen na antenu.
+</p><p><b>Prijemnik</b>
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prijemnik.PNG" class="image"><img alt="Prijemnik.PNG" src="../images/thumb/5/5d/Prijemnik.PNG/600px-Prijemnik.PNG" width="600" height="104" /></a></p>
+<p><b>Odašiljač</b>
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Odasiljac.PNG" class="image"><img alt="Odasiljac.PNG" src="../images/thumb/f/f2/Odasiljac.PNG/600px-Odasiljac.PNG" width="600" height="128" /></a></p>
+<p>Zbog tehnoloških ograničenja idealni SDR je neizvediv, te zbog toga većina prijemnika u praksi ima miješalo, lokalni oscilator i filter signala čijim djelovanjem dobivamo međufrekvencijski signal koji se tada konvertira u digitalni signal. 
+</p><p><b>Povijest SDR-a</b>
+</p><p>Sam koncept SDR-a datira još iz 70ih godina prošlog stoljeća, često spomenut u kontekstu američkih i europskih obrambenih snaga. Unatoč razvijanju koncepta 70ih pretpostavlja se da je prvi SDR konstruiran 1988. godine od strane njemačkih inženjera Petra Hoehera  i Helmutha Langa u njemačkom centru za zračno-kosmički prostor.
+</p><p>Jedna od prvih javnih SDR inicijativa je američki vojni projekt kodnog naziva SpeakEasy. Cilj je bio emulirati 10 vojnih radija u rasponu od 2Mhz do 2Ghz te postići komunikaciju između pješadije, mornarice, zrakoplovnih snaga i satelita. Nekoliko godina kasnije prerađena verzija SpeakEasy sustava postaje JTRS (Joint Tactical Radio System) koji je danas u upotrebi američke vojske.
+</p><p><b>Trenutna primjena</b>
+</p><p>SDR primarno svoju svrhu nalazi u vojsci u prethodno spomenutom projektu JTRS. Za amatersku uporabu postoje gotova SDR rješenja kao što su Zeus ZS-1, HackRF One i SoftRock SDR. 
+Jeftinija alternativa SDR prijemnika su DVB-T USB prijemnici koji koriste <a href="http://superkuh.com/rtlsdr.html" class="external text" rel="nofollow"><b>Realtekov RTL2832U kontroler te Micro R820T tuner</b></a> koji nam omogućava raspon frekvencije od 24 do 1766MHz što pokriva veći dio UHF(Ultra High Frequency) spektra. Uz pomoć takvog prijemnika, dalje u projektu, biti će izvedena tehnička implementacija TEMPEST napada.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="TEMPEST">TEMPEST</span></h2>
+<p>Telecommunications Electronics Material Protected from Emanating Spurious Transmissions ili skraćeno TEMPEST je kodni naziv za projekt američke nacionalne sigurnosne agencije (NSA) koji se odnosi na prikupljanje podataka informacijskih sustava na temelju propuštanja prilikom emanacije, a  uključuje propuštanje radiovalova, električnih signala, zvukova i vibracija. U projekt su uključene metode prikupljanja podataka od drugih te metode obrane od istih. Detalji i specifikacije projekta opisani su u klasificiranim dokumentima <a href="https://cryptome.org/jya/nacsim-5000/nacsim-5000.htm" class="external text" rel="nofollow"><b>NACSIM 5000/5100A</b></a>.
+</p><p><b>Primjena</b>
+</p><p>- <a href="https://cryptome.org/emr.pdf" class="external text" rel="nofollow"><b>Wim van Eck (1985.)</b></a> prisluškivanje CRT monitora s opremom u vrijednosti od 15$ i tv prijemnikom  
+</p><p>- <a href="http://www.foo.be/docs-free/tempest/optical_tempest.pdf" class="external text" rel="nofollow"><b>Prisluškivanje LED indikatora na modemima</b></a>  
+</p><p>- <a href="https://www.blackhat.com/presentations/bh-usa-09/BARISANI/BHUSA09-Barisani-Keystrokes-SLIDES.pdf" class="external text" rel="nofollow"><b>Prisluškivanje radijacije pritiskanja tipki na žićnim i bežićnim tipkovnicama</b></a> 
+</p><p>- <a href="https://arxiv.org/ftp/arxiv/papers/1411/1411.0237.pdf" class="external text" rel="nofollow"><b>AirHopper</b></a>, keylogger koji koristi radio frekvencije (FM) za slanje podataka s izoliranog računala na smartphone napadača  
+</p><p>- <a href="http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=7243739" class="external text" rel="nofollow"><b>BitWhisper</b></a>, napad na izolirana računala temeljen na interpretaciji fluktuacija temperature 
+</p><p>- <a href="https://www.usenix.org/node/190937" class="external text" rel="nofollow"><b>GSMem</b></a>, eksfiltracija podataka izoliranih računala preko GSM, UMTS I LTE frekvencija koristeći zračenje memorijske sabirnice 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Kori.C5.A1tena_oprema"> Korištena oprema </span></h2>
+<p>Za izradu ovog projekta, koristili smo sljedeću opremu:
+</p><p>- HackRF One SDR prijemnik
+</p><p>- RTL2832 prijemnik
+</p><p>- IBM Thinkvision monitor
+</p><p>- NFREN 171M monitor
+</p><p>- Axil TV/FM 36dB sobna antena C (AN0256L)
+</p><p><br />
+<b>HackRF One</b>
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hackrf.jpg" class="image"><img alt="Hackrf.jpg" src="../images/thumb/5/57/Hackrf.jpg/600px-Hackrf.jpg" width="600" height="449" /></a></p>
+<p><a href="https://greatscottgadgets.com/hackrf/" class="external text" rel="nofollow"><b>HackRF One</b></a> je SDR uređaj koji može odašiljati i primati radio signale u rasponu od 1 MHz do 6 GHz. Dizajniran je kako bi omogućio testiranje i razvoj modernih i audio tehnologija sljedećih generacija. HackRF je hardverska platforma otvorenog koda koja se može koristiti kao USB periferni uređaj ili se može programirati za samostalne operacije.
+</p><p><b>RTL2832</b>
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rtl2832.jpg" class="image"><img alt="Rtl2832.jpg" src="../images/thumb/f/f2/Rtl2832.jpg/600px-Rtl2832.jpg" width="600" height="449" /></a></p>
+<p><a href="https://www.alibaba.com/product-detail/Latest-DVB-T-MPEG4-USB-TV_657951957.html" class="external text" rel="nofollow"><b>RTL2832</b></a> je SDR uređaj koji može odašiljati i primati radio signale u rasponu od 24MHz do 1766 MHz (1850MHz sa eksperimentalnim driverima). Iako je dizajniran kako bi korisnicima omogućio gledanje DVB-T TV kanala, te slušanje FM/AM radio stanica, budući da se može koristiti za različite frekvencije i kanale u raznim zemljama diljem Europe, možemo ga koristiti kao SDR pomoću kojega primamo i odašiljemo radio signale koristeći programsku podršku otvorenog koda.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rtl2832diss.jpg" class="image"><img alt="Rtl2832diss.jpg" src="../images/thumb/a/aa/Rtl2832diss.jpg/600px-Rtl2832diss.jpg" width="600" height="295" /></a></p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Realtek.jpg" class="image"><img alt="Realtek.jpg" src="../images/thumb/0/06/Realtek.jpg/450px-Realtek.jpg" width="450" height="253" /></a>
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dvbtuner.jpg" class="image"><img alt="Dvbtuner.jpg" src="../images/thumb/8/86/Dvbtuner.jpg/450px-Dvbtuner.jpg" width="450" height="253" /></a></p>
+<p>Rastavljajući DVB-T Tuner možemo potvrditi da koristi Realtekov <a href="http://www.realtek.com.tw/products/productsView.aspx?Langid=1&amp;PFid=35&amp;Level=4&amp;Conn=3&amp;ProdID=257" class="external text" rel="nofollow">RTL2832U</a> DVB-T COFDM demodulator, te da koristi <a href="http://radioaficion.com/cms/r820t-rafael-micro/" class="external text" rel="nofollow">Rafael Micro R820T/2</a>  tuner
+</p><p><b>Axil AN0256L</b>
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Antena.jpg" class="image"><img alt="Antena.jpg" src="../images/thumb/8/8b/Antena.jpg/600px-Antena.jpg" width="600" height="802" /></a></p>
+<p><a href="http://engelaxil.hr/proizvodi/antenska-oprema/sobne-antene/axil-tvfm-36db-sobna-antena-c-26/" class="external text" rel="nofollow"><b>Axil AN0256L</b></a> je aktivna sobna antena sa pojačivačem i koaksijalnim konektorom koju smo koristili zajedno sa RTL2832 prijemnikom. 
+Antena posjeduje LTE zaštitu (od upada kanala 61-69 namjenjenih mobilnim broadband servisima). Raspon frekvencija antene je od 40 do 862 MHz, a izlazna impedancija je 75 Ω.
+</p>
+<h2> <span class="mw-headline" id="HDSDR"> HDSDR </span></h2>
+<p>High Definition Software Defined Radio (HDSDR) je besplatni Software Defined Radio program za Microsoft Windows operacijske sustave, koji je napredna verzija Winrad-a od Alberta di Bene. 
+Najčešća primjena ovog programa je slušanje radija, slušanje kratkotalasnih radio emitiranja (SWL), radio astronomija, hvatanje ne-direkcionalnih radio odašiljača (NDB hunting) te analiza čitavog radio spektra. 
+U sklopu ovog projekta, HDSDR je korišten za otkrivanje frekvencija na kojima postoje nenamjerna zračenja računalnih monitora (putem kabla).
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hdsdr.gif" class="image"><img alt="Hdsdr.gif" src="../images/e/ea/Hdsdr.gif" width="480" height="250" /></a></p>
+<p><b>Postavke HDSDR-a</b>
+</p><p>Budući da ne želimo dekodirati signal, nego ga vidjeti u sirovom obliku prilikom promjene slike na monitoru, način signala smo postavili na Continuous Wave (CW). 
+Spektar koji gledamo je maksimalno udaljen, kako bi što veći raspon signala stao na ekran, te je brzina očitavanja uzoraka (Sample Rate) povećana na maksimum, kako bi sa što većom rezolucijom uočili promjenu u emisiji radio valova.
+Gain na RTL2832 prijemniku je postavljen na +16.5dB, dok je na aktivnoj anteni postavljen na cca. 50%. Ove vrijednosti su određene na temelju pokušaja i pogrešaka, te se razlikuju od uređaja do uređaja.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hdsdr1.png" class="image"><img alt="Hdsdr1.png" src="../images/3/31/Hdsdr1.png" width="469" height="339" /></a></p>
+<p>Na sljedećoj slici možemo vidjeti promjenu u emisiji radijacije monitora putem VGA kabla izazvanu promjenom slike na monitoru. Na monitoru je u razdoblju od 9:10:17 PM do 9:10:19 prikazan "checkerboard" uzorak, a u ostalim razdobljima prazan prozor web preglednika. <b>Inkrementalno skenirajući raspon valnih duljina od 200 MHz do 800 MHz, na frekvenciji između 332 MHz do 333 MHz uočena je korelacija promjene nenamjernih emisija radiovalova sa promjenom prikazane slike na monitoru, sa vrhovima udaljenima u intervalima od 600 KHz.</b>
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hdsdr2.png" class="image"><img alt="Hdsdr2.png" src="../images/2/25/Hdsdr2.png" width="1920" height="545" /></a></p>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="TempestSDR"> TempestSDR </span></h2>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tempest.gif" class="image"><img alt="Tempest.gif" src="../images/c/c6/Tempest.gif" width="480" height="270" /></a></p>
+<p><a href="https://github.com/martinmarinov/TempestSDR" class="external text" rel="nofollow">TempestSDR</a> je software toolkit za udaljeno prisluškivanje monitora koristeći SDR prijemnik. Rasterski video se prenosi putem kabla povezanog na monitor, jednu po jednu liniju piksela, enkodiranu kao izmjenični napon. Taj napon generira elektromagnetske valove koje SDR prijemnik može „pokupiti“. Ovaj software mapira jačinu primljenog polja piksela na nijansu sivog tona u realnom vremenu. To stvara lažnu procjenu boje originalnog video signala.
+</p><p>Ovaj toolkit koristi komercijalno dostupne SDR prijemnike koje je veoma lako pribaviti te primijeniti bez mnogo prethodnog znanja o ovoj vrsti napada. Sve parametre poput rezolucije i frekvencije osvježivanja slike je moguće procijeniti pomoću softvera.
+</p><p><b>Izvođenje napada</b>
+</p><p>Koristeći TempestSDR alat, te ranije otkrivenu frekvenciju koristeći HDSDR, pokušati ćemo rekonstruirati sljedeću sliku sa monitora koristeći nenamjerne emisije koje dolaze iz VGA kabla kojim je monitor spojen na računalo.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Monitor.jpg" class="image"><img alt="Monitor.jpg" src="../images/thumb/0/0e/Monitor.jpg/600px-Monitor.jpg" width="600" height="449" /></a></p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tempest1.png" class="image"><img alt="Tempest1.png" src="../images/5/54/Tempest1.png" width="606" height="475" /></a></p>
+<p>Na slici iznad možemo vidjeti kako je rekonstrukcija djelomično nepotpuna u gornjem lijevom kutu, te da u određenoj količini "putuje" slijeva na desno. Razlog tomu je netočno podešen FPS (odnosno refresh rate) te loša prijemnik. Budući da monitor prikazuje sliku u rezoluciji 1280x1024, brzinom od 75Hz, sa dubinom boje od 24 bita, možemo pretpostaviti da će se "najbolje" zračenje nalaziti na frekvenciji od 2.359 GHz (1280x1024x75x24 = 2359296000 Hz), ali RTL2832 nažalost ne podržava frekvencije iznad 2GHz. Druga najbolja odluka se nalazila na 332-333 GHz, te zbog lošije antene i postojanja šuma uzrokuje šetanje slike koje vidimo na slici iznad.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Video"> Video </span></h2>
+<p><a href="https://www.youtube.com/watch?v=Ko7t8iYCyAk&amp;feature=youtu.be" class="external text" rel="nofollow">HDSDR traženje frekvencije nenamjernih emisija</a>
+</p><p><a href="https://www.youtube.com/watch?v=0ynSjI8l49M&amp;feature=youtu.be" class="external text" rel="nofollow">TempestSDR napad</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 36/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9865-0!*!0!!hr!2!edit=0 and timestamp 20190203204126 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Tempest_attacks_using_SDR.html">http://security.foi.hr/wiki/index.php/Tempest_attacks_using_SDR</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Tempest_attacks_using_SDR" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Tempest_attacks_using_SDR.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Tempest_attacks_using_SDR&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Tempest_attacks_using_SDR.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Tempest_attacks_using_SDR.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Tempest_attacks_using_SDR&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Tempest_attacks_using_SDR&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Tempest_attacks_using_SDR.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Tempest_attacks_using_SDR" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Tempest_attacks_using_SDR" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Tempest_attacks_using_SDR&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Tempest_attacks_using_SDR&amp;oldid=43681" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 18:46, 6. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 227 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Tempest_attacks_using_SDR", "wgTitle": "Tempest attacks using SDR", "wgAction": "view", "wgArticleId": 9865, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43681, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.413 secs. -->			</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Konfiguracija i zaštita lokalne mreže - DD-WRT - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Konfiguracija i zaštita lokalne mreže - DD-WRT</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#mw-head">orijentacija</a>,
+					<a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#Konfiguracija_lokalne_mre.C5.BEe_i_firewall_konfiguracija"><span class="tocnumber">1</span> <span class="toctext">Konfiguracija lokalne mreže i firewall konfiguracija</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#DD-WRT_.E2.80.93_prilago.C4.91eni_firmware_za_be.C5.BEi.C4.87ne_routere"><span class="tocnumber">2</span> <span class="toctext">DD-WRT – prilagođeni firmware za bežićne routere</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#DD-WRT_-_Postavljanje_mre.C5.BEe"><span class="tocnumber">3</span> <span class="toctext">DD-WRT - Postavljanje mreže</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#DD-WRT_-_Konfiguracija_naprednih_postavaka_i_firewall-a"><span class="tocnumber">4</span> <span class="toctext">DD-WRT - Konfiguracija naprednih postavaka i firewall-a</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#DD-WRT_-_Zasebna_virtualna_mre.C5.BEa"><span class="tocnumber">5</span> <span class="toctext">DD-WRT - Zasebna virtualna mreža</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Konfiguracija_lokalne_mre.C5.BEe_i_firewall_konfiguracija"> Konfiguracija lokalne mreže i firewall konfiguracija </span></h2>
+<p>Student: Nino Cerovec, 44444/15-R
+</p><p>Mentor: Doc. dr. sc. Tonimir Kišasondi
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Firewall-configuration.jpg" class="image"><img alt="Firewall-configuration.jpg" src="../images/0/00/Firewall-configuration.jpg" width="400" height="300" /></a></div></div>
+<p>Konfiguriranje lokalne mreže i firewall-a na DD-WRT firmware sustavu.
+Određivanje podmreža, razdvajanje prometa i definiranje ograničenja mrežnog prometa.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nino.cerovec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nino.cerovec (stranica ne postoji)">Nino.cerovec</a> 15:38, 12. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="DD-WRT_.E2.80.93_prilago.C4.91eni_firmware_za_be.C5.BEi.C4.87ne_routere"> DD-WRT – prilagođeni firmware za bežićne routere </span></h2>
+<p>Privatnu lokalnu mrežu možemo jeftino i kvalitetno konfigurirati koristeći router koji već posjedujemo, ako on podržava DD-WRT firmware. DD-WRT je besplatan linux firmware za bežične routere koji omogućava mnogo više funkcionalnosti (u granicama hardware mogućnosti) od originalnog (tvorničkog) firmware-a kućnih routera. Osim toga, pruža jednostavno rukovanje pomoću web grafičkog sučelja i podržava velik broj kućnih routera (baza podržanih routera nalazi se na DD-WRT web stranicama - <a href="http://www.dd-wrt.com/site/support/router-database" class="external free" rel="nofollow">http://www.dd-wrt.com/site/support/router-database</a>). Može se reći da je router koji koristi DD-WRT - „supercharged“ router. Kako bi instalirali (flash) DD-WRT na vlastiti router najlakše je slijediti neke od online uputa za instalaciju specifičnih za model vašeg router-a, a službene upute nalaze se na adresi: <a href="http://www.dd-wrt.com/wiki/index.php/Installation" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Installation</a>. Prije instalacije dobro je napraviti sigurnosnu kopiju (backup) router postavaka i tvorničkog software-a. Važno je napomenuti da svaka pogreška prilikom instalacije prilagođenog (modificiranog) firmware-a može uzrokovati (trajno i moguće nepopravljivo) oštećenje (kvar), što znači da će vaš router postati komad nefunkcionalnog hardware-a. DD-WRT dolazi s dvije instalacijske .bin datoteke, kod upgrade-a ili downgrade-a DD-WRT firmware-a potrebno je učitati obije datoteke (prvo factory-to-ddwrt.bin i zatim *-webflash.bin). Kad instaliramo DD-WRT možemo pristupiti postavkama routera na adresi: <a href="http://192.168.1.1" class="external free" rel="nofollow">http://192.168.1.1</a>, gdje na početku trebamo odrediti korisničko ime i lozinku za pristupanje routeru. Firmware trebamo spremiti lokalno kako bi ga mogli koristiti za vraćanje tvorničkih postavaka ili instalaciju na router iste vrste. Ukoliko dođe do kvara, možemo lako zamijeniti router (ako imamo ili možemo nabaviti zamjenski) i brzo popraviti mrežu instalacijom firmwarea – (3.) contingency plan. Ukoliko ne možemo nabaviti isti model zamjenskog routera i ako router ne podržava DD-WRT firmware, uvijek možemo pokušati konfigurirati temeljne postavke mreže na tvorničkom firmware-u novog routera – (4.) emergency plan. 
+</p><p>Instalacija je izvedena na TP-Link TL-WR841N routeru.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nino.cerovec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nino.cerovec (stranica ne postoji)">Nino.cerovec</a> 16:18, 10. studenog 2015. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="DD-WRT_-_Postavljanje_mre.C5.BEe"> DD-WRT - Postavljanje mreže </span></h2>
+<p>U ovom slučaju je specifična situacija i potrebno je postaviti WAN mrežu koristeći PPTP (VPN), ali pri tome treba omogućiti pristup i mreži kroz koju se tunelira PPTP protokol i DNS usmjeravanje na toj mreži. Mreža preko koje pristupamo internetu je wireless mreža lokalne udruge, a pristup internetu omogućen je preko VPN servera. 
+Kako bi pristupili internetu trebamo postaviti WAN postavke, koje se nalaze pod Setup → Basic Setup → WAN Setup → WAN Connection Type. Ovisno o vrsti pristupa internetu odaberemo način pristupanja i unesemo podatke internet pružatelja usluge za pristup internetu. Obično je dovoljno ostaviti standardne postavke „Automatic Configuration - DHCP“ koje su najčešće korištene. U ovom slučaju želimo postaviti PPTP (VPN) pristup internetu i nakon unosa korisničkog imena i lozinke, pristup internetu funkcionira. Postavke za pristup internetu korištenjem PPTP veze možemo vidjeti na slici 1. [PPTP postavke veze].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:597px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-PPTP-postavke-veze.png" class="image"><img alt="" src="../images/c/cb/DD-WRT-PPTP-postavke-veze.png" width="595" height="520" class="thumbimage" /></a>  <div class="thumbcaption">PPTP postavke veze</div></div></div></div>
+<p>Na slici 1. je označena važna opcija za ovaj slučaj gdje je potrebno omogućiti pristup mreži i internetu. Kako bi se omogućio pristup mreži, a ne samo internetu preko (tunelirane) PPTP veze, potrebno je uključiti opciju „Dual-Access mode“. 
+Postavke lokalne mreže nalaze se pod Setup → Basic Setup → Network Setup → Router IP. Lokalna adresa routera „Local IP Address“ i „Subnet Mask“ je automatski postavljena, ali je možemo prilagoditi vlastitim potrebama. Osim toga trebamo postaviti (ovisno o lokalnoj mreži) „Gateway“ i „Local DNS“ adrese, ali to ponekad nije nužno. Postavke ovih adresa možemo vidjeti na slici 2. [Local IP Address, Gateway i Local DNS].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:597px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-IP-Gateway-DNS.png" class="image"><img alt="" src="../images/f/f5/DD-WRT-IP-Gateway-DNS.png" width="595" height="213" class="thumbimage" /></a>  <div class="thumbcaption">Local IP Address, Gateway i Local DNS</div></div></div></div>
+<p>Ponekad router ne mapira sve mrežne rute kako bi trebao, pa možemo ručno dodati rutu za koju znamo kako treba funkcionirati. Primjer ručno unesene rute je prikazan na slici 3. [Advanced routing].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:596px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-Advanced-routing.png" class="image"><img alt="" src="../images/4/44/DD-WRT-Advanced-routing.png" width="594" height="412" class="thumbimage" /></a>  <div class="thumbcaption">Advanced routing</div></div></div></div>
+<p>U ovom trenutku funkcionira pristup internetu i pristup lokalnoj mreži wireless udruge, ali ne funkcionira DNS usmjeravanje na lokalnoj mreži wireless udruge. Kako bi omogućili DNS usmjeravanje na mreži trebamo isključiti DNSMasq servis koji se nalazi pod Services → Services Managment → DNSMasq. Prije toga trebamo isključiti korištenje tog servisa u postavkama DHCP servera, gdje je potrebno isključiti opcije „Use DNSMasq for DHCP“ i „Use DNSMasq for DNS“. Postavke DHCP servera nalaze se pod Setup → Basic Setup → Network Setup → Network Address Server Settings (DHCP), a možemo ih vidjeti na slici 4. [DHCP - DNSMasq].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:595px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-DHCP-DNSMasq.png" class="image"><img alt="" src="../images/f/f0/DD-WRT-DHCP-DNSMasq.png" width="593" height="440" class="thumbimage" /></a>  <div class="thumbcaption">DHCP - DNSMasq</div></div></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nino.cerovec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nino.cerovec (stranica ne postoji)">Nino.cerovec</a> 15:38, 12. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="DD-WRT_-_Konfiguracija_naprednih_postavaka_i_firewall-a"> DD-WRT - Konfiguracija naprednih postavaka i firewall-a </span></h2>
+<p>Sada mreža funkcionira na željeni način, ali ne postoje nikakve postavke sigurnosti i optimizacije prometa. Kako bi se u svakom trenutku mogli vratiti na postavke kada mreža funkcionira, ali ne postoje nikakve napredne postavke, trebamo napraviti backup trenutnih postavaka routera – (2.) alternate plan. Backup trebamo spremiti lokalno, kako bi mu u svakom trenutku mogli pristupiti i koristiti ga bez obzira na funkcionalnost mreže. Backup postavaka pruža mogućnost lakog oporavka uslijed pogreške prilikom konfiguracije ili prilikom kvara routera. 
+Kod postavljanja naprednih postavaka routera možemo raditi inkrementalni backup postavaka, nakon svake značajnije konfiguracije i na kraju nakon finalne konfiguracije routera. Inkrementalni/finalni backup naprednih postavaka daje mogućnosti migracije svih postavaka na zamjenski router ili vraćanje na posljednje funkcionalno stanje kod pogreške u konfiguraciji routera – (1.) primary plan.
+Korisno je prije svega uključiti dnevnik (log) prometa na firewallu routera, kako bi mogli pratiti promet i ponašanje routera. Firewall log možemo vidjeti na slici 5. [Firewall log].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:597px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-Firewall-Log.png" class="image"><img alt="" src="../images/b/b6/DD-WRT-Firewall-Log.png" width="595" height="339" class="thumbimage" /></a>  <div class="thumbcaption">Firewall log</div></div></div></div>
+<p>Kako bi postavili firewall pravila možemo koristiti komandnu liniju (shell) routera. Komandnoj liniji DD-WRT-a možemo pristupiti koristeći Telnet ili SSH. Prije pristupanja komandnoj liniji trebamo omogućiti pristup na web sučelju DD-WRT-a kako je prikazano na slici 6. [SSH &amp; Telnet].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:595px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-SSH-Telnet.png" class="image"><img alt="" src="../images/2/2d/DD-WRT-SSH-Telnet.png" width="593" height="334" class="thumbimage" /></a>  <div class="thumbcaption">SSH &amp; Telnet</div></div></div></div>
+<p>Korisničko ime za prijavu u naredbeni redak je „root“, a loznka kako smo je definirali u web sučelju. Komandna linija ponaša se kao Linux naredbeni redak s ograničenim mogućnostima naredbi, prikazana je na slici 7. [DD-WRT Shell].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:663px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-Shell.png" class="image"><img alt="" src="../images/e/ed/DD-WRT-Shell.png" width="661" height="418" class="thumbimage" /></a>  <div class="thumbcaption">DD-WRT Shell</div></div></div></div>
+<p>Firewall pravila možemo unositi ručno koristeći naredbu „iptables“ ili ih možemo definirati koristeći besplatan alat Firewall Builder. Korisne „iptables“ naredbe možemo pronaći na stranici: <a href="http://www.dd-wrt.com/wiki/index.php/Iptables_command" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Iptables_command</a>. Alat Firewall Builder prikazan je na slici 8. [Firewall Builder], a postavke za stvaranje novog DD-WRT firewall-a na slici 9. [Izrada firewall-a]. Upute za korištenje alata Firewall Builder za DD-WRT nalaze se na adresi: <a href="http://www.dd-wrt.com/wiki/index.php/Firewall_Builder" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Firewall_Builder</a> i potrebno ih je dosljedno slijediti.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:1368px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Firewall-Builder.png" class="image"><img alt="" src="../images/e/e3/Firewall-Builder.png" width="1366" height="738" class="thumbimage" /></a>  <div class="thumbcaption">Firewall Builder</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:654px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Firewall-Builder-Create-DD-WRT.png" class="image"><img alt="" src="../images/5/57/Firewall-Builder-Create-DD-WRT.png" width="652" height="622" class="thumbimage" /></a>  <div class="thumbcaption">Izrada firewall-a</div></div></div></div>
+<p>Kad izradimo novi firewall koristeći predkonfigurirani firewall predložak, dobijemo set standardnih firewall „white-listing“ pravila, što znači da se sav promet odbija osim onog koji je eksplicitno definiran ostalim pravilima. Vlastita firewall pravila možemo dodati i zatim ih možemo prevesti i izvršiti na DD-WRT koristeći Firewall Builder alat. U ovom slučaju trebali smo unijeti opciju „-scp“ u polje "Additional command line parameters for scp" pod postavkama firewall-a, kako bi funkcionirao prijenos podataka na router. Važno je napomenuti da kod definiranja firewall pravila trebamo biti vrlo oprezni, jer je lako moguće instalirati pravila koja će onemogućiti pristup routeru. Ukoliko dođe do takve situacije, pokušajte resetirati router na tvorničke postavke fizičkim putem (gumb za reset) i zatim iskoristiti backup postavaka, kako bi vratili router u funkcionalno stanje.
+</p><p>Ostale napredne postavke routera možemo definirati u komandnoj liniji (shell) routera, kako koristiti naredbeni redak možemo pronaći na stranici: <a href="http://www.dd-wrt.com/wiki/index.php/Startup_Scripts" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Startup_Scripts</a>, a pri tome nam mogu pomoći korisne skripte koje se nalaze na stranici: <a href="http://www.dd-wrt.com/wiki/index.php/Useful_Scripts" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Useful_Scripts</a>.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nino.cerovec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nino.cerovec (stranica ne postoji)">Nino.cerovec</a> 16:18, 10. studenog 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="DD-WRT_-_Zasebna_virtualna_mre.C5.BEa"> DD-WRT - Zasebna virtualna mreža </span></h2>
+<p>DD-WRT nam omogućava stvaranje posebnih izdvojenih mreža. Tako možemo stvoriti virtualni WLAN koji će imati pristup internetu i biti potpuno izdvojen od lokalne mreže glavnog WLAN-a. Upute za postavljanje zasebne virtualne mreže dostupne su na stranici: <a href="http://www.dd-wrt.com/wiki/index.php/Multiple_WLANs" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Multiple_WLANs</a>. Jednostavniji način od postavljanja bridge-a za novi virtualni WLAN, je postavljanje „unbridged“ opcije za novi virtualni WLAN. Zatim postavimo mrežne postavake (IP address i Subnet mask) za ovaj interface i nakon toga samo trebamo dodati novi DHCP server (jednako kao i kod „bridge“ načina). Postavke zasebne virtualne WLAN mreže prikazane su na slici 10. [Virtaul WLAN].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:595px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-Virtaul-WLAN.png" class="image"><img alt="" src="../images/c/c1/DD-WRT-Virtaul-WLAN.png" width="593" height="550" class="thumbimage" /></a>  <div class="thumbcaption">Virtaul WLAN</div></div></div></div>
+<p>Osim toga za novu mrežu možemo postaviti prioritet, kako bi glavnoj mreži dopustili prioritetniji promet od virtualne mreže. Postavke Quality Of Service prikazane su na slici 11. [QoS].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:595px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-QoS.png" class="image"><img alt="" src="../images/f/f4/DD-WRT-QoS.png" width="593" height="175" class="thumbimage" /></a>  <div class="thumbcaption">QoS</div></div></div></div>
+<p>Kako bi u potpunosti razdvojili pristupanje iz virtualne WLAN mreže u glavnu WLAN+LAN mrežu, možemo postaviti firewall pravila. Trebamo zabraniti pristup iz virtualne mreže u glavnu lokalnu mrežu i pristup router-u. Ispis firewall pravila možemo vidjeti na slici 12. [Firewall rules].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:595px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-IPtables.png" class="image"><img alt="" src="../images/1/13/DD-WRT-IPtables.png" width="593" height="274" class="thumbimage" /></a>  <div class="thumbcaption">Firewall rules</div></div></div></div>
+<p>Također možemo postaviti HotSpot na novu virtualnu WLAN mrežu, kako bi ograničili i kontrolirali pristup internetu. Postoje razne opcije hotspot-a, a upute za postavljanje mogu se pronaći na službenim stranicama DD-WRT-a. Hotspot opcije možemo vidjeti na slici 13. [Hotspots].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:597px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DD-WRT-Hotspots.png" class="image"><img alt="" src="../images/e/ec/DD-WRT-Hotspots.png" width="595" height="719" class="thumbimage" /></a>  <div class="thumbcaption">Hotspots</div></div></div></div>
+<p>Ako želimo omogućiti pristup vlastitoj lokalnoj mreži preko interneta, možemo uključiti opciju DynamicDNS i postaviti servis za pristupanje sa interneta. Postoje razni DDNS servisi koji pružaju uslugu za pristupanje lokalnoj mreži preko njihovog online servera koji bilježi promjene o IP adresi na kojoj se nalazi naš lokalni router i mreža. Registracijom na neki od tih servisa možemo postaviti DDNS na vlastitom router-u.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nino.cerovec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nino.cerovec (stranica ne postoji)">Nino.cerovec</a> 15:57, 16. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p><a href="http://www.dd-wrt.com/site/support/router-database" class="external free" rel="nofollow">http://www.dd-wrt.com/site/support/router-database</a>
+</p><p><a href="http://www.dd-wrt.com/wiki/index.php/Installation" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Installation</a>
+</p><p><a href="http://www.dd-wrt.com/wiki/index.php/Iptables_command" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Iptables_command</a>
+</p><p><a href="http://www.dd-wrt.com/wiki/index.php/Firewall_Builder" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Firewall_Builder</a>
+</p><p><a href="http://www.dd-wrt.com/wiki/index.php/Startup_Scripts" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Startup_Scripts</a>
+</p><p><a href="http://www.dd-wrt.com/wiki/index.php/Useful_Scripts" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Useful_Scripts</a>
+</p><p><a href="http://www.dd-wrt.com/wiki/index.php/Multiple_WLANs" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Multiple_WLANs</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nino.cerovec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nino.cerovec (stranica ne postoji)">Nino.cerovec</a> 09:38, 18. siječnja 2016. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 22/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8703-0!*!0!!hr!2!edit=0 and timestamp 20190203204229 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html">http://security.foi.hr/wiki/index.php/Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Konfiguracija_i_za%C5%A1tita_lokalne_mre%C5%BEe_-_DD-WRT&amp;oldid=37392" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 12:13, 18. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 749 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Konfiguracija_i_zaštita_lokalne_mreže_-_DD-WRT", "wgTitle": "Konfiguracija i zaštita lokalne mreže - DD-WRT", "wgAction": "view", "wgArticleId": 8703, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37392, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.353 secs. -->			</body>
+</html>

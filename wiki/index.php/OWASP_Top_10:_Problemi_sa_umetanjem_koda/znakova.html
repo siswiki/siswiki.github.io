@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>OWASP Top 10: Problemi sa umetanjem koda/znakova - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-OWASP_Top_10_Problemi_sa_umetanjem_koda_znakova skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">OWASP Top 10: Problemi sa umetanjem koda/znakova</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="znakova.html#mw-head">orijentacija</a>,
+					<a href="znakova.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="znakova.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="znakova.html#.C5.A0to_je_OWASP_Top_10"><span class="tocnumber">2</span> <span class="toctext">Što je OWASP Top 10</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="znakova.html#Problem_s_umetanjem_koda.2Fznakova"><span class="tocnumber">3</span> <span class="toctext">Problem s umetanjem koda/znakova</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="znakova.html#SQL_Injection"><span class="tocnumber">4</span> <span class="toctext">SQL Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="znakova.html#Zaobila.C5.BEenje_prijave"><span class="tocnumber">4.1</span> <span class="toctext">Zaobilaženje prijave</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="znakova.html#Prikupljanje_informacija_o_bazi"><span class="tocnumber">4.2</span> <span class="toctext">Prikupljanje informacija o bazi</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="znakova.html#Otkrivanje_podataka_iz_baze"><span class="tocnumber">4.3</span> <span class="toctext">Otkrivanje podataka iz baze</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="znakova.html#Dodavanje_i_izmjena_podataka_u_bazi"><span class="tocnumber">4.4</span> <span class="toctext">Dodavanje i izmjena podataka u bazi</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="znakova.html#DoS_napad"><span class="tocnumber">4.5</span> <span class="toctext">DoS napad</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="znakova.html#Udaljeno_izvo.C4.91enje_naredbi"><span class="tocnumber">4.6</span> <span class="toctext">Udaljeno izvođenje naredbi</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="znakova.html#Pove.C4.87anje_ovlasti"><span class="tocnumber">4.7</span> <span class="toctext">Povećanje ovlasti</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="znakova.html#Umetanje_SQL_koda_u_URL_adresu"><span class="tocnumber">4.8</span> <span class="toctext">Umetanje SQL koda u URL adresu</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="znakova.html#Slijepo_umetanje_SQL_koda"><span class="tocnumber">4.9</span> <span class="toctext">Slijepo umetanje SQL koda</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="znakova.html#Kako_sprije.C4.8Diti_umetanje"><span class="tocnumber">4.10</span> <span class="toctext">Kako spriječiti umetanje</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="znakova.html#Korisni_alati"><span class="tocnumber">4.11</span> <span class="toctext">Korisni alati</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="znakova.html#Prakti.C4.8Dni_dio"><span class="tocnumber">4.12</span> <span class="toctext">Praktični dio</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="znakova.html#XPath_Injection"><span class="tocnumber">5</span> <span class="toctext">XPath Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="znakova.html#XPath"><span class="tocnumber">5.1</span> <span class="toctext">XPath</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="znakova.html#Definicija_napada"><span class="tocnumber">5.2</span> <span class="toctext">Definicija napada</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="znakova.html#Vrste_Xpath_Injectiona"><span class="tocnumber">5.3</span> <span class="toctext">Vrste Xpath Injectiona</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="znakova.html#Zaobila.C5.BEenje_autentikacije_.28eng._Bypassing_Authentication.29"><span class="tocnumber">5.3.1</span> <span class="toctext">Zaobilaženje autentikacije (eng. Bypassing Authentication)</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="znakova.html#Izdvajanje_strukture_XML_dokumenta_.28eng._Extracting_the_XML_document_structure.29"><span class="tocnumber">5.3.2</span> <span class="toctext">Izdvajanje strukture XML dokumenta (eng. Extracting the XML document structure)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-23"><a href="znakova.html#Blind_Xpath_Injection"><span class="tocnumber">5.4</span> <span class="toctext">Blind Xpath Injection</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="znakova.html#Boolenizacija_Xpath_upita"><span class="tocnumber">5.4.1</span> <span class="toctext">Boolenizacija Xpath upita</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="znakova.html#Xpath_Crawling"><span class="tocnumber">5.4.2</span> <span class="toctext">Xpath Crawling</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-26"><a href="znakova.html#Prevencija_XPath_napada"><span class="tocnumber">5.5</span> <span class="toctext">Prevencija XPath napada</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="znakova.html#Alati_za_provjeru_ranjivosti"><span class="tocnumber">5.6</span> <span class="toctext">Alati za provjeru ranjivosti</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="znakova.html#Prakti.C4.8Dni_dio_2"><span class="tocnumber">5.7</span> <span class="toctext">Praktični dio</span></a>
+<ul>
+<li class="toclevel-3 tocsection-29"><a href="znakova.html#Primjer_1."><span class="tocnumber">5.7.1</span> <span class="toctext">Primjer 1.</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="znakova.html#Primjer_2."><span class="tocnumber">5.7.2</span> <span class="toctext">Primjer 2.</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-31"><a href="znakova.html#SSI_ubacivanje_.28SSI_Injection.29"><span class="tocnumber">6</span> <span class="toctext">SSI ubacivanje (SSI Injection)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-32"><a href="znakova.html#SSI_-_Server_Side_Includes"><span class="tocnumber">6.1</span> <span class="toctext">SSI - Server Side Includes</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="znakova.html#Definicija_napada_2"><span class="tocnumber">6.2</span> <span class="toctext">Definicija napada</span></a>
+<ul>
+<li class="toclevel-3 tocsection-34"><a href="znakova.html#Provjera_ranjivosti_web_stranice_na_SSI_Injection"><span class="tocnumber">6.2.1</span> <span class="toctext">Provjera ranjivosti web stranice na SSI Injection</span></a>
+<ul>
+<li class="toclevel-4 tocsection-35"><a href="znakova.html#Gray_Box_testiranje"><span class="tocnumber">6.2.1.1</span> <span class="toctext">Gray Box testiranje</span></a></li>
+<li class="toclevel-4 tocsection-36"><a href="znakova.html#Black_Box_testiranje"><span class="tocnumber">6.2.1.2</span> <span class="toctext">Black Box testiranje</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-37"><a href="znakova.html#Alati_za_provjeru_ranjivosti_2"><span class="tocnumber">6.3</span> <span class="toctext">Alati za provjeru ranjivosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-38"><a href="znakova.html#LDAP_Injection"><span class="tocnumber">7</span> <span class="toctext">LDAP Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-39"><a href="znakova.html#O_LDAP-u"><span class="tocnumber">7.1</span> <span class="toctext">O LDAP-u</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="znakova.html#Definicija_LDAP_injection_napada"><span class="tocnumber">7.2</span> <span class="toctext">Definicija LDAP injection napada</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="znakova.html#Vrste_LDAP_injection_napada"><span class="tocnumber">7.3</span> <span class="toctext">Vrste LDAP injection napada</span></a>
+<ul>
+<li class="toclevel-3 tocsection-42"><a href="znakova.html#AND_LDAP_Injection"><span class="tocnumber">7.3.1</span> <span class="toctext">AND LDAP Injection</span></a>
+<ul>
+<li class="toclevel-4 tocsection-43"><a href="znakova.html#Zaobila.C5.BEenje_kontrole_pristupa_.28Access_Control_Bypass.29"><span class="tocnumber">7.3.1.1</span> <span class="toctext">Zaobilaženje kontrole pristupa (Access Control Bypass)</span></a></li>
+<li class="toclevel-4 tocsection-44"><a href="znakova.html#Pove.C4.87anje_ovlasti_.28Elevation_of_Privilages.29"><span class="tocnumber">7.3.1.2</span> <span class="toctext">Povećanje ovlasti (Elevation of Privilages)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-45"><a href="znakova.html#OR_LDAP_Injection"><span class="tocnumber">7.3.2</span> <span class="toctext">OR LDAP Injection</span></a>
+<ul>
+<li class="toclevel-4 tocsection-46"><a href="znakova.html#Otkrivanje_informacija_.28Information_Disclosure.29"><span class="tocnumber">7.3.2.1</span> <span class="toctext">Otkrivanje informacija (Information Disclosure)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-47"><a href="znakova.html#Reduciranje_mogu.C4.87ih_znakova_.28Charset_reduction.29"><span class="tocnumber">7.3.3</span> <span class="toctext">Reduciranje mogućih znakova (Charset reduction)</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="znakova.html#Promjena_informacija_.28Information_Alteration.29"><span class="tocnumber">7.3.4</span> <span class="toctext">Promjena informacija (Information Alteration)</span></a></li>
+<li class="toclevel-3 tocsection-49"><a href="znakova.html#Blind_LDAP_Injection"><span class="tocnumber">7.3.5</span> <span class="toctext">Blind LDAP Injection</span></a>
+<ul>
+<li class="toclevel-4 tocsection-50"><a href="znakova.html#AND_Blind_LDAP_injection"><span class="tocnumber">7.3.5.1</span> <span class="toctext">AND Blind LDAP injection</span></a></li>
+<li class="toclevel-4 tocsection-51"><a href="znakova.html#OR_Blind_LDAP_injection"><span class="tocnumber">7.3.5.2</span> <span class="toctext">OR Blind LDAP injection</span></a></li>
+<li class="toclevel-4 tocsection-52"><a href="znakova.html#Otkrivanje_atributa_.28Discovering_Attributes.29"><span class="tocnumber">7.3.5.3</span> <span class="toctext">Otkrivanje atributa (Discovering Attributes)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-53"><a href="znakova.html#Metode_i_tehnike_prevencije_LDAP_napada"><span class="tocnumber">7.4</span> <span class="toctext">Metode i tehnike prevencije LDAP napada</span></a></li>
+<li class="toclevel-2 tocsection-54"><a href="znakova.html#Alati"><span class="tocnumber">7.5</span> <span class="toctext">Alati</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-55"><a href="znakova.html#CRLF_Injection"><span class="tocnumber">8</span> <span class="toctext">CRLF Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-56"><a href="znakova.html#Definicija_CRLF-a"><span class="tocnumber">8.1</span> <span class="toctext">Definicija CRLF-a</span></a></li>
+<li class="toclevel-2 tocsection-57"><a href="znakova.html#CRLF_injection_napad"><span class="tocnumber">8.2</span> <span class="toctext">CRLF injection napad</span></a>
+<ul>
+<li class="toclevel-3 tocsection-58"><a href="znakova.html#Primjeri_CRLF_injection_napada"><span class="tocnumber">8.2.1</span> <span class="toctext">Primjeri CRLF injection napada</span></a>
+<ul>
+<li class="toclevel-4 tocsection-59"><a href="znakova.html#Ranjivost_sustava_za_objavljivanje_poruka"><span class="tocnumber">8.2.1.1</span> <span class="toctext">Ranjivost sustava za objavljivanje poruka</span></a></li>
+<li class="toclevel-4 tocsection-60"><a href="znakova.html#Ranjivost_kod_e-mail_formi"><span class="tocnumber">8.2.1.2</span> <span class="toctext">Ranjivost kod e-mail formi</span></a></li>
+<li class="toclevel-4 tocsection-61"><a href="znakova.html#Ranjivost_kod_POP3_i_NNTP_protokola"><span class="tocnumber">8.2.1.3</span> <span class="toctext">Ranjivost kod POP3 i NNTP protokola</span></a></li>
+<li class="toclevel-4 tocsection-62"><a href="znakova.html#HTTP_Splitting_napad"><span class="tocnumber">8.2.1.4</span> <span class="toctext">HTTP Splitting napad</span></a></li>
+<li class="toclevel-4 tocsection-63"><a href="znakova.html#Za.C5.A1tita_od_CRLF_napada"><span class="tocnumber">8.2.1.5</span> <span class="toctext">Zaštita od CRLF napada</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-64"><a href="znakova.html#Aplikacije_za_u.C4.8Denje.2Ftestiranje_ranjivosti"><span class="tocnumber">9</span> <span class="toctext">Aplikacije za učenje/testiranje ranjivosti</span></a></li>
+<li class="toclevel-1 tocsection-65"><a href="znakova.html#Umetanje_naredbi_.28Command_injection.29"><span class="tocnumber">10</span> <span class="toctext">Umetanje naredbi (Command injection)</span></a></li>
+<li class="toclevel-1 tocsection-66"><a href="znakova.html#OS_command_injection"><span class="tocnumber">11</span> <span class="toctext">OS command injection</span></a></li>
+<li class="toclevel-1 tocsection-67"><a href="znakova.html#Prakti.C4.8Dni_dio_-_ModSecurity"><span class="tocnumber">12</span> <span class="toctext">Praktični dio - ModSecurity</span></a></li>
+<li class="toclevel-1 tocsection-68"><a href="znakova.html#Prakti.C4.8Dni_dio_3"><span class="tocnumber">13</span> <span class="toctext">Praktični dio</span></a></li>
+<li class="toclevel-1 tocsection-69"><a href="znakova.html#Literatura"><span class="tocnumber">14</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-70"><a href="znakova.html#Podjela_zadu.C5.BEenja_po_poglavljima"><span class="tocnumber">15</span> <span class="toctext">Podjela zaduženja po poglavljima</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod">Uvod</span></h2>
+<p>U današnje vrijeme, kada se sve više oslanjamo na tehnologiju i softver za svakojake potrebe, nesigurne aplikacije su sve veći problem. Pa tako zbog nesigurnih aplikacija može nastradati sve od vaše osobne web stranice do financijske, zdravstvene, obrambene, energijske infrastrukture. Budući da se kompleksnost tehnologije svakim danom sve više povećava, s time se eksponencijalno povećavaju i problemi postizanja sigurnosti aplikacije. Čak se ni jednostavni sigurnosni propusti više ne mogu tolerirati.<a href="https://www.owasp.org/index.php/Top_10_2010-Introduction" class="external autonumber" rel="nofollow">[1]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:16, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id=".C5.A0to_je_OWASP_Top_10"> Što je OWASP Top 10 </span></h2>
+<p>OWASP Top 10 je projekt kojemu je cilj povećati svijest o sigurnosti aplikacija tako da identificira neke od najčešćih i najopasnijih prijetnji sigurnosti. OWASP Top 10 projekt postoji već 9 godina, dakle od 2003., a zadnje izdanje je bilo 2010. godine. Dokument koji izdaju je jedinstvena referenca na najčešće i najopasnije sigurnosne propuste u aplikacijama, zajedno s opisima preko kojih možete saznati da li je vaša aplikacija ranjiva na te propuste te kako se od njih zaštititi.<a href="https://www.owasp.org/index.php/Top_10_2010-Introduction" class="external autonumber" rel="nofollow">[2]</a><br />
+U ovom projektu mi ćemo opisati problem s umetanjem koda/znakova koji se neumoljivo popeo na prvo mjesto kao najčešći sigurnosni propust kod web aplikacija u 2010. godini, dok je 2007. bio na drugom mjestu, a 2004. tek na šestom.<a href="https://www.owasp.org/index.php/Top_10_2010-Main" class="external autonumber" rel="nofollow">[3]</a><a href="https://www.owasp.org/index.php/Top_10_2007" class="external autonumber" rel="nofollow">[4]</a><a href="https://www.owasp.org/index.php/Top_10_2004" class="external autonumber" rel="nofollow">[5]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 21:03, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Problem_s_umetanjem_koda.2Fznakova"> Problem s umetanjem koda/znakova </span></h2>
+<p>U probleme s umetanjem kodova/znakova spadaju problemi kao što su SQL, OS, LDAP, XPath, CRLF umetanje. Oni nastupaju kada se neprovjereni podatak šalje interpreteru kao dio naredbe ili upita. Taj neprovjeren i zlonamjeran podatak može prevariti interpretera tako da izvede neželjene naredbe ili pristupi neautoriziranim podacima.<a href="https://www.owasp.org/index.php/Top_10_2010-Main" class="external autonumber" rel="nofollow">[6]</a><br />
+Opisat ćemo SQL, XPath, LDAP, CRLF, SSI, MX ubacivanje te ubacivanje OS naredbi.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 21:03, 5. siječnja 2012. (CET)<br />
+</p>
+<h2> <span class="mw-headline" id="SQL_Injection">SQL Injection</span></h2>
+<p>SQL injection ili umetanje SQL koda je najpoznatiji propust umetanja znakova. Ako na web aplikaciji nisu uvedene primjerene zaštite čak i manje stručna osoba može izvesti ovakav napad. Napad se obično izvodi umetanjem posebno oblikovanog SQL koda u polja za pretraživanje ili upisivanje korisničkog imena i lozinke. Da bi napadač uspješno izveo napad on obično mora poznavati strukturu baze i SQL jezik.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[7]</a><br />
+Postoje dva tipa SQL injectiona, napad prve i druge razine. Kod prve razine, SQL kod koji se umetne odmah se izvodi i čini neku štetu, dok kod napada druge razine napadač prvo umetne neke podatke u bazu, a kasnije, kada ih aplikacija dohvaća, izvršava se SQL injection i čini neku štetu.<br />
+Tipove SQL injectiona su sljedeći:<br />
+</p>
+<ul><li>Zaobilaženje prijave<br />
+</li><li>Prikupljanje informacija o bazi podataka<br />
+</li><li>Otkrivanje podataka iz baze<br />
+</li><li>Dodavanje i izmjena podataka u bazi<br />
+</li><li>Denial of Service (DoS) napad<br />
+</li><li>Udaljeno izvođenje naredbi<br />
+</li><li>Povećanje ovlasti<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[8]</a> <br />
+</li></ul>
+<p>Svaki od ovih napada ću objasniti i popratiti s primjerima.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 19:51, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Zaobila.C5.BEenje_prijave"> Zaobilaženje prijave </span></h3>
+<p>Najjednostavniji oblik korištenja SQL injection-a je kod zaobilaženja legitimne prijave u sustav.<br />
+Da bi otkrili da li je aplikacija ranjiva na SQL injection napad najjednostavniji način jest da upišemo samo jedan navodnik i vidimo što će nam aplikacija odgovoriti. Ako odgovori da sintaksa upita nije valjana to nam govori da je aplikacija ranjiva na SQL injection.<br />
+Pod normalnim uvjetima da bi se korisnik mogao prijaviti u sustav on mora u dvije kućice upisati svoje korisničko ime i lozinku. Nakon toga aplikacija dohvaća to korisničko ime i lozinku i na temelju nje kreira SQL upit koji ako vrati pozitivan rezultat znači da u bazi postoji kombinacija tog imena i lozinke te onda korisnika pušta u sustav. Ako na primjer postoji korisnik imena „user“ s lozinkom „password“ u tablici „korsnici“ s atributima „korisnickoIme“ i „lozinka“, kreirat će se sljedeći SQL upit:<br />
+</p>
+<pre>
+SELECT korisnickoIme FROM korisnici WHERE korisnickoIme = 'user' AND lozinka = 'password'
+</pre>
+<p>i ako taj upit vrati pozitivan rezultat aplikacija će pustiti korisnika u sustav. No ako ne postoji nikakva zaštita ili provjera unosa, napadač bi mogao iskoristiti takav propust da izvede bilo kakvu SQL naredbu. Na primjer, napadač bi u polja za unos mogao unijeti sljedeći niz znakova koji bi zavarao aplikaciju i pustio ga u sustav:<br />
+</p>
+<pre>
+' OR '1'='1
+</pre>
+<p>U ovom slučaju SQL upit koji bi se kreirao bi izgledao ovako:<br />
+</p>
+<pre>
+SELECT korisnickoIme FROM korisnici WHERE korisnickoIme = '' OR '1'='1' AND lozinka = '' OR '1'='1'
+</pre>
+<p>U tom slučaju baza više ne traži kombinaciju navedenog korisničkog imena i lozinke nego provjerava istinitost tvrdnje '1'='1', a budući da je ta tvrdnja uvijek istinita, cijeli WHERE dio upita će biti istinit i kao posljedica bit će vraćanje prvog korisničkog imena u tablici što znači da je vraćen pozitivni rezultat i aplikacija će pustiti napadača u sustav prijavljenog kao prvi korisnik u tablici.<br />
+Osim ovakvog oblika umetnutog koda, napadač može upisati bilo kakav kod koji je istinit, to ovisi o sintaksi koju koristi SQL upit. Razlike u SQL upitu mogu biti u vrsti navodnika koji se koriste (jednostruki, dvostruki) i da li se koristi zagrada ili ne. Napadač može pogoditi sintaksu metodom pokušaja i pogreške ili ju može saznati prikupljanjem podataka o strukturi i vrsti baze podataka.<br />
+Također se može upisati sljedeći kod samo u kućicu za korisničko ime:<br />
+</p>
+<pre>
+' OR 1=1 --
+</pre>
+<p>To će generirati SQL upit koji će provjeravati samo korisničko ime, a lozinku neće jer je sve nakon provjere korisničkog imena zakomentirano sa dvije crtice (--).<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[9]</a> <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:04, 5. siječnja 2012. (CET)<br />
+</p>
+<h3> <span class="mw-headline" id="Prikupljanje_informacija_o_bazi"> Prikupljanje informacija o bazi </span></h3>
+<p>Da bi napadač lakše izveo napad on mora poznavati strukturu baze podataka. Tu su najkorisniji podaci o imenima tablica, atributima i vrstama podataka za atribute. Da bi napadač do njih došao, on koristi poruke o greškama. Te su poruke namijenjene programerima koji razvijaju aplikaciju da bi lakše našli grešku kod razvoja, ali ih napadač može iskoristiti za svoj napad.<br />
+Napadač namjerno ispune podatke s nekim SQL kodom i tako izazove grešku te proučavajući poruku o grešci može saznati korisne podatke o bazi. Vrste greški mogu biti sintaksna, logička i greška zbog pogrešnog tipa podatka. Iz sintaksne greške mogu otkriti parametre koji su ranjivi na SQL injection. Iz logičke greške mogu otkriti imena tablica i atributa, dok iz greške pogrešnog tipa podatka mogu saznati tipove podataka za pojedine atribute ali i imena atributa.<br />
+Primjer prikupljanja informacija o bazi je sljedeći:<br />
+Napadač bi mogao upisati sljedeći kod:<br />
+</p>
+<pre>
+;SELECT @@VERSION--
+</pre>
+<p>A kao odgovor bi dobio verziju servera. Nakon što je saznao koji se server koristi on može nastaviti prikupljanje informacija o recimo imenima tablice.<a href="http://hakipedia.com/index.php/SQL_Injection#Information_Gathering_Techniques" class="external autonumber" rel="nofollow">[10]</a> Neka je u pitanju baza Microsoft SQL Server, napadač bi mogao umetnuti sljedeći kod:<br />
+</p>
+<pre>
+convert(int, (SELECT TOP 1 name FROM sysobjects WHERE xtype = 'u'))
+</pre>
+<p>Tim kodom se pokušava dohvatiti prva korisnička tablica (xtype='u') iz tablice s metapodacima koja se zove „sysobjects“. Nakon toga ona se pokušava pretvoriti u integer, a budući da to nije moguće dolazi do greške pretvorbe tipova iz koje se napadač može uvjeriti da se doista radi o Microsoft SQL Serveru, te dobiva i pravo ime prve tablice.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[11]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:12, 5. siječnja 2012. (CET)<br />
+</p>
+<h3> <span class="mw-headline" id="Otkrivanje_podataka_iz_baze"> Otkrivanje podataka iz baze </span></h3>
+<p>Napadaču je često cilj izvući iz baze podataka neke podatke koje bi kasnije koristio za daljnje maliciozne radnje. On tako može iskoristiti običnu formu za logiranje da izvuče podatke iz baze. Naime, kao što je već rečeno kod logiranja se obično kreira SELECT naredba. Ta naredba zapravo dohvaća nešto iz baze podataka. Ako napadač koristi naredbu UNION to mu omogućava izvršavanje više SELECT naredbi. Način na koji to radi jest da postojeću SELECT naredbu spoji sa svojom SELECT naredbom pomoću naredbe UNION. Sada napadač, ako zna imena tablica i atributa, može pristupati podacima iz bilo koje tablice preko standardne forme za logiranje. U kućicu za korisničko ime može umetnuti sljedeći kod:<br />
+</p>
+<pre>
+' UNION SELECT brojKartice FROM kreditneKartice WHERE brRacuna=12345 --
+</pre>
+<p>Na temelju toga bi se kreirao sljedeći upit:<br />
+</p>
+<pre>
+SELECT korisnickoIme FROM korisnici WHERE korisnickoIme = '' UNION SELECT brojKartice FROM kreditneKartice WHERE brRacuna=12345 --' AND lozinka = ''
+</pre>
+<p>Prvo, upit za prvu SELECT naredbu ne bi vratio ništa ako ne postoji korisnik s praznim korisničkim imenom, zatim bi se izvela druga SELECT naredba koja bi vratila broj kreditne kartice za dani račun, što programer nije zamislio, ali napadač jest. Na kraju budući da su nakon te naredbe dvije crtice, ostatak upita se ne bi izvodio.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[12]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:24, 5. siječnja 2012. (CET)<br />
+</p>
+<h3> <span class="mw-headline" id="Dodavanje_i_izmjena_podataka_u_bazi"> Dodavanje i izmjena podataka u bazi </span></h3>
+<p>Za dodavanje podataka u bazu koristi se naredba INSERT, a za izmjenu već postojećih podataka u bazi koristi se naredba UPDATE pa tako i napadač može umetnuti SQL kod koji koristi te naredbe te tako dodati odnosno izmijeniti podatke u bazi. No da bi takav napad uspio napadač mora poznavati strukturu baze, odnosno imena tablica, atributa te vrstu podataka za pojedine atribute. Te se informacije mogu saznati običnim pogađanjem imena ili prikupljanjem informacija o bazi. Osim naredbi INSERT i UPDATE, napadač za ovu vrstu napada koristi i točku-zarez. Točka-zarez u SQL kodu označava kraj jedne naredbe nakon čega može započeti druga. Pa tako korištenjem točke-zarez-a napadač može iskoristiti postojeću SQL naredbu da umetne svoje naredbe koje sadržavaju INSERT i UPDATE da doda ili izmjeni podatke u bazi.<br />
+Pa bi tako u normalnu formu za logiranje umetnuo prvo sljedeći kod:<br />
+</p>
+<pre>
+';
+</pre>
+<p>Pa bi generirani upit prvo tražio korisnika s praznim korisničkim imenom. Zatim se nailazi na točku-zarez koja označava kraj jedne naredbe i početak druge. Nakon te točke-zarez, napadač bi mogao iskoristiti naredbe INSERT ili UPDATE da umetne novog korisnika, odnosno sebe, u bazu i dodjeli mu bilokakve ovlasti. I na kraju svog umetnutog koda bi stavio dvije crtice čime bi ostatak generiranog upita zakomentirao i on se ne bi izvodio.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[13]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:24, 5. siječnja 2012. (CET)<br />
+</p>
+<h3> <span class="mw-headline" id="DoS_napad"> DoS napad </span></h3>
+<p>Denial of Service (DoS) napad je napad koji u najgorem slučaju može uništiti bazu podataka ili pak samo ne dozvoliti legitimnim korisnicima da koriste bazu. Najopasnija naredba za takav napad je:<br />
+</p>
+<pre>
+DROP TABLE ime_tablice
+</pre>
+<p>Ona efektivno briše tablicu iz baze zajedno sa svim podacima koji su u njoj bili zapisani. Ako napadač uspije umetnuti ovakvu naredbu u aplikaciju može nanijeti veliku štetu. Da bi uspio umetnuti ovakav SQL kod mora naravno poznavati imena tablica do kojih može doći već prije spomenutim načinima. Zatim, za umetanje ovakvog SQL koda koristi već spomenutu točku-zarez. Pa tako ako imamo standardnu formu za logiranje koja traži korisničko ime i lozinku, ako nema nikakve provjere unesenih podataka, napadač može umetnuti slijedeći kod u kućicu za korisničko ime:<br />
+</p>
+<pre>
+'; DROP TABLE korisnici –
+</pre>
+<p>Pa sada SQL upit koji se kreira da provjeri postojanje korisnika s danom lozinkom izgleda ovako:<br />
+</p>
+<pre>
+SELECT korisnickoIme FROM korisnici WHERE korisnickoIme ''; DROP TABLE korisnici -- 'AND lozinka = ''
+</pre>
+<p>Kreirani SQL upit sada ne radi što je programer zamislio nego, prvo ispituje da li u bazi postoji prazno korisničko ime i ako ne postoji ne će vratiti ništa, ali zatim nailazi na umetnuti SQL kod koji efektivno briše tablicu „korisnici“ iz baze podataka. Nakon toga bi se trebala ispitivati lozinka ali je taj dio zakomentiran sa dvije crtice pa se taj dio koda ne izvodi.<br />
+Osim DROP TABLE, napadač za DoS napad može koristiti i naredbu SHUTDOWN koja samo gasi bazu podataka, a ne uništava ju. Kod koji bi umetnuo na isto mjesto kao i u prethodnom slučaju za izvođenje ovakvog napada je sljedeći:<br />
+</p>
+<pre>
+'; SHUTDOWN --
+</pre><a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[14]</a>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:24, 5. siječnja 2012. (CET)<br />
+</p>
+<h3> <span class="mw-headline" id="Udaljeno_izvo.C4.91enje_naredbi"> Udaljeno izvođenje naredbi </span></h3>
+<p>Većina SQL baza podataka dolazi s hrpom pohranjenih procedura koje olakšavaju rad s bazom, proširuju mogućnosti baze i omogućuju lakše povezivanje s operacijskim sustavom. Većinu tih pohranjenih procedura korisnik nikad ne koristi, a ako napadač sazna o kojoj je bazi podataka riječ na način koji smo opisali kod prikupljanja informacija o bazi podataka, on ih može iskoristiti za izvođenje napada. Napadač obično koristi procedura za napad na bazu podataka, ali može napasti i operacijski sustav. Nekad i same procedure sadrže ranjivosti (poput prelijevanja međuspremnika) koje napadač može iskoristiti za izvođenje malicioznog koda ili za povećanje ovlasti. Jednom kad napadač sazna koje pohranjene procedure postoje, on ih lako može iskoristiti korištenjem točke-zareza kako je bilo već na drugom primjeru objašnjeno. Neke od procedura koje napadač može iskoristiti su:<br />
+</p>
+<ul><li>xp_cmdshell – omogućuje izvođenje proizvoljnih naredbi operacijskog sustava<br />
+</li><li>sp_makewebtask – ispisuje rezultate zadane SQL naredbe u zadani dokument (web stranicu), vrlo opasno jer napadač može na primjer zadati SQL naredbu koja ispisuje sva korisnička imena i lozinke<br />
+</li><li>xp_enumgroups – daje popis lokalnih Microsoft Windows skupina<br />
+</li><li>xp_msver – vraća informacije o Microsoft SQL serveru<br />
+</li><li>xp_loginconfig – pruža informacije o sigurnosnim postavkama na poslužitelju<br />
+</li><li>xp_logininfo – vraća informacije o korisničkim računima na poslužitelju<br />
+</li><li>sp_rename – omogućuje promjenu imena tablica i atributa u bazi<br />
+</li></ul>
+<p>Pa tako ako imamo standardnu formu za logiranje možemo koristiti naredbu xp_cmdshell na sljedeći način. Sljedeći kod upišemo u formu za unašanje korisničkog imena:<br />
+</p>
+<pre>
+'; exec master..xp_cmdshell 'net user test testpass /ADD'--
+</pre>
+<p>pa će kreirani upit izgledati ovako:<br />
+</p>
+<pre>
+SELECT korisnickoIme FROM korisnici Where korisnickoIme = ''; exec master..xp_cmdshell 'net user test testpass /ADD'-- 'AND lozinka = ''
+</pre>
+<p>Prvi dio upita neće vratiti ništa ako ne postoji korisnik s praznim korisničkim imenom. Drugi dio upita izvodi pohranjenu proceduru xp_cmdshell. Samo tijelo procedure zapravo dodaje novog korisnika (napadača) u bazu u popis korisnika koji imaju pristup poslužitelju. Ostatak koda se ne izvršava jer je naravno zakomentiran.<br />
+No ipak ovu naredbu može izvršavati samo korisnik koji ima administratorske ovlasti, ali uvijek postoji mogućnost da su postavke drugačije postavljene što napadaču daje šansu za napad.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[15]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:31, 5. siječnja 2012. (CET)<br />
+</p>
+<h3> <span class="mw-headline" id="Pove.C4.87anje_ovlasti"> Povećanje ovlasti </span></h3>
+<p>Kod povećanja ovlasti napadač nema na umu odmah iskoristiti propust već namjerava umetnuti posebno oblikovan SQL kod koji će mu omogućiti iskorištavanje aplikacije/baze kasnije, odnosno on si namjerava povećati ovlasti nad željenom aplikacijom/bazom da bi kasnije mogao obavljati maliciozne radnje. Ova vrsta napada je napad druge razine. Ovu vrstu napada ću pojasniti sljedećim primjerom.<br />
+U ovom primjer napadač sebi želi dodijeliti administratorske ovlasti. Za to mora poznavati samo korisničko ime administratora koje je u najvećem slučaju „admin“. No čak i ako nije nego je neko slično, napadač može i to iskoristiti ako kod upisa umjesto „admin“ napiše „LIKE&#160;%admin%“ pa će SQL upit vratiti imena poput „administrator“, „admin2“ i slična imena.<br />
+Za izvođenje ovakvog napada napadač se prvo mora registrirati. Kod registracije mora upisati korisničko ime i neke druge podatke koji nisu bitni. Za korisničko ime upisuje:<br />
+</p>
+<pre>
+admin' --
+</pre>
+<p>Ako nema nikakve provjere, aplikacija će mu dopustiti to korisničko ime i pohraniti ga u bazu. Za sada još nije izveden nikakvi napad. Da bi se izveo napad, aplikacija mora pristupiti tom korisničkom imenu/umetnutom kodu. Najlakši način za to jest da napadač zatraži promjenu lozinke, što većina aplikacija danas omogućava. To se obično obavlja tako da korisnik mora upisati staru lozinku i novu lozinku te je onda aplikacija u bazi izmjeni. Kod takvog upisivanja kreira se nešto slično kao sljedeći SQL upit:<br />
+</p>
+<pre>
+UPDATE korisnici SET lozinka = 'novaLozinka' WHERE korisnickoIme = 'korIme' AND lozinka = 'staraLozinka'
+</pre>
+<p>U napadačevom slučaju SQL upit će konkretno glasiti ovako:<br />
+</p>
+<pre>
+UPDATE korisnici SET lozinka = 'novaLozinka' WHERE korisnickoIme = ' admin' --' AND lozinka = 'staraLozinka'
+</pre>
+<p>Budući da dvije crtice označavaju komentar, sve nakon dvije crtice će se i smatrati komentarom i neće se izvoditi, izvest će se samo dio koda gdje se postavlja nova lozinka za korisnika „admin“, a budući da je „admin“ zapravo administrator sustava, napadač je ovime efektivno dodijelio sebi administratorske ovlasti te je administratoru oteo korisnički račun.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[16]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:31, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Umetanje_SQL_koda_u_URL_adresu"> Umetanje SQL koda u URL adresu </span></h3>
+<p>SQL injection je moguće izvesti i umetanjem koda u URL adresu. Ako se kod učitavanja stranice kreira SQL upit, napadač može i ovdje iskoristiti sve do sada opisane načine napada odnosno umetanja SQL koda. Jedno takvo umetanje ću objasniti na sljedećem primjeru. Ako napadač pristupa stranici sa slikama URL adresa bi mogla izgledati ovako:<br />
+</p>
+<pre>
+http://www.slike/index.asp?id=5
+</pre>
+<p>„id=5“ znači da se prikazuje peta slika. Jednostavna manipulacija ovom adresom bi mogla biti da se promijeni pet na npr. 4, pa će se prikazati četvrta slika. Ovakva manipulacija ne izaziva neku štetu, ali daleko malicioznije radnje je moguće tu izvesti. Ako se na temelju URL adrese kreira upit na sljedeći način:<br />
+</p>
+<pre>
+SELECT * FROM slike WHERE id = 'idSlike'
+</pre>
+<p>Napadač bi mogao umetnuti sljedeći kod:<br />
+</p>
+<pre>
+4; DROP TABLE slike
+</pre>
+<p>Pa bi nova adresa izgledala ovako:<br />
+</p>
+<pre>
+http://www.slike/index.asp?id=4;%20DROP%20TABLE%20slike
+</pre>
+<p>A upit koji bi se proslijedio bazi bi izgledao ovako:<br />
+</p>
+<pre>
+SELECT * FROM slike WHERE id = '4; DROP TABLE slike
+</pre>
+<p>Ovaj bi upit prvo dohvatio četvrtu sliku, a zatim bi se izvela druga naredba budući da je odvojena točkom-zarez, a druga naredba uništava tablicu „slike“ i sve podatke u toj tablici.<br />
+Kao što sam i rekao i ostali opisani napadi umetanjem SQL koda se mogu izvesti na sličan način kao i ovaj.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[17]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:59, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Slijepo_umetanje_SQL_koda"> Slijepo umetanje SQL koda </span></h3>
+<p>Kao što sam već rekao, da bi napadač uspješno izveo napad umetanjem SQL koda on mora poznavati neke podatke o bazi, o vrsti baze, imena tablica, atributa i tipove podataka za atribute. Kako do njih doći je također opisano, dakle korištenjem SQL upita da mu se ispišu podaci koje želi, korištenjem poruka greške ili korištenjem procedure sp_makewebtask.<br />
+Ali ako se onemogući ovakvo prikupljanje podataka, napadaču se uvelike otežava prikupljanje informacija i izvođenje napada, ali to je još uvijek moguće. U tom slučaju se radi o slijepom umetanju SQL koda. Postoje dvije metode kojima napadač može doći do željenih informacija, a ja ću objasniti obadvije.<br />
+Prvi je način da napadač umeće ispravni i neispravni SQL kod i promatra reakciju web stranice. Ako umetne neispravni kod, u idealnom slučaju bi stranica odmah izbacila informacije koje napadaču trebaju, ali i ako ih ne izbaci ona će se sigurno ponašati nekako drugačije što može biti korisno napadaču.<br />
+Ako napadač želi provjeriti ranjivost stranice iz prethodnog primjera:<br />
+</p>
+<pre>
+http://www.slike/index.asp?id=5
+</pre>
+<p>on umeće sljedeći kod:<br />
+</p>
+<pre>
+5 AND 1=1
+</pre>
+<p>U ovom slučaju napadač zna kako izgleda normalna stranica s petom slikom. Ako URL s umetnutim kodom vrati istu stranicu kao i bez koda to znači da je stranica ranjiva na SQL injection. Ako pak vrati nešto drugačiju stranicu ili se stranica uopće nije promijenila to znači da je došlo do greške prilikom izvođenja SQL upita i stranica nije ranjiva na SQL injection.<br />
+Drugi način prikupljanja informacija je korištenjem naredbe WAITFOR. Ovom naredbom se odgađa izvođenje SQL upita proizvoljan broj sekundi. Mjerenjem odaziva web stranice i korištenjem naredbe WAITFOR i if/then grananja napadač može dobiti informacije o strukturi baze. Takvo prikupljanje informacija je dugotrajno i zamorno ali se može automatizirati.<br />
+Da bolje objasnim, prikazat ću to na sljedećem primjeru.<br />
+Ako napadač želi saznati imena tablica on za to može koristiti običnu formu za logiranje korisnika. Za ovaj napad mora znati korisničko ime jednog korisnika, ali to nije problem jer se i sam može registrirati pod nekim pseudonimom. Zatim kod prijave umeće sljedeći kod:<br />
+</p>
+<pre>
+korisnik' AND ASCII (SUBSTRING ((SELECT TOP 1 name FROM sysobjects), 1, 1)) &gt; X WAITFOR 5 --
+</pre>
+<p>SQL upit koji se prosljeđuje bazi onda izgleda ovako:<br />
+</p>
+<pre>
+SELECT korisnickoIme FROM korisnici WHERE korisnickoIme =' korisnik' AND ASCII (SUBSTRING ((SELECT TOP 1 name FROM sysobjects), 1, 1)) &gt; X WAITFOR 5 -- AND lozinka = ''
+</pre>
+<p>Naredba SUBSTRING se koristi za dohvat prvog znaka iz imena tablice iz baze podataka. Zatim se provjerava da li je vrijednost tog znaka veća ili manja od X. Ako je veća zakašnjenje u odazivu će biti 5 sekundi, a ako nema zakašnjenja napadač može umjesto X upisati neko drugo slovo i pratiti odaziv.<br />
+Kao što sam rekao ovakav način je dugotrajan i zamoran jer se mora pogađati jedno po jedno slovo, ali iskusnom napadaču nije teško automatizirati ovaj proces.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[18]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:59, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kako_sprije.C4.8Diti_umetanje"> Kako spriječiti umetanje </span></h3>
+<p>Sprječavanje umetanja tako da se izmijeni programski kod i uvedu dodatne provjere. To će obraniti web aplikaciju od većine napada no neće ga potpuno spriječiti, ali će uvelike otežati napadačima izvođenje napada što će ih obično obeshrabriti te će priječi na neke druge ranjivije stranice.<br />
+Sprječavanje umetanja se temelji na tome da se neprovjereni podaci drže podalje od naredbi i upita. Najbolje je koristiti sigurne API-e čime se zaobilazi korištenje interpretera ili se pruža parametrizirano sučelje. No treba paziti na API-e koji se čine parametrizirani no još uvijek mogu dozvoliti umetanje, kao što su pohranjene procedure. Ako takvi API-i nisu dostupni potrebno je oprezno izbjeći specijalne znakove. Validacija inputa pomoću „whitelisting-a“ sa prikladnom kanonizacijom također pomaže u sprječavanju umetanja.<a href="https://www.owasp.org/index.php/Top_10_2010-A1" class="external autonumber" rel="nofollow">[19]</a><br />
+Što se tiče baze podataka, dvije su bitne stvari za zaštitu od napada. Korištenje netipičnih imena tablica i atributa te ograničavanje ovlasti. Pa tako ako se koriste netipična imena napadač će se morati dodatno potruditi da ih otkrije umjesto da iz prve pogodi neko uobičajeno ime tablice kao što je npr. „korisnici“. Osim toga treba korisnicima onemogućiti izvođenje većine SQL naredbi, osim onih koje su im nužne za rad, npr. omogućiti im izvođenje samo naredbe SELECT, dok bi samo administrator mogao koristiti i ostale, potencijalno opasnije, naredbe poput DROP TABLE.<br />
+Kod polja za unos podataka potrebno je uprogramirati dodatne procedure za ograničavanje duljine i tipova podataka. Npr. broj znakova za unos korisničkog imena i lozinke se može ograničiti na npr. 10 znakova jer bi to trebalo biti dovoljno. Na mjesta gdje se unašaju brojke treba uvesti provjeru da li je korisnik zaista i napisao samo brojke, a ne neki SQL kod.<br />
+Sama provjera unesenih podataka bi se trebala obavljati na poslužiteljskoj strani jer u suprotnome napadač može dohvatiti stranicu i obrisati dio gdje se provjeravaju podaci.<br />
+Zatim treba zabraniti unašanje određenih znakova poput navodnika, točke-zarez, dvije crtice, SQL naredbi poput INSERT, DROP TABLE te pohranjenih procedura poput xp_cmdshell. Ti znakovi korisnicima sigurno neće trebati a napadač bi ih mogao iskoristiti za izvođenje napada kako je već bilo i opisano.<br />
+Osim toga postoje i zaštite koje se mogu uvesti na poslužitelju. Prvo je ograničavanje pristupa aplikaciji na samo one dijelove koji su joj nužni za obavljanje zadataka. Zatim ograničiti informacije koje se pružaju prilikom poruka greške i prikazati samo npr. stranicu na kojoj piše „500 Server Error“. Te server treba naravno neprestano nadgledati, nadograđivati, čistiti od nepotrebnih podataka i sl.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[20]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:59, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Korisni_alati"> Korisni alati </span></h3>
+<p>Za kraj bi još samo spomenuo neke korisne alate koji ili provjeravaju ranjivost na SQL injection ili do neke mjere štite od takvog napada. To su:<br />
+Dodatak za Firefox „SQL Inject Me“, SQL Injection Test dostupan na stranici: hackertarget.com/free-sql-scan, programski paketi sqlmap i Pangolin. Oni svi provjeravaju ranjivost na SQL injection. Još jedan koristan paket koji zapravo služi za sprječavanje napada jest GreenSQL.<a href="http://www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf" class="external autonumber" rel="nofollow">[21]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 20:59, 5. siječnja 2012. (CET)<br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Prakti.C4.8Dni_dio"> Praktični dio </span></h3>
+<p>Za praktični dio sam htio napraviti neku ranjivu web aplikaciju na kojoj bi demonstrirao navedene napade ali sam u međuvremenu naletio na već gotovu takvu aplikaciju koja služi upravo za edukacijske svrhe, pa nisam htio izmišljati toplu vodu nego sam uzeo i instalirao tu aplikaciju na računalu te ću na njoj pokazati opisane ranjivosti.<br />
+Dana aplikacija se može skinuti na: <a href="http://www.dvwa.co.uk/" class="external free" rel="nofollow">http://www.dvwa.co.uk/</a>.<br />
+Za osposobljavanje te stranice morao sam instalirati i XAMPP web server koji je dostupan na <a href="http://www.apachefriends.org/en/xampp.html" class="external free" rel="nofollow">http://www.apachefriends.org/en/xampp.html</a>.<br />
+Nakon što sam sve instalirao mogu pokrenuti aplikaciju i logirati se danim mi korisničkim imenom i lozinkom: admin, password.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_1._dvwa_po%C4%8Detna_stranica.JPG" class="image"><img alt="Slika 1. dvwa početna stranica.JPG" src="../../images/thumb/3/38/Slika_1._dvwa_početna_stranica.JPG/1000px-Slika_1._dvwa_početna_stranica.JPG" width="1000" height="718" /></a><br />
+</p><p>Na početnoj stranici možete vidjeti da je omogućeno testiranje nekoliko vrsta napada što uključuje SQL injection, blind SQL injection, CSRF, file inclusion i td.<br />
+No prije samog testiranja trebalo je kreirati bazu te postaviti sigurnost na „Low“ jer nam s defaultnim postavkama na „High“ ništa ne bi radilo.<br />
+Nakon toga možemo krenuti na samo testiranje SQL injectiona na sljedećoj stranici.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_2._SQL_injection.JPG" class="image"><img alt="Slika 2. SQL injection.JPG" src="../../images/thumb/3/3b/Slika_2._SQL_injection.JPG/1000px-Slika_2._SQL_injection.JPG" width="1000" height="720" /></a><br />
+</p><p>Aplikacija nam nudi jedno jedino polje za upisivanje korisničkog Id-a preko kojeg ćemo izvoditi naš napad. Pa prvo što ćemo napraviti jest provjeriti da li je aplikacija doista ranjiva na SQL injection tako da upišemo samo jedan navodnik i vidimo što će nam aplikacija odgovoriti.<br />
+Kao odgovor dobivamo sljedeću poruku greške:<br />
+</p>
+<pre>
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''''' at line 1
+</pre>
+<p>Koja nam zapravo govori da smo poremetili sintaksu upita koji se kreira prilikom unosa korisničkog ID-a što zapravo znači da je aplikacija ranjiva na SQL injection.<br />
+Sljedeće ćemo iskoristiti trik za logiranje koji bi trebao producirati barem jedan validan user ID.<br />
+</p>
+<pre>
+' OR '1'='1
+</pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_3._'_OR_'1'%3D'1.JPG" class="image"><img alt="Slika 3. &#39; OR &#39;1&#39;=&#39;1.JPG" src="../../images/thumb/7/75/Slika_3._'_OR_'1'='1.JPG/1000px-Slika_3._'_OR_'1'='1.JPG" width="1000" height="718" /></a><br />
+</p><p>SQL injection je urodio plodom. Aplikacija nam je ispisala imena i prezimena svih korisnika u bazi. Za sada smo saznali da SQL upit koji se kreira na temelju našeg unosa provjerava ID koji smo unijeli i na temelju njega iz tablice vadi ime te prezime i ispisuje ga na ekran. No podaci koji se ispisuju nam baš i ne koriste previše. Mi bi htjeli doznati korisnička imena i lozinke. Za to nam trebaju imena tablica i atributa. Da bi njih doznali moramo koristiti SQL upit koji se kreira na temelju našeg unosa. Za to ćemo koristiti naredbu UNION i nakon nje SELECT koji će nam vračati informacije koje želimo.<br />
+Prvo, možemo doznati verziju servera te ime baze sa sljedećim kodom:<br />
+</p>
+<pre>
+' UNION SELECT database(),version() -- 
+</pre>
+<p>Prvi navodnik služi da zatvorimo provjeru user ID-a, pa prvi SQL upit kojeg stvara aplikacija neće vratiti ništa budući da ne postoji korisnik s praznim ID-om. Zatim slijedi naš SELECT upit koji selektira dvije stvari budući da prvi upit isto selektira dvije stvari, u suprotnome ne bi radilo. Prvo koristimo database() koji vraća ime baze, a u drugom dijelu koristimo version() koja vraća verziju servera.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_4._Ime_baze_i_verzija_servera.JPG" class="image"><img alt="Slika 4. Ime baze i verzija servera.JPG" src="../../images/thumb/2/27/Slika_4._Ime_baze_i_verzija_servera.JPG/1000px-Slika_4._Ime_baze_i_verzija_servera.JPG" width="1000" height="702" /></a><br />
+</p><p>Zatim sa sljedećim kodom dohvaćamo imena tablica u bazi.<br />
+</p>
+<pre>
+' UNION SELECT null,TABLE_NAME FROM information_schema.TABLES where table_schema='dvwa' --
+</pre>
+<p>Ovaj puta prvi dio SELECT naredbe stavljamo na null jer nam ne treba. Drugi dio zapravo govori da se odaberu imena tablica iz tablice s metapodacima i to samo za bazu kojoj smo prije saznali ime. Rezultate možemo vidjeti na sljedećoj slici.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_5._Imena_tablica.JPG" class="image"><img alt="Slika 5. Imena tablica.JPG" src="../../images/thumb/5/55/Slika_5._Imena_tablica.JPG/1000px-Slika_5._Imena_tablica.JPG" width="1000" height="717" /></a><br />
+</p><p>Sada znamo da u bazi postoje dvije tablice, „gusetbook“ i „users“. Sa sljedećim kodom dohvaćamo imena atributa u pojedinim tablicama.<br />
+</p>
+<pre>
+' UNION SELECT null,column_name FROM information_schema.columns where table_name='guestbook' -- 
+</pre>
+<p>i<br />
+</p>
+<pre>
+' UNION SELECT null,column_name FROM information_schema.columns where table_name='users' -- 
+</pre>
+<p>Dakle ovaj puta dohvaćamo imena kolumna iz tablice s metapodacima i to samo za tablicu koju smo zadali. Rezultati za „guestbook“ nam nisu zanimljivi, ali za tablicu „users“ već jesu.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_6._Atributi_za_tablicu_users..JPG" class="image"><img alt="Slika 6. Atributi za tablicu users..JPG" src="../../images/thumb/8/8c/Slika_6._Atributi_za_tablicu_users..JPG/1000px-Slika_6._Atributi_za_tablicu_users..JPG" width="1000" height="714" /></a><br />
+</p><p>Sad znamo da se u tablici „users“ nalaze podaci o user_id-u, imenu, prezimenu, korisničkom imenu, lozinci i avataru. Nas zanimaju korisnička imena i lozinke. Do njih dolazimo sljedećim kodom.<br />
+</p>
+<pre>
+' UNION SELECT user,password FROM users --
+</pre>
+<p>Dakle jednostavno, odabiru se korisnička imena i lozinke iz tablice „users“.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_7._Korisni%C4%8Dka_imena_i_lozinke..JPG" class="image"><img alt="Slika 7. Korisnička imena i lozinke..JPG" src="../../images/thumb/5/5e/Slika_7._Korisnička_imena_i_lozinke..JPG/1000px-Slika_7._Korisnička_imena_i_lozinke..JPG" width="1000" height="718" /></a><br />
+</p><p>Iako sada imamo korisnička imena i lozinke to nam ništa ne znači jer su lozinke očito kriptirane. Sljedeći korak bi bio razbiti kriptirane lozinke no to nije tema ovog rada.<br />
+Osim ovog možemo još i pristupiti drugim tablicama osim onima kojima originalni SQL upit pristupa. To ćemo učiniti sljedećim kodom.<br />
+</p>
+<pre>
+' union select null, comment from guestbook -- 
+</pre>
+<p>Dakle odabire se atribut „comment“ iz tablice „guestbook“ i dobijemo sljedeći rezultat.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika_8._Dohva%C4%87anje_podataka_iz_drugih_tablica..JPG" class="image"><img alt="Slika 8. Dohvaćanje podataka iz drugih tablica..JPG" src="../../images/thumb/0/0d/Slika_8._Dohvaćanje_podataka_iz_drugih_tablica..JPG/1000px-Slika_8._Dohvaćanje_podataka_iz_drugih_tablica..JPG" width="1000" height="702" /></a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhuzjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhuzjak (stranica ne postoji)">Dhuzjak</a> 23:20, 6. siječnja 2012. (CET)<br />
+</p>
+<h2> <span class="mw-headline" id="XPath_Injection">XPath Injection</span></h2>
+<h3> <span class="mw-headline" id="XPath"> XPath </span></h3>
+<p>XPath je jezik koji opisuje način na koji se može pristupiti stavkama u XML dokumentima upotrebom sintakse koja se temelji na putanji s obzirom na logičku strukturu ili hijerarhiju dokumenta. 
+Tako se pojednostavnjuje pisanje programskih izraza budući da nije potrebno svaki izraz temeljiti na XML oznakama i njihovom redoslijedu u dokumentu.
+</p><p>Glavna razlika između jezika XPath i drugih jezika je tome što Xpath specificira putanju umjesto da pokazuje na skup ili slijed znakova, riječi ili drugih elemenata.
+</p><p>Xpath koristi koncept „čvora“ (eng.  concept node, točka početka putanje adrese), logičkog stabla koje se nalazi u svim XML dokumentima, te koncepte kojima se izražava veza (odnos, relacija) definirana u XML skupu informacija, a one su predak (ancestor), atribut (attribute), dijete (child), roditelj (parent), kao i sam koncept(self). <a href="http://searchsoa.techtarget.com/definition/XPath" class="external autonumber" rel="nofollow">[22]</a>
+</p><p>Također Xpath posjeduje <i>library</i> koji se sastoji od 100 ugrađenih funkcija poput Boolean vrijednosti, usporedbu datuma i vremena, string i numeričke vrijednosti i td. U nastavku se nalazi primjer XML datoteke naziva <i>Korisnici.xml</i>.
+</p>
+  <pre>
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;korisnici&gt; 
+      &lt;korisnik&gt;  
+          &lt;ime&gt;Ivan&lt;/ime&gt;
+          &lt;prezime&gt;Horvat&lt;/prezime&gt; 
+          &lt;loginID&gt;abc&lt;/loginID&gt; 
+          &lt;lozinka&gt;ivohoror9&lt;/lozinka&gt; 
+      &lt;/korisnik&gt; 
+      &lt;korisnik&gt;  
+          &lt;ime&gt;Chuck&lt;/ime&gt;
+          &lt;prezime&gt;Norris&lt;/prezime&gt;
+          &lt;loginID&gt;xyz&lt;/loginID&gt; 
+          &lt;lozinka&gt;dnnpass&lt;/lozinka&gt; 
+      &lt;/korisnik&gt; 
+      &lt;korisnik&gt;  
+          &lt;ime&gt;Nikke&lt;/ime&gt;
+          &lt;prezime&gt;Knatterton&lt;/prezime&gt;
+          &lt;loginID&gt;cba&lt;/loginID&gt; 
+          &lt;lozinka&gt;ulala123&lt;/lozinka&gt; 
+      &lt;/korisnik&gt; 
+      &lt;korisnik&gt;  
+          &lt;ime&gt;Ana&lt;/ime&gt;
+          &lt;prezime&gt;Novak&lt;/prezime&gt;
+          &lt;loginID&gt;zyx&lt;/loginID&gt; 
+          &lt;lozinka&gt;9meme&lt;/lozinka&gt; 
+      &lt;/korisnik&gt; 
+ &lt;/korisnici&gt;
+
+ </pre>
+<p>Xpath upit:
+</p>
+<pre> 
+Set xmlDoc=CreateObject(&quot;Microsoft.XMLDOM&quot;)
+xmlDoc.async=&quot;false&quot;
+xmlDoc.load(&quot;korisnici.xml&quot;)
+xmlobject.selectNodes(&quot;/korisnici/korisnik/loginID/text()&quot;)
+</pre>
+<p><br />
+Kada aplikacija treba vratiti određene podatke na temelju unosa korisnika, ona šalje Xpath upit koji se izvršava na serveru. <a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[23]</a> 
+</p><p>Rezultat gore napravljenog upita bio bi:<b> abc</b>. Prema<a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[24]</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 18:45, 5. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Definicija_napada">Definicija napada</span></h3>
+<p><b>Definicija</b>
+</p><p>Xpath Injection je vrsta napada na Web stranice upotrebom Xpath upita nad korisničkim podacima. Ukoliko web aplikacija ugrađuje nezaštićene podatke u Xpath upit, isti je moguće promijeniti te se on neće ponašati u skladu s prvobitnom namjenom.<a href="http://searchsoftwarequality.techtarget.com/definition/XPath-injection" class="external autonumber" rel="nofollow">[25]</a> 
+</p><p><br />
+XPath injection napadi su veoma slični SQL injection napadima. Naime kod klasičnih web arhitektura aplikacije spremaju podatke na podatkovni server. Server može pohranjivati podatke u različitim formatima koji mogu biti relacijske tablice (RDMBS), LDAP, XML i td.<a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[26]</a>
+</p><p>Takvi napadi su mogući kada web stranica koristi korisničke informacije za kreiranje upita nad XML podacima.
+Napadač lako može saznati kako su XML podaci strukturirani ili dobiti pristup podacima za koje nema prava pristupa na način da namjerno stranici pošalje pogrešne podatke ili posebno oblikovane upite.
+</p><p>Xpath se standardno upotrebljava za vršenje upita nad XML podacima i sastoji se naredbi (koda) koje čine XML upit i pomoću kojih se pronalaze pojedine informacije. <a href="https://www.owasp.org/index.php/XPATH_Injection" class="external autonumber" rel="nofollow">[27]</a>
+</p>
+<h3> <span class="mw-headline" id="Vrste_Xpath_Injectiona">Vrste Xpath Injectiona</span></h3>
+<h4> <span class="mw-headline" id="Zaobila.C5.BEenje_autentikacije_.28eng._Bypassing_Authentication.29"><b>Zaobilaženje autentikacije (eng. Bypassing Authentication)</b></span></h4>
+<p>S obzirom da su relacijske baze podataka većinski zastupljene, SQL Injection je dugo bio omiljen način napada na baze.
+</p><p>Npr. aplikacija se povezuje na bazu upotrebom tablice korisnika. Da bi korisnik dobio pristup potrebno je najprije formirati SQL upit koji korisnik mora zadovoljiti točnim unosom login podataka. 
+To bi izgledalo ovako:
+</p>
+<pre>
+Select * from korisnici where LoginID=' ' and lozinka=' '
+</pre>
+<p>No ako korisnik u polje loginID unese:
+</p>
+<pre>
+abc' or 1=1 --
+</pre>
+<p>upit bi izgledao ovako:
+</p>
+<pre>
+Select * from korisnici where loginID = 'abc' or 1=1 -- 'and lozinka=' '
+</pre>
+<p>Dakle kao što je vidljivo iz primjera napadač pogađa da je <i>loginID</i> <b>abc</b>, te se osigurava unosom koji je uvijek točan „<b>1=1</b>“.
+Nadalje koristi oznaku za komentare „<b>--</b>“ u SQL-u te se kod koji dolazi nakon te oznake niti ne izvodi. 
+Na taj način dobiva pristup aplikaciji.
+</p><p>Budući da kod Xpatha <b>ne postoji ekvivalent „</b>--<b>“</b> za komentiranje dijelova upita, postupak kod Xpatha se razlikuje u sljedećem. 
+</p><p>Ako imamo sljedeći kod:<a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[28]</a>
+</p>
+<pre>
+String(//korisnici[loginID/text()=' &quot; + txtLoginID.Text + &quot; ' and lozinka/text()=' &quot;+ txtlozinka.Text +&quot; '])
+</pre>
+<p>i korisnički unos je: 
+</p>
+<pre>
+abc' or 1=1 or 'a'='b
+</pre>
+<p>upit izgleda ovako:
+</p>
+<pre>
+String(//korisnici[loginID/text()='abc' or 1=1 or 'a'='b' and lozinka/text()=''])
+</pre>
+<p>gdje kod:
+</p>
+<pre>
+loginID='abc' or 1=1 or 'a'='b' and lozinka/text()=' '
+</pre>
+<p>možemo tumačiti kao: <b>A OR B OR C AND D</b>.
+</p><p>Pa budući da logički operator <b>AND</b> ima veći prioritet od operatora <b>OR</b>, gore napisani izraz se također može tumačiti kao: <b>(A OR B) OR (C AND D)</b>. 
+Stoga ukoliko je <b>A</b> ili <b>B</b> točno, izraz će se protumačiti kao <b>TRUE</b> bez obzira na <b>(C AND D</b>). U ovom slučaju <b>B</b> je <b>1=1</b>, što znači da je <b>(A OR B)</b> uvijek točno i da je izraz uvijek točan te se napadaču omogućava prijava na sustav. <a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[29]</a>
+</p>
+<h4> <span class="mw-headline" id="Izdvajanje_strukture_XML_dokumenta_.28eng._Extracting_the_XML_document_structure.29">Izdvajanje strukture XML dokumenta (eng. Extracting the XML document structure)</span></h4>
+<p>Napadač može doći do strukture XML dokumenta koristeći upit za zaobilaženje autentikacije objašnjenom u prijašnjim odlomcima. Ako pretpostavimo da je napadač pogodio (ili na neki način saznao) ili pak samo želi provjeriti da li je naziv prvog podčvora (eng. sub-node) u XML dokumentu <i>loginID</i>, vjerojatno bi unio u polje za unos, nešto poput sljedećeg:
+</p>
+<pre>
+abc' or name(//korisnici/loginID[1]) = 'loginID' or 'a'='b
+</pre>
+<p>tada dobivamo sljedeći upit koji provjerava da li je naziv drugog podčvora <i>loginID</i>.
+</p>
+<pre>
+String(//korisnici[loginID/text()='abc' or name(//korisnici/loginID[1]) = 'loginID' or 'a=b' and lozinka/text()='']) 
+</pre>
+<p>Napadač na taj način, metodom pokušaja i pogreške može provjeriti različite čvorove u XML dokumentu. Ako rezultat XPath upita bude uspješna autentikacija napadač može doći do više korisnih informacija, odnosno strukture cijelog dokumenta. 
+</p><p>Budući da bi to mogao biti poprilično dug i zamoran postupak, napadaču je jednostavnije napisati skriptu koja šalje različita XPath ubacivanja koda, te izdvaja dio ili pak cijeli XML dokument sa sustava. <a href="http://www.ibm.com/developerworks/xml/library/x-xpathinjection/index.html" class="external autonumber" rel="nofollow">[30]</a>,<a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[31]</a>
+</p>
+<h3> <span class="mw-headline" id="Blind_Xpath_Injection">Blind Xpath Injection </span></h3>
+<p>Kod klasičnog Xpath Injectiona, napadač se može prijaviti na sustav bez valjanog korisničkog imena ili lozinke, no da bi saznao više podataka, odnosno podatke o drugim korisnicima mora uložiti ipak malo više napora. Tome služi Blind Xpath Injection.
+</p><p>Kod provođenja ovakvog oblika napada, napadač nema saznanja o strukturi XML dokumenta no ipak je u prednosti u odnosu na Blind SQL Injection napad. Tome je zaslužno postojanje funkcija za ispitivanje XML indeksiranja (eng. XML Crawling) što pak za krajnji cilj može imati upoznavanje strukture samog dokumenta.
+Blind Xpath Injection spada u grupu "potpunih" napada budući da su svi podaci izloženi napadu te je na taj način napadaču omogućen pristup do cijelog XML dokumenta.
+</p><p>Postoji nekoliko tehnika za izvršenje takvog napada. One su <b>Xpath Crawling</b> i <b>Boolenizacija Xpath upita</b>.
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="Boolenizacija_Xpath_upita">Boolenizacija Xpath upita</span></h5>
+<p>Koristeći metodu Boolenizacije napadač može saznati ako je dani XPath izraz <b>True</b> ili <b>False</b>. 
+Najjednostavniji je primjer pokušaja prijave na sam sustav.
+Kao što je već bilo navedeno u prijašnjim primjerima, napadač će se uspješno prijaviti na sustav ako je takav izraz "<b>True</b>", dok logički, neuspješna prijava bila bi jednaka "<b>False</b>".
+</p><p>No ako se napadač fokusira na pojedini znakovni niz (eng. string), može otkriti i cijelu riječ - cjelinu, uzastopnom provjerom svakog od znakova unutar klase/dosega kojem znakovni niz pripada.
+</p><p>Koristeći funkciju koja kao rezultat vraća duljinu znakovnog niza, napadač može lako doći do duljine takvog niza. S odgovarajućem brojem ponavljanja funkcije pronalaženja znakova unutar niza (S, N, 1) napadač može pronaći cijeli znakovni niz. Pri čemu je <i>S-znakovni niz</i>, <i>N-početni znak</i>, a <i>"1" predstavlja sljedeći znak brojeći od znaka "N"</i>.
+</p><p><br />
+</p>
+<pre>
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;podaci&gt;
+   &lt;korisnik&gt;
+      &lt;login&gt;admin&lt;/login&gt;
+      &lt;lozinka&gt;test456&lt;/lozinka&gt;
+      &lt;titula&gt;SuperUser&lt;/titula&gt;
+   &lt;/korisnik&gt;
+
+   &lt;korisnik&gt;
+      &lt;login&gt;user&lt;/login&gt;
+      &lt;lozinka&gt;ivo123&lt;/lozinka&gt;
+      &lt;titula&gt;User&lt;/titula&gt;
+   &lt;/korisnik&gt;
+&lt;/podaci&gt;
+
+</pre>
+<p>Funkcija:
+</p>
+<pre>
+string-length(//korisnik[position()=1]/child::node()[position()=2]) 
+</pre>
+<p>vraća duljinu drugog niza znakova (<b>7</b>), korisnika oznake na poziciji 1 (admin)
+</p>
+<pre>
+substring((//korisnik[position()=1]/child::node()[position()=2),1,1) 
+</pre>
+<p>vraća prvi znak niza istog korisnika ('<b>t'</b>). <a href="https://www.owasp.org/index.php/Blind_XPath_Injection" class="external autonumber" rel="nofollow">[32]</a>
+</p>
+<h4> <span class="mw-headline" id="Xpath_Crawling">Xpath Crawling</span></h4>
+<p>Da bi došao do strukture XML dokumenta napadač može koristiti sljedeći izraz:
+</p>
+<ul><li>count(expression)
+</li></ul>
+<pre>count(//korisnik/child::node() </pre>
+<p>Kao rezultat vraća broj čvorova, u ovom primjeru dva (2).
+</p><p>Ako pak koristi
+</p>
+<ul><li> string-length(string)
+</li></ul>
+<pre>string-length(//korisnik[position()=1]/child::node()[position()=2])=6 </pre>
+<p>napadač saznaje da li se drugi znakovni niz ("lozinka") prvog čvora korisnik ("admin"), sastoji od 6 znakova.
+</p>
+<ul><li>substring(string, number, number)
+</li></ul>
+<pre> substring((//korisnik[position()=1]/child::node()[position()=2]),1,1)=&quot;a&quot; </pre>
+<p>Ovaj upit vraća TRUE ili FALSE ovisno o tome da li je "a" prvo slovo lozinke za korisnika "admin".
+</p><p>Popis ostalih XPath funkcija može se vidjeti slijedeći <a href="http://www.w3schools.com/xpath/xpath_functions.asp" class="external text" rel="nofollow">poveznicu</a>
+</p><p>Budući da zbog Boolenizacije broj upita može biti poprilično velik (nekoliko tisuća i više) taj se napad ne provodi ručno.
+Da bi se napisao program potrebno je znati nekoliko osnovnih XPath funkcija, čime se može doći do strukture dokumenta kao i popratnih podataka. <a href="https://www.owasp.org/index.php/Blind_XPath_Injection" class="external autonumber" rel="nofollow">[33]</a>
+</p>
+<h3> <span class="mw-headline" id="Prevencija_XPath_napada">Prevencija XPath napada</span></h3>
+<p>S obzirom na to da su Xpath ubacivanja veoma slična SQL ubacivanjima koda, metode sprječavanja su podjednake kao i za sprječavanje ostalih napada ubacivanjem koda.
+</p><p><b>Validacija unosa</b>
+</p><p>Postoji najbolja praksa koji bi trebalo slijediti u svrhu sprječavanja XPath napada, a takve smjernice obuhvaćaju:
+</p>
+<ul><li>pretpostavku da je korisnički unos zlonamjeran, dok se ne pokaže suprotno,
+</li><li>vršenje provjere nad tipom podataka kao njegovim formatom, dužinom, dosegom i sadržajem. Npr. upotreba regularnih izraza za pronalaženje sumnjivih znakova: <b>if (/^"*^';&amp;&lt;&gt;()/)</b> 
+</li><li>vršenje provjere unosa podataka na klijentskoj i serverskoj  strani zbog vrlo lakog zaobilaženja validacije na strani klijenta.
+</li><li>testiranje aplikacija prije njihovog plasiranja u javnost.
+</li></ul>
+<p><b>Parametrizacija upita</b>
+</p><p>Na ovaj način se XPath upiti ne kreiraju korisničkim unosom, već su stvoreni prije nego što je program uopće pokrenut (eng. precompiled XPath). <a href="https://www.owasp.org/index.php/XPATH_Injection" class="external autonumber" rel="nofollow">[34]</a>
+Više o tome na <a href="http://www.tkachenko.com/blog/archives/000385.html" class="external text" rel="nofollow">Precompiled XPath</a>.
+</p><p>Ako se proslijede parametri niže navedenom upitu
+</p>
+<pre>
+&quot;//korisnici[loginID/text()=' &quot; + txtloginID.Text + &quot; ' and lozinka/text()=' &quot;+ txtlozinka.Text +&quot; ']&quot;
+</pre>
+<p>dobivamo sljedeći upit:
+</p>
+<pre>
+&quot;//korisnici[loginID/text()= $loginID and lozinka/text()= $lozinka]&quot;
+</pre>
+<p>Unos ne formira upit, već umjesto toga traži vrijednost u XML dokumentu koju ne uspijeva pronaći. Napad je spriječen.
+<a href="http://www.ibm.com/developerworks/xml/library/x-xpathinjection/index.html" class="external autonumber" rel="nofollow">[35]</a>,<a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external autonumber" rel="nofollow">[36]</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 19:50, 5. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Alati_za_provjeru_ranjivosti">Alati za provjeru ranjivosti</span></h3>
+<ul><li><a href="http://w3af.sourceforge.net/" class="external text" rel="nofollow">W3af</a>
+</li><li><a href="https://github.com/orf/xcat" class="external text" rel="nofollow">Xcat</a>
+</li><li><a href="http://www.acunetix.com/" class="external text" rel="nofollow">Acunetix Web Security Scanner</a>
+</li><li><a href="http://wapiti.sourceforge.net/" class="external text" rel="nofollow">Wapiti</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 15:08, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Prakti.C4.8Dni_dio_2">Praktični dio</span></h3>
+<h4> <span class="mw-headline" id="Primjer_1.">Primjer 1.</span></h4>
+<p>Na početku ću prikazati osnovni Xpath napad koji je veoma sličan SQL napadu.
+</p><p>Najprije je potrebno skinuti WebGoat alat sa sljedeće adrese te zadovoljiti nekoliko pretpostavki.
+</p><p>Dakle potrebno je:
+</p>
+<ul><li>dobaviti <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" class="external text" rel="nofollow">JRE (Java Runtime Environment</a>)i instalirati ga, ukoliko već nemamo JRE ili JDK.
+</li><li>dvostrukim klikom na <i>webgoat.bat</i> se pokreće Tomcat server
+</li><li>u web preglednik preko adrese <u><a href="http://localhost/webgoat/attack" class="external free" rel="nofollow">http://localhost/webgoat/attack</a></u> pristupamo alatu.
+</li><li>prijavljujemo se na WebGoat sa podacima za: userid=<b>guest</b> i password=<b>guest</b>.
+</li><li>prikazuje nam se početni ekran gdje odabiremo koji napad želimo.
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Po%C4%8Detni_ekran_Webgoat.jpg" class="image"><img alt="Početni ekran Webgoat.jpg" src="../../images/a/a1/Početni_ekran_Webgoat.jpg" width="595" height="477" /></a>
+</p><p>Biramo <i>Injection flaws</i> te zatim <i>Xpath</i>. Dobiva se zadatak u kojem su dani osnovni podaci za jednog korisnika te je potrebno otkriti podatke ostalih korisnika. Ako se ulogiramo s danim podacima dobivamo njegove detaljnije podatke, što je vidljivo na slici niže (gore su prikazani podaci za prijavu).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mike_logiran.jpg" class="image"><img alt="Mike logiran.jpg" src="../../images/e/e4/Mike_logiran.jpg" width="558" height="458" /></a>
+</p><p><br />
+Upotrebom prije spomenutih tehnika dolazi se do rješenja krajnjeg zadatka. Dakle da bi prevarili sustav koristimo se klasičnom tehnikom koja je specifična za SQL injection napade odnosno <a href="znakova.html#Zaobila.C5.BEenje_autentikacije_.28eng._Bypassing_Authentication.29"> zaobilaženjem autentikacije</a>.
+</p><p>Dakle u polje za korisničko ime unosimo:
+</p>
+<pre>
+ Mike'or 1=1 or 'a'='a
+</pre>
+<p>dok umjesto lozinke možemo unijeti bilo što.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rje%C5%A1enje.jpg" class="image"><img alt="Rješenje.jpg" src="../../images/4/4f/Rješenje.jpg" width="804" height="604" /></a>
+</p><p>Izvršena je prijava na sustav i to na način da nas sustav prepoznaje kao prvog korisnika koji je unešen u sustav. Podaci kojima je to učinjeno vidljivi su na slici. Važno je primjetiti da se umjesto "Mike" moglo upisati bilo koje ime, što vrijedi i za lozinku, budući da sustav već ima zadovoljen uvjet za prijavu.
+</p>
+<h4> <span class="mw-headline" id="Primjer_2.">Primjer 2.</span></h4>
+<p>U ovom dijelu dati će se prikaz načina korištenja aplikacija WebGoat te XPATH Blind Explorer u skladu s prije navedenim činjenicama vezanima uz XPath Injection.
+Da bi saznali više potrebno je uložiti više truda, napora i potrebni su dodatni alati poput alata Xpath Blind Explorer koji je predstavljen na  Black_Hat 2011 konferenciji. Naime njegovom upotrebom moguće je doći do cijele strukture Xml dokumenta. Potrebno mu je dati nekoliko obaveznih podataka poput metode GET ili POST, te ukoliko se radi o POST metodi, URL zahtjeva te dodatne parametre koje je potrebno iščitati iz izvornog koda aplikacije. Da bi si olakšali možemo koristiti Firebug ili pak neki drugi dodatak / program kako bismo saznali potrebne podatke iz izvornog koda.
+</p><p>Opet je potrebno zadovoljiti nekoliko pretpostavki:
+</p>
+<ul><li>instalirati neki proxy alat s naprednijim mogućnostima promjene adrese i preusmjeravanja
+</li><li>imati alat ili dodatak za preglednik kojim ćemo moći analizirati izvorni kod stranice, u ovom slučaju Firebug .
+</li><li>isključiti firewall na računalu
+</li><li>podesiti proxy postavke u pregledniku na: localhost (127.0.0.1) i port 8080 (ili neki drugi zavisno od proxy alata ili mogućnosti)
+</li><li>pokrenuti proxy
+</li><li>pokrenuti Xpath Blind Explorer
+</li><li>pokrenuti WebGoat
+</li></ul>
+<p>Za Xpath Blind Explorer su nam potrebni sljedeći podaci: <b>URL i metoda zahtjeva</b>, <b>ključna riječ koja potvrđuje TRUE ili FALSE</b> kao i <b>HTTP Header</b> u kojem navodimo <b>Cookie</b> da bi prošla autentikacija kod WebGoata.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Parametri.jpg" class="image"><img alt="Parametri.jpg" src="../../images/9/96/Parametri.jpg" width="371" height="391" /></a>
+</p><p>Dakle iz Firebug konzole koja prikazuje izvorni kod (Inspect - DOM) možemo iščitati da je <b>adresa zahtjeva</b>: <a href="http://localhost/webgoat/attack?Screen=539&amp;menu=1200" class="external free" rel="nofollow">http://localhost/webgoat/attack?Screen=539&amp;menu=1200</a> (baseURI), <b>Parametri</b>: Username, Password i SUBMIT;
+</p><p>Niže je prikazana slika s označenim parametrima u Firebug konzoli.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Firebug.jpg" class="image"><img alt="Firebug.jpg" src="../../images/2/2b/Firebug.jpg" width="1225" height="243" /></a>
+</p><p><br />
+<b>Ključnu riječ</b> koja potvrđuje TRUE smo saznali nakon prve prijave u sustav i ona je: "468100".
+</p><p>Ako usporedimo podatke za koje smo označili da nam WebGoat pokaže iznad uspješne prijave, možemo vidjeti da se oni poklapaju.
+</p><p>Sada unosimo podatke koje smo saznali u Xpath Blind Explorer, slika ekrana s prvog taba se nalazi niže:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Drugi_screen_xpathxx.jpg" class="image"><img alt="Drugi screen xpathxx.jpg" src="../../images/9/91/Drugi_screen_xpathxx.jpg" width="691" height="563" /></a>
+</p><p>Dakle budući da svi od navedenih alata imaju osobite bugove pa ili ne rade ili se ruše (potrebno uzeti u obzir da je ovo rađeno u virtualnom okruženju gdje je ponekad radilo, ponekad ne).
+</p><p>HTTP header sam najprije saznala s alatom Paros, budući da Burp Suite ne voli baš raditi, pa čisto radi usporedbe.
+Slika se nalazi niže.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Paros.jpg" class="image"><img alt="Paros.jpg" src="../../images/0/00/Paros.jpg" width="561" height="238" /></a>
+</p><p>Na idućoj slici se nalazi slika drugog taba Xpath Blind Explorera nakon što smo saznali HTTP Header koji nam je potreban, za to nam je potreban program kao gore navedeni Paros,Webscarab, Burp Proxy... 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Drugitabexplorer.jpg" class="image"><img alt="Drugitabexplorer.jpg" src="../../images/e/e1/Drugitabexplorer.jpg" width="691" height="563" /></a>
+</p><p>Iduća slika prikazuje parametre u alatu Burp Suite.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Burpsuiteparametri.jpg" class="image"><img alt="Burpsuiteparametri.jpg" src="../../images/b/ba/Burpsuiteparametri.jpg" width="767" height="367" /></a>
+</p><p>Na idućoj slici možemo vidjeti funkcionalnost Burp Suite alata <b>decoder</b> kojom dekodira autentikaciju.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dekoder.jpg" class="image"><img alt="Dekoder.jpg" src="../../images/3/36/Dekoder.jpg" width="769" height="433" /></a>
+</p><p>Dakle vršimo testiranje za uvjet True uz pomoć vraćene ključne riječi, vidimo da nam je Burp vratio kako zapravo izgleda prijava na sustav i da je kod za ubacivanje "'%20and%20'1'='1" smješten na kraju svih parametara, što pak znači da XPath Blind Explorer tretira više parametara kao jedan.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Burp_parametri.jpg" class="image"><img alt="Burp parametri.jpg" src="../../images/e/e2/Burp_parametri.jpg" width="672" height="475" /></a>
+</p><p>Dakle jedan dio se sastoji od Username dok drugi dio od URL-a. Budući da se kod za ubacivanje nalazi na kraju svih parametara potrebno je promijeniti njihov redoslijed. Dakle sada se parametar za lozinku nalazi na kraju i to izgleda ovako:
+</p>
+<pre>SUBMIT=Submit&amp;Username=Mike&amp;Password=test123</pre>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Zamjena_xpath_prvi_screen.jpg" class="image"><img alt="Zamjena xpath prvi screen.jpg" src="../../images/e/e9/Zamjena_xpath_prvi_screen.jpg" width="691" height="563" /></a>
+</p><p>XPath Blind Explorer tretira sve parametre kao jedan pa će se između parametara u URL nalaziti "&amp;" (također se možemo uvjeriti da je to u ovom slučaju regex "(%26)" te je isto potrebno zamijeniti sa "&amp;".) Tj. iz "%26" što nije URL kodirano, primjenom URL kodiranja dobivamo "&amp;". U zamjeni će nam pomoći Burp Suite sa svojom opcijom "match and replace", što je vidljivo na slici niže.<a href="http://www.blooberry.com/indexdot/html/topics/urlencoding.htm" class="external text" rel="nofollow">URL encoding</a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Reg_burp.jpg" class="image"><img alt="Reg burp.jpg" src="../../images/a/a2/Reg_burp.jpg" width="673" height="477" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Reg_burp1dodano.jpg" class="image"><img alt="Reg burp1dodano.jpg" src="../../images/f/fd/Reg_burp1dodano.jpg" width="671" height="475" /></a>
+</p><p>Nakon toga mijenja se izgled URL-a, odnosno kodiranja znakova. Pokrećemo opciju dohvaćanje XML koda (<b>&lt;GET XML&gt;</b>)i nakon određenog vremena Blind Xpath Explorer prikazati će XML strukturu dokumenta koji ovdje nije prikazan zbog rušenja programa i nekoliko pokušaja nemogućnosti postizanja ponovne funkcionalnosti navedenih programa (Burp odbija suradnju i blokira cijeli promet, Blind XPath explorer baca grešku, a WebGoat naravno ne radi zbog toga što Burp blokira cijeli promet).
+Dakle ako imate volje, vremena i živaca za igranje kombinacijom alata, sretno!
+</p><p>Dakle u izradi zadatka bili su korišteni sljedeći alati i dodaci:
+</p>
+<ul><li><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" class="external text" rel="nofollow">Java Runtime Environment</a>
+</li><li><a href="http://code.google.com/p/webgoat/" class="external text" rel="nofollow">WebGoat</a>
+</li><li><a href="http://www.parosproxy.org/" class="external text" rel="nofollow">Paros Proxy</a>
+</li><li><a href="http://portswigger.net/burp/proxy.html" class="external text" rel="nofollow">Burp Suite</a>
+</li><li><a href="http://code.google.com/p/xpath-blind-explorer/" class="external text" rel="nofollow">XPath Blind Explorer</a>
+</li><li><a href="http://getfirebug.com/" class="external text" rel="nofollow">Firebug dodatak za Firefox</a>
+</li></ul>
+<p>I izvori:
+</p>
+<ul><li><a href="http://fallensnow-jack.blogspot.com/2011/08/play-with-xpath-blind-explorer.html" class="external autonumber" rel="nofollow">[37]</a>
+</li><li><a href="http://www.blooberry.com/indexdot/html/topics/urlencoding.htm" class="external autonumber" rel="nofollow">[38]</a>
+</li></ul>
+<p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 00:06, 7. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="SSI_ubacivanje_.28SSI_Injection.29">SSI ubacivanje (SSI Injection)</span></h2>
+<h3> <span class="mw-headline" id="SSI_-_Server_Side_Includes">SSI - Server Side Includes </span></h3>
+<p><b>SSI</b> (eng. Server Side Includes) je skriptni jezik koji se izvršava na poslužitelju, a koristi za za izvršavanje operacijskih naredbi na sustavu ili pak uključivanje (prebacivanje) sadržaja iz jedne ili više datoteka na web stranicu koja se nalazi na nekom serveru.
+Najjednostavniji primjer takvog uključivanja je npr. funkcionalnost web stranice "dnevna ponuda". Kod za uključivanje takve datoteke na web stranicu bi izgledao ovako:
+</p>
+<pre>
+&lt;!--#include virtual=&quot;../ponuda.txt&quot; --&gt;
+</pre>
+<p>S promjenom "<i>ponuda.txt</i>" datoteke, sve stranice koje uključuju takvu datoteku će se prikazati najnoviju dnevnu ponudu.
+Uključivanje nije ograničeno samo na datoteke, a može uključivati i tekst koji kao izlaz generira neki program, ili pak vrijednost varijable sustava kao što je npr. trenutno vrijeme.
+</p><p>SSI su korisna i za recimo uključivanje zajedničkog djela web mjesta kao što su <b>zaglavlje</b> (eng. header), <b>podnožje</b> (eng. footer), kao i zajednički <b>navigacijski meni</b>. 
+</p><p>Da bi web server prepoznao HTML datoteku s omogućenim SSI-jem, naziv datoteke bi trebao imati jednu od uobičajenih ekstenzija <i>.<b>shtml, .stm, .shtm</b></i> ili pak postavljen <i>izvršni bit</i> datoteke, ako je server konfiguriran da dopušta takvo nešto.
+</p><p>SSI podržava samo text i kontrolni tok je poprilično jednostavan, moguć je odabir ali petlje nisu podržane osim ako se ne koristi rekurzija upotrebom "include" ili HTTP preusmjeravanjem.
+</p><p>Glavni tipovi web servera koji podržavaju SSI su <b>Apache</b>, <b>nginx</b>, <b>lighttpd</b> i <b>IIS</b>.
+</p><p><a href="http://en.wikipedia.org/wiki/Server_Side_Includes" class="external autonumber" rel="nofollow">[39]</a>
+</p><p>SSI omogućuje dodavanje dinamički generiranog sadržaj na HTML stranicu, bez potrebe za posluživanjem cijele stranicu putem CGI programa ili neke druge dinamičke tehnologije. <a href="http://httpd.apache.org/docs/1.3/howto/ssi.html" class="external autonumber" rel="nofollow">[40]</a>
+</p><p><br />
+<b>Sintaksa SSI</b>
+</p><p>SSI ima jednostavnu sintaksu. 
+</p>
+<pre>
+&lt;!--#naredba parametar=vrijednost --&gt;
+</pre>
+<p>Naredbe (eng. directive) su smještene u HTML komentare tako da ukoliko SSI nije omogućen, korisnici ni ne vide takav sadržaj, osim ako ne pogledaju izvorni kod stranice. <a href="http://en.wikipedia.org/wiki/Server_Side_Includes" class="external autonumber" rel="nofollow">[41]</a>
+</p><p>Umetanje SSI naredbi u HTML dokument izgleda ovako:
+</p>
+<ul><li> ispisuje trenutno vrijeme:
+</li></ul>
+<pre>
+&lt;!--#echo var=&quot;DATE_LOCAL&quot; --&gt;
+</pre>
+<ul><li>ispisuje izlaz koju generira CGI skripta:
+</li></ul>
+<pre>
+&lt;!--#include virtual=&quot;/cgi-bin/counter.pl&quot; --&gt;
+</pre>
+<ul><li>uključuje sadržaj neke datoteke, u ovom slučaju "zaglavlje.html":
+</li></ul>
+<pre>
+&lt;!--#include virtual=&quot;/zaglavlje.html&quot; --&gt;
+</pre>
+<ul><li>uključuje izlaz iz sistemske naredbe (većina servera obično ne dopušta upotrebu <b>exec</b> naredbe za izvršenje sistemskih naredbi):
+</li></ul>
+<pre>
+&lt;!--#exec cmd=&quot;ls&quot; --&gt;
+</pre>
+<p><a href="https://www.owasp.org/index.php/Server-Side_Includes_(SSI)_Injection" class="external autonumber" rel="nofollow">[42]</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 12:08, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Definicija_napada_2">Definicija napada</span></h3>
+<p><b>SSI Injection</b> je tehnika iskorištavanja slabosti na serverskoj strani na način da napadač šalje kod u web aplikaciju, a koji će se kasnije izvršiti lokalno od strane web servera.  SSI Injection iskorištava slabost aplikacije zbog koje podaci nisu uopće ili dovoljno pročišćeni-filtrirani (eng. santinized) prije ubacivanja u HTML datoteku koju interpretira serverska strana.
+</p><p>Prije nego što da na raspolaganje HTML stranicu klijentu, web server može analizirati i izvršiti SSI izraze. U nekim slučajevima, web stranica ubacuje podatke dobivene od strane korisnika u sam izvorni kod stranice ( npr. oglasne ploče, knjige gostiju, CMS – sustavi za upravljanje sadržajem). 
+Na taj način napadač može izvršiti proizvoljne naredbe operacijskog sustava  ili pak uključiti sadržaj koji je zabranjen, što će se realizirati idući put kada stranica bude poslužena. Takav napad se odvija na razini ovlasti korisnika web servera.<a href="http://projects.webappsec.org/w/page/13246964/SSI%20Injection" class="external autonumber" rel="nofollow">[43]</a>
+</p><p><b>Primjer 1.</b>
+</p><p>Sljedeće naredbe sadrže sintaksu koja se koristi za izvođenje OS naredbi.
+</p>
+<ul><li>Može omogućiti napadaču da dođe do <b>root</b> direktorija, na UNIX baziranim sustavima.<a href="http://projects.webappsec.org/w/page/13246964/SSI%20Injection" class="external autonumber" rel="nofollow">[44]</a>
+</li></ul>
+<pre>
+&lt;!--#exec cmd=&quot;/bin/ls /&quot; --&gt;
+</pre>
+<ul><li> Linux - ispisuje popis datoteka u direktoriju:
+</li></ul>
+<pre>
+&lt;&#160;!--#exec cmd=&quot;ls&quot; --&gt;
+</pre>
+<ul><li> Windows - ispisuje popis datoteka u direktoriju:
+</li></ul>
+<pre>
+&lt;&#160;!--#exec cmd=&quot;dir&quot; --&gt;
+</pre>
+<ul><li> Windows - pristupanje direktoriju:
+</li></ul>
+<pre>
+&lt;&#160;!--#exec cmd=&quot;cd C:\admin\dir&quot;&gt;
+</pre> 
+<p><br />
+<b>Primjer 2.</b>
+</p><p>Neki primjeri SSI-ja za pristupanje i promjenu informacija na serveru:
+</p>
+<ul><li>Prikaz trenutnog naziva dokumenta:
+</li></ul>
+<pre>
+&lt;!--#echo var=&quot;DOCUMENT_NAME&quot; --&gt;
+</pre>
+<ul><li>prikaz putanje i naziva dokumenta:
+</li></ul>
+<pre>
+&lt;!--#echo var=&quot;DOCUMENT_URI&quot; --&gt;
+</pre>
+<ul><li>koristeći naredbu “config” i parametar “timefmt”, moguće je kontrolirati izlazni format datuma i vremena:
+</li></ul>
+<pre>
+&lt;!--#config timefmt=&quot;A&#160;%B&#160;%d&#160;%Y&#160;%r&quot;--&gt;
+</pre>
+<ul><li>koristeći naredbu  “fsize”, moguće je ispisati veličinu odabrane datoteke:
+</li></ul>
+<pre>
+&lt;!--#fsize file=&quot;ssi.shtml&quot; --&gt;
+</pre>
+<p><a href="https://www.owasp.org/index.php/Server-Side_Includes_(SSI)_Injection" class="external autonumber" rel="nofollow">[45]</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 17:00, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="Provjera_ranjivosti_web_stranice_na_SSI_Injection">Provjera ranjivosti web stranice na SSI Injection</span></h4>
+<p>SSI napad dakle omogućuje iskorištavanje web aplikacija ubrizgavanjem skripte u HTML stranice ili izvršavanjem proizvoljnog koda na daljinu. To može biti izvršeno kroz manipulaciju SSI-jem koji se trenutno koriste ili pak kroz polje za korisnički unos.
+</p><p>Moguće je provjeriti da li program ispravno validira polja za unos podataka, umetanjem znakova koji se koriste u SSI naredbama (eng. directive), kao što su:
+</p>
+<pre>
+&lt;! # = /. &quot;-&gt; I [-ZA-Z0-9]
+</pre>
+<p>Drugi način da se provjeri da li je aplikacija ranjiva je prisutnost stranice sa nastavkom .stm, .shtm i .shtml. No ako takav format stranica i nije prisutan u sustavu to ne znači da aplikacija nije osjetljiva na SSI napad. 
+</p><p><b>Važno je napomenuti da će aplikacija biti osjetljiva na takav oblik napada samo ako web server dopušta izvršenje SSI-jeva, a da prije uopće ili dobro ne provjerava/filtrira unešene podatke.</b>
+</p><p>Napadač može pristupiti osjetljivim informacijama, poput datoteka s lozinkama te izvršiti shell naredbe (eng. shell commands). SSI naredbe se ubacuju u polja za unos i šalju se na web server. Web server razdvaja i izvodi naredbe prije nego što rezultate vrati na web stranicu. Na taj način će rezultati napada biti vidlljivi sljedeći puta kada se stranica učita u preglednik korisnika.
+<a href="https://www.owasp.org/index.php/Server-Side_Includes_(SSI)_Injection" class="external autonumber" rel="nofollow">[46]</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 17:01, 6. siječnja 2012. (CET)
+</p>
+<h5> <span class="mw-headline" id="Gray_Box_testiranje">Gray Box testiranje</span></h5>
+<p>Ako imamo pristup do izvornog koda aplikacije možemo lako saznati:
+</p>
+<ol><li> Ako se SSI naredbe koriste tada web server ima omogućenu podršku za SSI, što znači da je to  potencijalni problem kojeg bi trebalo provjeriti.
+</li><li> Gdje se obrađuju korisnički unosi, sadržaj cookieja te HTTP zaglavlja. Tada je brzo utvrđen potpun popis unosa.
+</li><li> Kako se rukuje unosom, koji tip filtriranja se upotrebaljava, koje znakove aplikacija ne propušta i koliko tipova kodiranja se uzima u obzir.
+</li></ol>
+<p>Ovi koraci se uglavnom provode koristeći program za traženje <i>stringova</i> <a href="http://www.gnu.org/software/grep/" class="external text" rel="nofollow">Grep</a>. On pronalazi prave ključne riječi unutar izvornog koda (SSI naredbe, CGI varijable okruženja, varijable priduružene u korisnički unos, funkcije za filtriranje i sl.)
+</p>
+<h5> <span class="mw-headline" id="Black_Box_testiranje">Black Box testiranje</span></h5>
+<p>Ovako ispitivanje je veoma slično onima koje se koriste za testiranje ostalih ranjivosti ubacivanjem koda.
+Da bi nastavili s takvom provjerom potrebno je zadovoljiti kriterije za <a href="znakova.html#Gray_Box_testiranje">Gray Box testiranje</a>.
+Dakle, moramo naći svaku stranicu gdje je korisniku dopušteno/omogućeno unošenje podataka te zatim provjeriti da li program ispravno unosi podatke u sustav. Ako filtriranje podataka nije dovoljno dobro, potrebno je provjeriti da li sustav ispravno prikazuje podatke (nepromijenjene, npr. u poruci o pogrešci ili postu foruma).
+</p><p>Osim uobičajenih podataka unešenih od strane korisnika, uvijek je potrebno razmotriti ulazne vektore (HTTP zaglavlja zahtjeva i sadržaje kolačića) koji se mogu lako krivotvoriti.
+</p><p>Nakon što smo stvorili popis potencijalnih prijetnji, možemo provjeriti da li se ulazni podaci ispravno filtriraju te gdje se takvi podaci spremaju. 
+</p><p>Trebamo se uvjeriti da možemo ubaciti znakove koji se koriste u SSI naredbama:
+</p>
+<pre>
+&lt;&#160;! # = / . &quot; - &gt; and [a-zA-Z0-9]
+</pre>
+<p>Da bi se uvjerili da je filtriranje podataka nedovoljno dobro, možemo unijeti sljedeće u formu za unos:
+</p>
+<pre>
+&lt;!--#include virtual=&quot;/etc/passwd&quot; --&gt;
+</pre>
+<p>Ako je aplikacija ranjiva, naredba se ubacuje i interpretira od strane servera sljedeći puta kada se stranica poslužuje, što uključuje i sadržaj Unix datoteke s lozinkama.
+</p><p>Ubacivanje se može provesti preko HTTP zaglavlja, ako web aplikacija koristi te podatke za izgradnju dinamički generiranje stranice:
+</p>
+<pre>
+GET / HTTP/1.0
+Referer: &lt;!--#exec cmd=&quot;/bin/ps ax&quot;--&gt;
+User-Agent: &lt;!--#include virtual=&quot;/proc/version&quot;--&gt;
+</pre>
+<p><a href="https://www.owasp.org/index.php/Testing_for_SSI_Injection" class="external autonumber" rel="nofollow">[47]</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 18:40, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Alati_za_provjeru_ranjivosti_2">Alati za provjeru ranjivosti</span></h3>
+<p><b>Najpoznatiji alati za provjeru SSI ranjivosti su:</b>
+</p>
+<ul><li><a href="https://www.owasp.org/index.php/OWASP_WebScarab_Project" class="external text" rel="nofollow">Webscarap</a>
+</li><li><a href="http://portswigger.net/" class="external text" rel="nofollow">Burp Suite</a>
+</li><li><a href="http://w3af.sourceforge.net/" class="external text" rel="nofollow">W3af</a>
+</li><li><a href="http://wapiti.sourceforge.net/" class="external text" rel="nofollow">Wapiti</a>
+</li><li><a href="http://www.parosproxy.org/index.shtml" class="external text" rel="nofollow">Paros</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 02:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="LDAP_Injection">LDAP Injection</span></h2>
+<h3> <span class="mw-headline" id="O_LDAP-u"> O LDAP-u </span></h3>
+<p>LDAP je skraćenica od eng. složenice Lightweight Directory Access Protocol i ime je za aplikacijski protokol za čitanje i pisanje imenika preko IP mreže. Imenik (ili direktorij) je u LDAPu datoteka ili skupina podataka koji su organizirani slično kao telefonski imenik, koji sadrže podatke o korisnicima, datotekama i aplikacijama, kao i njihove sigurnosne postavke. <a href="http://hr.wikipedia.org/wiki/LDAP" class="external autonumber" rel="nofollow">[48]</a>
+</p><p><br />
+Servisi LDAP direktorija su aplikacije koji spremaju I organiziraju informacije sa zajedničkim atributima, gdje su te informacije strukturirane na temelju stabla zapisa imenika, a za njihovo pretraživanje koriste se vrlo efikasni mehanizmi pretraživanja. 
+Usluga LDAP direktorija temelji se na klijent-server modelu. Jedan ili više LDAP servera sadrži podatke koji čine LDAP stablo direktorija ili LDAP bazu podataka. LDAP klijent spaja se na LDAP server I postavlja upit. Server nakon toga uz pomoć filtera pretražuje zapise u imeniku I vraća odgovor ili pokazivač gdje se tražena informacija nalazi (u većini slučajeva na drugome LDAP serveru).  Jedna od glavnih značajki LDAP servisa jest globalni pristup I prikaz podataka – ako se klijent spoji na jedan od LDAP servera, vidjet će jednaku LDAP strukturu direktorija, te će imati jednak pristup kao I na nekom drugom povezanom LDAP serveru.<a href="http://tldp.org/HOWTO/LDAP-HOWTO/whatisldap.html" class="external autonumber" rel="nofollow">[49]</a>
+</p><p><br />
+Sam protokol koristi specifikacije X.500 DAP (Directory Access Protocol) protokola, na čijim principima I načelima je nastao. Informacije koje se najčešće spremaju u LDAP direktorije su podaci o korisnicima, aplikacijama, datotekama, printerima I ostalim resursima dostupnima putem mreže. <a href="http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf" class="external autonumber" rel="nofollow">[50]</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 14:12, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Definicija_LDAP_injection_napada"> Definicija LDAP injection napada </span></h3>
+<p>Većina današnjih web aplikacija koristi neku vrstu komponenata za unos korisničkih podataka, u svrhu generiranja dinamičkih zahtjeva. Naime, to predstavlja potencijalni rizik za zloćudnu manipulaciju kod slanja korisničkih zahtjeva prema serveru. U našem primjeru, LDAP upiti koje korisnik na pojedinoj web stranici prosljeđuje LDAP serveru, predstavljaju mogući rizik od napada, ukoliko preventivni sigurnosni mehanizmi nisu ugrađeni. 
+</p><p><br />
+Ova tehnika napada bazira se na modificiranom korisničkom unosu podataka, koji se proslijeđuju LDAP serveru kao upit. Cilj ovog napada jest da se izmjeni semantičko značenje upita koji se izvršava na strani LDAP servera. Web stranica,  u slučaju nepravilnog korisničkog unosa, može dozvoliti izmjenu LDAP naredbe, koja je inače transparentna I nedostupna korisniku. Time je moguće da se upit ili naredba izvršava s istim pravima koje ima izvršna komponenta (primjerice Web server, Database server itd). Ovaj način predstavlja veliki sigurnosni propust koji dozvoljava napadaču da modificira I manipulira svim objektima koji se nalaze unutar LDAP imenika. LDAP injection napadi jedna su vrsta napada umetanjem, vrlo slični SQL injection napadima. <a href="http://projects.webappsec.org/w/page/13246947/LDAP%20Injection" class="external autonumber" rel="nofollow">[51]</a>
+</p><p><br />
+Uspješna eksploatacija LDAP injection napada omogućava napadaču:
+</p>
+<ul><li>  Pristup neovlaštenim sadržajima
+</li><li>  Izbjegavanje aplikacijskih ograničenja
+</li><li>  Prikupljanje neovlaštenih informacija
+</li><li>  Dodavanje ili promjenu objekata unutar LDAP direktorija <a href="https://www.owasp.org/images/5/56/OWASP_Testing_Guide_v3.pdf" class="external autonumber" rel="nofollow">[52]</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 11:42, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Vrste_LDAP_injection_napada"> Vrste LDAP injection napada </span></h3>
+<h4> <span class="mw-headline" id="AND_LDAP_Injection"> AND LDAP Injection </span></h4>
+<p>U ovoj vrsti napada, aplikacija uz normalan upit za pretraživanje LDAP direktorija prosljeđuje i "&amp;" operator, te jedan ili više parametara definiranih od strane korisnika, primjerice:
+</p>
+<pre>
+(&amp;(parametar1=vrijednost1)(parametar2=vrijednost2))
+</pre>
+<p>gdje se uz pomoć <i>vrijednost1</i> i <i>vrijednost2</i> vrši pretraživanje u LDAP direktoriju. Napadač može zatim vrlo lako umetnuti svoj kod, uz uvjet da se drži pravila kod kreiranja filtera.
+</p>
+<h5> <span class="mw-headline" id="Zaobila.C5.BEenje_kontrole_pristupa_.28Access_Control_Bypass.29"> Zaobilaženje kontrole pristupa (Access Control Bypass) </span></h5>
+<p>Primjer ove vrste napada je tipična web stranica za prijavu koja sadrži 2 polja - <b>Korisnik</b> i <b>Lozinka</b>, gdje su <b>Kor</b> i <b>Loz</b> parametri koji sadrže vrijednosti navedenih polja i prosljeđuju se LDAP serveru u sljedećem upitu:
+</p>
+<pre>
+(&amp;(Korisnik=Kor)(Lozinka=Loz))
+</pre>
+<p>Ako bi napadač unio postojeće korisničko ime, primjerice <b>mmaric</b>, i umetnuo sljedeći izraz 
+</p>
+<pre>
+(&amp;(Korisnik=mmaric)(&amp;))(Lozinka=Loz))
+</pre>
+<p>LDAP server bi procesuirao samo prvi filter koji će uvijek biti istinit (TRUE), te bi napadač na ovaj način vrlo lako ušao u sustav bez potrebe za upisom pravilne lozinke (podrazumijeva se da bi napadač mogao za lozinku upisati bilo koji izraz). <a href="http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf" class="external autonumber" rel="nofollow">[53]</a>
+</p><p>U slučaju da je upit za pretraživanje koncipiran tako da se vrijednost parametra pridružuje jednostrukim ili dvostrukim navodnicima, prethodni izraz mogli bismo napisati i na sljedeće načine:
+</p>
+<pre>
+(&amp;(Korisnik='mmaric')(&amp;))(Lozinka=Loz))
+(&amp;(Korisnik=&quot;mmaric&quot;)(&amp;))(Lozinka=Loz))
+(&amp;(Korisnik=\'mmaric\')(&amp;))(Lozinka=Loz))
+(&amp;(Korisnik=\&quot;mmaric\&quot;)(&amp;))(Lozinka=Loz))
+</pre>
+<p><a href="http://www.ribadeohacklab.com.ar/content/articles/LDAP/LDAP%20Injection%20-%20RibadeoHackLab.pdf" class="external autonumber" rel="nofollow">[54]</a>
+</p>
+<h5> <span class="mw-headline" id="Pove.C4.87anje_ovlasti_.28Elevation_of_Privilages.29"> Povećanje ovlasti (Elevation of Privilages) </span></h5>
+<p>Kada govorimo o napadu povećanjem ovlasti preko LDAP-a , smatra se na promjenu ovlasti u autentikacijskoj strukturi spremljenoj u LDAP bazi podataka. Pojedini objekti koji se nalaze na serveru mogu imati definirane atribute koji prikazuju potrebnu razinu ovlasti za njihov prikaz ili promjenu, pa će prema tome korisnik s nedostatnim ovlastima imati zabranjen pristup u njihovom dohvaćanju / pregledu. Uzet ćemo za primjer da sljedeći upit prikazuje sve dokumente vidljive korisnicima s niskim ovlastima:
+</p>
+<pre>
+(&amp;(direktorij=dokumenti)(razina_ovlasti=niska))
+</pre>
+<p>gdje je <i>dokumenti</i> vrijednost prvog parametra, te <i>niska</i> vrijednost drugog parametra. Ako napadač želi vidjeti sve dokumente, uključujući i one koji su vidljivi samo korisnicima s visokom razinom ovlasti, može upotrijebiti umetanje sljedećeg koda:
+</p>
+<pre>
+(&amp;(direktorij=dokumenti)(razina_ovlasti=*))(&amp;(direktorij=dokumenti)(razina_ovlasti=niska))
+</pre>
+<p>LDAP server će iz upita obraditi samo prvi filter <i>(&amp;(direktorij=dokumenti)(razina_ovlasti=*))</i>, dok će drugi filter  <i>(&amp;(direktorij=dokumenti)(razina_ovlasti=niska))</i> ignorirati. Kao rezultat, napadač će vidjeti sve dokumente dostupne za sve korisnike bez obzira na njihovu razinu ovlasti.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 17:13, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="OR_LDAP_Injection"> OR LDAP Injection </span></h4>
+<p>U ovoj vrsti napada, aplikacija uz normalan upit za pretraživanje LDAP direktorija prosljeđuje i "|" operator, te jedan ili više parametara definiranih od strane korisnika, primjerice:
+</p>
+<pre>
+(|(parametar1=vrijednost1)(parametar2=vrijednost2))
+</pre>
+<p>gdje se uz pomoć <i>vrijednost1</i> i <i>vrijednost2</i> vrši pretraživanje u LDAP direktoriju. Napadač može zatim vrlo lako umetnuti svoj kod, uz uvjet da se drži pravila kod kreiranja filtera.
+</p>
+<h5> <span class="mw-headline" id="Otkrivanje_informacija_.28Information_Disclosure.29"> Otkrivanje informacija (Information Disclosure) </span></h5>
+<p>Napadaču su svakako vrlo važne informacije i o resursima koji se koriste u organizaciji koju planira napasti, a preko napada otkrivanjem informacija, vrlo lako može doći do ključnih saznanja koja mu mogu koristiti u daljnjim napadima. 
+</p><p>Na primjeru pretraživača resursa, možemo vidjeti kako napadač uz pomoć sljedećeg izraza 
+</p>
+<pre>
+(|(tip=printer)(tip=skener))
+</pre>
+<p>može vidjeti sve uređaje u sustavu koji su tipa <i>printer</i> i <i>skener</i>. Uz ove informacije, napadač može dohvatiti još povjerljivih informacija, kao primjerice koji sve korisnici koriste spomenute resurse
+</p>
+<pre>
+(|(tip=printer)(uid=*))(type=skener))
+</pre>
+<p><a href="http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf" class="external autonumber" rel="nofollow">[55]</a>
+</p>
+<h4> <span class="mw-headline" id="Reduciranje_mogu.C4.87ih_znakova_.28Charset_reduction.29"> Reduciranje mogućih znakova (Charset reduction) </span></h4>
+<p>U ovoj metodi napada, cilj je napadača da odredi (pogodi) valjane znakove koji tvore vrijednost svojstva nekog objekta. Napadač uz pomoć zamjenskih znakova (znak <b>*</b> primjerice) i nasumično odabranih znakova pokušava u više koraka pokušava odrediti vrijednost nekog objekta. U svakom koraku koji je uspješan za napadača, smanjuje se broj mogućih znakova, čime se povećava šansa da nakon konačnog broja koraka pronađe traženu vrijednost. Uzmimo za primjer da napadač pokušava odrediti naziv zone u kojoj će moći vidjeti povjerljive podatke vezane uz osobu imena Karlo za stranicu 
+</p>
+<pre>
+http://testserver.com/traženje_osoba.aspx?ime=Karlo(zona=b*)
+</pre>
+<p>Kako je nakon prvog pokušaja napadač uvidio da naziv zone ne započinje sa imenom b, nasumičnim odabirom pokušava odrediti kojim slovom započinje naziv zone, dok nakon nekoliko pokušaja ne utvrdi da za početno slovo p (zona=prv)
+</p>
+<pre>
+http://testserver.com/traženje_osoba.aspx?ime=Karlo(zona=p*)
+</pre> 
+<p>Dobiva tražene podatke o osobi
+</p>
+<pre>
+ime:Karlo
+prezime: Knapić
+adresa: Ulica Kralja Zvonimira 23 Zagreb
+telefon: 01/222-333-444
+</pre> <a href="http://www.ribadeohacklab.com.ar/content/articles/LDAP/LDAP%20Injection%20-%20RibadeoHackLab.pdf" class="external autonumber" rel="nofollow">[56]</a> 
+<h4> <span class="mw-headline" id="Promjena_informacija_.28Information_Alteration.29"> Promjena informacija (Information Alteration) </span></h4>
+<p>LDAP protokol uz operacije pretraživanja, omogućuje i operacije dodavanja, promjene ili pak brisanja informacija preko dostupnih API kontrola u web aplikacijama. Preko polja za unos korisničkih podataka, napadač može umetnuti svoj kod, te tako obrisati ili promijeniti određene podatke. PHP jezik sadrži već gotove funkcije pomoću kojih se može manipulirati sa LDAP podacima, a jedna od njih je i 
+</p>
+<pre>
+bool ldap_modify(resource $LDAP_link, string $zapis_za_izmjeniti, array $novi_podaci); 
+</pre>
+<p>u kojoj ako napadač za parametar <i>$zapis_za_izmjeniti</i> upiše <i>uid=*</i>, u tom slučaju će se svi zapisi ažurirati na vrijednost parametra <i>$novi_podaci</i>. Na jednak način moguće je izvršiti manipulaciju i sa ovim funkcijama: <b>ldap_mod_replace(), ldap_mod_del(), ili ldap_delete.</b>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 05:07, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="Blind_LDAP_Injection"> Blind LDAP Injection </span></h4>
+<p>Napadač može presresti odgovore LDAP servera, no iako aplikacija ne prikazuje poruke o greškama, umetnuti kod u LDAP filteru može generirati ispravan odgovor (TRUE) ili pak grešku (FALSE). Na ovaj način, napadač može "pingati" server s ciljem dobivanja istinitih ili neistinitih odgovora, što se smatra Blind LDAP napadima. Ovakva vrsta napada sporija je od tipičnih napada, no može biti vrlo efikasna jer se temelji na binarnoj logici.
+</p>
+<h5> <span class="mw-headline" id="AND_Blind_LDAP_injection"> AND Blind LDAP injection </span></h5>
+<p>Pretpostavimo da želimo vidjeti sve Epson printere koji su spojeni na LDAP sustav/mrežu. U tom slučaju prema LDAP serveru poslali bismo sljedeći upit
+</p>
+<pre>
+(&amp;(objectClass=printer)(type=Epson*))
+</pre>
+<p>gdje bismo dobili prikazane sve ikone Epson printera ako oni postoje (TRUE vrijednost). Ako pak ne postoji nijedan Epson printer na mreži, odgovor sa servera bio bi FALSE i ne bismo vidjeli nijednu ikonu. Prema ovom principu napadač može umetnuti svoj kod, te provjeriti bilo koju informaciju iz LDAP imenika. Jedan primjer napada mogao bi biti sljedeći:
+</p>
+<pre>
+(&amp;(objectClass=*)(objectClass=resources))(&amp;(objectClass=users)(type=Epson*))
+</pre>
+<p>Napadač na ovaj način može pristupiti i ostalim objektima u LDAP imeniku, kao što su primjerice korisnici, ako odgovor sa servera vraća TRUE (ako barem jedna ikona printera prikazana, objectClass će također biti TRUE).
+</p>
+<h5> <span class="mw-headline" id="OR_Blind_LDAP_injection"> OR Blind LDAP injection </span></h5>
+<p>OR Blind LDAP injection napad, sličan je AND Blind injection napadu. Razlikuju se u operatorima, gdje se umjesto "&amp;" znaka, u ovoj vrsti napada koristi OR operator "|". Tipičan primjer ovog napada mogao bi izgledati ovako:
+</p>
+<pre>
+(|(objectClass=void)(objectClass=resources))(&amp;(objectClass=void)(type=Epson*))
+</pre>
+<h5> <span class="mw-headline" id="Otkrivanje_atributa_.28Discovering_Attributes.29"> Otkrivanje atributa (Discovering Attributes) </span></h5>
+<p>Uz pomoć gore navedene "AND Blind LDAP injection tehnike", napadač može iskoristiti AND operator prilikom pokušaja pronalaska mogućih atributa u upitima koji se prosljeđuju LDAP serveru. Ukoliko napadač umetne kod i pošalje primjerice, sljedeći zahtjev prema serveru
+</p>
+<pre>
+(&amp;(idPrinter=HPLaserJet2100)(ipAddress=*))(objectClass=printer))
+</pre>
+<p>može saznati, tj. pogoditi naziv atributa, ukoliko mu server vrati podatke (TRUE). U slučaju da odgovor od servera na upit ne sadrži podatke, napadač ponovnim nasumičnim odabirom naziva atributa može provjeravati i pogađati točan naziv atributa.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 14:12, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Metode_i_tehnike_prevencije_LDAP_napada"> Metode i tehnike prevencije LDAP napada </span></h3>
+<p>Svi napadi koje smo naveli u prethodnim odlomcima, realizirani su na aplikacijskome sloju, što znači da firewall i ostali mehanizmi provjere upada na sloju mreže, neće biti u mogućnosti spriječiti bilo koji od ovih napada. Međutim, primjenom određenih mehanizama kao što su "obrambeno programiranje", sofisticirana provjera korisničkog unosa (sa serverske strane), dinamičke provjere (na strani klijenta) i primjena preporučenih sigurnosnih mehanizama kod LDAP protokola, mogu značajno utjecati na smanjenje mogućih propusta kod slanja LDAP upita. <a href="http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf" class="external autonumber" rel="nofollow">[57]</a>
+</p><p><b> Provjera korisničkog unosa </b>
+</p><p>Vrlo je važno spriječiti mogući unos malicioznog koda što je prije moguće, a jedna od metoda koja nam u tome može pomoći, jest dinamička provjera korisničkog unosa na strani klijenta uz pomoć JavaScripta provjere i "Regular Expressions" izraza na serverskoj strani. Korisnik prilikom unosa znakova u pojedino polje, može biti upozoren "user-friendly" porukom o nedozvoljenom unosu znakova, čime se smanjuje i mogućnost pojavljivanja "unhandled" grešaka kod unosa specifičnih znakova. 
+</p><p><b> LDAP konfiguracija </b>
+</p><p>Implementacija robusnih kontrola pristupa podacima na LDAP direktoriju je imperativ, osobito kada govorimo o postavljanju prava na korisničkim objektima, te javno dostupnim resursima. Važno je u što većoj mjeri izbjegavati uporabu uIDNumber parametra kod LDAP upita, u svrhu što većeg smanjenja sigurnosnog rizika kod promjene pristupnih prava. Također, poželjno je da LDAP server ne bude direktno vidljiv na Internetu, već da se nalazi u izoliranoj okolini.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 14:12, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Alati"> Alati </span></h3>
+<p>Za kraj, naveo bih neke od poznatijih alata pomoću kojih možemo ispitati sigurnost web aplikacije na način da se simuliraju LDAP napadi i provjeravaju potencijalni sigurnosni propusti:
+</p>
+<ul><li><b>W3AF</b> - poznati alat napisan u Pythonu za testiranje ranjivosti web stranica. Sadrži plugin naziva LDAPi, kojim se simuliraju LDAP injection napadi na web aplikaciju. Promjenom LDAPi.py datoteke mogu se kreirati dodatni testovi. Dostupan za download na <a href="http://w3af.sourceforge.net" class="external autonumber" rel="nofollow">[58]</a>
+</li><li><b>LDAP injector</b> - alat sa grafičkim sučeljem koji omogućuje korisniku da izvršava napade izmjenom upita prema LDAP direktoriju, te analizu odgovora sa servera.  Također je moguće izvršavati napade reduciranjem broja znakova, te primjenom boolean analize za pronalazak naziva. Dostupan za download na <a href="http://www.informatica64.com/foca/download/ldapInjector_0_2_1_0.zip" class="external autonumber" rel="nofollow">[59]</a>
+</li><li><b>JBroFuzz</b> - alat razvijen u Javi sa podrškom za više platformi, uz standardne opcije sadrži i mogućnost grafičkog prikazivanja rezultata analize. Dostupan za download na <a href="http://www.owasp.org/index.php/Category:OWASP_JBroFuzz" class="external autonumber" rel="nofollow">[60]</a>
+</li><li><b>Wapiti</b> - je alat za skeniranje potencijalnih slabosti web aplikacije, također razvijen u Pythonu. Program pretražuje skripte i forme gdje bi se mogao izvršiti injection napad, te nakon toga ubacuje kod. Dostupan za download na <a href="http://wapiti.sourceforge.net" class="external autonumber" rel="nofollow">[61]</a>
+</li><li><b>wsScanner i Web2Fuzz</b> - skup alata sa grafičkim sučeljem koji omogućuju korisniku da definira vlastiti LDAP injection payload. Dostupni za download na <a href="http://blueinfy.com/tools.html" class="external autonumber" rel="nofollow">[62]</a>
+</li><li><b>WFuzz</b> - Bruteforce skener napisan u Pythonu koji izvršava različite injection napade, među kojima su i LDAP napadi. Korisnik ima mogućnost proširivanja uzoraka koji se koriste kod napada. Dostupan za download na <a href="http://www.edge-security.com/wfuzz.php" class="external autonumber" rel="nofollow">[63]</a>
+</li></ul>
+<p><a href="http://www.ribadeohacklab.com.ar/content/articles/LDAP/LDAP%20Injection%20-%20RibadeoHackLab.pdf" class="external autonumber" rel="nofollow">[64]</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 13:48, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="CRLF_Injection">CRLF Injection</span></h2>
+<h3> <span class="mw-headline" id="Definicija_CRLF-a"> Definicija CRLF-a </span></h3>
+<p>Pojam CRLF (eng. <b>CR=Carriage Return, LF=Line Feed</b>) predstavlja oznaku za kraj retka teksta. Sastoji se od kombinacije dva ACSII znaka koji se ne prikazuju na ekranu, ali se vrlo često koriste kod operacijskih sustava Windows. Na operacijskim sustavima Linux/UNIX kraj retka označava se samo korištenjem ACSII znaka Line Feed.
+</p><p>Kombinacija tih znakova koristi se kod pritiskanja tipke „Enter“ na tipkovnici. Ovisno o aplikaciji koja se upotrebljava, pritiskanje te tipke obično označava početak novog retka ili slanje neke naredbe. <a href="http://www.aquilonis.hr/acunetix/crlf_injection.html" class="external autonumber" rel="nofollow">[65]</a>
+</p><p><br />
+CR i LF kombinacija znakova može se u literaturi naići u nekoliko oblika, ovisno o uporabi i prikazu (ASCII kod znakova, prikaz u nazivima web stranica, prikaz u programskim jezicima):
+</p>
+<pre>
+CR (Carriage Return) = ASCII 13 =&#160;%0d = \r
+LF (Line Feed)       = ASCII 10 =&#160;%0a = \n
+</pre>
+<p>CRLF predstavlja značajan niz znakova za programere. Ova 2 specijalna znaka predstavljaju marker za kraj retka <b>(End of Line - EOF)</b> za mnoge Internetske protokole kao što su MIME (email), NNTP (newsgrupe), te najvažniji - HTTP. Kada programeri pišu kod za web aplikacije, oni razdvajaju zaglavlja na temelju pozicije gdje se nalazi CRLF. Ukoliko je napadač u mogućnosti da umetne svoju CRLF sekvencu u HTTP zahtjev, omogućena mu je maliciozna kontrola načina na koji se web stranica prikazuje. <a href="http://www.shaheemirza.com/2011/02/06/crlf-or-httprs-carriage-return-and-line-feed-http-response-splitting/" class="external autonumber" rel="nofollow">[66]</a> --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 00:02, 13. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="CRLF_injection_napad"> CRLF injection napad </span></h3>
+<p>CRLF injection napad se događa kada napadač umeće CRLF naredbe u sustav. Ova vrsta napada nije tehnološki sigurnosni propust u operacijskom sustavu ili poslužitelju, nego ovisi o načinu na koji je web stranica razvijena. Vrlo često nepažnjom ili neznanjem razvojnih programera nastaju ranjive web aplikacije koje zlonamjerni korisnici iskorištavaju za umetanje CRLF naredbi. <a href="http://www.aquilonis.hr/acunetix/crlf_injection.html" class="external autonumber" rel="nofollow">[67]</a>
+</p><p><br />
+CRLF napadi nisu poznati u tom mjeri kao ostali injection napadi, no kada se koriste na ranjivim aplikacijama, njihovi učinci mogu biti snažni i devastirajući. Dakle, iako se radi zapravo o vrlo jednostavnome napadu, on svakako može predstavljati vrlo moćan web napad. Kod nekih izvora, CRLF napadi poznatiji su pod nazivom <b>HTTP Response Splitting</b>, tj "Cijepanje HTTP odgovora". Ovaj način napada zapravo daje mogućnost napadaču da slanjem jednog HTTP zahtjeva prema web serveru, dotični interpretira kao  dva zasebna HTTP zahtjeva, umjesto jednog. Web server nakon toga šalje dva HTTP odgovora, te u tom slučaju drugi HTTP odgovor bude kontroliran od strane napadača. 
+</p><p>Najčešća uporaba CRLF napada jest da se prvobitni HTTP odgovor web servera poništi, te se pritom generira drugi HTTP odgovor, koji je  neplaniran (sama aplikacija ga nije tražila) i pod utjecajem napadača. Ovakav napad, vrlo je lako ostvariti ako aplikacija ugrađuje neprovjerene korisničke podatke kod preusmjeravanja ili kod definiranja cookie-a.
+<a href="http://www.shaheemirza.com/2011/02/06/crlf-or-httprs-carriage-return-and-line-feed-http-response-splitting/" class="external autonumber" rel="nofollow">[68]</a>
+</p><p>Kada napadač pronađe web aplikaciju ranjivu na CRLF injection napad, mogućnost iskorištavanja ovisi o njezinoj strukturi i slabostima.
+</p><p>Kako će određeni nedostatak djelovati na web stranicu ovisi o tipu web stranice. Određeni nedostatak može značajno ugroziti sigurnost jedne web aplikacije, dok za drugu on može predstavljati sasvim nebitnu pogrešku. Sve ovisi o tome omogućuje li korisnicima upravljanje web aplikacijom. <a href="http://www.aquilonis.hr/acunetix/crlf_injection.html" class="external autonumber" rel="nofollow">[69]</a> --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 00:02, 13. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="Primjeri_CRLF_injection_napada"> Primjeri CRLF injection napada </span></h4>
+<h5> <span class="mw-headline" id="Ranjivost_sustava_za_objavljivanje_poruka"> Ranjivost sustava za objavljivanje poruka </span></h5>
+<p>Za prikaz prve metode CRLF injection napada, uzet ćemo jednostavan primjer aplikacije za objavljivanje poruka koji je podložan CRLF napadima. Pretpostavimo da je trenutno stanje objavljenih poruka sljedeće:
+</p>
+<pre>
+8/04/07 - Dave:Something is wrong with the login system?
+09/04/07 - haZed:Yeah, you should fix it....
+</pre>
+<p>Obje navedene poruke su legitimne, no napadač može iskoristiti ranjivost sustava i pokušati objaviti poruku koja će izgledati kao da ju je poslao administrator. Da bi izveo napad, unijet će sljedeće u polje za unos:
+</p>
+<pre>
+Yep, doesn't work..\n10/04/07/ - Admin: I've relocated the login to http://attackersite.com/login.php, you should be able to login there.
+</pre>
+<p>Nakon toga, rezultat objave komentara, tj. poruke na sustavu, izgledat će sljedeće:
+</p>
+<pre>
+8/04/07 - Dave:Something is wrong with the login system?
+09/04/07 - haZed:Yeah, you should fix it....
+09/04/07 - Ethernet:Yep, doesn't work..
+10/04/07 - Admin: I've relocated the login to http://attackersite.com/login.php
+</pre>
+<p>Kao što je i vidljivo iz primjera, napadač će izvedbom ovakog CRLF injection napada (unosom \n znaka koji će automatski locirati kursor u novome retku), biti u mogućnosti predstaviti se kao Administrator i pribaviti korisničke podatke za prijavu na malicioznoj stranici koja se nalazi u linku.
+</p>
+<h5> <span class="mw-headline" id="Ranjivost_kod_e-mail_formi"> Ranjivost kod e-mail formi </span></h5>
+<p>Drugim primjerom pokazat ćemo kako je moguće poslati email drugim korisnicima, uz mogućnost skrivanja adrese samog pošiljatelja, što se može koristiti kod spama-anja tuđih mail pretinaca. Da bi se iskoristila spomenuta ranjivost, u <b>Naslovu</b> (Subject) e-maila dodat ćemo sljedeće:
+</p>
+<pre>
+Hey, it's Dave\nBcc: dave@email.com
+</pre>
+<p>Ovim napadom, poslat ćemo mail na Bcc adresu dave@email.com (zbog <b>\n</b> znaka Bcc će se prosljediti u novome redu kao zasebni parametar), kao i osobi koju smo naveli kao primatelja. Dodavanjem nekoliko mail adresa na ovaj način, moguće je anonimno poslati spam mailove, bez otkrivanja identiteta pošiljatelja.
+<a href="http://www.hackpconline.com/2010/10/what-is-crlf-injection-crlf-injections.html" class="external autonumber" rel="nofollow">[70]</a>
+</p>
+<h5> <span class="mw-headline" id="Ranjivost_kod_POP3_i_NNTP_protokola"> Ranjivost kod POP3 i NNTP protokola </span></h5>
+<p>Poznato je da POP3 protokol koristi naredbe <b>RETR X</b> za dohvaćanje nepročitanih email poruka, te <b>DELE x</b> za brisanje poruka. Naime, ako email klijentski program koristi sljedeći oblik naredbe za dohvaćanje novih e-poruka:
+</p>
+<pre>
+RETR $msg\r\n
+</pre>
+<p>te se za <b>$msg</b> varijabla ne vrši CRLF provjera, moguće je u jednom koraku pročitati jednu email poruku (RETR 1), te obrisati drugu email poruku (DELE 2), ako $msg varijabla poprimi sljedeću vrijednost:
+</p>
+<pre>
+1\r\nDELE 2
+</pre>
+<p>Na ovaj način, nakon čitanja poruke, varijabla $msg dat će instruckciju da se u istome koraku izvrši i brisanje druge poruke, čime bi se naredbe zapravo tumačile na ovaj način:
+</p>
+<pre>
+RETR 1
+DELE 2
+</pre>
+<p>Na identičan način, kod NNTP protokola prilikom dohvaćanja postova, u istoj naredbi mogli bismo izvršiti i naredbu objavljivanja posta, primjerice:
+</p>
+<pre>
+ARTICLE 1\r\nPOST 2
+</pre> 
+<p><a href="http://www.shaheemirza.com/2011/02/06/crlf-or-httprs-carriage-return-and-line-feed-http-response-splitting/" class="external autonumber" rel="nofollow">[71]</a>
+</p>
+<h5> <span class="mw-headline" id="HTTP_Splitting_napad"> HTTP Splitting napad </span></h5>
+<p>Poznato je da neke web stranice koriste dio korisničkog unosa prilikom generiranja vrijednosti headera i njihovih odgovora. Najpoznatiji primjeri jesu HTTP redirekcije ili preusmjeravanja, prilikom čega ciljana URL adresa sadrži neke od korisničkih parametara. Uzet ćemo za primjer stranicu gdje se od korisnika traži odabir standardnog ili naprednog web sučelja. Korisnikov odabir bit će prosljeđen kao parametar u zaglavlju odgovora prilikom preusmjeravanja na odabranu stranicu. Ukoliko korisnik odabere napredno sučelje, parametar <b>interface</b> imat će vrijednost <b>advanced</b>, što će generirati sljedeće odgovor:
+</p>
+<pre>
+HTTP/1.1 302 Moved Temporarily
+Date: Sun, 03 Dec 2005 16:22:19 GMT
+Location: http://victim.com/main.jsp?interface=advanced
+</pre>
+<p>Kada preglednik primi ovaj HTTP odgovor, preusmjerit će korisnika na stranicu koja se nalazi u <b> Location </b> zaglavlju. No, u slučaju da aplikacija ne filtrira korisnički unos, moguće je da se u <b>interface</b> parametar umetne slijed <b>%0d%0a</b> koji predstavlja CRLF slijed znakova za prelazak u novi red. U nastaloj situaciji, aktivirat ćemo odgovor koji će biti interpretiran kao dva odvojena odgovora, te u slučaju da koristimo web proxy, moguće je zaraziti web cache koji će kasnije prosljeđivati krivi sadržaj svim korisnicima koji ga zatraže. Ovaj sprecifičan napad naziva se još i  <b>web cache poisoning</b>. Za demonstriranje napada, uzet ćemo da je napadač umetnuo sljedeći kod umjesto parametra <b>interface</b>:
+</p>
+<pre>
+advanced%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-
+Type:%20text/html%0d%0aContent-Length:%2035%0d%0a%0d%0a&lt;html&gt;Sorry,%20System%20Down&lt;/html&gt;
+</pre>
+<p>Odgovor koji ćemo dobiti od napadnute stranice je sljedeći:
+</p>
+<pre>
+HTTP/1.1 302 Moved Temporarily
+Date: Sun, 03 Dec 2005 16:22:19 GMT
+Location: http://victim.com/main.jsp?interface=advanced
+Content-Length: 0
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 35
+
+&lt;html&gt;Sorry,%20System%20Down&lt;/html&gt;
+</pre>
+<p>Web cache će nakon toga vidjeti 2 različita odgovora, te ako napadač odmah iza prvog zahtjeva pošalje drugi zahtjev kojim će tražiti <i>/index.html</i>, web cache će povezati taj zahtjev sa sljedećim odgovorom i cache-irati njegov sadržaj, pa će svi sljedeći direktni zahtjevi na <i>victim.com/index.html</i>  primiti poruku <b>System down</b>. Na ovaj način, napadač može preusmjeriti web site za sve korisnike koji koriste web cache na proxyu. Umjesto ovog napada, napadač je mogao umetnuti Javascript kod i uz pomoć njega "ukrasti" korisnikove cookie podatke. Važno je da se zaglavlja Location i Set-Cookie kao najčešća meta napada provjeravaju zbog mogućih ranjivosti. <a href="https://www.owasp.org/index.php/Testing_for_HTTP_Splitting/Smuggling_(OWASP-DV-016)" class="external autonumber" rel="nofollow">[72]</a> --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 00:02, 13. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="Za.C5.A1tita_od_CRLF_napada"> Zaštita od CRLF napada </span></h5>
+<p>Najbolji način provjere ranjivosti web stranice i aplikacija na CRLF injection napad je uporabom skenera web ranjivosti. On će pretraživanjem cijele Vaše web stranice automatski ispitati ranjivost na CRLF napad. Po završetku skeniranja naznačiti će ranjive URL lokacije i skripte te javiti kako se navedena ranjivost može jednostavno popraviti. <a href="http://www.aquilonis.hr/acunetix/crlf_injection.html" class="external autonumber" rel="nofollow">[73]</a>
+</p><p>Provjera pomoću koje se web stranica može zaštiti od CRLF napada je sljedeća:
+</p>
+<pre>
+if (eregi('n', $_POST['input'])) //Provjera znaka za novu liniju kod POST varijable
+//start if..
+die(&quot;CRLF Attack Detected&quot;); //izlaz iz programa u slučaju da se CRLF nađe u varijalbi
+ //end if..
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.baksa&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.baksa (stranica ne postoji)">Nikola.baksa</a> 00:02, 13. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Aplikacije_za_u.C4.8Denje.2Ftestiranje_ranjivosti">Aplikacije za učenje/testiranje ranjivosti</span></h2>
+<p>Postoji nekoliko web aplikacija koje služe u svrhu učenja i testiranja svih ranjivosti. Neke od njih su navedene niže i slobodne su za korištenje. Neke od njih se koriste u praktičnom dijelu, u idućem poglavlju.
+</p>
+<ul><li><b>Mutillidae</b>
+</li></ul>
+<p>Mutillidae je slobodna, open source web aplikacija i može biti instalirana na Linux, Windows XP i Windows 7 pomoću XAMMP što ju čini vrlo jednostavnom za korištenje. Mutillidae sadrži desetke ranjivosti i savjete za pomoć korisniku kako ih upotrijebiti.
+Aplikacija je namjerno napravljena da bi služila kao alat za vježbanje, pen-testing/hakiranje web aplikacija, upotrebom raznih ranjivosti i sadrži sve ranjivosti specificirane u <a href="https://www.owasp.org/index.php/OWASP_Top_Ten_Project" class="external text" rel="nofollow">Owasp Top 10 ranjivosti</a>.
+</p>
+<ul><li><a href="http://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10" class="external text" rel="nofollow">Mutillidae download</a>
+</li></ul>
+<p><br />
+</p>
+<ul><li><b>WebGoat</b>
+</li></ul>
+<p>WebGoat je namjerno nesigurna J2EE web aplikacija dizajnirana za učenje (ne)sigurnosti web aplikacija.
+U svakoj lekciji, korisnici trebaju pokazati svoje razumijevanje sigurnosnog problema na način da iskoriste pravu ranjivost WebGoat aplikacije. Na primjer, u jednoj od lekcija korisnik mora koristiti SQL Innjection za krađu lažnih brojeva kreditnih kartica. Aplikacija je realno nastavno okružje, pružajući korisnicima savjete i kodove za bolje objašnjenje same lekcije.
+</p>
+<ul><li><a href="http://code.google.com/p/webgoat/downloads/list" class="external text" rel="nofollow">WebGoat download</a>
+</li><li><a href="http://code.google.com/p/webgoat/" class="external text" rel="nofollow">Što je WebGoat?</a>
+</li><li><a href="https://www.owasp.org/index.php/WebGoat_Installation" class="external text" rel="nofollow">Kako instalirati WebGoat?</a>
+</li></ul>
+<p><br />
+</p>
+<ul><li><b>Damn Vulnerable Web App (DVWA)</b>
+</li></ul>
+<p><b>DVWA</b> je PHP / MySQL web aplikacija koja je jaaako ranjiva&#160;:).
+Glavni ciljevi su joj legalno testiranje vještina i alata. Služi kao pomoć stručnjacima za sigurnost, web programerima za bolje razumijevanje procesa osiguranja web aplikacija, ali i kao pomoć nastavnicima / studentima za učenje u sigurnom okruženju..i svima ostalima&#160;:)
+<br />
+</p>
+<ul><li><a href="http://www.dvwa.co.uk/" class="external text" rel="nofollow">DVWA Download</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 15:50, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Umetanje_naredbi_.28Command_injection.29">Umetanje naredbi (Command injection)</span></h2>
+<p>Po OWASPu svrha napada umetanjem koda je ubaciti ih u nezaštićenu aplikaciju i izvršiti naredbe. Aplikacija se ponaša kao system shell i programski kod koji se ubacuje ima na raspolaganju privilegije system korisnika. Većina takvih napada su moguća radi nedostatka validacije nad podacima (polja formi, cookies, HTTP headers) koje napadač iskorištava. 
+</p><p>Postoji više vrsta ubacivanja naredbi: SQL injection, Hibernate Query Language (HQL), LDAP, Xpath, Xquery, XSLT, HTML,XML, i OS command injection. OS command injecting je slučaj kada se izvršavaju sustavske naredbe kroz nezaštićenu aplikaciju na sistemskoj razini. Aplikacija se smatra nezaštićenom od OS umetanja naredbi ako je moguće doprijeti do sistemske razine OS.
+</p><p>Umetanje naredbi se u većini slučajeva odnosi na stavljanje sustavskog delimitera (npr. ';' ) u string/varchar argument funkcije i jednog ili niza system naredbi nakon njega. Školski primjeri:
+</p><p><br />
+<b>Primjer 1</b>
+</p>
+<pre>
+int main(char* argc, char** argv) {
+               char cmd[CMD_MAX] = &quot;/usr/bin/cat &quot;;
+               strcat(cmd, argv[1]);
+               system(cmd);
+       }
+
+</pre>
+<p>Izvor:  Članak: Command Injection; Example 2 (<a href="https://www.owasp.org/index.phpćommand_Injection" class="external free" rel="nofollow">https://www.owasp.org/index.phpćommand_Injection</a>). Preuzeto 02.02.2012.
+</p><p>Budući da se program vrti s root privilegijama, poziv system() se također izvršava u toj okolini. Tijekom normalnih, očekivanih pozivanja koda (s nazivom datoteke kao argument) kod funkcionira kako je planirano. Ako korisnik umjesto naziva neke datoteke upiše nešto poput ';rm –rf', system() nailazi na ';', ne dobije argument potreban za izvršenje programa, zaustavljuje program i nakon toga se izvršava kod koji slijedi nakon ';', u ovom slučaju 'rm –rf' . Primjer pokazuje ozbiljnost problema, tj. štetu koju je moguće nanijeti.
+</p><p><br />
+Mogući slučajevi ubacivanja naredbi:
+</p>
+<ul><li> Aplikacija prima podatke/naredbe iz nepovjerenog izvora
+</li><li> Podaci/naredbe su dio stringa koji se izvršava kao naredba aplikacije i
+</li><li> Izvršavanjem naredbe, aplikacija daje napadaču privilegiju/mogućnost koju prije nije imao
+</li></ul>
+<p><br />
+Posljedice:
+</p>
+<ul><li> Narušen integritret
+</li><li> Narušena pouzdanost i
+</li><li> Narušena raspoloživost app i BP
+</li></ul>
+<p><br />
+Moguće pomoći:
+</p>
+<ul><li> U fazi dizajna app radije koristiti lib-ove, ne vanjske procese
+</li><li> Koristiti po mogućnosti statičke vanjske naredbe
+</li><li> Biti pesimist: po defaultu sav input je maliciozan. Imati dobru validaciju podataka, računati na whiteliste, ne blackliste inputa. 
+</li></ul>
+<p><br />
+Validacija se može sastojati od duljine polja, tipa inputa, raspona inputa, nedostatka ili viška, sintakse, konzistentnosti na razini više polja i na razini poslovnih pravila app.
+</p><p><br />
+<b>Primjer 2: Mozilla mailto protokol</b>
+Mozilla ne validira input koji prenosi vanjskim URL protokol servisima/aplikacijama koje omogućava ubacivanje argumenata tim vanjskim servisima/aplikacijama.
+Sav softver koji radi na Mozilla platformi je ugrožen: Firefox, Thunderbird i Netscape, XULRunner aplikacije.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivana.prpic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivana.prpic (stranica ne postoji)">Ivana.prpic</a> 22:59, 26. kolovoza 2012. (CEST)
+</p>
+<h2> <span class="mw-headline" id="OS_command_injection"> OS command injection </span></h2>
+<p>Umetanje naredbi s obzirom na podsustav na koji utječe može biti 
+</p>
+<ul><li>RDBMS (SQL)
+</li><li>webBrowser/AppServer i (SQL)
+</li><li>OS/shell (naredbe Osa pozivaju vanjske app)
+</li></ul>
+<p>Kod OS command injecting je naglasak na komunikaciji između aplikacije i operacijskog sustava. Aplikacija u biti koristi funkcije operacijskog sustava. Java primjerice koristi runtime objekt (java.lang.Runtime), .NET korist System.Diagnostics.Process.Start, PHP: exec() ili passthru().
+Kategorizacija  OS umetanja koda nije riješena, neki je svrstavaju pod injection flaws/mane, drugi pod validacije inputa, umetanje argumenta..
+Ubacivanje koda se ne odnosi samo na text box polja formi web aplikacija. Uključena su i list/select boxes, check boxes, hidden polja, cookies, HTTP headeri, parametar names i values i drugi.
+</p><p><br />
+Metode detekcije:
+</p>
+<ol><li> Jedan od načina zaštite je detekcija moguće slabosti web aplikacije automatiziranim (statičkim) analitičkim alatima. Mnogo današnjih alata koriste analizu toka podataka (data flow analysis) ili tehnike ograničavanja (constraints) da bi se smanjila opasnost. Automatizirana (statička) analiza možda ne/ce detektirati kada je pravilno izvršena input validacija zbog čega bi moglo doći do lažnih upozorenja.
+</li><li>Postoji i automatizirana dinamička analiza koja vodi interakciju s programskim kodom koristeći test suites s različitim inputima poput fuzz testing (fuzzing), testiranje robustnosti i testiranja mana (fault). 
+</li><li>Ručna statička analiza se odnosi na ručne white box tehnike koje dodatno smanjuju broj mogu/cih ranjivosti. Smatra se da najefikasnijom metodom od navedene tri.
+</li></ol>
+<p><br />
+Da bi se smanjila ugroženost operacijskih sustava postoji više natuknica kojih bi se programeri mogli pridržati:
+</p>
+<ol><li>Savjetuje se korištenje biblioteka operativnog sustava što je više mogu/ce i izbjegavanje korištenja vanjskih procesa 
+</li><li>Osiguravanje zatvorene okoline oko operativnog sustava i procesa tijekom izvršavanja procesa što bi moglo ograničiti nad kojim datotekama i/ili putanjima se dopušta manipuliranje ili koje naredbe programski kod/softver smije izvršavati. Primjerice Unix chroot jail, AppArmor  ili SELinux . Java.io.FilePermission u Java SecurityManager-u omoguc/ava pisanje restrikcija nad datotečnim operacijama. 
+</li><li>Identificirati i smanjiti mogu/ce ulaze u sustav: za sve podatke koji se koriste za generiranje naredbi se savjetuje da ostane što je više mogu/ce unutar sustava, da vanjski procesi ne mogu doprijeti do njih. Primjer je spremanje podataka lokalno u sesiju (session), umjesto slanja podataka u skriveno polje forme. 
+</li><li>Duplicirati svaku sigurnosnu provjeru koja se izvodi na klijentskoj strani i na serverskoj strani također da bi se osiguralo zaobilaženje sigurnosti na klijentskoj strani što ostavlja server ranjivim .
+</li><li>Ako je potrebno koristiti dinamički generirane upite nad bazom ili naredbe unatoč riziku, potrebno je pravilno označiti argumente i izbjegavati specijalne znakove. Najbolji, konzervativni pristup je filtrirati ili ukloniti sve znakove argumenta koji ne udovoljavaju bijeloj listi (white list) dozvoljenih znakova (primjerice samo alfanumerički znakovi ili znakovi) . 
+</li><li>Parametrizacija: ako postoji savjetuje se korištenje strukturiranih mehanizama koji razdvajaju podatke i programski kod. Ti mehanizmi bi se trebali pobrinuti za enkodiranje i validacije umjesto developera.
+</li><li>Validacija inputa: Whitelist (bijela lista) ili 'prihvatiti samo poznato' smatra se najboljom strategijom za validacije inputa. Odnosi se na popis samo prihvatljivih znakova/riječi koji prolaze potrebnu specifikaciju. Znakovi/riječi koje whitelist ne prihvati se mogu odbaciti ili izmjeniti da bi naknadno odgovarali whitelisti. Iako se smatra boljom metodom od blackliste i blacklista ima svoje prednosti. Kod validacije inputa moguc/e je mnogo karakteristika uzeti u obzir: duljina, vrsta inputa, raspon dopuštenih znakova, nedostajuc/i ili viška znakovi, sintaksa, konzistentnost kroz povezana polja i usklađenost s poslovnim pravilima. 
+</li><li>Konverzija: kad je limitiran i poznat raspon vrijednosti poput naziva datoteka ili URLova, moguc/e je mapiranje, povezivanje ključeva s tim vrijednostima te sve vrijednosti koje ne postoje među tim ključevima se odbacuju.
+</li><li>Error poruke i logovi trebaju dati dovoljno informacija o erroru, ali s druge strane ne smiju odati previše. Informacije o OS procesima i naredbama bi trebale ostati skrivene. 
+</li><li>Izvršavanje naredbi na najniže moguc/oj razini. Ako se naredbe mogu izvršavati bez administratorskih prava, preporučljivo je da se tako i izvršavaju. 
+</li></ol>
+<p><br />
+<b>Java primjer</b>
+Klasa prihvaća input HTTP requestom. Klasa izvršava .exe datoteku na app serveru i vraća rezultat:
+</p>
+<pre>
+public class DoStuff {
+public string executeCommand(String userName)
+{	try {
+		String myUid = userName;
+		Runtime rt = Runtime.getRuntime();
+		rt.exec(&quot;doStuff.exe &quot; +”-“ +myUid); // Call exe with userID
+	}catch(Exception e)
+		{
+e.printStackTrace();
+		}
+	}
+}
+</pre>
+<p>Metoda executeCommand poziva doStuff.exe koristeći runtime. Ne postoji validacija nad parametrom zbog čega OS postaje ranjiv. Dodavanjem amperstampa u parametar moguće je ubacivanje i izvršavanje naredbi u Osu. Primjer je netstat u javi ili '; cat /...' na UNIXu.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivana.prpic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivana.prpic (stranica ne postoji)">Ivana.prpic</a> 23:00, 26. kolovoza 2012. (CEST)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio_-_ModSecurity"> Praktični dio - ModSecurity </span></h2>
+<p>ModSecurity je vatrozid za web app-ove. Služi kao eksterni zaštitni sloj za detekciju i/ili prevenciju napada prije nego stignu do app. Štiti od više tipova napada, nadzire HTTP promet i provodi real-time analizu. Logira kompletne HTTP transakcije (zahtjeve i odg).
+</p>
+<ol><li>HTTP Logging prometa - Većina servera ne bilježe request body-e zbog čega se većina napada pazira na POST request-ima. ModSecurity bilježi cijele request-ove i ovisno o želji, mogu se polja zamaskirati prije nego se zapišu. 
+</li><li>Real time nadzor i detekcija napada - ModSecurity nadzira HTTP promet u realnom vremenu da bi presreo napade. Tako se može reagirati na sumnjive događaje u web sustavu.
+</li><li>Prevencija napada i virtualni patching - ModSecurity može promptno reagirati i spriječiti napade prije nego dođu do web aplikacija. Napravljena su 3 mehanizma koji postižu ovo: <b>Negativni model sigurnosti</b> koji nadzire request-ove tražeći anomalije i neobična ponašanja te standardne napade, <b>Pozitivni model sigurnosti</b> koji prihvaća samo request-ove koji su poznati, sve ostale odbija. Za to je potrebno poznavati web aplikacije koje treba zaštiti i poželjno je što manje ažurirati web aplikaciju i <b>Poznate slabosti</b>- virtualni patching omogućuje privremeno patchiranje izvan aplikacije , bez ažuriranja samog izvornog koda aplikacije i bez pristupa njemu dok se ne naprave pravi patch-evi na aplikaciji 
+</li><li>Fleksibilni sustav pravila - Implementira ModSecurity jezik pravila (Rule Language) koji služi učvršćivanju validacije protokola i otkrivanju čestih sigurnosnih problema.
+</li><li>Embedded mode - ModSecurity je moguće ugraditi u postojeći firewall web aplikacije i njezine infrastrukture.  
+</li><li>Portabilnost - Sustav je moguće koristiti na svim platformama.
+</li></ol>
+<p><br />
+<b>OWASP ModSecurity Core Rule Set</b> (CRS)Project su poslovna pravila kao npr.:
+</p>
+<ol><li>HTTP zaštita – detektiranje kršenje HTTP protokola
+</li><li>Zaštita od čestih web napada
+</li><li>Detekcija automatizacije – otkrivanje botova, skenera i sličnih malicioznih aktivnosti
+</li><li>Zaštita od trojanaca
+</li><li>Skrivanje error poruka sa strane servera
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivana.prpic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivana.prpic (stranica ne postoji)">Ivana.prpic</a> 23:00, 26. kolovoza 2012. (CEST)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio_3">Praktični dio</span></h2>
+<pre> In progress&#160;:D   </pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Kristina.mejas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Kristina.mejas (stranica ne postoji)">kmejas</a> 15:52, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p>SQL Injection
+</p>
+<ul><li><a href="https://www.owasp.org/index.php/Top_10_2010-Introduction" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-Introduction</a>
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010-Main" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-Main</a>
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010</a>
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010-A1" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-A1</a>
+</li><li>www.cis.hr/files/dokumenti/CIS-DOC-2011-09-025.pdf
+</li><li><a href="http://hakipedia.com/index.php/SQL_Injection" class="external free" rel="nofollow">http://hakipedia.com/index.php/SQL_Injection</a>
+</li></ul>
+<p><br />
+Xpath Injection
+</p>
+<ul><li><a href="http://www.w3schools.com/xpath/" class="external free" rel="nofollow">http://www.w3schools.com/xpath/</a>
+</li><li><a href="http://searchsoa.techtarget.com/definition/XPath" class="external free" rel="nofollow">http://searchsoa.techtarget.com/definition/XPath</a>
+</li><li><a href="https://www.owasp.org/index.php/XPATH_Injection" class="external free" rel="nofollow">https://www.owasp.org/index.php/XPATH_Injection</a>
+</li><li><a href="http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php" class="external free" rel="nofollow">http://palisade.plynt.com/issues/2005Jul/xpath-injection/index.php</a>
+</li><li><a href="http://searchsoftwarequality.techtarget.com/definition/XPath-injection" class="external free" rel="nofollow">http://searchsoftwarequality.techtarget.com/definition/XPath-injection</a>
+</li><li><a href="http://www.ibm.com/developerworks/xml/library/x-xpathinjection/index.html" class="external free" rel="nofollow">http://www.ibm.com/developerworks/xml/library/x-xpathinjection/index.html</a>
+</li><li><a href="https://www.owasp.org/index.php/Blind_XPath_Injection" class="external free" rel="nofollow">https://www.owasp.org/index.php/Blind_XPath_Injection</a>
+</li><li><a href="https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OWASP-DV-010)" class="external free" rel="nofollow">https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OWASP-DV-010)</a>
+</li><li><a href="http://www.w3schools.com/xpath/xpath_functions.asp" class="external free" rel="nofollow">http://www.w3schools.com/xpath/xpath_functions.asp</a> 
+</li></ul>
+<p>SSI Injection
+</p>
+<ul><li><a href="http://en.wikipedia.org/wiki/Server_Side_Includes" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Server_Side_Includes</a>
+</li><li><a href="http://httpd.apache.org/docs/1.3/howto/ssi.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/1.3/howto/ssi.html</a>
+</li><li><a href="https://www.owasp.org/index.php/Server-Side_Includes_(SSI)_Injection" class="external free" rel="nofollow">https://www.owasp.org/index.php/Server-Side_Includes_(SSI)_Injection</a>
+</li><li><a href="http://projects.webappsec.org/w/page/13246964/SSI%20Injection" class="external free" rel="nofollow">http://projects.webappsec.org/w/page/13246964/SSI%20Injection</a>
+</li></ul>
+<p><br />
+LDAP Injection
+</p>
+<ul><li><a href="http://www.ietf.org/rfc/rfc1960.txt" class="external free" rel="nofollow">http://www.ietf.org/rfc/rfc1960.txt</a>
+</li><li><a href="http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf</a>
+</li><li><a href="http://www.ribadeohacklab.com.ar/content/articles/LDAP/LDAP%20Injection%20-%20RibadeoHackLab.pdf" class="external free" rel="nofollow">http://www.ribadeohacklab.com.ar/content/articles/LDAP/LDAP%20Injection%20-%20RibadeoHackLab.pdf</a>
+</li><li><a href="https://www.owasp.org/index.php/LDAP_injection" class="external free" rel="nofollow">https://www.owasp.org/index.php/LDAP_injection</a>
+</li><li><a href="http://hr.wikipedia.org/wiki/LDAP" class="external free" rel="nofollow">http://hr.wikipedia.org/wiki/LDAP</a>
+</li><li><a href="http://projects.webappsec.org/w/page/13246947/LDAP%20Injection" class="external free" rel="nofollow">http://projects.webappsec.org/w/page/13246947/LDAP%20Injection</a>
+</li><li><a href="http://www.testingsecurity.com/how-to-test/injection-vulnerabilities/LDAP-Injection" class="external free" rel="nofollow">http://www.testingsecurity.com/how-to-test/injection-vulnerabilities/LDAP-Injection</a>
+</li><li><a href="https://www.owasp.org/images/5/56/OWASP_Testing_Guide_v3.pdf" class="external free" rel="nofollow">https://www.owasp.org/images/5/56/OWASP_Testing_Guide_v3.pdf</a>
+</li></ul>
+<p>CRLF Injection
+</p>
+<ul><li><a href="http://www.security-faqs.com/why-are-crlf-injections-dangerous.html" class="external free" rel="nofollow">http://www.security-faqs.com/why-are-crlf-injections-dangerous.html</a>
+</li><li><a href="http://www.hackpconline.com/2010/10/what-is-crlf-injection-crlf-injections.html" class="external free" rel="nofollow">http://www.hackpconline.com/2010/10/what-is-crlf-injection-crlf-injections.html</a>
+</li><li><a href="http://www.securiteam.com/securityreviews/5WP022K75O.html" class="external free" rel="nofollow">http://www.securiteam.com/securityreviews/5WP022K75O.html</a>
+</li><li><a href="https://nealpoole.com/blog/2011/01/http-response-splitting-on-reddit-com/" class="external free" rel="nofollow">https://nealpoole.com/blog/2011/01/http-response-splitting-on-reddit-com/</a>
+</li><li><a href="http://spotthevuln.com/2009/09/crlf-injection-url-redirection-these-pipes-are-clean/" class="external free" rel="nofollow">http://spotthevuln.com/2009/09/crlf-injection-url-redirection-these-pipes-are-clean/</a>
+</li><li><a href="http://projects.webappsec.org/w/page/13246931/HTTP%20Response%20Splitting" class="external free" rel="nofollow">http://projects.webappsec.org/w/page/13246931/HTTP%20Response%20Splitting</a>
+</li><li><a href="http://cwe.mitre.org/data/definitions/113.html" class="external free" rel="nofollow">http://cwe.mitre.org/data/definitions/113.html</a>
+</li><li><a href="http://gursevkalra.blogspot.com/2011/11/evading-content-security-policy-with.html" class="external free" rel="nofollow">http://gursevkalra.blogspot.com/2011/11/evading-content-security-policy-with.html</a>
+</li><li><a href="http://www.securiteam.com/securityreviews/5WP0E2KFGK.html" class="external free" rel="nofollow">http://www.securiteam.com/securityreviews/5WP0E2KFGK.html</a>
+</li><li><a href="https://www.owasp.org/index.php/Testing_for_HTTP_Splitting/Smuggling_(OWASP-DV-016)" class="external free" rel="nofollow">https://www.owasp.org/index.php/Testing_for_HTTP_Splitting/Smuggling_(OWASP-DV-016)</a>
+</li><li><a href="http://www.shaheemirza.com/2011/02/06/crlf-or-httprs-carriage-return-and-line-feed-http-response-splitting/" class="external free" rel="nofollow">http://www.shaheemirza.com/2011/02/06/crlf-or-httprs-carriage-return-and-line-feed-http-response-splitting/</a>
+</li><li><a href="http://www.aquilonis.hr/acunetix/crlf_injection.html" class="external free" rel="nofollow">http://www.aquilonis.hr/acunetix/crlf_injection.html</a>
+</li></ul>
+<p>Umetanje naredbi (command injection)
+</p>
+<ul><li><a href="https://www.owasp.org/index.php/Command_Injection" class="external free" rel="nofollow">https://www.owasp.org/index.php/Command_Injection</a>
+</li><li><a href="http://justpasha.org/folk/rm.html" class="external free" rel="nofollow">http://justpasha.org/folk/rm.html</a>
+</li></ul>
+<p>OS command injection
+</p>
+<ul><li><a href="http://wiki.apparmor.net/index.php/Main_Page" class="external free" rel="nofollow">http://wiki.apparmor.net/index.php/Main_Page</a>
+</li><li><a href="http://selinuxproject.org/page/Main_Page" class="external free" rel="nofollow">http://selinuxproject.org/page/Main_Page</a>
+</li><li><a href="http://cwe.mitre.org/data/definitions/602.html" class="external free" rel="nofollow">http://cwe.mitre.org/data/definitions/602.html</a>
+</li><li><a href="http://cwe.mitre.org/data/definitions/88.html" class="external free" rel="nofollow">http://cwe.mitre.org/data/definitions/88.html</a>, 
+</li><li><a href="http://cwe.mitre.org/data/definitions/78.html" class="external free" rel="nofollow">http://cwe.mitre.org/data/definitions/78.html</a>
+</li></ul>
+<p>ModSecurity
+</p>
+<ul><li><a href="http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual#ModSecurity.C2.AE_Reference_Manual" class="external free" rel="nofollow">http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual#ModSecurity.C2.AE_Reference_Manual</a>
+</li><li><a href="https://www.owasp.org/index.phpćategory:OWASP_ModSecurity_Core_Rule_Set_Project" class="external free" rel="nofollow">https://www.owasp.org/index.phpćategory:OWASP_ModSecurity_Core_Rule_Set_Project</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Podjela_zadu.C5.BEenja_po_poglavljima">Podjela zaduženja po poglavljima</span></h2>
+<p>Dario Huzjak - 1-4;
+</p><p>Kristina Mejaš - 5, 6 , 9;
+</p><p>Nikola Baksa - 7, 8; 
+</p><p>Ivana Prpić
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 1241/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:34-0!*!0!!hr!2!edit=0 and timestamp 20190203204029 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="znakova.html">http://security.foi.hr/wiki/index.php/OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="znakova.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk"><span><a href="http://security.foi.hr/wiki/index.php/Razgovor:OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="znakova.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="znakova.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="znakova.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../../images/osslogo.png);" href="../../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="../Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="../Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="../Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="../Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova&amp;oldid=34397" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:16, 20. studenog 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 28.900 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="../SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "OWASP_Top_10:_Problemi_sa_umetanjem_koda/znakova", "wgTitle": "OWASP Top 10: Problemi sa umetanjem koda/znakova", "wgAction": "view", "wgArticleId": 34, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 34397, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 1.330 secs. -->			</body>
+</html>

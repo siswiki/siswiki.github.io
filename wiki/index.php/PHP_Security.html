@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>PHP Security - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=PHP_Security&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-PHP_Security skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">PHP Security</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="PHP_Security.html#mw-head">orijentacija</a>,
+					<a href="PHP_Security.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="PHP_Security.html#Vrste_napada_na_web_aplikacije"><span class="tocnumber">1</span> <span class="toctext">Vrste napada na web aplikacije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="PHP_Security.html#SQL_injection"><span class="tocnumber">1.1</span> <span class="toctext">SQL injection</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="PHP_Security.html#Cros_site_scripting"><span class="tocnumber">1.2</span> <span class="toctext">Cros site scripting</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="PHP_Security.html#Cross_site_request_forgery"><span class="tocnumber">1.3</span> <span class="toctext">Cross site request forgery</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="PHP_Security.html#Uvod_u_Zend_Framework_2"><span class="tocnumber">2</span> <span class="toctext">Uvod u Zend Framework 2</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="PHP_Security.html#Konfiguriranje_Zend-a"><span class="tocnumber">3</span> <span class="toctext">Konfiguriranje Zend-a</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="PHP_Security.html#Sigurnosne_zna.C4.8Dajke_Zend_Frameworka"><span class="tocnumber">4</span> <span class="toctext">Sigurnosne značajke Zend Frameworka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="PHP_Security.html#Sigurnosni_alati_u_Zend_Framework-u"><span class="tocnumber">4.1</span> <span class="toctext">Sigurnosni alati u Zend Framework-u</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="PHP_Security.html#SQL_injection_2"><span class="tocnumber">4.2</span> <span class="toctext">SQL injection</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="PHP_Security.html#Cross_site_request_forgery_2"><span class="tocnumber">4.3</span> <span class="toctext">Cross site request forgery</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="PHP_Security.html#Cross_site_scripting"><span class="tocnumber">4.4</span> <span class="toctext">Cross site scripting</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="PHP_Security.html#Broken_authentication_and_session_management"><span class="tocnumber">4.5</span> <span class="toctext">Broken authentication and session management</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="PHP_Security.html#Brute_force_attack"><span class="tocnumber">4.6</span> <span class="toctext">Brute force attack</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="PHP_Security.html#Primjer_projekta"><span class="tocnumber">5</span> <span class="toctext">Primjer projekta</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="PHP_Security.html#Laravel_Framework"><span class="tocnumber">6</span> <span class="toctext">Laravel Framework</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="PHP_Security.html#Sigurnost_Laravel_aplikacija"><span class="tocnumber">6.1</span> <span class="toctext">Sigurnost Laravel aplikacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="PHP_Security.html#SQL_Injection_napadi"><span class="tocnumber">6.1.1</span> <span class="toctext">SQL Injection napadi</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="PHP_Security.html#Cross-Site_Scripting_.28XSS.29_napadi"><span class="tocnumber">6.1.2</span> <span class="toctext">Cross-Site Scripting (XSS) napadi</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="PHP_Security.html#Broken_Authentication_and_Session_Management_2"><span class="tocnumber">6.1.3</span> <span class="toctext">Broken Authentication and Session Management</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="PHP_Security.html#Insecure_Direct_Object_References_i_Missing_function_level_access_control"><span class="tocnumber">6.1.4</span> <span class="toctext">Insecure Direct Object References i Missing function level access control</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="PHP_Security.html#Security_Misconfiguration"><span class="tocnumber">6.1.5</span> <span class="toctext">Security Misconfiguration</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="PHP_Security.html#Cross-Site_Request_Forgery_.28CSRF.29"><span class="tocnumber">6.1.6</span> <span class="toctext">Cross-Site Request Forgery (CSRF)</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="PHP_Security.html#Zaklju.C4.8Dak"><span class="tocnumber">6.1.7</span> <span class="toctext">Zaključak</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-24"><a href="PHP_Security.html#Dodatne_informacije"><span class="tocnumber">6.2</span> <span class="toctext">Dodatne informacije</span></a>
+<ul>
+<li class="toclevel-3 tocsection-25"><a href="PHP_Security.html#Middleware"><span class="tocnumber">6.2.1</span> <span class="toctext">Middleware</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="PHP_Security.html#Maintance_mode"><span class="tocnumber">6.2.2</span> <span class="toctext">Maintance mode</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-27"><a href="PHP_Security.html#Testiranje_aplikacije"><span class="tocnumber">6.3</span> <span class="toctext">Testiranje aplikacije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28"><a href="PHP_Security.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Vrste_napada_na_web_aplikacije">Vrste napada na web aplikacije</span></h2>
+<h3> <span class="mw-headline" id="SQL_injection">SQL injection</span></h3>
+<p>SQL injection je vrsta napada na web aplikacije kod kojih je korisnički unos manipuliran na način da ranjiva aplikacija izvrši neželjene SQL naredbe i pritom može kompromitirati razne povjerljive podatke. Klasičan primjer SQL injectiona, ako imamo ovakav upit:
+</p>
+<pre>
+SELECT bankcard_pin,bankaccount FROM users WHERE username = '{$username}' and password = '{%password}'
+</pre>
+<p>Korisnik može unijeti slijedeće te se na taj način prijaviti u sustav bez znanja lozinke i username-a:
+</p>
+<pre>
+$username = &quot;' or 1=1 --'&quot;;
+$password = &quot;bla&quot;;
+
+//Greška je ta što je programer htio postići odvajanje koda od podataka:
+SELECT bankcard_pin,backaccount FROM users WHERE username = ' ' or 1=1 -- ' and password = 'bla';
+
+//No server to interpretira kao:
+SELECT bankcard_pin,backaccount FROM users WHERE username = ' ' or 1=1 --' and password = 'bla';
+</pre>
+<h3> <span class="mw-headline" id="Cros_site_scripting">Cros site scripting</span></h3>
+<p>XSS je tip napada kod kojeg se maliciozna skripta unosi u povjerljivu web stranicu. Dešava se kada web stranica prikazuje neprovjerene podatke, u tom slučaju napadač može unijeti malicioznu skriptu (najčešće JavaScript) koja se izvršava ukoliko korisnik posjeti stranicu. XSS se dijeli na:
+</p>
+<ul><li> <b>Stored XSS</b> - maliciozna skripta se trajno nalazi na stranici.
+</li><li> <b>Reflected XSS</b> - napadač natjera korisnika da klikne na maliciozni link, koji će izvesti zahtjev prema web stranici. Zahtjev sadrži ubačeni JavaScript koji putuje na web stranici i reflektira se u korisnikovom browseru.
+</li></ul>
+<p>Primjeri XSS napada:
+</p>
+<pre>
+&lt;body onload=alert('test1')&gt; /* kada bilo koji korisnik posjeti stranicu pojavit će mu se obavijest na ekranu */
+&lt;script&gt;doSomethingEvil();&lt;/script&gt; /* izvršavanje raznih skripti */
+</pre>
+<p>Kako bi spriječili ovakav napad, prilikom izrade naše aplikacije ukoliko ispisujemo nešto što je korisnik prethodno unio u npr. neku formu potrebno je koristiti sljedeću naredbu
+</p>
+<pre>
+echo htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+</pre>
+<p>Drugi nači je unutar PHP-a koristiti naredbu <code>strip_tags($input, '&lt;br')</code> koja prima dva argumenta: varijablu unosa te niz oznaka koje su dopuštene.
+</p>
+<h3> <span class="mw-headline" id="Cross_site_request_forgery">Cross site request forgery</span></h3>
+<p>CSRF je napad kod kojeg je korisnik natjeran da izvrši neželjene akcije unutar aplikacije u koju je trenutno prijavljen. Pomoću social engineeringa, napadač može navesti korisnika da klikne na maliciozni link ili posjeti malicioznu stranicu. Takvi napadi najčešće se preventiraju tzv. session tokenima (jedinstvenima po sjednici).
+Ukoliko je aplikacija dizajniranja za slanje novaca preko GET zahtjeva sa parametrima jedan od napada mogao bi izgledati ovako:
+</p>
+<pre>
+http://bank.com/transfer.do?acct=MARIA&amp;amount=100000
+</pre>
+<p>Slično tome pretpostavimo da postoji POST zahtjev kao ovaj:
+</p>
+<pre>
+POST http://bank.com/transfer.do HTTP/1.1
+acct=BOB&amp;amount=100
+</pre>
+<p>Napadač bi vrlo lako mogao poslati POST zahtjev preko forme i na taj način napraviti napad:
+</p>
+<pre>
+&lt;form action=&quot;http://bank.com/transfer.do&quot; method=&quot;POST&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;acct&quot; value=&quot;MARIA&quot;/&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;amount&quot; value=&quot;100000&quot;/&gt;
+&lt;input type=&quot;submit&quot; value=&quot;View my pictures&quot;/&gt;
+&lt;/form&gt;
+</pre>
+<p>Postoji nekoliko načina kako se možemo zaštititi od ovakvih napada a jedan od najkorištenjih su CSRF tokeni. Korištenjem tokena koji su jedinstveni za svakog korisnik i nalaze se unutar sesije te su genirani od nekog kriptiranog sigurnog generatora omogućuj se zaštiva protiv ovakvog vrsta napada.
+</p>
+<h2> <span class="mw-headline" id="Uvod_u_Zend_Framework_2">Uvod u Zend Framework 2</span></h2>
+<p>Zend Framework je framework za izgradnju web aplikacija implementiran u PHP-u. Open-source je, objektno-orijentiran te modularan. Često se naziva kao ‘component-library’ zbog velikog broja komponenata koji se mogu koristiti zasebno (u Zendu to zovu 'use-at-will').<br /> Dakle, za razliku od nekih drugih PHP frameworka koji se najčešče vode politikom ‘all or nothing’, funkcionalnosti Zend Frameworka moguće je uključiti u nativnu PHP aplikaciju. Razlog tome je što Zend slijedi SOLID principe OOP-a.
+</p><p>Između ostalog, pruža <b>MVC</b> (Model-View-Controller) implementaciju koja se može koristiti za strukturu Zend Framework aplikacije. 
+Web aplikacije se praktično mogu podijeliti na tri sloja: prezentacijski, sloj poslovne logike i sloj pristupa podacima. MVC design-pattern dostojno slijedi ovu podjelu. Svaki od navedenih slojeva odvojen je kao posebni dio koda:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:MVCimg.png" class="image"><img alt=" Alt text" src="../images/thumb/f/fc/MVCimg.png/525px-MVCimg.png" width="525" height="366" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:MVCimg.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><b>Model</b> - dio aplikacije koji definira osnovne funkcionalnosti, pristup podacima te poslovnu logiku.<br />
+<b>View</b> - definira dio aplikacije vidljiv korisnicima. Vizualizira podatke koje model sadrži, a osim toga često i skupljaju podatke od strane samih korisnika.<br />
+<b>Controller</b> - djeluje i nad modelom i nad view-ovima. Kontrolira protok podataka u model te ažurira view u slučaju promjene podataka. Kontroler je u biti dio koda koji drži model i view odvojeno.
+</p><p>Zend Framework koristi tzv. <b>Front Controller</b> design pattern, što znači da se svi zahtjevi usmjeravaju prema jednom ulazu (index.php). Za to je potrebno konfigurirati .htaccess datoteku na način da svi zahtjevi upućuju na index.php. Nakon dolaska zahtjeva, index.php inicijalizira autoloader i bootstrap prije pokretanja aplikacije. 
+</p><p>Konfiguracija .htaccess:
+</p>
+<pre>
+&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine on
+    RewriteRule    (.*) controller.php  [L]  
+ &lt;/IfModule&gt;
+</pre>
+<p>Također, to omogućuje implementaciju sigurnosnih mjera (filtriranje i validacija inputa, autentikacija) na jednom mjestu. 
+</p><p>Čitav proces obrade jednog web requesta u Zendu:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ZendProcess.png" class="image"><img alt="Alt text" src="../images/thumb/9/94/ZendProcess.png/525px-ZendProcess.png" width="525" height="350" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ZendProcess.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Potrebno je osigurati siguran rad svih komponenata Zend aplikacije, ukoliko samo jedna komponenta ne zadovoljava sigurnosne zahtjeve, sve aplikacije koje koriste tu komponentu mogu biti kompromitirane. Zend pruža velik broj komponenata koje enkapsuliraju različite sigurnosne zahtjeve kao što su: <b>filriranje sadržaja</b>, <b>sprečavanje injekcija</b>, <b>upravljanje sjednicom</b>. Načini na koje Zend Framework može učiniti aplikaciju sigurnijom bit će navedeni u daljnjem tekstu.
+</p>
+<h2> <span class="mw-headline" id="Konfiguriranje_Zend-a">Konfiguriranje Zend-a</span></h2>
+<p>Najjednostavniji način konfiguriranja Zend aplikacije je koristeći <b>Composer</b>. Composer je dependency manager za PHP, ukratko, automatski preuzima sve potrebne library-e, dependency-e koje bi inače bilo puno teže manualno konfigurirati. Preporučeni način za početak izgradnje Zend Framework projekta je preuzeti Zend Sceleton aplikaciju koja sadrži ZF2 MVC slojeve i potrebne module.<br />
+Preuzimanje Composer-a:<br />
+</p>
+<pre>
+//Linux
+cd /var/www/public_html/SISprimjer
+git clone git://github.com/zendframework/ZendSkeletonApplication.git
+cd ZendSkeletonApplication
+php composer.phar install
+
+//Windows
+git clone git://github.com/zendframework/ZendSkeletonApplication.git
+--downloadati composer sa web-a u direktorij projekta
+u cmd-u: composer install
+</pre>
+<p>Nakon instalacije pokrećemo Skeleton aplikaciju na Apacheu:<br />
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SkeletonApp.png" class="image"><img alt="Alt text" src="../images/thumb/b/be/SkeletonApp.png/525px-SkeletonApp.png" width="525" height="295" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SkeletonApp.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2> <span class="mw-headline" id="Sigurnosne_zna.C4.8Dajke_Zend_Frameworka">Sigurnosne značajke Zend Frameworka</span></h2>
+<h3> <span class="mw-headline" id="Sigurnosni_alati_u_Zend_Framework-u">Sigurnosni alati u Zend Framework-u</span></h3>
+<p>Zend pruža velik broj sigurnosnih alata koje omogućuju izradu sigurnijih web aplikacija. Alati:
+</p>
+<ul><li> Zend\Authentication
+</li><li> Zend\Captcha
+</li><li> Zend\Crypt
+</li><li> Zend\Escaper
+</li><li> Zend\Filter
+</li><li> Zend\InputFilter
+</li><li> Zend\Permissions
+</li><li> Zend\Math
+</li><li> Zend\Validator
+</li></ul>
+<p>Neki od najvažnijih su prikazani u nastavku. <b>Zend\Authentication</b> pruža API za svrhu autentikacije i sadrži adaptere za najčešće scenarije. Primjer autentikacije:
+</p>
+<pre>
+$authentication = new AuthenticationService();
+
+$adapter = new My\Auth\Adapter($username,$password);
+
+$result = $authentication-&gt;authenticate($adapter);
+
+if(!$result-&gt;isValid()){
+        //Authentication failed:error message
+}
+else{
+        //Authentication succeeded
+}
+</pre>
+<p><b>Zend\Permissions\Acl</b> pruža implementacije ACL-a (access control liste) koja predstavlja listu dopuštenja objekata (rola) određenom objektu (izvoru):
+</p>
+<pre>
+$acl = new Acl();
+
+$acl-&gt;addRole(new Role('user'))
+    -&gt;addRole(new Role('guest'))
+
+$acl-&gt;addResource(new Resource('resource'));
+
+$acl-&gt;allow('user','resource');
+$acl-&gt;deny('guest','resource');
+</pre>
+<p><b>Zend\Validator</b> pruža API za najčešće korištene oblike validacije podataka. Recimo, često je korištena validacija email adrese:
+</p>
+<pre>
+$validator = new Zend\Validator\EmailAddress();
+
+if(!$validator-&gt;isValid($mail)){
+        //Email is not valid
+}
+else{
+       //Email is valid
+}
+</pre>
+<p><b>Zend\InputFilter</b> je API za filtriranje i validaciju unosa podataka poput $_POST, $_GET vrijednosti. Za slanje podataka u input filter koristi se metoda setData(). 
+</p>
+<pre>
+$email = new Input('email');
+$email-&gt;getValidatorChain()
+      -&gt;attach(new Validator\EmailAddress());
+
+$password = new Input('password');
+$password-&gt;getValidatorChain()
+         -&gt;attach(new Validator\StringLength(8));
+
+$inputFilter = new InputFilter();
+$inputFilter-&gt;add($email)
+            -&gt;add($password)
+            -&gt;setData($_POST);
+
+//dalje provjeriti sa $inputFilter-&gt;isValid()
+</pre>
+<p>U Zendu je implementirana <b>Zend\Escaper</b> klasa u svrhu prevencije od XSS napada. Sadrži pet različitih metoda za output escaping:
+</p>
+<ul><li> <b>escapeHtml</b> - za html body kontekst
+</li><li> <b>escapeHtmlAttr</b> - za html atribute
+</li><li> <b>escapeJs</b> - za JavaScript
+</li><li> <b>escapeCss</b> - za CSS kontekst
+</li><li> <b>escapeUrl</b> - za URI kontekst
+</li></ul>
+<p>Valja još napomenuti i <b>Zend\Crypt</b> koji sadrži dosta korisne implementacije za kriptiranje podataka poput simetričnog, asimetričnog kriptiranja, HMAC funkcija, hasha, blok šifri itd. Blok šifra je recimo dosta dobro implementirana jer koristi AES 256, PKCS7, PBKDF, CBC+HMAC (SHA-256).
+</p>
+<h3> <span class="mw-headline" id="SQL_injection_2">SQL injection</span></h3>
+<p>Kako bi preventirali ovakvu vrstu napada, preporuka je koristiti tzv. placeholdere (?) na mjesta gdje očekujemo podatke te unaprijed pripremiti SQL naredbe i poslati tu komandu na server (PREPARE) te dodati podatke (EXECUTE) i naposljetku dohvatiti podatke (FETCH).
+Zend Framework koristi klasu <b>Zend_db</b> koja uvelike olakšava programerima obranu od ove vrste napada zbog toga što koristi pripremljene procedure što je više moguće. Pripremljene procedure osiguravaju da napadači ne mogu promijeniti namjenu upita, iako je dio upita i dalje unesen od strane napadača. Primjer "prepare + execute" u Zend-u:
+</p>
+<pre>
+//spajanje na bazu
+$db = Zend_Db::factory('Mysql', array( 
+    'host'     =&gt; '127.0.0.1',
+    'username' =&gt; 'user',
+    'password' =&gt; 'pass',
+    'dbname'   =&gt; 'test'
+));
+
+//prepare + execute
+$select = $db-&gt;select()
+          -&gt;from('users',array('bankcard_pin,'bankaccount'))
+          -&gt;where('username =&#160;?',$username)
+          -&gt;where('password =&#160;?',$password);
+
+while($row = $select-&gt;fetch()){
+         //Dohvat podataka
+}
+</pre>
+<p>Na ovaj način osiguravamo da server uvijek interpretira upit kao (neće se ponoviti greška kao u prethodnom slučaju):
+</p>
+<pre>
+//U slučaju napada
+
+$username = &quot;' or 1=1 --'&quot;;
+$password = &quot;bla&quot;;
+
+//Server interpretira uvijek:
+
+SELECT bankcard_pin FROM users WHERE username = ' or 1=1' AND password = 'bla';
+</pre>
+<p>Još jedna tehnika obrane je <b>escaping</b> korisničkog unosa. Prema OWASP-u, ova metoda je nešto nesigurnija i ne može se garantirati da će spriječiti sve moguće napade SQL injection-om. U Zend-u, koriste se funkcije <b>quote</b> ili <b>quoteInto</b>. Quote escape-a samo znakove koji mogu terminirati string (', ", \0), dok se quoteInto češće koristi kod SQL upita.
+</p>
+<pre>
+$string = &quot;O'Neal&quot;;
+
+$name = $db-&gt;quote($string); // 'O\'Neal'
+
+$sql = $db-&gt;quoteInto(&quot;SELECT * FROM users WHERE userid =&#160;?&quot;, $string);
+</pre>
+<h3> <span class="mw-headline" id="Cross_site_request_forgery_2">Cross site request forgery</span></h3>
+<p>Ne postoji automatska zaštita od CSRF-a, pa je potrebno manualno. Zend Framework koristi Zend_Form_Element_Hash koji kreira jedan takav token koji se pridodaje formi:
+</p>
+<pre>
+class My_Form extends Zend_Form {
+
+ function __construct()
+ {
+   parent::__construct(); 
+   $this-&gt;addElement('hash', 'csrf_token', array('salt' =&gt; get_class($this).'some salty text'));
+ }
+
+}
+</pre>
+<h3> <span class="mw-headline" id="Cross_site_scripting">Cross site scripting</span></h3>
+<p>U Zend-u, XSS ranjivosti mogu se pojaviti u View-u. Zend ne sadrži automatsko escape-anje podataka poput nekih drugih frameworka pa je zaštita od XSS-a zadatak programera. Najbolja praksa za prevenciju XSS-a je <b>filtriranje</b> inputa, a <b>escapeanje</b> outputa. 
+</p><p>Primjer HTML escape-a:
+</p>
+<pre>
+$escaper = new Zend\Escaper\Escaper('utf-8');
+
+&lt;div class=&quot;user-input&gt;
+
+ &lt;?php echo $escaper-&gt;escapeHtml($input);&#160;?&gt;
+
+&lt;/div
+</pre>
+<p>Za filtriranje inputa preporučljivo je koristiti HTML Purifier ili sanitizirajuće funkcije poput filter_var. Na <a href="https://github.com/mikemix/zf2htmlpurifier" class="external text" rel="nofollow">Githubu</a> postoji već integrirani HTML Purifier kao Zend Filter. Primjer preuzet sa Git-a:
+</p>
+<pre>
+//Standalone korištenje
+$purifier = new \zf2htmlpurifier\Filter\HTMLPurifierFilter();
+
+echo $purifier-&gt;filter('&lt;a href=&quot;#&quot; onlick=&quot;javascript:alert(xss)&quot;&gt;link&lt;/a&gt;');
+</pre>
+<h3> <span class="mw-headline" id="Broken_authentication_and_session_management">Broken authentication and session management</span></h3>
+<p>Korisnici često implementiraju svoje upravljanje sesijom, što često zna loše završiti. Preporuka je koristiti već ugrađene alate za upravljanje sesijom unutar određenog frameworka. Tako <b>Zend_Session</b> pomaže u upravljanju i čuvanju sesijskih podataka. <b>Zend_Session_Namespace</b> se koristi za odvajanje pojedinih sesijskih podataka. Pojedinim podacima se manipulira pomoću Zend_Session_Namespace objekata, a ne direktno preko superglobala $_SESSION. Svaka instanca Zend_Session_Namespace-a se referencira na odgovarajuće mjesto u $_SESSION superglobalnom polju. 
+</p>
+<pre>
+$nameSpace = new Zend_Session_Namespace('namespace'); /Odgovara $_SESSION['namespace'];
+</pre>
+<p>Ukoliko se ne navede ključ za namespace, svi podaci se spremaju u namespace sa ključem 'Default'. Takođe, preporuča se ne pozivati direktno PHP funkcije _set,_get,_unset i _isset, osim iz podklase. Umjesto toga, standardni operatori pridruživanja automatski pozivaju potrebne funkcije. Primjer dohvaćanja sesijskih podataka:
+</p>
+<pre>
+$namespace = new Zend_Session_Namespace(); // default namespace
+ 
+$namespace-&gt;foo = 100;
+ 
+echo &quot;\$namespace-&gt;foo = $namespace-&gt;foo\n&quot;;
+ 
+if (!isset($namespace-&gt;bar)) {
+    echo &quot;\$namespace-&gt;bar not set\n&quot;;
+}
+</pre>
+<p>Fiksacija sesije sprječava se ponovnim generiranjem session id-a (tokena) prilikom svake promjene statusa.
+</p>
+<pre>
+$defaultNamespace = new Zend_Session_Namespace();
+
+if (!isset($defaultNamespace-&gt;initialized)) {
+    Zend_Session::regenerateId();
+    $defaultNamespace-&gt;initialized = true;
+}
+</pre> 
+<p>Za autentikaciju, unutar Zenda postoji <b>Zend_Auth</b>. Njegova svrha je dohvaćanje autentikacijskog adaptera koji se koristi za autentikaciju. Nakon uspješne autentikacije, mora biti prisutan prilikom svakog zahtjeva koji ima obavezu provjeriti je li korisnik uspješno autenticiran, a za to se koristi prethodno navedeni Zend_Session_Namespace. Recimo da imamo login formu koja standardno zahtjeva username i password, pravilan primjer autentikacije koji koristi MD5 hash funkciju i salt (preuzeto sa <a href="http://framework.zend.com/manual/1.12/en/zend.session.basic_usage.html%7CZend" class="external text" rel="nofollow">dokumentacije</a>):
+</p>
+<pre>
+$adapter = new Zend_Auth_Adapter_DbTable( //postavljanje adaptera
+           $db,
+           'users',
+           'username',
+           'password',
+           'MD5(CONCAT(?, password_salt))'
+            );
+
+$adapter-&gt;setIdentity($loginForm-&gt;getValue('username')); //stupac u tablici koji predstavlja identitet
+$adapter-&gt;setCredential($loginForm-&gt;getValue('password')); //stupac u tablici koji predstavlja password
+ 
+$auth   = Zend_Auth::getInstance();
+$result = $auth-&gt;authenticate($adapter); //autentikacija
+
+if(!$result-&gt;isValid()){
+         //autenthication failed
+}
+else{
+         //authentication succeeded
+}
+</pre>
+<p>Konfiguracija igra veliku ulogu u sigurnosti sessiona, sve SSL aplikacije bi trebale koristiti <b>secure flag</b> (preventira slanje cookiesa preko nekriptiranog kanala). Osim toga preporučljivo je i korištenje <b>httpOnly</b> atributa (cookiesi mogu biti dohvaćeni samo od strane server) kao dodatne zaštite protiv XSS-a te postaviti maksimalni lifetime sessiona. Primjer konfiguracije:
+</p>
+<pre>
+Zend_Session::setOptions(array('cookie_secure' =&gt; true, 
+                        'name' =&gt; 'myApp', //zasebni session name
+                        'save_path' =&gt; '/sessions/myApp',  //zasebni session storage
+                        'cookie_httponly' =&gt; true, 
+                        'gc_maxlifetime' =&gt; 15 * 60 ));
+</pre>
+<h3> <span class="mw-headline" id="Brute_force_attack">Brute force attack</span></h3>
+<p>Zend\Crypt\Password ima implementiran <b>bcrypt</b> koji uspješno sprečava brute force napade za crackiranje passworda. Sigurnost bcrypta leži u njegovoj sporosti - za hash treba čak do sekunde što čini brute force napad skoro nemogućim za izvesti. Bcrypt je derivacijska funkcija koja prima tzv. cost parametar koji određuje broj ciklusa koji će algoritam provesti, što je veći cost to će izračun hasha biti duži i time otežati brute force napad. Zend je prethodno koristio za cost 14, no od verzije 2.3 taj je broj smanjen na 10 zbog velikog vremena za sprečavanje DOS napada. No, ukoliko želimo eksplicitno promijeniti cost to možemo učiniti pomoću funkcije setCost. Implementacija bcrypta:
+</p>
+<pre>
+use Zend\Crypt\Password\Bcrypt;
+
+$bcrypt = new Bcrypt();
+$bcryptpass = $bcrypt-&gt;create('user password'); 
+
+$password = &quot;password to check&quot;;
+
+if($bcrypt-&gt;verify($password,$bcryptpass)){
+  //password verificiran
+}
+else{
+  //password nije verificiran
+}
+</pre>
+<h2> <span class="mw-headline" id="Primjer_projekta">Primjer projekta</span></h2>
+<p>Prema <a href="http://bigemployee.com/zend-framework-2-simple-web-application-crud-using-ajax-tutorial/" class="external text" rel="nofollow">tutorijalu</a> je izrađena web aplikacija u Zend Frameworku (dostupno na repozitoriju: <a href="https://github.com/domagojk1/zend-framework" class="external text" rel="nofollow">Github</a>). Aplikacija je jednostavna i omogućuje dodavanje i brisanje željenih bilješki te njihov unos/brisanje/update u bazi. 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sisproject.png" class="image"><img alt="Alt text" src="../images/thumb/5/55/Sisproject.png/525px-Sisproject.png" width="525" height="283" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sisproject.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Nad izrađenom aplikacijom provedeno je testiranje unutar alata OWASP ZAP, te su uočene neke ranjivosti blagog do srednjeg rizika. Također, provedeno je testiranje unutar alata Acunetix Web Vulnerability Scanner, no drugu opciju ne bi preporučio. Naime, iako je našla više ranjivosti (uočen i CSRF), druga aplikacija je onemogućila ulaz u bazu i obrisala velik broj datoteka unutar samog projekta. OWASP ZAP rezultati:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Error_disclosure.png" class="image"><img alt="Alt text" src="../images/thumb/2/23/Error_disclosure.png/525px-Error_disclosure.png" width="525" height="280" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Error_disclosure.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div> 
+<p><b>Error disclosure</b> je generiranje poruka pogrešaka koje mogu u nekim slučajevima otkriti povjerljive informacije o korisnicima, nekim povjerljivim podacima i slično. Napadač može iskoristiti te podatke kako bi kasnije formirao neki složeniji napad na aplikaciju ili došao do povjerljivih podataka. Kako do toga ne bi došlo potrebno je error poruke konfigurirati na odgovarajući način, a informacije koje su bile potrebne za debug, ukloniti iz produkcijske verzije aplikacije. 
+</p><p><b>Directory listing</b> ili pretraživanje direktorija je omogućeno ukoliko na serveru postoji direktorij koji ne sadrži index datoteku. Iskorištavanje ove prijetnje je teško, no svejedno, prijetnja leži u tome da napadač može pregledati sve naše datoteke unutar tog direktorija i moguće pronaći način za zaobići sigurnosne mjere. Kako bi to onemogućili, u .htaccess datoteci potrebno je onemogućiti indeksiranje:
+</p>
+<pre>
+Options -Indexes
+</pre>
+<p><b>Clickjacking</b> je napad prilikom kojeg korisnik ima namjeru klikom otići na željenu stranicu ili odabrati željenu radnju, no umjesto toga izvršava se neka druga, neželjena akcija. Ovaj napad preventira se slanjem X-Frame-Options HTTP response headera koji onemogućujue renderiranje stranice unutar &lt;frame&gt;, &lt;iframe&gt; i &lt;object&gt; elemenata koji mogu biti korišteni za takve napade. Konfiguranje apache-a kao prevencija:
+</p>
+<pre>
+Header always append X-Frame-Options SAMEORIGIN
+</pre>
+<p>ZAP također ukazuje na to da se ne koristi dodatna XSS zaštita unutar browsera. Zaštita koristi <b>XSS-filter</b> koji skenira sve zahtjeve i odgovore koji prolaze kroz browser i automatski može blokirati maliciozne skripte od izvođenja. Podržana je na nekim verzijama Chrome-a te na IE8. Omogućava se postavljanjem HTTP zaglavlja:
+</p>
+<pre>
+X-XSS-Protection: 1; 
+mode=block
+</pre>
+<p><b>X-Content-Type-Options</b> je zaglavlje koje koriste IE i Chrome za tzv. MIME-sniffing (istražuje bajtove kako bi se utvrdio tip podataka). No, ta opcija otvara moguću ranjivost - MIME sniffing algoritam se može prilagoditi na način da browser interpretira podatke na način da dozvoljava neželjene akcije, konkretno XSS. Zbog toga ZAP javlja da zaglavlje mora biti postavljeno na način:
+</p>
+<pre>
+X-Content-Type-Options: nosniff
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:DomagojKopic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:DomagojKopic (stranica ne postoji)">DomagojKopic</a> 09:34, 17. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Laravel_Framework"> Laravel Framework </span></h2>
+<p>Laravel je besplatan, objektno orijentirani open-source PHP framework. Napravio ga je Taylor Otwell za izradu web aplikacija sljedeći MVC (model-view-controler) arhitekturu [13]. Uz Symphony ovo je najpopularniji framework za izradu web aplikacija. Omogućava izradu modularnih aplikacija, pojednostavljuje čitav proces izrade i održavanja aplikacija te ima ugrađeni veliki broj metoda i paketa za upravljanje sa bazama i vanjskim resursima.
+<br /><br />
+Prilikom instalacije Laravel projekta automatski dobijemo veliku količinu datoteka i skripti koje svaka ima svoju zadaću. Iako neću detaljno ulaziti kako se izrađuju aplikacije u Laravel-u i objašnjavati strukturu laravel projekta, potrebno je objasniti nekoliko osnovnih pojmova kako bi mogli lakše razumjeti daljnji tekst.
+<br /> <br />
+</p><p><b>Routing</b> - Unutar svakog projekta postoji app/routes.php datoteka u kojoj definiramo naredbe za upravljanje preusmjeravanja te poziva "Controller" klase prilikom korisnikovog posjeta nekoj stranici unutar naše aplikacije. <br />
+<b>Controllers</b> - Unutar svake pojedine <span style="color:red">Controller</span> klase definirane su metode u kojima se izvršavaju određene naredbe te korisniku vraća određena stranica i objekti. <br />
+<b>Middleware</b> - Klase koje omogućuju filtriranje HTTP zahtjeva unutar aplikacije. O njima ćemo više govoriti kasnije. <br />
+<b>Model</b> -  Dio aplikacije koji definira osnovne funkcionalnosti, pristup podacima te poslovnu logiku. <br />
+<b>Migrations</b> - Migracije su "version control" za našu bazu podataka, omogućuju nam jednostavan razvoj i modificiranje naše baze podataka, odnosno tablica. <br />
+<b>Views</b> - To su stranice, skripte i predlošci naše aplikacije, odnosno ono što se vizualno prikazuje korisniku. <br />
+<br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Laravel-mvc-components.png" class="image" title="Laravel MVC komponente"><img alt="Laravel MVC komponente" src="../images/thumb/e/e3/Laravel-mvc-components.png/600px-Laravel-mvc-components.png" width="600" height="376" /></a>
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivansusec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivansusec (stranica ne postoji)">Ivansusec</a> 19:53, 10. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Sigurnost_Laravel_aplikacija"> Sigurnost Laravel aplikacija </span></h3>
+<p>Osiguravanje sigurnosti web aplikacije te njihovih korisnika je jedno od najvažnijih dijelova svake aplikacije a Laravel ima ugrađene klase koje nam uvelike pomažu u izradi sigurne aplikacije. Na početku ću opisati kako se obraniti od svih najpoznatijih vrsta napada a kao primjer koristit ćemo manji projekt napravljen uz pomoć "Tutoriala" sa Laracast stranice. Laracast je web mjesto gdje postoji gomila sadržaja za učenje Laravel Frameworka te izgradnju "Best practise" rješenja. Aplikacija sadrži spajanje na bazu podataka, autentifikaciju i registraciju korisnika te sadrži sve osnovne dijelove tipične Laravel aplikacije. Podaci su pjesme koje je moguće kreirati, uređivati i pregledavati. Kroz aplikaciju proći ćemo kroz puno vrsta potencijalnih napada te kako je osigurana prevencija od istih.<br />
+Aplikacija sadrži nekoliko tablica od kojih nam je za razumijevanje daljnjeg teksta potrebno znati samo kako izgleda tablica "Articles" koja predstavlja tablicu pjesama. Struktura tablice "Articles" može se najlakše vidjeti u klasi migracije za tu tablicu:
+</p>
+<pre>
+class CreateArticlesTable extends Migration
+{
+   
+    public function up()
+    {
+        Schema::create('articles', function (Blueprint $table) {
+            $table-&gt;increments('id');
+            $table-&gt;integer('user_id')-&gt;unsigned();
+            $table-&gt;timestamps();
+            $table-&gt;text('body');
+            $table-&gt;string('title');
+            $table-&gt;timestamp('published_at');
+
+            $table-&gt;foreign('user_id')
+                -&gt;references('id')
+                -&gt;on('users')
+                -&gt;onDelete('cascade');
+        });
+    }
+}
+</pre>
+<p>Kao što vidimo za svaki stupac tablice definiran je tip podataka te ime stupca u zagradi. Tablica sadrži vanjski ključ na korisnika koji je vlasnik unosa nove pjesme, ali to nije toliko bitno zasad.
+</p>
+<h4> <span class="mw-headline" id="SQL_Injection_napadi"> SQL Injection napadi </span></h4>
+<p>U Laravelu postoji takozvani <span style="color:red">The Eloquent ORM</span> koji omogućuje sigurno i jednostavno upravljanje sa bazom podataka[13] . Svaka tablica iz baze podataka ima svoju "Model" klasu preko koje vrši interakcije nad tablicom. Bitno je napomenuti da Laravel podržava više vrsta baza podataka te postoji database.php datoteka u kojoj se definiraju podaci za vrstu i spajanje na bazu podataka.  Ukoliko koristimo naš Eloquent model za dohvaćanje podataka tada smo sigurno da nam nitko ne može napraviti sql injection napad. Eloquent model bi trebao imati naziv jednine imena tablice na koju se odnosi. Tako u našem slučaju imamo tablice "Articles" te će se "Model" zvati "Article". <br />
+Primjeri sigurnog koda: <br />
+</p>
+<pre>Article::findOrFail($id); 
+Article::latest('published_at')-&gt;published()-&gt;get(); 
+Article::latest('published_at')-&gt;where('published_at','&lt;=',Carbon::now())-&gt;get();
+</pre>
+Prva naredba vraća artikl sa zadanim identifikatorom, druga sve artikle sortirane prema datumu postavljanja a treća još uz to ima i određeni uvjet (where klausulu). Problem nastaje kada želimo napraviti klasičan sql upit koristeći naredbu <code> DB::raw() </code> <br /> Loš primjer korištenja te naredbe je sljedeći: <pre> $results = DB::select( DB::raw(&quot;SELECT * FROM some_table WHERE some_col = '$someVariable'&quot;) ) </pre> Kao što već znamo na ovaj način napadač može u neko polje gdje se koristi takav upit upisati nešto tipa <code>' OR '1'='1 </code>. <br />
+<p>Kako bi riješili ovaj problem i svejedno koristili klasičan sql upit jedno od rješenja je sljedeće: <br />
+</p>
+<pre>
+$results = DB::select( DB::raw(&quot;SELECT * FROM some_table WHERE some_col =&#160;:somevariable&quot;), array(
+   'somevariable' =&gt; $someVariable,
+ ));
+</pre>
+<p>Metodu koju pozivamo na taj način ima ugrađeno da za svaki parametar vraća točno jedan redak u tablici i na taj način je spriječen sql injection.
+<br />
+</p>
+Na isti način možemo izvršavati upite koji ne vraćaju nikakvu vrijednost već izvršavaju određenu akciju nad tablicom: <pre> DB::statement( 'ALTER TABLE HS_Request AUTO_INCREMENT=:incrementStart', array('incrementStart' =&gt; 9999) ); </pre>
+<p><br />
+Drugi oblik sql injection napada je pokušaj manipulacije podacima iz baze. U našoj aplikaciji postoji forma za uređivanje pojedine pjesme. Forma omogućuje promjenu određenih atributa pojedine pjesme no što ako napadač proba promijeniti neko polje u tablici koje ne želimo da se može promijeniti. Jedna od mogućnosti je prilikom svakog "POST" requesta provjeravati koje vrijednosti se žele promijeniti ali onda to moramo raditi za svaku promjenu bilo kojeg podatka u našoj bazi. Puno jednostavnije rješenje je postaviti ograničenja unutar našeg "Eloquent Modela". <br />
+Recimo da želimo da korisnik može promijeniti naziv, tekst i datum tablice Articles to ćemo ostvariti sa sljedećim kodom:
+</p>
+<pre>
+class Article extends Model
+{
+    protected $fillable = [ 
+      'title',
+        'body',
+        'published_at',
+    ];
+}
+</pre>
+<p>Ukoliko želimo opisati koje vrijednosti u tablici ne želimo mijenjati umjesto "$fillable" koristit ćemo $guarded.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivansusec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivansusec (stranica ne postoji)">Ivansusec</a> 20:51, 10. siječnja 2016. (CET)
+</p>
+<h4> <span class="mw-headline" id="Cross-Site_Scripting_.28XSS.29_napadi"> Cross-Site Scripting (XSS) napadi </span></h4>
+<p>U laravelu vrlo je lako spriječiti ovakve napade. Sve što je potrebno je omogućiti da korisnički unos se sprema i procesira kao čisti tekst i na taj način onemogući da se izvrši bilo kakav html, javascript i sl. dio koda.
+</p>
+<pre>
+1. &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;name&quot; &lt;b&gt;value=&quot;{{ old('name') }}&quot;&lt;/b&gt;
+2. &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;name&quot; &lt;b&gt;value=&quot;{{!! old('name')&#160;!!}}&quot;&lt;/b&gt;&gt;
+</pre>
+<p>Prvi redak prikazuje pravilan način za ostvarivanje obrane od XSS napada dok drugi redak prikazuje način na koji nam napadač može naštetiti sustavu ukoliko nemamo neku dodatnu zaštitu protiv XSS-a. Kao što vidimo bitno je da korismo <code> {{ }} </code> sintaksu umjesto <code> {{!!&#160;!!}</code> . Drugi način je malo kompliciraniji a to je da postavimo Middleware klasu u kojoj ćemo renderirati korisnički unos na način da maknemo sve oznake osim teksta iz unosa. U sljedećem primjeru možemo vidjeti klasu to na način da preuzme sve korisnikove unose i iz jednog po jednog miče oznake poput "&lt;", "&gt;" i sl. Middleware klase se moraju postaviti na "routes" ili globalno na sve klase a o postavljanju istih govorit ću na kraju teksta.
+Primjer:
+</p>
+<pre>
+class XSSProtection
+{
+    public function handle(Request $request, \Closure $next)
+    {
+        if (!in_array(strtolower($request-&gt;method()), ['put', 'post'])) {
+            return $next($request);
+        }
+
+        $input = $request-&gt;all();
+
+        array_walk_recursive($input, function(&amp;$input) {
+            $input = strip_tags($input);
+        });
+
+        $request-&gt;merge($input);
+
+        return $next($request);
+    }
+}
+
+</pre>
+<h4> <span class="mw-headline" id="Broken_Authentication_and_Session_Management_2"> Broken Authentication and Session Management </span></h4>
+<p>Laravel ima ugrađene klase za pomoć pri autetifikaciji, registraciji i upravljanjem sesijom. Ovakva vrste napada vrlo je lako spriječiti korištenjem već definiranih klasa i metoda. Starije verzije Laravela su čak dolazile sa gotovim stranicama za prijavu i registraciju korisnika koje je lagano preuredit bez da se naruši sigurnost. U verziji 5.2 tih stranica nema ali se vrlo lako mogu pronaći na Laravel dokumentaciji<a href="https://laravel.com/docs/5.1/authentication#authentication-quickstart" class="external autonumber" rel="nofollow">[1]</a>.<br />
+Ukoliko ipak radimo vlastitu autentifikaciju i registraciju korisnika bitno je da znamo nekoliko osnovnih stvari. Za sve lozinke poželjno je napraviti hash pri registraciji, a pri svakoj prijavi provjeriti valjanosti hash-a.
+</p>
+<pre>
+password = Hash::make('secret');   /* Hashiranje lozinke */
+if (Hash::check('secret', $hashedPassword))  {  //code } /* Provjera valjanosti hasha */
+</pre>
+<p>Pri autentifikaciji korisnika poželjno je koristiti <code> Auth::attempt </code> metodu. U sljedećem primjeru metoda funkcija provjerava ukoliko postoji korisnik sa zadanim email-om i lozinkom. Moguće je postaviti da se zapamti korisnik koji se prijavljuje tako da u metodu dodamo vrijednost "true" kao zadnji argument metode.
+</p>
+<pre>
+if (Auth::attempt(array('email' =&gt; $email, 'password' =&gt; $password),true))
+{
+  //izvrsi kod 
+}
+</pre>
+<p>Ukoliko želimo provjeriti je li korisnik ulogiran dovoljno je upotrijebiti naredbu <code>Auth::check()</code>. Nakon što je korisnik prijavljen moguće je dohvatiti njegove podatke sa <code> Auth::user()-&gt;NekiPodatak </code>
+<br /><br />
+Laravel nam omoguće više načina i mjesta gdje možemo spremati sesije: <br />
+<b>file</b> - sesije se spremaju u storage/framework/sessions kao .txt datoteke <br />
+<b>coockie</b> - sesije se spremaju u kriptirane kolačiće <br />
+<b>database</b> - sesije se spremaju u bazu podataka koju koristi naša aplikacija <br />
+<b>memcashed / redis </b>- sesije se spremaju u brzu cashe memoriju <br />
+<b>array</b> - sesije se spremaju u nizove a ovaj oblik spremanja se koristi kod testiranja jer sesija nikad ne istekne. <br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivansusec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivansusec (stranica ne postoji)">Ivansusec</a> 16:26, 11. siječnja 2016. (CET)
+</p><p>Najšešći oblik spremanja sesija je u datoteku predviđenu za to. Sesije je moguće kriptirati no datoteka gdje se nalaze sesija nebi smjela biti dostupna nikome tako da u većini slučajeva to nije potrebno. Ukoliko ipak želimo kriptirati sesiju, u <i>config</i> folderu naše aplikacije postoji session.php klasa u kojoj možemo kriptiranje postaviti na true. U istoj datoteci nalaze se i ostale postavke vezane uz sesije poput oblika i načina spremanja sesija. <br />
+Nekoliko osnovnih narebi za upravljanje serijama koje su sigurne protiv napada:
+</p>
+<pre>
+Session::put('key', 'value');         /* Dodaje vrijednost sa nekim imenom (ključem) u sesiju *\
+Session::get('key');                  /* dohvaća vrijednost za određeni ključ *\
+Session::all();                       /* Dohvaća sve podatke iz sesije *\
+Session::has('users');                /* Vrača 1 ako sesija sadrži vrijednost predanu kao paramentar *\
+Session::flash('key', 'value');       /* Spremanje vrijednosti u sesiju ali samo za sljedeći zahjev *\
+</pre>
+<h4> <span class="mw-headline" id="Insecure_Direct_Object_References_i_Missing_function_level_access_control"> Insecure Direct Object References i Missing function level access control </span></h4>
+<p>Iako Laravel nema neki direktan pristup za rješavanja ovih problema postoji nekoliko ugrađenih middleware klasa koji rješavaju osnovne probleme zaštite protiv ovakvih napada te ih je lako modificirati prema našim željama. <i>Authenticate.php</i> i <i>RedirectAutheticated</i> su ugrađene klase koje omogućavaju da se za neku stranicu provjeri da li je korisnik prijavljen na sustav i ako nije preusmjeruje ga na neku drugu stranicu (npr. Početnu). <br />
+Naša aplikacija sadrži popis pjesama, željeli bi da samo prijavljen korisnik može izvršavati kreiranje i modificiranje pjesama. Koristit ćemo <i>Authenticate.php</i> klasu jer se u njoj nalazi metoda koja nam treba:
+</p>
+<pre>
+class Authenticate
+{
+
+    ...
+    public function handle($request, Closure $next)
+    {
+        if ($this-&gt;auth-&gt;guest()) {
+            if ($request-&gt;ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()-&gt;guest('auth/login');
+            }
+        }
+        return $next($request);
+    }
+}
+
+</pre>
+<p>Metoda vraća korisnika na stranicu za prijavu ili mu javlja grešku ukoliko se radi o ajax zahtjevu. Da bi implementirali zaštitu za gore navedene stranice potrebno je pozvati middleware unutar "Controller"-a koji se brine o stranicama za pregled, uređivanje itd. naših pjesama. Sve što trebamo napraviti je unutar konstruktora "Controller" klase definirati za koje stranice se poziva gore napisana metoda handle (metoda se ne poziva direktno ali o tome kasnije) <code>  $this-&gt;middleware('auth',['only' =&gt; 'create']); </code> . Iz koda je jasno vidljivo da je autentifikacija potrebna samo za stranicu koju vraća metoda create (a ta metoda naravno vraća stranicu za kreiranje novih pjesama). Na isti način možemo umjesto parametra 'only' staviti i parametar 'except' te će onda middleware zabraniti pristup korisnicima koji se nisu prijavili na sve stranice osim navedene u nizu. <br /><br />
+Ono na što se zapravo odnosi ovaj napad je sljedeće. Pregled detalja o pojedinoj pjesmi vrši se preko stranice <a href="http://localhost:8000/articles/2" class="external free" rel="nofollow">http://localhost:8000/articles/2</a>. Broj 2 na kraju poveznice označava identifikator pojedine pjesme. Što ako korisnik pokuša ručno promijeniti tu vrijednost u recimo vrijednost 3, <a href="http://localhost:8000/articles/3" class="external free" rel="nofollow">http://localhost:8000/articles/3</a>. Ukoliko nemamo neki mehanizam zaštite pokazati će mu se pjesma sa indentifikatorom 3 iako ju on nije kreirao te ne bi smio imati pristup istoj. Taj problem je moguće riješiti na više načina a jedan je da napravimo middleware koji će pri svakoj posjeti stranice provjeriti je li korisnik autor te pjesme. Pretpostavimo da naš Eloquent Model za korisnika sadrži metodu <i>getAllArticles()</i> koja vraća sve artikle čiji je vlasnik neki korisnik.
+</p>
+<pre>
+class AreYouAllowed {
+
+    public function handle($request, Closure $next)
+    {
+        if (
+       &#160;!in_array($request-&gt;route('articles')-&gt;id,$request-&gt;user()-&gt;getAllArticles()-&gt;id))
+        )
+        {
+            return redirect('index');
+        }
+        return $next($request);
+    }
+}
+</pre>
+<h4> <span class="mw-headline" id="Security_Misconfiguration"> Security Misconfiguration </span></h4>
+<p>Na administratoru sustava je da se brine da je sav software uvijek na najnovijoj verziji (ili onoj koju sustav maksimalno podržava). što se tiče popisa datoteka u aplikaciji i default računa potrebno je pravilo podesiti .httacess datoteku ali i ona dolazi u Laravel paketu sa svim potrebnim zaštitama. Jedino što trebamo napraviti je onemogućiti korisniku da vidi pogreške ukoliko dođe do njih. Unutar Laravel projekta postoji .env datoteka koja predstavlja postavke okruženja. Iako ona sadrži određene postavke za bazu, cashe itd. to nam trenutačno nije bitno nego samo dvije linije unutar te datoteke.
+</p>
+<pre>
+APP_ENV=local
+APP_DEBUG=true   /* Ukoliko radimo lokalno te želimo da nam budu prikazane greške */
+
+APP_ENV=release  
+APP_DEBUG=false  /* Ukoliko se aplikacija nalazi na serveru te ne želimo da korisnik vidi detalje o greškama */
+</pre>
+<h4> <span class="mw-headline" id="Cross-Site_Request_Forgery_.28CSRF.29"> Cross-Site Request Forgery (CSRF) </span></h4>
+<p>Obrana protiv ovakvog oblika napada je vrlo lagana i automatizirana u Laravelu. Laravel automatski generira CSRF "Token" za svaku aktivnu sesiju korisnika. Taj token se koristi za verificiranje da je autentificirani korisnik taj koji radi određene zahtjeve prema aplikaciji. Kada koristimo forme unutar naše aplikacije potrebno je postaviti tajno polje sa CSRF token-om tako da bi već ugrađeni CRSF middleware mogao obaviti validaciju zahtjeva.
+</p>
+<pre> &lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;&lt;?php echo csrf_token();&#160;?&gt;&quot;&gt; </pre>
+<p>Nije potrebo ručno verificirati CSRF token za različite vrste POST, PUT ili DELETE zahtjeva, CRSF middleware će automatski to obaviti za nas. Postoji i još jedva vrsta tokena: X-CSRF a on se upotrebljava kada koristimo ajax kod unutar naše aplikacije. Naš middleware za verificiranje XCRF tokena će također verificirati i X-CSRF token. Kako bi spremili X-CSRF token možemo ga primjerice staviti unutar "meta" oznake naše stranice
+</p>
+<pre> &lt;meta name=&quot;csrf-token&quot; content=&quot;{{ csrf_token() }}&quot;&gt; </pre>
+<p>Kada smo stavili X-CSRF token u našu stranicu možemo ga pomoću jquery naredbe dodati u sve headere:
+</p>
+<pre> $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name=&quot;csrf-token&quot;]').attr('content')
+        }
+}); </pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivansusec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivansusec (stranica ne postoji)">Ivansusec</a> 21:04, 11. siječnja 2016. (CET)
+</p>
+<h4> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h4>
+<p>Postoji još nekoliko vrsta napada i problema sa sigurnošću naše aplikacije ali nisu previše povezane sa samom Laravel aplikacijom pa ih nema potrebne posebno obrađivati. Sve najpoznatije vrste napada na PHP aplikaciju vrlo se lako mogu riješiti koristeći Laravel uz prethodno navedene načine i metode te uz proučavanje Laravel dokumentacije, posebice "Middleware" klasa jer se u njima lako definira vlastita zaštita za različite vrste napada i procesa unutar aplikacije.
+<br /><br />
+</p>
+<h3> <span class="mw-headline" id="Dodatne_informacije"> Dodatne informacije </span></h3>
+<h4> <span class="mw-headline" id="Middleware"> Middleware </span></h4>
+<p>S obzirom da sam puno puta spomenuo ovaj pojam kroz objašnjavanja raznih vrsta napada mislim da bi bilo potrebno objasniti ga detaljnije te kako ga implementirati. "Middleware" je mehanizam filtracije korisničkih zahtjeva kroz naš sustav. Preko njega definiramo da li će određeni zahtjev biti dopušten, da li ćemo ga dodatno oblikovati i da li ćemo korisniku dopustiti pristup određenom resursu. Laravel dolazi sa desetak već definirane "Middleware" klase. Sve "Middleware" klase nalaze se unutar <code>app/Middlweare</code> direktorija. Kreiranje nove middlware klase moguće je vrlo lako uz korištenje "Composer"-a koji omogućuje jednostavnije kreiranje određenih klasa, baratanje bazama, projektima itd. , to je složeniji mehanizam koji se ne može opisati u par rečenica. Nakon što kreiramo middleware klasu prije nego ju možemo koristiti moramo ju referencirat u <code>app/Kernel.php</code> datoteci. Postoji više vrsta "Middlware"-a te su one podijeljene u nekoliko različitih nizova. Npr. možemo vidjeti kako se referencira Authenticate.php "Middleware" koji smo koristiti u primjerima:
+</p>
+<pre>
+protected $routeMiddleware = [
+        'auth' =&gt; \App\Http\Middleware\Authenticate::class,
+        'auth.basic' =&gt; \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'guest' =&gt; \App\Http\Middleware\RedirectIfAuthenticated::class,
+    ];
+</pre>
+<p>Poželjno je dati naziv (svojevrsni ključ) prilikom referenciranja klase pa je tako u našem slučaju dodijeljen naziv 'auth'.<br />
+Recimo da unutar naše aplikacije imamo neku stranicu koju ne želimo da posjeti neprijavljeni korisnik jedna od načina je da unutar "Routes" dodamo "Middleware" na sljedeći način:
+</p>
+<pre> 
+Route::get('administracija', [middleware =&gt; 'auth', function()
+{
+return 'You can view this page only if you are signed in';
+}]);
+</pre>
+<p>Sada svaki put kada korisnik pokuša napraviti <i>get</i> zahtjev na stranicu administacija middleware će provjeriti da li je korisnik prijavljen.<br />
+Drugi način da unutar nekog od "Controllera" pozovemo middleware ili unutar konstruktura (kao u primjeru korištenom u prethodnom dijelu o napadima na aplikaciju) ili eventualno unutar pojedinih metoda klase. Ako pak želimo da koristimo middleware globalno na čitavoj aplikaciji definiramo ga unutar <code>app/Kernel.php</code> ali ovaj puta unutar niza <code> $middlware = [ ... ] </code> .
+</p>
+<h4> <span class="mw-headline" id="Maintance_mode"> Maintance mode </span></h4>
+<p>Jedna korisna dodatna informacija je da ukoliko nam se desi da nam neko uđe u sustav ili primijetimo napad na naš sustav možemo otići u "Maintance mode" i tako onemogućiti korisniku da bilo šta radi na našem sustavu tako dugo dok opet ne vratimo aplikaciju. Prednost ovoga je što ne moramo prekinuti ili blokirati server te će nam korisniku biti ispisano da je sustav u stanju "Maintace". Sljedeće dvije linux naredbe služe nam za to:
+</p>
+<pre>
+php artisan down  /* aplikaciju stavljamo u maintace mode */
+php artisan up    /* aplikaciju vraćamo u normalno stanje */
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivansusec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivansusec (stranica ne postoji)">Ivansusec</a> 22:21, 11. siječnja 2016. (CET)
+</p>
+<h3> <span class="mw-headline" id="Testiranje_aplikacije"> Testiranje aplikacije </span></h3>
+<p>Da bi provjerio da li je moja aplikacija sigurna napravio sam testiranje sa OWASP ZAP-om. OWASP ZAP je aplikacija koja omogućuje penetracijske testove te ukazuje na probleme u našim aplikacijama. Želio sam automatski izlistat sve datoteke unutar aplikacije sa Spider-om ali sam uspio doći samo do onih koje su dostupne svima. Na moje začuđenje iako sam ZAP je pronašao dosta problema unutar moje aplikacije kao što se može vidjeti na sljedećoj slici.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:VCKkyld.png" class="image"><img alt="Alt text" src="../images/thumb/9/91/VCKkyld.png/525px-VCKkyld.png" width="525" height="369" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:VCKkyld.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Jedan od problema je bio da CSRF token koji je zapravo Cookie ne postavlja HttpOnly flag. To se može popraviti tako da unutar "VerifyCsrfToken" Middleware-a promjeno stvaranje coockie na sljedeći način:
+</p>
+<pre>
+ protected function addCookieToResponse($request, $response)
+    {
+        $config = config('session');
+
+        $response-&gt;headers-&gt;setCookie(
+            new Cookie(
+                'XSRF-TOKEN', $request-&gt;session()-&gt;token(), time() + 60 * 120,
+                $config['path'], $config['domain'], false, true
+            )
+        );
+        return $response;
+    }
+</pre> 
+<p>Ono što je bitno je da zadnji argument u Cookie funckiji mora biti postavljen na true.
+<br />
+Ostali problemi većinom su vezani za nedostatak headera. Malim istraživanjem otkrio sam da ti problemi su većinom samo kod starih verzija preglednika ali ipak dodatna zaštita je poželjna. Headere možemo dodati na 3 načina:
+<br />
+1. Unutar svake pojedine php stranice <br />
+</p>
+<pre> header('X-Frame-Options','deny');
+            header('X-XSS-Protection','1');
+            header('X-Content-Type-Options','nosniff');
+</pre>
+<p>2. Napraviti posebnu Middleware klasu koja će automatski dodavati headere <br />
+3. Dodavanjem headera na odgovor unutar Controller klase.
+</p>
+<pre>
+ $response-&gt;withHeaders([
+            'X-Frame-Options' =&gt; 'deny',
+            'X-XSS-Protection' =&gt; '1',
+            'X-Content-Type-Options' =&gt; 'nosniff'
+        ]);
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivansusec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivansusec (stranica ne postoji)">Ivansusec</a> 19:10, 17. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p>1. Zend Framework službena stranica - <a href="http://framework.zend.com/" class="external free" rel="nofollow">http://framework.zend.com/</a> <br />
+2. Building secure apps using ZF2 - <a href="https://www.zend.com/topics/Building-secure-app-using-ZF2.pdf" class="external free" rel="nofollow">https://www.zend.com/topics/Building-secure-app-using-ZF2.pdf</a> <br />
+3. OWASP Top 10 - <a href="https://owasp.org/index.php/Top_10_2013-Top_10" class="external free" rel="nofollow">https://owasp.org/index.php/Top_10_2013-Top_10</a> <br />
+4. Zend tutorial - <a href="https://github.com/bigemployee/Big-Sticky-Notes" class="external free" rel="nofollow">https://github.com/bigemployee/Big-Sticky-Notes</a> <br />
+5. Secure Application Development with the Zend Framework - <a href="http://static.zend.com/topics/Webinar-Zend-Secure-Application-Development-with-the-Zend-Framework.pdf" class="external free" rel="nofollow">http://static.zend.com/topics/Webinar-Zend-Secure-Application-Development-with-the-Zend-Framework.pdf</a> <br />
+6. ZF 2.1.0, new security features and more - <a href="http://www.zimuel.it/zf-2-1-0/" class="external free" rel="nofollow">http://www.zimuel.it/zf-2-1-0/</a> <br />
+7. Clickjacking - <a href="https://www.owasp.org/index.php/Clickjacking_Defense_Cheat_Sheet" class="external free" rel="nofollow">https://www.owasp.org/index.php/Clickjacking_Defense_Cheat_Sheet</a> <br />
+8. XSS Filter - <a href="https://blogs.msdn.microsoft.com/ie/2008/07/02/ie8-security-part-iv-the-xss-filter/" class="external free" rel="nofollow">https://blogs.msdn.microsoft.com/ie/2008/07/02/ie8-security-part-iv-the-xss-filter/</a> <br />
+9. X-Content-Type-Options - <a href="https://blogs.msdn.microsoft.com/ie/2008/09/02/ie8-security-part-vi-beta-2-update/" class="external free" rel="nofollow">https://blogs.msdn.microsoft.com/ie/2008/09/02/ie8-security-part-vi-beta-2-update/</a> <br />
+10. OWASP ZAP - <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project" class="external free" rel="nofollow">https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project</a> <br />
+11. Stack Overflow - <a href="http://stackoverflow.com/" class="external free" rel="nofollow">http://stackoverflow.com/</a> <br />
+12. Laravel 5 XSS Middleware - <a href="http://laravel-tricks.com/tricks/laravel-5-xss-middleware" class="external free" rel="nofollow">http://laravel-tricks.com/tricks/laravel-5-xss-middleware</a> <br />
+13. Laravel Framework službena stranica - <a href="https://laravel.com" class="external free" rel="nofollow">https://laravel.com</a> <br />
+14. Raw Queries in Laravel - <a href="http://fideloper.com/laravel-raw-queries" class="external free" rel="nofollow">http://fideloper.com/laravel-raw-queries</a> <br />
+15. Laracast - <a href="https://laracasts.com" class="external free" rel="nofollow">https://laracasts.com</a> <br />
+16. Larvel book - <a href="http://www.easylaravelbook.com/blog/2015/07/22/how-laravel-5-prevents-sql-injection-cross-site-request-forgery-and-cross-site-scripting/" class="external free" rel="nofollow">http://www.easylaravelbook.com/blog/2015/07/22/how-laravel-5-prevents-sql-injection-cross-site-request-forgery-and-cross-site-scripting/</a> <br />
+17. Laravel.IO forum - <a href="http://laravel.io/forum/" class="external free" rel="nofollow">http://laravel.io/forum/</a> <br />
+</p><p><br />
+Članovi:
+</p><p>- Ivan Sušec
+</p><p>- Domagoj Kopić
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 583/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8682-0!*!0!!hr!2!edit=0 and timestamp 20190203204225 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="PHP_Security.html">http://security.foi.hr/wiki/index.php/PHP_Security</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=PHP_Security" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="PHP_Security.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:PHP_Security&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="PHP_Security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="PHP_Security.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="PHP_Security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/PHP_Security" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/PHP_Security" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=PHP_Security&amp;oldid=37390" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:37, 18. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 23.880 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "PHP_Security", "wgTitle": "PHP Security", "wgAction": "view", "wgArticleId": 8682, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37390, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.640 secs. -->			</body>
+</html>

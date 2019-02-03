@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Nftables i netflow - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Nftables_i_netflow&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Nftables_i_netflow skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Nftables i netflow</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Nftables_i_netflow.html#mw-head">orijentacija</a>,
+					<a href="Nftables_i_netflow.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao&#160;: Marijan Stanković
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Nftables_i_netflow.html#Nftables"><span class="tocnumber">1</span> <span class="toctext">Nftables</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Nftables_i_netflow.html#Usporedba_iptables_-_nftables"><span class="tocnumber">1.1</span> <span class="toctext">Usporedba iptables - nftables</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Nftables_i_netflow.html#Sintaksa"><span class="tocnumber">1.2</span> <span class="toctext">Sintaksa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Nftables_i_netflow.html#NetFlow"><span class="tocnumber">2</span> <span class="toctext">NetFlow</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Nftables_i_netflow.html#Analiza_protoka_podataka_pomo.C4.87u_NetFlow_Analyzer-a"><span class="tocnumber">2.1</span> <span class="toctext">Analiza protoka podataka pomoću NetFlow Analyzer-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Nftables_i_netflow.html#Zaklju.C4.8Dak"><span class="tocnumber">3</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Nftables_i_netflow.html#Literatura"><span class="tocnumber">4</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Nftables"> <b>Nftables</b> </span></h2>
+<p>Nftables je novi paketni klasifikacijski okvir kojemu je cilj zamijeniti postojeće iptables, ip6tables, arptables te ebtables okvire. Nftables je predstavljen 2008. godine na Netfilter Workshopu u Parizu te je iduće godine pušten u upotrebu od strane dugogodišnjeg člana i voditelja Netfilter tima - Patricka McHardya. Krajem 2013. godine je nftbales ovkir ubačen u Linux kernel , a od 2014. godine je dostupan sa Linux kernelom 3.13. 
+</p><p>Nftables okvir nam omogućuje filtriranje paketa (engl. firewall), oštećivanje (engl. mangling) i klasifikaciju paketa te NAT. NAT(engl. Network address translation) je metoda koja omogućuje routeru modificiranje paketa kako bi jednu javnu IP adresu moglo koristiti više uređaja. 
+</p><p>Baš kao i sa iptables okvirom, tablice nam služe kao spremnici za lance, dok lanci sadrže individualna pravila koja mogu obavljati radnje poput ispuštanja paketa, prelazak na sljedeće pravilo ili učiniti skok na novi lanac. Nftables okvirom su ispravljene neke mane koje je imao njegov prethodnik poput skalabilnosti,performansi i održavanja koda.
+</p><p><br />
+</p><p>Za pokretanje alata nft komandne linije potrebno je: <sup><a href="Nftables_i_netflow.html#Literatura">[1]</a></sup><sup><a href="Nftables_i_netflow.html#Literatura">[2]</a></sup>
+</p>
+<ul><li> minimalno Linux kernel 3.13 (preporučuju se noviji)
+</li></ul>
+<ul><li> libmnl - minimalna Netlink biblioteka
+</li></ul>
+<ul><li> libnftnl - Netlink biblioteka korisničkog prostora niske razine
+</li></ul>
+<ul><li> nft alat komandne linije
+</li></ul>
+<p>libmnl je dostupna na&#160;: <a href="git://git.netfilter.org/libmnl" class="external free" rel="nofollow">git://git.netfilter.org/libmnl</a>
+libnftnl je dostupna na: <a href="git://git.netfilter.org/libnftnl" class="external free" rel="nofollow">git://git.netfilter.org/libnftnl</a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Usporedba_iptables_-_nftables"> Usporedba iptables - nftables </span></h3>
+<p>U sljedećem dijelu možemo vidjeti neke glavne razlike između iptables i nftables okvira. <sup><a href="Nftables_i_netflow.html#Literatura">[3]</a></sup>
+</p><p><b>Iptables</b>
+</p>
+<ul><li> po defaultu postoji nekoliko tablica (filter,nat) i lanaca(forward,input)
+</li></ul>
+<ul><li> samo jedan cilj po pravilu
+</li></ul>
+<ul><li> alati su raspoređeni po "obitelji": iptables, ip6tables, arptables, ebtables.
+</li></ul>
+<p><br />
+<b>Nftables</b> 
+</p><p><br />
+</p>
+<ul><li> ne postoje defaultne tablice i lanci
+</li></ul>
+<ul><li> nekoliko različitih akcija se može izvršiti u samo jednom pravilu
+</li></ul>
+<ul><li> uključuje ugrađene data set sposobnosti
+</li></ul>
+<ul><li> nftables omogućuje upravljanje svim "obiteljima" u jednom CLI alatu (engl. CLI - Command line interface)
+</li></ul>
+<hr />
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Sintaksa"> Sintaksa </span></h3>
+<p>Sintaksa iptables okvira za ispuštanje paketa sa IP adresom 10.5.5.5
+</p>
+<pre>iptables -A OUTPUT -d 10.5.5.5 -j DROP </pre>
+<p>Sintaksa nftables okvira za ispuštanje paketa sa IP adresom 10.5.5.5
+</p>
+<pre>nft add rule ip filter output ip daddr 10.5.5.5 drop </pre>
+<h2> <span class="mw-headline" id="NetFlow"> <b>NetFlow</b> </span></h2>
+<p>NetFlow je mrežni protokol razvijen od strane Cisco Systems-aa za prikupljanje informacija o IP prometu i nadgledanje mrežnog prometa. Analizom prikupljenih podataka može se izraditi slika toka mrežnog prometa. Mrežni administrator može analizom prikupljenih podataka odrediti stvari kao što su izvor i odredište prometa, klasa usluge te uzroke zagušenja mreže. Za NetFlow se može reći da je postao standard kada je riječ o pračenju mrežnog prometa ali osim Cisco Systems-a, još nekoliko proizvođača hardvera je implementiralo svoju verziju tog protokola. Neke od njih su Ericson - Rflow,  Huawei - NetStream, Juniper - Jflow, MikroTik - TrafficFlow itd.
+</p><p>Tipičan tok praćenja korištenjem NetFlowa se sadrži od 3 komponente:  <sup><a href="Nftables_i_netflow.html#Literatura">[4]</a></sup>
+</p>
+<ul><li> Izvoznik protoka (engl. Flow exporter) - skuplja protočne pakete i izvozi rezultate toka prema jednom ili više prikupljača protoka
+</li></ul>
+<ul><li> Prikupljač protoka (engl. Flow collector) - odgovoran za prihvat, skladištenje te pred-obradu protoka podataka primljenih od izvoznika
+</li></ul>
+<ul><li> Aplikacija za analizu (engl. Analysis application) - analizira primljene protočne podatke
+</li></ul>
+<p><b>Mrežni protok</b>
+</p><p>Mrežni protok se može definirati na više načina, a npr. Cisco NetFlow verzije 5 koji je najčešći, definira protok kao jednosmjerni slijed paketa koji se sastoje od 7 jedinstvenih stavki:
+</p>
+<ul><li> IP protokol
+</li></ul>
+<ul><li> izvorna IP adresa
+</li></ul>
+<ul><li> odredišna IP adresa
+</li></ul>
+<ul><li> izvorni port
+</li></ul>
+<ul><li> odredišni port
+</li></ul>
+<ul><li> ulazno sučelje (engl. ingress interface)
+</li></ul>
+<ul><li> IP tip usluge (engl. type of service)
+</li></ul>
+<p><br />
+Svaki put nakon što primi paket, router pregleda svaku od tih 7 stavki te zatim odlučuje:
+</p>
+<ul><li>ako paket pripada već postojećem protoku, statistika prometa postojećeg protoka će biti uvećana
+</li></ul>
+<ul><li>ako paket ne pripada niti jednom postojećem protoku, router stvara novi protok
+</li></ul>
+<p><br />
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:514px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Netflow.png" class="image"><img alt="" src="../images/6/6c/Netflow.png" width="512" height="299" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Netflow.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 1. NetFlow infrastruktura,  Izvor:<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/NetFlow_Architecture_2012.png/512px-NetFlow_Architecture_2012.png" class="external free" rel="nofollow">https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/NetFlow_Architecture_2012.png/512px-NetFlow_Architecture_2012.png</a></b></div></div></div></div>
+<p>Slika prikazuje primjer NetFlow infrastrukture.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Netflow3.PNG" class="image"><img alt="" src="../images/thumb/8/87/Netflow3.PNG/600px-Netflow3.PNG" width="600" height="345" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Netflow3.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 2. Primjer NetFlow statistike,  Izvor:<a href="http://web.rcub.bg.ac.rs/~cbp/wp-content/uploads/2013/10/zabljak_-_netflow.pdf" class="external free" rel="nofollow">http://web.rcub.bg.ac.rs/~cbp/wp-content/uploads/2013/10/zabljak_-_netflow.pdf</a></b></div></div></div></div>
+<p>Na slici je prikazan primjer NetFlow statistike.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Analiza_protoka_podataka_pomo.C4.87u_NetFlow_Analyzer-a"> Analiza protoka podataka pomoću NetFlow Analyzer-a </span></h3>
+<p>Na Internetu je trenutno dostupan velik broj alata koji nam omogućuju korištenje samog NetFlowa te analiziranje protoka podataka. Zbog nemogućnosti autora da sam isproba korištenje nekog od dostupnih besplatnih verzija NetFlow alata poput ManageEngine NetFlow Analyzer, Solarwinds Real-Time NetFlow Analyzer, Ntopng zbog nepodržane dostupne opreme (isprobano na usmjerivačima D Link Dir 600 te na 2 TP-Link usmjerivača), u nastavku će biti prikazani rezultati praćenja mrežnog prometa u jednoj znanstvenoj ustanovi u Srbiji kako bi se studentima moglo prikazati kako to zapravo izgleda. Svi grafikoni koji će biti prikazani su preuzeti iz rada navedenog istraživanja, dostupnog u literaturi. <sup><a href="Nftables_i_netflow.html#Literatura">[5]</a></sup>
+</p><p>Naime radi se o istraživanju trojice profesora iz Niša, koji su na Visokoj tehničkoj školi u Nišu u periodu od 6 mjeseci pratili mrežni promet te sa ostalima podijelili zanimljive izvještaje.  Također prilikom praćenja su vršili i određene testove tako što su u određenom periodu blokirali neke stranice poput Facebook-a i Youtube-a te su ti rezultati zaista zanimljivi. Programski alati koje su koristili prilikom istraživanja su: ManageEngine –NetFlow Analyzer, Mikrotik – The Dude i Zabbix. Model usmjerivača koji su koristili je MikroTik RB433. Postavljena je otvorena bezična mreža koju su studenti mogli koristiti bez lozinke. Najveći broj spojenih uređaja na bežičnu mrežu su predstavljali mobiteli te nekolicina prijenosnih računala. Sljedeća slika predstavlja shematski prikaz mreže na kojoj je izvršeno praćenje te analiziranje podataka.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:531px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Shemapr.PNG" class="image"><img alt="" src="../images/3/3e/Shemapr.PNG" width="529" height="356" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Shemapr.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 3. Shematski prikaz korištene mreže,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a> </b></div></div></div></div>
+<p>Putem DHCP(engl. Dynamic Host Configuration Protocol) koji služi za dodjeljivanje IP adresa i ostalih mrežnih postavki, MikroTik je mreži dodjeljivao adrese iz opsega brojeva 100-200 te pri tome sve adrese nisu nikada bile zauzete istovremeno te je maksimalan broj uređaja na mreži bio 73. 
+</p><p>Ograničenja koja su postavili u određenim periodima istraživanja su:
+</p>
+<ul><li>6.ožujka je DHCP bio postavljen na 30 minuta (smanjenje vremena za izdavanje adresa)
+</li></ul>
+<ul><li>25. ožujka je Facebook zabranjen na mreži
+</li></ul>
+<ul><li>16. travnja je Facebook ponovo omogućen te je zabranjen Youtube
+</li></ul>
+<p>Na sljedećim slikama su vidljivi grafikoni dobiveni putem NetFlow Analyzera.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kolicinapod.PNG" class="image"><img alt="" src="../images/thumb/8/80/Kolicinapod.PNG/600px-Kolicinapod.PNG" width="600" height="316" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kolicinapod.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 4. Količina podataka po mjesecima,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a></b></div></div></div></div>
+<p>Na slici je moguće vidjeti grafikon koji predstavlja protok podataka na mreži kroz cijelo vrijeme trajanja istraživanja. Može se vidjeti par protoka podataka između ožujka i travnja što je ujedno i vrijeme kada je Facebook bio nedostupan na mreži!
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:554px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Protok2.PNG" class="image"><img alt="" src="../images/8/8a/Protok2.PNG" width="552" height="373" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Protok2.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 5. Protok podataka s točkama ograničenja,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a></b></div></div></div></div>
+<p>Kada je Facebook ponovo omogućen , na grafikonu se jasno vidi kako je protok podataka ponovo porastao. Onemogućavanje Youtube stranice nije toliko utjecalo na protok podataka zbog toga što za tu stranicu postoje određene alternative međutim u slučaju Facebooka bio je evidentan pad protoka podataka.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Promjenatoka.PNG" class="image"><img alt="" src="../images/thumb/9/9f/Promjenatoka.PNG/600px-Promjenatoka.PNG" width="600" height="272" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Promjenatoka.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 6.Promjena protoka podataka po mjesecima,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a></b></div></div></div></div>
+<p>Gornji grafikon je jedan od najzanimljivijih i iz kojih se može vidjeti dosta korisnih informacija. Npr. u vremenu kada su se održavali kolokviji u školi evidentno je smanjenje protoka i korištenja Interneta. 1. svibnja je protok pao na nulu što je razumljivo pošto je to neradni dan.  U lipnju je vidljiv pad protoka pošto su tada već bila gotova predavanja i počinjali su ispitni rokovi.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:544px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ukupantok.PNG" class="image"><img alt="" src="../images/b/b6/Ukupantok.PNG" width="542" height="301" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ukupantok.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 7.Ukupan protok podataka,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a> </b></div></div></div></div>
+<p>Na gornjom grafikonu je moguće vidjeti ukupan protok podataka u vremenu istraživanja. Dan u tjednu kada je najviše bio korišten Internet je četvrtak.  Također se pred vikend, točnije petak vidi znatan pad protoka te u subotu i nedjelju kada škola ne radi. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:569px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Transpa.PNG" class="image"><img alt="" src="../images/e/ed/Transpa.PNG" width="567" height="298" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Transpa.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 8.Dnevni protok podataka po satima,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a> </b></div></div></div></div>
+<p>Preklapanjem svih grafikona dnevnog protoka podataka u vremenu istraživanja, dobiven je prikazan gornji grafikon.  Iz dobivene slike vidi se da je zauzetost mreže najveća bila između 08 i 15h  te da je najveći protok podataka bio između 09 i 12h te između 16 i 18h kada su bila predavanja na specijalističkim studijima.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zastupljenostmj.PNG" class="image"><img alt="" src="../images/thumb/6/6c/Zastupljenostmj.PNG/600px-Zastupljenostmj.PNG" width="600" height="317" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zastupljenostmj.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 9.Zastupljenost stranica po mjesecima,  Izvor:<a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external free" rel="nofollow">http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf</a> </b></div></div></div></div>
+<p>Na slici je prikazan grafikon zastupljenosti stranica u mjesecima istraživanja. Jasno se vidi kako je Facebook najposjećenija stranica te vrijeme kada on nije bio dostupan koje su se stranice više koristile. Jedna od zanimljivosti je i navedena stranica cache.google.com. Kada bi unesli taj url u naš pretraživač izbacilo bi nam 404 error. Naime radi se zapravo o izvoru koji se koristi za Youtube sadržaj. Dakle kada se na Youtube-u gleda neki video , video podatci se prenose sa te stranice cache.google.com.
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Nftables je novi paketni klasifikacijski okvir koji je zamijenio prijašnji okvir iptables. Od 2014. je dostupan sa Linux kernelom 3.13. On nam omogućuje filtriranje, modficiranje te klasifikaciju paketa. NetFlow je mrežni protokol razvijen od strane Cisco Systems-aa za prikupljanje informacija o IP prometu i nadgledanje mrežnog prometa. Za NetFlow se može reći da je postao standard kada je riječ o pračenju mrežnog prometa. Analizom prikupljenih podataka može se izraditi slika toka mrežnog prometa. Na Internetu je trenutno dostupan velik broj alata koji nam omogućuju korištenje samog NetFlowa te analiziranje protoka podataka. Neki od dostupnih besplatnih verzija NetFlow alata su ManageEngine NetFlow Analyzer, Solarwinds Real-Time NetFlow Analyzer, Ntopng. Praćenje mrežnog protoka podataka je veoma korisno te može biti od veoma velike pomoći. Mrežni administrator može analizom prikupljenih podataka odrediti stvari kao što su izvor i odredište prometa, klasa usluge te uzroke zagušenja mreže te se iraditi razne statitstike i predviđanja. 
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> Debian Wiki (2017), <i>Wiki Debian</i>,, preuzeto 17.01.2017. sa: <a href="https://wiki.debian.org/nftables" class="external autonumber" rel="nofollow">[1]</a>
+</li><li> Florian Westphal (2016), <i>What comes after 'iptables'? Its successor, of course: `nftables`</i>, Red Hat Developers Blog, preuzeto 17.01.2017. sa: <a href="https://developers.redhat.com/blog/2016/10/28/what-comes-after-iptables-its-successor-of-course-nftables/" class="external autonumber" rel="nofollow">[2]</a>
+</li><li> Netfilter (2016), <i>The netfilter.org "nftables" project</i>, Netfilter, preuzeto 17.01.2017. sa: <a href="https://netfilter.org/projects/nftables/" class="external autonumber" rel="nofollow">[3]</a>
+</li><li> Wikipedia (2016), <i>Netflow</i>, Wikipedia, preuzeto 15.01.2017. sa: <a href="https://en.wikipedia.org/wiki/NetFlow" class="external autonumber" rel="nofollow">[4]</a>
+</li><li> Perica Federšpil,Dušan Stefanović,Slavomir Stošović (2016), <i>Praćenje navika studenata na Internetu analizom IP saobraćaja upotrebom NetFlow analajzera</i>, Infoteh Javorina, preuzeto 09.01.2017. sa: <a href="http://infoteh.etf.unssa.rs.ba/zbornik/2016/radovi/RSS-1/RSS-1-12.pdf" class="external autonumber" rel="nofollow">[5]</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 45/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9248-0!*!0!!hr!2!edit=0 and timestamp 20190203204208 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Nftables_i_netflow.html">http://security.foi.hr/wiki/index.php/Nftables_i_netflow</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Nftables_i_netflow" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Nftables_i_netflow.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Nftables_i_netflow&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Nftables_i_netflow.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Nftables_i_netflow.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Nftables_i_netflow&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Nftables_i_netflow&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Nftables_i_netflow.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Nftables_i_netflow" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Nftables_i_netflow" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Nftables_i_netflow&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Nftables_i_netflow&amp;oldid=40931" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 13:52, 21. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 7.692 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Nftables_i_netflow", "wgTitle": "Nftables i netflow", "wgAction": "view", "wgArticleId": 9248, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40931, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.394 secs. -->			</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnost sustava za upravljanje bazom podataka - MySQL - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnost sustava za upravljanje bazom podataka - MySQL</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#mw-head">orijentacija</a>,
+					<a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>(Temu rezervirala - Aleksandra Polak)
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Baza_podataka_i_sustav_za_upravljanje_bazom_podataka_.28SUBP.29"><span class="tocnumber">1</span> <span class="toctext">Baza podataka i sustav za upravljanje bazom podataka (SUBP)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Sigurnost_baze_podataka"><span class="tocnumber">1.1</span> <span class="toctext">Sigurnost baze podataka</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Zada.C4.87e_SUBP-a"><span class="tocnumber">1.2</span> <span class="toctext">Zadaće SUBP-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#.C5.A0to_je_MySQL"><span class="tocnumber">2</span> <span class="toctext">Što je MySQL</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#SQL_Injection_.28SQLI.29"><span class="tocnumber">3</span> <span class="toctext">SQL Injection (SQLI)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#SQL_Injection_baziran_na_.221.3D1_je_uvijek_istina.22"><span class="tocnumber">3.1</span> <span class="toctext">SQL Injection baziran na "1=1 je uvijek istina"</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#SQL_Injection_baziran_na_.22.3D.22_je_uvijek_istina"><span class="tocnumber">3.2</span> <span class="toctext">SQL Injection baziran na "=" je uvijek istina</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#SQL_Injection_baziran_na_.22Batched_SQL_statements.22"><span class="tocnumber">3.3</span> <span class="toctext">SQL Injection baziran na "Batched SQL statements"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Kako_sprije.C4.8Dititi_SQLI_napade.3F.3F"><span class="tocnumber">4</span> <span class="toctext">Kako spriječititi SQLI napade??</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Sigurnosne_kopije"><span class="tocnumber">5</span> <span class="toctext">Sigurnosne kopije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#RAID_-_redundant_array_of_independent_disks"><span class="tocnumber">5.1</span> <span class="toctext">RAID - redundant array of independent disks</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Brisanje_podataka"><span class="tocnumber">6</span> <span class="toctext">Brisanje podataka</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Strukturni_integritet_i_sigurnost_podataka"><span class="tocnumber">7</span> <span class="toctext">Strukturni integritet i sigurnost podataka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Dizajniranje_baza"><span class="tocnumber">7.1</span> <span class="toctext">Dizajniranje baza</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Normalizacija"><span class="tocnumber">7.2</span> <span class="toctext">Normalizacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#1_NF"><span class="tocnumber">7.2.1</span> <span class="toctext">1 NF</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#2_NF"><span class="tocnumber">7.2.2</span> <span class="toctext">2 NF</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#3_NF"><span class="tocnumber">7.2.3</span> <span class="toctext">3 NF</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Prava_i_kontrola_pristupa"><span class="tocnumber">8</span> <span class="toctext">Prava i kontrola pristupa</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Prednosti_i_nedostatci_MySQL_servera"><span class="tocnumber">9</span> <span class="toctext">Prednosti i nedostatci MySQL servera</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#ACID_test"><span class="tocnumber">10</span> <span class="toctext">ACID test</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#Literatura:"><span class="tocnumber">11</span> <span class="toctext">Literatura:</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Baza_podataka_i_sustav_za_upravljanje_bazom_podataka_.28SUBP.29"> Baza podataka i sustav za upravljanje bazom podataka (SUBP) </span></h2>
+<p><b>Baza podataka </b>je skup podataka koji su pohranjeni i organizirani tako da mogu zadovoljiti zahtjeve korisnika. (prema M. Vetter)
+</p><p>Podaci su pohranjeni na način neovisan o programima koji ih koriste. Prilikom dodavanja novih podataka, mijenjanja i pretraživanja postojećih podataka primjenjuje se zajednički kontrolirani pristup. Podaci su strukturirani tako da služe kao osnova za razvoj budućih primjena. (J. Martin)
+</p><p><b>SUBP</b> je programski sustav koji omogućava upravljanje podacima u bazi podataka, može istovremeno upravljati s više baza podataka. Upravlja istovremenim pristupom bazi podataka od strane više korisnika/aplikacija uz osiguravanje sigurnosti i integriteta baze podataka. Temelji se na odabranom modelu podataka (hijerarhijski, mrežni, relacijski, objektno-relacijski, objektno-orijentirani).
+</p>
+<h3> <span class="mw-headline" id="Sigurnost_baze_podataka"> Sigurnost baze podataka </span></h3>
+<p>Sigurnost baze podataka se osigurava zaštitom na nekoliko razina:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:329px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:BP_zastitaUviseSlojeva.jpg" class="image"><img alt="" src="../images/1/16/BP_zastitaUviseSlojeva.jpg" width="327" height="303" class="thumbimage" /></a>  <div class="thumbcaption">Defense-in-depth strategija</div></div></div>
+<p><br />
+</p><p><br />
+<b>1. na razini SUBP</b>
+</p>
+<ul><li> spriječiti pristup bazama podataka ili onim dijelovima baza podataka za koje korisnici nisu ovlašteni
+</li></ul>
+<p><b>2. na razini operacijskog sustava</b>
+</p>
+<ul><li> spriječiti pristup radnoj memoriji računala ili datotekama u kojima SUBP pohranjuje podatke
+</li></ul>
+<p><b>3. na razini računalne mreže</b>
+</p>
+<ul><li>spriječiti presretanje poruka
+</li></ul>
+<p><b>4. fizička zaštita</b>
+</p>
+<ul><li> zaštita lokacije poslužitelja SUBP-a
+</li></ul>
+<p><b>5. na razini korisnika</b>
+</p>
+<ul><li> spriječiti da ovlašteni korisnici bilo nepažnjom bilo namjerno omoguće neovlaštenim osobama pristup podacima
+</li></ul>
+<p><br />
+</p><p><br />
+</p><p><br />
+<b>"Defense-in-depth strategija"</b> - označava zaštitu u više slojeva.
+Ne postoji savršeni zaštitni sloj, metoda ili proizvod. Također proboj jednog sloja ne mora značiti i narušavanje sigurnosti podataka iz baze podataka. No, valja naglasiti da je nužna zaštita unutar baze podataka, čak i ako je implementiran poseban sustav zaštitee baze podataka izvan same baze.
+</p>
+<h3> <span class="mw-headline" id="Zada.C4.87e_SUBP-a"> Zadaće SUBP-a </span></h3>
+<p>1.  trajna pohrana podataka (persistent storage)
+</p>
+<ul><li> skriva od korisnika detalje fizičke pohrane podataka
+</li><li> osigurava logičku i fizičku nezavisnost podataka
+</li></ul>
+<p>2. osigurava programsko sučelje (programming interface)
+</p>
+<ul><li> omogućuje definiciju i rukovanje s podacima
+<ul><li> DDL - Data Definition Language
+</li><li> DML - Data Manipulation Language
+</li></ul>
+</li></ul>
+<p>3. optimiziranje metoda pristupa podacima (query optimization)
+</p><p>4. zaštita podataka
+</p>
+<ul><li> integritet podataka (integrity)
+</li><li> pristup podacima - autorizacija, sigurnost (security)
+</li><li> potpora za upravljanje transakcijama 
+<ul><li> kontrola paralelnog pristupa (concurrency control)
+</li><li> obnova u slučaju rušenja (recovery)
+</li></ul>
+</li></ul>
+<p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id=".C5.A0to_je_MySQL"> Što je MySQL </span></h2>
+<p>MySQL je besplatan, open source sustav za upravljanje bazom podataka. Čest je izbor baze za projekte otvorenog koda i distribuira se kao sastavni dio serverskih Linux distribucija, također, mogu se pronaći i inačice za ostale operacijske sustave, kao što su Mac OS, Windows i dr.
+</p><p>MySQL baza je optimizirana kako bi bila brza na štetu funkcionalnosti. Unatoč tome, vrlo je stabilna i ima dobro modulirane module i ekstenzije te samu podršku mnogih programskih jezika: PHP, Java, Python... 
+</p><p>MySQL i PHP su osvojili velik dio tržišta, samim time što su besplatni za korištenje. Također, važno je napomenuti za one koji nisu upoznati sa time, MySQL baze su baze relacijskog tipa. Taj tip baza se pokazao kao najbolji naćin skladištenja i pretraživanja ogromnih količina podataka te u svemu predstavljaju osnovu svakog informacijskog sustava. Drugim riječima, temelj su svakog poslovnog subjekta koji svoje poslovanje bazira na dostupnosti kvalitetnih i brzih informacija. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="SQL_Injection_.28SQLI.29"> SQL Injection (SQLI) </span></h2>
+<p>SQL Injection je tehnika kojom zlonamjerni korisnici mogu naljepiti SQL text u već postojeće SQL upite putem ulaza na web stranicama. Ova vrsta napada omogućava napadaćima da koriste lažan indentitet, mijenjaju postojeće podatke, uzrokuju probleme poput poništavanja transakcija ili mijenjanja stanja. Također im omogućava objavu svih podataka sustava, uništenje podataka ili da na neki drugi naćin učine podatke nedostupnima.
+</p><p><br />
+Pogledajmo primjer lošeg koda na kojem zlonamjerni korisnik može napraviti velik broj SQLI napada.
+</p>
+<pre>  <b>textKorID = getRequestString("korID");</b>
+  <b>textSQL = "SELECT * FROM Korisnik WHERE korID = " + textKorID;</b>
+</pre>
+<p>Pogledajmo primjere SQLI napada, te potom, kako možemo izbjeći SQL Injection.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="SQL_Injection_baziran_na_.221.3D1_je_uvijek_istina.22"> SQL Injection baziran na "1=1 je uvijek istina" </span></h4>
+<p>Ako na web stranici u polje za unos šifre korisnika sljedeći tekst: <i>"100 or 1=1"</i>.
+</p><p>Dobili smo sljedeću konstrukciju upita koji je nadasve valjan i prolazi. Dobit ćemo sve podatke iz tablice Korisnik. A ako tablica sadrži imena i lozinke, imamo veliki problem.
+</p>
+<pre> <b>"SELECT * FROM Korisnik WHERE korID = 100 or 1=1";</b>
+</pre>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="SQL_Injection_baziran_na_.22.3D.22_je_uvijek_istina"> SQL Injection baziran na "=" je uvijek istina </span></h4>
+<p>Pogledajmo sljedeći primjer:
+</p>
+<pre> <b>ImeKor = getRequestString("ImeKorisnika"); </b>
+ <b>LozKor = getRequestString("LozinkaKorisnika");</b>
+ <b>sql = 'SELECT * FROM Korisnik WHERE Ime = " ' + ImeKor + ' "AND Lozinka = " + LozKor + ' " '</b>
+</pre>
+<p>Ako korisnik upiše umjesto pravog imena ili lozinke: <i>"or""="</i>.
+</p><p>Dobivamo sljedeći upit: 
+</p>
+<pre> <b>SELECT * FROM Korisnik WHERE Ime = " "or ""="" AND Lozinka = " "or""=""</b>
+</pre>
+<p>... i on naravno prolazi jer je ""="" uvijek istina.
+</p>
+<h4> <span class="mw-headline" id="SQL_Injection_baziran_na_.22Batched_SQL_statements.22"> SQL Injection baziran na "Batched SQL statements" </span></h4>
+<p>Znamo da mnoge baze podataka podržavaju povezivanje SQL naredbi korištenjem točke-zareza (;). Npr.:
+</p>
+<pre> <b>SELECT * FROM Korisnik; DROP TABLE Dobavljači"</b>
+</pre>
+<p>Vidimo da ovaj upit dohvaća sve podatke iz tablice Korisnik i briše tablicu Dobavljači.
+Pogledajmo prvi primjer, upisom bilo kakvog izraza u prvi dio koda: <i>Ne znam što ovdje ide; DROP TABLE Dobavljači</i>.
+</p><p>Ovaj će kod naravno proći i obrisati tablicu dobavljača. 
+</p>
+<h2> <span class="mw-headline" id="Kako_sprije.C4.8Dititi_SQLI_napade.3F.3F">Kako spriječititi SQLI napade??</span></h2>
+<p>Prema člancima koje nalazimo, vidimo da pojedini developeri koriste "crnu listu" riječi ili znakova koje taže u SQL upitu, kako bi sprijećili SQLI napade. Naime, kada pogledamo, to nije dobra ideja. Razlog vidimo u tome što se mnoge od tih riječi sa "crne liste" upotrebljavaju u mnogim upitima.
+Jedini dokazani način zaštite web stranice od SQLI napada je korištenje SQL parametara. SQL parametri su vrijednosti koje su dodane na sam SQL upit u vrijeme izvršavanja, na kontrolirani način.
+</p><p><br />
+<i> <b>ASP.NET Razor (primjer 1)</b> </i>
+</p>
+<pre><b>textKorID = getRequestString("korID");</b>
+<b>textSQL = "SELECT * FROM Korisnici WHERE korID = @0"</b>
+<b>db.Execute(textSQL, textKorID);</b>
+</pre>
+<p>Primjetimo da su parametri prezentirani pomoću @ markera u SQL upitu. SQL sustav provjerava svaki parametar zasebno da bi se osigurao da su točni a ne kao dio SQL upita koji se treba izvršiti.
+</p><p><i> <b>(primjer 2)</b> </i>
+</p>
+<pre><b>textIme = getRequestString("Ime");</b>
+<b>textAdd = getRequestString("Adresa");</b>
+<b>textGrad = getRequestString("Grad");</b>
+<b>textSQL = "INSERT INTO Korisnici(Ime, Adresa, Grad) Values (@0, @1, @2)";</b>
+<b>db.Execute(textSQL, textIme, textAdd, textCity);</b>
+</pre>
+<p><i> <b>INSERT INTO upit u PHP-u, primjer 3</b> </i>
+</p>
+<pre><b>$sql = $dbh -&gt; prepare("INSERT INTO Klijenti (Ime, Adresa, Grad) VALUES (:ime,&#160;:add,&#160;:grad)");</b>
+<b>$sql -&gt; bindParam(':ime', $textIme);</b>
+<b>$sql -&gt; bindParam(':add', $textAdd);</b>
+<b>$sql -&gt; bindParam(':grad', $textGrad);</b>
+<b>$stmt -&gt; execute();</b>
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Sigurnosne_kopije"> Sigurnosne kopije </span></h2>
+<p>Sigurnosne kopije (engl. backup) primjenjuju se kako bi korisnici osigurali nemogućnost gubitka podataka, koje kasnije ne bi mogli vratiti. 
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="RAID_-_redundant_array_of_independent_disks"> RAID - redundant array of independent disks </span></h3>
+<p>RAID sustav pohrane podataka koristi više diskova kako bi se osigurala tolerancija kvarova, poboljšala ukupna učinkovitost i povećao kapacitet memorije u sustavu. Omogućava spremanje istih podataka (u više koraka) na uravnotežen način za poboljšanje sveukupnih performansi..
+</p><p>RAID diskovi se često koriste na serverima, ali nisu općenito potrebni za osobna računala. 
+</p><p><b>RAID 0</b>- sastoji se minimalno od 2 diska. Pruža striping podataka (jednu datoteku sprema na više diskova). Nema ponavljanja podataka, što poboljšava performanse, ali ne tolerira kvarove. Ako padne jedna disk, svi su podaci izgubljeni.
+</p><p><b>RAID 1</b> - služi za sigurnost podataka bolje rečeno backup. Za ovo polje treba najmanje dva diska. Kad se podaci zapisuju,zapisuju se na oba diska istovremeno. Tako u slučaju kvara jednog od diskova podaci će ostati na drugom. Ovo bi se najbolje upotrijebilo za uredska računala. Glavni nedostatak je ukupni kapacitet RAID 1 polja.
+</p><p><b>RAID 5</b> - za ovo je potrebno najmanje 3 čvrsta diska,pri čemu se na njih zapisuje i tzv. paritet. Riječ je o podatku o kojeg se dolazi takozvanom
+XOR kalkulacijom. XOR služi za rekonstrukciju podataka u slučaju otkazivanja nekog diska. Paritet se svaki put zapisuje na drugi disk, što dodatno povećava sigurnost podataka.
+</p><p><b>RAID 10 </b> - Kombinacija brzine RAID 0 polja i sigurnosnog RAID 1 po mnogima RAID 10 čine najkvalitetnijim rješenjem,barem za korisnike
+koji traže visoke performanse.Za uspostavu ovog polja potrebna su najmanje 4 tvrda diska jer ne može funkcijonirati sa neparnim brojem diskova.Dva para diskova se kod potonjeg prvo stavljaju u stripu,a tada se ta dva polja prebacuju u mirror.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Brisanje_podataka">Brisanje podataka</span></h2>
+<p>Brisanje podataka je metoda prilikom koje je izvršeno uništavaju svih podataka na tvrdom disku ili nekom digitalnom mediju kako ne bi došlo do otkrivanja podataka nakon što uređaj nije upotrebljiv.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Strukturni_integritet_i_sigurnost_podataka"> Strukturni integritet i sigurnost podataka </span></h2>
+<p><b>Integritet baze podataka</b> predstavlja ispravne operacije nad podacima koje korisnici obavljaju. Šro znaći, "podaci se štite od ovlaštenih korisnika".
+</p><p><b>Sigurnost baze podataka</b> podrazumijeva da su korisnici koji obavljaju operacije nad podacima ovlašteni za obavljanje tih operacija, pri čemu se "podaci štite od neovlaštenih korisnika".
+</p><p>U oba navedena slučaja moramo definirati pravila koja korisnici ne smiju narušiti, pravila koja se pohranjuju u riječnik podataka i nezaobilazna su za sve korisnike, te ne opterećuju programe, pri čemu SUBP nadgleda rad korisnika i osigurava poštivanje pravila.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Dizajniranje_baza"> Dizajniranje baza </span></h4>
+<p>Dizajniranje relacijske baze podataka podrazumijeva:   
+</p>
+<ul><li> Projektiranje podataka   
+</li><li> Održavanje podataka   
+</li></ul>
+<p>Projektiranje podataka
+</p>
+<ul><li> obuhvaća konceptualno i logičko modeliranje podataka koje vrše <b>administratori podataka</b>
+</li></ul>
+<p>Održavanje podataka
+</p>
+<ul><li>obuhvaća fizičko modeliranje podataka, a potom fizičku uspostavu i održavanje baze podataka, koje vrše <b>administratori baze podataka</b>
+</li></ul>
+<p>Prilikom izrade konceptualnog modela, kreće se od entiteta. <b>Entitete</b>
+predstavlja bilo koja stvar, apstraktna ili stvarna, u poslovnom sustavu o kojoj možemo zapisivati podatke. Npr. kupci, dobavljači, narudžbe, zaposlenici...
+</p><p>Iz konceptualnog modela slijedi model entiteti - veze, koji definira sve entitete i veze među njima. Takav način prikaza, naziva se <b>dijagram</b> ili <b>model entiteti - veze</b> (ERD - Entity-Relationship Diagram). 
+</p><p><br />
+Razlikujemo tri vrste veza:
+</p>
+<ol><li> <b>"one-to-many"</b> (veza jedan-prema-više)
+</li><li> <b>"one-to-one"</b> (veza jedan-prema-jedan)
+</li><li> <b>"many-to-many"</b> (veza više-prema-više)
+</li></ol>
+<p>2 i 3 vezu nastojimo izbjei, pa kažemo da želimo relacijski model u kojem postoji samo one-to-many tipovi veza.
+</p><p><br /> 
+</p>
+<h4> <span class="mw-headline" id="Normalizacija"> Normalizacija </span></h4>
+<p>Normalizacija je postupak organiziranja podataka s ciljem kreiranja učinkovite, pouzdane (sačuvan je integritet podataka) i fleksibilne baze podataka. 
+</p>
+<h5> <span class="mw-headline" id="1_NF">1 NF </span></h5>
+<ul><li> zahtjeva da svi entiteti moraju imati jedinstveni indentifikator (ključ) koji se može sastojati od jednog ili više atributa. 
+</li><li>Svako polje u tablici mora sadržavati samo jednu vrijednost (atributi moraju biti jednostavni, što znaći da ne smiju biti sastavljeni od više atributa)
+</li></ul>
+<h5> <span class="mw-headline" id="2_NF"> 2 NF </span></h5>
+<ul><li> mora biti zadovoljena 1NF
+</li><li> svi atributi koji nisu dio ključa moraju u potpunosti ovisiti o njemu
+</li></ul>
+<h5> <span class="mw-headline" id="3_NF"> 3 NF </span></h5>
+<ul><li> moraju biti zadovoljene 1NF i 2NF
+</li><li> svi atributi koji nisu dio ključa ne smiju biti međusobno ovisni
+</li></ul>
+<h2> <span class="mw-headline" id="Prava_i_kontrola_pristupa"> Prava i kontrola pristupa </span></h2>
+<p>Kontrola pristupa pokriva niz postupaka kojima se evidentiraju pokušaji pristupa i odobravaju/odbijaju pristupi temeljem unaprijed utvrđenih pravila. 
+Tako razlikujemo sigurnosnu politiku, sigurnosni model, sigurnosni mehanizam.
+<b>Sigurnosna politika</b> odnosi se na pravila pristupa na visokoj razini. 
+Temelji se na načelu "need-to-know", kompetentnosti, nadležnosti, sukobu interesa i td. Sigurnosna politika je dinamična jer se mijenja u skladu s promjenama poslovnih faktora, regulativa i uvjeta u okruženju.
+<b>Sigurnosni model</b> je formalni prikaz sigurnosne politike koji se dijeli na diskrecijsku, mandatnu kontrolu pristupa i kontrolu pristupa temeljenu na ulogama. 
+<b>Sigurnosni mehanizam</b> predstavljaju funkcije kojima je implementirana sama kontrola pristupa. 
+</p><p>U mehanizme kontrole pristupa ubraja se <i>referentni monitor</i>. Pouzdana komponenta koja kontrolira svaki pristup objekta sustavu i utvrđuje je li taj pristup u skladu sa sigurnosnom politikom utjelovljenom u bazi podataka kontrole pristupa. Referentni monitor uspoređuje sigurnosne atribute korisnika sa onima koje imaju resursi. Preduvjet je uspješna indentifikacija i autentikacija korisnika.
+</p><p><br />
+</p><p>- primjet preuzet sa: <a href="https://dev.mysql.com/doc/refman/5.6/en/grant.html" class="external free" rel="nofollow">https://dev.mysql.com/doc/refman/5.6/en/grant.html</a>
+</p>
+<pre><i>GRANT</i>
+<i>    priv_type [(column_list)] </i>
+<i>      [, priv_type [(column_list)]] ... </i>
+<i>    ON [object_type] priv_level </i>
+<i>    TO user [auth_option] [, user [auth_option]] ... </i>
+<i>    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}] </i>
+<i>    [WITH {GRANT OPTION | resource_option} ...] </i>
+</pre>
+<pre><i>GRANT PROXY ON user </i>
+<i>    TO user [, user] ... </i>
+<i>    [WITH GRANT OPTION] </i>
+</pre>
+<pre><i>object_type: { </i>
+<i>    TABLE </i>
+<i>  | FUNCTION </i>
+<i>  | PROCEDURE </i>
+<i>} </i>
+</pre>
+<pre><i>priv_level: { </i>
+<i>    * </i>
+<i>  | *.* </i>
+<i>  | db_name.* </i>
+<i>  | db_name.tbl_name </i>
+<i>  | tbl_name </i>
+<i>  | db_name.routine_name </i>
+<i>} </i>
+</pre>
+<pre><i>user:</i>
+<i>    (see Section 6.2.3, “Specifying Account Names”)</i>
+</pre>
+<pre><i>auth_option: {</i>
+<i>    IDENTIFIED BY 'auth_string'</i>
+<i>  | IDENTIFIED BY PASSWORD 'hash_string'</i>
+<i>  | IDENTIFIED WITH auth_plugin</i>
+<i>  | IDENTIFIED WITH auth_plugin AS 'hash_string'</i>
+<i>}</i>
+</pre>
+<pre><i>tls_option: {</i>
+<i>    SSL</i>
+<i>  | X509</i>
+<i>  | CIPHER 'cipher'</i>
+<i>  | ISSUER 'issuer'</i>
+<i>  | SUBJECT 'subject'</i>
+<i>}</i>
+</pre>
+<pre><i>resource_option: {</i>
+<i>  | MAX_QUERIES_PER_HOUR count</i>
+<i>  | MAX_UPDATES_PER_HOUR count</i>
+<i>  | MAX_CONNECTIONS_PER_HOUR count</i>
+<i>  | MAX_USER_CONNECTIONS count</i>
+<i>} </i>
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Prednosti_i_nedostatci_MySQL_servera"> Prednosti i nedostatci MySQL servera </span></h2>
+<p>Kada pogledamo primjenu MySql-a, isti je kao i drugi sustavi za upravljanje relacijskim bazama podataka, iz čega slijedi da je njegova glavna primjena ista kao i primjena SQL-a, s jednom razlikom. MySQL je još više neovisan o platformi sustava u koji je instaliran, te ima mnogo veću brzinu obrade podataka, što ga čini jednim od boljih, ako ne i najboljih sustava za kontrolu i korištenje baza podataka na web-u. Razlog tome je što se na web-u očekuje brza i sigurna obrada podataka. 
+</p><p>S druge strane, MySQL, može biti i nesigurna baza podataka. Ako mu pristupa računalo koje je u unternoj mreži automatski se postavljaju administratorska dopuštenja i zbog toga interni napadi mogu biti puno opasniji od udaljenih. MySQL sadrži brojne skripte koje u radu koriste privremene datoteke. Ponekad se te datoteke stvaraju na nesigurnim lokacijama i sa predvidljivim imenima, te se mogu zamijeniti simboličkim vezama prema kritičnim sistemskim datotekama. Također, moramo napomenuti da MySQL skripta koristi ovlasti MySQL procesa koji ju je pokrenuo prilikom prepisivanja sistemske datoteke.
+</p><p>Za razliku od drugih SUBP-a, kao što su Oracle ili Sybase, MySQL izvorno sadrži vrlo slabu mrežnu podršku. Iz tog razloga, nakon proboja u MySQL poslužitelj, nema puno mogućnosti za proširenje napada na ostatak računalne mreže.
+</p><p>Obično se MySQL bazom koristi preko PHP skripti koje se nalaze unutar web stranica, umetnute između HTML koda. Na MySQL serveru se na disku fizički nalaze baze podataka i korisnički računi osoba koje imaju također i određene stupnjeve ovlasti za izvršavanje određenih operacija na samoj bazi i unutar nje. Prihvat zahtjeva sa korisničkih računala se prima na serveru i server provjerava da li prijavljeni korisnik ima autorizaciju za tražene operacije. Ako je odgovor potvrdan server izvršava tražene operacije i rezultat obrade šalje natrag na korisničko računalo. 
+</p><p>Također jedna od pozitivnih karakteristika MySQL sustava je što MySQL server može prihvatiti više zahtjeva za obradu od više korisnika u isto vrijeme potpuno paralelno, bez zastoja.
+</p><p>Na temelju gore navedenih karakteristika, te neovisnosti o platformi sustava u kojem se koristi MySQL je vrlo popularan kod web aplikacija i radi kao komponenta baze podataka na platformama kao što su Linux, BSD, Mac, Windows-Apache-MySQL-PHP. Perl, Python i drugima.  
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="ACID_test"> ACID test </span></h2>
+<p>Uspoređivanje programa za baze podataka, obavlja se putem ACID testa. ACID test opisuje baze na temelju četiri svojstva koja bi trebala imati svaka robusna baza podataka:
+</p>
+<ol><li> atomicity - atomarnost
+</li><li> consistency - konzistencija 
+</li><li> isolation - izolacija
+</li><li> durability – izdržljivost
+</li></ol>
+<p>Transakcija kao osnovna jedinica rada koju korisnik baze može definirati je osnovna provjera ova četiri svojstva. Ako definiramo transakciju koja će u sebi sadržavati naredbe INSERT, UPDATE, DELETE, sve tri naredbe promatramo kao cjelinu. Što to znaći? Izvršit će se ili sve ili nijedna. To svojstvo je vrlo bitno prilikom  novčanih transkacija. Dogodi se da se usred transakcije sruši server, te ne bi bilo dobro da se tom prilikom odradi DELETE, a INSERT koji dolazi nakon njega ne izvrši. 
+Prema ACID svojstvima, PostgreSQL je bolji od MySQL-a. PostgreSQL je kompatibilan i njegovo korištenje osigurava napredne opcije i sigurnost podataka, no s druge strane, istovremeno upotreba puno naprednih opcija usporava izvedbu aplikacije. 
+</p><p>MySQL po defaultu od ACID svojstava podržava samo atomarnost pomoću opcije <i>table locks</i>, dok je ostala svojstva moguće postiči upotrebom različitih paketa za upravljanje tabilcama poput BerklyDB ili InnoDB.
+</p><p>Nadalje, osim ACID testa, postoji još osobina koje su bitne kod ovih baza.
+Dok MySQL ne podržava storne procedure niti ugnježdene upite, PostgreSQL podržava, te mu to daje znatnu prednost prilikom izrade velikih aplikacijama u kojima se traži brzina. Storne procedure također ubrzavaju rad aplikacija pisanih u Javi. S obzirom da je Java poznata po svojem sporijem izvođenju, pomoću stornih procedura moguće je određene funkcije postaviti direktno na bazu. 
+</p><p>Na temelju navedenog još jednom potvrđujemo da je PostgreSQL bolje koristiti za razvoj kompleksnih aplikacija ili onima koji prelaze sa ORACLE, Sysbase ili Microsoft SQL Server-a na drugu bazu podataka. A MySQL za manje zahtjevne potrebe, kao što je integracija sa webom. Bez obzira na to da postoji mogućnost od gubitaka podataka  prilikom obavljanja transakcija, veća i jednostavnija upotreba daju mu prednost kod manjih i jednostavnijih baza podataka.
+</p>
+<h2> <span class="mw-headline" id="Literatura:"> Literatura: </span></h2>
+<ol><li> <a href="https://hr.wikipedia.org/wiki/MySQL" class="external free" rel="nofollow">https://hr.wikipedia.org/wiki/MySQL</a>
+</li><li> Sigurnost sustava za upravljanje bazama podataka (<a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-10-171.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-10-171.pdf</a> )
+</li><li> <a href="http://www.w3schools.com/sql/sql_injection.asp" class="external free" rel="nofollow">http://www.w3schools.com/sql/sql_injection.asp</a>
+</li><li> <a href="http://www.srce.unizg.hr/files/srce/docs/edu/osnovni-tecajevi/d350_polaznik.pdf" class="external free" rel="nofollow">http://www.srce.unizg.hr/files/srce/docs/edu/osnovni-tecajevi/d350_polaznik.pdf</a> 
+</li><li> <a href="http://www.baze-podataka.net/2008/05/17/prava-pristupa-podacima-prvi-deo/" class="external free" rel="nofollow">http://www.baze-podataka.net/2008/05/17/prava-pristupa-podacima-prvi-deo/</a> 
+</li><li> <a href="http://www.unizd.hr/portals/1/primjena_rac/poseban_program/predavanja/baze_podataka.pdf" class="external free" rel="nofollow">http://www.unizd.hr/portals/1/primjena_rac/poseban_program/predavanja/baze_podataka.pdf</a>     
+</li><li> <a href="https://www.fer.unizg.hr/_download/repository/06_sigurnost_baza_podataka_-_1._dio.pdf" class="external free" rel="nofollow">https://www.fer.unizg.hr/_download/repository/06_sigurnost_baza_podataka_-_1._dio.pdf</a>
+</li><li> <a href="http://www.atlasindia.com/sql.htm" class="external free" rel="nofollow">http://www.atlasindia.com/sql.htm</a>
+</li><li> <a href="http://www.thegeekstuff.com/2010/08/raid-levels-tutorial" class="external free" rel="nofollow">http://www.thegeekstuff.com/2010/08/raid-levels-tutorial</a>
+</li><li> <a href="http://www.webopedia.com/TERM/R/RAID.html" class="external free" rel="nofollow">http://www.webopedia.com/TERM/R/RAID.html</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 87/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9223-0!*!0!!hr!2!edit=0 and timestamp 20190203204155 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html">http://security.foi.hr/wiki/index.php/Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL&amp;oldid=40433" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:22, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 4.569 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnost_sustava_za_upravljanje_bazom_podataka_-_MySQL", "wgTitle": "Sigurnost sustava za upravljanje bazom podataka - MySQL", "wgAction": "view", "wgArticleId": 9223, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40433, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.330 secs. -->			</body>
+</html>

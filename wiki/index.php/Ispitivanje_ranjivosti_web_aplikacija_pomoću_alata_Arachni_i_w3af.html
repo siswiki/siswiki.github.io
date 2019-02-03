@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Ispitivanje ranjivosti web aplikacija pomoću alata Arachni i w3af - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Ispitivanje ranjivosti web aplikacija pomoću alata Arachni i w3af</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#mw-head">orijentacija</a>,
+					<a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirala: Nikolina Kužir
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#OWASP_TOP_10_2017."><span class="tocnumber">1.1</span> <span class="toctext">OWASP TOP 10 2017.</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#OWASP_Top_10_za_2017._godinu"><span class="tocnumber">1.1.1</span> <span class="toctext">OWASP Top 10 za 2017. godinu</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Injection"><span class="tocnumber">1.1.2</span> <span class="toctext">Injection</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Broken_Authentication"><span class="tocnumber">1.1.3</span> <span class="toctext">Broken Authentication</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Sensitive_Data_Exposure"><span class="tocnumber">1.1.4</span> <span class="toctext">Sensitive Data Exposure</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#XML_Internal_Exposure_.28XXE.29"><span class="tocnumber">1.1.5</span> <span class="toctext">XML Internal Exposure (XXE)</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Broken_Access_Control"><span class="tocnumber">1.1.6</span> <span class="toctext">Broken Access Control</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Security_Misconfiguration"><span class="tocnumber">1.1.7</span> <span class="toctext">Security Misconfiguration</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Cross_Site_Scripting_.28XSS.29"><span class="tocnumber">1.1.8</span> <span class="toctext">Cross Site Scripting (XSS)</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Insecure_Deserialization"><span class="tocnumber">1.1.9</span> <span class="toctext">Insecure Deserialization</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Using_Components_with_Known_Vulnerabilities"><span class="tocnumber">1.1.10</span> <span class="toctext">Using Components with Known Vulnerabilities</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Insufficient_Logging_.26_Monitoring"><span class="tocnumber">1.1.11</span> <span class="toctext">Insufficient Logging &amp; Monitoring</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#w3af"><span class="tocnumber">2</span> <span class="toctext">w3af</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Instalacija"><span class="tocnumber">2.1</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#w3af_Pluginovi"><span class="tocnumber">2.2</span> <span class="toctext">w3af Pluginovi</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Evasion_pluginovi"><span class="tocnumber">2.2.1</span> <span class="toctext">Evasion pluginovi</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#BruteForce_pluginovi"><span class="tocnumber">2.2.2</span> <span class="toctext">BruteForce pluginovi</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Mangle_plugin"><span class="tocnumber">2.2.3</span> <span class="toctext">Mangle plugin</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Crawl_pluginovi"><span class="tocnumber">2.2.4</span> <span class="toctext">Crawl pluginovi</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Audit_plugin"><span class="tocnumber">2.2.5</span> <span class="toctext">Audit plugin</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Infrastructure_plugin"><span class="tocnumber">2.2.6</span> <span class="toctext">Infrastructure plugin</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Grep_plugin"><span class="tocnumber">2.2.7</span> <span class="toctext">Grep plugin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-24"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Napredni_slu.C4.8Dajevi_kori.C5.A1tenja"><span class="tocnumber">2.3</span> <span class="toctext">Napredni slučajevi korištenja</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Primjer_kori.C5.A1tenja"><span class="tocnumber">2.4</span> <span class="toctext">Primjer korištenja</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Arachni"><span class="tocnumber">3</span> <span class="toctext">Arachni</span></a>
+<ul>
+<li class="toclevel-2 tocsection-27"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Instalacija_2"><span class="tocnumber">3.1</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Mogu.C4.87nosti"><span class="tocnumber">3.2</span> <span class="toctext">Mogućnosti</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Neke_od_dostupnih_provjera"><span class="tocnumber">3.3</span> <span class="toctext">Neke od dostupnih provjera</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Primjer_kori.C5.A1tenja_2"><span class="tocnumber">3.4</span> <span class="toctext">Primjer korištenja</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Zaklju.C4.8Dak"><span class="tocnumber">3.5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#Literatura"><span class="tocnumber">3.6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Web aplikacije su danas temelj modernog poslovanja. Ne samo da sadrže informacije o organizaciji, već se sve više koriste u poslovnim procesima (npr. e-plaćanje, popis poslova, računovodstvo i sl.). Upravo zbog toga sigurnost web aplikacija od iznimne važnosti za sigurnost cjelokupnog informacijskog sustava neke organizacije.  Dostupan je veliki broj različitih alata čija je namjena upravo otkrivanje mogućih ranjivosti, kako besplatnih, tako i onih komercijalnih. Kako bi se zaštitio informacijski sustav, provjeru ranjivosti web aplikacija nužno je provoditi često, preporuča se da se to vrši prilikom kreiranja nove aplikacije, nakon svake izmjene u aplikaciji,nakon promjene nadležnih osoba te periodički najmanje jedanput godišnje.
+</p>
+<h2> <span class="mw-headline" id="OWASP_TOP_10_2017."> OWASP TOP 10 2017. </span></h2>
+<p>Open Web Application Security Project (OWASP) je neprofitna organizacija čiji je cilj poboljšanje sigurnosti aplikacija. OWASP je open source organizacija koja okuplja tvrtke, edukacijske ustanove i profesionalce iz područja aplikacijske sigurnosti. Svi materijali ove organizacije dostupni su na internetu, svatko je slobodan sudjelovati u ovom projektu.
+Najpoznatija je po objavljivanju industrijskog standarda OWASP Top 10 - liste 10 najkritičnijih aplikacijskih sigurnosnih rizika s kojima se programeri i organizacije suočavaju. Objavljuje se svakih nekoliko godina, a cilj je pomoći profesionalcima iz područja aplikacijske sigurnosti da bolje osiguraju aplikacije koje objavljuju. Aplikacijski rizici često se mijenjaju, samim time listu je potrebno revidirati i izmijeniti. Osim OWASP Top 10 za web aplikacije, postoje slične liste za Internet of Things i mobilnu sigurnost. 
+</p>
+<h4> <span class="mw-headline" id="OWASP_Top_10_za_2017._godinu">OWASP Top 10 za 2017. godinu</span></h4>
+<ol><li>	Injection
+</li><li>	Broken Authentication
+</li><li>	Sensitive Data Exposure
+</li><li>	XML Internal Exposure (XXE)
+</li><li>	Broken Access Control
+</li><li>	Security Misconfiguration
+</li><li>	Cross Site Scripting (XSS)
+</li><li>	Insecure Deserialization
+</li><li>	Using Components with Known Vulnerabilities
+</li><li>	Insufficient Logging &amp; Monitoring
+</li></ol>
+<p><br />
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Owaspp.jpg" class="image"><img alt="" src="../images/thumb/f/f1/Owaspp.jpg/800px-Owaspp.jpg" width="800" height="451" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Owaspp.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 1.</b> Usporedba OWASP Top 10 2013. i 2017.</div></div></div></div> Izvor slike:[1]
+<h4> <span class="mw-headline" id="Injection">Injection</span></h4>
+<p>Napad umetanjem znakova nalazi se na samom vrhu OWASP-ovog popisa već duže vrijeme, ova ranjivost "krivac" je za većinu javnih objavljivanja i proboja sigurnosti. Postoji više vrsta ranjivosti umetanjem znakova, a najčešće su bile&#160;: SQL, NoSQL, OS command, Object Relational Mapping (ORM), LDAP, Expression Language (EL) i Object Graph Navigation Library(OGNL) injection. 
+</p>
+<h4> <span class="mw-headline" id="Broken_Authentication">Broken Authentication</span></h4>
+<p>Neispravna autentifikacija  je ranjivost koja omogućuje da se zaobiđu metode autentifikacije koje se koriste da bi zaštitile sustav od neovlaštenog upada. Najčešće je to korisničko ime i lozinka.  Njačešći načini na koje web aplikacije štite korisničke podatke koji se šalju su sljedeći: nekriptirane veze, predvidljive podaci za prijavu - koriste se korisnička imena i lozinke koje se često koriste
+</p>
+<h4> <span class="mw-headline" id="Sensitive_Data_Exposure">Sensitive Data Exposure</span></h4>
+<p>Mnoge web aplikacije i API-ji ne štite pravilno osjetljive podatke, poput financijskih, zdravstvenih podataka (PIN kodovi,brojevi kartica i slično). Napadači mogu ukrasti ili modificirati takve slabo zaštićene podatke za provođenje prijevara s kreditnim karticama, krađe identiteta ili drugih zločina.  Kako zahtijevaju posebne mjere predostrožnosti kada se razmjenjuju s preglednikom, bez dodatne zaštite kao što je enkripcija, osjetljivi podaci mogu biti ugroženi.
+</p>
+<h4> <span class="mw-headline" id="XML_Internal_Exposure_.28XXE.29">XML Internal Exposure (XXE)</span></h4>
+<p>Nova kategorija, dodana u 2017. Označava ranjivost gdje mnogi stariji ili slabo konfigurirani XML procesori vrednuju vanjske reference entiteta unutar XML dokumenata. Vanjski entiteti mogu se koristiti za otkrivanje unutarnjih datoteka pomoću URI handlera, internog dijeljenja datoteka, internog skeniranja portova i DoS napada.
+</p>
+<h4> <span class="mw-headline" id="Broken_Access_Control">Broken Access Control</span></h4>
+<p>Ograničenja toga što autenticirani korisnici mogu raditi često se ne primjenjuju pravilno. Napadači mogu iskoristiti ove nedostatke kako bi pristupili funkcionalnosti i / ili podacima za koje nemaju ovlašteni pristup, npr. pristupračune drugih korisnika, pregled osjetljivih datoteka, izmjenu podataka drugih korisnika, promjenu prava pristupa...
+</p>
+<h4> <span class="mw-headline" id="Security_Misconfiguration">Security Misconfiguration</span></h4>
+<p>Ova ranjivost označava loše ili nepropisne postavke servera ili web aplikacija koje dovode do različitih propusta koje napadači lako mogu iskoristiti.
+</p>
+<h4> <span class="mw-headline" id="Cross_Site_Scripting_.28XSS.29">Cross Site Scripting (XSS)</span></h4>
+<p>XSS propusti se pojavljuju kad god aplikacija sadrži nepouzdane podatke na novoj web stranici bez
+pravilne provjeru valjanosti. U ovoj vrsti napada napadač može ubaciti nepouzdane isječke Javascript koda direktno u web aplikaciju bez validacije, što  rezultira time da se novi dodani dio koda izvrši od strane osobe koja posjećuje web aplikaciju (npr. preusmjeri korisnika na
+zlonamjernu web-lokaciju).
+</p>
+<h4> <span class="mw-headline" id="Insecure_Deserialization">Insecure Deserialization</span></h4>
+<p>Ova ranjivost dovodi do izvršavanja udaljenog koda. Čak i ako sam proces deserijalizacije ne
+mogu dovesti do izvršavanja koda, ove ranjivosti mogu se upotrijebiti za izvođenje različitih sigurnosnih napada (npr. injection).
+</p>
+<h4> <span class="mw-headline" id="Using_Components_with_Known_Vulnerabilities">Using Components with Known Vulnerabilities</span></h4>
+<p>Komponente kao što su biblioteke i framework, okviri i drugi softverski moduli, pokreću se istovremeno s aplikacijom. Ako se ranjiva komponenta iskoristi, takav napad može uzrokovati ozbiljan gubitak podataka ili preuzimanje poslužitelja. Ove ranjivosti često su zanemarene jer developeri prilikom razvijanja softvera često ne razmišljaju o dijelovima koje su preuzeli, već se fokusiraju na svoj kod.
+</p>
+<h4> <span class="mw-headline" id="Insufficient_Logging_.26_Monitoring">Insufficient Logging &amp; Monitoring</span></h4>
+<p>Ova kategorija ranjivosti također je nova. Iskorištavanje nepostojanja prijave i praćenje stannja može biti uzrok incidenta. Napadači se oslanjaju na nedostatak praćenje i pravovremeno izvršavaju napade bez da su otkriveni.
+</p><p>Detaljnije o svim ovim ranjivostima te kako se zaštititi od istih možete pročitati na poveznici: <a href="http://www.owasp.org/index.php/Top_10-2017_Top_10" class="external autonumber" rel="nofollow">[1]</a>
+</p><p>Postoji čitav niz besplatnih, open - source alata za ispitivanje ranjivosti web aplikacija, no nijedan od njih ne posjeduje dovoljno funkcionalnosti kako bi pronašao sve ranjivosti određene web aplikacije pa se preporuča uporaba kombinacije alata. Za potrebe ovog projekta bit će korišteni alati w3af i Arachni.
+</p>
+<h1> <span class="mw-headline" id="w3af">w3af </span></h1>
+<p>w3af (<i>Web Application Attack and Audit Framework</i>) je jedan od najpopularnijih open-source  alata(skenera) za analizu ranjivosti i reviziju web aplikacija. Dostupna su dva različita sučelja za korištenje: CUI(konzola) i GUI (grafičko sučelje).
+w3af je osnovao Andres Riancho 2007. godine,a zbog uspješnosti,  w3af 2010. postaje sponzoriran od strane tvrtke Rapid7, jedne od najvažnijih tvrtki u svijetu sigurnosti.
+Baziran je na programskom jeziku Python.
+</p><p>w3af framework je podijeljen u tri glavne sekcije:
+1.	core, koordinira proces skeniranja, upravlja svim pluginovima
+2.	user interfaces, daju mogućnost korisniku da kreira profil za skeniranje i skenira aplikacije
+3.	plugins, koja nalaze ranjivosti
+</p>
+<h2> <span class="mw-headline" id="Instalacija">Instalacija</span></h2>
+<p>Detaljne upute za instalaciju i preuzimanje dostupne su na sljedećoj poveznici <a href="http://docs.w3af.org/en/latest/install.html" class="external autonumber" rel="nofollow">[2]</a>.
+</p>
+<h2> <span class="mw-headline" id="w3af_Pluginovi">w3af Pluginovi</span></h2>
+<p>Korištenje uključuje odabir postojećeg profila ili izradu vlastitog uz odabir pojedinačnih testova iz neke od kategorija pluginova. U nastavku će biti opisane važnije kategorije i neki od testova koje one sadrže. 
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Start.png" class="image"><img alt="" src="../images/thumb/b/b8/Start.png/800px-Start.png" width="800" height="383" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Start.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 2. Početni izbornik</b></div></div></div></div> 
+<p><br />
+Upisivanjem naredbe plugins prikazuje nam se lista dostupnih pluginova koju možete vidjeti na slici ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Plugins.png" class="image"><img alt="" src="../images/thumb/8/81/Plugins.png/800px-Plugins.png" width="800" height="325" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Plugins.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 3. w3af pluginovi </b></div></div></div></div> 
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Evasion_pluginovi">Evasion pluginovi</span></h4>
+<p>Ovaj set testova prilagođava zahtjeve sa ciljem zaobilaženja sutava zaštite (IPS).
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="BruteForce_pluginovi">BruteForce pluginovi</span></h4>
+<p>Postoje samo dva testa: <b>basicAuthBrute</b> i <b>formAuthBrute</b> - Dohvaćaju predefinirane kombinacije korisničkih imena i lozinki te pokušvaju identificirati valjane kombinacije.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Mangle_plugin">Mangle plugin</span></h4>
+<p>Sadrži samo jedan test, <b>sed</b> (stream editor for web requests and responses) koji omogućuje korisniku da modificira web zahtjeve i odgovore. Naredbe se zadaju preko regularnih izraza, kao na primjer: qh/User/NotUser/, što znači da treba pretražiti zaglavlje zahtjeva (re[q]uest [h]eader) za izrazom "User" i zamjeniti ga sa "NotUser".
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Crawl_pluginovi">Crawl pluginovi</span></h4>
+<p>Oni imaju samo jednu odgovornost, pronalaženje novih URL-ova, obrazaca i drugih točaka na kojima može doći do napada. Klasičan primjer plugina za otkrivanje je <b>web_spider</b>. Ovaj dodatak uzima URL kao input i vraća jednu ili više točaka na kojima je moguć napad umetanjem znakova (injection).
+</p><p>Kada korisnik omogući više takvih pluginova, oni se izvode kao u petlji: ako plugin A pronađe novi URL u prvom krugu, w3af core će poslati taj URL u plugin B. Ako plugin B pronađe novi URL , bit će poslan na plugin A. Ovaj će  se postupak nastaviti sve dok niti jedan plugin više ne može pronaći ranjivost.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Audit_plugin">Audit plugin</span></h4>
+<p>Audit pluginovi (pluginovi za reviziju) koriste znanje stvoreno crawl pluginom i koriste ga za pronalazak ranjivosti na udaljenoj web aplikaciji ili web poslužitelju.
+</p><p><b>blind_sqli</b> - Ovaj test pronalazi SQL injection ranjivost koristeći dvije tehnike: time delay i usporedbe istinite / lažne reakcije. Stranica koja ima ovu ranjivost neće direktno prikazati pogrešku, ali će se ponašati drugačije ovisno o rezultatu logičkog izraza ubačenog u validan SQL zahtjev.
+</p><p><b>csrf</b> - Otkriva Cross Site Request Forgeries (csrf) ranjivosti.
+</p><p><b>eval</b> - Ovaj dodatak otkriva ranjivosti eval () input injectiona. Te ranjivosti nalaze se u web aplikacijama, kada programer proslijeđuje podatke korisnika funkciji eval (). Da biste provjerili postoji li ranjivosti ove vrste, plugin šalje echo funkciju s dva slučajna stringa kao parametre (echo 'abc' + 'xyz') i ako se dobiveni HTML podudara s nizom koji odgovara procjeni izraza ('abcxyz '), pronađena je ranjivost.
+</p><p><b>fileUpload</b> - Pokušava iskoristiti ranjivosti nezaštičenih formi za prijenost datoteka. Web aplikacije uglavnom provjeravaju ekstenziju datoteke koja se šalje ali neke provjeravaju i sadržaj. Ideja je da se malicionzni kod ubaci unutar sekcije komentara i na taj način izbjegne provjera. Ukoliko se datoteka uspješno prenese na poslužitelj test je uspio.
+</p><p><b>htaccessMethods</b> - Traži ranjivosti uzrokovane pogreškama u konfiguraciji .htaccess datoteke.
+</p><p><b>localFileInclude</b> - Specifično za UNIX sustave. Test pokušava poslati naredbu tipa <i>../../../../../etc/passwd</i> kako bi dohvatio datoteku koja sadrži korisničke lozinke.
+</p><p><b>unSSL</b> - Provjerava jednakosti HTTP i HTTPS URL-a te identificira ranjivosti.
+</p><p><b>xsrf</b> - Cross-site request forgery - koristi povjerenje određene Web aplikacije u korisnikov pretraživač. Napad se najčešće izvodi postavljanjem malicioznog URL-a unutar slike. Korisnik otvranjem slike pokreće zahtjev u svoje ime te ga samim time Web aplikacija ovjerava. 
+</p><p><b>xss</b> - Cross-site scripting - ova ranjivost omogućuje ubacivanje malicioznog koda direktno u kodnu stranicu Web aplikacije. Najčešći oblik je putem alata za pretraživanje. Izraz koji se pretražuje će najčešće ponovo biti prikazan na stranici sa rezultatima, te ukoliko izraz izraz ne validira, napadaču se otvara mogućnost da na to mjesto ubaci svoj maliciozni kod.
+</p><p><b>xst</b> - Cross Site Tracing - Plugin radi tako da pozove HTTP TRACE metodu.Ukoliko on uspije, stranica je ranjiva na XST napad. Trace metoda zahtijeva da joj vrati zahtjev koji je poslan. Sa XST ranjivosti možemo prikupiti sve spremljene podatke na stranici (cookieje) uključujući i one koje koriste SSL.
+</p><p><b>LDAPi</b>- Šalje posebno izrađen string svakom parametru i analizira vračenu LDAP grešku. LDAP injection napad je za aplikacije koje se temelje na Lightweight Directory Access Protocol. LDAP je skup svih korisnika, aplikacija razvrstanih po IP-u mreži.
+</p><p><b>generic</b> - Pronalazi sve greške te one greške koje se ne nalaze u bazi poznatih grešaka vrača radi analize. Nova metoda koja omogućuje da analiziramo greške koje nisu uobičajene. Prvo pošalje zahtjev te ga spremi. Zatim šalje vrijednosti koje ne smiju biti. Ako parametar zahtjeva vrijednost dužine jedan, on će poslati naizmjence odabranu vrijednost duljine 8. Zatim šalje zahtjeve sad dva stringa svakom parametru. Jedan je  "d'kc"z'gj'"**5*(((;-*`)" dok je drugi prazan string te tako pokušava dobiti greške. 
+</p><p><b>xpath</b> - Pronalazi xpath injection tako da pošalje "d'z'0" string u sve moguće inpute te analizira vraćene xpath greške. xpath injection se koristi za web stranice koje imaju spremljene podatke u XML-u. 
+</p><p><b>osCommanding</b> - Pregledava li postoje slabosti na naredbe u operacijskom sustavu. Ima dvije tehnike napada: vrijeme odziva(time delay) i ispisivanje direktorija. Vrijeme odziva pinga server i ukoliko odgovori u određenom roku, napad je moguć.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Infrastructure_plugin">Infrastructure plugin</span></h4>
+<p>Pronalazi informacije o ciljanom sustavu (stranici koju skeniramo), na primjer instalirani WAF (firewall web aplikacija), operativni sustav.
+</p>
+<h4> <span class="mw-headline" id="Grep_plugin">Grep plugin</span></h4>
+<p>Analizira HTTP zahtjeve i odgovore koje šalju drugi pluginovi i prepoznaju ranjivosti. Na primjer, grep plugin će pronaći komentar u HTML-u koji ima riječ "password" i generira ranjivost.
+</p><p>Standardni slučaj korištenja w3af uključuje odabir nekog od postojećih profila ili izrađivanje vlastitog profila. ukoliko kreiramo vlasiti profil,možemo odabrati pojedinačne testove iz neke od gore navedenih skupina pluginova.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:694px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Profiles1.png" class="image"><img alt="" src="../images/9/93/Profiles1.png" width="692" height="239" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Profiles1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 4. Profil</b></div></div></div></div> 
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Profiles2.png" class="image"><img alt="" src="../images/thumb/d/d1/Profiles2.png/800px-Profiles2.png" width="800" height="390" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Profiles2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 5. Mogućnosti postavljanja profila za skeniranje</b></div></div></div></div> 
+<p><br />
+Ukoliko koristimo konzolni način rada, u pluginu target postavljamo URL ili IP adresu stranice (web aplikacije) koju želimo skenirati te nakon uspješne pohrane naredbom start možemo pokrenuti skeniranje.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Target2.png" class="image"><img alt="" src="../images/thumb/4/46/Target2.png/800px-Target2.png" width="800" height="304" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Target2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 6. Opcije plugina target</b></div></div></div></div> 
+<p><br />
+Jedan od korisnih pluginova je i output koji služi za odabir načina na koji će rezultati skeniranja biti prikazani i pohranjeni. Slika ispod prikazuje sve mogućnosti.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Output_plugin.png" class="image"><img alt="" src="../images/thumb/b/bb/Output_plugin.png/800px-Output_plugin.png" width="800" height="345" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Output_plugin.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 7. Način prikaza rezultata (output plugin)</b></div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Napredni_slu.C4.8Dajevi_kori.C5.A1tenja">Napredni slučajevi korištenja</span></h2>
+<p>Neke web aplikacije koriste tehnologije na bazi preglednika kao što su JavaScript, Flash i Java appleti, tehnologije koje preglednici razumiju,a w3af još uvijek ne može.
+</p><p>Plugin koji se zove <b>spider_man</b> stvoren je za rješavanje ovog problema, omogućuje korisnicima da analiziraju složene web aplikacije. Plugin pokreće HTTP proxy koji korisnik upotrebljava za pristup ciljanom web sučelju,a tijekom tog postupka plugin će izdvojiti informacije iz zahtjeva i poslati ih na omogućene audit pluginove.
+</p><p>Primjer korištenja preuzet sa službene stranice w3af:<br />
+w3af&gt;&gt;&gt; plugins<br />
+w3af/plugins&gt;&gt;&gt; crawl spider_man<br />
+w3af/plugins&gt;&gt;&gt; audit sqli<br />
+w3af/plugins&gt;&gt;&gt; back<br />
+w3af&gt;&gt;&gt; target<br />
+w3af/target&gt;&gt;&gt; set target <a href="http://localhost/" class="external free" rel="nofollow">http://localhost/</a><br />
+w3af/target&gt;&gt;&gt; back<br />
+w3af&gt;&gt;&gt; start<br />
+spider_man proxy is running on 127.0.0.1:44444 .<br />
+Please configure your browser to use these proxy settings and navigate the target site.<br />
+To exit spider_man plugin please navigate to <a href="http://127.7.7.7/spider_man?terminate" class="external free" rel="nofollow">http://127.7.7.7/spider_man?terminate</a>.<br />
+</p><p><br />
+</p><p><br />
+w3af se može koristiti za prepoznavanje i iskorištavanje ranjivosti u REST API-jima. Za identificiranje ranjivosti također koristimo plugin 
+</p>
+<ol><li>Pokrenite spider_man pomoću koraka navedenih u prethodnom odjeljku
+</li><li>Konfiguriranje klijenta REST API-ja za slanje HTTP zahtjeva preko `` 127.0.0.1: 44444`
+</li><li>Pokrenite klijent REST API
+</li><li>Zaustavimo spider_man proxy pomoću naredbe: '<b>curl -X GET <a href="http://127.7.7.7/spider_man?terminate" class="external free" rel="nofollow">http://127.7.7.7/spider_man?terminate</a> --proxy <a href="http://127.0.0.1:44444" class="external free" rel="nofollow">http://127.0.0.1:44444</a></b>
+</li></ol>
+<h2> <span class="mw-headline" id="Primjer_kori.C5.A1tenja"> Primjer korištenja</span></h2>
+<p>w3af GUI pokrećemo tako da se u terminalu pozicioniramo na mapu u kojoj smo instalirali alat i upišemo naredbu <b>./w3af_gui</b>, nakon čega se otvara korisničko sučelje u kojem dalje možemo mijenjati razne opcije. Kako je korištenje GUI verzije puno jednostavnije od konzole, neću pretjerano detaljno opisivati postupak.
+</p><p><br />
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W31.png" class="image"><img alt="" src="../images/thumb/8/8c/W31.png/800px-W31.png" width="800" height="335" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W31.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 8. w3af skeniranje</b></div></div></div></div>
+<p><br />
+Kao i kod konzole, moguće je kreiranje vlastitog profila za skeniranje, ili odabir nekog postojećeg.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W32.png" class="image"><img alt="" src="../images/thumb/0/0d/W32.png/800px-W32.png" width="800" height="330" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W32.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 9. Skeniranje - odabir profila </b></div></div></div></div>
+<p><br />
+</p><p>Važno je napomenuti da je skeniranje web aplikacija koje nisu naše ilegalno. Za potrebe ovog projekta nisam radila vlastite aplikaciju, nego sam skenirala dvije web aplikacije dostupne preko OWASP Broken Web Appication Projecta (OWASPBWA). OWASPBWA je kolekcija ranjivih web aplikacija dostupnih preko virtualne mašine koju je potrebno zasebno instalirati. Nakon uspješne instalacije dobivamo IP adresu preko koje možemo pristupiti tim navedenim ranjivim aplikacijama. Kolekcija osim starih ranjivih verzija nekih web aplikacija kao što su Joomla i WordPress sadrži i niz trening stranica na kojima možemo vježbati vlastita znanja o sigurnosti i ranjivostima aplikacija. 
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W33.png" class="image"><img alt="" src="../images/thumb/6/6e/W33.png/800px-W33.png" width="800" height="390" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W33.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 10. Rezultati skeniranja</b></div></div></div></div>
+<p><br />
+Za potrebe projekta odabrala sam triweb aplikacije, Google Gruyere, staru, ranjivu verziju Wordpressa i web aplikaciju Vicnum.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W34.png" class="image"><img alt="" src="../images/thumb/4/4d/W34.png/800px-W34.png" width="800" height="390" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W34.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 11. Detalji rezultata skeniranja</b></div></div></div></div>
+<p><br />
+Nakon pokretanja skeniranja, nakon kraćeg vremena prekinula sam skeniranje da bih provjerila rezultate.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W35.png" class="image"><img alt="" src="../images/thumb/c/c3/W35.png/800px-W35.png" width="800" height="390" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W35.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 12. Web aplikacija Vicnum - skeniranje</b></div></div></div></div>
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W36.png" class="image"><img alt="" src="../images/thumb/4/40/W36.png/800px-W36.png" width="800" height="390" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W36.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 13. Rezultati skeniranja</b></div></div></div></div>
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W37.png" class="image"><img alt="" src="../images/thumb/f/f0/W37.png/800px-W37.png" width="800" height="390" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:W37.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 14. Detalji pronađene ranjivosti - primjer</b></div></div></div></div>
+<p><br />
+Nakon završetka skeniranja u polju Results prikazani su rezultati (ukoliko je pronađena koja ranjivost). Klikom na određenu stavku iz rezultata, vidimo detaljan opis svake od njih te što je pošlo po zlu, to jest, što ne radi kako treba i u kojem dijelu je ranjivost pronađena.
+</p><p><br />
+</p>
+<hr />
+<h1> <span class="mw-headline" id="Arachni"> Arachni </span></h1>
+<p>Drugi alat koji sam u sklopu projekta trebala analizirati je Arachni. Arachni je modularni, visoko performasni framework temeljen na Ruby programskom jeziku. Kao svim besplatnim alatima,
+cilj mu je pomoći administratorima i testerima da testiraju ranjivost i sigurnost svojih web aplikacije.ima
+</p><p>Za razliku od drugih skenera , Arachni u obzir uzima dinamičku prirodu web aplikacija pa tako može detektirati promjene nastale tokom prolaska kroz web aplikacijsku kompleksnost i može se prilagoditi temeljeno tome. Na ovaj način se prepoznaju neki vektori napada koji bi inače ostali neprepoznani da ih je običan korisnik išao pronalaziti.
+</p><p>Budući da mu je cijelo okruženje ugrađeno u pregledniku, lako je moguće pronaći i istražiti klijentsku stranu koda. Također, sadrži podršku za visoko-kompleksne web aplikacije koje 
+koriste tehnologije poput JavaScript-a, HTML5, DOM manipulacije i AJAX-a.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Instalacija_2"> Instalacija</span></h2>
+<p>Za razliku od w3af, instalacija je puno jednostavnija. Nakon preuzimanja i raspakiravanja prikladnog paketa, preko terminala se pozicioniramo u datoteku <b>bin</b> te upisivanjem naredbe <b>./arachni_web</b> pokrećemo korisiničko sučelje.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:739px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar1.png" class="image"><img alt="" src="../images/2/27/Ar1.png" width="737" height="488" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 15. Pokretanje </b></div></div></div></div>
+<p><br />
+U pregledniku nakon toga upisujemo <b>localhost:9292</b> što nam otvara web verziju alata.
+Nakon otvaranja početne stranice, potrebno se prijaviti, možemo se prijaviti kao regularni korisnik (username:user@user.user, password:regular_user) ili kao administrator (username:admin@admin.admin, password:administrator).
+</p>
+<h2> <span class="mw-headline" id="Mogu.C4.87nosti"> Mogućnosti </span></h2>
+<p>Ovaj skener za ranjivosti dolazi sa velikim brojem i potpunom podrškom za razne poznate ranjivosti koje dobra web aplikacija ne bi trebala imati. Najpopularniji proboji koji su poznati i podržani su: <b>XSS, </b>
+<b>SQL injection, </b>NoSQL injection,<b> </b>Code injection <b>i </b>File inclusion variants<b>.   Arachni kontinuirano nadopunjuje i ažurira svoj alat s najnovijim otkrivenim vrstama ranjivosti web aplikacija.</b>
+</p><p>Kao što sam već spomenula, zahvaljujući tome što je sučelje integrirano u web preglednik, Arachni može analizirati i najkompleksnije web aplikacije, ima podršku za: JavaScript/DOM/HTML5/AJAX, praćenje podataka i tijek izvođenja DOM i JavaScript okruženja te omogućuje i dodatno praćenje optimizacija za poznate JavaScript frameworke poput jQuery i AngularJS, što ga čini Arachni jedinstvenim web aplikacijskih skenera.
+</p>
+<h2> <span class="mw-headline" id="Neke_od_dostupnih_provjera"> Neke od dostupnih provjera </span></h2>
+<p>Da bi smo vidjeli sve provjere koje omogućava Arachni, u terminal upišemo naredbu <b>arachni --check-list</b>.
+</p><p>Neke od mnogih su:
+</p><p><b>common_files</b> - Pokušava pronaći zajedničke osjetljive datoteke na serveru
+</p><p><b>interesting_responses</b> - Prijavljuje sve odgovore servera koji nisu OK
+</p><p><b>insecure_cookies</b> - Zapisuje "cookieje" koji su korišteni preko kriptiranog kanala, bez da im je postavljena zastavica "secure".
+</p><p><b>private_ip</b> - Skenira stranice s privatnim IP adresama
+</p><p><b>hsts</b> -Provjerava da li HTTPS stranicama nedostaje " Strict Transport Security" zaglavlje
+</p><p><b>unencrypted_password_forms</b> - Pretražuje forme za unošenje lozinke koja ne šalje podatke preko kripitranog kanala HTTPS
+</p><p><b>xss</b> - Umeće HTML element u ulaz stranice, a zatim parsira HTML oznake i označva odgovor te traži dokaz ranjivosti
+</p><p><b>code_injection</b> - Umeće dijelove koda i procjenjuje bi li izvršavanje bilo uspješno ili ne
+</p><p><b>file_inclusion</b> - ubacuje putanje zajedničkih datoteka (kao što je `/ etc / passwd` i` boot.ini`) i ocjenjuje postojanje ranjivosti u uključenim datotekama na temelju prisutnosti relevantnog sadržaja ili pogreške u tijelu HTTP odgovora
+</p>
+<h2> <span class="mw-headline" id="Primjer_kori.C5.A1tenja_2"> Primjer korištenja</span></h2>
+<p>Nakon uspješne prijave, otvara nam se ekran sa statističkim podacima svih prošlih skeniranja.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar3.png" class="image"><img alt="" src="../images/thumb/a/ad/Ar3.png/800px-Ar3.png" width="800" height="284" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 16. Početni ekran</b></div></div></div></div>
+<p><br />
+Kao i kod w3af alata, i ovdje možemo odabrati neki od pstojećih profila ili kreirati svoj profil za skeniranje. Ovdje su, za razliku od w3af, dostupna samo 3 - default, SQL Injection i Cross Site Scripting.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar4.png" class="image"><img alt="" src="../images/thumb/5/50/Ar4.png/800px-Ar4.png" width="800" height="293" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 17. Postavljanje profila</b></div></div></div></div>
+<p><br />
+Nakon što odaberemo profil skeniranja, unesemo URL web aplikacije koju želimo skenirati i pokrećemo postupak.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar5.jpg" class="image"><img alt="" src="../images/thumb/9/9a/Ar5.jpg/800px-Ar5.jpg" width="800" height="367" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar5.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 18. Primjer prikaza rezultata skeniranja</b></div></div></div></div>
+<p><br />
+Nakon završetka skeniranja, dobijemo detaljan prikaz pronađenih ranjivosti, kao gore na slici 18. Klikom na pojedinu ranjivost omogućen nam je detaljan opis ranjivosti i gdje je pronađena.
+Pronađene ranjivosti mogu biti i prikazane u obliku grafa (pie chart), ovisno o opcijama koje odaberemo. Odabir opcija u GUI veriji veoma je jednostavan, dizajn je user friendly i preporučila bih ovaj alata jer daje detaljan uvid u pronađene ranjivosti.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar6.png" class="image"><img alt="" src="../images/thumb/1/1c/Ar6.png/800px-Ar6.png" width="800" height="392" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ar6.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 19. Primjer prikaza rezultata - grafovi</b></div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>Oba alata analizirana u ovom projektu od velike su koristi prilikom analiza ranjivosti i revizije web aplikacija. I jedan i drugi imaju svojih prednosti, ali i nedostataka. Dok w3af još ne može u potpunosti točno i precizno analizirati kompleksne web aplikacije, Arachni je jedan od boljih besplatnih alata za te potrebe. S druge strane, kao prednost w3af navela bih veliku brzinu i mnogobrojne pluginove koji mogu otkriti različite vrste ranjivosti. Kako je sigurnost temelj dobre web aplikacije, savjetovala bih korištenje čim više ovakvih alata kako bi se što bolje pokrili svi aspekti sigurnosti i moguće ranjivosti.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. <a href="http://www.arachni-scanner.com/" class="external autonumber" rel="nofollow">[3]</a><i>Arachni - Web Application Security Scanner Framework</i> (Pristupljeno 02.02.2018.)<br />
+2. <a href="https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf" class="external autonumber" rel="nofollow">[4]</a>
+OWASP: <i>OWASP Top 10 - 2017: The Ten Most Critical Web Application Security Risks</i>(Pristupljeno 02.02.2018.)<br />
+3. <a href="http://docs.w3af.org/en/latest/" class="external autonumber" rel="nofollow">[5]</a> Andres Riancho&#160;: <i>Web Application Attack and Audit Framework (w3af)</i> (Pristupljeno 02.02.2018.)<br />
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 127/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9973-0!*!0!!hr!2!edit=0 and timestamp 20190203204142 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html">http://security.foi.hr/wiki/index.php/Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Ispitivanje_ranjivosti_web_aplikacija_pomo%C4%87u_alata_Arachni_i_w3af&amp;oldid=43339" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 19:24, 4. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 327 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Ispitivanje_ranjivosti_web_aplikacija_pomoću_alata_Arachni_i_w3af", "wgTitle": "Ispitivanje ranjivosti web aplikacija pomoću alata Arachni i w3af", "wgAction": "view", "wgArticleId": 9973, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43339, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.451 secs. -->			</body>
+</html>

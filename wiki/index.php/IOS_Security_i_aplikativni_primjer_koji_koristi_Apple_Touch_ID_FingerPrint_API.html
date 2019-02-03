@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>IOS Security i aplikativni primjer koji koristi Apple Touch ID FingerPrint API - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">IOS Security i aplikativni primjer koji koristi Apple Touch ID FingerPrint API</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#mw-head">orijentacija</a>,
+					<a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi:
+Darijan Vertovšek
+Hrvoje Hrvoić
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Arhitektura_iOS-a"><span class="tocnumber">2</span> <span class="toctext">Arhitektura iOS-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Core_OS"><span class="tocnumber">2.1</span> <span class="toctext">Core OS</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Core_Services"><span class="tocnumber">2.2</span> <span class="toctext">Core Services</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Multimedijski_sloj"><span class="tocnumber">2.3</span> <span class="toctext">Multimedijski sloj</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Cocoa_Touch_sloj"><span class="tocnumber">2.4</span> <span class="toctext">Cocoa Touch sloj</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Sigurnost_iOS-a"><span class="tocnumber">3</span> <span class="toctext">Sigurnost iOS-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Podjela_sigurnosnih_aspekata"><span class="tocnumber">3.1</span> <span class="toctext">Podjela sigurnosnih aspekata</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Sigurnost_sustava"><span class="tocnumber">3.2</span> <span class="toctext">Sigurnost sustava</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Secure_boot_chain"><span class="tocnumber">3.2.1</span> <span class="toctext">Secure boot chain</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Autorizacija_sistemskog_softvera"><span class="tocnumber">3.2.2</span> <span class="toctext">Autorizacija sistemskog softvera</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Sigurnosna_Enklava"><span class="tocnumber">3.2.3</span> <span class="toctext">Sigurnosna Enklava</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Touch_ID"><span class="tocnumber">3.2.4</span> <span class="toctext">Touch ID</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Aplikativni_primjeri"><span class="tocnumber">4</span> <span class="toctext">Aplikativni primjeri</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Touch_ID_API_Demo_App"><span class="tocnumber">4.1</span> <span class="toctext">Touch ID API Demo App</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Priprema_za_kori.C5.A1tenje_Touch_ID_funkcionalnosti"><span class="tocnumber">4.1.1</span> <span class="toctext">Priprema za korištenje Touch ID funkcionalnosti</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Touch_ID_API_Demo"><span class="tocnumber">4.1.2</span> <span class="toctext">Touch ID API Demo</span></a>
+<ul>
+<li class="toclevel-4 tocsection-18"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Video"><span class="tocnumber">4.1.2.1</span> <span class="toctext">Video</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Aplikacija_za_kriptiranje.2Fpotpis_datoteke_-_Crypt"><span class="tocnumber">4.2</span> <span class="toctext">Aplikacija za kriptiranje/potpis datoteke - Crypt</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Video_2"><span class="tocnumber">4.2.1</span> <span class="toctext">Video</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p><b>iOS</b> je ime za mobilni operacijski sustav razvijen od strane Apple-a prvenstveno za <b>iPhone</b> uređaje no s vremenom je proširen i na sljedeće proizvode: <b>iPad</b>, <b>Apple TV i IPod Touch</b>. U lipnju 2015. iOS je na tržištu mobilnih uređaja kotirao sa udjelom zastupljenosti od 39%, iza Androida koji trenutno zauzima 52% tržišta. Trenutno najnovija verzija iOS-a jest <b>iOS 9</b>. Svaki Apple uređaj koji radi na iOS operacijskom sustavu kombinira softver, hardver i servise koji u integraciji osiguravaju sigurnost i transparentni UI što će biti i prikazano u nastavku.
+</p>
+<h2> <span class="mw-headline" id="Arhitektura_iOS-a"> Arhitektura iOS-a </span></h2>
+<h3> <span class="mw-headline" id="Core_OS"> Core OS </span></h3>
+<p>Arhitektura iOS operacijskog sustava ima četiri sloja. Prvi i najniži (korisniku najudaljeniji) sloj je operacijski sustav u užem smislu (eng. Core OS). U njemu se nalazi jezgra (eng. kernel) koja je zapravo baziran na Unix operacijskom sustavu (BSD) pa zato možete i vidjeti sličnosti naredbi unutar ljuske između Linuxa i OS X-a. Tu su socketi, dio za upravljanje napajanjem i Bonjour - dio za upravljanje mrežnom konfiguracijom (dodjela adresa i DNS). Mach 3.0 je dio koji služi za podršku multiprocesorskom radu.  Sve to i ostale komponente arhitekture koje su samoobjašnjavajuće možete vidjeti na sljedećoj slici: 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:315px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IosA1.png" class="image"><img alt="" src="../images/a/a6/IosA1.png" width="313" height="188" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">iOS Arhitektura: najniži sloj, izvor: <a href="https://www.youtube.com/watch?v=GOEPVM5OzJk&amp;list=PLy7oRd3ashWodnpf8rjfYEkTgwbOEsKfU" class="external text" rel="nofollow">Stanford</a> </div></div></div></div></div>
+<h3> <span class="mw-headline" id="Core_Services"> Core Services </span></h3>
+<p>Na sljedećoj slici moguće je vidjeti drugi sloj odnosno sloj glavnih servisa. To je skup osnovnih sistemskih servisa koji služe aplikacijama. Sadrži individualne tehnologije koje pružaju funkcionalnosti poput lokacije, iCloud-a (pruža vašim aplikacijama da spremaju podatke na server)  i upravljanja mrežom tipa servisi za mreže ravnopravnih čvorova (eng. P2P). Također, kao i u Androidu pruža servis za rad s SQLite bazama podataka. Brine se za pristup sklopovlju putem objektno orijentirane paradigme preko servisa.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:317px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IosA2.png" class="image"><img alt="" src="../images/1/13/IosA2.png" width="315" height="205" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">iOS Arhitektura: Core Services sloj, izvor: <a href="https://www.youtube.com/watch?v=GOEPVM5OzJk&amp;list=PLy7oRd3ashWodnpf8rjfYEkTgwbOEsKfU" class="external text" rel="nofollow">Stanford</a> </div></div></div></div></div>
+<h3> <span class="mw-headline" id="Multimedijski_sloj"> Multimedijski sloj </span></h3>
+<p>Multimedijski sloj obuhvaća razvojne okvire za 3D, audio, video formate itd. Ovaj sloj, te biblioteke za pristup istome, su najbitniji developerima igrica ili programa koji koriste uređivanje videa ili zvuka.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:323px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IosA3.png" class="image"><img alt="" src="../images/b/b1/IosA3.png" width="321" height="212" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">iOS Arhitektura:Multimedijski sloj, izvor: <a href="https://www.youtube.com/watch?v=GOEPVM5OzJk&amp;list=PLy7oRd3ashWodnpf8rjfYEkTgwbOEsKfU" class="external text" rel="nofollow">Stanford</a> </div></div></div></div></div>
+<h3> <span class="mw-headline" id="Cocoa_Touch_sloj"> Cocoa Touch sloj </span></h3>
+<p>Zadnji i korisniku najbliži sloj, jest Cocoa Touch sloj. Služi za komunikaciju s korisnikom odnosno programer će putem ovog sloja ostvariti interakciju s krajnjim korisnikom. Sastoji se od osnovnih razvojnih okvira za izgradnju iOS aplikacija. Ovi okviri definiraju izgled vaše aplikacije. Pružaju ključne tehnologije poput višezadaćnosti, skup klasa za definiranje Viewa i njihovih kontrolera, prepoznavanja ulaznih gesti na dodir, push notifikacija te sistemske servise visoke razine. Dakle, programer će prilikom dizajniranja aplikacije prvo potražiti rješenje u ovom skupu biblioteka, ukoliko njegove potrebe nisu zadovoljene strovaliti će se u niže slojeve.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:323px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IosA4.png" class="image"><img alt="" src="../images/b/bf/IosA4.png" width="321" height="199" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">iOS Arhitektura: Cocoa Touch sloj, izvor: <a href="https://www.youtube.com/watch?v=GOEPVM5OzJk&amp;list=PLy7oRd3ashWodnpf8rjfYEkTgwbOEsKfU" class="external text" rel="nofollow">Stanford</a> </div></div></div></div></div>
+<h2> <span class="mw-headline" id="Sigurnost_iOS-a"> Sigurnost iOS-a </span></h2>
+<p>iOS i njegovi uređaji pružaju napredne funkcionalnosti koje se tiču sigurnosti, no unatoč tome one se lako koriste. Mnogo njih je inicijalno uključeno, tako da smanji broj potrebnih sigurnosnih konfiguracija. S druge strane, neki sigurnosni aspekti koji su ključni za funkcioniranje ovakvog sustava su ugrađeni u srž uređaja tako da se ne mogu promijeniti.  Za primjer, enkripcija uređaja je uvijek uključena, tako da nepažljivi/needucirani korisnici isključivanjem te opcije ne bi kompromitirali sigurnost uređaja. Druge funkcionalnosti poput Touch ID-ja zbog svoje intuitivnosti i jednostavnosti poboljšavaju iskustvo korištenja (UX) prilikom primjena sigurnosnih mjera nad uređajem. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:339px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IphoneSecurityArchitecture.png" class="image"><img alt="" src="../images/f/fe/IphoneSecurityArchitecture.png" width="337" height="619" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">iOS Arhitektura: sigurnosni pogled, izvor: <a href="https://www.apple.com/business/docs/iOS_Security_Guide.pdf" class="external text" rel="nofollow">iOS Security Guide</a> </div></div></div></div></div>
+<h3> <span class="mw-headline" id="Podjela_sigurnosnih_aspekata"> Podjela sigurnosnih aspekata </span></h3>
+<p>Prema Appleu postoji 8 područja sigurnosti iOS-a: 
+</p>
+<ol><li> Sigurnost sustava - integrirani softver i hardver koji su platforma za uređaje iPhone, iPad, i iPod touch.
+</li><li> Enkripcija i zaštita podataka - arhitektura i dizajn koji će štititi korisnikove podatke ako je uređaj ukraden ili ako neautorizriana osoba proba modificirati podatke. 
+</li><li> Aplikativna zaštita - sustav koji omogućuje sigurno pokretanje i izvođenje aplikacija securely bez kompromitiranja rada sustava (integritet sustava ostaje netaknut). 
+</li><li> Mrežna sigurnost - standardni mrežni protokoli koji osiguravaju sigurnu autentifikaciju i enkripciju podataka prilikom njihova prijenosa.
+</li><li> Internet servisi - Apple-ova mrežna infrastruktura za slanje poruka, backup i sinkronizaciju.
+</li><li> Apple Pay - Apple-ova implementacija sigurnog plaćanja. 
+</li><li> Kontrola uređaja - metode koje sprječavaju neautorizirano korištenje uređaja + daljinsko brisanje podataka ukoliko je uređaj ukraden/izgubljen. 
+</li><li> Kontrola privatnosti - kontrola pristupa servisima koji se tiču lokacije i korisničkih podataka. 
+</li></ol>
+<h3> <span class="mw-headline" id="Sigurnost_sustava"> Sigurnost sustava </span></h3>
+<p>Ovo je aspekt koji uključuje boot process, update Software-a i tzv. Sigurnosnu Enklavu (eng. <i>Secure Enclave</i>). Osigurava sigurnost  hardvera i softvera unutar sustava (diljem cijele arhitekture), međusobno optimiziranost i da koriste resurse na pravi način. 
+</p>
+<h4> <span class="mw-headline" id="Secure_boot_chain"> Secure boot chain </span></h4>
+<p>Kako mu ime govori, ovo je proces sigurnosnog pokretanja sustava prilikom čega su koraci digitalno potpisani od strane Apple-a = <i>chain of trust</i>.  Dakle, svaki korak u lancu se brine za sljedeći odnosno svaki korak osigurava da je sljedeći digitalno potpisan od Apple-a (izvršava se validacija prije pokretanja sljedećeg koraka).
+Konkretno, to se događa na sljedeći način: 
+</p>
+<ol><li>Uključite iOS uređaj
+</li><li> Aplikacijski procesor (još postoji i mrežni - baseband procesor) izvršava kod iz ROM-a = Boot ROM. Pošto je nepromjenjiv (stvoren prilikom proizvodnje čipa - "ulijan"), implicitno mu se vjeruje.
+</li><li> The Boot ROM kod također sadrži javni ključ od Apple Root CA, koji se koristi za validaciju da je Low-Level Bootloader (LLB) potpisan od strane Apple-a prije njegovog učitavanja.
+</li><li>LLB izvršava svoje zadatke, kada ih završava, provjerava (na isti način kao i prije) i  pokreće bootloader više razine, tzv. <i>iBoot</i>
+</li><li> iBoot provjerava i pokreće jezgru iOS operacijskog sustava.
+</li></ol>
+<p>Ukoliko samo jedan korak zakaže dobit će se poruka “Connect to iTunes”- tzv. recovery mode. Tada se morate spojiti preko USB-a i riješiti problem resetiranjem na tvorničke postavke putem iTunes-a. Ako Boot ROM ne može loadati ili verificirati LLB, ulazi u tzv. <b>DFU</b> (Device Firmware Upgrade) način rada gdje možete restore-ati vaš softver i biti uvjereni da je softver nemodificiran. Kako samostalno ući u DFU mode: <a href="http://www.iphonehacks.com/put-iphone-in-dfu-mode" class="external autonumber" rel="nofollow">[1]</a> <br />
+Kao što vidimo, ovakav lanac validacije osigurava da najniže razine softvera nisu modificirane te omogućuje iOS-u  pokretanje samo na validiranim Apple uređajima.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Securebootchain.jpg" class="image"><img alt="" src="../images/b/ba/Securebootchain.jpg" width="600" height="197" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center"> Ilustracija: Secure boot chain, izvor: <a href="http://www.fhshh.com/security-ios-worm-and-apple.html" class="external text" rel="nofollow">fhshh.com</a> </div></div></div></div></div>
+<h4> <span class="mw-headline" id="Autorizacija_sistemskog_softvera"> Autorizacija sistemskog softvera </span></h4>
+<p>Apple objavljuje sigurnosna (kao i sva druga) ažuriranja softvera te će korisnici za to dobiti notifikaciju i u tom slučaju se mogu spojiti na iTunes te skinuti novu verziju softvera. Kako bi spriječili spuštanje verzije OS-a na nižu (stariju) kojoj fale zadnja sigurnosna ažuriranja (u slučaju da napadač samostalno downgrade-a softvare), iOS koristi autorizaciju sistemskog softvera (eng. System Software Authorization). U novijim verzijama uređaja (koji koriste A7+ verzije procesora) dodatni procesor zvan "Sigurnosna Enklava" pokreće autorizaciju da bi osigurao integritet softvera prevencijom downgrade-anja. Dva su načina ažuriranja: direktno na uređaju (eng. <i>Over the Air - OTA</i>) ili putem iTunesa. Razlika je samo u tome što se putem iTunesa skida potpuna kopija iOS sustava a OTA način skida samo potrebne nadogradnje. Konkretno, ažuriranje se odigrava na slijedeći način: 
+</p>
+<ol><li> iTunes / sam uređaj(OTA način) povezuje se na Appleov server za autorizaciju instalacije i šalje: 
+<dl><dd><ul><li> listu kriptografskih mjera za svaki dio instalacije. Dio instalacije npr. može biti prethodno spomenuti LLB, iBoot, jezgra ili image OS-a. 
+</li><li> nonce (za prevenciju man-in-the middle modifikacije)
+</li><li> jedinstveni ID uređaja - <b>ECID</b>.
+</li></ul>
+</dd></dl>
+</li><li> Autorizacijski server provjerava listu kriptografskih mjera te ako nađe pogodak (jednu od mjera prikladnu za dio nadogradnje koji će poslati natrag) dodaje ECID mjeri i potpisuje rezultat. Dakle, server će poslati set potpisanih podataka uređaju. Dodavanje ECID-a personalizira autorizaciju točno za taj uređaj. 
+</li><li> Prethodno spomenuta validacija kod pokretanja sustava (chain-of-trust) provjerava dolazi li potpis od strane Applea (root CA public key) i da kriptografska mjera određenog dijela koji se boot-a (npr. LLB) kombinirana s ECID-om uređaja potvrđuje ono što je bilo pokriveno potpisom (provjerava se hash). 
+</li></ol>
+<p>Ovi koraci osiguravaju autorizaciju za specifični uređaj te da stara verzija iOS-a s jednog uređaja ne može biti kopirana na drugi. Nonce spriječava da napadač presretne odgovor servera te ga modificira u svrhu promjene sistemskog softvera (kojeg poslije može exploitati).
+</p>
+<h4> <span class="mw-headline" id="Sigurnosna_Enklava"> Sigurnosna Enklava </span></h4>
+<p>Zanimljiva stvar koja se javlja u Appleovim A7+ procesorima je zasebni procesor/koprocesor "The Secure Enclave". Koristi se za odvajanje dvaju prethodno spomenutih procesa: sigurnog pokretanja sustava i autoriziranog ažuriranja softvera <b>odvojeno</b> od aplikacijskog procesora. Specijaliziran je za kriptografske operacije koje se tiču upravljanja sigurnosnim ključevima te <b>brine za integritet podataka i kada je jezgra (u apl. procesoru) kompromitirana</b>.  Kormunikacija između Enklave i aplikacijskog procesora je izolirana na prekidno-pogonjeni "mailbox" i zajedničke spremnike memorije. Svaka sigurnosna enklava ima svoj UID (jedinstveni ID) koji je potpuno izoliran od svih dijelova sustava te čak ni Apple nema podatak o njegovoj vrijednosti.  Prilikom svakog pokretanja uređaja, stvara se ključ te mu se dodaje UID. Ta kombinacija se koristi za kriptiranje memorijskog prostora uređaja osiguranog samo za Enklavu. Podaci koji će se spremati od strane Sigurnosne Enklave bit će kriptirani tom kombinacijom te nonce counterom (eng. <i>anti-replay counter</i>). Također, Sigurnosna Enklava je odgovorna za obradu podataka otiska prsta s Touch ID senzora (o Touch ID-u čitaba ide u nastavku) te provjeru odgovara li uneseni otisak registriranom. Komunikacija između Enklave i Touch ID senzora ide putem aplikacijskog procesora koji ne može čitati proslijeđene podatke. Ta komunikacija je pak kriptirana ključem sesije koji je predviđen za komunikaciju između Enklave i senzora. Za kriptiranje ključa sesije koristi se AES algoritam.
+</p>
+<h4> <span class="mw-headline" id="Touch_ID"> Touch ID </span></h4>
+<p>Touch ID je sustav prepoznavanja otisaka prstiju koji osigurava siguran pristup uređaju bržim i lakšim. Tehnologija čita podatke o otiscima prsta iz bilo kojeg kuta te tijekom vremena uči više o otisku prsta korisnika. Naime, senzori iz dana u dan proširuju mapu otiska te identificiraju dodatne čvorove koji se isprepliću sa svakim novim korištenjem. Touch ID čini korištenje dugih i kompleksnijih lozinki praktičnijim jer ih korisnici ne moraju unositi tako često. Touch ID također nadvladava nezgodno zaključavanje pomoću lozinke, i to ne tako da ga zamjenjuje, već da pruža pristup uređaju unutar razumnih vremenskih intervala.
+</p><p><b>Touch ID i pristupni kodovi</b>
+</p><p>Kako bi se koristio Touch ID, korisnici moraju postaviti svoj uređaj tako da je potreban pristupni kod za otključavanje. Kada Touch ID skenira te prepozna zapisani otisak prsta, uređaj se otključava bez da se korisnika pita za pristupni kod uređaja. No, uvijek se može koristiti pristupni kod umjesto Touch ID-ja, te se i mora koristiti u sljedećim situacijama:
+</p>
+<dl><dd><ul><li>Uređaj je upravo uključen ili ponovno pokrenut
+</li><li>Uređaj nije bio otključavan više od 48 sati
+</li><li>Uređaj je zaprimio udaljenu naredbu zaključavanja
+</li><li>Nakon 5 neuspješnih pokušaja da se analizira podudarajući otisak prsta
+</li><li>Kada se postavljaju ili zapisuju novi otisci prsta sa Touch ID-jem
+</li></ul>
+</dd></dl>
+<p><br />
+Kada se uključi Touch ID, uređaj se smjesta zaključa kada se pritisne tipka Sleep/Wake. Sa razinom sigurnosti koja koristi samo pristupni kod, mnogi korisnici postavljaju period zaključavanja uređaja, kako bi izbjegli unošenje koda svaki put kad se uređaj koristi. S Touch ID-jem, uređaj se zaključava svaki put kad ode u Sleep način rada, te traži otisak prsta(ili opcionalno-pristupni kod) prilikom svakog buđenja.
+</p><p><br />
+Touch ID je moguće "istrenirati" da prepozna do 5 različitih otisaka prsta. S jednim upisanim otiskom, šanse za nasumičnim podudaranjem sa nekim drugim su 1:50 000. Međutim, Touch ID dozvoljava samo 5 neuspješnih pokušaja za podudaranjem otiska prsta prije nego se od korisnika zatraži da unese pristupni kod kako bi dobio pristup. 
+</p><p><br />
+<b>Ostale primjene za Touch ID</b>
+</p><p>Touch ID se isto tako može postaviti da potvrđuje kupnje unutar iTunes Store-a, App Store-a te iBooks Store-a, tako da korisnici ne moraju unositi Apple ID lozinku. Kada se odabere opcija za autorizacijom kupnje, tokeni za autentikaciju se razmjenjuju između korisnika i Store-a. Token te kriptografski slučajni broj se drže u sigurnosnoj enklavi. Slučajni broj se porpisuje sa ključem sigurnosne enklave koji dijele svi uređaji zajedno sa iTunes Store-om.
+Touch ID se također može koristiti i za Apple Pay, odnosno Apple-ovom implementacijom sigurnog plaćanja. 
+Dodatno, aplikacije treće strane može koristiti sustavske API-je kako bi tražili od korisnika autentikaciju pomoću Touch ID-ja ili pristupnog koda. Aplikacija se samo obavještava o tome je li autentikacija bila uspješna ili ne, te ne može pristupiti povezanim podacima o upisanom otisku prsta.
+</p><p>Stavke unutar keychain-a se također mogu zaštiti pomoću Touch ID-a, te se otpuštaju samo od strane sigurnosne enklave u slučaju da se otisak prsta ili pristupni kod podudaraju. Developeri aplikacija također imaju na raspolaganju API-je koji provjeravaju da li je pristupni kod postavljen od strane korisnike, te da li mogu autenticirati ili otključati stavku keychain-a pomoću Touch ID-ja.
+</p><p><b>Touch ID sigurnost</b>
+</p><p>Senzor za otisak prsta je aktivan samo onda kada čelični prsten koji okružuje Home tipku detektira dodir prsta, što pokreće naprednu slikovnu matricu koja skenira prst te šalje sliku sigurnosnoj enklavi.
+Raster slike se privremeno sprema u enkriptiranoj memoriji unutar sigurnosne enklave dok se vektorizira za analizu, nakon čega se odbacuje.
+Analiza koristi mapiranje potkožnog reljefnog kuta toka (engl. subdermal ridge flow angle mapping), što je proces koji uzrokuje nestajanje detalja koji su potrebni za rekonstrukciju stvarnog otiska prsta korisnika. Rezultirajuća mapa čvorova se sprema bez ikakve informacije o identitetu u enkriptiranom formatu koji može čitati samo sigurnosna enklava, te se nikad ne šalje Apple-u niti se sprema na iCloud ili iTunes.
+</p><p><b>Kako Touch ID otključava iOS uređaj?</b>
+</p><p>Ukoliko se Touch ID isključi, prilikom zaključavanja uređaja, ključevi za klasu zaštite podataka, koji se čuvaju u sigurnosnoj enklavi, se odbacuju. Datoteke, te keychain stavke u toj klasi nisu dostupne sve dok korisnik ne otključa uređaj unošenjem svog pristupnog koda.
+Kada se Touch ID uključi, prilikom zaključavanja uređaja, ključevi se ne odbacuju. Umjesto toga, oni se u umotavaju s ključem koji se predaje Touch ID podsustavu unutar sigurnosne enklave. Kada korisnik pokuša otključati uređaj, ako Touch ID prepozna korisnikov otisak prsta, predaje ključ za otključavanje ključeva za zaštitu podataka, te se uređaj otključava. Ovaj proces pruža dodatnu zaštitu tako da traži od podsustava Touch ID i podsustava za zaštitu podataka da surađuju kako bi se uređaj otključao. Ključevi koji su potrebni kako bi Touch ID otključao uređaj se gube ukoliko se uređaj ponovno pokrene te se odbacuju od strane sigurnosne enklave nakon 48 sati ili nakon 5 propalih pokušaja prepoznavanja Touch ID-ja.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:IphoneTouchIDSensor2.jpg" class="image"><img alt="" src="../images/8/89/IphoneTouchIDSensor2.jpg" width="600" height="335" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">Touch ID senzor, izvor: <a href="http://www.iphonehacks.com/2013/09/iphone-5s-teardown.html" class="external text" rel="nofollow">iPhoneHacks</a> </div></div></div></div></div>
+<h2> <span class="mw-headline" id="Aplikativni_primjeri"> Aplikativni primjeri </span></h2>
+<h3> <span class="mw-headline" id="Touch_ID_API_Demo_App"> Touch ID API Demo App </span></h3>
+<h4> <span class="mw-headline" id="Priprema_za_kori.C5.A1tenje_Touch_ID_funkcionalnosti"> Priprema za korištenje Touch ID funkcionalnosti </span></h4>
+<p>Kako bi Touch ID Funkcionirao, prvo se treba konfigurirati tako da u postavkama postoji bar jedan otisak prsta. Na <a href="https://support.apple.com/en-us/HT201371" class="external text" rel="nofollow">Appleovoj stranici</a> objašnjena je procedura postavljanja otiska prsta.  Touch ID senzor (koji se nalazi na Home gumbu) je trenutno (siječanj 2016.) dostupan na sljedećim uređajima: iPhone 5s ili kasnije verzije, iPad Pro, iPad Air 2, or iPad mini 3 ili kasnije verzije. Prije korištenja samog Touch ID senzora treba podesiti 6-brojčanu šifru koja se koristi u iste svrhe. Touch ID se može koristiti za zaključavanje uređaja, kupnje na iTunesu i Appstoreu (umjesto regularne AppleID autentifikacije). Također, ponuđen je API za Touch ID tako da programeri mogu na intuitivan način zaštititi kritične dijelove svoje aplikacije. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:TouchIDSettings.png" class="image"><img alt="" src="../images/d/d6/TouchIDSettings.png" width="200" height="350" class="thumbimage" /></a>  <div class="thumbcaption"><div align="center">Touch ID settings, izvor: <a href="https://support.apple.com/en-us/HT201371" class="external text" rel="nofollow">Apple</a> </div></div></div></div></div>
+<h4> <span class="mw-headline" id="Touch_ID_API_Demo"> Touch ID API Demo </span></h4>
+<p>Izrađena je jednostavna iOS aplikacija koja prikazuje korištenje Touch ID funkcionalnosti. Korišteno je razvojno okruženje za razvoj Apple aplikacija - Xcode 7.2 te programski jezik Swift. Kod je dostupan na <a href="https://github.com/hhrvoic/touchIDSampleApp" class="external text" rel="nofollow">javnom repozitoriju</a>. Također, bitno je napomenuti da za testiranje ovakve aplikacije treba imati uređaj koji podržava ovu funkcionalnost, no na sreću, u Xcodeovom simulatoru koji podržava sve Apple uređaje postoji opcija uključivanja TouchID funkcionalnosti te simuliranja ispravnog/krivog otiska što je u videu (vidi dolje) i prikazano. Što se tiče tehničke strane, treba samo uključiti biblioteku <i>LocalAuthentication</i> i koristiti ponuđenu funkciju <i>evaluatePolicy</i> objekta tipa <i>LAContext</i> i dati joj argument LAPolicy.DeviceOwnerAuthenticationWithBiometrics (enumeracija) koji označava da će se koristiti lokalna autentifikacija koja koristi biometriju (potrebna je TouchID funkcionalnost). Nakon 3 neuspjela pokušaja s otiskom prsta autentifikacija nije zadovoljena i u praktičnim slučajevima korisniku će se zabraniti ulazak u kritični dio aplikacije.
+</p>
+<h5> <span class="mw-headline" id="Video"> Video </span></h5>
+<p><a href="https://vimeo.com/151243318" class="external text" rel="nofollow">Touch ID demo - video</a> 
+</p>
+<h3> <span class="mw-headline" id="Aplikacija_za_kriptiranje.2Fpotpis_datoteke_-_Crypt"> Aplikacija za kriptiranje/potpis datoteke - Crypt </span></h3>
+<p>Izrađena je demo iOS aplikacija (<a href="https://github.com/hhrvoic/Crypt" class="external text" rel="nofollow">Github repo</a>) koja će: 
+</p>
+<ul><li> Kriptirati datoteku AES algoritmom
+</li><li> Kriptirati datoteku RSA algoritmom 
+</li><li> Digitalno potpisati datoteku i provjeriti digitalni potpis
+</li></ul>
+<p>Korišteno je razvojno okruženje za razvoj Apple aplikacija - Xcode 7.2 te programski jezik Swift. 
+Aplikacija koristi vanjske biblioteke: <a href="https://github.com/henrinormak/Heimdall" class="external text" rel="nofollow">Heimdall</a> za RSA i digitalni potpis (MIT licencirani FW) te <a href="https://github.com/krzyzanowskim/CryptoSwift" class="external text" rel="nofollow">CryptoSwift</a> za AES kriptiranje.
+</p>
+<h5> <span class="mw-headline" id="Video_2"> Video </span></h5>
+<p><a href="https://vimeo.com/151249573" class="external text" rel="nofollow">Video dema</a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p><a href="https://www.apple.com/business/docs/iOS_Security_Guide.pdf" class="external free" rel="nofollow">https://www.apple.com/business/docs/iOS_Security_Guide.pdf</a>
+</p><p><a href="https://www.youtube.com/watch?v=GOEPVM5OzJk" class="external free" rel="nofollow">https://www.youtube.com/watch?v=GOEPVM5OzJk</a>
+</p><p><a href="https://github.com/henrinormak/Heimdall" class="external free" rel="nofollow">https://github.com/henrinormak/Heimdall</a>
+</p><p><a href="https://github.com/krzyzanowskim/CryptoSwift" class="external free" rel="nofollow">https://github.com/krzyzanowskim/CryptoSwift</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 91/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8686-0!*!0!!hr!2!edit=0 and timestamp 20190203204226 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html">http://security.foi.hr/wiki/index.php/IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API&amp;oldid=35175" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 09:58, 11. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 6.183 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "IOS_Security_i_aplikativni_primjer_koji_koristi_Apple_Touch_ID_FingerPrint_API", "wgTitle": "IOS Security i aplikativni primjer koji koristi Apple Touch ID FingerPrint API", "wgAction": "view", "wgArticleId": 8686, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 35175, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.347 secs. -->			</body>
+</html>

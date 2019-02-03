@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Pregled sigurnosti Google Android sustava - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Pregled_sigurnosti_Google_Android_sustava&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Pregled_sigurnosti_Google_Android_sustava skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Pregled sigurnosti Google Android sustava</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Pregled_sigurnosti_Google_Android_sustava.html#mw-head">orijentacija</a>,
+					<a href="Pregled_sigurnosti_Google_Android_sustava.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<center><b>SVEUČILIŠTE U ZAGREBU</b></center>
+<center><b>FAKULTET ORGANIZACIJE I INFORMATIKE</b></center>
+<center><b>VARAŽDIN</b></center>
+<p><br />
+<b>Mario Oršolić</b>
+</p><p><b>Redoviti student</b>
+</p><p><b>Broj indeksa: 41648/2012.</b>
+</p><p><b>Smjer: Informacijsko i programsko inženjerstvo</b>
+</p><p><b>Diplomski studij</b>
+</p><p><br />
+</p>
+<center><b>Pregled sigurnosti Google Android sustava</b></center>
+<p><br />
+<b>Mentor:</b>
+</p><p>Dr. sc. Tonimir<b> </b>Kišasondi
+</p><p><br />
+</p>
+<center><b>Varaždin, ožujak 2014.</b></center>
+<p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Pregled_sigurnosti_Google_Android_sustava.html#UVOD"><span class="tocnumber">1</span> <span class="toctext">UVOD</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Pregled_sigurnosti_Google_Android_sustava.html#SIGURNOSNA_ARHITEKTURA_ANDROID_PLATFORME"><span class="tocnumber">2</span> <span class="toctext">SIGURNOSNA ARHITEKTURA ANDROID PLATFORME</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Linux_jezgra"><span class="tocnumber">2.1</span> <span class="toctext">Linux jezgra</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Dm-verity"><span class="tocnumber">2.2</span> <span class="toctext">Dm-verity</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Koncept_korisnika_i_grupa"><span class="tocnumber">2.3</span> <span class="toctext">Koncept korisnika i grupa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Pregled_sigurnosti_Google_Android_sustava.html#APLIKACIJSKA_SIGURNOST"><span class="tocnumber">3</span> <span class="toctext">APLIKACIJSKA SIGURNOST</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Android_Sandbox"><span class="tocnumber">3.1</span> <span class="toctext">Android Sandbox</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Sustav_dopu.C5.A1tenja"><span class="tocnumber">3.2</span> <span class="toctext">Sustav dopuštenja</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Potpisivanje_i_verifikacija_aplikacija"><span class="tocnumber">3.3</span> <span class="toctext">Potpisivanje i verifikacija aplikacija</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Google_Play"><span class="tocnumber">3.4</span> <span class="toctext">Google Play</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Pregled_sigurnosti_Google_Android_sustava.html#ZA.C5.A0TITA_KORISNIKA"><span class="tocnumber">4</span> <span class="toctext">ZAŠTITA KORISNIKA</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Content_Providers"><span class="tocnumber">4.1</span> <span class="toctext">Content Providers</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Osobni_podaci"><span class="tocnumber">4.2</span> <span class="toctext">Osobni podaci</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Osjetljive_osobne_hardverske_komponente:_geolociranje.2C_kamera.2C_mikrofon"><span class="tocnumber">4.2.1</span> <span class="toctext">Osjetljive osobne hardverske komponente: geolociranje, kamera, mikrofon</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Device_metadata"><span class="tocnumber">4.2.2</span> <span class="toctext">Device metadata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Enkripcija_pametnog_telefona"><span class="tocnumber">4.3</span> <span class="toctext">Enkripcija pametnog telefona</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Sigurnosne_postavke_razli.C4.8Ditih_sustava"><span class="tocnumber">4.4</span> <span class="toctext">Sigurnosne postavke različitih sustava</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="Pregled_sigurnosti_Google_Android_sustava.html#PRAKTI.C4.8CNO_ISTRA.C5.BDIVANJE_SIGURNOSTI_ANDROIDA"><span class="tocnumber">5</span> <span class="toctext">PRAKTIČNO ISTRAŽIVANJE SIGURNOSTI ANDROIDA</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Mozilla_Firefox"><span class="tocnumber">5.1</span> <span class="toctext">Mozilla Firefox</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Google_Chrome"><span class="tocnumber">5.2</span> <span class="toctext">Google Chrome</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="Pregled_sigurnosti_Google_Android_sustava.html#Zlo.C4.87udne_skripte"><span class="tocnumber">5.3</span> <span class="toctext">Zloćudne skripte</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="Pregled_sigurnosti_Google_Android_sustava.html#ZAKLJU.C4.8CAK"><span class="tocnumber">6</span> <span class="toctext">ZAKLJUČAK</span></a></li>
+<li class="toclevel-1 tocsection-23"><a href="Pregled_sigurnosti_Google_Android_sustava.html#LITERATURA"><span class="tocnumber">7</span> <span class="toctext">LITERATURA</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="UVOD"> UVOD </span></h1>
+<div class="thumb tleft"><div class="thumbinner" style="width:87px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_1.png" class="image"><img alt="" src="../images/thumb/d/db/Maorsolic_1.png/85px-Maorsolic_1.png" width="85" height="99" class="thumbimage" /></a>  <div class="thumbcaption">Slika 1: Android logo (Android Developers, 2014a)</div></div></div>Android je mobilna platforma razvijana od strane Googlea; dizajnirana je u pogledu otvorene platforme prema: Apache softverskoj licenci, verzija 2.0 <sup><a href="http://www.apache.org/licenses/LICENSE-2.0" class="external free" rel="nofollow">http://www.apache.org/licenses/LICENSE-2.0</a>
+<p>Zbog ovakvog pristupa bilo je potrebno definirati robusni sigurnosni model koji bi osiguravao sigurnost podataka, korisnika, aplikacija uređaja i mreže. 
+</p><p>Prema (Android, 2014b): Android je izrađen s fokusom na developere, te su ugrađene različite sigurnosne kontrole kako bi smanjile teret prilikom razvoja softvera. No ovo nije unazadilo pristup naprednim sigurnosnim kontrolama, nego je sustav osmišljen u smislu početno dodijeljenih sigurnosnih kontrola tako da su svi developeri zaštićeni u određenom pogledu.
+</p><p>Osim fokusa na developere Android sustav sadrži ugrađene mehanizme za zaštitu korisnika; svakome korisniku priloženo je na uvid kako aplikacija koju instaliraju radi, odnosno kojim svojstvima i funkcionalnostima uređaja pristupa. Na ovaj način otežani su napadi uz pomoć socijalnog inženjeringa, instaliranja zloćudnih aplikacija, napade na aplikacije trećih strana i sl.
+</p><p>Alati korišteni u ovome istraživanju:
+</p>
+<ul><li> Eclipse Kepler – integrirano razvojno okruženje sa Android Development Tool (ADT) pluginom
+</li><li> Android SDK – razvojni alati Androida
+</li><li> Android debugging bridge (ADB) – alat za komunikaciju i upravljanje emulatorima i fizičkim uređajem preko naredbene linije (eng. <i>command line</i>)
+</li><li> Dalvik Debug Monitor Server – alat za debuggiranje integriran u ADT
+</li><li> HTC Sensation – Android verzija 4.3.1, CyanogenMod 10.2
+</li></ul>
+<h1> <span class="mw-headline" id="SIGURNOSNA_ARHITEKTURA_ANDROID_PLATFORME"> SIGURNOSNA ARHITEKTURA ANDROID PLATFORME </span></h1>
+<p>U svrhu ostvarivanja (Android, 2014b):
+</p>
+<ul><li> zaštite korisničkih podataka
+</li><li> zaštite sistemskih resursa
+</li><li> izolacije aplikacija
+</li></ul>
+<p>android sustav pruža sljedeće ključna svojstva:
+</p>
+<ul><li> robusna sigurnost na razini operacijskog sustava kroz Linux kernel
+</li><li> obavezno izvršavanje aplikacija u sandbox<sup>Sandbox- sigurnosni mehanizam zatvaranja aplikacije u kontrolirano okruženje u kojemu ima ograničene resurse, dopuštenja i sl. (Goldberg, Wagner, Thomas, i Brewer, 1996, str. 4) </sup> okruženju
+</li><li> potpisivanje aplikacija
+</li><li> Dopuštenja definirana aplikacijom i dopuštena od strane korisnika
+</li></ul>
+<p>Na Slika 2 može se vidjeti struktura Android softvera te sažete sigurnosne komponente kroz različite razine slojeva Android softvera.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:575px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_2.png" class="image"><img alt="" src="../images/thumb/c/c3/Maorsolic_2.png/573px-Maorsolic_2.png" width="573" height="400" class="thumbimage" /></a>  <div class="thumbcaption">Slika 2: Android software  stack (Android, 2014b)</div></div></div></div>
+<h2> <span class="mw-headline" id="Linux_jezgra"> Linux jezgra </span></h2>
+<p>Na dnu Androidove softverske hrpe nalazi se jezgra operativnog sustava temeljena na Security-Enhanced Linux operativnom sustavu te je dodatno prilagođena za mobilne uređaje od strane Googlea, tijekom razvoja novijih platformi Google je inkrementalno poboljšavao vlastitu verziju jezgre Linuxa te je pridonio stvaranju raznih sigurnosnih mehanizama koji su danas prihvaćeni te implementirani u glavnu verziju Linux jezgre verzije 3.3 [Kernelnewbies, 2012]
+</p><p>Neka od svojstava Androida implementiranih u Linux 3.3 verziju jezgre: 
+</p>
+<ul><li> <i>Binder</i> – interprocesni komunikacijski mehanizam visoke performanse koji služi za omogućavanje komunikacije između procesa.
+</li><li> <i>Logger</i> – dio sustava za logiranje određenih poruka nevezanih za poruke jezgre.
+</li><li> <i>Shrinker</i> – implementacija Androida u pogledu upravljanja aplikacijama, na ovaj način aplikacije ostaju u memoriji dok ih jezgra ne odluči uništiti.
+</li><li> <i>Pmem</i> – daje mogućnost alociranja fizički većeg neprekinutog spremnika kada je potrebno.
+</li></ul>
+<p>Kada sagledamo Linux jezgru sa perspektive sigurnosti postoje mnogi mehanizmi koji osiguravaju siguran rad sustava primjerice (Android, 2014b):
+</p>
+<ul><li> Sustav dopuštenja temeljen na korisnicima 
+</li><li> Izolacija procesa
+</li><li> Sigurni mehanizmi interprocesne komunikacije (IPC)
+</li><li> Mogućnost uklanjanja nepotrebnih i nesigurnih dijelova jezgre
+</li></ul>
+<h2> <span class="mw-headline" id="Dm-verity"> Dm-verity </span></h2>
+<p>„Android verzije 4.4 podržava verificirani boot kroz provjeri istinitosti uređaja (eng. <i>device-mapper-verity</i>) odnosno skraćeno <i>dm-verity</i> funkcionalnosti“ (Android, 2014c) gdje jezgra provjerava integritet uređaja odnosno blokova. Na ovaj način sprječava se pokretanje rootkit<sup>Zloćudan softver koji se skriva od sustava te omogućava privilegirani pristup uređaju od strane napadača</sup> zloćudnog softvera koji se obično mogao skriti prilikom pokretanja samog uređaja bez <i>dm-verity­</i> funkcionalnosti.
+</p><p>Istinitost blokova se provjerava uz pomoć sažetka (eng. <i>hash</i>) SHA256. Svaki izračunati sažetak bloka se uspoređuje sa stablom sažetaka, gdje korijenski sažetak mora biti pouzdan, na ovaj način cijelo stablo i njegova pouzdanost tj. istinitost je povezana kroz sažetke svih blokova, te ako postoje i najmanja odstupanja sa stablom sažetaka došlo je do promjene na sustavu te dolazi do greške u čitanju i poruke o izmijenjenosti datotečnog sustava (Slika 3). Kako ne bi došlo do pada performansi prilikom učitavanja uređaja, provjera blokova radi se po principu prvog pristupa, odnosno kada sustav pristupa određenom bloku sustava, paralelno se izvršava provjera bloka naspram stabla sažetaka te se verificira traženi blok i ponaša se u skladu s prethodno navedenim pravilima.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:598px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_3.png" class="image"><img alt="" src="../images/thumb/6/63/Maorsolic_3.png/596px-Maorsolic_3.png" width="596" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 3: Princip rada dm-verity funkcionalnosti (Android, 2014c)</div></div></div></div>
+<h2> <span class="mw-headline" id="Koncept_korisnika_i_grupa"> Koncept korisnika i grupa </span></h2>
+<p>Koncept korisnika i korisničkih grupa omogućio je da korisnik A ne može čitati i utjecati na resurse korisnika B ako ne ide preko sigurnih provjerenih mehanizama. Korisnik u ovome slučaju ne predstavlja nužno čovjeka kao korisnika uređaja nego podrazumijeva i aplikacije odnosno procese koji se izvode u sustavu i sl.
+</p><p>Svaki korisnik odnosno aplikacija sadrži svoj korisnički ID (eng. user ID – UID), osim korisničkih ID, postoje i grupe kojima se svaki korisnik može dodijeliti eng. group ID – GID. Zbog ovakvoga modela te svojstva Linux sustava da je gotovo svaki resurs sustava pohranjen u obliku datoteke, svaka datoteka pripada određenom korisniku, grupi ili ostalim korisnicima odnosno svim ostalim korisnicima sustava. Ovo se primjerice može vidjeti na Slika 4: Struktura datoteka, korisnika i korisničkih grupa gdje je prikazana struktura memorije Android sustava uz pomoć <i>ls </i>naredbe. Kao što je već navedeno svaka datoteka i direktorij sadrži pripadajućeg korisnika i grupu koji je njegov vlasnik te može upravljati svojim pridodijeljenim resursima, te u ovome slučaju svaka aplikacija sadrži vlastiti direktorij te posjeduje prava na upravljanje samo resursima na koje ima prava. 
+</p><p><br />
+</p><p><br />
+Ako bi običan korisnik pokušao ispisati sadržaj direktorija koji mu ne pripada dobili bi poruku o nedovoljnim pravima za pristup resursu. Kao što se može vidjeti na Slika 5: Ispis strukture direktorija kao root korisnik nakon prijave kao administrator naredbom <i><b>su </b></i>moguće je pristupiti prethodno zabranjenom direktoriju <i>/data </i>te ispisati njegov sadržaj i dopuštenja. Na ovaj način postignut je sigurnosni mehanizam zaštite podataka aplikacija, resursa sustava i ostalih osjetljivih podataka kroz prava pristupa.
+</p><p>Ovim podacima moguće je pristupati na dva načina, kao administratori sustava (Slika 6) odnosno root korisnik, ili kroz mehanizme sustava koji se nazivaju pružatelji sadržaja (eng. <i>Content Providers</i>).
+</p>
+<ul class="gallery" align="center">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:45px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_5.png" class="image"><img alt="" src="../images/thumb/e/e6/Maorsolic_5.png/120px-Maorsolic_5.png" width="120" height="60" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 5: Ispis strukture direktorija kao root korisnik|300x300px
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:53px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_6.png" class="image"><img alt="" src="../images/thumb/1/16/Maorsolic_6.png/120px-Maorsolic_6.png" width="120" height="43" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 6: Pristup podacima kontakata kao root korisnik|300x300px
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:23px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_4.png" class="image"><img alt="" src="../images/thumb/9/90/Maorsolic_4.png/120px-Maorsolic_4.png" width="120" height="104" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 4: Struktura datoteka, korisnika i korisničkih grupa|300x300px
+</p>
+			</div>
+		</div></li>
+</ul>
+<p><br />
+</p><p><br />
+Sloj iznad jezgre sustava sadrži temeljne biblioteke Androida pisane u C i C++ programskom jeziku te služe za upravljanje uređajem i obradu različitih vrsta podataka. Uz ove biblioteke nalazi se <i>Android Runtime</i> koji sadrži temeljne biblioteke Java programskog jezika zajedno sa Dalvik virtualnim strojem (eng. <i>Dalvik Virtual Machine, DVM</i>). Dalvik virtualni stroj napravljen je po uzoru na virtualni stroj Jave skraćeno JVM, ali je optimiziran za mobilne uređaje različitim tehnikama minimalizacije korištenja memorije, brzog kreiranje novih procesa i sl. Na Android platformi izvorni Java kod se kompajlira u datoteke s nastavkom <i>.class</i>, te ih zatim poseban alat pod nazivom „<b>dx</b>“ pretvara u <b>.<i>dex</i></b><i> </i>datoteke koje se nazivaju Dalvik Executable file odnosno dalvik izvršne datoteke.(Brähler,2010, str. 17-19). Na Slika 7 Usporedba .class i .dex formata(Brähler, 2010, str. 4) može se vidjeti usporedba standardne Java arhive s nastavkom <b>.<i>jar </i></b>koji sadrži <b>.class</b> Java datoteke; te Android paketa s nastavkom <i><b>.apk</b></i>,<i> </i>Format <b>.dex</b> se razlikuje od standardno kompajliranih Java <b>.<i>class</i></b> datoteka po bazenu konstanti (eng. <i>constant pool</i>), odnosno lokaciji i načinu spremanja konstantnih vrijednosti prilikom izvršavanja aplikacije. Ovako je spriječeno ponavljanje konstanti kroz različite klase, te sve klase u .dex datoteci dijele ove prostore.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:404px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_7.png" class="image"><img alt="" src="../images/thumb/0/02/Maorsolic_7.png/402px-Maorsolic_7.png" width="402" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 7: Usporedba .class i .dex formata(Brähler,2010, str. 19)</div></div></div></div>
+<h1> <span class="mw-headline" id="APLIKACIJSKA_SIGURNOST"> APLIKACIJSKA SIGURNOST </span></h1>
+<p>Kao što je već spomenuto Android aplikacije pisane su u Java programskom jeziku te se izvršavaju u Dalvik virtualnom stroju ( no važno je napomenuti da ih je moguće pisati i u nativnom jeziku). Sve aplikacije se instaliraju iz jedne datoteke sa <b>.apk</b> ekstenzijom.
+</p><p>Prema (Android, 2014b) osnovni elementi svake Android aplikacije su: 
+</p>
+<ul><li> <b>AndroidManifest.xml</b> – datoteka koja govori sustavu o sadržaju aplikacije, te dopuštenjima koja zahtjeva od sustava
+</li><li> <b>Aktivnosti – </b>dio aplikacije koji se odnosi na jedan zadatak odnosno aktivnost, služe za prikaz korisničkog sučelja ali ne nužno. 
+</li><li> <b>Servisi –</b> programski kod koji se izvršava u pozadini aplikacije, moguće je dopustiti drugim komponentama povezivanje na servis uz pomoć poziva udaljenih procedura (eng. <i>remote procedure calls</i>)
+</li><li> <b>Broadcast reciever</b> – objekt koji se kreira kada se IPC mehanizam poznat kao Intent, u prijevodu namjera, izda od strane sustava ili aplikacije. Uz pomoć ovih primatelja aplikacija može mijenjati svoja ponašanja na temelju vanjskih informacija koje prima preko Intenta. 
+</li></ul>
+<h2> <span class="mw-headline" id="Android_Sandbox"> Android Sandbox </span></h2>
+<p>Kao što je već navedeno Android sustav koristi sustav zaštite podržavan Linuxom tako da odvaja aplikacije i njihove resurse korisničkim ID-om, no za razliku od Linuxa Android svakoj aplikaciji pridružuje jedinstveni korisnički ID. Zbog ovakvog načina dizajna omogućeno je kreiranje aplikacijskog sandboxa na razini jezgre sustava. Jezgra sustava održava razinu sigurnosti između aplikacija te ograničava komunikacije i pristup resursa između svake aplikacije. 
+</p><p>„Kako je aplikacijski sandbox na razini jezgre sigurnosni model se proširuje na nativni kod i aplikacije operacijskog sustava.“ (Android, 2014b) Zbog ovakvog pristupa sigurnosnom modelu sandboxa omogućena je zaštita čak i prilikom kompromitiranja sigurnosti uređaja, zato što se zloćudni kod tada izvršava samo u kontekstu aplikacije i njenih dopuštenja. Aplikacije koje imaju digitalni potpis od istog developera te im je pridodijeljen dijeljeni korisnički ID definiran u <b>AndroidManifest.xml </b>datoteci imaju dopuštenje za međusobno dijeljenje resursa.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Sustav_dopu.C5.A1tenja"> Sustav dopuštenja </span></h2>
+<p>Kako je već navedeno sve aplikacije se izvršavaju u sandbox okruženju te zbog toga imaju ograničen pristup resursima sustava. Kako bi aplikacija mogla pristupiti raznim sustavnim resursima i određenom hardveru potrebno je zatražiti dopuštenja sustava kroz sigurnosni mehanizam Androida nazvan <i>Permissions</i>. Prema [Android, 2014b] zaštićena aplikacijska sučelja za koja su potrebna uključuju:
+</p>
+<ul><li> Funkcionalnosti kamere
+</li><li> Lokacijske podatke
+</li><li> Bluetooth funkcije
+</li><li> Telefonske funkcije
+</li><li> SMS/MMS funkcije
+</li><li> Mrežne i podatkovne veze
+</li></ul>
+<p>Kako bi aplikacija imala pristup ovim resursima mora zatražiti dopuštenja u prikladnoj datoteci <i>AndroidManifest.xm, </i>unutar ove datoteke developer definira koja dopuštenja aplikacija zahtjeva od sustava, te sustav prije instaliranja aplikacije traži korisnika za odobravanje ili odbijanje traženih dopuštenja Slika 8. U slučaju odobrenja zatraženih dopuštenja aplikacija se pridružuje grupi korisnika na sustavu koji imaju pravo pristupa traženim resursima. U slučaju da aplikacija pokuša pristupiti resursima za koje nije dobila dopuštenja kreira se sigurnosna iznimka i rad aplikacije se prekida od strane sustava.
+</p>
+<center><div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_8.png" class="image"><img alt="" src="../images/thumb/8/8b/Maorsolic_8.png/180px-Maorsolic_8.png" width="180" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 8: Potvrda dopuštenja prilikom instalacije aplikacije Google Maps (Android, 2014b)</div></div></div></center>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Potpisivanje_i_verifikacija_aplikacija"> Potpisivanje i verifikacija aplikacija </span></h2>
+<p>Pomoću potpisivanja aplikacija i koda moguće je lakše identificirati autora aplikacije te mu omogućiti lakšu nadogradnju. Svaka aplikacija koja se izvršava na Android platformi mora biti potpisana od strane developera.(Android, 2014b) 
+</p><p>Tijekom instalacije aplikacije na uređaj, rukovoditelj paketima (eng. <i>Packet Manager)</i> provjerava da li je aplikacija (APK) pravilno potpisana sa certifikatom uključenim u APK datoteku. Aplikacije mogu biti samostalno potpisane te nije potreban potpis centralnog autoriteta za izvršavanje aplikacija. 
+</p><p>Od 4.2 verzije Androida pa nadalje sustav podržava verifikaciju aplikacija.(Android, 2014b) Korisnik može odabrati opciju „Provjeri aplikaciju“ te se aplikacije provjeravaju prije instalacije te sustav obavještava korisnika da li je aplikacija zloćudna.
+</p>
+<h2> <span class="mw-headline" id="Google_Play"> Google Play </span></h2>
+<p>Google Play prethodno Android Market predstavlja servis Googlea uz pomoć kojeg korisnici mogu pronaći, instalirati ili kupiti aplikacije za svoj uređaj. Sustav je osmišljen na način da uređajima prikazuje aplikacije samo za koje ima prikladne hardverske funkcionalnosti. Ova politika je uspješno implementirana zbog korištenja <i>AndroidManifest.xml </i>datoteke, odnosno opisa aplikacije i hardverskih zahtjeva.
+</p><p>Svaka aplikacija prije instalacije prikazuje korisniku tražena dopuštenja od sustava te dozvolu korisnika za instalaciju, osim prikaza traženih dopuštenja korisnik također ima na uvid komentare drugih korisnika te njihove ocjene za aplikaciju koju instalira. Na ovaj način zajednica također doprinosi stabilnosti, kvaliteti i sigurnosti instaliranih aplikacija.
+</p>
+<h1> <span class="mw-headline" id="ZA.C5.A0TITA_KORISNIKA"> ZAŠTITA KORISNIKA </span></h1>
+<p>Android sustav održava razinu sigurnosti sa različitim ograničenjima pristupa i primjenom enkripcije, no za pravilno funkcioniranje određenih aplikacija sustav im može omogućiti pristup do određenih osjetljivih podataka kao što su kontakti, korisnički profili, certifikati i sl. Ovakvi pristupi osjetljivim podacima bez kršenja sigurnosnih mehanizama osiguravaju se uz pomoć API-ja odnosno aplikacijskog programskog sučelja (eng. <i>application programming interface)</i>.
+</p>
+<h2> <span class="mw-headline" id="Content_Providers"> Content Providers </span></h2>
+<p>Content Provider u prijevodu pružatelj sadržaja je mehanizam uz pomoć kojega Android sustav aplikacijama pruža strukturirani skup podataka. (Android Developers, 2014b) 
+</p><p>Uz pomoć pružatelja sadržaja aplikacije mogu pristupati osjetljivim ili zaštićenim podacima ako su za to prethodno dobili dopuštenje sustava odnosno korisnika. Moguće je izraditi vlastiti pružatelj sadržaja ako developer želi da njegova aplikacija dijeli podatke s drugim aplikacijama. Pružateljima sadržaja se pristupa uz pomoć <i>content URI<sup></i>URI – skraćenica od uniformni identifikator resursa (eng. Uniform Resource Identifier) niz znakova koji služi za identifikaciju i interakciju s resursima (Thompson,&#160;H.&#160;S., 2010) <i></sup>, gdje se uz unos pružatelja podataka te imena koji pokazuje na određeni tablicu podataka može pristupiti određenim podacima sustava. Primjerice ako korisnik ili developer želi pristupiti rječniku koji se nalazi na sustavu koristit će sljedeći URI: </i><b>content://user_dictionary/words</b><i>, na ovaj način aplikacija pristupa pružatelju sadržaja pod nazivom </i>user_dictionary<i> u prijevodu „korisnički rječnik“, te uz dodatak naziva tablice </i>words<i> odnosno „riječi“ moguće je pristupiti korisničkom rječniku koji se nalazi u sustavu.</i>
+</p><p>U slučaju da aplikacija pokušava pristupiti pružatelju sadržaja bez prethodnog dopuštenja sustav odbija vratiti tražene podatke, te dolazi do sigurnosne iznimke te se izvođenje aplikacije prekida.
+</p>
+<h2> <span class="mw-headline" id="Osobni_podaci"> Osobni podaci </span></h2>
+<p>Osobni podaci spremljeni su unutar lokalnog datotečnog sustava Androida u obliku SQLite baza podataka. Pristup ovim bazama ograničen prethodno opisanim sigurnosnim mehanizmima. Na Slika 9 Popis pružatelja sadržaja mogu se vidjeti sve baze osobnih podataka korisnika i osjetljivih podataka uređaja uz pomoć root korisnika. Kao što se može zamijetiti svaka baza podataka ima drugog korisnika odnosno različitog pružatelja sadržaja. Iz ovog razloga do navedenih podataka moguće je doći samo kroz sigurnosne mehanizme definirane sustavom uz prethodnu provjeru prava aplikacije (Slika 4.1 Aplikacijski pristup osjetljivim podacima).
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:605px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_9.png" class="image"><img alt="" src="../images/thumb/d/d0/Maorsolic_9.png/603px-Maorsolic_9.png" width="603" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 9: Popis pružatelja sadržaja</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:601px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_10.png" class="image"><img alt="" src="../images/a/a4/Maorsolic_10.png" width="599" height="262" class="thumbimage" /></a>  <div class="thumbcaption">Slika 10: Aplikacijski pristup osjetljivim podacima(Android, 2014b)</div></div></div></div>
+<h3> <span class="mw-headline" id="Osjetljive_osobne_hardverske_komponente:_geolociranje.2C_kamera.2C_mikrofon"> Osjetljive osobne hardverske komponente: geolociranje, kamera, mikrofon </span></h3>
+<p>Osjetljive komponente koje mogu prikupljati vanjske podatke zaštićene su sigurnosnim mehanizmima sustava te im je moguće pristupati uz pomoć <i>Intenta</i> ili aplikacijskog programskog sučelja (API). U slučaju da aplikacija koristi <i>Intent</i>, odnosno šalje namjeru sustavu da želi koristiti kameru, mikrofon, geolokaciju i sl; sustav pronalazi pravilnu aplikaciju za rad s traženim hardverom te odabranu aplikaciju prikazuje korisniku. Prilikom slanja <i>Intenta</i> nije potrebno eksplicitno tražiti korisničko dopuštenje davanja ovlasti nad traženim hardverom.
+</p><p>No ako aplikacija radi na način da direktno pristupa aplikacijskom programskom sučelju kamere, mikrofona ili geolokacije potrebno je zatražiti sigurnosno ovlaštenje od korisnika,odnosno sustava, prije rada sa ovim hardverskim komponentama.
+</p><p>U slučaju da korisnik ne želi otkriti trenutnu lokaciju svim aplikacijama može zabraniti odnosno isključiti lokacijske servise u postavkama Android pametnog telefona.
+</p>
+<h3> <span class="mw-headline" id="Device_metadata"> Device metadata </span></h3>
+<p>Svaki sustav može sadržavati podatke koji se ne smatraju dovoljno važnim da budu osjetljive naravi, ali indirektno mogu otkriti određene karakteristike i podatke koji se mogu iskoristiti u zloćudne svrhe. Iz ovog razloga sam sustav zabranjuje aplikacijama pristup sistemskim logovima, povijesti pregledavanja weba, postavki mreže, identifikacijske oznake softvera i hardvera i sl. U slučaju da aplikacija za vlastiti rad treba neke od meta podataka mora zatražiti eksplicitno dopuštenje korisnika za njihovo korištenje. Tek nakon što korisnik dopusti korištenje metapodataka uređaja aplikacija ima dopuštenja sustava za pristup ovakvim podacima, zbog ovakvih načina rada korisnik je više svjestan što se događa te kakve aplikacije instalira na vlastiti uređaj.
+</p>
+<h2> <span class="mw-headline" id="Enkripcija_pametnog_telefona"> Enkripcija pametnog telefona </span></h2>
+<p>Prema (Android, 2014b) Android verzije 3.0 te nadalje sustav pruža potpunu enkripciju datotečnog sustava i korisničkih podataka unutar kernela koristeći <b>dmcrypt </b>implementaciju AES128<b> </b>sa CBC i ESSIV:SHA256. Ključ za kriptiranje je zaštićen AES128 koristeći ključ koji je izveden iz korisničke lozinke te tako zabranjuje pristup uređaju važeće korisničke lozinke.
+</p><p>Dodatna zaštita protiv napada i pokušaja pogađanja lozinke je ostvarena slučajnim soljenjem (eng. <i>random salt</i>) lozinke uz postupak zaštite lozinki jednosmjernom kriptografskom funkcijom (eng. <i>hashing)</i> lozinke sa SHA1 koristeći standardni PBKDF2 algoritam. Moguće je postaviti osnovne zahtjeve kompleksnosti lozinke od strane administratora sustava. Korištenje kriptiranja Android pametnog telefona može se pronaći u Postavkama&gt;Sigurnost&gt;Kriptiranje telefona (Slika 11)
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:171px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_11.png" class="image"><img alt="" src="../images/thumb/3/38/Maorsolic_11.png/169px-Maorsolic_11.png" width="169" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 11: Sigurnosne postavke Android 4.3.1 uređaja</div></div></div></div>
+<h2> <span class="mw-headline" id="Sigurnosne_postavke_razli.C4.8Ditih_sustava"> Sigurnosne postavke različitih sustava </span></h2>
+<p>U ovisnosti od korištenog tipa i verzije Android sustava mogu se pronaći različite postavke sigurnosti. Prema Electronic Frontier Foundation (2013)&#160;tijekom razvoja Google Android sustava u verziji 4.3 pojavila se funkcionalnost <b>zrnatog upravljanja</b> dopuštenjima aplikacija pod nazivom <i>App ops (</i>Slika 12<i>)</i>. Tijekom redovnih nadogradnji sustava, ova funkcionalnost je uklonjena uz izjavu Googlea da je ova funkcionalnost bila eksperimentalna te da bi mogla slomiti određene aplikacije sa svojim politikama sigurnosti. Iz ovog razloga je <i>App ops</i> funkcionalnost uklonjena iz sljedećih verzija izvornog Android sustava do daljnjega. 
+</p><p><br />
+</p><p><br />
+</p>
+<ul class="gallery" align="center">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:15px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_12.png" class="image"><img alt="" src="../images/thumb/6/6b/Maorsolic_12.png/72px-Maorsolic_12.png" width="72" height="120" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 12:  App Ops funkcionalnost Androida (4.3) (Electronic Frontier Foundation, 2013)|300x300px
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:15px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_12.png" class="image"><img alt="" src="../images/thumb/6/6b/Maorsolic_12.png/72px-Maorsolic_12.png" width="72" height="120" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 13:  Privacy Guard postavke za Skype aplikaciju - CyanogenMod sustava|300x300px
+</p>
+			</div>
+		</div></li>
+</ul>
+<p><br />
+No zbog open source politike sustava određene verzije sustava zadržale su ovu funkcionalnost te su je dodatno unaprijedili primjerice CyanogenMod je open source verzija Android sustava održavana od strane zajednice developera, te je funkcionalnost<i> App Ops</i> funkcionalnosti implementirana pod nazivom <i>Privacy Guard. </i>Uz pomoć ove funkcionalnosti moguće je dopustiti ili zabraniti aplikacijama pristup određenim podacima i funkcionalnostima uređaja kao što se može vidjeti na Slika 13.
+</p>
+<h1> <span class="mw-headline" id="PRAKTI.C4.8CNO_ISTRA.C5.BDIVANJE_SIGURNOSTI_ANDROIDA"> PRAKTIČNO ISTRAŽIVANJE SIGURNOSTI ANDROIDA </span></h1>
+<p>Prilikom praktičnoga istraživanja sigurnost Android sustava fokusirati će se na pokušaj nedopuštenog dohvata sljedećih podataka:
+</p>
+<ul><li>Razne korisničke račune i lozinke
+</li><li>Geolokacijske podatke
+</li><li>Povijesti korištenja Interneta
+</li><li>Poruke, slike, kontakti
+</li></ul>
+<p>Kako su sigurnosni mehanizmi zaštite Android sustava objašnjeni kroz ovaj rad, podrazumijeva se da je do ovih podataka moguće doći nekoliko načina:
+</p>
+<ul><li>Root administratorska prava pristupa uređaju
+</li><li>Dohvat sadržaja uz pomoć <i>Content</i> <i>Provider</i> mehanizama
+</li><li>Curenje osjetljivih podataka kroz razne sistemske zapise (eng. <i>log)</i>
+</li><li>Eskalacija privilegija kroz rupe u sustavu
+</li><li>Iskorištenje rupa u drugim instaliranim aplikacijama
+</li><li>Ostali propusti?
+</li></ul>
+<p>Testiranje sigurnosti provođeno je na HTC Sensation, Android 4.3.1 uređaju sa CyanogenMod 10.2 sustavom. Kreiranje aplikacije sa traženjem dopuštenja za pristup osjetljivim podacima je najjednostavniji način kako napasti određeni sustav, no većina korisnika neće instalirati ovakve aplikacije te su korisnici relativno zaštićeni funkcionalnostima sustava. Kako bi došli do određenih korisničkih podataka moramo znati nešto više o njihovim svojstvima: lokacija, struktura podataka, zaštitni mehanizmi. Uz pretpostavku da nemamo root pristup uređaju, pristup podacima možemo ostvariti uz druge aplikacije ili ugrađene mehanizme pružatelja sadržaja (Slika 9). 
+</p><p>Prije vlastitih pokušaja dolaska do osjetljivih podataka te testiranja sigurnosti Androida istraženi su javni izvori sigurnosnih propusta Android sustava. Prema tim izvorima pronađen je propust u Androidu do verzije 2.3.4 gdje je moguće uz pomoć web preglednika preuzeti osjetljive podatke uređaja tako što bi zloćudna skripta pozivala pružatelj sadržaja preko URI adrese unutar samog preglednika. Na ovaj način moguće je pristupiti kontekstu uređaja te preuzeti osjetljive podatke u obliku datoteka. (Cannon, 2011).
+</p><p>Ovaj propust je testiran na sljedećim preglednicima:
+</p>
+<ul><li> Mozilla Firefox 27.0
+</li><li> Google Chrome 33.0.1750.136
+</li><li> Android Browser 4.3.1
+</li></ul>
+<h2> <span class="mw-headline" id="Mozilla_Firefox"> Mozilla Firefox </span></h2>
+<p>Sve verzije preglednika su uspješno odbile pokušaj pristupa pružatelju sadržaja, no daljnjim istraživanjem i pokušajima pristupa datotečnom sustavu dva preglednika (Google Chrome i Mozilla Firefox) su uspješno prikazale sadržaj memorijske SD kartice uređaja na lokaciji <i><b>file:///mnt/sdcard/ </b></i>prema ovome korisnik je mogao pregledavati i „šetati“ sadržajem SD kartice kao datotečnim preglednikom (Slika 15).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:171px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_14.png" class="image"><img alt="" src="../images/thumb/b/be/Maorsolic_14.png/169px-Maorsolic_14.png" width="169" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 14:   Datotečni sustav SD kartice</div></div></div></div>
+<p><br />
+Proučavajući više <i>file</i> protokol Android preglednika zamijećeno je da Firefox preglednik može doći do korijenskog direktorija, te se „šetati“ po datotečnom sustavu (Slika 16). Ovakva funkcionalnost može predstavljati sigurnosni propust u slučaju da aplikacija može zapisivati i čitati iz osjetljivih datoteka. Primjerice napadač može dohvatiti verziju jezgre sustava, te na temelju dohvaćenih podataka iskoristiti ranjivosti te verzije sustava(Slika 17).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:171px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_15.png" class="image"><img alt="" src="../images/thumb/4/48/Maorsolic_15.png/169px-Maorsolic_15.png" width="169" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 16:   Pristup korijenskom direktoriju Mozilla Firefox</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:536px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_16.png" class="image"><img alt="" src="../images/thumb/2/2a/Maorsolic_16.png/534px-Maorsolic_16.png" width="534" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 17:   Pristup osjetljivoj datoteci „/proc/version“</div></div></div></div>
+<p><br />
+Trenutne verzije preglednika zaštićene su sa <i>Same Origin Policy (SOP)</i> mehanizmom koji zabranjuje izvršavanje skripti te dohvat drugih datoteka ako se ne nalaze na istoj lokaciji i protokolu kao izvršavana skripta. Primjerice ako se skripta izvršava na lokaciji:<i> <a href="https://www.foi.hr/skripta1.html" class="external free" rel="nofollow">https://www.foi.hr/skripta1.html</a></i> znači da je skripta izvršavana unutar <i>www.foi.hr </i>domene sa <i>https</i> protokolom. Ovakva zaštita zabranjuje skripti koja se izvršava na stranici <i>skripta1.html</i> izvršavanje i dohvat bilo kojih datoteka ili vanjskih skripti.
+</p><p>Daljnjim istraživanjem propusta Android sustava, ranjivost unutar Firefox preglednika je već bila otkrivena prema ViaForensics (2013), bilo je moguće zaobići SOP mehanizam uz pomoć kreiranja simboličkog linka na datoteku koju skripta želi preuzeti. Ovo je bio ozbiljan propust te je bilo moguće dohvatiti bilo koju datoteku kojoj je Firefox preglednik imao pristup unutar korijenskog direktorija. Sigurnosni propust je pravilno prijavljen Mozzili te je prema ViaForensics (2013) datuma 18.09.2013 pravilno riješen.
+</p><p>Tijekom testiranja pronađenog propusta i koristeći metode kreiranja simboličkih linkova Mozzila Firefox 27.0 bila je otporna na navedeni napad, no to ne znači da postoji mogućnost drugačijih vrsta napada te dohvata osjetljivih podataka uz pomoć Firefox preglednika.
+</p>
+<h2> <span class="mw-headline" id="Google_Chrome"> Google Chrome </span></h2>
+<p>Osim prethodno navedenih propusta i sigurnosnih zakrpa Firefox preglednika, ustanovljena je još jedna moguća ranjivost koju je moguće iskoristiti sa administratorskim pristupom uređaju ili ranjivosti eskalacije privilegija. Google Chrome browser sprema razne osjetljive korisničke podatke u obliku nekriptiranih SQLite baza na lokaciji /d<i>ata/data/com.android.chrome/app_chrome/Default</i> kao što se može vidjeti na Slika 18
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:865px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_18.png" class="image"><img alt="" src="../images/thumb/9/98/Maorsolic_18.png/863px-Maorsolic_18.png" width="863" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 18:   Korisnički podaci i lozinke spremljene u običnome tekstu</div></div></div></div>
+<p><br />
+U slučaju da zloćudan korisnik ili aplikacija eskalalira privilegije pristupa podacima ili administratorskog pristupa zloćudne aplikacije svi osjetljivi podaci korisnika su dostupni bez ikakve enkripcije, te bi bilo preporučeno napraviti obfuskaciju i enkripciju osjetljivih podataka kao preventivnu mjeru zaštite od zloćudnih napada.
+</p>
+<h2> <span class="mw-headline" id="Zlo.C4.87udne_skripte"> Zloćudne skripte </span></h2>
+<p>Kako bi demonstrirali način rada zloćudnih skripti i krađe osjetljivih podataka kreirana je osnovna skripta koja datoteku s osjetljivim podacima uploada na komandni server (Slika 19). Skripta je kreirana po uzoru na prethodno pronađeni i popravljeni propust [Cannon,&#160;2011]. Nakon što skripta dohvati ciljanu datoteku i pokrene upload na server, server prihvaća primljene podatke te ih sprema u obliku JSON polja unutar datoteke <i>payload.txt</i> na samome serveru<i> (</i>Slika 5.6<i>).</i>
+</p><p>komandi server Osjetljiva datoteka
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:590px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_19.png" class="image"><img alt="" src="../images/thumb/c/c4/Maorsolic_19.png/588px-Maorsolic_19.png" width="588" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 19:   Zloćudna payload skripta</div></div></div></div>
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:600px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_20.png" class="image"><img alt="" src="../images/thumb/9/92/Maorsolic_20.png/598px-Maorsolic_20.png" width="598" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 20:   Komandi server skripta</div></div></div></div>
+<p><br />
+</p><p>Ako bi zloćudni korisnik kreirao aplikaciju koja traži dopuštenja:
+</p>
+<ul><li> Pisanje/čitanje na vanjsku memoriju
+</li><li> Internet dopuštenja
+</li></ul>
+<p>mogao bi pretražiti vanjsku memoriju u svrhu pronalaska osjetljivih podataka; mnogi korisnici aplikacije prebacuju na SD karticu iz raznih razloga, najčešće je to ušteda interne memorije, no na ovaj način aplikacije izlažu osjetljive podatke koji nisu zaštićeni od raznih napada. Nakon što aplikacija pronađe datoteku s osjetljivim podacima primjerice: certifikati, backup kontakata, fotografije i sl. Aplikacija zloćudnu skriptu kreira u direktoriju ciljane datoteke, na ovaj način zaobilazi se <i>Same Origin Policy </i>zaštita te skripta može učitati i uploadati ciljane datoteke na udaljeni server. Primjerice na Slika 21 može se vidjeti krađa kontakata i sms poruka koja se nalazi u backup datoteci „sms_20131221191957.xml“. Datoteka je spremljena u XML formatu te je skripta učitava i šalje na udaljeni server; server zatim prima ukradenu datoteku i sprema je u novu datoteku s nazivom <i>payload.txt</i> u JSON formatu. Moguće je uplodati više datoteka odjednom te skripta uspješno radi na Google Chrome i Firefox pregledniku. Važno je napomenuti da je prethodno spomenute tehnike moguće izvršiti i samo s zloćudnom aplikacijom koja ima internet dopuštenja i dopuštenje za rad s memorijom. Na ovaj način aplikacija direktno čita i uploada osjetljive datoteke na komandni server, no primjer sa skriptom pokazuje kako je moguće uploadati različite datoteke i uz pomoć preglednika. Kako su određeni preglednici pokazali mogućnost „šetanja“ kroz osjetljive direktorije, postoji rizik izvršavanja skripti unutar konteksta samog preglednika te krađe osjetljivih podataka iz više zaštićenih direktorija u slučaju da se pronađe određeni propust unutar preglednika koji bi omogućavao upravljanje skriptama i zapisivanje datoteka zaobilaskom politike istog izvora (eng. <i>Same Origin Policy</i>) kao što je već prethodno pronađeno u propustu od strane ViaForensics (2013) kojeg je Mozilla ispravila.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maorsolic_21.png" class="image"><img alt="" src="../images/thumb/2/2b/Maorsolic_21.png/940px-Maorsolic_21.png" width="940" height="300" class="thumbimage" /></a>  <div class="thumbcaption">Slika 21:   Prikaz ukradenih podataka</div></div></div></div>
+<h1> <span class="mw-headline" id="ZAKLJU.C4.8CAK"> ZAKLJUČAK </span></h1>
+<p>Kao što se može vidjeti iz prethodno navedenih propusta i njihovih zakrpa, Android sustav je relativno zaštićen od raznih zloćudnih napada. Koristeći dugo ustanovljene standarde sigurnosti SELinux jezgre te dodatnih mehanizama zaštite pristupa osjetljivim podacima kao što su pružatelji sadržaja (eng. <i>Content Provider)</i> platforma je zaštićena od osnovnih napadačkih tehnika. No, u slučaju instalacije aplikacija koje su nesigurne te sadržavaju sigurnosne propuste, a posjeduju prava pristupa osjetljivim podacima, dovodi do nesigurnosti cijelog sustava. 
+</p><p>Ove probleme i rizike sustav pokušava umanjiti prikazom sigurnosnih zahtjeva, odnosno prava pristupa aplikacije prije njene instalacije; na ovaj način korisnik ima veliku kontrolu nad aplikacijama koje instalira. Osim prikaza traženih dopuštenja aplikacije, Google Play sadrži i komentare zajednice na određenu aplikaciju te korisnik iz komentara drugih korisnika može uvidjeti kvalitetu, probleme i nesigurnost određenih aplikacija koje želi instalirati.
+</p><p>U ovisnosti o verziji Android sustava sigurnost se inkrementalno poboljšavala te uz pravilne postavke korisnik može imati visoku razinu zaštite, no razni proizvođači pametnih telefona ne prate trend nadogradnje softvera dovoljno brzo te na taj način izlažu vlastite korisnike sigurnosnim rupama koje napadači mogu iskoristiti. Iz ovih razloga obični korisnici imaju nižu razinu zaštite od naprednijih korisnika koji samostalno nadograđuju sustave.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="LITERATURA"> LITERATURA </span></h1>
+<ol><li> Android Developers. (2014a). <i>Brand Guidelines</i>. Dostupno 04.03.2014. na <a href="http://developer.android.com/distribute/googleplay/promote/brand.html" class="external free" rel="nofollow">http://developer.android.com/distribute/googleplay/promote/brand.html</a>
+</li><li> Android Developers. (2014b). <i>Content Providers</i>. Dostupno 12.03.2014. na <a href="http://developer.android.com/guide/topics/providers/content-providers.html" class="external free" rel="nofollow">http://developer.android.com/guide/topics/providers/content-providers.html</a>
+</li><li> Android. (2014a). <i>Licenses</i>. Dostupno 04.03.2014. na <a href="http://source.android.com/source/licenses.html" class="external free" rel="nofollow">http://source.android.com/source/licenses.html</a>
+</li><li> Android. (2014b). <i>Android Security Overview Guidelines</i>. Dostupno 04.03.2014. na <a href="http://source.android.com/devices/tech/security/" class="external free" rel="nofollow">http://source.android.com/devices/tech/security/</a>
+</li><li> Android. (2014c). <i>dm-verity on boot</i>. Dostupno 04.03.2014. na <a href="http://source.android.com/devices/tech/security/" class="external free" rel="nofollow">http://source.android.com/devices/tech/security/</a>
+</li><li> Brähler, S. (2010). <i>Analysis of the Android Architecture</i>. Dostupno 11.03.2014. na <a href="http://os.ibds.kit.edu/downloads/sa_2010_braehler-stefan_android-architecture.pdf" class="external free" rel="nofollow">http://os.ibds.kit.edu/downloads/sa_2010_braehler-stefan_android-architecture.pdf</a>
+</li><li> Corbet,&#160;J. (2011).&#160;<i>Bringing Android closer to the mainline [LWN.net]</i>. Dostupno 06.03.2014. na <a href="https://lwn.net/Articles/472984/" class="external free" rel="nofollow">https://lwn.net/Articles/472984/</a>
+</li><li> Cannon,&#160;T. (2011).&#160;<i>1337day Inj3ct0r Exploit Database&#160;: vulnerability&#160;: 0day&#160;: shellcode by Inj3ct0r Team</i>. Dostupno 15.03.2014. na <a href="http://1337day.com/exploit/description/17194" class="external free" rel="nofollow">http://1337day.com/exploit/description/17194</a>
+</li><li> Electronic Frontier Foundation (2013).&#160;<i>Google Removes Vital Privacy Feature From Android, Claiming Its Release Was Accidental</i>. Dostupno 12.03.2014. na <a href="https://www.eff.org/deeplinks/2013/12/google-removes-vital-privacy-features-android-shortly-after-adding-them" class="external free" rel="nofollow">https://www.eff.org/deeplinks/2013/12/google-removes-vital-privacy-features-android-shortly-after-adding-them</a>
+</li><li> Goldberg I., Wagner D., Thomas R., i Brewer E. (1996). A Secure Environment for Untrusted Helper Applications (Confining the Wily Hacker). <i>Proceedings of the Sixth USENIX UNIX Security Symposium.</i> Dostupno 04.03.2014. na <a href="https://www.usenix.org/legacy/publications/library/proceedings/sec96/full_papers/goldberg/goldberg.pdf" class="external free" rel="nofollow">https://www.usenix.org/legacy/publications/library/proceedings/sec96/full_papers/goldberg/goldberg.pdf</a>
+</li><li> Kernelnewbies (2012). <i>Linux 3.3.</i> Dostupno 06.03.2014. na <a href="http://kernelnewbies.org/Linux_3.3" class="external free" rel="nofollow">http://kernelnewbies.org/Linux_3.3</a>
+</li><li> Thompson,&#160;H.&#160;S. (2010).&#160;<i>What's a URI and why does it matter?</i>&#160;Dostupno 12.03.2014. na <a href="http://www.ltg.ed.ac.uk/~ht/WhatAreURIs/" class="external free" rel="nofollow">http://www.ltg.ed.ac.uk/~ht/WhatAreURIs/</a>
+</li><li> ViaForensics (2013).&#160;<i>How I met Firefox: A tale about chained vulnerabilities – viaForensics</i> Dostupno 15.03.2014. na <a href="https://viaforensics.com/mobile-security/chained-vulnerabilities-firefox-android-pimp-browser.html" class="external text" rel="nofollow">https://viaforensics.com/mobile-security/chained-vulnerabilit</a><a href="https://viaforensics.com/mobile-security/chained-vulnerabilities-firefox-android-pimp-browser.html" class="external text" rel="nofollow">ies-firefox-android-pimp-browser.html</a>
+</li></ol>
+<p><br />
+</p>
+<hr /></sup>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 288/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7866-0!*!0!!hr!2!edit=0 and timestamp 20190203204036 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Pregled_sigurnosti_Google_Android_sustava.html">http://security.foi.hr/wiki/index.php/Pregled_sigurnosti_Google_Android_sustava</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Pregled_sigurnosti_Google_Android_sustava" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Pregled_sigurnosti_Google_Android_sustava.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Pregled_sigurnosti_Google_Android_sustava&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Pregled_sigurnosti_Google_Android_sustava.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Pregled_sigurnosti_Google_Android_sustava.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Pregled_sigurnosti_Google_Android_sustava&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Pregled_sigurnosti_Google_Android_sustava&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Pregled_sigurnosti_Google_Android_sustava.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Pregled_sigurnosti_Google_Android_sustava" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Pregled_sigurnosti_Google_Android_sustava" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Pregled_sigurnosti_Google_Android_sustava&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Pregled_sigurnosti_Google_Android_sustava&amp;oldid=30192" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:39, 21. srpnja 2014.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 7.336 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Pregled_sigurnosti_Google_Android_sustava", "wgTitle": "Pregled sigurnosti Google Android sustava", "wgAction": "view", "wgArticleId": 7866, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 30192, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.687 secs. -->			</body>
+</html>

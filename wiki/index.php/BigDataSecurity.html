@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>BigDataSecurity - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=BigDataSecurity&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-BigDataSecurity skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">BigDataSecurity</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="BigDataSecurity.html#mw-head">orijentacija</a>,
+					<a href="BigDataSecurity.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivan_Majnaric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivan Majnaric (stranica ne postoji)">Ivan Majnaric</a> 16:59, 20. siječnja 2017. (CET)
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="BigDataSecurity.html#Cassandra_.2B_Spark_security"><span class="tocnumber">1</span> <span class="toctext">Cassandra + Spark security</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="BigDataSecurity.html#Datastax_Cassandra"><span class="tocnumber">2</span> <span class="toctext">Datastax Cassandra</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="BigDataSecurity.html#Apache_Spark"><span class="tocnumber">3</span> <span class="toctext">Apache Spark</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="BigDataSecurity.html#Pristupanje_Cassandri_preko_Sparka"><span class="tocnumber">3.1</span> <span class="toctext">Pristupanje Cassandri preko Sparka</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="BigDataSecurity.html#Kerberos_autentifikacija"><span class="tocnumber">4</span> <span class="toctext">Kerberos autentifikacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="BigDataSecurity.html#SSL"><span class="tocnumber">4.1</span> <span class="toctext">SSL</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="BigDataSecurity.html#Pripremanje_serverskih_certifikata"><span class="tocnumber">4.2</span> <span class="toctext">Pripremanje serverskih certifikata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="BigDataSecurity.html#Unutra.C5.A1nja_autorizacija_Cassandrinog_klastera"><span class="tocnumber">5</span> <span class="toctext">Unutrašnja autorizacija Cassandrinog klastera</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="BigDataSecurity.html#Kreiranje_novih_korisnika"><span class="tocnumber">5.1</span> <span class="toctext">Kreiranje novih korisnika</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="BigDataSecurity.html#Dodjeljivanje.2Foduzimanje_prava"><span class="tocnumber">5.2</span> <span class="toctext">Dodjeljivanje/oduzimanje prava</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="BigDataSecurity.html#Konfiguracija_multi-.C4.8Dvor_sustava_.28iptables.29"><span class="tocnumber">6</span> <span class="toctext">Konfiguracija multi-čvor sustava (iptables)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="BigDataSecurity.html#Kreiranje_eng._Protocol_specific_lanca"><span class="tocnumber">6.1</span> <span class="toctext">Kreiranje eng. Protocol specific lanca</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="BigDataSecurity.html#Data_auditing"><span class="tocnumber">6.2</span> <span class="toctext">Data auditing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="BigDataSecurity.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Cassandra_.2B_Spark_security"> Cassandra + Spark security </span></h2>
+<h2> <span class="mw-headline" id="Datastax_Cassandra"> Datastax Cassandra </span></h2>
+<p>Cassandra je distribuirani sustav baza podataka kojoj je glavna uloga upravljanje sa velikom količinom strukturiranih podataka na više servera te pritom pružanje visoko dostupne usluge bez postojanja dijela sustava gdje može doći do onesposobljavanja cijelog sustava. Ujedno u navedenoj definiciji se može doći do odgovora zašto je upravo ovaj tip baza podataka odabran kao najbolji primjer distribuirane baze podataka. Samo neke od prednosti po kojima se Cassandra kao sustav baza podataka ističe su:
+</p>
+<ol><li> Kontinuirana dostupnost
+</li><li> Linearno skaliranje performansi
+</li><li> Jednostavno izvršavanje operacija 
+</li><li> Jednostavna distribucija podataka preko više podatkovnih centara
+</li><li> Zone dostupnosti u obliku oblaka (end. Cloud)
+</li></ol>
+<p>Upravo zato što je Cassandrina arhitektura složena na netradicionalan način odnosno ne u gospodar-rob (eng. Master-slave ) konfiguraciji već u konfiguraciji bez glavnog čvora nazvanoj „prsten“ razlog je u kojem se kriju sposobnosti gdje se omogućava skaliranje, djelovanje te kontinuirani odnosno neprekidni rad. Konfiguracija u obliku „prstena“ je ta koja Cassandri daje dodatnu eleganciju te jednostavnost u radu. Kod takvog tipa konfiguracije distribuirane baze podataka, svaki čvor sustava ima identičnu ulogu gdje svaki komunicira sa svim čvorovima sustava na jednaki način.
+</p><p>Cassandrina arhitektura još se zove i „građena za skaliranje“ što znači da je u mogućnosti jednostavno rukovati sa ogromnim količinama podataka te tisućama korisnika i operacija istovremeno čak i preko više podatkovnih centara u istoj mjeri koliko i sa malom količinom podataka. Kao pravi pokazatelj koliko se zapravo Cassandra u stvarnosti koristi primjer su velike organizacije koje su je izabrale kao temelj gradnje njihovih sustava, a to su: Apple, eBay, Spotify, Über te slični. (Planet Cassandra 2015)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Apache_Spark"> Apache Spark </span></h2>
+<p>Apache Spark je besplatan okivir za procesuiranje podataka u klasteru. Alat zamjenjuje Hadoop kao glavni sustav za obradu velikih količina podataka. Spark se kao takav može koristiti za batch te za realtim obradu podataka. Jedinstvena je platforma za razičit evrste algoritama te se najčešće koristi uz programske jezike kao Scala te Python. Važno je napomenuti da je Spark pisan u Scali no isto tako uz Python podržava i Javu. Podatke koji se procesuiraju obično nije potrebno spremati kao međupodatke na disk te se isti drže u memoriji što doprinosi na brzini, čak i do 100 puta većoj od sustava kao Hadoop-ov M/R. Ono po čemu je jedinstven je to što se distribuirani podaci pišu na slučan način kao i lokalni.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apachespark.jpg" class="image"><img alt="Apachespark.jpg" src="../images/5/53/Apachespark.jpg" width="592" height="605" /></a>
+</p><p><br />
+U seminaru koji slijedi bit će objašnjena sigurnost Cassandrinog te Sparkovog klastera od četiri node-a. Postoje dvije mogućnosti konfiguracije sigurnosti to su pomoću lozinke te LDAP autentifikacije te pomoću Keberosa. Oba načina autentifikacijiskih mehanizama odnose se na na povezivanje Sparka za Cassandrom ne i autentifikacije Sparkovih komponenti između sebe. Isto tako, postoji i klijent-čvor enkripcija preko SSL-a za sve konekcije od Spark do Cassandre. Cijela Spark komunikacija nije enrkptirana te za isto ne postoji podrška od strane Sparka.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Pristupanje_Cassandri_preko_Sparka">Pristupanje Cassandri preko Sparka </span></h3>
+<p>U nastavku možete vidjeti kako se preko jednostavnog programa u Sparku moguće spojiti na Cassandru na određenom hostu te pristupiti nekim podacima kroz određeno korisničko ime te lozinku. 
+</p><p>U IntelliJ-u smo kreirali novi Scalin projekt u obliku SBT-a te smo kao dependecije stavili sljedeće: 
+</p>
+<pre> name&#160;:= "cassandra-spark"
+  
+ version&#160;:= "1.0"
+  
+ scalaVersion in ThisBuild&#160;:= "2.11.8"
+ val sparkVersion = "2.0.2"
+  
+ resolvers in Global ++= Seq(
+   "Sbt plugins"                   at "<a href="https://dl.bintray.com/sbt/sbt-plugin-releases" class="external free" rel="nofollow">https://dl.bintray.com/sbt/sbt-plugin-releases</a>",
+   "Maven Central Server"          at "<a href="http://repo1.maven.org/maven2" class="external free" rel="nofollow">http://repo1.maven.org/maven2</a>",
+   "TypeSafe Repository Releases"  at "<a href="http://repo.typesafe.com/typesafe/releases/" class="external free" rel="nofollow">http://repo.typesafe.com/typesafe/releases/</a>",
+   "TypeSafe Repository Snapshots" at "<a href="http://repo.typesafe.com/typesafe/snapshots/" class="external free" rel="nofollow">http://repo.typesafe.com/typesafe/snapshots/</a>"
+ )
+   
+ libraryDependencies ++= Seq(
+   "org.apache.spark"&#160;%% "spark-core"&#160;% sparkVersion,
+   "org.apache.spark"&#160;%% "spark-sql"&#160;% sparkVersion,
+   "org.apache.spark"&#160;%% "spark-streaming"&#160;% sparkVersion,
+   /*Kafka -0-8 by documentation: <a href="http://spark.apache.org/docs/latest/streaming-kafka-integration.html" class="external free" rel="nofollow">http://spark.apache.org/docs/latest/streaming-kafka-integration.html</a>
+   is for Broker version: 0.8.2.1 andd higher, -0-10 for .0.10. and higher*/
+   "org.apache.spark"&#160;%% "spark-streaming-kafka-0-8"&#160;% sparkVersion,
+   "com.datastax.spark"&#160;%% "spark-cassandra-connector"&#160;% "2.0.0-M3"   
+ )
+</pre>
+<p>
+</p><p>Te smo pomoću sljedećeg koda pristupili Cassandrinom <b>keyspaceu</b> te podacima: 
+</p><p><br />
+</p>
+<pre>  /**
+ * Created by biadmin on 12/01/2017.
+ */
+  
+  import org.apache.spark.{SparkConf, SparkContext}
+  import com.datastax.spark.connector._
+  
+  object clusterPointer {
+   def main(args: Array[String]): Unit = {
+     val conf = new SparkConf()
+       .set("spark.cassandra.connection.host","server_ip")
+       .set("spark.cassandra.auth.username", "cassandra")
+       .set("spark.cassandra.auth.password", "cassandra")
+       .setMaster("local[*]")
+       .setAppName("clusterPointer")
+     
+     val sc = new SparkContext(conf)
+     val rdd  = sc.cassandraTable("demo", "orders")
+        
+     rdd.foreach(println)
+    
+    }
+  }
+</pre>
+<p>Konačna slika ispisa podataka je sljedeća: 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Spark.png" class="image"><img alt="Spark.png" src="../images/c/cd/Spark.png" width="1092" height="166" /></a>
+</p>
+<h2> <span class="mw-headline" id="Kerberos_autentifikacija"> Kerberos autentifikacija </span></h2>
+<p>Kerberos autentifikacija oslanja se na konekciju Sparka na Cassandru te kao što je već navedeno u prethodnom primjeru ne i autetentifikaciju Spark komponenti izemđu sebe. Sparkov web sučelje je osigurano te je moguće prikazati Sparkovu konfiguraciju uključujući i delegacijski token kada se koristi Kerberos. 
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="SSL"> SSL </span></h3>
+<p>Klijent-čvor enkripcija štiti za vrijeme spajanja Sparkovog izvršitelja sa Cassandrom podatke u prijenosu na način da uspostavlja siguran kanal između klijenta te čvora kao koordinatora. SSL je u potpunosti distribuiran te ne zahtijeva dodatno namještanje dijeljenog autentifikacijskog servisa. Ono što je potrebno je u početku prirpemiti serverske akreditive te dopustiti klijent-čvor SSL.
+</p><p><br />
+Kreirati novi file <i>./cassandra/cqlshrc te unesti </i>
+</p>
+<pre>  [authentication]
+  username = sis
+  password = sis
+  
+  [connection]
+  hostname = server_ip
+  port = 9042
+  
+  [ssl]
+  certfile = ~/keys/cassandra.cert
+  validate = true ## opcionalno, true po defaultu
+  
+  [certfiles]  ## Opcionalna sekcija, prebrisuje defualte certifikate u [ssl] sekciji 
+  192.168.1.3 = ~/keys/cassandra01.cert
+  192.168.1.4 = ~/keys/cassandra02.cert
+</pre>
+<h3> <span class="mw-headline" id="Pripremanje_serverskih_certifikata"> Pripremanje serverskih certifikata </span></h3>
+<p>Svi čvorovi moraju imati sve relevantne SSL certifikate. Baza ključeva (eng. Keystore) sadrži sve privatne ključeve dok eng. Truststore sprema sve SSL certifikate od neke treće strane. Za svaki čvor te na zahtijeva prijavljivanje pouzdanog i prepoznatnog javnog autorativnog certifikata.
+Kako bi pripremili serverske certifikate potrebno je:
+</p>
+<ol><li>	Generirati par privatnog i javngo ključa sva svaki čvor klastera na način da se ključna lozinka (eng. Key password) ostavi jednaka kao i lozinka baze ključeva: 
+<ol><li>        <code>$ keytool –genkey –alias hdp0 –keyalg RSA –keystore .keystore </code>
+<ol><li>     Nakon što se otvori prozor kao „What is your first and last name“, potrebno je unesti ime domene Cassandrinog čvora na kojem se generiraju ključevi.  Te iste vrijednosti bit će korištene za postavljanje certifikata CN koji se koristi za serversku autentifikaciju klijenta. 
+</li></ol>
+</li></ol>
+</li><li>	Ponoviti isti postupak za svaki čvor.
+</li><li>	Eksportati javni dio certifikata u odvojenu datoteku te kopirati te iste cerfitikate na sve ostale čvorove.
+<ol><li>         <code>$ keytool –export –alias hdp0 –file hdp0.cer –keystore .keystore</code>
+</li></ol>
+</li><li>	Dodati certifikate svakom truststore-u svakog čvora kako bi čvorovi koli provjeriti identitete jedni drugih.
+<ol><li>      <code>$ keytool –import –v –tustcacerts –alias server_ip –file hdp0.cer –keystore .truststore</code>
+</li><li>  <code>$ keytool –import –v –tustcacerts –alias other_server_ip –file hdp1.cer –keystore .truststore</code>
+</li><li>  <code>$ keytool –import –v –tustcacerts –alias other_server_ip –file hdp2.cer –keystore .truststore</code>
+</li><li>  <code>$ keytool –import –v –tustcacerts –alias other_server_ip –file hdp3.cer –keystore .truststore</code>
+</li></ol>
+</li><li>   	Na koncu se pobrinuti da je .keystore vidljiva samo korisniku koji koristi iste ne i svim ostalim korisnicima sustava.
+</li></ol>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:SSL-certif1.png" class="image"><img alt="SSL-certif1.png" src="../images/0/0e/SSL-certif1.png" width="725" height="509" /></a>
+</p>
+<h2> <span class="mw-headline" id="Unutra.C5.A1nja_autorizacija_Cassandrinog_klastera"> Unutrašnja autorizacija Cassandrinog klastera </span></h2>
+<p>LDAP je skraćenica od eng. Lightweifght Directory Access Protocol te isti služi kao standardni način autentifikacije korisnika kroz aplikacije. Kada se LDAP autentifikacija omoguće korisnici koji su dirikirani vanjskim LDAP serverom mogu biti autentificirani. Svaki autentificirani korisnik tada može biti autoriziran tako da bude u mogućnosti pristupanja Cassandrinim objektima ( GRANT/REVOKE metode autorizacije). 
+</p><p><br />
+</p><p>Procedura je sljedeća: 
+</p>
+<ol><li> 	Potrebno je naći Cassandrinu datoteku conf te unutar nje datoteku imena <i>cassandra.yaml</i>. Ukoliko je Cassandra instalirana kao paket tada se nalazi u <i>/etc/cassandra/</i>  te nakon što se nađe datoteka potrebno je <b>authenticator</b> postaviti na: 
+</li></ol>
+<pre>    <b>Authenticator</b>: <i>PasswordAuthenticator</i>
+</pre>
+<p><i>PasswordAuthenticator</i> označava kako je potreban par korisničko ime/lozinka ua authentifikaciju korisnika. Sadržava korisnička imena zajedno sa heširanim lozinkama u <i>sys_auth.credentials</i> tablici. Ukoliko koristi autentifikator tada je poželjno da se replikacijski faktor sheme imena <i>system_auth</i>  poveća. Replikacijski faktor u našem slučaju je 2.  Isto tako nakon promjene autentifikatora, poželjno je promijeniti i autorizatora. 
+</p>
+<pre>   <b>Autorizer'</b>: <i>CassandraAuthorizer</i>
+</pre>
+<p><b>CassandraAuthorizer</b> sprema sve pristupe i ograničenje u <b>system_auth.permissions</b> tablici. Isto tako je poželjno da se poveća replikacijski faktor iste. 
+Sada kada je autentifikacija omogućena te ukoliko pokušamo pristupiti bilo kojoj shemi Cassandra će vratiti grešku. Po zadanom, Cassandra pruža super korisnički računa sa korisničkim imenom <b>cassandra</b> te lozinkom <b>cassandra</b>. Prijavom u Cassandru sa takvim korisničkim imenom dobivaju se sve moguće ovlasti nad klijentom i podacima čvora. Pokušamo li se prijaviti sa drukčijim korisničkim računom dobit ćemo sljedeće: 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Auth_error1.png" class="image"><img alt="Auth error1.png" src="../images/5/54/Auth_error1.png" width="1278" height="94" /></a>
+</p><p>Pokušamo li sa korisničkim <b>superuserom</b> <i>cassandra</i> te passwordom <i>cassandra</i> dobiti ćemo: 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Erro_21.png" class="image"><img alt="Erro 21.png" src="../images/c/cc/Erro_21.png" width="1278" height="143" /></a>
+</p>
+<h3> <span class="mw-headline" id="Kreiranje_novih_korisnika">Kreiranje novih korisnika </span></h3>
+<p>Novog korisnika kreiramo u CQLSH-u, odnosno <i>Cassandra Query Language Shell</i>. Nakon što smo kreirali novog korisnika kao <i>superuser-a</i> <b>sis</b>, <b>sis_no</b> kao običnog korisnika te oduzimamo pomoću naredbe <b>revoke</b> sve ovlasti korisnika cassandra pošto je to defaultni user te kako bi se obranili od mogućeg nagađanja korisnika i šifre. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Create_user1.png" class="image"><img alt="Create user1.png" src="../images/d/d7/Create_user1.png" width="800" height="251" /></a>
+</p>
+<h3> <span class="mw-headline" id="Dodjeljivanje.2Foduzimanje_prava"> Dodjeljivanje/oduzimanje prava </span></h3>
+<p>Kako smo napravili korisnika <i>sis_no</i> provjerit ćemo samo funkcioniranje predavanja ovlasti nad <b>keyspaceom</b> Cassandrinog klastera. Kako u klasteru postoji keyspace naziva <i>nth</i>, korisniku <i>sis_no</i> oduzet ćemo sva prava nad istim te pokušati pristupiti tom istom keyspaceu. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Revok1e.png" class="image"><img alt="Revok1e.png" src="../images/3/33/Revok1e.png" width="1282" height="332" /></a>
+</p>
+<h2> <span class="mw-headline" id="Konfiguracija_multi-.C4.8Dvor_sustava_.28iptables.29"> Konfiguracija multi-čvor sustava (iptables) </span></h2>
+<p><code>$ sudo yum update</code>
+</p><p><code> $ sudo yum install iptables-services -y</code>
+</p><p>Tokom izvršavanja instalacije potrebno je za sva pravila napisati „yes“. U nastavku će se ispravljati već postavljene postavke. 
+Naredba iptables podržava samo IPv4 promet. Ukoliko je prisutan i IPv6 promet tada je potrebno koristiti naredbu ip6tables. Kako bi implementirali vatrozid prvo ćemo ispraviti pravila koja se nalaze na 
+</p><p><code> $ sudo nano /etc/sysconfig/iptables </code>.
+</p><p>Potrebno je cijeli sadržaj datoteke izmijeniti sa: 
+</p>
+<pre>   
+   //filter
+   / Dopusti sve izlazno, no dropaj ili odbij sav promet koji dolazi ili se prosljeđuje po defaultu
+</pre>
+<pre>  &#160;:INPUT DROP [0:0] 
+  &#160;:FORWARD DROP [0:0]
+  &#160;:OUTPUT ACCEPT [0:0]
+</pre>
+<pre>   / Chanovi ili lanci
+  &#160;:UDP - [0:0]
+  &#160;:TCP - [0:0]
+  &#160;:ICMP - [0:0]
+</pre>
+<pre>   / Prihvaljivi TCP promet
+   -A TCP -p tcp --dport 22 -j ACCEPT
+   / Acceptable ICMP traffic
+</pre>
+<pre>   / Predložena pravila
+   -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+   -A INPUT -i lo -j ACCEPT
+</pre>
+<pre>   / Odbiti nevaljate pakete
+   -A INPUT -m conntrack --ctstate INVALID -j DROP
+   / Propustiti promet do specificiranog protokol lanca
+   // Dopuštanje samo novih konekcija (uspostavljene ili povezane konekcije trebale bi biti već handlane)
+   // Za TCP, dopusti dodatno samo SYN pakete koji su valjani
+   // metoda za dopuštanje novih konekcija
+   -A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+   -A INPUT -p tcp --syn -m conntrack --ctstate NEW -j TCP
+   -A INPUT -p icmp -m conntrack --ctstate NEW -j ICMP
+</pre>
+<pre>   // Odbiti sve što je do sada došlo do tu
+   // Protocol-specific w/ poruka odbitka
+   -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+   -A INPUT -p tcp -j REJECT --reject-with tcp-reset
+   -A INPUT -j REJECT --reject-with icmp-proto-unreachable
+</pre>
+<pre>   // Commit the changes
+   COMMIT
+</pre>
+<pre>   //raw
+  &#160;:PREROUTING ACCEPT [0:0]
+  &#160;:OUTPUT ACCEPT [0:0]
+   COMMIT
+</pre>
+<pre>  //nat
+ &#160;:PREROUTING ACCEPT [0:0]
+ &#160;:INPUT ACCEPT [0:0]
+ &#160;:OUTPUT ACCEPT [0:0]
+ &#160;:POSTROUTING ACCEPT [0:0]
+  COMMIT
+</pre>
+<pre>  //security
+ &#160;:INPUT ACCEPT [0:0]
+ &#160;:FORWARD ACCEPT [0:0]
+ &#160;:OUTPUT ACCEPT [0:0]
+  COMMIT
+</pre>
+<pre>  //mangle
+ &#160;:PREROUTING ACCEPT [0:0]
+ &#160;:INPUT ACCEPT [0:0]
+ &#160;:FORWARD ACCEPT [0:0]
+ &#160;:OUTPUT ACCEPT [0:0]
+ &#160;:POSTROUTING ACCEPT [0:0]
+  COMMIT 
+</pre>
+<p><br />
+Napisana pravila prihvaćamo sljedećom naredbom: 
+</p><p><code> $ sudo service iptables-persistent reload </code>
+</p><p>Načinom koji je gore prikazan namješten je lanac koji će prcesuirati sve pakete koji su namijenjeni našem serveru. Isto tako omogućili smo cijelo odlazni promet te onemogućili sve pakete koji se prosljeđuju u slučaju da naš server posluži kao router za ostale hostove. U osnovi, pravila koja postavljaju vatrozid onemogućit će sav dolazni promet do zadanom. Ono što je sljedeće potrebno napraviti su iznimke za ostale servise te promet koji želimo isključiti iz ovih setova pravila. U glavnom INPUT lancu dodali smo općenita generička pravila za promet za kojeg pouzdano znamo da će svaki put jednako biti obrađen na isti način. Primjer toga su odbijeni paketi koji se smatraju „nevaljanim“ te promet koji uvijek želim propuštati na temelju konekcije koja je već uspostavljena. 
+</p><p>Nadalje, u ovom primjeru jedini servisi koje mi dopuštamo su SSL u našem TCP lancu.  Svaki promet koji nije u skladu sa generičkim ili pravilima servisa u lancu specificanog protokola bit će rukovan od starane TCP lanca. Isto tako postavili smo i defaultna pravila za DROP koji će odbijati pakete koji uspiju proći kroz postavljena pravila. Pravila koja se nalaze na kraju INPUT lanca odbit će sve pakete te će poslati povratnu informaciju klijentima na način da će oponašati način rada servera kao da se ne vrti niti jedan servis na tom portu. 
+</p><p>Kako bi mogli nastaviti danju implementaciju vatrozida pomoću naredbe iptables potrebno je resetiranje vatrozida: 
+</p><p><code> $ sudo service iptables flush </code>
+</p><p>Upisivanjem naredbe: 
+</p><p><code> $ sudo iptables –S</code>
+</p><p>Moguće je vidjeti da su pravila u tablici filtara nestala te da je defaultna pravila porstavljena na ACCEPT na svim lancima: 
+</p>
+<pre>   <b> Output</b>
+    -p INPUT ACCPET
+    -p FORWARD ACCEPT
+    -p OUTPUT ACCEPT  
+</pre>
+<h3> <span class="mw-headline" id="Kreiranje_eng._Protocol_specific_lanca"> Kreiranje eng. <i>Protocol specific</i> lanca </span></h3>
+<p>Postavljanjem istih kreiraju se pravila gdje se izgrađuju iznimke za pravila koja odbijaju servise koje želimo izložiti. Kreirat ćemo po jedno pravilo za UDP promet, TCP te jedan sa ICMP promet. 
+</p><p><code> 
+$ sudo iptables -N UDP
+</p><p>$ sudo iptables -N TCP
+</p><p>$ sudo iptables -N ICMP
+</code>
+</p><p><br />
+Možemo napraviti i korak unaprijed te napraviti iznimku za SSH promet. Pošto SSH koristi TCP dodat ćemo pravilo koje prihvaća TCP promet prema odredišnom portu 22 na TCP lanac:
+</p><p><code> $ sudo iptables -A TCP -p tcp --dport 22 -j ACCEPT </code>
+</p><p>U INPUT lancu, gdje započinje filtirranje cjelokupnog dolaznog prometa, moramo dodati pravila opće namjene. Ta ista pravila služe za prihvaćanje prometa niskog rizika(lokalni promet i promet koji čija je konekcija već prihvaćena i provjerena) te neprihvaćanje prometa koji nema smisla tj.  nepravilnih paketa. Sukladno tome napravit ćemo iznimku za sav rpromet koji je dio već uspostavljene konekcije ili je povezan sa istom: 
+</p><p><code>$ sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT </code>
+</p><p>Navedena naredba koristi conntrack ekstenziju koja pruža unutarnje praćenje  tako da iptables posjeduju kontekst potreban za procijenu paketa kao dijela veće konekcije umjesto da gleda kao na tok nepovezanih paketa.
+Isto tako poželjno je propustiti lokalni promet koji je generiran od strane servera te je predodređen za isti server. Obično je to tip prometa kojeg genriraju servisi na nekom hostu kako bi komunicirali jedni sa drugima.
+</p><p><code> $ sudo iptables -A INPUT -i lo -j ACCEPT </code>
+</p><p>Već je bilo govora od odbijanju svih nepravilnih paketa. Paket može biti nepravilan na nekoliko načina. Može biti nepravilan na način da se referencira na konekciju koja ne postoji, mogu biti predodređeni za sučelja, adrese ili portove koji ne postoje ili jednostavno deformirani. 
+U svakom slučaju mi ćemo odbiti bilo kakav nepravilan paket pošto ne postoji neki pravilan način za rukovanje sa istim te upravo radi toga mogu reprezentirati malicioznu radnju: 
+</p><p><code>  $ sudo iptables -A INPUT -m conntrack --ctstate INVALID -j DROP  </code>
+</p><p>Ako napravimo sumu do sada svega što smo napravili možemo vidjeti kako smo uspostavili generalna pravila za INPUT lanac te neka specifična pravila za određene servise u našem „protocol-specific“ lancu. Trenutno sav promet koji primimo prolazi kroz INPUT lanac te ne postoji put dolaska do „protocol-specific“ lanca. 
+Ono što ćemo u nastavku napraviti je usmjeravanja prometa sa INPUT lanca na prikladan protocol-specific lanac.  Isto tako osigurat ćemo da paketi predstavljaju novu konekciju jer svaka već uspostavljena konekcija bi trebala biti ve izrukovana ranije. Za TCP pakete dodat ćemo dodatni zahtjev da paket mora bit SYN tipa tj. tip kao takav će biti jedini validni kako bi TCP konekcija mogla biti uspostavljena:
+</p><p><code> 
+$ sudo iptables -A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+</p><p>$ sudo iptables -A INPUT -p tcp --syn -m conntrack --ctstate NEW -j TCP
+</p><p>$ sudo iptables -A INPUT -p icmp -m conntrack --ctstate NEW -j ICMP
+</code>
+</p><p>Nadalje, odbacit ćemo sav preostali promet. Ukoliko paket koji je proslijeđen „protocol-specfic“  lancu ne odgovara niti jednom pravilu istog, kontrola će isti vratiti na INPUT lanac. Bilo što da dođe do takve točke ne bi trebalo biti dopušteno sa vatrozidom koji trenutno gradimo. Kako bi odbacili takve pakete koristit ćemo opciju REJECT koja šalje poruke kao odgovore klijentima. To nam omogućava da specificiramo odlazne poruke kako bi mogli oponašati odgovor koji će biti poslan klijentu ukoliko pokuša poslati pkaete na regularan zatvoreni port. Ukoliko klijent pokuša doći do zatvorenog UDP porta odgovor će rezultirati sa ICMP porukom o nedostupnosti porta. To isto možemo imitirati upisujući sljedeće: 
+</p><p><code> 
+$ sudo iptables -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable </code>
+</p><p><br />   
+</p><p>Ukoliko pokuša uspostaviti TCP konekciju nekog zatvorenog porta kao dogovor dobit će TCP RST odgovor te to isto rješavamo sljedećom linijom: 
+</p><p><code>$ sudo iptables -A INPUT -p tcp -j REJECT --reject-with tcp-reset </code>
+</p><p>Za sve ostale pakete možemo slati ICMP poruku o nedostupnosti protokola koja će označavati da server ne reagira na pakete tipa kao takvog: 
+</p><p><code> $ sudo iptables -A INPUT -j REJECT --reject-with icmp-proto-unreachable </code>
+</p><p>Zadnja tri pravila koja ćemo dodati trebala bi rukovati sa ostatkom prometa INPUT lanca. Kao zmjeru predostrožnosti trebali bi postaviti zadanu policu pravila na DROP. Isto tako, tu istu policu trebali bi postaviti u FORWARD lanac ukoliko servr nije konfiguriran kao router za ostale strojeve:
+</p><p><code>
+$ sudo iptables -P INPUT DROP
+</p><p>$ sudo iptables -P FORWARD DROP
+</p><p>$ sudo iptables save</code>
+</p><p>Nakon što smo postavili vatrozid, namjestili Cassandrine servere potrebno je dodati dodatna pravila za Cassandrine portove, tj. potrebno je modificirati pravila vatrozida za IPv4. 
+</p><p><code> $ sudo nano /etc/sysconfig/iptables </code>
+</p><p>Sljedećom linijom ćemo omogućiti propuštanje prometa na bitnim Cassandrinim pirtovima. Liniji ispod „# Reject anything that's fallen through to this point“ potrebno je zalijepiti slijedeći dio pravila: 
+</p>
+<pre>    -A INPUT -p tcp -s your_server_ip,your_other_server_ip,your_other_server_ip -m multiport --dports 7000,9042 -m state --state NEW,ESTABLISHED -j ACCEPT
+</pre>
+<p>Nakon što smo isto napravili potrebno je resetirati servis IPTables-a te smo samim tim osigurali ponašanje servera i paketa koji pristižu.
+</p><p><code> $ sudo service iptables-persistent restart</code>
+</p><p>Primjer pristupanja jednom od čvorova nakon što je postavljen <b>iptables</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Unable1.png" class="image"><img alt="Unable1.png" src="../images/9/9c/Unable1.png" width="743" height="150" /></a>
+</p><p>Primjer pristupanja preko dozvoljnog <i>porta -9042</i>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:ConnAcp.png" class="image"><img alt="ConnAcp.png" src="../images/b/ba/ConnAcp.png" width="747" height="90" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Data_auditing"> Data auditing </span></h3>
+<p>Pregled podataka ili eng. data auditing implementirana je na log4j baziranoj integraciji. Način na koji Cassandra sprema pregled podataka je tako što ga sprema u direktorij koji je naznačen u dokuementu <b>log4j.property</b>. Dokument za pregled informacija zapravo sprema sve informacije o određenom čvoru gdje je takav pregled omogućen. Na primjer, ukoliko je na hdp1.local čvoru pregled omogućen, a na hdp2.local nije. Ažuriranje sustava na hdp2.local te bilo kakvo izvšavanje naredbi na istom neće se generalno pokazati i kod pregleda log-ova na hdp1.local. Kako bi dobili maksimalan raspon informacija o pregledu podataka poželjeno je omogućiti to isto na svakom čvoru. Provjera je konfigurirana kroz tekstualno datoteku u datotečnom sustavu stoga je ta ista ranjiva na temelju sigurnosti operacijskog sustava. Poželjno je tu istu datoteku spremiti enkriptiranu na razini operacijskog sustava korištenjem Vormetric ili na primjer, osigurati je. 
+</p><p>Konfiguracija pregleda podataka
+</p><p>Procedura konfiguracije istog je sljedeća: 
+</p><p>1. Otvoriti <b>log4j-server.properties</b> dokument u sljedećem direktoriju: 
+</p>
+<pre>   $ nano /resources/cassandra/conf  
+</pre>
+<p>2. Kako bi konfigurirali pregled podataka potrebno je odkomentirati sljedeće linije u postavkama kako bi osigurali da su defaultne postavke namještene.
+</p>
+<pre>   Svojstva	          Defaultna svojstva 	Opis
+   Log4j.logger.DataAudit	INFO, A	Produciranje log-ova na informacijskoj razini
+   Log4j.additivity.DataAudit	False	Preventiranje logg-anja root appender
+   Log4j.appender.A	Org.apache.log4j.RollingFileAppender	Preventiranje logg-anja root appender
+   Log4j.appender.A.File	/var/log/cassandra/audit.log	Postavljanje putanje do log datoteke
+   Log4j.appender.A.bufferedlO	True	„True“ pospješuje performanse no onda sustav neće biti u „real time-u“ odnosno podaci neće pristizati unutar 3s.
+</pre>
+<p>3. Nadalje treba postaviti neke generalne opcije kao naprimjer odkomentirati sljedeća pravila: 
+</p>
+<pre>   log4j.appender.A.maxFileSize = 200 MB  
+   log4j.appender.A.maxBackupIndex = 5 
+   log4j.appender.A.layout = org.apache.log4j.PatternLayout 
+   log4j.appender.A.layout.ConversionPattern =&#160;% m&#160;% n  
+   log4j.appender.A.filter.1 = com.datastax.bdp.cassandra.audit.AuditLogFilter  
+</pre>
+<p>4.  Odkomentirati te postaviti:
+</p>
+<pre>   log4j.appender.A.filter.1.ActiveCategories  na <b>ALL</b>. 
+</pre>
+<p>5.  Također preporučljivo je onemogućiti logg-anje za specifične eng. keyspaces. Kako bi to napravili potrebno je sljedeću liniju koda namjestiti na sljedeći način:  
+</p>
+<pre>   log4j.appender.A.filter.1.E xemptKeyspaces = do_not_log, also_do_not_log
+</pre>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] Configuring and using data auditing, <a href="https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secAudit.html" class="external free" rel="nofollow">https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secAudit.html</a>
+</p><p>[2] Configuring audit logging to a Cassandra table, <a href="https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secAuditingCassandraTable.html" class="external free" rel="nofollow">https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secAuditingCassandraTable.html</a>
+</p><p>[3] How to start/stop/restart/reload iptables CentOS7/RHEL 7, <a href="http://sharadchhetri.com/2014/07/26/how-to-start-stop-restart-reload-iptables-on-centos-7-rhel-7/" class="external free" rel="nofollow">http://sharadchhetri.com/2014/07/26/how-to-start-stop-restart-reload-iptables-on-centos-7-rhel-7/</a>
+</p><p>[4] Running cqlsh with Kerberos/SSL, <a href="https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secRunCqlsh.html" class="external free" rel="nofollow">https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secRunCqlsh.html</a>
+</p><p>[5] Managing object permission using intenal authorization, <a href="https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secRunCqlsh.html" class="external free" rel="nofollow">https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/sec/secRunCqlsh.html</a>
+</p><p>[6] Secruing Spark, <a href="https://docs.datastax.com/en/latest-dse/datastax_enterprise/sec/sparkSecurity.html" class="external free" rel="nofollow">https://docs.datastax.com/en/latest-dse/datastax_enterprise/sec/sparkSecurity.html</a>
+</p><p>[7] Setting Cassandra-specific properties, <a href="https://docs.datastax.com/en/datastax_enterprise/4.5/datastax_enterprise/spark/sparkCassProps.html" class="external free" rel="nofollow">https://docs.datastax.com/en/datastax_enterprise/4.5/datastax_enterprise/spark/sparkCassProps.html</a>
+</p><p>[8] Installing the Apache Cassandra 3.0 on RHEL-based systems , <a href="http://docs.datastax.com/en/cassandra/3.0/cassandra/install/installRHEL.html" class="external free" rel="nofollow">http://docs.datastax.com/en/cassandra/3.0/cassandra/install/installRHEL.html</a>
+ 
+</p><p>[9] Configuring authentication, <a href="http://docs.datastax.com/en/archived/cassandra/2.0/cassandra/security/security_config_native_authenticate_t.html" class="external free" rel="nofollow">http://docs.datastax.com/en/archived/cassandra/2.0/cassandra/security/security_config_native_authenticate_t.html</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 55/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9681-0!*!0!!hr!2!edit=0 and timestamp 20190203204216 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="BigDataSecurity.html">http://security.foi.hr/wiki/index.php/BigDataSecurity</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=BigDataSecurity" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="BigDataSecurity.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:BigDataSecurity&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="BigDataSecurity.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="BigDataSecurity.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=BigDataSecurity&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=BigDataSecurity&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="BigDataSecurity.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/BigDataSecurity" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/BigDataSecurity" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=BigDataSecurity&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=BigDataSecurity&amp;oldid=40925" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 15:59, 20. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 11.532 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "BigDataSecurity", "wgTitle": "BigDataSecurity", "wgAction": "view", "wgArticleId": 9681, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40925, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.361 secs. -->			</body>
+</html>

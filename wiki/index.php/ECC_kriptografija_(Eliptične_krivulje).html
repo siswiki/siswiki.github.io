@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>ECC kriptografija (Eliptične krivulje) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=ECC_kriptografija_(Elipti%C4%8Dne_krivulje)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-ECC_kriptografija_Eliptične_krivulje skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">ECC kriptografija (Eliptične krivulje)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="ECC_kriptografija_(Eliptične_krivulje).html#mw-head">orijentacija</a>,
+					<a href="ECC_kriptografija_(Eliptične_krivulje).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Izradile: Nina Kuzmić, Lea Kuzminski, Renata Mesaroš
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Elipti.C4.8Dne_krivulje"><span class="tocnumber">2</span> <span class="toctext">Eliptične krivulje</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Op.C4.87enito_o_elipti.C4.8Dnim_krivuljama"><span class="tocnumber">2.1</span> <span class="toctext">Općenito o eliptičnim krivuljama</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Grupovni_zakon"><span class="tocnumber">2.2</span> <span class="toctext">Grupovni zakon</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Elipti.C4.8Dne_krivulje_nad_Q"><span class="tocnumber">2.3</span> <span class="toctext">Eliptične krivulje nad Q</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Elipti.C4.8Dne_krivulje_nad_kona.C4.8Dnim_poljima"><span class="tocnumber">2.4</span> <span class="toctext">Eliptične krivulje nad konačnim poljima</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Kona.C4.8Dna_polja_primarnih_brojeva"><span class="tocnumber">2.4.1</span> <span class="toctext">Konačna polja primarnih brojeva</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Kona.C4.8Dna_polja_po_bazi_2"><span class="tocnumber">2.4.2</span> <span class="toctext">Konačna polja po bazi 2</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Analiza_krivulje_za_kona.C4.8Dno_polje"><span class="tocnumber">2.4.3</span> <span class="toctext">Analiza krivulje za konačno polje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Odre.C4.91ivanje_reda_grupe"><span class="tocnumber">2.5</span> <span class="toctext">Određivanje reda grupe</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Primjena_elipti.C4.8Dnih_krivulja"><span class="tocnumber">3</span> <span class="toctext">Primjena eliptičnih krivulja</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Kriptosustavi_koji_koriste_elipti.C4.8Dne_krivulje"><span class="tocnumber">3.1</span> <span class="toctext">Kriptosustavi koji koriste eliptične krivulje</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="ECC_kriptografija_(Eliptične_krivulje).html#EC_ElGamalov_kriptosustav"><span class="tocnumber">3.1.1</span> <span class="toctext">EC ElGamalov kriptosustav</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Demytkov_kriptosustav"><span class="tocnumber">3.1.2</span> <span class="toctext">Demytkov kriptosustav</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="ECC_kriptografija_(Eliptične_krivulje).html#KMOV_kriptosustav"><span class="tocnumber">3.1.3</span> <span class="toctext">KMOV kriptosustav</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Metode_izra.C4.8Duna_digitalnih_potpisa_koje_koriste_elipti.C4.8Dne_krivulje"><span class="tocnumber">3.2</span> <span class="toctext">Metode izračuna digitalnih potpisa koje koriste eliptične krivulje</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="ECC_kriptografija_(Eliptične_krivulje).html#ECDSA"><span class="tocnumber">3.2.1</span> <span class="toctext">ECDSA</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="ECC_kriptografija_(Eliptične_krivulje).html#OFF_shema_digitalnog_potpisa"><span class="tocnumber">3.2.2</span> <span class="toctext">OFF shema digitalnog potpisa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Proces_provo.C4.91enja_razmjene_poruka_koriste.C4.87i_ECC_kriptiranje"><span class="tocnumber">3.3</span> <span class="toctext">Proces provođenja razmjene poruka koristeći ECC kriptiranje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Specifi.C4.8Dnosti_elipti.C4.8Dnih_krivulja"><span class="tocnumber">4</span> <span class="toctext">Specifičnosti eliptičnih krivulja</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Performanse_i_sigurnost"><span class="tocnumber">4.1</span> <span class="toctext">Performanse i sigurnost</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Kompleksnost_diskretnog_logaritamskog_problema"><span class="tocnumber">4.2</span> <span class="toctext">Kompleksnost diskretnog logaritamskog problema</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Generiranje_krivulja"><span class="tocnumber">4.3</span> <span class="toctext">Generiranje krivulja</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Nekompatibilni_sustavi"><span class="tocnumber">4.4</span> <span class="toctext">Nekompatibilni sustavi</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Procesiranje"><span class="tocnumber">4.5</span> <span class="toctext">Procesiranje</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Intelektualno_vlasni.C5.A1tvo"><span class="tocnumber">4.6</span> <span class="toctext">Intelektualno vlasništvo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Protokoli_za_razmjenu_tajnog_klju.C4.8Da"><span class="tocnumber">5</span> <span class="toctext">Protokoli za razmjenu tajnog ključa</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Diffie-Hellmanov_protokol"><span class="tocnumber">5.1</span> <span class="toctext">Diffie-Hellmanov protokol</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Elliptic_curve_Diffie-Hellmanov_protokol"><span class="tocnumber">5.2</span> <span class="toctext">Elliptic curve Diffie-Hellmanov protokol</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="ECC_kriptografija_(Eliptične_krivulje).html#EC_Nyberg-Rueppelov_protokol"><span class="tocnumber">5.3</span> <span class="toctext">EC Nyberg-Rueppelov protokol</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Sustavi_za_raspodjelu_klju.C4.8Deva"><span class="tocnumber">5.4</span> <span class="toctext">Sustavi za raspodjelu ključeva</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Primjer_razmjene_poruka"><span class="tocnumber">5.5</span> <span class="toctext">Primjer razmjene poruka</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-33"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Zaklju.C4.8Dak"><span class="tocnumber">6</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-34"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-35"><a href="ECC_kriptografija_(Eliptične_krivulje).html#Podjela_rada"><span class="tocnumber">8</span> <span class="toctext">Podjela rada</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod">Uvod</span></h1>
+<p>U svijetu današnjice kriptografija posebno dolazi do izražaja i poprima veliku važnost u zaštiti podataka. Jedna od najčešće korištenih jest RSA, no kao konkurent mu se javlja ECC kriptograija sa svojom manjom veličinom ključa kojom omogućuje brže procesiranje. No, RSA ipak još ima veću pouzdanost pa je više u upotrebi. Ovim radom cilj je predstaviti ECC kriptiranje, njegov način rada te dati nekoliko primjera na kojima se vidi njegov način funkcioniranja.
+</p>
+<h1> <span class="mw-headline" id="Elipti.C4.8Dne_krivulje">Eliptične krivulje</span></h1>
+<h2> <span class="mw-headline" id="Op.C4.87enito_o_elipti.C4.8Dnim_krivuljama"> Općenito o eliptičnim krivuljama</span></h2>
+<p>Naziv „eliptične“ dolazi iz razloga što su opisane kubnim jednadžbama, iako nemaju izgled elipse.Kriptografija koju koriste eliptične krivulje koristi abelovu grupu temeljenu na zbrajanju. Prema tome, određeni broj se dodaje n puta pa je prilikom dekriptiranja potrebno odrediti broj n. Eliptična krivulja je definirana preko dvije varijable s koeficijentima gdje su varijable ograničene. 
+Eliptične krivulje su opisane pomoću kubnih jednadžbi oblika:<br />
+</p><p>y^2+axy+by = x^3+cx^2+dx+e<br />
+</p><p><b>a,b,c,d</b> – realni brojevi<br />
+<b>x,y</b>  -  varijable koje poprimaju vrijednosti realnih varijabli<br />
+Točka beskonačnosti se označava sa O. 
+<br />
+Svaka eliptična krivulja je simetrična s obzirom na os y gdje je y=0 jer je y varijabla koja sadrži pozitivne i negativne vrijednosti za svaku x vrijednost.<br />
+Eliptične krivulje se dijele na dva tipa:<br />
+1)	<b>osnovne krivulje</b> (tj. krivulje prvog reda) nad Zp<br />
+2)	<b>Binarne krivulje nad GF</b>(2^m)<br />
+Krivulje prvog reda se prikazuju pomoću kubnih jednadžbi gdje varijable i koeficijenti predstavljaju cijele brojeve iz skupa 0 do p-1. Upravo je ovaj tip krivulja najbolji za programske aplikacije, dok su binarne krivulje bolje za hardverske aplikacije. Potrebno je napomenuti da se kod krivulja prvog reda izračun svodi na mod od p.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Grupovni_zakon"> Grupovni zakon</span></h2>
+<p>Kada se govori o kriptosustavima koji su zasnovani na problemu diskretnog logaritma, naglašava se da je grupa točaka na eliptičnoj krivulji nad konačnim poljem jedna od važnijih grupa koje se koriste u kriptografiji. Isto tako, imaju veliku ulogu kod faktorizacije i dokazivanja prostosti.
+</p><p><br />
+Neka je K polje. Eliptična krivulja nad poljem K je nesingularna projektivna kubna krivulja s barem jednom točkom. Ona ima jednadžbu oblika
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula111.PNG" class="image"><img alt="Formula111.PNG" src="../images/f/f5/Formula111.PNG" width="603" height="41" /></a>
+</p><p><br />
+U kojoj su a, b, c, d, e, f, g, h, i, j   ϵ K, a nesingularnost znači da je u svakoj točki na krivulji postoji barem jedna parcijalna derivacija koja je različita od nule. Svaka takva jednadžba se može svesti na sljedeći oblik:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula112.PNG" class="image"><img alt="Formula112.PNG" src="../images/0/00/Formula112.PNG" width="340" height="41" /></a>
+</p><p>Ovaka oblik formule nazivamo Weierstrassova forma. Ukoliko je karakteristika polja K različita od 2 i 3, tada jednadžba poprima sljedeći oblik:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula113.PNG" class="image"><img alt="Formula113.PNG" src="../images/4/4c/Formula113.PNG" width="152" height="35" /></a>
+</p><p><br />
+Točka u beskonačnosti se pojavljuje ukoliko eliptičnu krivulju prikažemo u projektivnoj ravnini. Nju dobijemo tako da skupu K^3 \{(0,0,0)} uvedemo relaciju ekvivalencije (X,Y,Z) ~(kX,kY,kZ) pa dobivamo sljdeću jednadžbu:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula114.PNG" class="image"><img alt="Formula114.PNG" src="../images/b/b6/Formula114.PNG" width="202" height="42" /></a>
+</p><p><br />
+Operacija zbrajanje na skupu E(R) se objašnjava na pretpostavku da su tri točke na krivulji E kolinearne ako i samo ako im je suma jednaka neutralnom elementu. Ovo se može zapisati i eksplicitnim formulama za koordinate zbroja točaka. Te formule mogu poslužiti za definiciju zbrajanja točaka na eliptičnoj krivulji nad proizvoljnim poljem. Formule su sljedeće:
+</p><p>Neka je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula115.PNG" class="image"><img alt="Formula115.PNG" src="../images/8/85/Formula115.PNG" width="203" height="34" /></a> tada je
+</p><p>1) <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula117.PNG" class="image"><img alt="Formula117.PNG" src="../images/0/06/Formula117.PNG" width="72" height="31" /></a>   (O je neutralni element)
+</p><p>2) <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula118.PNG" class="image"><img alt="Formula118.PNG" src="../images/7/70/Formula118.PNG" width="125" height="25" /></a>
+</p><p>3) <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula119.PNG" class="image"><img alt="Formula119.PNG" src="../images/7/7a/Formula119.PNG" width="86" height="21" /></a>
+</p><p>4) Ako je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula120.PNG" class="image"><img alt="Formula120.PNG" src="../images/2/22/Formula120.PNG" width="66" height="22" /></a> tada je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula121.PNG" class="image"><img alt="Formula121.PNG" src="../images/2/2f/Formula121.PNG" width="84" height="20" /></a>
+</p><p>5) Ako je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula122.PNG" class="image"><img alt="Formula122.PNG" src="../images/7/7b/Formula122.PNG" width="66" height="24" /></a> tada je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula123.PNG" class="image"><img alt="Formula123.PNG" src="../images/f/f5/Formula123.PNG" width="130" height="27" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula124.PNG" class="image"><img alt="Formula124.PNG" src="../images/8/84/Formula124.PNG" width="376" height="133" /></a>
+</p><p><br />
+λ je koeficijent smjera pravca kroz P i Q.
+</p><p>U kriptografiji je najvažniji slučaj kada je K konačno polje  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula125.PNG" class="image"><img alt="Formula125.PNG" src="../images/f/f6/Formula125.PNG" width="27" height="25" /></a> a posebno su važni slučaji kada je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula126.PNG" class="image"><img alt="Formula126.PNG" src="../images/9/9d/Formula126.PNG" width="50" height="20" /></a> p je prost broj i <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula127.PNG" class="image"><img alt="Formula127.PNG" src="../images/0/0d/Formula127.PNG" width="58" height="24" /></a>
+</p><p><br />
+Kako bismo lakše razumijeli, uzet ćemo primjer krivulje iz sustava konačnih polja primarnih brojeva <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula128.PNG" class="image"><img alt="Formula128.PNG" src="../images/9/96/Formula128.PNG" width="36" height="23" /></a> Eliptična krivulja je priklada za upotrebu u kriptografiji zbog svojstva koje kaže da ako se odaberu dvije različite točke na krivulji, tada pravac koji ih spaja, sječe krivulju u nekoj trečoj točki. Ako tu točku reflektiramo na os X tada dobijemo još jednu točku. Moramo napomenuti da je ta krivulja simetrična u odnosu na os X, zbog čega i proizlazi da je ta točka simetrična s obzirom na tu os. Dakle, ukoliko su nam poznate točke A i B možemo pronaći točku refleksije A+B. Ta točka zadovoljava najčešća matematička svojstva koja se pojavljuje uz cijele brojeve, pod uvjetom da je definirana točka beskonačnosti. Kod cijelih brojeva je to nula.
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika100.PNG" class="image"><img alt="Slika100.PNG" src="../images/c/c2/Slika100.PNG" width="596" height="516" /></a>
+</p><p><br />
+Moguće je obavljati normalne matematičke operacije, ukoliko definiramo oblik matematičkih operacija nad točkama eliptične krivulje. Ako se točke A i B podudaraju tada se može definirati točka refleksije A+A, koju još označavamo sa 2A. Iz toga slijedi da je moguće odrediti kP, za bilo koji cijeli broj k.
+</p><p>Stoga možemo zaključiti da ako postoji bazna točka A, te točke kA na krivulji, moramo pronaći vrijednost k. Za pogodne eliptične krivulje i bazne točke ovo je poprilično težak problem. U tome je poanta ECDLP-a.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Elipti.C4.8Dne_krivulje_nad_Q"> Eliptične krivulje nad Q</span></h2>
+<p>Kod eliptičnih krivulja nad Q neizbježno je spomenuti Mordell-Weilov teorem. Taj teorem kaže da postoji konačan skup racionalnih točaka <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula129.PNG" class="image"><img alt="Formula129.PNG" src="../images/a/ab/Formula129.PNG" width="84" height="24" /></a> na E iz kojih se racionalne točke na E mogu dobiti povlačenjem sekanti i tangenti. S obzirom da je svaka konačno generirana Abelova grupa izomorfna produktu cikličkih grupa, dobivamo sljedeće:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula130.PNG" class="image"><img alt="Formula130.PNG" src="../images/0/06/Formula130.PNG" width="181" height="32" /></a>
+</p><p>Svaka racionalna točka P na E može se prikazati u sljedećem obliku:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula131.PNG" class="image"><img alt="Formula131.PNG" src="../images/1/18/Formula131.PNG" width="214" height="27" /></a>
+</p><p>Gdje je T neka točka konačnog reda, a <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula132.PNG" class="image"><img alt="Formula132.PNG" src="../images/4/4b/Formula132.PNG" width="90" height="21" /></a> cijeli brojevi. <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula133.PNG" class="image"><img alt="Formula133.PNG" src="../images/9/94/Formula133.PNG" width="37" height="21" /></a>  označava sumu <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula134.PNG" class="image"><img alt="Formula134.PNG" src="../images/e/eb/Formula134.PNG" width="95" height="22" /></a>  od <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula135.PNG" class="image"><img alt="Formula135.PNG" src="../images/e/ed/Formula135.PNG" width="24" height="18" /></a> pribrojnika.
+</p>
+<h2> <span class="mw-headline" id="Elipti.C4.8Dne_krivulje_nad_kona.C4.8Dnim_poljima"> Eliptične krivulje nad konačnim poljima</span></h2>
+<p>Za primjenu u kriptografiji najvažnije su eliptične krivulju nas konačnim poljem. Neka je konačno polje <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula136.PNG" class="image"><img alt="Formula136.PNG" src="../images/d/df/Formula136.PNG" width="21" height="24" /></a> sa q elemenata. Vrlo važni primjeri konačnih polja su polja <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula136.PNG" class="image"><img alt="Formula136.PNG" src="../images/d/df/Formula136.PNG" width="21" height="24" /></a>, u kojima je q prost broj.
+</p><p>Konačna polja se sastoje od ograničenog broja elemanata i operacija zbrajanja i množenja koja se mogu obaviti među elementima tog polja <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula137.PNG" class="image"><img alt="Formula137.PNG" src="../images/2/25/Formula137.PNG" width="103" height="27" /></a> se ovdje koristi kao skup p-adskih cijelih brojeva.
+</p><p>Eliptične krivulje koje se koriste u kriptografiji, definirane su sa dva tipa konačnih polja. Jedno polje je polje neparnih brojeva (<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula138.PNG" class="image"><img alt="Formula138.PNG" src="../images/5/51/Formula138.PNG" width="19" height="25" /></a> konačno polje primarnih brojeva, gdje je p&gt;3 veliki primarni broj).
+</p><p>U tom slučaju jednadžba ima oblik:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula139.PNG" class="image"><img alt="Formula139.PNG" src="../images/7/7c/Formula139.PNG" width="139" height="26" /></a>
+</p><p>Kada bi p bio jednak 3, tada bi jednadžba imala sljedeći oblik:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula140.PNG" class="image"><img alt="Formula140.PNG" src="../images/2/22/Formula140.PNG" width="187" height="29" /></a>
+</p><p>Ukoliko bi p bio jednak 2, tada jednadžba može transformirati u jedan od sljedeća dva oblika:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula141.PNG" class="image"><img alt="Formula141.PNG" src="../images/6/61/Formula141.PNG" width="184" height="37" /></a>
+</p><p>ili 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula142.PNG" class="image"><img alt="Formula142.PNG" src="../images/e/e3/Formula142.PNG" width="190" height="29" /></a>
+</p><p>Drugo polje je polje po bazi 2 (<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula143.PNG" class="image"><img alt="Formula143.PNG" src="../images/a/a2/Formula143.PNG" width="36" height="25" /></a> konačno polje brojeva po bazi 2). Kada razlika između polja nije bitna, oba polja se definiraju kao <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula136.PNG" class="image"><img alt="Formula136.PNG" src="../images/d/df/Formula136.PNG" width="21" height="24" /></a> gdje je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula126.PNG" class="image"><img alt="Formula126.PNG" src="../images/9/9d/Formula126.PNG" width="50" height="20" /></a> ili <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula127.PNG" class="image"><img alt="Formula127.PNG" src="../images/0/0d/Formula127.PNG" width="58" height="24" /></a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kona.C4.8Dna_polja_primarnih_brojeva">Konačna polja primarnih brojeva <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula138.PNG" class="image"><img alt="Formula138.PNG" src="../images/5/51/Formula138.PNG" width="19" height="25" /></a></span></h3>
+<p>Polje sadrži p elemenata. Svi elementi su cijeli brojevi {0,1,2,…,p-1} s operacijama zbrajanja i množenja. Operacije su definirane na sljedeći način.
+</p><p>ZBRAJANJE: ako je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula144.PNG" class="image"><img alt="Formula144.PNG" src="../images/5/52/Formula144.PNG" width="64" height="22" /></a> tada slijedi  da je  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula145.PNG" class="image"><img alt="Formula145.PNG" src="../images/1/11/Formula145.PNG" width="143" height="27" /></a>
+</p><p>MNOŽENJE: ako je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula144.PNG" class="image"><img alt="Formula144.PNG" src="../images/5/52/Formula144.PNG" width="64" height="22" /></a> tada slijedi da je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula146.PNG" class="image"><img alt="Formula146.PNG" src="../images/e/ee/Formula146.PNG" width="137" height="29" /></a>
+</p>
+<h3> <span class="mw-headline" id="Kona.C4.8Dna_polja_po_bazi_2">Konačna polja po bazi 2 <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula143.PNG" class="image"><img alt="Formula143.PNG" src="../images/a/a2/Formula143.PNG" width="36" height="25" /></a></span></h3>
+<p>Ovo polje sadrži <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula147.PNG" class="image"><img alt="Formula147.PNG" src="../images/0/0b/Formula147.PNG" width="26" height="19" /></a> elemenata gdje je m≥1. Skupa je sličan polinomu razine m-1 ili manje <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula148.PNG" class="image"><img alt="Formula148.PNG" src="../images/8/8d/Formula148.PNG" width="325" height="23" /></a>. 
+</p><p>Operacije su definirane na sljedeći način:
+</p><p><br />
+ZBRAJANJE: neka je 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula149.PNG" class="image"><img alt="Formula149.PNG" src="../images/6/67/Formula149.PNG" width="405" height="70" /></a>
+</p><p><br />
+</p><p>Tada slijedi da je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula150.PNG" class="image"><img alt="Formula150.PNG" src="../images/5/5a/Formula150.PNG" width="161" height="28" /></a> gdje je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula151.PNG" class="image"><img alt="Formula151.PNG" src="../images/7/7e/Formula151.PNG" width="181" height="25" /></a> pri čemu je
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula152.PNG" class="image"><img alt="Formula152.PNG" src="../images/9/98/Formula152.PNG" width="157" height="27" /></a>
+</p><p><br />
+MNOŽENJE: neka je 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula153.PNG" class="image"><img alt="Formula153.PNG" src="../images/e/e2/Formula153.PNG" width="419" height="72" /></a>
+</p><p><br />
+</p><p>Tada slijedi da je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula154.PNG" class="image"><img alt="Formula154.PNG" src="../images/f/fc/Formula154.PNG" width="152" height="24" /></a> gdje je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula155.PNG" class="image"><img alt="Formula155.PNG" src="../images/e/e1/Formula155.PNG" width="184" height="26" /></a> ostatak kada se polinom a∙b podijeli s f(x) uz modulo 2.
+</p>
+<h3> <span class="mw-headline" id="Analiza_krivulje_za_kona.C4.8Dno_polje">Analiza krivulje za konačno polje</span></h3>
+<p>Kao što smo već dotaknuli, eliptična krivulja leži u dvodimenzionalnom polju i definirana je sljedećom jednadžbom 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula113.PNG" class="image"><img alt="Formula113.PNG" src="../images/4/4c/Formula113.PNG" width="152" height="35" /></a>
+</p><p>Iz polja <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula156.PNG" class="image"><img alt="Formula156.PNG" src="../images/2/28/Formula156.PNG" width="54" height="26" /></a>  odabiremo dvije točke (x,y) iz <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula125.PNG" class="image"><img alt="Formula125.PNG" src="../images/f/f6/Formula125.PNG" width="27" height="25" /></a> koje moraju zadovoljavati gore navedenu jednadžbu i točku beskonačnosti O.
+</p><p>Ukoliko krivulja leži u polju <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula138.PNG" class="image"><img alt="Formula138.PNG" src="../images/5/51/Formula138.PNG" width="19" height="25" /></a>   jednadžba je  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula113.PNG" class="image"><img alt="Formula113.PNG" src="../images/4/4c/Formula113.PNG" width="152" height="35" /></a> u kojoj su a,b ∈ <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula138.PNG" class="image"><img alt="Formula138.PNG" src="../images/5/51/Formula138.PNG" width="19" height="25" /></a> konstante pa slijedi <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula157.PNG" class="image"><img alt="Formula157.PNG" src="../images/2/20/Formula157.PNG" width="217" height="24" /></a>
+</p><p>Ukoliko krivulja leži u polju <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula143.PNG" class="image"><img alt="Formula143.PNG" src="../images/a/a2/Formula143.PNG" width="36" height="25" /></a>  jednadžba je  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula158.PNG" class="image"><img alt="Formula158.PNG" src="../images/7/77/Formula158.PNG" width="187" height="25" /></a>  u kojoj su a,b ∈ <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula143.PNG" class="image"><img alt="Formula143.PNG" src="../images/a/a2/Formula143.PNG" width="36" height="25" /></a>  konstante i b≠0.
+</p><p>O (točka beskonačnosti) se koristi na način da ne zadovoljava jednadžbu O=(0,0) ako je b≠0.
+Za dvije točke na krivulji P,Q ∈ <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula125.PNG" class="image"><img alt="Formula125.PNG" src="../images/f/f6/Formula125.PNG" width="27" height="25" /></a> može se pronaći treća točka S za koju vrijedi da je S=P+Q ∈  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula125.PNG" class="image"><img alt="Formula125.PNG" src="../images/f/f6/Formula125.PNG" width="27" height="25" /></a> tako da vrijede određene relacije:
+</p><p>Asocijativnost&#160;:  (P+Q)+R=P+(Q+R)
+</p><p>Neutralni element: P+O=O+P=P
+</p><p>Inverz: postoji (-P) tako da (–P)+P=P+(-P)=0
+</p><p>Komutativnost:  P+Q=Q+P
+</p><p>Negativni oblik točke: P=(x,y) definira se kao –P=(x,-y) gdje je P∈ <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula138.PNG" class="image"><img alt="Formula138.PNG" src="../images/5/51/Formula138.PNG" width="19" height="25" /></a>, te
+-P=(x,x+y) za P∈ <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula143.PNG" class="image"><img alt="Formula143.PNG" src="../images/a/a2/Formula143.PNG" width="36" height="25" /></a>
+</p>
+<h2> <span class="mw-headline" id="Odre.C4.91ivanje_reda_grupe">Određivanje reda grupe</span></h2>
+<p>Bude li neka eliptična krivulja prikladna za primjenu u kriptografiji, ovisi o redu grupe <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula159.PNG" class="image"><img alt="Formula159.PNG" src="../images/0/03/Formula159.PNG" width="50" height="28" /></a> Da bi problem diskretnog algoritma bio dovoljno težak, <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula160.PNG" class="image"><img alt="Formula160.PNG" src="../images/d/d5/Formula160.PNG" width="57" height="25" /></a>  trebao bi imati barem jedan prosti faktor koji će biti veći od <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula161.PNG" class="image"><img alt="Formula161.PNG" src="../images/0/00/Formula161.PNG" width="42" height="27" /></a> Za krivulje specijalnog oblika poznati su algoritmi za problem diskretnog logaritma. Pa tako postoje anomalne krivulje kod kojih je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula160.PNG" class="image"><img alt="Formula160.PNG" src="../images/d/d5/Formula160.PNG" width="57" height="25" /></a>  = q i supersingularne krivulje kod kojih p|t. Kada je p&gt;3 tada to znači da je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula160.PNG" class="image"><img alt="Formula160.PNG" src="../images/d/d5/Formula160.PNG" width="57" height="25" /></a>  =p+1, pa takve krivulje nisu prikladne u kriptografiji.
+</p><p>Ukratko ćemo spomenuti samo jednu metodu za određivanje reda <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula160.PNG" class="image"><img alt="Formula160.PNG" src="../images/d/d5/Formula160.PNG" width="57" height="25" /></a>  koja koristi Legendreov simbol:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula162.PNG" class="image"><img alt="Formula162.PNG" src="../images/4/4a/Formula162.PNG" width="288" height="66" /></a>
+</p><p><br />
+Složenost algoritma je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula163.PNG" class="image"><img alt="Formula163.PNG" src="../images/0/0b/Formula163.PNG" width="82" height="28" /></a> Stoga je ovaj algoritam efikasan samo za vrlo male p-ove. Gotovo da je neprimjenjiv za p&gt;1000.
+</p>
+<h1> <span class="mw-headline" id="Primjena_elipti.C4.8Dnih_krivulja">Primjena eliptičnih krivulja</span></h1>
+<p>Uzmimo da je asimetrični kriptosustav uređena petorka (P,C,U,E,D) gdje je:
+</p><p>1) P konačan skup svih tekstova
+</p><p>2) C je konačan skup mogućih šifrata
+</p><p>3) U je konačan skup mogućih korisnika
+</p><p>4) Korisnik <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula164.PNG" class="image"><img alt="Formula164.PNG" src="../images/1/16/Formula164.PNG" width="55" height="23" /></a>  posjeduje par   <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula165.PNG" class="image"><img alt="Formula165.PNG" src="../images/3/30/Formula165.PNG" width="133" height="26" /></a> gdje su <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula166.PNG" class="image"><img alt="Formula166.PNG" src="../images/d/d4/Formula166.PNG" width="181" height="23" /></a> funkcije dekripcije i enkripcije takve da slijedu da je 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula167.PNG" class="image"><img alt="Formula167.PNG" src="../images/b/bb/Formula167.PNG" width="121" height="27" /></a>   za svaki tekst   <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula168.PNG" class="image"><img alt="Formula168.PNG" src="../images/3/33/Formula168.PNG" width="47" height="20" /></a>
+</p>
+<h2> <span class="mw-headline" id="Kriptosustavi_koji_koriste_elipti.C4.8Dne_krivulje">Kriptosustavi koji koriste eliptične krivulje</span></h2>
+<h3> <span class="mw-headline" id="EC_ElGamalov_kriptosustav">EC ElGamalov kriptosustav</span></h3>
+<p>(engl. Elliptic Curve ElGamal encription) 
+</p><p>Ovaj kriptosustav je predstavljen 1985. godine, a predstavio ga je Taher ElGamal. Temelji se na problemu diskretnog logaritma i služi za kriptiranje i dekriptiranje. Kod ovog sustava nije moguća autentifikacija. Sustav nije standardiziran jer nije lako pretvoriti niz bitova u točku krivulje. 
+</p><p><br />
+Problem računanja diskretnog algoritma nalazi se u grupi Zp*, a najpoznatiji alogritam za taj problem naziva se sito polja brojeva. Broj operacija za računanje diskretnog logaritma ovom metodom možemo izračunati kao 
+</p>
+<pre>                                                     <a href="http://security.foi.hr/wiki/index.php/Datoteka:Exp.PNG" class="image"><img alt="Exp.PNG" src="../images/a/a3/Exp.PNG" width="252" height="37" /></a>
+</pre>
+<p><br />
+</p><p>Ovaj je problem sličan problemu faktorizacije. Algoritme ovakve složenosti nazivamo subeksponencijalni algoritmi. 
+ElGamalov kriptosustav možemo definirati kao: 
+</p><p><br />
+	Neka je P prost broj,<a href="http://security.foi.hr/wiki/index.php/Datoteka:Alfa_el.PNG" class="image"><img alt="Alfa el.PNG" src="../images/f/f5/Alfa_el.PNG" width="62" height="41" /></a> primitivni korijen mod P. Stavimo da je prostor šifrata  <a href="http://security.foi.hr/wiki/index.php/Datoteka:C%3D.PNG" class="image"><img alt="C=.PNG" src="../images/7/77/C=.PNG" width="141" height="40" /></a>, prostor otvorenih tekstova  <a href="http://security.foi.hr/wiki/index.php/Datoteka:P%3Dzp..PNG" class="image"><img alt="P=zp..PNG" src="../images/0/0f/P=zp..PNG" width="66" height="31" /></a>, te prostor ključeva   <a href="http://security.foi.hr/wiki/index.php/Datoteka:K%3D.PNG" class="image"><img alt="K=.PNG" src="../images/8/82/K=.PNG" width="327" height="42" /></a>, gdje su <a href="http://security.foi.hr/wiki/index.php/Datoteka:Palfabeta.PNG" class="image"><img alt="Palfabeta.PNG" src="../images/f/f8/Palfabeta.PNG" width="79" height="27" /></a>  javne vrijednosti, a vrijednost n je tajna vrijednost. 
+</p><p><br />
+Tajni slučajni broj <a href="http://security.foi.hr/wiki/index.php/Datoteka:Kelzp.PNG" class="image"><img alt="Kelzp.PNG" src="../images/2/2f/Kelzp.PNG" width="83" height="39" /></a> možemo definirati kao  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Ek(x,y).PNG" class="image"><img alt="Ek(x,y).PNG" src="../images/c/ca/Ek(x,y).PNG" width="332" height="45" /></a>. Također za <a href="http://security.foi.hr/wiki/index.php/Datoteka:Y1y2.PNG" class="image"><img alt="Y1y2.PNG" src="../images/7/7a/Y1y2.PNG" width="104" height="43" /></a> definiramo 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dk().PNG" class="image"><img alt="Dk().PNG" src="../images/b/bd/Dk().PNG" width="259" height="41" /></a>.
+</p><p><br />
+Tekst se može sakriti ukoliko ga pomnožimo s  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Beta_k.PNG" class="image"><img alt="Beta k.PNG" src="../images/7/7f/Beta_k.PNG" width="28" height="28" /></a>. Ako znamo eksponent n možemo izračunati <a href="http://security.foi.hr/wiki/index.php/Datoteka:Beta_k.PNG" class="image"><img alt="Beta k.PNG" src="../images/7/7f/Beta_k.PNG" width="28" height="28" /></a> i otkriti tekst. Eksponent n mora biti dovoljno velik da u    <a href="http://security.foi.hr/wiki/index.php/Datoteka:Zp.PNG" class="image"><img alt="Zp.PNG" src="../images/7/79/Zp.PNG" width="34" height="26" /></a>  problem diskretnog algoritma bude gotovo nemoguć za riješiti. Da bi se to ostvarilo, dobro je koristiti proste broje od oko 1024 bita, a broj p-1 trebao bi biti od barem 160 bitova.
+</p><p>Operaciju potenciranja mod P efikasnije možemo provesti metodom „uzastopnog kvadriranja“. To činimo tako da eksponent prikažemo u bazi 2. Isto tako možeo efikasnije izračunati inverz mod P uz pomoć Euklidovog algoritma. To činimo na način da za broj m koji mora biti relativno prost s brojem P nađemo brojeve x i y za koje vrijedi mx + Py = 1.
+</p>
+<h3> <span class="mw-headline" id="Demytkov_kriptosustav">Demytkov kriptosustav</span></h3>
+<p>Predstavljen je 1993. godine. Predstavio ga je Demytkov. Sustav se temelji na eliptičnim krivuljama, te je analogan RSA algoritmu. Temelji se na traženju brojeva p i q koji predstavljaju velike proste brojeve, a također koristi teoriju komplementarnih grupa eliptičnih krivulja. 
+</p><p><br />
+Slijedeći parametri moraju biti postavljeni, pri čemu treba voditi računa da su vrijednosti a, b, n i e javne, a p, q, te d1…d4 tajne vrijednosti:
+</p><p><br />
+</p>
+<pre>                - odabrati p i q, takvi da nije moguće izvesti faktoriziranje n=pq.
+                - odabrati a i b, pri čemu je gcd(4a3+27b2, n)= 1
+                -  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Dm.PNG" class="image"><img alt="Dm.PNG" src="../images/c/c7/Dm.PNG" width="65" height="16" /></a>, takav da vrijedi gcd(e, Ni)=1
+                - N1 = N2 = # Ep (a,b)
+                - N3 = N4 = # Eq (a,b)
+                - di biramo tako da vrijedi: <a href="http://security.foi.hr/wiki/index.php/Datoteka:Ed.PNG" class="image"><img alt="Ed.PNG" src="../images/5/5f/Ed.PNG" width="758" height="25" /></a><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ed2.PNG" class="image"><img alt="Ed2.PNG" src="../images/3/3e/Ed2.PNG" width="103" height="18" /></a>
+</pre>
+<h3> <span class="mw-headline" id="KMOV_kriptosustav">KMOV kriptosustav</span></h3>
+<p>Predstavljen je 1991. godine. Predstavili su ga Koyoma, Maurer, Okamoto i Vanstone po kojima je i dobio ime. Ovaj kritosustav je zasnovan na eliptičnim krivuljama nad prstenom <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula169.PNG" class="image"><img alt="Formula169.PNG" src="../images/2/2c/Formula169.PNG" width="23" height="24" /></a> gdje je n prost broj. Nadalje, zasnovan je i na problemu faktoriziranja velikih brojeva. Između tri sheme koje su predstavili autori najvažnija je KMOV-a shema. Kod te sheme postoje određena ograničenja vezana uz brojeve p i q.
+</p><p><br /> 
+KMOV kriptosustav funkcionira tako da se najprije odaberu brojevi p i q. Pri tome mora vrijediti da je <a href="http://security.foi.hr/wiki/index.php/Datoteka:1b.PNG" class="image"><img alt="1b.PNG" src="../images/5/57/1b.PNG" width="152" height="36" /></a> takvi da je n=pq nerješivo, te se računaju vrijednosti N1 = p + 1 i N2 = q + 1. Potom odaberemo broj <a href="http://security.foi.hr/wiki/index.php/Datoteka:2b.PNG" class="image"><img alt="2b.PNG" src="../images/8/88/2b.PNG" width="59" height="28" /></a> za koji mora vrijediti da je gcd(e, Ni) = 1 i broj <a href="http://security.foi.hr/wiki/index.php/Datoteka:3b.PNG" class="image"><img alt="3b.PNG" src="../images/8/88/3b.PNG" width="54" height="34" /></a>, za kojeg vrijedi da je <a href="http://security.foi.hr/wiki/index.php/Datoteka:4.PNG" class="image"><img alt="4.PNG" src="../images/7/7f/4.PNG" width="207" height="24" /></a>. Vrijedi da su n i e javne vrijednosti, a p, q i d tajne.
+</p>
+<h2> <span class="mw-headline" id="Metode_izra.C4.8Duna_digitalnih_potpisa_koje_koriste_elipti.C4.8Dne_krivulje">Metode izračuna digitalnih potpisa koje koriste eliptične krivulje</span></h2>
+<p>Općenito, digitalni potpis je metoda koja se koristi kako bi se provjerilo porijeklo informacije, te utvrdila njezina besprijekornost. Međutim, kod toga je potrebno zadovoljiti određene zahtijeve kao što je vjerodostojnost dokumenta, nemogućnost krivotvorenja potpisa, nemogućnost izbjegavanja odgovornosti i sl.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="ECDSA">ECDSA</span></h3>
+<p>ECDSA je metoda za izračun digitalnog potpisa koja koristi eliptične krivulje. Ona pruža manju veličinu ključa, ali s istom sigurnošću i vremenom obrade. Ova metoda je prihvaćena kao ISO standard 1998. godine, 1999. kao ANSI standard, a 2000. kao NIST i IEEE standard.
+</p><p><br />
+</p><p>U nastavku je opisana primjena eliptičnih krivulja kod ovog algoritma. ECDSA kriptosustav D=(q,a,b,P,n,h) je definiran na sljedeći način:
+</p><p><br />
+1) <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm2.PNG" class="image"><img alt="Fm2.PNG" src="../images/5/57/Fm2.PNG" width="46" height="20" /></a> ili <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm1.PNG" class="image"><img alt="Fm1.PNG" src="../images/a/a5/Fm1.PNG" width="59" height="24" /></a> gdje je p prost broj
+</p><p>2) a i b su elementi polja (određuju jednadžbu eliptične krivulje)
+</p><p>3) P je točka na krivulji <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm3.PNG" class="image"><img alt="Fm3.PNG" src="../images/a/aa/Fm3.PNG" width="144" height="29" /></a>
+</p><p>4) n je red točke P (najmanji pozitivni cijeli broj je takav da vrijedi nP=0)
+</p><p>5) <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm4.PNG" class="image"><img alt="Fm4.PNG" src="../images/c/c4/Fm4.PNG" width="112" height="22" /></a>
+</p><p><br />
+</p><p>Kako se generiraju ključevi?
+</p><p>Da bismo mogli generirati ključeve potrebno je izabrati slučajni broj d iz intervala [1,n-1] i izračunati Q=d*P. Pri tome nam je točka Q javni ključ, a broj d je privatni ključ. Nakon što smo odabrali što nam je bilo potrebno, krećemo na ispitivanje ispravnosti javnog ključa točke <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm5.PNG" class="image"><img alt="Fm5.PNG" src="../images/6/6b/Fm5.PNG" width="95" height="24" /></a>. Prvo provjeravamo da je Q=0. Nakon toga provjeravamo da su <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm6.PNG" class="image"><img alt="Fm6.PNG" src="../images/2/27/Fm6.PNG" width="54" height="25" /></a> na ispravan način predstavljeni elementi konačnog pola <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm7.PNG" class="image"><img alt="Fm7.PNG" src="../images/f/fb/Fm7.PNG" width="19" height="24" /></a>. Zatim je potrebno provjeriti da se točka Q nalazi na eliptičnoj krivuli koja je određena brojevima a i b. Na kraju se provjerava da je nQ=0.
+</p><p><br />
+</p><p>Kako se generiraju potpisi?
+</p><p>Kako bi se potpisala neka poruka m, potrebno je izabrati slučajni broj k iz već poznatog intervala [1,n-1]. Nakon toga potrebno je izabrati kP=(x,y) i r=x mod n. Ukoliko je r=0 tada ponovno odabiremo slučajni broj k. Nakon toga izračunavamo<a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm8.PNG" class="image"><img alt="Fm8.PNG" src="../images/e/e4/Fm8.PNG" width="115" height="21" /></a>, pa izračunavamo e=SHA -1(m), gde SHA-1 predstavlja 160 bitnu hash funkciju. Na kraju, koristeći privatni ključ d potrebno je izračunati <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm9.PNG" class="image"><img alt="Fm9.PNG" src="../images/8/8c/Fm9.PNG" width="182" height="27" /></a> (ako je s=0 ponovno odabiremo slučajni broj k).
+</p><p><br />
+</p><p>Kako se provjerava potpis?
+</p><p>Da bi primatelj provjerio potpis (r,s) poruke m koja je poslana (poznati su mu parametri kriptosustava D i javni ključ pošiljatelja Q) mora učiniti sljedeće:
+</p><p>1) provjeriti jesu li brojevi r i s iz intervala [1,n-1] 
+</p><p>2) izračunati&#160;:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm10.PNG" class="image"><img alt="Fm10.PNG" src="../images/8/81/Fm10.PNG" width="554" height="24" /></a>
+</p><p>i točku: <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm11.PNG" class="image"><img alt="Fm11.PNG" src="../images/d/da/Fm11.PNG" width="208" height="28" /></a>
+</p><p>Ukoliko je x=0, potrebno je odbiti potpis, a ako nije tada je potrbeno izračunati <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm12.PNG" class="image"><img alt="Fm12.PNG" src="../images/5/58/Fm12.PNG" width="102" height="25" /></a>
+</p><p>Potpis se prihvaća <a href="http://security.foi.hr/wiki/index.php/Datoteka:Fm13.PNG" class="image"><img alt="Fm13.PNG" src="../images/8/89/Fm13.PNG" width="63" height="22" /></a> je v=r.
+</p>
+<h3> <span class="mw-headline" id="OFF_shema_digitalnog_potpisa">OFF shema digitalnog potpisa</span></h3>
+<p>Predstavljena 1992. godine od strane Okomatija, Fujioka i Fujisakija. To je shema digitalnog potpisa koja se temelji na eliptičnim krivuljama nad prstenom <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula169.PNG" class="image"><img alt="Formula169.PNG" src="../images/2/2c/Formula169.PNG" width="23" height="24" /></a> gdje je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Formula170.PNG" class="image"><img alt="Formula170.PNG" src="../images/6/6f/Formula170.PNG" width="66" height="24" /></a>, a brojevi p i q su prosti brojevi.
+</p>
+<h2> <span class="mw-headline" id="Proces_provo.C4.91enja_razmjene_poruka_koriste.C4.87i_ECC_kriptiranje">Proces provođenja razmjene poruka koristeći ECC kriptiranje</span></h2>
+<p>Prilikom ovog načina razmjene poruka, potrebno je prvenstveno odrediti eliptičnu krivulju koja je oblika y<sup>2</sup>=x<sup>3</sup>+ax+b. Nakon toga se izgeneriraju sve moguće točke na toj krivulji slijedom čega se odabire bazna točka G i slučajni broj k koji dogovore sudionici razgovora. Potom svaki sudionik odredi svoj slučajan broj k pomoću kojega će generirati svoj tajni i javni ključ te biti u mogućnosti dekriptiranja primljene poruke. Pošiljatelj šifrira poruku koja dobije oblik:<br />
+<b>C<sub>m</sub> = {kG, P<sub>m</sub>+kP<sub>B</sub>}</b><br />
+šalje ju primatelju. <br />
+Primatelj prilikom preuzimanja poruke kreće u postupak dešifriranja, a to radi na način da koristi svoj slučajno odabrani broj, dogovoreni broj <i>k</i>, baznu točku G te na kraju dobije čisti tekst primljene poruke.
+</p><p><b>P<sub>m</sub> + kP<sub>B</sub>-n<sub>B</sub>(kG)=P<sub>m</sub>+ k(n<sub>B</sub>G)-n<sub>B</sub>(kG) = P<sub>m</sub></b>
+<br />
+<i><b>Tijek razmjene poruke</b></i>
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tijek.jpg" class="image" title="tijek razmjene poruke"><img alt="tijek razmjene poruke" src="../images/thumb/c/cd/Tijek.jpg/500px-Tijek.jpg" width="500" height="297" /></a></div></div>
+<p><br />
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Specifi.C4.8Dnosti_elipti.C4.8Dnih_krivulja">Specifičnosti eliptičnih krivulja</span></h1>
+<h2> <span class="mw-headline" id="Performanse_i_sigurnost">Performanse i sigurnost</span></h2>
+<p>S obzirom da je veličina ključa vrlo bitna, u sljedećoj tablici prikazane su veličine ključeva različitih algoritama u bitovima, koje pružaju istu razinu sigurnosti. Pa tako npr. za zaštitu 112 bitnog simetričnog AES ključa je potrebno koristiti 2048 bitni RSA, a za eliptične krivulje 224 bitni ključ. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Tab1.PNG" class="image"><img alt="Tab1.PNG" src="../images/d/d0/Tab1.PNG" width="624" height="254" /></a>
+</p><p><br />
+Ove duljine kriptografskih ključeva u bitovima su nastale prema preporuci NIST organizacije. 
+</p><p>Sigurnost nije jedina prednost kod eliptičnih krivulja. Još jedna velika prednost je u tome što su algoritmi eliptičnih krivulja manje računski zahtjevni od ostalih spomenutih algoritama iako imaju složenije operacije po bitu ključa, što se može vidjeti u sljedećoj tablici.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Tab2.PNG" class="image"><img alt="Tab2.PNG" src="../images/5/59/Tab2.PNG" width="537" height="189" /></a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Kompleksnost_diskretnog_logaritamskog_problema">Kompleksnost diskretnog logaritamskog problema</span></h2>
+<p>Postoji problem što još uvijek nije poznata prava kompleksnost diskrenog logaritamskog problema. Prema nekim istraživanjima, pokazalo se da neke krivulje nisu pogodne za ECC iako se prethodno vjerovalo da jesu. ECDLP se može jednostavno riješiti kada je bazna točka P jednaka primarnom broju p (u slučaju anomalija u krivuljama).
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Generiranje_krivulja">Generiranje krivulja</span></h2>
+<p>Definiranje sustava eliptične krivulje podrazumijeva definiranje krivulje i bazne točke P. Krivulja i bazna točka nisu tajni. Kada imamo krivulju i baznu točku lako je generirati privatni ključ (slučajni cijeli broj k) i javni ključ (točka kP na krivulji). Pri tome nije lako generirati odgovarajuću krivulju i bazni P.
+</p><p>Najveći problem je pronalaženje ukupnog broja točaka na krivulji. Međutim, i ako se to napravi potrebno je odrediti odgovarajuću baznu točku P. Ta točka mora imati slijed kojim će osigurati kompleksnost ECDLP-a. Pri tome P mora podijeliti broj točaka na krivulji. Stoga, vidimo da je pronalaženje odgovarajućeg baznog P dosta kompliciran proces.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Nekompatibilni_sustavi">Nekompatibilni sustavi</span></h2>
+<p>Implementacija parnih krivulja je slična neparnim krivuljama, međutim dovoljno je različita da one nisu kompatibilne. Kod neparnih krivulja javlja se problem uzrokovan razlikama u prezentaciji krivulje i baznog P, a to dovodi do pogreške u komunikaciji između korisnika. Do pogreške dolazi jer oni koriste različite prezentacije.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Procesiranje">Procesiranje</span></h2>
+<p>Sustav kriptiranja eliptičnih krivulja koristi manje ključeve od ostalih sustava.U sljedećoj tablici se uspoređuje brzina generiranja i provjere potpisa između RSA i ECDSA. Test je napravljen na procesorima Motorola 56303 s brzinom takta 66Mhz. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Tab3.PNG" class="image"><img alt="Tab3.PNG" src="../images/e/e5/Tab3.PNG" width="576" height="254" /></a>
+</p><p><br />
+U tablici možemo vidjeti kako s povećanjem veličine ključa, generiranje potpisa postaje sve brže kod ECDSA algoritma. S druge strane, provjera potpisa je sporija kod ECDSA algoritma u odnosu na RSA. Kod generiranja ključeva RSA računa velike primarne brojeve pa je zato sporiji. Vrijeme koje je potrebno za provjeru potpisa korištenjem ECDSA algoritma, ponekad ima negativne učinke na performanse sustava, pa su stoga RSA sustavi ponekad prikladniji od algoritma baziranih na eliptičnim krivuljama.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Intelektualno_vlasni.C5.A1tvo">Intelektualno vlasništvo</span></h2>
+<p>Kao što se može vidjeti, eliptične krivulje imaju mnoge prednosti i prihvaćene su od brojnih korisnika, međutim nisu dovoljno implementirane. Smatra se da je tome razlog, velik broj prijavljenih patenata nad eliptičnim krivuljama. Pa tak primjerice, Certicom Inc (kanadska tvrtka) posjeduje više od 300 patenata koje su povezane s eliptičkim krivuljama i kriptografijom. NSA (National Security Agency) je kupila licencu od Certicom koja obuhvaća intelektualno vlasništvo s ograničenom mogućnošću korištenja. Kupila je kako bi se eliptične krivulje mogle koristiti kod zaštite tajnih vladinih i američkih informacija.Licenca je ograničena samo na polja primarnih brojeva gdje je primarni broj veći od 2255.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Protokoli_za_razmjenu_tajnog_klju.C4.8Da">Protokoli za razmjenu tajnog ključa</span></h1>
+<p>Od kad postoji komunikacija ljudske vrste, postoji i potreba za sigurnosti komunikacije. Ljudi često imaju nešto što žele zadržati samo između odabranih ljudi. Tako se s vremenom razvila nova disciplina pod nazivom kriptografija. Kriptografija se bavi zaštitom podataka pomoću raznih algoritama, postupaka i kriptografskih ključeva. Za sigurnost kriptosustava važna je tajnost ključa. Tu dolazimo do problema kod komunikacije za koju želimo osigurati sigurnost jer prije šifriranja pošiljatelj i primatelj moraju razmijeniti taj tajni ključ. Kako se radi o povjerljivom podatku, jasno je da će to učiniti preko određenog sigurnog komunikacijskog kanala, osim u slučaju ako tajni ključ ne prenose usmeno prilikom susreta. Ključevi se moraju često mijenjati jer se na taj način povećava sigurnost, a to može biti veliki problem ako pošiljatelj i primatelj žive jako daleko i žele sigurnu komunikaciju putem e-maila. Tajni je ključ nužno zadržati u tajnosti, odnosno smiju ga znati samo pošiljatelj i primatelj. Ukoliko se odabere nesiguran komunikacijski kanal, treća osoba može saznati tajni ključ. Iz tog su razloga razvijeni protokoli za razmjenu tajnog ključa kojima se omogućava veća sigurnost razmjene tajnih ključeva. Pritome razlikujemo dvije vrste protokola: 
+</p>
+<pre>                  - <b>Protokoli za slanje ključeva</b> (eng. key transfer) – kod ovih protokola jedna strana sigurnim putem šalje tajni ključ drugoj strani. Pri tome               
+                    pošiljatelj koristi javni ključ primatelja kako bi sakrio odabrani tajni ključ, a primatelj sa svojim privatnim ključem može dekriptirati poruku. 
+</pre>
+<pre>                  - <b>Protokoli za dogovor oko ključeva (eng. key agreement)</b> – protokoli kod kojih oba sudionika na jednak način sudjeluju u izračunavanju ključeva. 
+</pre>
+<p><br />
+Protokoli za razmjenu tajnog ključa zasnovani su na eliptičnim krivuljama. Jedan od prvih takvih protokola razvijen je 1976.godine od strane Whitfielda Diffiea i Martina Hellmana. Njih se dvojica smatraju začetnicima ideje tajnog ključa. Njihovo je rješenje bilo zasnovano na tome da je u nekim grupama potenciranje puno jednostavnije od logaritmiranja. Njihov je protokol nazvan Diffie-Hellmanov protokol. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Diffie-Hellmanov_protokol"> Diffie-Hellmanov protokol </span></h2>
+<p><b>Kako funkcionira Diffie-Hellmanov protokol?</b>
+</p><p><br />
+Prvo je potrebno spomenuti kako se u kriptografskoj literaturi standardno koriste imena Alice za pošiljatelja, Bob za primaoca, a Eve za protivnika, odnosno treću osobu koja ne smije saznati tajni ključ. Uz pomoć tih će imena i ovdje biti objašnjen Diffie-Hellmanov protokol. 
+</p><p>Stavimo da je A konačna abelova grupa. Grupa A mora imati svojstvo da su operacije množenja i potenciranja u njoj jednostavne. Pritom logaritmiranje mora biti vrlo teško, a slučajne elemente treba moći generirati na uniforman način. Pitanje koje se sad nameće je problem diskretnog algoritma u grupi A, a on glasi: 
+</p><p>Neka je (A,*) konačna grupa, a ϵ A, B={ai&#160;: i ≥ 0} podgrupa od A generirana s a, te b ϵ B. Tražimo najmanji nenegativni cijeli broj x za kojeg vrijedi da je b = ax, a gdje je ax = a*a*a*…*a(x puta).
+</p><p>Broj x zovemo diskretni algoritam i označavamo da s 
+</p>
+<pre>                                                             <a href="http://security.foi.hr/wiki/index.php/Datoteka:Log.PNG" class="image"><img alt="Log.PNG" src="../images/1/17/Log.PNG" width="78" height="53" /></a>.
+</pre>
+<p><br />
+Prije spomenuti pošiljatelj i primatelj koje ćemo zvati Alice i Bob,  moraju se dogovoriti o tajnom slučajnom elementu u grupi A. Taj će element poslije koristiti kao tajni ključ za šifriranje u nekom simetričnom kriptosustavu. Taj će dogovor provesti preko nesigurnog komunikacijskog kanala jer prije nisu razmijenili nikakvu informaciju. Sve od informacija što posjeduju je grupa A i njezin generator a. 
+</p><p>Sa |A| označimo broj elemenata u grupi A. Slijedi Diffie-Hellmanov protokol za razmjenu ključeva koji glasi: 
+</p>
+<pre>       1. Alice generira neki slučajan prirodni broj n, takav da je n ϵ {1,2,3… |A|-1}. Bobu pošalje element <a href="http://security.foi.hr/wiki/index.php/Datoteka:An.PNG" class="image"><img alt="An.PNG" src="../images/f/fe/An.PNG" width="71" height="39" /></a> .
+       2. Bob za to vrijeme generira isto tako slučajan prirodni broj m, takav da je m ϵ {1,2,3… |A|-1}, te pošalje isto tako Alice element <a href="http://security.foi.hr/wiki/index.php/Datoteka:Am.PNG" class="image"><img alt="Am.PNG" src="../images/7/79/Am.PNG" width="48" height="43" /></a>.
+       3. Sada Alice mora izračunati <a href="http://security.foi.hr/wiki/index.php/Datoteka:Amn.PNG" class="image"><img alt="Amn.PNG" src="../images/9/92/Amn.PNG" width="52" height="31" /></a>, te također i  Bob računa <a href="http://security.foi.hr/wiki/index.php/Datoteka:Amn.PNG" class="image"><img alt="Amn.PNG" src="../images/9/92/Amn.PNG" width="52" height="31" /></a>
+       4. Njihov tajni ključ je <a href="http://security.foi.hr/wiki/index.php/Datoteka:K%3Damn.PNG" class="image"><img alt="K=amn.PNG" src="../images/b/b7/K=amn.PNG" width="91" height="23" /></a>.
+</pre>
+<p>Sada Eve, treća osoba koja ne smije čuti njihovu komunikaciju, može njih prisluškivati preko nesigurnog komunikacijskog kanala i saznati podatke grupe A, a, <a href="http://security.foi.hr/wiki/index.php/Datoteka:An.PNG" class="image"><img alt="An.PNG" src="../images/f/fe/An.PNG" width="71" height="39" /></a> i <a href="http://security.foi.hr/wiki/index.php/Datoteka:Am.PNG" class="image"><img alt="Am.PNG" src="../images/7/79/Am.PNG" width="48" height="43" /></a>.  Eve sada treba riješiti Diffie-Hellmanov problem i izračunati <a href="http://security.foi.hr/wiki/index.php/Datoteka:Amn.PNG" class="image"><img alt="Amn.PNG" src="../images/9/92/Amn.PNG" width="52" height="31" /></a>. Ukoliko iz poznavanja a i <a href="http://security.foi.hr/wiki/index.php/Datoteka:An.PNG" class="image"><img alt="An.PNG" src="../images/f/fe/An.PNG" width="71" height="39" /></a> može riješiti problem diskretnog algoritma koji smo prije naveli, onda može pomoću n i <a href="http://security.foi.hr/wiki/index.php/Datoteka:Am.PNG" class="image"><img alt="Am.PNG" src="../images/7/79/Am.PNG" width="48" height="43" /></a> izračunati <a href="http://security.foi.hr/wiki/index.php/Datoteka:Amn.PNG" class="image"><img alt="Amn.PNG" src="../images/9/92/Amn.PNG" width="52" height="31" /></a>, tj. može izračunati n. Za većinu grupa koje se koriste u kriptografiji su ova dva problema, Diffie-Hellmanov i problem diskretnog algoritma, ekvivalentni.
+</p><p><br />
+U originalnoj definiciji Diffie-Hellmanovog protokola za grupu A se uzima multiplikativna grupa   <a href="http://security.foi.hr/wiki/index.php/Datoteka:Zp.PNG" class="image"><img alt="Zp.PNG" src="../images/7/79/Zp.PNG" width="34" height="26" /></a> svih ne-nul ostataka modulo p, gdje je p dovoljno velik prost broj. Generator ove grupe zovemo primitivni korijen modulo p. Broj a ϵ {1, 2, ... , p - 1} je primitivni korijen modulo p ako je <a href="http://security.foi.hr/wiki/index.php/Datoteka:Ap-1.PNG" class="image"><img alt="Ap-1.PNG" src="../images/6/6c/Ap-1.PNG" width="41" height="19" /></a> najmanja potencija broja a koja daje ostatak 1 pri djeljenju s p.
+</p>
+<h2> <span class="mw-headline" id="Elliptic_curve_Diffie-Hellmanov_protokol"> Elliptic curve Diffie-Hellmanov protokol </span></h2>
+<p>Skraćeno ćemo pisati ECDH. Ovo je verzija Diffie-Hellmanovog protokola. Glavna je razlika između ta dva protokola u tome što se za ECDH protokol koritste grupe koje su temeljene na eliptičnim krivuljama. 
+</p><p><br />
+Opis ECDH protokola po koracima:
+</p><p>Napočetku definiramo uređenu šestorku A= (d, a, b, F, n, h) čiji parametri su javni i pri čemu vrijedi da je:
+</p>
+<pre>             -	d=p ili d=2m, a p je prosti broj
+             -	a i b su elementi polja i njima određujemo jednadžbu krivulje
+             -	F je točka na krivulji E
+             -	n je red točke F takav da vrijedi nF=0
+             -	h = # ( ) d E G /n.
+</pre>
+<p>Sada možemo generirati ključeve. Alice i Bob najprije moraju izabrati slučajni cijeli broj m, takav da vrijedi 1≤m≤n-1. Nakon toga potrebno je da izračunaju Q = mF, pri čemu je Q javni ključ, a m privatni ključ.
+</p><p>Kada to obave, mogu pristupiti razmjeni ključeva. Razmjena se odvija na slijedeći način:
+</p>
+<pre>                    1.	Alice treba generirati slučajni broj k
+                    2.	Potom izračuna točku O = kF i šalje ju Bobu.
+                    3.	Bob bira slučajni broj l
+                    4.	Potom izračuna točku T = lF i šalje ju Alice
+                    5.	Alice računa točku O1 = kM, dok Bob računa točku O2 = lO.
+                    6.	Dobije se da je O1 =  O2 = klF što koriste kao zajednički tajni ključ. 
+</pre>
+<p><br />
+Kod ovog protokola pojavljuju se dvije razmjene podataka, simetrične uloge, oba korisnika mogu kontrolirati nove ključeve, a javlja se i forward secrey.
+</p><p>Ovaj se izraz koristi kao sinonim za Perfect Forward Secrecy, no ipak postoji i razlika između ta dva izraza. Perfect Forward Secrecy govori da dogovoreni ključ neće biti kompromitiran čak ni u slučaju da su dogovoreni ključevi za sljedeću komunikaciju izvedeni iz istog materijala za kodiranje kompromitirani. Ono ustvari omogućava da privatni i javni ključ neće biti kompromitirani ukoliko se to dogodi privatnom ključu u budućnosti.PFS se odnosi na ideju da će kompromitiranje jednog ključa omogućiti pristup samo onim podacima koji su zaštićeni jednim ključem.
+</p>
+<h2> <span class="mw-headline" id="EC_Nyberg-Rueppelov_protokol"> EC Nyberg-Rueppelov protokol </span></h2>
+<p>Protokol je izveden je iz Nyberg-Rueppelove sheme digitalnog potpisa. Iz tog razloga prvo ćemo objasniti Nyberg-Rueppelovu shemu.
+</p><p><br />
+NYBERG-RUEPPELOVA SHEMA
+</p><p>Uz pomoć te sheme moguć je message recovery, odnosno oporavak poruke ukoliko se orginalna poruka može izračunati iz potpisa koristeći javne informacije. Poruka se ne treba slati primaocu ako digitalni potpis omogućuje oporavak poruke, a to možemo postići tako da dodamo suvišne informacije prije potpisivanja poruke. Potpis generiramo u nekoliko koraka:
+</p><p><br />
+</p>
+<pre>                   1.	Alice generira slučajni broj <a href="http://security.foi.hr/wiki/index.php/Datoteka:1A.png" class="image"><img alt="1A.png" src="../images/6/6b/1A.png" width="111" height="37" /></a>.
+                   2.	Potom izračuna P = (x1, y1) = aG, p = x1m (mod q), p' = p (mod n), te 
+                        s = lAr' + a (mod n).
+                   3.	Potpis poruke je (p,s).
+                   4.	Alice šalje potpis Bobu
+</pre>
+<p><br />
+Sada Bob mora iz potpisa dobiti originalnu poruku na slijedeći način:
+</p>
+<pre>                   1.	Izračuna P = (x1, y1) = sG - p'QA
+                   2.	Izračuna m = p(x1)-1 (mod q)
+</pre>
+<p><br />
+Kada smo definirali Nyberg-Rueppelovu shemu, možemo prijeći na Nyberg-Rueppelov  protokol.
+</p><p><br />
+Funkcionira tako da odabiremo neki broj x pri čemu vrijedi x= pn, p je prost broj, n je cijeli broj. Broj x određuje konačno polje x D. Biramo eleptičnu krivulju x ED  i točku <a href="http://security.foi.hr/wiki/index.php/Datoteka:2A.png" class="image"><img alt="2A.png" src="../images/4/45/2A.png" width="50" height="19" /></a> reda m. Vrijednosti x ED, F i m su javne, dok su Q = kG javni ključ, a l privatni ključ.
+</p><p>Alice čini sljedeće:
+</p>
+<pre>                   1.	Izabire slučajne brojeve <a href="http://security.foi.hr/wiki/index.php/Datoteka:3A.PNG" class="image"><img alt="3A.PNG" src="../images/7/7c/3A.PNG" width="146" height="37" /></a>.
+                   2.	Potom računa slijedeće:
+                                            a.	P1 = a1G = (x1, y1) i P2 = a2G = (x2, y2) .
+                                            b.	p = x2 - x1 (mod q)
+                                            c.	s = a1 + lAr (mod n)
+                   3.	Potom izračuna K = k2QB
+                   4.	Pošalje Bobu vrijednosti p, s, lsb(y2)).
+</pre>
+<p>Kad Bob primi vrijednosti od Alice, on mora učiniti ove korake:
+</p>
+<pre>                   1.	Izračuna:
+                                    a.	a1G = (x1, y1) = sG- pQA
+                                    b.	x2 = p + x1 (mod q)
+                                    c.	k2G iz x2 i iz lsb(y2)
+                                    d.	K = lBa2G.
+</pre>
+<p>Svojstva koja se javljaju kod ove sheme su: nove ključeve kontrolira Alice, autentikacija ključeva se podrazumijeva, te nema simetrije uloga.
+</p>
+<h2> <span class="mw-headline" id="Sustavi_za_raspodjelu_klju.C4.8Deva"> Sustavi za raspodjelu ključeva </span></h2>
+<p>Pri uspostavi simetričnog sustava kriptografije, sudionici moraju razmijeniti tajni ključ. Centar za raspodjelu ključeva je odlično rješenje za problem pohrane tajnih ključeva, pri čemu znamo da bi svaki sudionik komunikacije mogao čuvati N-1 ključeva. Takav je centar ustvari poslužitelj kojem svi sudionici vjeruju i on je zaštićen od opasnosti iz vana. Centar korisnicima dodjeljuje identifikatore i tajne ključeve.  
+</p><p>1997.  H. Sakazaki, E. Okamoto i M. Mamba su predstavili jedan takav sustav za raspodjelu tajnih ključeva. Sustav se temelji na identifikatorima, a koristi eliptične krivulje. Parametri su sljedeći:
+</p><p><br />
+	- p&gt;3 i q&gt;3 koji pomnoženi daju broj n
+</p>
+<pre>       - a i b su elementi polja Zn i određuju eliptičnu krivulj, te moraju zadovoljiti gcd(4a3+27b2, n) = 1
+       - <a href="http://security.foi.hr/wiki/index.php/Datoteka:Gee.PNG" class="image"><img alt="Gee.PNG" src="../images/0/0c/Gee.PNG" width="90" height="25" /></a> je početna točka
+       - Ep (a,b) i Eq (a,b) su eliptične krivulje nad Zp i Zq
+       - #E  je broj točaka na krivulji.
+</pre>
+<p><br />
+Parametre biramo na slijedeći način:
+</p>
+<pre>            1. generiramo slučajne proste brojeve p i q, tako da ne vrijedi n=pq.
+            2. odaberemo E (a1,b1 ) p nad p Z i E (a2 ,b2 ) q nad q Z, ali tako da vrijedi da su N1 = # E (a1,b1 ) p i N2 = # E (a2 ,b2 ) q različiti prosti brojevi. 
+            3. Točke G1=(x1, y1)  i G2(x2,y2)  su reda N1 i N2. 
+            4. Izračunamo k=N1N2, te a, b, x i y tako da zadovoljavaju
+</pre>
+<p><br />
+</p>
+<pre>                                                                  <a href="http://security.foi.hr/wiki/index.php/Datoteka:Sve.PNG" class="image"><img alt="Sve.PNG" src="../images/4/4f/Sve.PNG" width="438" height="207" /></a>
+</pre>
+<p>Izračunavanje broja k se smatra nemogućim ako se ne poznaju prosti faktori od n.
+</p><p><br />
+<b>Postupci Centra za raspodjelu ključeva</b>
+</p><p>Centar za raspodjelu ključeva daje parametre eliptične krivulje E(a,b)n i početnu točku G, te posjeduje privatni ključ. 
+Ako Centar želi dodijeliti privatni ključ korisniku i, mora vrijediti da je Ii = h(IDi), pri čemu je h funkcija hashiranja, IDi je identifikator. Za Ii i k vrijedi gcd(Ii, k)= 1. Centar izračuna 
+</p>
+<pre>                                                  <a href="http://security.foi.hr/wiki/index.php/Datoteka:1n.PNG" class="image"><img alt="1n.PNG" src="../images/4/40/1n.PNG" width="168" height="25" /></a> 
+</pre>
+<p>Dobije se da vrijedi  IiSIi + G = O .
+</p><p><br />
+Potom Centar šalje korisniku (Ii , SIi). Ii je korisnikov javni ključ,  a SIi je njegov privatni ključ.
+</p><p><br />
+<b>Razmjena ključeva između korisnika</b>
+</p><p>Postupak je slijedeći:
+</p><p><br />
+</p>
+<pre>                  1. Alice bira slučajni cijeli broj <a href="http://security.foi.hr/wiki/index.php/Datoteka:2n.PNG" class="image"><img alt="2n.PNG" src="../images/1/19/2n.PNG" width="104" height="21" /></a> i  računa točku CA = SIA + rA IB G.Rezultate šalje Bobu.
+                  2. Bob bira <a href="http://security.foi.hr/wiki/index.php/Datoteka:3n.PNG" class="image"><img alt="3n.PNG" src="../images/9/9e/3n.PNG" width="112" height="30" /></a> i računa točku CB = SIB + rB IA G. Svoje rezultate šalje Alice.
+                  3. Alice računa KAB = rA(IB CB + G), dok Bob računa KBA = rB(IA CA + G)
+                  4. Vrijedi da je KAB = KBA = rA rB IAIB G.
+</pre>
+<h2> <span class="mw-headline" id="Primjer_razmjene_poruka">Primjer razmjene poruka</span></h2>
+<p>Kako bi se poruke mogle razmijenjivati, potrebno je da obje strane poznaju slučajno odabrani broj <i>k</i>.
+Prilikom ovog načina kriptiranja, poruka se želi predstaviti kao točka na krivulji. Na samom početku potrebno je odrediti baznu točku G i eliptičnu krivulju E<sub>q</sub>(a,b). Također svaki od sudionika odabire slučajni broj <i>n</i> iz kojega generiraju javni ključ kojega šalju primatelju poruke.
+Kako bi se kriptirala sama poruka, potrebno je odabrati jedan slučajan (međusobno dogovoreni) broj koji će služiti kao neka vrsta dodatne zaštite od mogućnosti probijanja šifre.
+Prema tome, podaci u primjeru su sljedeći:
+<br />Krivulja:
+<b>y<sup>2</sup>=x<sup>3</sup>+x+1</b><br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ekrivulja.jpeg" class="image" title="300"><img alt="300" src="../images/9/95/Ekrivulja.jpeg" width="200" height="380" /></a></div></div>
+<p><br />
+Parametri eliptične krivulje: a=1, b=1, p=263<br />
+Redni broj: n=15<br />
+Bazna točka pod odabranim rednim brojem:  G=(148,27)<br />
+<br />
+<b>Podaci ključeva:</b><br />
+Pošiljatelj A:
+</p>
+<ul><li> n<sub>A</sub>=51
+</li><li> javni ključ od A: 51 x G
+</li></ul>
+<p><br /><br />
+Pošiljatelj B:
+</p>
+<ul><li> n<sub>B</sub>=212
+</li><li> javni ključ od A: 212 x G
+</li></ul>
+<p><b>Proces slanja poruke:</b><br />
+Da bi se poruka mogla kriptirati u oblik točke na krivulji potrebno je koristiti sljedeće podatke:
+</p>
+<ul><li> odabrana vrijednost <i>k</i>
+</li><li> bazna točka <i>G</i>
+</li><li> javni ključ primatelja B
+</li></ul>
+<p>Slijedom toga će poruka koja ima vrijednost(19,72) imati sljedeći oblik u kriptiranoj formi:<br />
+51* (148,27) = (676,558)<br />
+51*(61,52) + (19,72) = (193,153)
+</p><p>Kada primi poruku, primatelj B će ju dešifrirati na sljedeći način: <br />
+(193,153)- N(B)*(148,27) = (19,72) -51(212*(148,27))- 212*(51*(148,27)) = (19,72)
+</p><p>Primjerak i algortam implementiran u jeziku C++ preuzet od Jarla Ostensena, a link na stranicu je [<a href="http://www.codeproject.com/KB/security/Elliptic_Curves/Ecc.zip" class="external text" rel="nofollow">Ecc.zip</a>].
+Sam program generira sve točke na eliptičnoj krivulji gdje se vidi veliki broj mogućnosti odabira i samim time težina otkrivanja ključa.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Eccalg.jpg" class="image"><img alt="Eccalg.jpg" src="../images/thumb/4/48/Eccalg.jpg/400px-Eccalg.jpg" width="400" height="536" /></a></div></div>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h1>
+<p>Iako kriptiranje korištenjem eliptičnih krivulja još nije primijenjeno u velikoj mjeri, pogotovo s obzirom na prednost sa gledišta pouzdanosti koje ima RSA, ova je metoda vrlo efikasna. Sigurnost ECC kriptiranja ovisi o broju mogućih kombinacija koje se mogu dobiti na eliptičnoj krivulji i o odabranom slučajnom broju <i>k</i>. Prema tome, što je veći broj točaka i što je broj <i>k</i> veći, to će duže trajati postupak probijanja šifre. Upravo taj postupak višestrukog zbrajanja (množenja) koje je potrebno izvesti da bi se dobila vrijednost ključeva kP = Q naziva se problem logaritma eliptičnih krivulja. U stvarnom svijetu bi se <i>k</i> postavio na tako veliku vrijednost da bi i Brute-force metodom njegovo otkrivanje bilo gotovo nemoguće, tj. predugo bi trajalo. Do sada najbrža metoda za otkrivanje vrijednosti <i>k</i> je Pollard rho metoda. U konačnici, može se reći kako je ECC kriptografija dovoljno komplicirana da oduzme puno vremena zlonamjernim pokušajima probijanja ključeva.
+</p><p>Link na prezentaciju: <a href="http://speedy.sh/xJFXF/ECC-kriptografija-Kuzmic-Kuzminski-Mesaros.pptx" class="external free" rel="nofollow">http://speedy.sh/xJFXF/ECC-kriptografija-Kuzmic-Kuzminski-Mesaros.pptx</a>
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<ul><li>Definicija eliptične krivulje, URL (<a href="http://web.math.pmf.unizg.hr/~duje/ecc/eccseminar.html" class="external free" rel="nofollow">http://web.math.pmf.unizg.hr/~duje/ecc/eccseminar.html</a>), učitano 3.01.2013.,10.30
+</li></ul>
+<ul><li>Kriptosustavi zasnovani na eliptičnim krivuljama, URL (<a href="http://www.fer.unizg.hr/_download/repository/Primijenjena_kriptografija_slajdovi_s_mjestom_za_zabiljeske.pdf" class="external free" rel="nofollow">http://www.fer.unizg.hr/_download/repository/Primijenjena_kriptografija_slajdovi_s_mjestom_za_zabiljeske.pdf</a>), učitano 3.01.2013., 13.50
+</li></ul>
+<ul><li>EC ElGamalov kriptosustav, Demytkov kriptosustav,KMOV kriptosustav, URL (<a href="http://os2.zemris.fer.hr/algoritmi/asimetricni/2004_krivacic/Final1.pdf" class="external free" rel="nofollow">http://os2.zemris.fer.hr/algoritmi/asimetricni/2004_krivacic/Final1.pdf</a>), učitano 3.01.2013., 19.00
+</li></ul>
+<ul><li>Eliptične krivulje nad realnim brojevima, Grupovni zakon, URL (<a href="http://en.wikipedia.org/wiki/Elliptic_curve" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Elliptic_curve</a>), učitano 3.02.2013., 15.20
+</li></ul>
+<ul><li>Eliptične krivulje, URL (<a href="http://mathworld.wolfram.com/EllipticCurve.html" class="external free" rel="nofollow">http://mathworld.wolfram.com/EllipticCurve.html</a>), učitano 3.01.2013., 12.15
+</li></ul>
+<ul><li>Eliptične krivulje nad konačnim poljima, URL (<a href="http://www.jmilne.org/math/Books/ectext0.pdf" class="external free" rel="nofollow">http://www.jmilne.org/math/Books/ectext0.pdf</a>), učitano 3.01.2013., 19.00
+</li></ul>
+<ul><li>Kriptografija eliptičkih krivulja, URL (<a href="http://os2.zemris.fer.hr/en/2004_kudelic/index.html#_Toc82331699" class="external free" rel="nofollow">http://os2.zemris.fer.hr/en/2004_kudelic/index.html#_Toc82331699</a>), učitano 4.01.2013., 9.00
+</li></ul>
+<ul><li>Grupovni zakon, URL (<a href="http://math.arizona.edu/~mleslie/files/ectalk.pdf" class="external free" rel="nofollow">http://math.arizona.edu/~mleslie/files/ectalk.pdf</a>), učitano 4.01.2013.,11.10
+</li></ul>
+<ul><li>Mordell-Weilov teorem, URL (<a href="http://www.ucm.es/BUCM/mat/doc8354.pdf" class="external free" rel="nofollow">http://www.ucm.es/BUCM/mat/doc8354.pdf</a>), učitano 2.01.2013., 17.15
+</li></ul>
+<ul><li>ECDLP, URL (<a href="http://modular.math.washington.edu/simuw06/ch6.pdf" class="external free" rel="nofollow">http://modular.math.washington.edu/simuw06/ch6.pdf</a>), učitano 2.01.2013., 19.00
+</li></ul>
+<ul><li>Veličina ključa, URL (<a href="http://en.wikipedia.org/wiki/Elliptic_curve_cryptography#Key_sizes" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Elliptic_curve_cryptography#Key_sizes</a>), učitano 2.01.2013., 20.00
+</li></ul>
+<ul><li>Kriptosustavi s javnim ključem, URL (<a href="http://web.math.pmf.unizg.hr/~duje/kript/idejajavni.html" class="external free" rel="nofollow">http://web.math.pmf.unizg.hr/~duje/kript/idejajavni.html</a>), učitano 8.01.2013., 21.00
+</li></ul>
+<ul><li>Kriptografija, URL (<a href="http://www.zsis.hr/site/Kriptografija/tabid/126/Default.aspx" class="external free" rel="nofollow">http://www.zsis.hr/site/Kriptografija/tabid/126/Default.aspx</a>), učitano 8.01.2013.,21.30
+</li></ul>
+<ul><li>Diffie-Hellmanov protokol za razmjenu tajnog ključa, URL (<a href="http://web.math.pmf.unizg.hr/~duje/ecc/dlp.html" class="external free" rel="nofollow">http://web.math.pmf.unizg.hr/~duje/ecc/dlp.html</a>), učitano 8.01.2013., 22.00
+</li></ul>
+<ul><li>EC Nyberg-Rueppelov protokol za razmjenu tajnog ključa, URL (<a href="http://os2.zemris.fer.hr/algoritmi/asimetricni/2004_krivacic/Final1.pdf" class="external free" rel="nofollow">http://os2.zemris.fer.hr/algoritmi/asimetricni/2004_krivacic/Final1.pdf</a>), učitano 9.01.2013., 12.30
+</li></ul>
+<ul><li>Forward Secrecy, URL(<a href="http://forwardsecrecy.com/" class="external free" rel="nofollow">http://forwardsecrecy.com/</a>), učitano 10.01.2013., 11.00
+</li></ul>
+<ul><li>William, S. (2006). <i>Cryptography and Network Security</i>(4.th ed.). USA: Pearson Prentice Hall.
+</li></ul>
+<ul><li> N.d. (n.d.) Pollard's Rho Method. Pristupljeno 19. siječnja 2013. na adresi <a href="http://www.csh.rit.edu/~pat/math/quickies/rho/" class="external free" rel="nofollow">http://www.csh.rit.edu/~pat/math/quickies/rho/</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Podjela_rada">Podjela rada</span></h1>
+<p>Zajedno smo svi sve radili.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 139/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4397-0!*!0!!hr!2!edit=0 and timestamp 20190203204023 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="ECC_kriptografija_(Eliptične_krivulje).html">http://security.foi.hr/wiki/index.php/ECC_kriptografija_(Elipti%C4%8Dne_krivulje)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=ECC_kriptografija_(Elipti%C4%8Dne_krivulje)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="ECC_kriptografija_(Eliptične_krivulje).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:ECC_kriptografija_(Elipti%C4%8Dne_krivulje)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="ECC_kriptografija_(Eliptične_krivulje).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="ECC_kriptografija_(Eliptične_krivulje).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=ECC_kriptografija_(Elipti%C4%8Dne_krivulje)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=ECC_kriptografija_(Elipti%C4%8Dne_krivulje)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="ECC_kriptografija_(Eliptične_krivulje).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/ECC_kriptografija_(Elipti%C4%8Dne_krivulje)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/ECC_kriptografija_(Elipti%C4%8Dne_krivulje)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=ECC_kriptografija_(Elipti%C4%8Dne_krivulje)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=ECC_kriptografija_(Elipti%C4%8Dne_krivulje)&amp;oldid=16869" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:48, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 10.551 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "ECC_kriptografija_(Eliptične_krivulje)", "wgTitle": "ECC kriptografija (Eliptične krivulje)", "wgAction": "view", "wgArticleId": 4397, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 16869, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.878 secs. -->			</body>
+</html>

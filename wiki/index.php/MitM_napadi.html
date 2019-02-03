@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>MitM napadi - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=MitM_napadi&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-MitM_napadi skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">MitM napadi</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="MitM_napadi.html#mw-head">orijentacija</a>,
+					<a href="MitM_napadi.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:MITM.jpg" class="image"><img alt="MITM.jpg" src="../images/8/8c/MITM.jpg" width="770" height="272" /></a></center>
+<p><br />
+</p><p>Izradio: Denis Ujvari
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="MitM_napadi.html#UVOD"><span class="tocnumber">1</span> <span class="toctext">UVOD</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="MitM_napadi.html#MITM"><span class="tocnumber">2</span> <span class="toctext">MITM</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="MitM_napadi.html#VRSTE_NAPADA"><span class="tocnumber">3</span> <span class="toctext">VRSTE NAPADA</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="MitM_napadi.html#SCENARIJI"><span class="tocnumber">3.1</span> <span class="toctext">SCENARIJI</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="MitM_napadi.html#NAPADI"><span class="tocnumber">3.2</span> <span class="toctext">NAPADI</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="MitM_napadi.html#LAN_napadi"><span class="tocnumber">3.2.1</span> <span class="toctext">LAN napadi</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="MitM_napadi.html#ARP_poisoning.2F_spoofing"><span class="tocnumber">4</span> <span class="toctext">ARP poisoning/ spoofing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="MitM_napadi.html#Cain_.26_Abel"><span class="tocnumber">4.1</span> <span class="toctext">Cain &amp; Abel</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="MitM_napadi.html#DSNIFF.2C_DRIFTNET"><span class="tocnumber">4.2</span> <span class="toctext">DSNIFF, DRIFTNET</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="MitM_napadi.html#Kako_se_za.C5.A1tititi_od_ovakvih_napada.3F"><span class="tocnumber">4.3</span> <span class="toctext">Kako se zaštititi od ovakvih napada?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="MitM_napadi.html#SSL_STRIP"><span class="tocnumber">5</span> <span class="toctext">SSL STRIP</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="MitM_napadi.html#SSL"><span class="tocnumber">5.1</span> <span class="toctext">SSL</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="MitM_napadi.html#.C5.A0to_radi_alat_SSLstrip.3F"><span class="tocnumber">5.2</span> <span class="toctext">Što radi alat SSLstrip?</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="MitM_napadi.html#Primjer_napada"><span class="tocnumber">5.3</span> <span class="toctext">Primjer napada</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="MitM_napadi.html#Kako_se_za.C5.A1tititi_od_ovog_napada.3F"><span class="tocnumber">5.4</span> <span class="toctext">Kako se zaštititi od ovog napada?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="MitM_napadi.html#ZAKLJU.C4.8CAK"><span class="tocnumber">6</span> <span class="toctext">ZAKLJUČAK</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="MitM_napadi.html#LITERATURA"><span class="tocnumber">7</span> <span class="toctext">LITERATURA</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="UVOD"> UVOD </span></h2>
+<p>Danas većina ljudi koristi internet za komuniciranje. Najpopularniji načini komunikacije putem interneta danas su društvene mreže i web e-mail servisi. Budući da korisnici svakodnevno komuniciraju i razmjenjuju razne informacije, potrebno je zaštititi komunikacijske kanale i omogućiti privatnost korisnicima.
+Jedna od najvećih prijetnji online komuniciranju su takozvani Man In The Middle napadi (Čovjek u sredini). Ova vrsta napada su moderni načini prisluškivanja. Kod ovakve vrste napada, kao što i sam naziv govori, u komunikacijskom kanalu između pošiljatelja i primatelja spaja se treća osoba koja uz pomoć nekih alata manipulira komunikacijskim kanalom. Treća osoba neprimjetno nadzire komunikaciju, prenosi poruke između primatelja i pošiljatelja.
+Budući da se osim komunikacije i prijenosa datoteka danas na internetu obavljaju važni poslovi kao što su to online kupovina, e- bankarstvo i slično, osim prisluškivanja ove metode omogućuju krađu informacija pa samim time i krađu novca i razne prevare.
+U ovom seminarskom radu objasnit ću neke od najpoznatijih takvih napada i na koji način se je moguće zaštititi od njih.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 19:57, 5. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id="MITM"> MITM </span></h2>
+<p>MITM (Man In The Middle) napad se još naziva i&#160;:
+</p>
+<ul><li> Bucket-brigade attack
+</li><li> Fire brigade attack
+</li><li> Monkey-in-the-middle attack
+</li><li> Session hijacking
+</li><li> TCP hijacking
+</li><li> TCP session hijacking
+</li></ul>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:571px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:MITM_napad.jpg" class="image"><img alt="" src="../images/a/a5/MITM_napad.jpg" width="569" height="316" class="thumbimage" /></a>  <div class="thumbcaption">IZVOR:<a href="https://www.owasp.org/images/2/21/Main_the_middle.JPG" class="external free" rel="nofollow">https://www.owasp.org/images/2/21/Main_the_middle.JPG</a></div></div></div></center>
+<p><br />
+Kao što je prikazano na slici, kod MITM napada umjesto normalne direktne komunikacije, sva komunikacija se odvija preko napadača. Prvi korak napadača je da mora uvjeriti pošiljatelja da je on primatelj i primatelja da je pošiljatelj. Nakon toga prima pošiljateljevu poruku, može ju čitati ili promijeniti i nakon toga ju šalje primatelju. Ni pošiljatelj ni primatelj ne shvaćaju da se komunikacija ne odvija direktno i da netko prisluškuje njihov razgovor.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 20:00, 5. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id="VRSTE_NAPADA"> VRSTE NAPADA </span></h2>
+<p>Postoji više vrsta MITM napada. Prva podjela je prema scenarijima.
+</p>
+<h3> <span class="mw-headline" id="SCENARIJI"> SCENARIJI </span></h3>
+<ul><li>SCENARIJI:
+<ul><li>Injection
+<ul><li> Command Injection
+</li><li> Malicious Code Injection
+</li></ul>
+</li><li> Key Manipulation
+<ul><li> SSH v1
+</li><li> IPSEC
+</li><li> HTTPS
+</li></ul>
+</li><li> Downgrade attack
+<ul><li> SSH v2
+</li><li> IPSEC
+</li><li> PPTP
+</li></ul>
+</li><li> Filtering
+<ul><li> Code Filtering
+</li></ul>
+</li></ul>
+</li></ul>
+<p><br />
+<b>Injection</b> - Mogućnost da se dodaju paketi na već uspostavljenu vezu. Napadač može promijeniti slijed brojeva i ostaviti vezu sinkroniziranu dok injektira pakete.
+</p><p><br />
+<b>Command injection</b> – Stariji tip napada koji se koristi za scenarije kod kojih imamo jednokratnu autentikaciju (RSA token). Koristi se za krađu sjednice (session) i omogućuje napadaču da otvori stranicu nakon što je korisnik već prijavljen pa bez lozinke i korisničkog imena može čitati sve poruke i raditi sve kao da je prijavljen na svoj korisnički račun. Ovdje se injektiraju naredbe na server. Šalju se lažni odgovori klijentu.
+</p><p><br />
+<b>Malicious code injection</b>- Napadač može dodati maliciozni kod u e-mail poruke, SQL upite i web stranice i mijenjati binarne datoteke koje skida žrtva kako bi dodao backdoor ili da promijeni način izvršavanja skinutih programa.
+</p><p><br />
+<b>Key Manipulation</b> – Manipulacija ključem je napad kod kojeg napadač krade javni ključ između servera i klijenta i mijenja ga s malicioznim kodom. Kako bi bio što uvjerljiviji, napadač mora dekriptirati poruke koje se šalju s ključem i promijeniti ih i nakon toga ih ponovno kriptirati. Ovakvi napadi su usmjereni na online transakcije kod online trgovina i banka.
+</p><p><br />
+<b>Downgrade attack</b> – Kod ovakvih napada napadač prisili žrtvu da koristi stariju vrstu sigurnosnih protokola kod koje je lakše iskoristiti sigurnosne propuste.
+</p><p><br />
+<b>Filtering</b> – Napadač mijenja payload (korisni teret, tijelo poruke) paketa ponovnim računanjem checksum-a. Checksum je hash kod, niz brojeva, koji se izračuna za neki program ili paket, a omogućuje primatelju paketa da provjeri da li je paket izmijenjen na putu do njega. Ako je niz brojeva drugačiji od niza koji je izračunao pošiljatelj, to znači da je paket promijenjen. Kod Filtering napada napadač promijeni i poruku i checksum.
+</p><p><br />
+</p><p>Više o tome: <a href="http://it.toolbox.com/wiki/index.php/Man-in-the-Middle_Attack" class="external free" rel="nofollow">http://it.toolbox.com/wiki/index.php/Man-in-the-Middle_Attack</a> - Dostupno 3.6.2013.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 20:11, 5. lipnja 2013. (CEST)
+</p>
+<h3> <span class="mw-headline" id="NAPADI">NAPADI</span></h3>
+<hr />
+<p>Nakon što smo objasnili scenarije, načine na koji funkcioniraju napadi, slijede napadi.
+Možemo ih podijeliti i na napade koji se izvršavaju na lokalnoj LAN mreži, napade s lokalne na udaljenu mrežu, udaljene i bežične.
+</p>
+<ul><li> NAPADI:
+<ul><li> <b>LOCAL AREA NETWORK</b>:
+<ul><li> ARP poisoning
+</li><li> DNS spoofing
+</li><li> STP mangling
+</li><li> Port stealing
+</li></ul>
+</li></ul>
+</li></ul>
+<ul><li><ul><li> <b>FROM LOCAL TO REMOTE</b> (through a gateway):
+<ul><li> ARP poisoning
+</li><li> DNS spoofing
+</li><li> DHCP spoofing
+</li><li> ICMP redirection
+</li><li> IRDP spoofing
+</li><li> route mangling
+</li></ul>
+</li></ul>
+</li></ul>
+<ul><li><ul><li> <b>REMOTE</b>:
+<ul><li> DNS poisoning
+</li><li> Traffic tunneling
+</li><li> Route mangling
+</li></ul>
+</li></ul>
+</li></ul>
+<ul><li><ul><li> <b>WIRELESS</b>:
+<ul><li> Access Point Reassociation
+</li></ul>
+</li></ul>
+</li></ul>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="LAN_napadi">LAN napadi</span></h4>
+<hr />
+<p><b>ARP spoofing</b>
+</p><p>Najčešći napad na lokalnoj mreži je ARP spoofing ili ARP poisoning. Ime je dobio po ARP protokolu koji je ustvari najlakše zamisliti kao tablicu u kojoj je za svaku IP adresu zapisana i Fizička MAC adresa. Ovaj napad se izvodi na način da napadač uvjeri pošiljatelja da je on primatelj, a primatelja da je on pošiljatelj.
+</p><p>Alati koji se koriste za napad: ARPoison, Ettercap, Dsniff, Parasite, Cain &amp; Abel
+</p><p><br />
+</p><p><b>DNS spoofing</b>
+</p><p>Kod DNS spoofinga se napada DNS zahtjev koji za unesenu web adresu pronalazi IP adresu servera na kojoj je web stranica. DNS omogućuje da ne trebamo pamtiti IP adresu neke web stranice nego naziv tipa www.google.com. Napadač koristi takozvani sniffing (njuškanje) kako bi pronašao ID za bilo koji DNS zahtjev i odgovorio na zahtjev prije DNS servera.
+</p><p>Alati koji se koriste za napad: ADM DNS spoofing tools, Ettercap, Dsniff, Zodiac
+</p><p><br />
+</p><p><b>IP adress spoofing</b>
+</p><p>Napadač kreira IP pakete s krivotvorenom IP adresom izvora kako bi prikrio identitet pošiljatelja paketa ili kako bi oponašao drugi sustav.
+</p><p>Alati koji se koriste za napad: Hping, Spoofed IP
+</p><p><br />
+</p><p><b>Port stealing</b>
+</p><p>Krađa porta je napad kod kojeg napadač krade promet koji je usmjeren prema drugome portu Ethernet switch-a. Ovaj napad omogućuje da netko primi pakete koji su namijenjeni drugom računalu. To se postiže na način da se uvjeri switch da je napadačev port ustvari port primatelja kojemu je paket namijenjen.
+</p><p>Alati koji se koriste za napad: Ettercap
+</p><p><br />
+</p><p><b>STP mangling</b>
+</p><p>STP (Spanning-Tree Protocol) oštećivanje je napad kod kojeg se napadačev poslužitelj postaje korijen mosta (root bridge) u rasponu stabla (spanning tree). Dakle napadač dolazi do glavne mape, root direktorija, time dobiva pristup svim poddirektorijima stabla.
+</p><p>Alati koji se koriste za napad: Ettercap, Yersinia
+</p><p><br />
+</p><p>Više o napadima:
+</p><p><a href="http://it.toolbox.com/wiki/index.php/Man-in-the-Middle_Attack" class="external free" rel="nofollow">http://it.toolbox.com/wiki/index.php/Man-in-the-Middle_Attack</a> - Dostupno 3.6.2013.
+</p><p><a href="http://www.blackhat.com/presentations/bh-usa-03/bh-us-03-ornaghi-valleri.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-usa-03/bh-us-03-ornaghi-valleri.pdf</a> - Dostupno 3.6.2013.
+</p><p><a href="http://www.quora.com/What-is-port-stealing" class="external free" rel="nofollow">http://www.quora.com/What-is-port-stealing</a> - Dostupno 5.6.2013.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 20:09, 5. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id="ARP_poisoning.2F_spoofing">ARP poisoning/ spoofing</span></h2>
+<p>Kao što sam ranije objasnio, da bi shvatili ovaj napad, potrebno je znati što je to ARP protokol.
+ARP ( Adress Resolution Protocol) je protokol koji se koristi kod LAN mreža, a sadrži ARP tablicu u kojoj su povezane IP adrese nekog računala sa MAC (fizičkim) adresama. 
+Ovu tablicu moguće je vidjeti preko Naredbenog retka (Command Prompt) kojeg otvaramo tako da na tipkovnici pritisnemo Windows tipku, držimo ju i istovremeno pritisnemo R. Na taj način smo otvorili Run prozor u kojeg upišemo cmd i pritisnemo Enter. Kad nam se otvori prozor, upišemo arp –a i ispiše nam se ARP tablica.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:519px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ARPtablica.jpg" class="image"><img alt="" src="../images/4/41/ARPtablica.jpg" width="517" height="247" class="thumbimage" /></a>  <div class="thumbcaption">IZVOR:<a href="http://www.petri.co.il/images/arp_cache_01.jpg" class="external free" rel="nofollow">http://www.petri.co.il/images/arp_cache_01.jpg</a></div></div></div></center>
+<p><br />
+Da bi ruter znao kojem računalu treba poslati paket, osim IP adrese mora znati i fizičku adresu računala. Pri tome u ARP tablici traži IP adresu za koju ima paket, kad je pronađe, iz tablice pročita MAC adresu kako bi mogao pravom računalu dostaviti paket.
+Taj proces je moguće pratiti s alatom <b>Wireshark</b>. Prilikom pokretanja programa, potrebno je odabrati  dobar interface, a to se radi tako da se u početnom prozoru klikne na <i>Interface list</i>. U novom prozoru gledamo za koji  uređaj primamo pakete. To vidimo po brojevima koji se mijenjaju. Samo jedan uređaj prima pakete, kod ostalih je vrijednost 0. Uključimo kvačicu kod tog uređaja. U ovom slučaju je to WI-FI jer smo bežičnim putem povezani  na internet i kliknemo na <i>Start</i>.
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wireshark1.png" class="image"><img alt="Wireshark1.png" src="../images/thumb/9/90/Wireshark1.png/500px-Wireshark1.png" width="500" height="272" /></a></center>
+<p><br />
+Sada program prati pakete i prikazuje nam komunikaciju između računala i servera, koji protokoli se koriste i slično. Ako u polje <i>Filter</i> upišemo <i>arp</i> i kliknemo na <i>Apply</i>, možemo vidjeti  samo komunikaciju koja se odvija putem ARP protokola. Tu vidimo MAC adrese izvora  i odredišta i pod <i>Info</i> možemo vidjeti da računalo 192.168.1.30 pita tko ima 192.168.1.1 za IP adresu. Na taj način se odvija komunikacija i čitanje IP i MAC adresa sa ARP tablice.
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wireshark2.png" class="image"><img alt="Wireshark2.png" src="../images/thumb/d/de/Wireshark2.png/500px-Wireshark2.png" width="500" height="299" /></a></center>
+<p><br />
+Kod ARP poisoninga mi kažemo ruteru da imamo IP adresu primatelja paketa, a primatelju paketa kažemo da imamo IP adresu rutera.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 13:18, 8. lipnja 2013. (CEST)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Cain_.26_Abel"> Cain &amp; Abel </span></h3>
+<hr />
+<p>Ovaj napad moguće je izvesti s više alata. Alat koji ću prvo objasniti je Cain &amp; Abel. Ovaj alat može obavljati više napada, crackirati lozinke i hash vrijednosti, WEP key i slično.
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:CAIN1.png" class="image"><img alt="CAIN1.png" src="../images/thumb/d/df/CAIN1.png/500px-CAIN1.png" width="500" height="262" /></a></center>
+<p><br />
+Da bi izveli ARP poisoning napad prvo trebamo otvoriti karticu <i>Sniffer</i>, kliknuti na istu ikonu u alatnoj traci, kako bi pokrenuli sniffer i nakon toga kliknuti na ikonu <i>+</i>. Tu nam se otvara prozor u kojem odaberemo <i>Range</i> i upišemo koji raspon IP adresa želimo da skenira.  U našem primjeru to je od 192.168.1.1 do 192.168.1.40, budući da smo u arp tablici mogli vidjeti da se koriste IP adrese u tom rasponu. Nakon toga uključimo kvačicu kod <i>All Tests</i> i pritisnemo <i>OK.</i>
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:CAIN2.png" class="image"><img alt="CAIN2.png" src="../images/thumb/9/9d/CAIN2.png/500px-CAIN2.png" width="500" height="264" /></a></center>
+<p><br />
+Na taj način skeniramo mrežu da bi provjerili koje IP adrese se koriste, i koja računala su povezana na LAN mrežu.
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:CAIN3.png" class="image"><img alt="CAIN3.png" src="../images/thumb/8/8f/CAIN3.png/500px-CAIN3.png" width="500" height="142" /></a></center>
+<p><br />
+Ovdje možemo vidjeti  da je povezan Laptop čija IP adresa je 192.168.1.31. Nakon toga pri dnu prozora odaberemo karticu <i>ARP</i>. Ovdje kliknemo u prazan prostor, zatim na <i>+</i>. Otvara se prozor u kojemu odaberemo IP adresu „žrtve“  s lijeve strane i adresu rutera s desne strane i kliknemo na <i>ok</i>. Time smo odabrali da preko ARP protokola želimo reći računalu s IP adresom 192.168.1.31 da smo mi ruter 192.168.1.1 i obrnuto.
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:CAIN4.png" class="image"><img alt="CAIN4.png" src="../images/thumb/6/6c/CAIN4.png/500px-CAIN4.png" width="500" height="255" /></a></center>
+<p><br />
+Nakon toga kliknemo na ikonu <i>ARP</i> kako bi pokrenuli napad. Sad ako na dnu prozora odaberemo karticu <i>Passwords</i> i s lijeve strane <i>HTTP</i>, u prozoru ćemo dobiti ispisane linkove koje je korisnik posjetio. Ako u to vrijeme korisnik pristupi nekoj web stranici i prijavi se, u prozoru će se ispisati korisničko ime i lozinka.
+</p><p><br />
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:CAIN5.png" class="image"><img alt="CAIN5.png" src="../images/thumb/f/f7/CAIN5.png/500px-CAIN5.png" width="500" height="248" /></a></center>
+<p><br />
+Ako sada otvorimo wireshark vidjet ćemo kako je računalo stalno slalo ARP zahtjeve, ali u ovom slučaju možemo vidjeti da u zagradi piše (duplicate use of ... detected) što znači da se neka IP adresa duplo koristi, što nije moguće.  Na taj način možemo otkriti da je u tijeku ARP poisoning napad.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Poisoned.jpg" class="image"><img alt="" src="../images/thumb/b/b2/Poisoned.jpg/500px-Poisoned.jpg" width="500" height="313" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Poisoned.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.ostalks.com/wp-content/uploads/2011/11/poisoned.jpg" class="external free" rel="nofollow">http://www.ostalks.com/wp-content/uploads/2011/11/poisoned.jpg</a></div></div></div></center>
+<p><br />
+Kako izgleda takav napad možete vidjeti ovdje:
+<a href="http://www.youtube.com/watch?v=RbSsD7yw7_w" class="external free" rel="nofollow">http://www.youtube.com/watch?v=RbSsD7yw7_w</a>   Dostupno:  7.6.2013.
+</p><p>Alat je dostupan na: <a href="http://www.oxid.it/cain.html" class="external free" rel="nofollow">http://www.oxid.it/cain.html</a>
+</p><p>NAPOMENA: Ne pokušavajte ovo kod kuće, a pogotovo negdje drugdje.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 13:18, 8. lipnja 2013. (CEST)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="DSNIFF.2C_DRIFTNET">DSNIFF, DRIFTNET</span></h3>
+<hr />
+<p><br />
+Drugi način da se izvede ovaj napad je putem komandne linije, terminala na linuxu.
+Prvo je potrebno skinuti ubuntu virtualnu mašinu i otvoriti je u virtualboxu.
+Ubuntu je Linux operativni sustav, koji je open source, znači besplatan je za korištenje.
+Virtualne mašine mogu se skinuti ovdje: <a href="http://virtualboxes.org/images/ubuntu/" class="external free" rel="nofollow">http://virtualboxes.org/images/ubuntu/</a>
+U ovom primjeru napadač je virtualna mašina, a žrtva operativni sustav Windows na kojemu je pokrenuta mašina.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff1.png" class="image"><img alt="" src="../images/thumb/8/8f/Dsniff1.png/500px-Dsniff1.png" width="500" height="280" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a></div></div></div></center>
+<p><br />
+Napadač je s lijeve strane, a žrtva s desne.
+</p>
+Prvi korak je da pokrenemo <i>terminal</i>, u ovom slučaju tri prozora.  Prvi prozor koristit ćemo za instalaciju programa <b>dsniff</b> i <b>driftnet</b> koje ćemo koristiti za napad.  Potrebno je upisati naredbu: <pre>apt-get install dsniff driftnet –y </pre>
+<p>Ukoliko nismo prijavljeni kao administrator, trebali bi još dodati naredbu <i>sudo</i> ispred navedenog. Ove naredbe govore da se preuzmu i instaliraju navedeni programi.
+</p>
+Nakon toga upišemo u isti prozor: <pre> echo 1 &gt;&gt; /proc/sys/net/ipv4/ip_forward </pre>
+<p>Ova naredba zapisuje 1 u datoteku <i>ip_forward</i>, što znači da se pokreće ta skripta. Time omogućujemo da naše računalo, u ovom slučaju virtualna mašina glumi ruter i da kroz sebe pušta promet.
+</p>
+Da bi bili sigurni da smo pokrenuli skriptu, možemo to provjeriti s naredbom:  <pre> cat /proc/sys/net/ipv4/ip_forward </pre>
+<p>Ona nam ispisuje stanje 1, što znači da skripta radi.
+</p><p>Da bi saznali IP adresu računala potrebno je na Windowsu u <i>Naredbenom retku</i> (Command Prompt) upisati naredbu <i>ipconfig</i> da vidimo koji mrežni adapteri i koje Ip adrese se koriste.  Sada možemo vidjeti u prozoru s desne strane da je IP adresa žrtve 192.168.0.10.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff2.png" class="image"><img alt="" src="../images/thumb/4/43/Dsniff2.png/500px-Dsniff2.png" width="500" height="280" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a></div></div></div></center>
+<p><br />
+</p><p>Nakon toga možemo započeti napad. Kako bi rekli računalu (žrtvi) da smo mi (virtualna mašina) ruter, potrebno je upisati naredbu:
+</p>
+<pre> arpspoof – i wlan0 –t 192.168.0.103 192.168.0.1 </pre>
+<p>Ovu naredbu upisujemo u drugi prozor. Ova naredba govori da koristimo uređaj (interface) <i>–i</i> , u ovom slučaju je to <i>wlan0</i> jer smo bežično povezani na internet i da je meta (target) <i>–t</i>  192.168.0.103. Prva IP adresa je  adresa mete koja se nalazi na desnoj strani slike, a druga IP adresa je adresa rutera na koji smo povezani. Čim pokrenemo naredbu vidimo komunikaciju između mašine i rutera.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff3.png" class="image"><img alt="" src="../images/thumb/1/1d/Dsniff3.png/500px-Dsniff3.png" width="500" height="282" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a></div></div></div></center>
+<p><br />
+Istom naredbom kažemo ruteru da smo mi računalo žrtva. Znači samo zamijenimo prvu i drugu IP adresu: 
+</p>
+<pre> arpspoof – i wlan0 –t 192.168.0.1 192.168.0.103 </pre> 
+<p>Ovo upisujemo u drugi prozor. 
+Time smo zatvorili krug. Sada naša virtualna mašina glumi ruter i pomoću ARP protokola govori  Windowsima  (s desne strane slike) da smo mi ruter i ruteru da je mašina računalo s Windowsima s desne strane. Sada svu komunikaciju propuštamo kroz mašinu.
+</p><p>Ako želimo vidjeti slike koje se otvaraju u web pregledniku žrtve potrebno je koristiti program <b>driftnet</b>. On uzima slike koje se nalaze u cache (privremeno) memoriji web browsera. To učinimo na način da u treći prozor upišemo naredbu:  
+</p>
+<pre> driftnet -i wlan0 –d /home/james/Desktop/img </pre>  Ovom naredbom pokrećemo skriptu <i>driftnet</i> za interface<i> –i wlan0</i>. Ako želimo da se sve slike spremaju u neku mapu kreiramo mapu i iza <i>–d</i> upišemo put do te mape, u ovom slučaju <i>/home/james/Desktop/img</i>.
+<p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff4.png" class="image"><img alt="" src="../images/thumb/f/f1/Dsniff4.png/500px-Dsniff4.png" width="500" height="281" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a></div></div></div></center>
+<p><br />
+Nakon toga se otvara mali prozor u kojemu možemo vidjeti slike koje u svom pregledniku vidi žrtva (desna strana slike). Čim s desne strane žrtva otvori neku web stranicu, prikazuju se slike. U ovom slučaju  u google upsujemo linux.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff5.png" class="image"><img alt="" src="../images/thumb/9/9f/Dsniff5.png/500px-Dsniff5.png" width="500" height="281" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff5.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a></div></div></div></center>
+<p><br />
+</p>
+Ako želimo vidjeti koje web stranice posjećuje korisnik, koji web preglednik koristi, upisujemo naredbu:  <pre> urlsnarf -i wlan0 </pre>
+<p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff6.png" class="image"><img alt="" src="../images/thumb/a/a5/Dsniff6.png/500px-Dsniff6.png" width="500" height="281" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dsniff6.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR:<a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a></div></div></div></center>
+<p><br />
+Na taj način smo izveli Arp poisoning napad, kroz tekstualno sučelje koristeći terminal i programe dsniff i driftnet. 
+</p><p><br />
+Kako izgleda ovaj napad možete vidjeti na: 
+</p><p><a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a>  - Dostupno 8.6.2013.
+</p><p><a href="http://www.youtube.com/watch?v=-hd7XG-b6uk" class="external free" rel="nofollow">http://www.youtube.com/watch?v=-hd7XG-b6uk</a>  - Dostupno 8.6.2013.
+</p><p><a href="http://arppoisoning.com/introduction-to-arp-poisoning/" class="external free" rel="nofollow">http://arppoisoning.com/introduction-to-arp-poisoning/</a> - Dostupno 8.6.2013.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 14:34, 8. lipnja 2013. (CEST)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kako_se_za.C5.A1tititi_od_ovakvih_napada.3F"> Kako se zaštititi od ovakvih napada? </span></h3>
+<hr />
+<p><br />
+Ovakvi napadi su opasni kada se radi o online trgovinama jer napadaču omogućuju jednostavno čitanje lozinke i samim time omogućuju krađu. Da bi se zaštitili od ovakvih napada, potrebno je koristiti SSL na web stranicama. Dakle uvijek koristiti https protokol na web stranicama na koje se prijavljujemo jer on kriptira promet i ovakvim napadima onemogućuje da jednostavno pročitaju čistu lozinku. Danas većina web stranica poput banaka i paypala, ali i facebooka i slično koriste SSL kako bi onemogućili krađu podataka korisnika.
+</p><p>Također kao što sam naveo, takve napade je moguće detektirati s programom Wireshark koji nam javlja ako se neka IP adresa ponavlja, tj. duplo koristi.
+</p><p>Iako se koristi SSL opet to ne znači da je web stranica potpuno sigurna. Napad SSL Strip omogućuje krađu korisničkih podataka iako se koristi SSL.
+</p><p>Isto treba paziti na koje bežične mreže se spajamo i čim manje koristiti javne besplatne mreže, il ako ih već koristimo, onda treba paziti na koje stranice se prijavljujemo i koje podatke o sebi otkrivamo.
+</p><p>Preporučuje se napraviti tablicu s poznatim MAC adresama, adresama uređaja koji sami koristimo kako bi mogli na ruteru ili firewallu blokirati nepoznate MAC adrese i time spriječiti napadače.
+</p><p>Još jedan od načina je koristiti statičke ARP tablice koje ne dopuštaju promjene, što onemogućuje da se za neku IP adresu promijeni MAC adresa u tablici.
+</p><p><br />
+</p><p>Više o zaštiti od ARP napada:  
+</p><p><a href="http://www.tekbar.net/hackers-and-security/seven-easy-way-to-help-you-defend-against-arp.html" class="external free" rel="nofollow">http://www.tekbar.net/hackers-and-security/seven-easy-way-to-help-you-defend-against-arp.html</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://www.irongeek.com/i.php?page=security/arpfreeze-static-arp-poisoning" class="external free" rel="nofollow">http://www.irongeek.com/i.php?page=security/arpfreeze-static-arp-poisoning</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://www.data.ks.uni-freiburg.de/download/inetworkSS05/practical/arp/arp-spoofing.pdf" class="external free" rel="nofollow">http://www.data.ks.uni-freiburg.de/download/inetworkSS05/practical/arp/arp-spoofing.pdf</a> - Dostupno 8.6.2013. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 14:34, 8. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id="SSL_STRIP"> SSL STRIP </span></h2>
+<p>Ovaj napad je nešto noviji, a radi se o downgrade napadu, koji ustvari prisili korisnika da umjesto https protokola za prijavu koristi stariju verziju http i samim time omogućuje ARP poisoning napad i krađu tajnih podataka.
+</p><p>SSL (Secure Sockets Layer) je protokol  koji služi za kriptiranje komunikacije. Koristi se na web stranicama kod prijave na server. Da neka stranica koristi SSL protokol, to možemo vidjeti  po adresi web stranice jer umjesto http piše https. Http je stariji protokol kod kojeg se ne kriptira lozinka prilikom prijave na server, dok https to omogućava.
+</p><p>Dakle SSL sprječava ARP poisoning napade da jednostavno pročitaju korisničko ime i lozinku. Da bi se pročitala lozinka potrebno ju je dekriptirati, a to teško za izvesti.
+Hacker Moxie Marilnspike je osmislio napad i kreirao alat SSLstrip koji zaobiđe kriptirani prijenos na način da se korisniku umjesto https kriptirane stranice servira http stranica i na taj način se zaobiđe kriptiranje pa je moguće opet izvesti ARP poisoning napade.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 18:15, 9. lipnja 2013. (CEST)
+</p>
+<h3> <span class="mw-headline" id="SSL"> SSL </span></h3>
+<p>Kod SSL se koriste certifikati. Certifikati su dokumenti koji identificiraju osobu, računalo ili uređaj koji posjeduje javni ključ. Dakle certifikat povezuje par ključeva s njihovim vlasnikom. SSL certifikat je certifikat koji glasi na neki server i on nam omogućuje da provjerimo da smo na pravoj web stranici.
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:425px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslcert.jpg" class="image"><img alt="" src="../images/1/1c/Sslcert.jpg" width="423" height="523" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslcert.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Izvor: <a href="https://hk.globalsign.com/images/ssl-info-certificate-details.jpg" class="external free" rel="nofollow">https://hk.globalsign.com/images/ssl-info-certificate-details.jpg</a></div></div></div></center>
+<p><br />
+Certifikate izdaje CA (Certificate Authority) za određeni server. To je izdavačka kuća koja ima bazu certifikata. Ona potvrđuje da je certifikat valjani, da neki server koristi određenu metodu kriptiranja.
+</p><p>Kod SSL-a kad posjetimo web stranicu koja je sigurna, primamo i certifikat koji nam omogućuje provjeru sigurnosti servera. To se radi na način da se provjeri lanac certifikata. Lanac certifikata je niz autoriteta koji potvrđuju valjanost certifikata.  On se sastoji od izdavača certifikata (CA), posrednika kojih može biti više i certifikata web stranice ili servera.  Izdavač  (CA), potpisuje certifikat posrednika (Intermediate CA) koji potpisuje certifikat web stranice.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Certchain1.png" class="image"><img alt="" src="../images/thumb/f/fa/Certchain1.png/500px-Certchain1.png" width="500" height="334" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Certchain1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf</a></div></div></div></center>
+<p><br />
+Lanac certifikata se provjerava na način da se krene od korijena, provjeri se da na certifikatu piše adresa web stranice koju smo posjetili. Nakon toga se provjerava da li je certifikat istekao. Provjerava se potpis i ako je potpisano od strane izdavača (CA) za koje znamo da su pouzdani , to znači da certifikat vrijedi. Ako potpis ne valja, onda se pomaknemo za jedan više u lancu certifikata i ponavljamo proces. Postoji problem u tom procesu jer se provjerava samo da li je lanac potpun.
+</p><p>Postoji propust u  standardu za certificiranje X509V3 koji omogućuje da bilo tko može kupiti certifikat za bilo koji server.  Kod kupnje certifikata izdavači su znali ostaviti polje Basic constraints prazno i to je omogućilo da bilo tko sa svojim certifikatom  kreira i potpiše bilo koji drugi certifikat.
+</p><p>To je omogućilo da na primjer vlasnik neke web stranice koji ima certifikat kreira valjani certifikat za paypal.com ili bilo koju drugu web stranicu. Ako bi nakon toga išli provjeriti lanac certifikata ispalo bi da certifikat vrijedi.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Certchain2.png" class="image"><img alt="" src="../images/thumb/d/d1/Certchain2.png/500px-Certchain2.png" width="500" height="332" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Certchain2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf</a></div></div></div></center>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 18:15, 9. lipnja 2013. (CEST)
+</p>
+<h3> <span class="mw-headline" id=".C5.A0to_radi_alat_SSLstrip.3F"> Što radi alat SSLstrip? </span></h3>
+<p>Ovaj alat radi MITM napad kod kojega se spaja između računala i servera i sigurnu SSL vezu dijeli na dva dijela. Dio komunikacije koja se odvija između korisnika i napadača ovaj program pretvara iz sigurne https u nesigurnu http vezu, dok drugi dio između napadača i servera ostaje sigurna kriptirana veza.
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslstrip1.png" class="image"><img alt="" src="../images/thumb/2/25/Sslstrip1.png/500px-Sslstrip1.png" width="500" height="333" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslstrip1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf</a></div></div></div></center>
+<p><br />
+Dakle s lijeve strane veze prihvaća HTTPS promet, generira certifikat za stranicu koju je posjetio korisnik i potpisuje ga. HTTPS linkove pretvara u HTTP i vraća ih korisniku, dok s druge strane serveru šalje normalne podatke preko HTTPS veze s certifikatom koji je sam izradio i koji je valjan.  Dakle na strani između napadača i servera promet se dekriptira i kriptira. Na taj način ni klijent ni server ne shvaćaju da je između njih napadač.
+</p><p><br />
+Što se tiče certifikata, tu se generira certifikat koji glasi na  <b>*\0.našadomena.com</b>. Na taj način možemo napraviti certifikat <b>www.facebook.com\0.našadomena.com</b> . Kod provjere certifikata program provjeri dio do <b>\0</b> , jer to znači da je došao do kraja stringa, vidi da piše www.facebook.com i certifikat proglasi valjanim. To nam omogućuje da generiramo valjani certifikat za bilo koju web stranicu.
+</p><p><br />
+Kod samog izgleda stranice nema vidljive razlike između sigurne https i nesigurne http stranice.
+</p><p>Ovaj program omogućuje napadaču da prati komunikaciju između klijenta i servera, da čita nekriptirane podatke, pa čak i da mijenja pakete. Moguće je iskoristiti ovaj napad da se na primjer kod update-a nekog  add-ona u web pregledniku preuzme maliciozni kod koji bi omogućio potpunu kontrolu nad računalom žrtve. Isto tako može se koristiti na više načina, npr. moguće je čak instalirati rootkit koji se ponaša kao keylogger i pamti sve znakove koje korisnik unosi u računalo putem tipkovnice. Dakle ovaj napad omogućuje krađu lozinki, špijuniranje komunikacije i kontrolu nad softverom koji žrtva ima instalirana.
+</p><p><br />
+Prepričano s: 
+</p><p><a href="http://thoughtcrime.org/software/sslstrip/" class="external free" rel="nofollow">http://thoughtcrime.org/software/sslstrip/</a>  - Dostupno 9.6.2013.
+</p><p><a href="http://www.youtube.com/watch?v=ibF36Yyeehw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=ibF36Yyeehw</a>  - Dostupno 9.6.2013. 
+</p><p><a href="http://vimeo.com/50018478#" class="external free" rel="nofollow">http://vimeo.com/50018478#</a>   - Dostupno 9.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=ibF36Yyeehw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=ibF36Yyeehw</a>  - Dostupno 9.6.2013. 
+</p><p><a href="http://thoughtcrime.org/software/sslstrip/" class="external free" rel="nofollow">http://thoughtcrime.org/software/sslstrip/</a>  - Dostupno 9.6.2013. 
+</p><p><a href="http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf</a>  - Dostupno 9.6.2013. 
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 18:15, 9. lipnja 2013. (CEST)
+</p>
+<h3> <span class="mw-headline" id="Primjer_napada"> Primjer napada </span></h3>
+<p>Ovaj napad moguće je izvesti kombinacijom više alata, pa postoji više izvedbi.
+</p><p>Prvi korak je preuzimanje SSLstrip programa. Točnije SSL strip je skripta, pa je potrebno imati instaliran Python (apt-get install python).
+Nakon toga sa web stranice se preuzme skripta (<a href="http://thoughtcrime.org/software/sslstrip/" class="external free" rel="nofollow">http://thoughtcrime.org/software/sslstrip/</a>)
+</p><p>Uz pomoć terminala extract-amo arhivu i otvorimo tu mapu.
+</p>
+<pre>
+*  tar zxvf sslstrip-0.9.tar.gz
+*  cd sslstrip-0.9
+</pre>
+<p>Prije napada, potrebno je saznati IP adresu žrtve, tj. računala na kojemu je pokrenuta virtualna mašina koju koristimo za napad. Ovdje opet koristimo Naredbeni redak i naredbu ipconfig.
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslipconf.png" class="image"><img alt="" src="../images/thumb/0/0c/Sslipconf.png/500px-Sslipconf.png" width="500" height="208" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslipconf.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.youtube.com/watch?v=l7kMpZFgrE4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=l7kMpZFgrE4</a></div></div></div></center>
+<p><br />
+Sada smo spremni za napad.
+</p><p>Prvi korak je isti kao i kod ARP poisoninga, trebamo pustiti promet kroz svoje računalo, natjerati računalo da se ponaša kao ruter.
+</p><p>Za to se koristi naredba:
+</p>
+<pre> echo &quot;1&quot; &gt; /proc/sys/net/ipv4/ip_forward </pre>
+<p>Na taj način smo uključili prosljeđivanje IP adrese.
+Prije sljedećeg koraka potrebno je u konfiguracijskoj datoteki programa ettercap obrisati znak # kako bi taj kod koji je zapisan u obliku komentara uključili. 
+</p><p>Naredbom 
+</p>
+<pre> kate/etc/etter.conf </pre> 
+<p>pomoću programa kate otvaramo tekstualnu datoteku programa ettercap.
+</p><p>Pronađemo dio koda u kojemu piše if you use iptables i u drugom redu prije naredbe redir_command_off... obrišemo #.
+Tako smo omogućili programu da prati promet.
+</p><p>Drugi korak je naredba iptables. Ona sav promet s HTTP porta 80 preusmjerava na port 10000 na kojemu radi SSLstrip.
+</p>
+<pre> iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000 </pre> 
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ssl1.png" class="image"><img alt="" src="../images/thumb/0/02/Ssl1.png/500px-Ssl1.png" width="500" height="129" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ssl1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.youtube.com/watch?v=l7kMpZFgrE4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=l7kMpZFgrE4</a></div></div></div></center>
+<p>Nakon toga koristimo naredbu&#160;:
+</p>
+<pre> Arpspoof – t 192.168.132 192.168.1.1  </pre> 
+<p>Ovu naredbu smo također koristili kod ARP napada.  Ona govori računalu žrtve da smo mi ruter.
+</p><p>Sada koristimo naredbu:
+</p>
+<pre> Sslstrip –a –k –f </pre>
+<p>Ova naredba izvršava SSLstrip napad koji smo opisali ranije. Ovdje –a znači da se sav promet bilježi u log datoteku, -k znači da se gase sve sjednice (session) u tijeku ili da se ponovno pokrenu, dok –f služi za prikaz favicon-e, sličice lokota koja se prikazuje u adresnoj traci web preglednika.
+</p><p>Sada sav promet prolazi kroz naše računalo.
+</p><p>Sljedeća naredba pokreće program ettercap:
+</p>
+<pre> ettercap –T –q –i eth0 </pre>
+<p>Ovdje –T znači da želimo koristiti tekstualni mod, -q je tihi način rada kod kojeg se ne prikazuje sadržaj paketa, -i eth0 znači da želimo koristiti uređaj eth0 (koristimo kabel kod povezivanja na internet).
+</p><p><br />
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslsve.png" class="image"><img alt="" src="../images/thumb/8/8e/Sslsve.png/500px-Sslsve.png" width="500" height="342" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslsve.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.youtube.com/watch?v=l7kMpZFgrE4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=l7kMpZFgrE4</a></div></div></div></center>
+<p>Sad ako se žrtva u svojem web pregledniku prijavi na neku web stranicu koja je zaštićena SSL-om nama se u programu ettercap prikazuje koju web adresu je posjetila i koje korisničke podatke je koristila.
+</p>
+<center><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslettercap.png" class="image"><img alt="" src="../images/thumb/d/de/Sslettercap.png/500px-Sslettercap.png" width="500" height="296" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslettercap.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>IZVOR: <a href="http://www.youtube.com/watch?v=l7kMpZFgrE4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=l7kMpZFgrE4</a></div></div></div></center>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 18:15, 9. lipnja 2013. (CEST)
+</p>
+<h3> <span class="mw-headline" id="Kako_se_za.C5.A1tititi_od_ovog_napada.3F"> Kako se zaštititi od ovog napada? </span></h3>
+<p>Potrebno je prije prijavljivanja na web stranicu u alatnoj traci provjeriti da piše https. Treba paziti da za prijavu koristimo sigurne mreže, ne javne. Trebalo bi provjeravati  da li se događaju ARP poisoning napadi. Postoje već neki načini zaštite, a neki su u izradi. Hacker Moxie Marlinspike koji je otkrio ovaj napad je izradio plugin za web browsere koji se zove Convergence koji bi trebao promijeniti način na koji se provjeravaju certifikati. 
+</p><p>Druge metode zaštite:
+</p>
+<ul><li> HTTP Strict Transport Security
+</li><li> Certificate and Public Key Pinning
+</li><li> TLS in DNSSEC
+</li></ul>
+<p><br />
+</p><p>Više o tome:
+</p><p><a href="http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf</a> - Dostupno 9.6.2013.
+</p><p><a href="http://www.youtube.com/watch?v=gNhyjPxuy5w" class="external free" rel="nofollow">http://www.youtube.com/watch?v=gNhyjPxuy5w</a> - Dostupno 9.6.2013.
+</p><p><a href="http://www.youtube.com/watch?v=qzNv6e1z1_E" class="external free" rel="nofollow">http://www.youtube.com/watch?v=qzNv6e1z1_E</a> - Dostupno 9.6.2013.
+</p><p><a href="http://www.youtube.com/watch?v=l7kMpZFgrE4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=l7kMpZFgrE4</a> - Dostupno 9.6.2013.
+</p><p><a href="http://www.fer.unizg.hr/_download/repository/Napad_dijeljenjem_tokova_na_protokol_HTTPS.pdf" class="external free" rel="nofollow">http://www.fer.unizg.hr/_download/repository/Napad_dijeljenjem_tokova_na_protokol_HTTPS.pdf</a> - Dostupno 9.6.2013.
+</p><p><a href="https://www.owasp.org/images/4/4b/OWASP_defending-MITMA_APAC2012.pdf" class="external free" rel="nofollow">https://www.owasp.org/images/4/4b/OWASP_defending-MITMA_APAC2012.pdf</a> - Dostupno 9.6.2013.
+</p><p><a href="http://convergence.io/" class="external free" rel="nofollow">http://convergence.io/</a> - Dostupno 9.6.2013.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 18:15, 9. lipnja 2013. (CEST)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="ZAKLJU.C4.8CAK"> ZAKLJUČAK </span></h2>
+<p>MITM napadi su napadi kod kojih se napadač spaja između žrtve i servera ili rutera i kroz sebe pušta svu komunikaciju. Dakle napadač glumi ruter i na taj način može čitati sve pakete koji se prenose. Imamo više scenarija i više vrsti MITM napada. Naj poznatiji napadi i oni koji se najčešće koriste su ARP poisoning i SSLstrip. ARP napadi se koriste kod komunikacije koja nije kriptirana, na stranicama koje ne koriste SSL. Kod kriptiranog SSL prijenosa koristi se SSL strip koji sigurnu kriptiranu vezu pretvara u nesigurnu. Dakle iz HTTPS protokola prelazi na HTTP. To mu omogućuje ARP poisoning napad i prikupljanje lozinki, praćenje posjećenih web stranica, slanje malwarea i slično. 
+</p><p><br />
+Da bi se zaštitili potrebno je paziti da otvaramo sigurne https web stranice. Moguće je kreirati statičke ARP tablice, pratiti MAC adrese uređaja koji se spajaju na našu mrežu, koristiti Convergence plugin kako bi provjerili certifikate i slično. Jedan od najboljih načina je ne spajati se na javne mreže ili ako se spajamo ne se prijavljivati na web stranice. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 19:04, 9. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id="LITERATURA"> LITERATURA </span></h2>
+<p><a href="http://it.toolbox.com/wiki/index.php/Man-in-the-Middle_Attack" class="external free" rel="nofollow">http://it.toolbox.com/wiki/index.php/Man-in-the-Middle_Attack</a>  - Dostupno 3.6.2013.
+</p><p><a href="http://www.blackhat.com/presentations/bh-usa-03/bh-us-03-ornaghi-valleri.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-usa-03/bh-us-03-ornaghi-valleri.pdf</a> - Dostupno 3.6.2013. 
+</p><p><a href="http://www.quora.com/What-is-port-stealing" class="external free" rel="nofollow">http://www.quora.com/What-is-port-stealing</a> - Dostupno 5.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=RbSsD7yw7_w" class="external free" rel="nofollow">http://www.youtube.com/watch?v=RbSsD7yw7_w</a> Dostupno: 7.6.2013.
+</p><p><a href="http://www.youtube.com/watch?v=fjgWZyk4kGw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=fjgWZyk4kGw</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=-hd7XG-b6uk" class="external free" rel="nofollow">http://www.youtube.com/watch?v=-hd7XG-b6uk</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://arppoisoning.com/introduction-to-arp-poisoning/" class="external free" rel="nofollow">http://arppoisoning.com/introduction-to-arp-poisoning/</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://www.tekbar.net/hackers-and-security/seven-easy-way-to-help-you-defend-against-arp.html" class="external free" rel="nofollow">http://www.tekbar.net/hackers-and-security/seven-easy-way-to-help-you-defend-against-arp.html</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://www.irongeek.com/i.php?page=security/arpfreeze-static-arp-poisoning" class="external free" rel="nofollow">http://www.irongeek.com/i.php?page=security/arpfreeze-static-arp-poisoning</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://www.data.ks.uni-freiburg.de/download/inetworkSS05/practical/arp/arp-spoofing.pdf" class="external free" rel="nofollow">http://www.data.ks.uni-freiburg.de/download/inetworkSS05/practical/arp/arp-spoofing.pdf</a> - Dostupno 8.6.2013. 
+</p><p><a href="http://thoughtcrime.org/software/sslstrip/" class="external free" rel="nofollow">http://thoughtcrime.org/software/sslstrip/</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=ibF36Yyeehw" class="external free" rel="nofollow">http://www.youtube.com/watch?v=ibF36Yyeehw</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://vimeo.com/50018478#" class="external free" rel="nofollow">http://vimeo.com/50018478#</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://thoughtcrime.org/software/sslstrip/" class="external free" rel="nofollow">http://thoughtcrime.org/software/sslstrip/</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf" class="external free" rel="nofollow">http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=gNhyjPxuy5w" class="external free" rel="nofollow">http://www.youtube.com/watch?v=gNhyjPxuy5w</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=qzNv6e1z1_E" class="external free" rel="nofollow">http://www.youtube.com/watch?v=qzNv6e1z1_E</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://www.youtube.com/watch?v=l7kMpZFgrE4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=l7kMpZFgrE4</a> - Dostupno 9.6.2013. 
+</p><p><a href="http://www.fer.unizg.hr/_download/repository/Napad_dijeljenjem_tokova_na_protokol_HTTPS.pdf" class="external free" rel="nofollow">http://www.fer.unizg.hr/_download/repository/Napad_dijeljenjem_tokova_na_protokol_HTTPS.pdf</a> - Dostupno 9.6.2013. 
+</p><p><a href="https://www.owasp.org/images/4/4b/OWASP_defending-MITMA_APAC2012.pdf" class="external free" rel="nofollow">https://www.owasp.org/images/4/4b/OWASP_defending-MITMA_APAC2012.pdf</a> - Dostupno 9.6.2013.
+</p><p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Denis_Ujvari&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Denis Ujvari (stranica ne postoji)">Denis Ujvari</a> 19:13, 9. lipnja 2013. (CEST)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 193/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:5709-0!*!0!!hr!2!edit=0 and timestamp 20190203204059 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="MitM_napadi.html">http://security.foi.hr/wiki/index.php/MitM_napadi</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=MitM_napadi" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="MitM_napadi.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:MitM_napadi&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="MitM_napadi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="MitM_napadi.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=MitM_napadi&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=MitM_napadi&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="MitM_napadi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/MitM_napadi" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/MitM_napadi" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=MitM_napadi&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=MitM_napadi&amp;oldid=19306" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 17:14, 9. lipnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 12.652 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "MitM_napadi", "wgTitle": "MitM napadi", "wgAction": "view", "wgArticleId": 5709, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 19306, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.680 secs. -->			</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Osiguravanje java koda na moblinim aplikacijama - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Osiguravanje_java_koda_na_moblinim_aplikacijama&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Osiguravanje_java_koda_na_moblinim_aplikacijama skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Osiguravanje java koda na moblinim aplikacijama</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#mw-head">orijentacija</a>,
+					<a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Temu rezervirala:</b> Gloria Babić
+</p><p><b>Sažetak:</b> 
+Otežavanje reverse engineeringa pomoću obfuscation toola.
+</p>
+<ul><li> napisati jednostavnu android aplikaciju
+</li><li> osigurati je pomoću obfuscation toola (Jarg)
+</li><li> po mogućnosti napisati vlastiti obfuscation tool
+</li><li> testirati pomoću najpopularnijih alata za reverse engineering
+</li></ul>
+<p>  
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Android_aplikacija"><span class="tocnumber">2</span> <span class="toctext">Android aplikacija</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Bytecode_Viewer"><span class="tocnumber">3</span> <span class="toctext">Bytecode Viewer</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Jarg"><span class="tocnumber">4</span> <span class="toctext">Jarg</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Kako_jarg_djeluje"><span class="tocnumber">4.1</span> <span class="toctext">Kako jarg djeluje</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Koje_su_posljedice_kori.C5.A1tenja_jarga"><span class="tocnumber">4.2</span> <span class="toctext">Koje su posljedice korištenja jarga</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Kako_koristiti_jarg"><span class="tocnumber">4.3</span> <span class="toctext">Kako koristiti jarg</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Obfuscate  ili doslovno prevedeno na hrvatski – zamračiti, zbuniti, začuditi – je način zaštite koda od reverznog inženjeringa namjernim kreiranjem koda koji je na prvi pogled nerazumljiv te ga je tako teže napasti ili kopirati. Važno je napomenuti kako obfuskacija nije potpuna zaštita kao što je npr. Enkripcija, već više prepreka. Ponekad je moguće obfuscirani kod jednostavno dešifrirati istim postupkom kako je i obfuscian ili jednostavno uložiti više vremena u razumijevanje pomršenog koda. Postoji naravno limit u kojem možemo zamrsiti kod jer ga određeni kompajler i dalje treba može prepoznati i kompajlirati. Osim zaštite, obfuskacija se koristi i za rekreacijske izazove dešifriranja koda. Kod se može obfuscirati ručno, a postoje i programi koji to čine za nas.
+</p><p> 
+</p>
+<h1> <span class="mw-headline" id="Android_aplikacija"> Android aplikacija </span></h1>
+<p>Kako bi pokazali djelovanje obfuskacije za primjer uzimamo jednostavnu Andoid aplikaciju koja je izrađena u Android Studiju. Aplikacija na vrlo banalan način pretvara dolare u funte. Sadrži jednu main funkciju u kojoj se odvija računanje. Želimo zaštiti kod aplikacije kako bi otežali kopiranje naše jedinstvene implementacije. 
+</p><p><br /> 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:SS_APLIKACIJE.png" class="image"><img alt="SS APLIKACIJE.png" src="../images/thumb/6/63/SS_APLIKACIJE.png/300px-SS_APLIKACIJE.png" width="300" height="533" /></a>
+</p><p><br />
+Nakon instaliranja aplikacije na mobilni uređaj,  ADB (Android debug bridge) alatom je izvučena <code> .apk </code> datoteka. Kako je <code> /data/app </code> zaštićena mapa, možemo samo pogledati popis paketa ali ne i povući njihove <code> .apk </code> datoteke na računalo. Kako bismo to napravili, trebamo kopirati <code> .apk </code> datoteku na neko drugo mjesto na mobitelu koristeći naredbu <code> $ adb shell cp /data/app/&lt;ime paketa&gt;/base.apk /storage/emulated/legacy/Download/base.apk </code>. Putanju apk datoteke ćemo doznati koristeći <code> $ adb shell pm path &lt;ime paketa&gt; </code>. Nakon toga izađemo iz shella i napravimo pull <code> $ adb pull /storage/emulated/legacy/Download/base.apk </code>
+ 
+</p>
+<h1> <span class="mw-headline" id="Bytecode_Viewer"> Bytecode Viewer </span></h1>
+<p>Kako bismo provjerili valjanost obfuskacije, koristit ćemo popularni alat za reverzni inženjering Bytecode Viewer. Bytecode Viewer (BCV) je dizajniran da bude izuzetno user friendly i prilagođen je za početnike. Gotovo sve je dostupno kroz sučelje, postavke, alate, itd. Pomoću njega možemo pogledati što se nalazi u jar, zip, APK i DEX datotekama. Sadrži pet različitih java dekompajlera, dva bytecode editora, java kompajler, pretraživanja i još puno mogućnosti. 
+</p><p><br /> 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Bytecode1.PNG" class="image"><img alt="Bytecode1.PNG" src="../images/thumb/5/51/Bytecode1.PNG/1200px-Bytecode1.PNG" width="1200" height="650" /></a>]
+</p><p> 
+</p>
+<h1> <span class="mw-headline" id="Jarg"> Jarg </span></h1>
+<p>Jarg je java obfuskator koji smanjuje veličinu jar datoteke u kojoj se nalaze java klase. Nakon što Java klasa prođe kroz jarg proceduru postaje optimizirana i brža, a kako je preimenovana također ju je teže i analizirati. Moglo bi se onda reći da je jarg ujedno i 'Java Optimizer' i 'Java Obfuscator' i 'Java Shrinker' ili 'Java Reducer'.
+Jarg je u potpunosti napravljen u Javi te je opensource i besplatan.
+</p>
+<h2> <span class="mw-headline" id="Kako_jarg_djeluje"> Kako jarg djeluje </span></h2>
+<p>Jarg čita klase iz jar datoteke, i analizira  klas, izvodi  iduće procese te kao rezultat daje a komprimiranu jar datoteku.
+</p>
+<ul><li>Uklanjanje
+</li></ul>
+<dl><dd><dl><dd>Uklanjanje debugging informacija
+</dd><dd>Uklanjanje atributa nepotrebnih pri izvršavanju
+</dd><dd>Uklanjanje nekorištenih stavki u konstantama
+</dd><dd>Uklanjanje nekorištenih polja
+</dd><dd> Uklanjanje nekorištenih metoda
+</dd><dd>Uklanjanje nekorištenih klasa
+</dd><dd>Uklanjanje nekorištenih interfacea
+</dd></dl>
+</dd></dl>
+<ul><li>Preimenovanje: mijenja se u kraće ime.
+</li></ul>
+<dl><dd><dl><dd>Preimenovanje privatnih polja 
+</dd><dd>Preimenovanje privatnih metoda
+</dd><dd>Preimenovanje polje sa defaultnom privatnošću
+</dd><dd>Preimenovanje metoda sa defaultnom privatnošću
+</dd><dd>Preimenovanje klasa sa defaultnom privatnošću
+</dd><dd>Preimenovanje interfacea sa defaultnom privatnošću
+</dd><dd>Prepoznavanje i preimenovanje metoda koje su overridane
+</dd><dd>Preimenovanje paketa ----[Nije još implementirano]
+</dd></dl>
+</dd></dl>
+<ul><li>Bytecode Optimizacija
+</li></ul>
+<dl><dd><dl><dd>Uklanjanje   NOP instrukcija 
+</dd><dd>Optimizacija poretka lokalnih varijabli ----[Nije još implementirano]
+</dd><dd>Komepresija lokalnih varijabli
+</dd><dd>Uravnavanje metoda ----[Nije još implementirano]
+</dd><dd>Analiza konstanti ----[Nije još implementirano]
+</dd></dl>
+</dd></dl>
+<ul><li>Izlazna jar datoteka
+</li></ul>
+<dl><dd><dl><dd>Uklanjanje direktorija stavki nepotrebnih pri izvršavanju
+</dd><dd>Maksimizacija kompresije
+</dd></dl>
+</dd></dl>
+<h2> <span class="mw-headline" id="Koje_su_posljedice_kori.C5.A1tenja_jarga"> Koje su posljedice korištenja jarga </span></h2>
+<p>Korištenjem Jarga dobivamo sljedeće efekte:
+</p>
+<ul><li>Kako je jar datoteka manja, vrijeme učitavanja i preuzimanja je kraće.
+</li><li>Kako su Java klase manje, čitanje klase je brže.
+</li><li>Kako su imena paketa, klasa, interfaceova, polja i metoda kraća, povezivanje na JVM je kraće.
+</li><li>Kako su imena kraća i nepotrebne stavke obrisane, količina iskorištene memorije u JVM se smanjuje.
+</li><li>Zbog optimizacije bytecoda, brže se izvršava.
+</li></ul>
+<h2> <span class="mw-headline" id="Kako_koristiti_jarg"> Kako koristiti jarg </span></h2>
+<p>Trebamo se smjestiti u direktorij u kojem se nalazi jar datoteka koju želimo procesirati u jargu. Zatim pokrenemo naredbu <code> &gt; java -jar jarg.jar &lt;ime jar datoteke&gt;.jar </code>
+</p><p>Jarg kreira <code> &lt;ime jar datoteke&gt;_s.jar </code> što je procesirana i smanjena jar datoteka izvorne datoteke.
+Na idućoj slici možemo vidjeti kako je izgledao izvorni kod aplikacije:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cistoandroid.PNG" class="image"><img alt="Cistoandroid.PNG" src="../images/thumb/8/80/Cistoandroid.PNG/1200px-Cistoandroid.PNG" width="1200" height="650" /></a>
+</p><p><code> .apk </code> datoteku koju smo ranije povukli s mobitela otvoramo u Bytecode Vieweru kako bismo je pretvorili u <code> .jar </code> datoteku.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Cistikod.PNG" class="image"><img alt="Cistikod.PNG" src="../images/thumb/8/89/Cistikod.PNG/1200px-Cistikod.PNG" width="1200" height="650" /></a>
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pretvaranje.PNG" class="image"><img alt="Pretvaranje.PNG" src="../images/b/bf/Pretvaranje.PNG" width="460" height="553" /></a>
+</p><p><br />
+Kada smo dobili željeni oblik, primjenjujemo već spomenutu naredbu.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Naredba.PNG" class="image"><img alt="Naredba.PNG" src="../images/0/03/Naredba.PNG" width="523" height="211" /></a>
+</p><p><br />
+Statistika nam pokazuje koliko i kako je jarg promjenio kod.
+</p><p>Na idućoj slici vidimo i željeni .jar file.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Datoteke.PNG" class="image"><img alt="Datoteke.PNG" src="../images/b/bc/Datoteke.PNG" width="600" height="45" /></a>
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak</span></h1>
+<p>Zaključak ovog rada bi bio da je jarg poprilično zastarjeli obfuskator kojeg jako zbunjuju dodatne android datoteke te ne želi surađivati. Nije uspio prepoznati klase kako bi ih preimenovao već je samo blago uklonio neke nekorištene datoteke. Popratne android datoteke su uklonjene iz <code> .jar </code> datoteke kako bi jarg uopće uspio kreirati novi <code> file_s.jar </code>. Preporučeno je koristiti neke novije alate poput ProGuarda kojega je dovoljno samo uključiti unutar Android Studija.
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<ol><li> jarg - Java Archive Grinder, Dostupno 31.01.2018 <a href="http://jarg.sourceforge.net/" class="external free" rel="nofollow">http://jarg.sourceforge.net/</a>
+</li><li> Wikipedia (2018.) Obfuscation (software), Dostupno 31.01.2018 <a href="https://en.wikipedia.org/wiki/Obfuscation_(software)" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Obfuscation_(software)</a>
+</li><li> Bytecode Viewer wiki 31.01.2018 <a href="https://wiki.bytecode.club/Bytecode_Viewer" class="external free" rel="nofollow">https://wiki.bytecode.club/Bytecode_Viewer</a>
+</li><li> Bytecode Viewer, Dostupno 31.01.2018 <a href="https://www.bytecodeviewer.com/" class="external free" rel="nofollow">https://www.bytecodeviewer.com/</a>
+</li><li> Android Debug Bridge (adb), Dostupno 31.01.2018 <a href="https://developer.android.com/studio/command-line/adb.html" class="external free" rel="nofollow">https://developer.android.com/studio/command-line/adb.html</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 35/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9876-0!*!0!!hr!2!edit=0 and timestamp 20190203204131 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html">http://security.foi.hr/wiki/index.php/Osiguravanje_java_koda_na_moblinim_aplikacijama</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Osiguravanje_java_koda_na_moblinim_aplikacijama" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Osiguravanje_java_koda_na_moblinim_aplikacijama&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Osiguravanje_java_koda_na_moblinim_aplikacijama&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Osiguravanje_java_koda_na_moblinim_aplikacijama&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Osiguravanje_java_koda_na_moblinim_aplikacijama.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Osiguravanje_java_koda_na_moblinim_aplikacijama" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Osiguravanje_java_koda_na_moblinim_aplikacijama" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Osiguravanje_java_koda_na_moblinim_aplikacijama&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Osiguravanje_java_koda_na_moblinim_aplikacijama&amp;oldid=42804" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 07:19, 31. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 127 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Osiguravanje_java_koda_na_moblinim_aplikacijama", "wgTitle": "Osiguravanje java koda na moblinim aplikacijama", "wgAction": "view", "wgArticleId": 9876, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42804, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.284 secs. -->			</body>
+</html>

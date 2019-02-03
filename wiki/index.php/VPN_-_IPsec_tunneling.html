@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>VPN - IPsec tunneling - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=VPN_-_IPsec_tunneling&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-VPN_-_IPsec_tunneling skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">VPN - IPsec tunneling</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="VPN_-_IPsec_tunneling.html#mw-head">orijentacija</a>,
+					<a href="VPN_-_IPsec_tunneling.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Autori: Dominik Lackovic i Davorin Horvat
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="VPN_-_IPsec_tunneling.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="VPN_-_IPsec_tunneling.html#VPN"><span class="tocnumber">2</span> <span class="toctext">VPN</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="VPN_-_IPsec_tunneling.html#IPsec"><span class="tocnumber">3</span> <span class="toctext">IPsec</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="VPN_-_IPsec_tunneling.html#IPsec_tunnel"><span class="tocnumber">4</span> <span class="toctext">IPsec tunnel</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="VPN_-_IPsec_tunneling.html#Implementacija"><span class="tocnumber">5</span> <span class="toctext">Implementacija</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="VPN_-_IPsec_tunneling.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Osnovna ideja Interneta je slobodna i transparentna komunikacija na globalnoj razini, što ga kao takvoga, u današnje vrijeme, čini neupotrebljivime komunikacijskim sredstvom za poslovne svrhe. Kako bi se omogućila sigurna komunikacija putem Interneta i ponudila sigurna komunikacija korištenjem postojeće infrastrukture. Takav način komunikacije omogućuje zaposlenicima tvrtke pristup internim poslužiteljima sa bilo koje lokacije sa pristupom internetu.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhorvat3&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhorvat3 (stranica ne postoji)">Dhorvat3</a> 09:09, 19. siječnja 2017. (CET)
+</p>
+<h2> <span class="mw-headline" id="VPN"> VPN </span></h2>
+<p>VPN (virtual private network) je privatna mreža koja koristi javne mreže kako bi povezala udaljene poslužitelje ili klijente. Najčešće VPN kreira virtualnu mrežu izmežu tvrtkine privatne mreže i udaljenog korisnika kroz infrastrukturu interneta. 
+Dva najčešća tipa VPN-a su:
+</p><p>-	Remote-Access: Omogućuje korisnicima pristup privatnoj mreži poduzeća sigurnom vezom putem interneta,
+</p><p>-	Site-to-site: Povezuje odvojene lokalne privatne mreže tvrtke u istu privatnu mrežu preko interneta. Prepoznajemo dvije vrste site-to-site mreža intranet(povezivanje privatnih mreža istog poduzeća) i extranet(povezivanje privatnih mreža poduzeća partnera)
+</p><p>Svaki dobro implementiran VPN omogućava: sigrunost, pouzdanost, skalabilnost, upravljanje mrežom i upravljanje politikama mreže. Da bi osigurao zahtjeve VNP-u su potrebne metode za osiguravanje sigurne veze i podataka. Povjerljivost podataka VPN omogućava korištenjem protokola koji omogućuju enkripciju kao što su Ipsec, PPTP/MPPE i L2TP/Ipsec. Kako bi se onomogućili napadi na privatnu mrežu VNP mora u sebi imati ugrađene mehanizme za spriječavanje najčeših oblika napada na sigurnost podataka i veze. Protokoli moraju osigurati integritet podataka, anonimnost, neporecivost podataka  i obranu na napade treće strane reporodukcijom i ponovnim slanjem paketa.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhorvat3&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhorvat3 (stranica ne postoji)">Dhorvat3</a> 09:09, 19. siječnja 2017. (CET)
+</p>
+<h2> <span class="mw-headline" id="IPsec"> IPsec </span></h2>
+<p>IPsec je skup protokola za sigurnu komunikaciju korištenjem IP protokola. Sigurnu komunikaciju javnom mrežom omogućava autentikacijom i enkripcijom svakog IP paketa. Za razliku od ostalih protokola za sigurnu komunikaciju preko interneta, IPsec štiti sav promet preko IP mreže. IPsec koristi tri protokola:
+</p><p>-	Security Associations – skup algoritama i parametara kojima se kriptiraju i autenticiraju tokovi podataka. Omogućeno je protokolom Internet Security Association and Key Protocol (ISAKMP)
+</p><p>-	Encapsulating Security Payloads – pruža autentičnost, integritet i povjerljivost zaštićenih paketa. Koristi se za enkripciju cijelog sadržaja IPsec paketa. ESP dodaje tri dodatne komponente paketu: ESP header, ESP trailer i ESP authentication block.
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Ipsec-esp-1.gif" class="image"><img alt="Ipsec-esp-1.gif" src="../images/0/0a/Ipsec-esp-1.gif" width="630" height="326" /></a>
+</p><p>Slika 1. ESP, dostupno na <a href="http://www.firewall.cx/networking-topics/protocols/127-ip-security-protocol.html" class="external free" rel="nofollow">http://www.firewall.cx/networking-topics/protocols/127-ip-security-protocol.html</a>
+</p><p>-	Authentication Headers – dodatno zaglavlje koje postavlja pošiljatelj, a služi kao zaštita od mijenjanja podatka. Pruža zaštitu od napada: ponovnim slanjem paketa, mijenjanjem podataka i lažnim predstavljanjem. Algoritmi koji se koriste su: Message Authentication Codes(MAC) zasnovan na DES-u ili neku od jednosmjernih funkcija (MD5 ili SHA-1).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ipsec-ah.gif" class="image"><img alt="Ipsec-ah.gif" src="../images/d/d4/Ipsec-ah.gif" width="539" height="283" /></a>
+</p><p>Slika 2. AH, dostupno na <a href="http://www.firewall.cx/networking-topics/protocols/127-ip-security-protocol.html" class="external free" rel="nofollow">http://www.firewall.cx/networking-topics/protocols/127-ip-security-protocol.html</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhorvat3&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhorvat3 (stranica ne postoji)">Dhorvat3</a> 09:09, 19. siječnja 2017. (CET)
+</p>
+<h2> <span class="mw-headline" id="IPsec_tunnel"> IPsec tunnel </span></h2>
+<p>IPsec ima dva načina rada tunnel i transport. Tunnel mod je predefinirani način rada koji štiti cijeli Ipsec paket, dok transport mod štiti samo sadržaj paketa (ne i IP header, adresu izvora i odredišta). Tunnel mod se najčešće koristi za zaštitu veze između krajnjih točaka privatnih mreža. IPsec u tunnel načinu rada zapakira originalni paker, enkriptira ga, doda mu novo IP zaglavlje i šalje ga na drugu stranu VPN veze.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ipsec-modes-transport-tunnel-5.gif" class="image"><img alt="Ipsec-modes-transport-tunnel-5.gif" src="../images/7/7c/Ipsec-modes-transport-tunnel-5.gif" width="656" height="209" /></a>
+</p><p>Slika 3. IPsec tunnel, dostupno na: <a href="http://www.firewall.cx/networking-topics/protocols/870-ipsec-modes.html" class="external free" rel="nofollow">http://www.firewall.cx/networking-topics/protocols/870-ipsec-modes.html</a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ipsec-modes-transport-tunnel-1.png" class="image"><img alt="Ipsec-modes-transport-tunnel-1.png" src="../images/6/6f/Ipsec-modes-transport-tunnel-1.png" width="592" height="193" /></a>
+</p><p>Slika 4. IPsec tunnel paket, dostupno na: <a href="http://www.firewall.cx/networking-topics/protocols/870-ipsec-modes.html" class="external free" rel="nofollow">http://www.firewall.cx/networking-topics/protocols/870-ipsec-modes.html</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhorvat3&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhorvat3 (stranica ne postoji)">Dhorvat3</a> 09:10, 19. siječnja 2017. (CET)
+</p>
+<h2> <span class="mw-headline" id="Implementacija">Implementacija</span></h2>
+<p>Implementirati ćemo VPN uslugu pomoću IPsec protokola u <i>tunnel</i> načinu rada. Realiziriati ćemo <i>host-to-host</i> varijantu protokola između dva Kali Linux računala instalirana u virtualnom stroju na Windows 10 operacijskom sustavu. Oba računala spojena su na istu lokalnu bežičnu mrežu.
+</p><p><br />
+<b>Podaci o računalima:</b>
+</p><p>Računalo #1
+</p><p>Host: dominik
+</p><p>IP address: 192.168.1.9
+</p><p><br />
+Računalo #2
+</p><p>Host: davorin
+</p><p>IP address: 192.168.1.10
+</p><p><br />
+Koristiti ćemo Linux alat <i>strongSwan</i>. Druge opcije su bile <i>Openswan</i> i njegov <i>fork</i> <i>Libreswan</i>, ali nakon nekoliko sati pokušavanja implementacije nismo uspjeli. Neki od mogućih razloga je taj što je Kali Linux baziran na Debianu te što su Openswan/Libreswan ciljani za Red Hat distribucije. Instalacija i rad sa <i>strongSwan-om</i> je vrlo jednostavan i brz.
+</p><p><br />
+<b>Instalacija paketa</b>
+</p><p>Instalirati <i>strongSwan</i> je moguće ručno preuzimanjem paketa s interneta te pokretanjem instalacije. Brži i jednostavniji način je korištenjem Linux terminala sljedećom naredbom:
+</p><p><br />
+apt-get install ipsec-tools strongswan-starter
+</p><p><br />
+Nakon instalacije, potrebno je izmijeniti IPsec konfiguracijsku datoteku ipsec.conf na način da se upišu željeni atributi poput naziva konekcije, IP adresa računala, vrste autentikacije, načina rada i razih drugih. Ovo konfiguriranje je jako jednostavno pa je isto za ova računala. Samo je potrebno to obaviti na oba računala. Kod složenijih konfiguriranja radi se odvojeno i konfiguracijske datoteke su nešto različite. Naša konekcija se zove IPsec_tunnel i biramo <i>tunnel</i> način rada.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Conf1.JPG" class="image"><img alt="Conf1.JPG" src="../images/e/e7/Conf1.JPG" width="1024" height="685" /></a>
+</p><p><br />
+Zatim, potrebno je dogovoriti se o sigurnosnom ključu za autentikaciju. Treba izmijeniti konciguracijski datoteku ipsec.secrets na isti način kao i prethodnu. Sadrži i IP adrese u čijoj će se komunikaciji koristiti taj ključ.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Conf2.JPG" class="image"><img alt="Conf2.JPG" src="../images/a/ae/Conf2.JPG" width="1024" height="685" /></a>
+</p><p><br />
+Konfiguracija se završava ponovnim pokretanjem alata <i>ipsec</i> naredbom
+</p><p><br />
+ipsec restart
+</p><p><br />
+</p><p><b>Testiranje</b>
+</p><p>Želimo se uvjeriti da je veza uspostavljena i da radi. Za to se koristi poznata naredba <i>ping</i> na jednom od računala. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Domtest1.JPG" class="image"><img alt="Domtest1.JPG" src="../images/9/92/Domtest1.JPG" width="1024" height="685" /></a>
+</p><p><br />
+Za to vrijeme, drugo računalo može osluškivati kanal naredbom
+</p><p><br />
+watch ipsec statusall
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Watch.JPG" class="image"><img alt="Watch.JPG" src="../images/6/6b/Watch.JPG" width="1024" height="685" /></a>
+</p><p><br />
+Na prethodnoj se slici može vidjeti da je uspostavljena veza između dvaju IP adresa (vanjska 192.168.1.9 i lokalna 192.168.1.10), koristi se <i>pre-shared key</i> za autentikaciju, prepoznata je veza pod nazivom IPsec_tunnel u <i>tunnel</i> načinu rada.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] <a href="http://documentation.netgear.com/reference/enu/vpn/VPNBasics-3-01.html" class="external free" rel="nofollow">http://documentation.netgear.com/reference/enu/vpn/VPNBasics-3-01.html</a> Preuzeto 13.1.2017.
+</p><p>[2] <a href="https://www.gypthecat.com/ipsec-vpn-host-to-host-on-ubuntu-14-04-with-strongswan" class="external free" rel="nofollow">https://www.gypthecat.com/ipsec-vpn-host-to-host-on-ubuntu-14-04-with-strongswan</a> Preuzeto 14.1.2017.
+</p><p>[3] <a href="http://xmodulo.com/create-site-to-site-ipsec-vpn-tunnel-openswan-linux.html" class="external free" rel="nofollow">http://xmodulo.com/create-site-to-site-ipsec-vpn-tunnel-openswan-linux.html</a> Preuzeto 14.1.2017.
+</p><p>[4] <a href="http://www.firewall.cx/networking-topics/protocols/870-ipsec-modes.html" class="external free" rel="nofollow">http://www.firewall.cx/networking-topics/protocols/870-ipsec-modes.html</a> Preuzeto 16.1.2017.
+</p><p>[5] <a href="http://www.firewall.cx/networking-topics/protocols/127-ip-security-protocol.html" class="external free" rel="nofollow">http://www.firewall.cx/networking-topics/protocols/127-ip-security-protocol.html</a> Preuzeto 16.1.2017.
+</p><p>[6] <a href="http://www.cisco.com/c/en/us/support/docs/security-vpn/ipsec-negotiation-ike-protocols/14106-how-vpn-works.html" class="external free" rel="nofollow">http://www.cisco.com/c/en/us/support/docs/security-vpn/ipsec-negotiation-ike-protocols/14106-how-vpn-works.html</a> Preuzeti 16.1.2017.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 23/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9237-0!*!0!!hr!2!edit=0 and timestamp 20190203204203 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="VPN_-_IPsec_tunneling.html">http://security.foi.hr/wiki/index.php/VPN_-_IPsec_tunneling</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=VPN_-_IPsec_tunneling" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="VPN_-_IPsec_tunneling.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:VPN_-_IPsec_tunneling&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="VPN_-_IPsec_tunneling.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="VPN_-_IPsec_tunneling.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=VPN_-_IPsec_tunneling&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=VPN_-_IPsec_tunneling&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="VPN_-_IPsec_tunneling.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/VPN_-_IPsec_tunneling" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/VPN_-_IPsec_tunneling" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=VPN_-_IPsec_tunneling&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=VPN_-_IPsec_tunneling&amp;oldid=40728" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 08:10, 19. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.447 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "VPN_-_IPsec_tunneling", "wgTitle": "VPN - IPsec tunneling", "wgAction": "view", "wgArticleId": 9237, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40728, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.305 secs. -->			</body>
+</html>

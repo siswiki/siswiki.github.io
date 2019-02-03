@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>"Sleepy Puppy" XSS Payload Management Framework - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=%22Sleepy_Puppy%22_XSS_Payload_Management_Framework&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-_Sleepy_Puppy_XSS_Payload_Management_Framework skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">"Sleepy Puppy" XSS Payload Management Framework</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#mw-head">orijentacija</a>,
+					<a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Matija Čoklica
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#Uvod_u_temu"><span class="tocnumber">1</span> <span class="toctext">Uvod u temu</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#Cross_Site_Scripting"><span class="tocnumber">2</span> <span class="toctext">Cross Site Scripting</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#SleepyPuppy"><span class="tocnumber">3</span> <span class="toctext">SleepyPuppy</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#Primjer_scenarija_Delayed_XSS-a"><span class="tocnumber">4</span> <span class="toctext">Primjer scenarija Delayed XSS-a</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#Instalacija_i_kori.C5.A1tenje_SleepyPuppy-a"><span class="tocnumber">5</span> <span class="toctext">Instalacija i korištenje SleepyPuppy-a</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod_u_temu"> Uvod u temu </span></h2>
+<p>U izgradnji web aplikacija, razvojni inženjer uz poštivanje (ne)funkcionalnih zahtjeva koje stvara kupac te aplikacije mora paziti na sigurnosne mjere vezane uz trenutnu tehnologiju s kojom stvara web aplikaciju te spriječiti da se što manje napada na web aplikaciju (sa obaju strana – klijentske i serverske) ne dogodi. Kompanija WhiteHat Security koja se bavi sigurnošću web aplikacija, objavila je statistička izvješća za 2016. vezana uz sigurnost web aplikacija. Izvješće koje govori o vjerojatnošću ranjivosti web aplikacije, izgleda ovako:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS1.png" class="image"><img alt="Matcoklic SIS1.png" src="../images/2/28/Matcoklic_SIS1.png" width="563" height="579" /></a>
+<i>Slika 1:"Vulnerability Likehood By Class" izvještaj. <a href="https://info.whitehatsec.com/rs/675-YBI-674/images/WH-2016-Stats-Report-FINAL.pdf" class="external text" rel="nofollow">Izvor</a></i>
+</p><p>Ranjivosti su poredane prema klasama, zbog različitih atributa između ranjivosti/napada. Svoje mjesto među prvih tri, našao se i „cross site scripting“ (XSS). Takav napad čest je i poprilično lako izvediv („trik“ napada je zapravo u nanošenju i kvaliteti štete), stoga mu je potrebno posvetiti pažnju. Uz razne preventivne metode, poželjno je imati alat ili sučelje koje se bazira na otkrivanju XSS napada.  
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Cross_Site_Scripting"> Cross Site Scripting </span></h2>
+<p>Budući da se popriličan broj web stranica referencira na OWASP-ovu definiciju „cross-site scripting“-a (u nastavku XSS), prije nego što krenemo na samu temu, obraditi ću pojam XSS-a.
+</p><p>XSS napad pripada „injection“ tipu napada, u kojem je zlonamjerna skripta (ili više njih) umetnuta na web mjesto kojemu, pretpostavlja se, korisnik vjeruje. Napad se događa kada napadač koristi web aplikaciju kako bi poslao zlonamjernu skriptu (koju web preglednik zna čitati i interpretirati) drugim krajnjim korisnicima web aplikacije. Uočavamo da svrha XSS napada nije napast stranicu, već kroz „phishing“ i eksploataciju ovjeravanja podataka na obje strane (klijentske i serverske), napasti krajnjeg korisnika. Naravno, umetanjem zle skripte na „trusted“ stranicu , korisnički web preglednik ne zna da je skripta zlonamjerna, te će ju (najčešće) bez upozorenja korisnika izvršiti. Što je najgore, web preglednik će takvim stranicama omogućiti pristup kolačićima, sesijama, te ostalim osjetljivim informacija kojima web preglednik može pristupiti. 
+</p><p>Okidanje XSS napada se događa kada se prvo: podaci unose u web aplikaciju kroz nepovjerljiv izvor što je najčešće sam web zahtjev (prisjetimo se da kod GET metoda unutar „query string“-a možemo pisati HTML oznake, a samim time i javascript kod). Zatim: podaci se nalaze u dinamičkom sadržaju (HTML stranici) koji je poslan korisniku. Ako je web aplikacija ranjiva, tj. ako ne provjerava i ispravlja onaj dio „input“-a kroz koji je izvršen napad – napad XSS-om je uspio. 
+</p><p>Zlonamjeran sadržaj koji je poslan u web preglednik korisniku najčešće izgleda kao segment javascript koda, te može sadržavati HTML oznake, Flash ili bilo koja druga vrsta programskog koda koju web preglednik može izvršiti. Broj različitih napada temeljenih na XSS-u je velik, no kao što je i prije rečeno temelj dobrog XSS napada je izrada skripti koje će zadovoljiti želju napadača, a nakon toga može isprobati sve „napadačke“ vektore, u nadi da će jedan i uspjeti obaviti svoj posao. Najčešće je to prijenos privatnih korisničkih podataka prema napadaču, preusmjeravanje korisnika na web sadržaj po želji i kontroli napadača, pa čak i napraviti neke zlonamjerne radnje nad korisničkim računalom (otvaranje zaraženog PDF dokumenta preko UXSS napada, u pregledniku, na Windows platformama). 
+</p><p>Tri su glavna tipa XSS napada. Neće biti sva tri opisana u detalje, već će se tokom daljnje razrade projekta razmatrati samo jedan tip.  
+Reflektiran XSS je napad gdje je umetnuta zlonamjerna skripta vraćena natrag korisniku koji pokrene tu skriptu u web pregledniku, uz pretpostavku da korisnik za tu umetnutu zlonamjernu skriptu ne zna. Ovakav napad bi se mogao opisati kao „bomba u URL-u“. Naravno, klikom na zaraženi URL (koji bi napadač morao nekako zamaskirat da ne bude sumnjiv, npr.  „link shortener“-om) šalje se zahtjev prema serveru te server (najčešće) vraća odgovor u obliku poruke greške, rezultata traženja, a čak je izvedivo da se odgovor korisniku ne prikaže, već se u „međukoraku“ korisniku prikaže lažna stranica koju napadač ima „host“-anu negdje, a samom korisniku izgleda kao vjerodostojna stranica. Pomoću „phishing“-a i socijalnog inženjeringa, moguće je izvesti uspješan napad. Najopćenitiji vektor napada su e-mailovi i kamuflirani linkovi u komentarima na forumima.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS2.png" class="image"><img alt="Matcoklic SIS2.png" src="../images/9/98/Matcoklic_SIS2.png" width="800" height="296" /></a>
+</p><p><i>Slika 2: Pojednostavljeni prikaz reflektiranog XSS napada. <a href="http://blog.scottlogic.com/rsillem/assets/security-xss/reflected-xss.png" class="external text" rel="nofollow">Izvor</a></i>
+</p><p>Postoji „host“-ana stranica za isprobavanje XSS napada (stranice koje se napada namjerno su ranjive) na adresi <a href="https://xss-game.appspot.com/" class="external free" rel="nofollow">https://xss-game.appspot.com/</a> te odmah prva razina daje dobar primjer pisanja XSS napada.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS3.png" class="image"><img alt="Matcoklic SIS3.png" src="../images/a/a4/Matcoklic_SIS3.png" width="773" height="665" /></a>
+</p><p><i>Slika 3: Prva razina xss-game. Napad, tj. kod koji je napisan u URL-u je: <a href="https://xss-game.appspot.com/level1/frame?query=" class="external free" rel="nofollow">https://xss-game.appspot.com/level1/frame?query=</a>&lt;script&gt;alert("Radim+projekt+iz+kolegija+SIS.+\nCoky")&lt;/script&gt;</i>
+</p><p>Spremljen XSS napad je onaj napad gdje napadač koristi ranjivost web aplikacije tako da može zlonamjernu skriptu spremiti na web poslužitelj, odnosno u bazu podataka (ili neko drugo generirano spremište podataka koje web aplikacija koristi). „Bomba je u bazi“ napad ne traži toliko korištenja socijalnog inženjeringa, već tehničko znanje napadača i još više sigurnosno (ne)znanje razvojnog inženjera web aplikacije. Napadač kroz HTML input element unosi zlonamjerni kod, te zakamuflira smislenim sadržajem (ovisi o situaciji: forum komentari, blog komentari…). Ako aplikacija ne filtrira oznake ili naredbe iz zlonamjerne skripte (naglasak na serversku stranu, budući da se provjera i filtriranje sa klijentske strane može vrlo lako isključiti) sadržaj se sprema u bazu. Kada drugi korisnik-žrtva otvori stranicu koja prikazuje u web pregledniku napadačev sadržaj, npr. u obliku javno dostupnog komentara, zlonamjerna skripta se izvršava u žrtvinom web pregledniku i time je napad uspješno izveden. Na slici ispod vidimo shemu spremljenog XSS napada koji krade korisničke kolačiće.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS4.png" class="image"><img alt="Matcoklic SIS4.png" src="../images/6/68/Matcoklic_SIS4.png" width="700" height="402" /></a>
+<i>Slika 4: Pojednostavljen prikaz spremljenog XSS napada. <a href="https://www.incapsula.com/images/illustrations/web-app-security-mini-site/sorted-XSS.png" class="external text" rel="nofollow">Izvor</a></i>
+</p><p>Ovakav tip napada „izgleda“ opasnije. Godine 2005. dizajniran je XSS crv nazvan „Samy“ koji je inficirao korisnike društvene mreže „MySpace“. Iako bezopasan za korisnika, dan danas je evidentiran kao najbrže razmnoživ virus ikad. Nešto noviji napad spremljenim XSS napadom izveden je 2014. na društvenoj mreži Twitter. Svaki korisnik „Twitterdeck“-a kada je vidio zaraženu objavu („tweet“) automatski je poslao istu objavu („retweet“) isto sa zlonamjernim kodom. Sadržaj te skripte bile su dvije linije jQuery koda i simbol srca izvan skripte (Taman toliko da popuni dozvoljenih 140 simbola za jednu objavu).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS5.png" class="image"><img alt="Matcoklic SIS5.png" src="../images/f/fe/Matcoklic_SIS5.png" width="600" height="373" /></a>
+<i>Slika 5: Primjer spremljenog XSS-a. <a href="https://twitter.com/dergeruhn/status/47676491876374937676" class="external text" rel="nofollow">Izvor</a></i>
+</p><p>Potrebno je još navesti varijantu spremljenog XSS-a, koja zapravo dosta sliči svemu što je gore opisano. No ipak, sigurnosna kuća Acunetix posebno naglašava ovu varijantu XSS-a nazvanu slijepi XSS napad. Prema njihovoj definiciji, slijepi XSS napad je takav da napadač svjesno preko ranjivog ulaznog djela web aplikacije pošalje zlonamjernu skriptu na ciljani web server, koji tu skriptu prikazuje na drugom mjestu u web aplikaciji ili čak u drugoj web aplikaciji. Naglasak na „slijepi“ XSS je zapravo na tome napadač ne zna tko i kada će netko aktivirati njegovu zlonamjernu skriptu, ali čim ju netko aktivira, napadač dobiva (npr. na svoju e-mail adresu) ciljane podatke. Također tvrtka Acunetix promovira svoj softver za skeniranje i detektiranje ranjivosti u kodu web aplikacija.
+</p><p>Kao zadnji i najnovije otkriven, ali nikako najmanje važan XSS napad, spominje se DOM XSS. Baziran na reflektiranom XSS napadu, no sadržan je DOM-u (Document Object Model), a ne u HTML-u. Najveća razlika između ovog i prijašnja dva XSS napada je da kod reflektiranog i spremljenog XSS napada vješt korisnik može vidjeti XSS payload, ali kod DOM XSS-a HTML izvorni kod napada i kod odgovora izvršenog napada su identični. Potrebno je istražiti DOM dobivene stranice. Popularni nazivi input-a i output-a kod ovog napada su „source“ i „sink“. Popularni „source“-ovi su naredbe poput document.URL, document.documentURI, location.href, location.search, itd. dok su „sink“-ovi document.write, (element).innerHTML, eval, setTimout / setInterval, itd. Kako bi se spriječilo što manje ovakvih napada, potrebno je upravljati DOM-om stranice na pravi način (a ne samo svu pažnju okrenuti HTML-u i Javascript-u). 
+</p><p>Razni alati nude provjeru ranjivosti web aplikacije na XSS napade. Najpoznatiji i možda najčešće korišteni je BeEF (The Browser Exploitation Framework) koji pruža i mnoge druge mogućnosti. Na vlastitom GitHub-u je opisan kao alat, za penetracijska testiranja, koji se fokusira na otkrivanja ranjivosti unutar web preglednika. Ažuran je i može ga se naći unutar Linux Kali distribucija kao već instaliran alat. Malo manje poznat alat naziva XSS.io autora Adama Baldwina, koristi se u slučajima kada je potrebno olakšati testiranje i preispitivanje ranjivosti web aplikacije na XSS napade. Temelji se na node.js-u i Redis-u. Treći, „najsvježiji“ alat koji omogućuje organizirano i jednostavno testiranje ranjivosti XSS napada naziva se SleepyPuppy. O ovom alatu, više u nastavku.
+</p>
+<h2> <span class="mw-headline" id="SleepyPuppy"> SleepyPuppy </span></h2>
+<p>SleepyPuppy, prema definicija njegovog GitHub wiki-a, je framework za upravljanje XSS payload-om koji pojednostavljuje način procjene, hvatanja, upravljanja, te praćenja XSS razmnožavanja unutar duljih vremenskih perioda. Netflix-ov tehnološki blog proširuje tu definiciju, te tako navodi ključne pojmove:
+</p><p><b>Procjene</b> (Assessments): omogućavanje specifičnih testnih sesija i dodatnih testnih opcija poput primitka e-maila (neke vrste notifikacije) kod konačnog pronalaska XSS ranjivosti, vezanih uz pojedinu procjenu. 
+</p><p><b>Teret</b> (Payloads): označava XSS stringove koji bi trebali biti izvršeni i koji bi trebali omogućiti bilo koju vrstu umetanja XSS napada.
+</p><p><b>PuppyScripts</b>: sadržani u prijašnje opisanom teretu. Obično pisani u Javascript jeziku, no posebno su dorađeni (atribut src) kako bi omogućili povratnu vrijednost testeru u onom trenutku kada se PuppyScript aktivira (simulacija XSS napada).
+</p><p><b>Povratne vrijednosti</b> (Captures): obuhvaćaju snimke zaslona i meta-podatke pokupljene od aktivirane PuppyScript-e
+</p><p><b>Generički kolektor</b> (Generic Collector): krajnja točka testiranja kod ovog alata. Omogućuje bilježenje dodatnih podataka dobivenih ili generiranih temeljem povratne vrijednosti.
+</p><p>Daniel Miessler, glavni voditelj prakse u Hewlett-Packard sigurnosnom sektoru, te vođa OWASP Bay Area Group, oduševljen je SleepyPuppy-em, jer konačno postoji alat koji omogućava sigurnosnim inženjerima ciljan i jednostavan rad za XSS ranjivošću, i to pomoću XSS tereta koji se može pratiti, ali i mogućnošću notifikacije kod okidanja XSS napada čak mjesecima nakon umetanja Puppyscript-a. Citat sa njegovog službenog bloga, gdje je dao osvrt na alat, kaže sljedeće: „…They basically have a tool that creates trackable XSS payloads and then listens for evidence that they’ve been detonated somewhere within a target environment. They work at Netflix, so they started the project to protect their own org… The tool is really more about “delayed” XSS, and, more importantly, about having a framework that can handle the receipt of delayed payloads and then know which campaign they were associated with.“
+</p><p>Alat je u svojim prvim inačicama bio pušen pod nazivom „OWASP Beta“ (<a href="https://github.com/sbehrens/sleepy-puppy" class="external text" rel="nofollow">GitHub repo</a>) , te su na njemu radili razvojni inženjeri Scott Behrens (<a href="https://github.com/sbehrens" class="external text" rel="nofollow">GitHub acc</a>, <a href="https://twitter.com/helloarbit" class="external text" rel="nofollow">Twitter acc</a>) i Patrick Kelley (<a href="https://github.com/monkeysecurity" class="external text" rel="nofollow">GitHub acc</a>, <a href="https://twitter.com/monkeysecurity" class="external text" rel="nofollow">Twitter acc</a>). Ova inačica je napuštena i zamijenjena novom „Netflix OSS“ inačicom (<a href="https://github.com/Netflix/sleepy-puppy" class="external text" rel="nofollow">GitHub repo</a>) te ova inačica, skupa sa alatima FIDO, Dirty Laundry, Scumblr, Sketchy i Workflowable, u vlasništvu je tvrtke Netflix, no svaki od ovih alata je ujedno i open-source. Također, SleepyPuppy nudi ostalim razvojnim inženjerima API kako bi sudjelovali u nadogradnji ovog alata, razvijanjem dodataka za skenere ranjivosti poput Burp-a ili Zap-a.
+</p><p>SleepyPuppy je jedan u nizu alata za testiranje XSS ranjivosti, ali svoju specifičnost može zahvaliti modificiranim skriptama, koje krajnji korisnik ovog alata može sam raditi. Kao što je rečeno, radi se o XSS payload-u koji okida povratnu rutinu (callback) prema SleepyPuppy aplikaciji. Upravo to omogućuje praćenje gdje i kada payload bude okinuti, stoga tesitranje može biti ispravno provedeno od strane drugog korisnika/testera, zatim od strane iste ili neke druge aplikacije koja tu Puppyscriptu pokrene, i sve to gotovo bez „roka trajanja“ (povratna rutina može biti okinuta i nakon nekoliko mjeseci od puštanja spremljenog XSS napada preko Puppyscripte). Opet, tako nešto je izvedivo zbog mogućnosti slanja povratnih informacija testeru na dogovorenu e-mail adresu. Zato Daniel Miessler voli nazvati ovaj alat savršenim za „Delayed XSS“ testiranje (Acunetix poistovjećuje  termin „Delayed XSS“ sa terminom slijepog XSS-a). 
+</p><p>Alat testeru daje određen broj XSS payload-ova, Puppyscritpa i kolektora. Payload-i su zapravo XSS stringovi u kojima se nalazi Puppyscript (kao što je rečeno, uglavnom Javascript kod). Puppyscripte definiraju način sakupljanja informacija o napadnutom krajnjem korisniku, s mogućnošću prikupljanja dodatnih informacija o stanju web aplikacije u trenutku napada. Svaka stavka prikupljanja povratnih informacija može se konfigurirati, a također i izrađivati vlastite Puppyscripte. Alatom zadane Puppyscripte mogu prikupit i generirat snimku zaslona web aplikacije u trenutku napada, meta-podatke poput URL-a, cijelog DOM-a sa payload isticanjem, user-agent informacije, zaglavlje preporuka, pa čak i kolačiće napadnutog korisnika. Omogućeno je i kategoriziranje napravljenih XSS payload-ova.  
+</p><p>SleepyPuppy alat napravljen je od sljedećih komponenti:
+</p><p>- Python 2.7 with Flask (uz nekoliko helper paketa)
+</p><p>- SQLAlchemy sa konfigurabilnim backend skaldištem podataka
+</p><p>- Ace Javascript editor za stvaranje i uređivanje PuppyScripts
+</p><p>- Html2Canvas JavaScript za screenshot-ove
+</p><p>- Opcionalno: AWS Simple Email Service (SES) za e-mail notifikacije i  S3 for screenshot skladište.
+</p><p>- SleepyPuppy dolazi zajedno sa već nekoliko generiranih XSS payload-ova, Puppyscripta i standardno ugrađenih procjena.
+</p>
+<h2> <span class="mw-headline" id="Primjer_scenarija_Delayed_XSS-a"> Primjer scenarija Delayed XSS-a </span></h2>
+<p>Na slici ispod možemo promotriti scenarij gdje tester XSS ranjivosti, preko određenog input polja na stranici umeće svoju zlonamjernu skriptu u web aplikaciju. Pretpostavimo da web aplikacija , tj. server koji ju šalje korisniku, ne pokazuje XSS ranjivosti (npr. implementiran je filter kod prikaza podataka pri „vađenju“ iz baze podataka) – te tako naivni tester označi web aplikaciju sigurnom od XSS napada. No, svejedno to ne znači da napad neće uspjeti. Web aplikacija sprema podatke skupa sa testerovom zlonamjernom skriptom u bazu podataka. Korisnik (potencijalna žrtva) će preko druge web aplikacije, koja vadi podatke iz iste baze podataka, biti napadnut ako ta web aplikacija nema zaštitu od XSS napada. Pretpostavimo da se radi o nekom Log alatu implementiranom kao web aplikacija, te se moderator prijavljuje u aplikaciju i skida podatke iz baze. Moderator izvršava zlonamjernu skriptu, te tako otkriva napadaču privatne podatke (što god je definirano XSS napadom).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS6.png" class="image"><img alt="Matcoklic SIS6.png" src="../images/2/2a/Matcoklic_SIS6.png" width="800" height="440" /></a>
+</p><p><i>Slika 6: Scenarij Delayed XSS napada (pretpostavili smo da tester nije dobro obavio Delayed XSS testiranje)</i>
+</p><p>Koristeći odabrani XSS payload, tester šalje željeni Puppyscript na server. Scenarij je isti, no budući da tester provjerava svoj e-mail, nakon Delayed XSS napada (kada krajnji korisnik bude napadnut), tester će web aplikaciju proglasit ranjivom na XSS napad. Također, tester će znati koja je zapravo aplikacija ranjiva, te tokom koje operacije se to desilo (budući da puppyscriptova povratna rutina vraća i cijeli DOM). Dobit će i podatke o korisnikovom pregledniku, u svrhu testiranja ranjivosti specifičnih za web preglednike.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Matcoklic_SIS7.png" class="image"><img alt="Matcoklic SIS7.png" src="../images/5/5d/Matcoklic_SIS7.png" width="800" height="580" /></a>
+</p><p><i>Slika 7: Scenarij Delayed XSS napada, ali uz uspješno evidentiranje pomoću SleepyPuppy Puppyscripte</i>
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Instalacija_i_kori.C5.A1tenje_SleepyPuppy-a"> Instalacija i korištenje SleepyPuppy-a </span></h2>
+<p>Postoje dva načina postavljanja SleepyPuppy-a. Prvi (i najjednostavniji) je preko Docker-a. Jedina restrikcija je ta što se može koristiti samo u „play“ modu. Tu se koriste standardne lozinke i TLS protokol nije omogućen (povratni podaci sa stranica koje imaju omogućenu TLS zaštitu nisu mogući). Drugi način je da se SleepyPuppy može postaviti kao ozbiljno testno okruženje. Tutorial se nalazi <a href="https://github.com/netflix/sleepy-puppy/wiki/setup" class="external text" rel="nofollow">ovdje</a>. Za potrebe ovog projekta, koristit ćemo „play“ mod:
+</p><p>Prvo potrebno je instalirati Docker Toolbox i VirtualBox.
+</p><p>Nakon toga potrebno je sa GitHub repozitorija preuzeti <a href="https://github.com/Netflix/sleepy-puppy-docker" class="external text" rel="nofollow">sleepy puppy docker setup</a> (git clone ili preuzeti ZIP). 
+</p><p>Kako bismo ubrzali proces, preko programa „Docker Quickstart Terminal“ koji dolazi sa instaliranim Docker Toolbox-om, pokrečemo Docker VM. Nakon toga unutar datoteke <i>docker-compose.yaml</i> koju smo preuzeli zajedno sa ostatkom sleepy puppy setup-a promjenimo HOST IP parametar u IP adresu našeg Docker VM-a. 
+</p><p>Sljedeća skripta koju je potrebno izvršiti unutar Docker terminala je:
+<i>docker-compose -f /[putanja do setup-a]/docker-compose.yml build</i>
+</p><p>Nakon toga pokrećemo Sleepy Puppy sa naredbom <i>docker-compose up</i>
+</p><p>Ako ne uspije prvi puta, ponoviti naredbu <i>docker-compose up</i>
+</p><p>Ako je sve u redu, potrebno je pokrenuti web preglednik i ukucati IP adresu Docker VM-a (hint: naredba docker-machine ip daje traženu IP adresu) uz port 80.
+</p><p>Ovakvo sučelje bi se trebalo prikazati:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Login.png" class="image"><img alt="Login.png" src="../images/6/68/Login.png" width="424" height="350" /></a>
+</p><p><br />
+Login = admin
+</p><p>Password = password
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Assessment.png" class="image"><img alt="Assessment.png" src="../images/9/99/Assessment.png" width="993" height="633" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:UserSP.png" class="image"><img alt="UserSP.png" src="../images/7/78/UserSP.png" width="841" height="247" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:PayloadSP.png" class="image"><img alt="PayloadSP.png" src="../images/6/64/PayloadSP.png" width="1157" height="581" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puppyscript.png" class="image"><img alt="Puppyscript.png" src="../images/0/0c/Puppyscript.png" width="1177" height="513" /></a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 19/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9246-0!*!0!!hr!2!edit=0 and timestamp 20190203204207 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html">http://security.foi.hr/wiki/index.php/%22Sleepy_Puppy%22_XSS_Payload_Management_Framework</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=%22Sleepy_Puppy%22_XSS_Payload_Management_Framework" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:%22Sleepy_Puppy%22_XSS_Payload_Management_Framework&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=%22Sleepy_Puppy%22_XSS_Payload_Management_Framework&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=%22Sleepy_Puppy%22_XSS_Payload_Management_Framework&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="&quot;Sleepy_Puppy&quot;_XSS_Payload_Management_Framework.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/%22Sleepy_Puppy%22_XSS_Payload_Management_Framework" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/%22Sleepy_Puppy%22_XSS_Payload_Management_Framework" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=%22Sleepy_Puppy%22_XSS_Payload_Management_Framework&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=%22Sleepy_Puppy%22_XSS_Payload_Management_Framework&amp;oldid=39232" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 17:48, 9. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 512 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "\"Sleepy_Puppy\"_XSS_Payload_Management_Framework", "wgTitle": "\"Sleepy Puppy\" XSS Payload Management Framework", "wgAction": "view", "wgArticleId": 9246, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 39232, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.352 secs. -->			</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Forenzika radne memorije (Volatility) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Forenzika_radne_memorije_(Volatility)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Forenzika_radne_memorije_Volatility skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Forenzika radne memorije (Volatility)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Forenzika_radne_memorije_(Volatility).html#mw-head">orijentacija</a>,
+					<a href="Forenzika_radne_memorije_(Volatility).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Tim: <br />
+Nikola Smrček <br />
+Josip Trupina <br />
+Božidar Labaš <br />
+Petar Vrbek
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Forenzika_radne_memorije_(Volatility).html#Uvod_u_forenziku_memorije"><span class="tocnumber">1</span> <span class="toctext">Uvod u forenziku memorije</span></a></li>
+<li class="toclevel-1"><a href="Forenzika_radne_memorije_(Volatility).html#Volatile_Memory_.28RAM.29"><span class="tocnumber">2</span> <span class="toctext">Volatile Memory (RAM)</span></a></li>
+<li class="toclevel-1"><a href="Forenzika_radne_memorije_(Volatility).html#Volatility"><span class="tocnumber">3</span> <span class="toctext">Volatility</span></a>
+<ul>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Volshell"><span class="tocnumber">3.1</span> <span class="toctext">Volshell</span></a></li>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Vtypes"><span class="tocnumber">3.2</span> <span class="toctext">Vtypes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Forenzika_radne_memorije_(Volatility).html#Forenzika_memorije_.28Windows.29"><span class="tocnumber">4</span> <span class="toctext">Forenzika memorije (Windows)</span></a>
+<ul>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Analiza_registra"><span class="tocnumber">4.1</span> <span class="toctext">Analiza registra</span></a>
+<ul>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Struktura_podataka_u_registru"><span class="tocnumber">4.1.1</span> <span class="toctext">Struktura podataka u registru</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Podaci_u_registru"><span class="tocnumber">4.1.2</span> <span class="toctext">Podaci u registru</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Pronalazak_malware-a_kroz_registre"><span class="tocnumber">4.1.3</span> <span class="toctext">Pronalazak malware-a kroz registre</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Primjer_1._Dohva.C4.87anje_lozinke_korisnika_za_logiranje_u_Windows_os"><span class="tocnumber">4.1.4</span> <span class="toctext">Primjer 1. Dohvaćanje lozinke korisnika za logiranje u Windows os</span></a>
+<ul>
+<li class="toclevel-4"><a href="Forenzika_radne_memorije_(Volatility).html#DumpIt_-_dohva.C4.87anje_slike_memorije"><span class="tocnumber">4.1.4.1</span> <span class="toctext">DumpIt - dohvaćanje slike memorije</span></a></li>
+<li class="toclevel-4"><a href="Forenzika_radne_memorije_(Volatility).html#Volatility_-_analiza_radne_memorije"><span class="tocnumber">4.1.4.2</span> <span class="toctext">Volatility - analiza radne memorije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Primjer_2._Ispis_modificiranih_aplikacija_tijekom_vremena"><span class="tocnumber">4.1.5</span> <span class="toctext">Primjer 2. Ispis modificiranih aplikacija tijekom vremena</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Mre.C5.BEni_aspekt"><span class="tocnumber">4.2</span> <span class="toctext">Mrežni aspekt</span></a>
+<ul>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Mre.C5.BEne_komande"><span class="tocnumber">4.2.1</span> <span class="toctext">Mrežne komande</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Skrivene_veze"><span class="tocnumber">4.2.2</span> <span class="toctext">Skrivene veze</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Raw_socketi_i_.E2.80.9Enju.C5.A1kala.E2.80.9C"><span class="tocnumber">4.2.3</span> <span class="toctext">Raw socketi i „njuškala“</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Noviji_TCP.2FIP_stog_.28eng._Next_Generation_TCP.2FIP_Stack.29"><span class="tocnumber">4.2.4</span> <span class="toctext">Noviji TCP/IP stog (eng. Next Generation TCP/IP Stack)</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Internet_povijest"><span class="tocnumber">4.2.5</span> <span class="toctext">Internet povijest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Prakti.C4.8Dni_primjer_.E2.80.93_analiza_Zeus-a"><span class="tocnumber">4.3</span> <span class="toctext">Praktični primjer – analiza Zeus-a</span></a></li>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Lociranje_i_identificiranje_Malware-a_.28Dark_Comet.29"><span class="tocnumber">4.4</span> <span class="toctext">Lociranje i identificiranje Malware-a (Dark Comet)</span></a>
+<ul>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Dark_Comet"><span class="tocnumber">4.4.1</span> <span class="toctext">Dark Comet</span></a></li>
+<li class="toclevel-3"><a href="Forenzika_radne_memorije_(Volatility).html#Lociranje_i_identificiranje"><span class="tocnumber">4.4.2</span> <span class="toctext">Lociranje i identificiranje</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Forenzika_radne_memorije_(Volatility).html#Forenzika_memorije_.28Linux.29"><span class="tocnumber">5</span> <span class="toctext">Forenzika memorije (Linux)</span></a>
+<ul>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Instalacija_volatility-a_i_postavljanje_Linux_profila"><span class="tocnumber">5.1</span> <span class="toctext">Instalacija volatility-a i postavljanje Linux profila</span></a></li>
+<li class="toclevel-2"><a href="Forenzika_radne_memorije_(Volatility).html#Analiza_stuxnet-a"><span class="tocnumber">5.2</span> <span class="toctext">Analiza stuxnet-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Forenzika_radne_memorije_(Volatility).html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod_u_forenziku_memorije"> Uvod u forenziku memorije </span></h1>
+<p><br />
+Svaku funkciju obavljenu od strane operacijskog sustava ili aplikacije rezultira određenim promjenama u računalnoj memoriji, točnije RAM-u. Te funkcije mogu ustrajati i nakon same  akcije. Forenzika memorije nam omogućava uvid u runtime stanje sustava kao što je npr. popis pokrenutih procesa, otvorene internetske veze i nedavno korištene komande. Nabrojeni artefkati se mogu zasebno izolirati na način da su potpuno neovisni o sustavu kojeg analiziramo te na taj način se smanjuje vjerojatnost utjecaja malware-a ili rootkita na rezultate istrage. Bitno je spomenuti da se kritični podaci najčešće nalaze isključivo u radnoj memoriji (kriptografski ključevi, memorijski umetnuti fragmenti, "off the record" poruke, nekriptirani emailovi i nekeširani internet povijest. Iako analiza hard diska i mrežnih paketa mogu služiti kao dokazi u forenzičkoj istrazi, međutim sadržaj RAM-a omogućava i obuhvaća punu rekonstrukciju zbivanja te potrebne dijelove za određivanje što se desilo prije, tijekom i poslije infekcije malwareom ili upada raznih prijetnji.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jtrupina&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jtrupina (stranica ne postoji)">Jtrupina</a> 14:17, 19. siječnja 2015. (CET)
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Volatile_Memory_.28RAM.29"> Volatile Memory (RAM) </span></h1>
+<p>Glavna memorija računala jest implementirana s RAM-om (Random Access Memory) koja pohranjuje instrukcije i podatke kojim procesor aktivno pristupa. Za razliku od sekvencijalnog pristupa skladištu koji je tipično povezan s diskovima, slučajni pristup (eng. random access) se odnosi na konstantni pristup  bezobzira gdje su podaci pohranjeni na mediju. Glavna memorija u većini računala jest dinamički RAM (DRAM). Dinamičan je zato jer utječe na razliku između napunjenog i praznog kondenzatora za pohranu bita podatka. Da bi kondenzator mogao održavati to stanje, on se mora periodički osvježiti (to obično radi memorijski kontroler). RAM se smatra nestabilnom/nestalnom memorijom (eng. Volatile Memory) zato jer zahtjeva napon da bi podaci ostali u memoriji odnosno da im se moze pristupiti. Dakle, nakon što je računalo ugašeno podaci se gube.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jtrupina&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jtrupina (stranica ne postoji)">Jtrupina</a> 14:17, 19. siječnja 2015. (CET)
+</p>
+<h1> <span class="mw-headline" id="Volatility">Volatility</span></h1>
+<p>Volatility je okružje koje je implementirano u pythonu. Analitičari koriste Volatility za dohvaćanje digitalnih podataka iz uzoraka memorije. Kako je Volatility „open source“ i besplatan za korištenje može se preuzeti i započeti izvođenje naprednog analiziranja bez imalo troškova. U nastavku će biti pojašnjeno kako se koriste njegovi dodatci za analiziranje. Volatility analizira memoriju od 32 i 64 bitnih operacijskih sustava: Windows, Linux, Mac te 32 bitni Android. Volatility se može pokrenuti na svakom sustavu na kojemu se može instalirati python. Volatility može analizirati razne tipove datoteka koje predstavljaju dump memorije (raw dump, crash dump i drugi). Važno je imati na umu i ono što nam zapravo Volatility ne omogučava. Dakle, Volatility nije alat za dohvaćanje memorije sa određenih operacijskih sustava. Za dohvaćanje dumpa memorije  su zaduženi alati kao što su:
+</p>
+<ul>
+<li><b>F-Response</b></li>
+<li><b>Mandiant Memoryze</b></li>
+<li><b>MoonSols Dumpit</b></li>
+<li><b>Belkasoft Live RAM Capturer i drugi</b></li>
+</ul>
+<p>Zatim se ta dobivena datoteka analizira pomoću Volatility-a. Volatility nema korisničko sučelje. To je komandna linija u kojoj zapisujemo naredbe za rad s alatom. Najjednostavniji način za pokretanje Volatility-a je to da koristimo „Standalone Windows Executable“ format. On sadržava Python 2.7 interpreter i sve što je potrebno za rad Volatility-a. Nije potrebna instalacija nego se samo pokrene preuzeta .exe datoteka preko komandne linije.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Bozidar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Bozidar (stranica ne postoji)">Bozidar</a> 23:57, 19. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Volshell">Volshell</span></h2>
+<p>Ako se želi interaktivno istraživati slika memorije, to se može ostvariti pomoću volshell naredbe. Navedena naredba nam omogučava sučelje slično kao WinDbg (debugger za Windows) unutar dump-a memorije. Volshell je jako korisno sučelje preko kojega se može na jednostavan način prikazati struktura okružja. Na primjer, možemo:
+</p>
+<ul>
+<li><b>Izlistati procese</b></li>
+<li><b>Prikazati tipove struktura, objekata</b></li>
+<li><b>Mijenjanje koda na danoj adresi</b></li>
+<li><b>Kretanje kroz vezanu listu</b></li>
+</ul>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika1_labas.png" class="image"><img alt="Slika1 labas.png" src="../images/c/ca/Slika1_labas.png" width="757" height="174" /></a>
+</p><p><br />
+Na slici iznad možemo vidjeti kako se postavlja Volshell. Dakle, za profil postavimo tip operacijskog sustava od kojeg je napravit dump memorije. U ovom slučaju to je 32 bitni Windows 7 Service Pack 0. Nakon toga slijedi naredba –f uz koju se upiše naziv datoteke koja se želi analizirati te na kraju slijedi naziv sučelja koje se želi koristiti. U nastavku će se, tamo gdje je potrebno, korisiti Volshell.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Vtypes">Vtypes</span></h2>
+<p>„Vtypes“ je strukturna definicija Volatility-a i jezik za parsiranje. Većina operacijskih sustava je pisana u C-u sa brojnim korištenjem struktura podataka kako bi se organizirale povezane varijable i atributi. Problem se javlja u tome što je Volatility pisan u Python-u. Dakle, potreban je način kako prikazati strukture podataka iz C-a Python-u. Taj način prikaza riješava Vtype. Dakle, uz pomoč VType-a Volatility zna kako postupati za podacima (npr. Integer, string, pokazivač i drugi).  Na slici 2 je prikazan primjer koji prikazuje _EPROCESS strukturu Windowsa 7. Slika je samo primjer koji prikazuje kako VTypes funkcionira. Dakle, svi podaci su prikazani u obliku riječnika. Uz svaki proces se može vidjeti i pomak. Volatility objekt je isntanca strukture koja postoji u određenom adresnom prostoru. Na adresni prostor možemo gledati kao sučelje na datoteku dump memorije.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika2_labas.png" class="image"><img alt="Slika2 labas.png" src="../images/9/9a/Slika2_labas.png" width="757" height="318" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Bozidar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Bozidar (stranica ne postoji)">Bozidar</a> 00:07, 20. siječnja 2015. (CET)
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Forenzika_memorije_.28Windows.29"> Forenzika memorije (Windows) </span></h1>
+<h2> <span class="mw-headline" id="Analiza_registra">Analiza registra</span></h2>
+<p>Registri sadrže različite postavke i konfiguracije za Windows operacijski sustav, aplikacije i korisnike na računalu. Regitri sadrže informacije korisnisne za forenziku. Na primjer možemo ih iskoristiti za otkrivanje koji su se programi prethodno pokrenuli, raspakiravanje sažetaka lozinki. U nastavku će biti riječi o tome kako pristupiti datotekama registra unutar memorije te će to biti prikazano kroz nekoliko primjera.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Bozidar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Bozidar (stranica ne postoji)">Bozidar</a> 01:02, 20. siječnja 2015. (CET)
+</p>
+<h3> <span class="mw-headline" id="Struktura_podataka_u_registru">Struktura podataka u registru</span></h3>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika3_labas.png" class="image"><img alt="Slika3 labas.png" src="../images/6/66/Slika3_labas.png" width="741" height="138" /></a>
+</p><p><br />
+Slika prikazuje dio strukture 32-bitnog Windowsa 7. _CMHIVE struktura predstavlja datoteke registra na disku, a _HHIVE (eng. Hive header) pomaže pri opisu sadržaja i trenutnog stanja datoteka. Na slici možemo primjetiti kako se unutar registra nalazi datoteka Hive i HiveList. Hive predstavlja zaglavlje registra i sadrži potpis kao i strukturu koja se koristi za pretvaranje adresa. 
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Podaci_u_registru">Podaci u registru</span></h3>
+<p>Sa stajališta forenzike može se dohvatiti puno informacija iz registra:
+</p>
+<ul>
+<li>Identificiranje aplikacija koje se automatski pokreću pri pokretanju sustava</li>
+<li>Pobrojenje externih uređaja koji su bili spojeni na sustav</li>
+<li>Informacije o korisničkom računu u sustavu</li>
+<li>Prethodno pokrenuti programi</li>
+<li>Informacije o sustavu</li>
+</ul>
+<h3> <span class="mw-headline" id="Pronalazak_malware-a_kroz_registre">Pronalazak malware-a kroz registre</span></h3>
+<p>Ključevi registra su pohranjeni kao stablo gdje postoji korijenski ključ. Djeca, ili potključevi su prijeđeni sve dok se ne dođe do zadnjeg dijela puta. Kako bi se pristupilo ključu registra i njegovoj vrijednosti mora se poćeti od korijesnkog ključa i prolaziti kroz stablo dok se ne dođe do traženog čvora. Kada koristimo printkey proslijeđujemo željenu putanju ključa registra u komandnoj linij (-K/--ključ argument). Printkey dodatak traži sve dostupne registre u memoriji i pristupa listi ključeva i listi vrijednosti prolazeći kroz stablo. Dakle, taj dodatak omogučava ispis ključa, njegovih potključeva, i njegovih vrijednosti. Sljedeći primjer će prikazati kako koristiti printkey dodatak.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika4_labas.png" class="image"><img alt="Slika4 labas.png" src="../images/2/2d/Slika4_labas.png" width="741" height="394" /></a>
+</p><p><br />
+Nekoliko je ključeva registra važno u istraživanju moguleg malwera. Malwer može tražiti način da se održi u sustavu iako je sustav resetiran. Jedan od najlakšin načina da se to postigne je modificiranje startup ključeva registra. Ti ključevi sadrže informacije o programu koji se pokreće kada se upali sustav ili kada se korisnik ulogira. Iz tog razloga je potrebno provjeriti sljedeće ključeve registra kako bi provjerili da li ih malwer koristi kako bi se održao u sustavu:
+</p>
+<ul>
+<li>Ključevi za pokretanje sustava</li>
+</ul>
+<pre>          HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce		        
+</pre>
+<pre>          HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run
+</pre>
+<pre>          HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+</pre>
+<ul>
+<li>Ključevi za prijavu korisnika</li>
+</ul>
+<pre>          HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows
+</pre>
+<pre>          HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\Run
+</pre>
+<pre>          HKCU\Software\Microsoft\Windows\CurrentVersion\Run
+
+          HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce
+</pre>
+<p>Jedan od skupa ključeva koji se koriste za startup sustava su prikazani u gornjoj slici. Možemo vidjeti popis izvršnih datoteka koje se pokreću prilikom pokretanja sustava. Ukoliko nismo sigurni na neku datoteku da li je sigurna možemo detaljnije istraživati o njoj. Datoteka koja bi na prvi pogled mogla biti malwer je npr. APSDaemon.exe. Međutim, odmah iz putanje možemo vidjeti kako se ne radi o zločudnom programu. To je datoteka koja je prethodno bila instalirana. APSDaemon.exe datoteka je instalirana sa Itunes-om i možemo po putanje vidjeti da je to od Apple-a. Dakle, to je datoteka od Ipoda i pokreće se svaki puta pri pokretanju sustava. Ukoliko ta datoteka više nije potrebna može se izbrisati.
+</p>
+<h3> <span class="mw-headline" id="Primjer_1._Dohva.C4.87anje_lozinke_korisnika_za_logiranje_u_Windows_os">Primjer 1. Dohvaćanje lozinke korisnika za logiranje u Windows os</span></h3>
+<h4> <span class="mw-headline" id="DumpIt_-_dohva.C4.87anje_slike_memorije">DumpIt - dohvaćanje slike memorije</span></h4>
+<p>U ovom primjeru će se analizirati radna memorija Windows operacijskog sustava. Kako bi se analizirala radna memorija prvo se mora uzeti njena slika (dump memorije). Već je spomenuto kako za to nije zadužen Volatility alat već postoji niz drugih alata pomoću kojih dobijemo dump memorije.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika5_labas.png" class="image"><img alt="Slika5 labas.png" src="../images/6/6e/Slika5_labas.png" width="757" height="294" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika6_labas.png" class="image"><img alt="Slika6 labas.png" src="../images/e/e2/Slika6_labas.png" width="661" height="512" /></a>
+</p><p><br />
+Dok analiziranje memorije zahtijeva određenu vještinu, dohvaćanje slike memrije nije tako teško s današnjim alatima.  Za dobivanje slike radne memorije se u ovome primjeru koristio alat DumIt. To je besplatan i vrlo jednostavan alat koji podržava 64-bitni i 32-bitni Windows operacijski sustav. Nakon što se alat preuzme dobije se jedna izvršna datoteka dumpit.exe. Jedna od velikih prednosti DumpIt alata je to što je vrlo jednostavan a korištenje i bilo koji korisnik sa administratorskim pristupom ga može koristiti. Dakle, za dobivanje slike radne memorije je procedura jednostavna. Prvo se klikne na izvršnu datoteku dumpit.exe i nakon toga se otvori komandna linija u kojoj samo moramo pritisnuty „y“. Nakon toga se kreira slika radne memorije na odredištu koje je prikazanu u komandnoj liniji, tj. na odredištu gdje je instalirana izvršna datoteka. Na slici se također može vidjeti da veličina slike radne memorije odgovara veličini radne memorije koja se može koristiti u operacijskom sustavu. Veličina radne memorije nije 2GB iz tog razloga što se od 2G oduzima memorija koja je rezervirana za hardver.
+</p>
+<h4> <span class="mw-headline" id="Volatility_-_analiza_radne_memorije">Volatility - analiza radne memorije</span></h4>
+<p><br />
+U prethodnom potpoglavlju se dohvatila slika memorije. Naziv datoteke koja predstavlja sliku memorije je promijenjen u primjer.raw. Za analizu radne memorije se koristi alat Volatility. U ovom primjeru se analizira radna memorija za Windows operacijski sustav pa se u tom slučaju preporuča preuzimanje samostalne (eng. Stand alone) .exe 2.4 verzije Volatility alata. Ta verzija Volatility alata sadržava Python 2.7 interpreter i sve što je potrebno za rad Volatility-a. Nakon što je Volatility instaliran potrebno je dohvatiti informacije o dobivenoj slici radne memorije (primjer.raw). Dakle, prvo se otvori komandna linija u kojoj se radi s Volatility alatom.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika7_labas.png" class="image"><img alt="Slika7 labas.png" src="../images/0/01/Slika7_labas.png" width="741" height="362" /></a>
+</p><p>Naredba za dobivanje informacija o dobivenoj slici radne memorije je sljedeća: 
+</p>
+<pre>volatility-2.4.standalone.exe imageinfo –f primjer.raw</pre>
+<p>Ta naredba nam daje nekoliko informacija. Za sada je važan tip profila slike memorije. Možemo vidjeti kako se ovdje radi o dva tipa profila a to su Win7SP0x86 i Win7SP1x86. Ta dva profila su prikazana zbog toga što oni dijele mnoge sličnosti. Odabir nam olakšava Image Type koji je u ovom slučaju nula pa ćemo se odlučiti za profil Win7SP0x86. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika8_labas.png" class="image"><img alt="Slika8 labas.png" src="../images/5/5e/Slika8_labas.png" width="741" height="362" /></a>
+</p><p>U prethodnom koraku je dohvaćena informacija o tipu, tj. profilu operacijskog sustava od kojega je dohvaćena slika radne memorije, a to je Win7SP0x86. Sljedeće što se mora dohvatiti je početna adresa Windows registra. Dakle, u registru su zabilježeni podaci o instaliranim programima, računalnoj opremi i svi drugi podaci vezani za pravilno funkcioniranje računalnog sustava. Sljedećom naredbom se dohvaćaju adrese datoteka koje su sadržane unutar registra: 
+</p>
+<pre>volatility-2.4.standalone.exe hivelist -f primjer.raw --profile =Win7SP0x86</pre> 
+<p>Na slici se može vidjeti rezultat naredbe. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika9_labas.png" class="image"><img alt="Slika9 labas.png" src="../images/1/1c/Slika9_labas.png" width="741" height="138" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika10_labas.png" class="image"><img alt="Slika10 labas.png" src="../images/2/2a/Slika10_labas.png" width="777" height="155" /></a>
+</p><p>Dakle, sada smo dobili gdje su locirani neke od ključnih datoteka unutar slike radne memorije. Sljedeće što se mora napraviti kako bi se dohvatio hash lozinki prepoznavanje početnih memorijskih lokacija za system i sam datoteke ključeva. Pogledamo početne Virtualne adrese od navedene dvije datoteke sa dobivenog rezultata te ih kopiramo. Datoteka u koju će hashevi biti spremljeni se može proizvoljno zvati. U ovom primjeru toj datoteci ćemo dati ime hashs.txt. Sljedećom naredbom dohvaćamo i spremamo hasheve lozinki u textualnu hashes.txt datoteku: 
+</p>
+<pre>volatility-2.4.standalone.exe hashdump -f primjer.raw –profile =Win7SP0x86 -y 0x8981a198 -s 0x825959d0 &gt; hashs.txt </pre>
+<p>Lozinka se dohvatila pomoću hashdump dodatka. Taj dodatak koristi ključeve iz SYSTEM i SAM datoteka ključeva. Postoje dva tipa hasheva ključeva unutar SAM-a a to su LanMan(LM) hash i NTLM hash. LM hash, koji pati od nekih dizajnerskih mana zbog kojih je ranjiv, se smatra zastarjelim. Prema tome, po defaultu je isljučen na Windows Visti, 2008, 7 i 8. Može biti eksplicitno isključen i na Windowsu xp i 2003. NTLM hash je podržan od svih modernih Windows operacijskih sustava. Hashdump dodatak dohvaća oba tipa algoritma za sažimanje. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika11_labas.png" class="image"><img alt="Slika11 labas.png" src="../images/f/fe/Slika11_labas.png" width="486" height="361" /></a>
+</p><p>Sa slike koja prikazuje sadržaj datoteke hashes.txt možemo vidjeti označeni hash iz kojeg želimo saznati čisti tekst, tj. lozinku. Najlakši način za dohvaćanje lozinke iz hasha je taj da se hash jednostavno zalijepi u google tražilicu koja je na sreću ovoga puta dala ispravan čistti tekst, tj. našu lozinku „bl123“. Ukoliko nam google tražilica ne bude od pomoći možemo isprobati alat za krekiranje lozinki John the Ripper.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Primjer_2._Ispis_modificiranih_aplikacija_tijekom_vremena">Primjer 2. Ispis modificiranih aplikacija tijekom vremena</span></h3>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika12_labas.png" class="image"><img alt="Slika12 labas.png" src="../images/5/53/Slika12_labas.png" width="741" height="426" /></a>
+</p><p><br />
+Moguće je pomoću Volatility-a ispisati i „log“ korisnika računala. Dakle, mogu se ispisati informacije o aktivnostima korisnika. Kada je neka datoteka ažurirana ili modificirana od korisnika, te promjene su također ažurirane u registru. Sljedeća naredba omogučuje ispis aktivnosti korisnika: 
+</p>
+<pre>volatility-2.4.standalone.exe -f primjer.raw --profile=Win7SP0x86 userassist</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Bozidar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Bozidar (stranica ne postoji)">Bozidar</a> 01:01, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Mre.C5.BEni_aspekt"> Mrežni aspekt </span></h2>
+<p>Danas, većina malware-a utječu na sam mrežni aspekt. Na primjer, njihove funkcije mogu biti širenje na drugim računalima, postavljanje backdoor-ova u samom sustavu i slično.  S obzirom na to da windows operacijski sustavi primljene pakete prosljeđuju dalje bilo pojedinom procesu ili driveru jasno je za zaključiti da se na taj način kreiraju/mijenjaju elementi u samoj memoriji. Razlog tome su različite API funkcije. Nadalje, svaka mrežna aktivnost napadača/uljeza u suštini ostaje zapamćena u tragovima te se to ponajviše odnosi na povijest web preglednika, DNS cache i sl.
+</p><p>Za samu forenziku (mrežni aspekt) su nam potrebna dva bitna elementa mreže, a to su socketi i veze. Socketi u suštini definiraju krajnje točke veze (konekcije). Aplikacije kreiraju klijentske sockete kako bi uspostavile vezu s poslužiteljima, dok poslužiteljski socketi služe za slušanje nadolazećih veza. Sockete možemo kreirati direktno iz korisničkog načina rada ili pak indirektno te direktno iz jezgrinog načina rada.
+</p><p><b> Winsock (Windows Sockets API) </b>
+</p><p>Svaki puta kada aplikacija pozove funkciju socket() prosljeđuje određene argumente: adrese (tj. address family), tip socketa (može biti raw, stream i sl.) i vrstu protokola (tcp, udp, ip itd.). Ono što je bitno jest da socketi ne funkcioniraju sve dok ne saznaju IP adresu i broj port-a. To zapravo govori da iza svega toga postoji određena struktura koja će se zauzimati za socket objekte te koja će biti alocirana u slučaju poziva određenih funkcija (bind(), connect() i sl). Ono što forenzičare zanima jest veza između API funkcija i onog što se dešava u memoriji (kreiranje/mijenjanje elemenata). Kao primjer ćemo uzeti skicu iz knjige [1] gdje ćemo prikazati na klijentskoj strani tok pozivanja API funkcija te koji se elementi kreiraju u memoriji shodno pozivu odgovarajućih funkcija.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slikaneka.png" class="image"><img alt="Slikaneka.png" src="../images/1/1b/Slikaneka.png" width="224" height="416" /></a>
+</p><p>Dakle, klijent započinje s pozivom funkcije socket() čime se zapravo otvara "ručka" (eng. handle) prema \Device\Afd\Endpoint. Ona omogućuje komunikaciju korisničkog procesa s sistemskom datotekom Afd.sys (Auxiliary Function Driver) u jezgrinom načinu rada. Nadalje, se poziva funkcija connect() čime se alocira memorija u jezgri za predviđene strukture (na ovoj slici su nazvani _ADDRESS_OBJECT i _TCPT_OBJECT) te se otvara ručka (u ovom primjeru) prema \Device\Tcp. Spomenute strukture _ADDRESS_OBJECT i _TCPT_OBJECT su nazivi za strukture koje predstavljaju socket objekte i objekte veze (konekcije), respektivno. Na kraju kada se zatvara socket (pozivom closesocket() funkcije) ti elementi se zatvaraju odnosno otpuštaju. Bitno je spomenuti da ispuštanje objekata ne znači nužno da će se nešto prepisati preko te memorije za objekte. Tragovi tih objekata se mogu naći i nakon nekog vremena od zatvaranja socketa. Samu serversku stranu nećemo detaljno objašnjavati, iako se tok pozivanja API funkcija razlikuje te pozivaju neke druge API funkcije u odnosu na klijenta princip ostaje isti.
+</p><p>S obzirom na te elemente koji se kreiraju u memoriji prilikom poziva odgovarajućih API funkcija moguće ih je pronaći u dump memorijama te na temelju analize možemo detektirati sljedeće stvari:
+</p>
+<ul>
+<li> <b>Detekcija i identificiranje zlobnih osluškivača</b> - Ono što analizom memorije možemo postići jest razlikovanje između legitimnih i pravilnih poslužiteljskih socketa i socketa koji prihvaćaju sve veze od strane napadača. </li>
+<li> <b>Detekcija sumnjivih remote veza</b> - Dakle, ovdje se analiraju sve postojeće remote veze. Na primjer, želimo saznati da li je zaposlenik neke tvrtke koristio tzv. Tor client kako bi surfao na webu , da li neki određeni proces pristupa TCP portu na strani poslužitelja koji se nalazi u nekoj drugoj/stranoj državi i sl. Isto tako, možemo uspoređivati remote IP-eve s postojećim blacklistama.</li>
+<li> <b>Detekcija sustava sa zlobnim mrežnim karticama</b> - Sa sumnjivog računala/stroja se mogu analizirati socketi kako bi se utvrdilo da li odgovarajući stroj sadrži mrežne kartice koje konfigurirane da ne rade ono što treba, već takvi strojevi rade sumnjive akcije poput prisluškivanja mrežnog prometa i sl.  </li>
+<li> <b>Detekcija skrivenih portova</b> - Najčešće se radi o rootkitovima koji (većina njih) filtriraju portove te IP adrese na način da prikače API-je na live sustave. </li>
+<li> <b>Otkrivanje i rekonstrukcija povijesti web preglednika</b> - Dakle, na sumnjivom/zaraženom računalu možemo vidjeti koje je URL posjećivao. Analizom možemo iz memorije saznati pojedine zapise, vrijeme pristupanja tim url-ovima, količinu podataka koju je vratio određeni web server i sl. </li>
+</ul>
+<p><b> _ADDRESS_OBJECT i _TCPT_OBJECT </b>
+</p><p>Kao što smo rekli, ovi objekti su vrlo važni za samu analizu pa ćemo stoga i prikazati njihovu podatkovnu strukturu odnosno od kojih atributa se sastoje.
+</p>
+<pre>_ADDRESS_OBJECT - sastoji se od pokazivaća na sljedeći objekt (pošto može biti više socketa i nalaze se u vezanoj listi), lokalne IP adrese, lokalnog port-a, protokola, PID-a te timestamp vrijednosti.
+</pre>
+<pre>_TCTPT_OBJECT - sastoji se od pokazivaća na sljedeći objekt (pošto može biti više veza i nalaze se u vezanoj listi), remote IP adrese, lokalne IP adrese, remote port-a, lokalnog port-a te PID-a.
+</pre>
+<p>Pokazivači će pokazivati na sljedeći objekt sve dok vrijednost pokazivaća nije nula. PID je identifikator procesa koji je otvorio socket ili uspostavio vezu. Što se tiče timestamp vrijednosti kod socketa odnosi se na vrijeme kada je određeni socket kreiran.
+</p><p><b>Aktivni socketi i veze</b>
+</p><p>Operacijski sustav upravlja/održava aktivne sockete i veze koristeći posebne vrste hash tablica u kojoj se nalaze vezane liste. Za sockete i veze postoje pluginovi unutar Volatility-a. I za jedan i za drugi plugin vrijedi ista logika kada se primjenjuju komande. Kada se koristi jedna od komandi, Volatility će naći tcpip.sys modul koji se nalazi u samoj jezgrinoj memoriji te će pronaći globalnu varijablu u kojoj se nalazi pokazivać na prvi objekt. Ovakav način korištenja  hash tablica, način pronalaska objekata jest na XP sustavu. To su komande <i>connections</i> i <i>sockets</i> koji su spomenuti i u poglavlju 3.2.
+</p><p><b>Neaktivni socketi i veze</b>
+</p><p>Za pretraživanje ovakvih socketa i veze koriste se druge komande, a to su <i>connscan</i> i <i>sockscan</i> koji su spomenuti u poglavlju 3.2. Naime, za razliku od komandi za aktivne sockete i veze ovdje se pretražuje po fizičkom adresnom prostoru, dok se za aktivne objekte skenira po virtualnom adresnom prostoru. Drugim riječima, tražimo sockete ili veze koje su bile u prošlosti odnosno jer ih tražimo u dealociranim i oslobođenim memorijskim blokovima.
+</p>
+<h3> <span class="mw-headline" id="Mre.C5.BEne_komande"> Mrežne komande </span></h3>
+<p><b>connections</b>
+</p><p>Komanda koja daje popis svih trenutno otvorenih (aktivnih) veza. Treba napomenuti da ova komanda radi samo za Windows XP i Windows 2003. Za primjer ćemo koristiti zeus.vmem datoteku.
+Komanda je sljedeća: -f zeus.vmem --profile=WinXPSP2X86 connections.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prvaslika.png" class="image"><img alt="Prvaslika.png" src="../images/c/c5/Prvaslika.png" width="677" height="451" /></a>
+</p><p><br />
+<b>connscan</b>
+</p><p>Također, i ova komanda je samo za Windows XP i Windows 2003. S ovom komandom tražimo veze koristeći tzv. pool tag scaning. Ovakvim načinom skeniranja možemo dobiti elemente iz prijašnjih veza (konekcije) koje su bili terminirane.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Drugaslika.png" class="image"><img alt="Drugaslika.png" src="../images/5/53/Drugaslika.png" width="677" height="451" /></a>
+</p><p><b>sockets</b>
+</p><p>Komanda služi za otkrivanje portova koji slušali bilo koji protokol (tcp, udp itd.). Također, komanda samo za Windows XP i Windows 2003.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Trecaslika.png" class="image"><img alt="Trecaslika.png" src="../images/d/d3/Trecaslika.png" width="677" height="451" /></a>
+</p><p><b>sockscan</b>
+</p><p>Kao i kod connscan s ovom komandom se pronalaze socketi koristeći tzv. pool tag scaning. Dakle, dobivamo preostale podatke tj. elemente iz prijašnjih socketa.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cetvrtaslika.png" class="image"><img alt="Cetvrtaslika.png" src="../images/b/bb/Cetvrtaslika.png" width="837" height="468" /></a>
+</p><p><b>netscan</b>
+</p><p>Komanda <i>netscan</i> nam služi za skeniranje mrežnih elemenata u Windows Vista, Windows 2008 i Windows 7 memorijskim dumpovima. Ova naredba pronalazi TCP/UDP krajnje točke te listenere. Također, razlikuje IPv4 i IPv6 protokole, prikazuje lokalne i remote IP adrese te lokalne i remote portove, vrijeme kada je koja veza uspostavljena te vrijeme spajanja socketa. Pogledajmo na vlastitom primjeru gdje ćemo istražiti dump memorije (primjer.raw) sa Windows7SP0x86.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Petaslika.png" class="image"><img alt="Petaslika.png" src="../images/8/82/Petaslika.png" width="1373" height="468" /></a>
+</p>
+<h3> <span class="mw-headline" id="Skrivene_veze">Skrivene veze </span></h3>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jtrupina&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jtrupina (stranica ne postoji)">Jtrupina</a> 15:56, 20. siječnja 2015. (CET)
+</p><p>Postoji niz načina kako možemo sakriti listening portove i aktivne veze na live sustavu. Dakako, radi se o raznim mrežnim rootkit-ovima. Jedna od tehnika rootkita jest kada programi poput TCPView.exe koriste korisničke API-je. Npr. AFX rootkit radi na taj način. Da bismo detektirali takvo nešto koristimo <i>apihooks</i> plugin. Ili pak možemo koristiti <i>sockets</i> ili <i>connections</i> za Windows XP/2003 ili pak <i>netscan</i> (od Viste pa nadalje). 
+Drugi način je instalacija drivera (u jezgri) koji će koristiti IRP_MJ_DEVICE_CONTROL funkciju od \Device\Tcp i filtrirati pokušaje kako bi se pridobile informacije koristeći IOCTL_TCP_QUERY_INFORMATION_EX code. Za detekciju se koristi tzv. <i>driverirp</i> plugin ili se također može koristiti <i>sockets</i>, <i>connections</i> ili <i>netscan</i>.
+Treći način je kreiranje NDIS drivera koji izvodi operacije na nižoj razini nego Winsock2 s time da zaobilazi kreiranje objekata (socket objekti i objekti veze). Za rješavanje ovakvih slučajevo potrebno je istražiti driver objekte ili skrivene jezgrine dretve. Isto tako, postoji i opcija kojom možemo izdvojiti IP pakete ili Ethernet okvire iz same dump memorije.
+</p><p><b>IP paketi i Ethernet okviri</b>
+</p><p>Kod prethodno spomenutog načina (NDIS driver) autori takvih drivera prilikom kreiranja moraju i na neki način konstruirati i IP pakete i Ethernet okvire u samom RAM-u prije slanja. Svaki od njih se konstruira prema određenom standardu gdje je struktura jasno poznata (zaglavlje, različite konstante vrijednosti i sl.) Samim time, vrlo je jednostavno istražiti kroz memoriju ta zaglavlja. Jedan od prvih takvih pluginova jest <i>linkpktscan</i> koji pretražuje IP pakete s validnom checksumom. Međutim, postoji i plugin <i>ethscan</i> koji pronalazi Ethernet okvire i ekapsulirane IP pakete i terete (eng. Payloads). Najčešće se koristi <i>-C</i> komanda kako bi se ti dobiveni podaci od ethscan-a spremili u datoteku tip <i>pcap</i>. Tada se može ta datoteka analizirati nekim drugim alatima poput Wireshark-a i sl.
+</p><p><b>DKOM napadi (Direct Kernel Object Manipulation)</b>
+</p><p>Takvi napadi nisu neka velika prijetnja prema objektima socketa i veza kao što su prema procesima. Vrlo teško ćemo vidjeti da će takav malware prebrisati/prepisati objekte u namjeri sakrivanja istih jer se na taj način gubi komunikacija preko interneta. Međutim, takvi napadi se mogu iskorištavati na ne-esencijalne podatke kao tzv. Pool tagovi u namjeri skrivanja objekata od <i>sockscan</i> i <i>connscan</i> komandi.
+</p>
+<h3> <span class="mw-headline" id="Raw_socketi_i_.E2.80.9Enju.C5.A1kala.E2.80.9C"> Raw socketi i „njuškala“ </span></h3>
+<p>U slučaju ako je proces pokrenut s administrativnim ovlastima, tada može omogućiti raw sockete iz korisničkog načina koristeći Winsock2 API. Raw socketi mogu omogućiti programima da pristupe podacima poput IP ili TCP zaglavlja koji se nalaze u transportnom sloju i na taj način omogućiti sustavu krivotvorenje paketa i slično. Također, malware može koristit raw sockete kako bi dohvatio lozinke koje su poslane od zaraženog stroja ili drugih hostova u istoj podmreži.
+</p><p><b> Otkrivanje raw socketa </b>
+</p><p>Za pronalazak takvih socketa u dump memoriji potrebne su ili <i>sockets</i> ili <i>handles</i> komande. Obično kod samog kreiranja raw socketa u memoriji se jasno kreiraju određeni artefakti koje je vrlo jednostavno pronaći i utvrditi. Npr. napravimo dump memorije od sustava koji je zaražen s Gozi (tzv. UrSniff). Kada bismo komandom <i>sockets</i> dobili popis svih socket objekata vrlo lako se primjeti da nešto nije u redu. U ovom slučaju bi atributi Port i Proto bili vrijednosti nula. Isto tako, možemo pomoću komande <b>files</b> prema PID-u tog procesa za koji je sumnjiv socket dobiti popis datoteka te vidjeti da jedna pod detalje sadrži <b>\Device\RawIp\0</b>. Drugim riječima, procesi koji otvaraju raw sockete će imati sockete vezane za port 0 od protokola 0 i otvorenu „ručku“ prema <b>\Device\RawIp\0</b>.
+</p>
+<h3> <span class="mw-headline" id="Noviji_TCP.2FIP_stog_.28eng._Next_Generation_TCP.2FIP_Stack.29"> Noviji TCP/IP stog (eng. Next Generation TCP/IP Stack)</span></h3>
+<p>Dakle, kao što smo ranije površno objasnili strukturu za objekte kod Windows XP i Windows 2003 ovdje ćemo se ukratko upoznati s novim promjenama u samoj strukturi koji se tiču Windows Viste pa nadalje. Naime, glavni cilj jest postignuće bolje performanse i za IPv4 i za IPv6 protokole stoga su se razni moduli jezgre izmijenili (poput tcip.sys). S obzirom na rečeno potrebno je i na određeni način se prilagoditi tim promjenama kako bismo uspješno izvadili sve elementa vezane za mrežu iz memorije.
+</p><p>Sama podatkovna struktura izgleda drugačije u odnosu na XP i 2003 windowse. Kao prvo, one globalne varijable u jezgrinoj memoriji gdje se nalazi pokazivač na prvi objekt (bilo socket ili veza) su uklonjene. Isto tako, same strukture socketa i veza su redizajnirane na drugačiji način. Pogledajmo primjer kako izgledaju strukture koje Volatility definira za 64-bitnI Windows 7 sustave.
+</p>
+<pre>&gt;&gt;&gt; dt(&quot;_TCP_ENDPOINT&quot;)
+'_TCP_ENDPOINT'
+0x0&#160;: CreateTime ['WinTimeStamp', {'is_utc': True, 'value': 0}]
+0x18&#160;: InetAF ['pointer', ['_INETAF']]
+0x20&#160;: AddrInfo ['pointer', ['_ADDRINFO']]
+0x68&#160;: State ['Enumeration', {'target': 'long', 'choices':
+{0: 'CLOSED', 1: 'LISTENING', 2: 'SYN_SENT', 3: 'SYN_RCVD',
+4: 'ESTABLISHED', 5: 'FIN_WAIT1', 6: 'FIN_WAIT2',
+7: 'CLOSE_WAIT', 8: 'CLOSING', 9: 'LAST_ACK',
+12: 'TIME_WAIT', 13: 'DELETE_TCB'}}]
+0x6c&#160;: LocalPort ['unsigned be short']
+0x6e&#160;: RemotePort ['unsigned be short']
+0x238&#160;: Owner ['pointer', ['_EPROCESS']]
+&gt;&gt;&gt; dt(&quot;_UDP_ENDPOINT&quot;)
+'_UDP_ENDPOINT'
+0x20&#160;: InetAF ['pointer', ['_INETAF']]
+0x28&#160;: Owner ['pointer', ['_EPROCESS']]
+0x58&#160;: CreateTime ['WinTimeStamp', {'is_utc': True}]
+0x60&#160;: LocalAddr ['pointer', ['_LOCAL_ADDRESS']]
+0x80&#160;: Port ['unsigned be short']
+&gt;&gt;&gt; dt(&quot;_TCP_LISTENER&quot;)
+'_TCP_LISTENER'
+0x20&#160;: CreateTime ['WinTimeStamp', {'is_utc': True}]
+0x28&#160;: Owner ['pointer', ['_EPROCESS']]
+0x58&#160;: LocalAddr ['pointer', ['_LOCAL_ADDRESS']]
+0x60&#160;: InetAF ['pointer', ['_INETAF']]
+0x6a&#160;: Port ['unsigned be short']
+
+</pre>
+<p>Samim time promjenama je tako nastao i <b>netscan</b> plugin koji je objašnjen u poglavlju 4.4.1. Bazira se na pool-skeniranju kako bi locirao _TCP_ENDPOINT, _TCP_LISTENER i _UDP_ENDPOINT strukture u samoj memoriji. Primjer se također nalazi u poglavlju 4.4.1. Potrebno je spomenuti da se kod ovakvog novog TCP/IP stacka koriste elementi poput particijskih tablica, port pool-ovi te bitmape kako bi se poboljšale performanse. (npr. koristi se prednost višejezgrenih procesora i sl.)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jtrupina&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jtrupina (stranica ne postoji)">Jtrupina</a> 15:56, 20. siječnja 2015. (CET)
+</p>
+<h3> <span class="mw-headline" id="Internet_povijest">Internet povijest</span></h3>
+<p>Svi web preglednici u suštini pohranjuju povijest surfanja u datoteku na disku. Prije nego što proces (preglednik) može pristupi tim informacijama, on čita sadržaj datoteke u RAM. Stoga, ako korisnik posjeti stranicu tako da je napisao URL ili kliknuo na neki link iz pretraživača ili čak ako neki malicizoni kod koristi iste API-je kao i sam preglednik tada postoji velika šansa da se takve informacije mogu dobiti iz same analize memorije. Tako da datoteka u kojoj je spremljen history Internet Explorer-a nije samo učitana od strane preglednika već i od svih procesa (uključujući Windows Explorer i određeni malware-i).
+</p><p><br />
+Pogledajmo primjer iz knjige. Dakle, možemo identificirati proces iz dump memorije za koju sumnjamo da šalje web zahtjeve. U ovom primjeru imamo dva takve IE procesa. 
+</p>
+<pre>
+$ python vol.py -f win7_x64.dmp --profile=Win7SP0x64 pslist | grep iexplore
+Volatility Foundation Volatility Framework 2.4
+0x0000fa800dd11190 iexplore.exe 2580 1248 18 532 1 0 2011-04-24 04:04:42
+0x0000fa800d0e73f0 iexplore.exe 3004 2580 77 1605 1 0 2011-04-24 04:04:42
+</pre>
+<p>Ovim načinom smo od svih procesa sveli samo na dvoje njih koji se tiču internet explorera. Također, znamo i PID-ove odgovarajućih procesa te ćemo uz pomoć <i>yarascan</i> plugina dobiti početnu informaciju o tome gdje se mapiranje index.dat datoteke može nalaziti u procesnoj memoriji. Zbog toga što datotečni potpis sadrži „Client UrlCache“, taj string će se koristit kao startna točka. Pogledajmo sljedeći kod te output:
+</p>
+<pre>
+$ python vol.py -f win7_x64.dmp --profile=Win7SP0x64 yarascan
+-Y &quot;Client UrlCache&quot; -p 2580,3004
+Volatility Foundation Volatility Framework 2.4
+Rule: r1
+Owner: Process iexplore.exe Pid 2580
+0x00270000 43 6c 69 65 6e 74 20 55 72 6c 43 61 63 68 65 20 Client.UrlCache
+0x00270010 4d 4d 46 20 56 65 72 20 35 2e 32 00 00 80 00 00 .MMF.Ver.5.2....
+0x00270020 00 40 00 00 80 00 00 00 20 00 00 00 00 00 00 00 .@..............
+0x00270030 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+Rule: r1
+Owner: Process iexplore.exe Pid 2580
+0x00260000 43 6c 69 65 6e 74 20 55 72 6c 43 61 63 68 65 20 Client.UrlCache
+0x00260010 4d 4d 46 20 56 65 72 20 35 2e 32 00 00 80 00 00 .MMF.Ver.5.2....
+0x00260020 00 50 00 00 80 00 00 00 54 00 00 00 00 00 00 00 .P......T.......
+0x00260030 00 00 20 03 00 00 00 00 55 ff 00 00 00 00 00 00 ........U.......
+</pre>
+<p>Potpis je pronađen na dvjema različitim lokacijama unutar memorije prvog IE procesa (PID 2580). Dakako, da bi jednostavno pronašli povijesne zapise odnosno URL-ove nije potrebno parsirati zaglavlje index.dat datoteke. Da bismo pretraživali pojedine povijesne zapise potrebno je koristiti ključne riječi <b>URL, LEAK ili REDR </b> te da bismo jednostavnije to napravili kombinirat ćemo više stringova u regularni izraz, pa bi sljedeća komadna i output izgledali ovako:
+</p>
+<pre>
+$ python vol.py -f win7_x64.dmp --profile=Win7SP0x64 yarascan
+-Y &quot;/(URL |REDR|LEAK)/&quot; -p 2580,3004
+Volatility Foundation Volatility Framework 2.4
+Rule: r1
+Owner: Process iexplore.exe Pid 3004
+0x026f1600 55 52 4c 20 03 00 00 00 00 99 35 2c 82 43 ca 01 URL.......5,.C..
+0x026f1610 a0 ec 34 cb 34 02 cc 01 00 00 00 00 00 00 00 00 ..4.4...........
+0x026f1620 76 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 v...............
+0x026f1630 60 00 00 00 68 00 00 00 03 01 10 10 c4 00 00 00 `...h...........
+0x026f1640 41 00 00 00 dc 00 00 00 7d 00 00 00 00 00 00 00 A.......}.......
+0x026f1650 98 3e a3 20 01 00 00 00 00 00 00 00 98 3e a3 20 .&gt;...........&gt;..
+0x026f1660 00 00 00 00 ef be ad de 68 74 74 70 3a 2f 2f 6d ........http://m
+0x026f1670 73 6e 62 63 6d 65 64 69 61 2e 6d 73 6e 2e 63 6f snbcmedia.msn.co
+[snip]
+Rule: r1
+Owner: Process iexplore.exe Pid 3004
+0x026c0b00 4c 45 41 4b 06 00 00 00 00 a6 3b 01 cc 97 cb 01 LEAK......;.....
+0x026c0b10 c0 71 20 14 33 02 cc 01 98 3e 39 1f 00 00 00 00 .q..3....&gt;9.....
+0x026c0b20 f8 cf 00 00 00 00 00 00 00 00 00 00 80 2a 02 00 .............*..
+0x026c0b30 60 00 00 00 68 00 00 00 03 00 10 10 40 02 00 00 `...h.......@...
+0x026c0b40 41 00 00 00 60 02 00 00 9e 00 00 00 00 00 00 00 A...`...........
+0x026c0b50 98 3e 99 1e 01 00 00 00 00 00 00 00 98 3e 99 1e .&gt;...........&gt;..
+0x026c0b60 00 00 00 00 ef be ad de 68 74 74 70 3a 2f 2f 75 ........http://u
+0x026c0b70 73 65 2e 74 79 70 65 6b 69 74 2e 63 6f 6d 2f 6b se.typekit.com/k
+[snip]
+Rule: r1
+Owner: Process iexplore.exe Pid 3004
+0x026e2680 52 45 44 52 02 00 00 00 78 1b 02 00 40 af d3 51 REDR....x...@..Q
+0x026e2690 68 74 74 70 3a 2f 2f 62 73 2e 73 65 72 76 69 6e http://bs.servin
+0x026e26a0 67 2d 73 79 73 2e 63 6f 6d 2f 42 75 72 73 74 69 g-sys.com/Bursti
+0x026e26b0 6e 67 50 69 70 65 2f 61 64 53 65 72 76 65 72 2e ngPipe/adServer.
+</pre>
+<p>Kako bi stvari bile još jednostavnije te kako bismo rezultate internet povijesti mogli dobiti u prikladnijim formatima poput CSV datoteka koristi se plugin <i>iehistory</i>. Pogledajmo kako izgleda output (možemo vidjeti kako se prikazuju blokovi podataka tj. jedan blok za svaki cache zapis):
+</p>
+<pre>
+$ python vol.py -f win7_x64.dmp --profile=Win7SP0x64 iehistory -p 2580,3004
+Volatility Foundation Volatility Framework 2.4
+**************************************************
+Process: 2580 iexplore.exe
+Cache type &quot;URL &quot; at 0x275000
+Record length: 0x100
+Location: Cookie:admin@go.com/
+Last modified: 2011-04-24 03:53:15
+Last accessed: 2011-04-24 03:53:15
+File Offset: 0x100, Data Offset: 0x80, Data Length: 0x0
+File: admin@go[1].txt
+[snip]
+**************************************************
+Process: 2580 iexplore.exe
+Cache type &quot;URL &quot; at 0x266500
+Record length: 0x180
+Location: https://ieonline.microsoft.com/ie/known_providers_download_v1.xml
+Last modified: 2011-03-15 18:30:43
+Last accessed: 2011-04-24 03:48:02
+File Offset: 0x180, Data Offset: 0xac, Data Length: 0xd0
+File: known_providers_download_v1[1].xml
+Data: HTTP/1.1 200 OK
+Content-Length: 49751
+Content-Type: text/xml
+</pre>
+<p>Kako bismo prikazali dobivene rezultate u CSV obliku (unutar shell-a) tada koristimo komandu <i>--output-csv</i>. U slučaju ako želimo spremiti u datoteku tada pišemo <i>--output-file-output.csv</i> gdje je ime datoteke output.csv
+</p><p><b>Brute Force URL pretraživanje</b>
+</p><p>Iako smo vidjeli kako se na lagan način može dobiti povijest od internet explorer-a. Međutim, postoji niz situacija koje također treba uzet u obzir. Npr., ako želimo pretražiti sve URL-e u procesnoj memoriji koji su ugrađeni u web stranici, ali nisu posjećeni. Najčešće se nalaze u Javascript kodu. Također, spominjali smo samo Internet Explorer, a danas se ponajviše koriste Chrome i Firefox te su njihove povijesti zapisana u drugačijim formatima. Svi ovi navedeni "problemi" se mogu riješiti na drugačiji način u svrhu pretraživanja URL-ova. Rješenje predstavljaja niz regularnih izraza koji se mogu iskoristiti kako bi na efikasan način dobili sve URL-ove ili čak domene.
+</p><p>Kao primjer možemo uzeti regularni izraz s kojim ćemo naći sve domene unutar najkorištenijih domena (com, org itd.). Pogledajmo kako to izgleda na jednom primjeru:
+</p>
+<pre>
+$ python vol.py -f win7_x64.dmp --profile=Win7SP0x64 yarascan -p 3004
+-Y &quot;/[a-zA-Z0-9\-\.]+\.(com|org|net|mil|edu|biz|name|info)/&quot;
+Volatility Foundation Volatility Framework 2.4
+Rule: r1
+Owner: Process iexplore.exe Pid 3004
+0x003e90dd 77 77 77 2e 72 65 75 74 65 72 73 2e 63 6f 6d 2f www.reuters.com/
+0x003e90ed 61 72 74 69 63 6c 65 2f 32 30 31 31 2f 30 34 2f article/2011/04/
+0x003e90fd 32 34 2f 75 73 2d 73 79 72 69 61 2d 70 72 6f 74 24/us-syria-prot
+0x003e910d 65 73 74 73 2d 69 64 55 53 54 52 45 37 33 4c 31 ests-idUSTRE73L1
+0x003e911d 53 4a 32 30 31 31 30 34 32 34 22 20 69 64 3d 22 SJ20110424&quot;.id=&quot;
+0x003e912d 4d 41 41 34 41 45 67 42 55 41 4a 67 43 47 6f 43 MAA4AEgBUAJgCGoC
+0x003e913d 64 58 4d 22 3e 3c 73 70 61 6e 20 63 6c 61 73 73 dXM&quot;&gt;&lt;span.class
+0x003e914d 3d 22 74 69 74 6c 65 74 65 78 74 22 3e 52 65 75 =&quot;titletext&quot;&gt;Reu
+Rule: r1
+Owner: Process iexplore.exe Pid 3004
+0x00490fa0 77 77 77 2e 62 69 6e 67 2e 63 6f 6d 2f 73 65 61 www.bing.com/sea
+0x00490fb0 72 63 68 3f 71 3d 6c 65 61 72 6e 2b 74 6f 2b 70 rch?q=learn+to+p
+0x00490fc0 6c 61 79 2b 68 61 72 6d 2b 31 11 3a 87 26 00 88 lay+harm+1.:.&amp;..
+0x00490fd0 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00 00 ................
+0x00490fe0 d8 50 0b 09 00 00 00 00 00 00 00 00 00 00 00 00 .P..............
+0x00490ff0 00 00 00 00 3e 46 69 6e 5d c7 37 4e 20 00 00 00 ....&gt;Fin].7N....
+0x00491000 40 10 49 00 00 00 00 00 00 00 00 00 00 00 00 00 @.I.............
+0x00491010
+
+</pre>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jtrupina&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jtrupina (stranica ne postoji)">Jtrupina</a> 15:56, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_primjer_.E2.80.93_analiza_Zeus-a"> Praktični primjer – analiza Zeus-a </span></h2>
+<p>Za praktični primjer ćemo uzeti dump memoriju koja je kreirana u trenutku kada je računalo bilo zaraženo Zeus trojancem. Prvi korak što ćemo učiniti jest pomoću komande <i>imageinfo</i> saznati početne informacije o tome o kojem se operacijskom sustavu radi i sl.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus.vmem imageinfo </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus1jt.png" class="image"><img alt="Zeus1jt.png" src="../images/8/88/Zeus1jt.png" width="609" height="234" /></a>
+</p><p>Pomoću <i>imageinfo</i> komande smo dobili da ovaj sample odgovara sljedećim profilima: WinXPSP2X86 i WinXPSP3X86, dakle razlika je samo u Service Pack-u. Nakon toga želimo na neki način izlistati sve procese koji su se izvršavali odnosno koji su bili pokrenuti u trenutku kada je dump memorije učinjen. U ovom koraku istražujemo dobivene procese te ih preispitujemo njihovu sumnjivost. Učinit ćemo to komandom <i>pstree</i>.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus-vmem pstree </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus2jt.png" class="image"><img alt="Zeus2jt.png" src="../images/3/3d/Zeus2jt.png" width="609" height="202" /></a>
+</p><p>S obzirom na prethodni rezultat, zasada nema nema ničeg spornog ili sumnjivog u rezultatu. Svi procesi se čine validnim. Većinom se radi o sistemskim defaultnim procesima. S obzirom da smo taj aspekt rješili i dalje nismo dobili ništa zanimljivog. U sljedećem koraku želimo saznat kakve je veze (konekcije) imalo računalo u tom trenutku. Koristit ćemo komandu <i>connscan</i>.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus-vmem connscan </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus3jt.png" class="image"><img alt="Zeus3jt.png" src="../images/3/30/Zeus3jt.png" width="609" height="254" /></a>
+</p><p>Izvršavanjem <i>connscan</i> komande dobili smo dvije veze koje su bile uspostavljene na računalu u tom trenutku. U oba slučaja računalo je bilo povezano s 193.104.41.75 te preko tcp porta 80. ID procesa je isti, 856. Želimo saznati je li proces s tim PID-om pripada nekom od web preglednika ili je taj proces nešto drugo. Koristit ćemo ponovo <i>pstree</i> komandu kako bismo ponovo dobili odgovarajuće procese s njihovim PID-ovima da vidimo o kojem je procesu riječ.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus4jt.png" class="image"><img alt="Zeus4jt.png" src="../images/4/4c/Zeus4jt.png" width="605" height="193" /></a>
+</p><p>Dakle, pronašli smo proces s takvim PID-om te je to proces scvhost.exe koji se standardno uvijek pojavljuje, međutim taj proces nebi smio imati vezu s 193.104.47.75. Obično su to procesi od web preglednika. S obzirom da nam je ovo sumnjivo možemo za tu IP adresu provjeriti da li se nalazi na blacklisti.  Na sljedećoj web stranici smo skenirali zadanu IP adresu (<a href="http://www.ipvoid.com/scan/193.104.41.75" class="external free" rel="nofollow">http://www.ipvoid.com/scan/193.104.41.75</a>) je li na blacklisti te smo dobili potvrdan odgovor.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus5jt.png" class="image"><img alt="Zeus5jt.png" src="../images/4/46/Zeus5jt.png" width="735" height="662" /></a>
+</p><p>Kao što smo i sumnjali zadana IP adresa je blacklistana. Želimo saznati da li se radi o trojancu, ako da tada će trojanac ostaviti na neki način ključ (eng. Registry key) pomoću kojeg će se trojanac pokrenuti svaki puta pri resetiranju računala. Pogledajmo Winlogon register key.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus-vmem printkey –K „Microsoft\Windows NT\CurrentVersion\Winlogon </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus6jt.png" class="image"><img alt="Zeus6jt.png" src="../images/5/56/Zeus6jt.png" width="1061" height="500" /></a>
+</p><p>Ono što se moglo sljedeće jest da se proba preko raznih web pretraživača saznati ponešto više o sdra64.exe. Nakon što je Google izbacio rezultate vezano za sdra64.exe bilo je lako ustanoviti da se radi o nekoj vrsti trojanca. Nakon što smo ustanovili prethodno možemo probati pronaći skrivene ili umetnute kodove/DDL biblioteke u memoriji. Dumpat ćemo datoteke u poseban direktorij koji se zove <i>Analiza</i>.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus-vmem malfind --dump-dir Analiza/ </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus7jt.png" class="image"><img alt="Zeus7jt.png" src="../images/2/28/Zeus7jt.png" width="1061" height="948" /></a>
+</p><p>Naravno, pritom nas zanimaju procesi s PID-om 856. Za prvi od ova dva procesa želimo naći dump-anu datoteku te ju provjeriti. Dakle, prema adresi 0xb7000 lako je naći .dmp file koji nam treba, a to je u ovom slučaju bio <i>process.0x80ff88d8.0xb70000.dmp</i>. Ono što ćemo napraviti sljedeće jest da ćemo napraviti sha256 sažetak od te datoteke kako bismo na nekim alatima testirali tu datoteku. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Analiza1jt.png" class="image"><img alt="Analiza1jt.png" src="../images/9/97/Analiza1jt.png" width="1105" height="683" /></a>
+</p><p>Prilikom dumpanja takvih alata, i sam antivirus Avast je prepoznao da se radi o sumnjivim datotekama.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Avast1jt.png" class="image"><img alt="Avast1jt.png" src="../images/1/1d/Avast1jt.png" width="1054" height="722" /></a>
+</p><p>Za dobivanje sha256sum koristili smo sljedeći alat: <a href="http://www.bitser.org/checksum-calculator-windows-7-freeware.shtml" class="external text" rel="nofollow">OVDJE</a>. Sažetak koji se dobije jest sljedeći:
+</p>
+<pre> 8e3be5dc65aa35d68fd2aba1d3d9bf0f40d5118fe22eb2e6c97c8463bd1f1ba1 </pre>
+<p>Dobiveni sha-256 sažetak smo skenirali u alatu VirusTotal i prema rezultatima očigledno je da se radi o vrsti trojanca jer ih je većina antivirusa tako prepoznalo. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus8jt.png" class="image"><img alt="Zeus8jt.png" src="../images/2/29/Zeus8jt.png" width="975" height="1004" /></a>
+</p><p>Nadalje, pomoću komande <i>mutantscan</i> možemo izlistati sve objekte te tako možemo proučavati dobivene objekte tako da ih pretražujemo na google pretraživaču i slično. Sve što mi se činilo sumnjivo sam pretraživao sve dok se nije naišlo do <b>_AVIRA_2108 </b>.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus.vmem mutantscan </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus9jt.png" class="image"><img alt="Zeus9jt.png" src="../images/3/37/Zeus9jt.png" width="1597" height="443" /></a>
+</p><p>Sve objekte koje smo dobili ćemo filtrirati tako da ćemo izlistati samo one objekte koji u svojim nazivima sadrže ime <b>AVIRA</b>.
+</p>
+<pre> volatility-2.4.standalone.exe –f zeus.vmem mutantscan | findstr AVIRA </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus10jt.png" class="image"><img alt="Zeus10jt.png" src="../images/c/c0/Zeus10jt.png" width="772" height="288" /></a>
+</p><p><b>_AVIRA_2108 te _AVIRA_2109</b> smo pretražili na google search-u te dobili sljedeće:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus11.png" class="image"><img alt="Zeus11.png" src="../images/0/0b/Zeus11.png" width="1084" height="652" /></a>
+</p><p>Postavlja se pitanje što zapravo radi taj trojanac. Naime, on isključuje firewall (sigurnosnu stijenu). Kako se to može provjeriti? Odgovor je na sljedeći način:
+</p>
+<pre> volatility-2.4.standalone.exe f- zeus.vmem printkey -K &quot;ControlSet001\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile&quot; </pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus12.png" class="image"><img alt="Zeus12.png" src="../images/2/21/Zeus12.png" width="1164" height="288" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jtrupina&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jtrupina (stranica ne postoji)">Jtrupina</a> 22:11, 22. siječnja 2015. (CET)
+</p>
+<hr />
+<p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Lociranje_i_identificiranje_Malware-a_.28Dark_Comet.29"> Lociranje i identificiranje Malware-a (Dark Comet)</span></h2> --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Petar.vrbek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Petar.vrbek (stranica ne postoji)">Petar.vrbek</a> 02:20, 23. siječnja 2015. (CET)
+<p>U ovom ćemo dijelu pokazati na koje načine možemo locirati i identificirati malware pomoću Volatility-a.
+Za primjer sam uzeo malware pod nazivom "Dark Comet" kojeg sam kao dump memorije RAM-a skinuo na sljedećem linku: <a href="https://drive.google.com/file/d/0B-pKvSR-QbsHdDRzeG8xNVNnbEU/edit" class="external text" rel="nofollow">DarkComet</a>.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Dark_Comet">Dark Comet</span></h3>
+<p>Dark Comet je RAT (Remote Administration Tool) tip malware-a koji omogućuje pristup do udaljenog računala. Korisniku je preko takvog malicioznog koda moguće upravljati računalom, snimati sve što korisnik radi te pristupiti svim datotekama i nekim uređajima poput mikrofona ili web kamera.
+</p><p>Dark Comet radi na način da su serveri podignuti na klijentovom računalu i raspoređeni na različite korisnike, nakon čega su računala od korisnika spojena na klijenta i čekaju njegove naredbe kao što vidimo na slici:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dark.png" class="image"><img alt="Dark.png" src="../images/0/0e/Dark.png" width="512" height="385" /></a>
+<i>Izvor: <a href="http://contextis.com/resources/blog/malware-analysis-dark-comet-rat/" class="external text" rel="nofollow">Link</a></i>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Lociranje_i_identificiranje">Lociranje i identificiranje</span></h3>
+<p>Locirati malware na računalu i sa alatima poput Volatility-a često nije jednostavan posao, jer se programeri takvih kodova nerijetko iz "petnih žila" trude što bolje sakriti malware kako ih ne bi mogli pronaći, prepoznati i ukloniti.
+</p><p><br />
+</p><p><b>netscan</b>
+</p><p><br />
+</p><p>Komanda netscan nam služi za skeniranje mrežnih elemenata u Windows Vista, Windows 2008 i Windows 7 memorijskim dumpovima. Ova naredba pronalazi TCP/UDP krajnje točke te listenere. Također, razlikuje IPv4 i IPv6 protokole, prikazuje lokalne i remote IP adrese te lokalne i remote portove, vrijeme kada je koja veza uspostavljena te vrijeme spajanja socketa. 
+Ja sam započeo analizirati dump memorije pomoću netscan funkcije kako bih možda otkrio potencijalne IP adrese sa kojima malware komunicira, te sam dobio sljedeće:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Netscan.JPG" class="image"><img alt="Netscan.JPG" src="../images/f/fb/Netscan.JPG" width="729" height="103" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Netsca.JPG" class="image"><img alt="Netsca.JPG" src="../images/a/a5/Netsca.JPG" width="436" height="90" /></a>
+</p><p><br />
+Rezultat koji je netscan izbacio bio je zanimljiv zbog djela rezultata kojeg vidimo na slikama. Naime ovdje je vidljivo da proces svchost.exe koji inače host-a određene servise programa komunicira sa adresom 176.106.48.182, te sam tu adresu želio skenirati sa VirusTotal servisom kako bih vidio dali je možda ta adresa označena kao maliciozna. Kada sam ju testirao dobio sam ovo:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Cleansite.JPG" class="image"><img alt="Cleansite.JPG" src="../images/5/5b/Cleansite.JPG" width="1107" height="541" /></a>
+</p><p><br />
+Rezultat testiranja bio je pozitivan odnosno ta adresa je bila označena kao sigurna, ali mi je još uvijek bila sumnjiva zbog sinkronizacije koja je obavila sa našim računalom odnosno procesom, te je možda sada sigurna ali to ne znači da je bila u ono vrijeme kada je proces pokrenut. 
+</p><p>Kako bih našao gdje se malware nalazi prvo sam morao provjeriti potencijalno sumnjive procese i što oni rade te sam ih provjeravao sa sljedećim funkcijama:
+</p><p>•pslist
+</p><p>•pstree
+</p><p>•psscan
+</p><p>•psxview
+</p><p>•dlllist
+</p><p>•malfind
+</p><p><br />
+</p><p><b>pslist</b>
+</p><p><br />
+</p><p>Ovu naredbu koristimo kako bi izlistali procese u sistemu pomoću duplo povezane liste, ali pomoću nje ne možemo naći skrivene ili nepovezane procese. Pslist prikazuje offset, ime procesa, ID procesa, ID roditelja procesa, broj dretvi i rukovanja dretvama te datum i vrijeme pokretanja procesa.
+</p><p>Naredba za pokretanje:
+</p>
+<pre> .\volatility-2.4.standalone.exe -f WIN-TTUMF6EI3O3-20140203-123134.raw pslist --profile=Win7SP1x86</pre>
+<p>Kada sam pokrenuo pslist naredbu dobio sam sljedeći rezultat:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pslist1.JPG" class="image"><img alt="Pslist1.JPG" src="../images/4/42/Pslist1.JPG" width="902" height="740" /></a>
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pslist2.JPG" class="image"><img alt="Pslist2.JPG" src="../images/0/00/Pslist2.JPG" width="901" height="466" /></a>
+</p><p><br />
+Kada sam promatrao izlistane procese tražio sam sumnjive procese po imenu, broju dretvi, vremenu pokretanja i ID-u roditelja. Prvo mi je za oko zapeo proces runddl32.exe zbog samog imena koji asocira na rundll32.exe te također zbog toga što koristi malo više dretvi od prosjeka, roditelja sa ID-em 3220 koji ovdje nije izlistan te također vremena koji je 12:27 isto kad i 2 cmd.exe procesa koji isto imaju roditelja s ID-em 3220 koji se izvode prije svchost.exe procesa koji mi je sumnjiv još od skeniranja mreže.
+</p><p><br />
+</p><p><b>pstree</b>
+</p><p><br />
+</p><p>Ovom se naredbom mogu izlistati procesi radne memorije u obliku stabla kako bismo lakše vidjeli koji proces je roditelj kojem procesu. Skriveni i nepovezani procesi također kao i kod pslist naredbe  neće bit prikazani.
+</p><p>Naredba za pokretanje:
+</p>
+<pre> .\volatility-2.4.standalone.exe -f WIN-TTUMF6EI3O3-20140203-123134.raw pstree --profile=Win7SP1x86</pre>
+<p>Kada sam pokrenuo pstree naredbu dobio sam sljedeći rezultat: 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pstree.JPG" class="image"><img alt="Pstree.JPG" src="../images/9/9c/Pstree.JPG" width="903" height="609" /></a>
+</p><p><br />
+Ovdje vidimo da je sumnjivi proces runddl32.exe roditelj procesu notepad.txt što je neobično i govori nam da najvjerojatnije radi nešto što ne bi trebao.
+</p><p><br />
+</p><p><b>psscan</b>
+</p><p><br />
+</p><p>Ova naredba se koristi kako bi našli procese koji su prethodno bili terminirani ili neaktivni i one koji su bili skriveni ili nepovezani od rootkit-a. Ako je proces prethodno terminiran Exit time stupac će pokazati kada je zatvoren.
+Jako zanimljiva opcija psscan naredbe koju sam našao je to što možemo spremiti rezultat kao .dot format te iz toga pomoću online alata graphviz (<a href="http://graphviz-dev.appspot.com/" class="external free" rel="nofollow">http://graphviz-dev.appspot.com/</a>) napraviti vizualni prikaz dobivenog rezultat što puno pomaže pri analizi.
+</p><p>Naredba za pokretanje:
+</p>
+<pre>.\volatility-2.4.standalone.exe -f WIN-TTUMF6EI3O3-20140203-123134.raw psscan --profile=Win7SP1x86 --outpu
+t=dot --output-file=processes.dot </pre>
+<p>Kada se dobije graf pomoću graphviz alata on je jako opširan i hijerarhijski prikazuje sve veze između procesa, te sam tako našao proces koji je nama jako zanimljiv: 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Runddl.JPG" class="image"><img alt="Runddl.JPG" src="../images/9/91/Runddl.JPG" width="575" height="199" /></a>
+</p><p><br />
+Pošto se na slici to ne prepoznaje treba naglasiti da je proces pid3220 koji pokreće sumnjive procese pokrenut kada i glavni sistemski procesi da se zaključiti da su ti procesi pokrenuti automatski kada je i računalo upaljeno te nam je sada još jasnije kako se moramo njima više pozabaviti kako bi našli što rade i gdje se nalaze.
+</p><p><br />
+</p><p><b>psxview</b>
+</p><p><br />
+</p><p>Ova naredba nam također može pomoći kako bi detektirali skrivene procese uspoređujući to što PsActiveProcessHead sadrži u odnosu na to što drugi izvori ispisuju. Iako se neki "dobroćudni" 
+procesi mogu prikrivati ova naredba nam može pomoću utoliko da znamo koje procese treba provjeriti, ali se također neki "zločesti" procesi mogu prikriti sa time da se prikažu kao normalni procesi odnosno iskoriste neki "dobar" proces kako ne bi bili primjećeni.
+</p><p>Naredba za pokretanje:
+</p>
+<pre> .\volatility-2.4.standalone.exe -f WIN-TTUMF6EI3O3-20140203-123134.raw psxview --profile=Win7SP1x86</pre>
+<p>Kao rezultat psxview naredbe dobili smo:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Psxview1.JPG" class="image"><img alt="Psxview1.JPG" src="../images/c/c6/Psxview1.JPG" width="913" height="591" /></a>
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Psxview2.JPG" class="image"><img alt="Psxview2.JPG" src="../images/0/0f/Psxview2.JPG" width="912" height="266" /></a>
+</p><p><br />
+Možemo primijetiti kako su  procesi runddl32.exe i cmd.exe sa ID-em 1128 koji su nam bili sumnjivi ovdje prikazani kao normalni proces koji se ne skrivaju, dok se drugi cmd.exe sa ID-em 3656 sakriva (False stanje). 
+</p><p><br />
+</p><p><b>dlllist</b>
+</p><p><br />
+</p><p>Pomoću dlllist naredbe možemo pogledati DLL naredbe koje procesi koriste te njihovu putanju kako bi znali gdje se nalaze. Također pomoću –p filtera možemo prikazati DLL-ove od pojedinih procesa, te ćemo ih mi provjeriti za proces runddl32.exe  sa ID-em 1524:
+</p><p>Naredba za pokretanje:
+</p>
+<pre> .\volatility-2.4.standalone.exe -f WIN-TTUMF6EI3O3-20140203-123134.raw dlllist --profile=Win7SP1x86 -p 1524 </pre>
+<p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dlllist.JPG" class="image"><img alt="Dlllist.JPG" src="../images/2/20/Dlllist.JPG" width="913" height="686" /></a>
+</p><p><br />
+Ovdje vidimo nešto jako zanimljivo a to je putanja u koju se sprema proces runddl32.exe koja je malo jako sumnjiva zbog toga što se sprema u Temp datoteku koja je česti domaćin "zločestih" programa. Zbog toga sam kopirao dio putanje  \Temp\MSDCSC\runddl32.exe i to zalijepio u Google te dobio napokon ono što smo tražili: 
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rezultatpretrage.JPG" class="image"><img alt="Rezultatpretrage.JPG" src="../images/e/e8/Rezultatpretrage.JPG" width="915" height="579" /></a>
+</p><p><br />
+</p><p>Odabrao sam treći link (<a href="https://malwr.com" class="external free" rel="nofollow">https://malwr.com</a>) i dobio rezultat analize koji potvrđuje da je to malware, uz to jako zanimljiv podatak a to je IP 176.106.48.182 koji smo mi prije pretražili, za kojeg sada piše da je između ostalih jedan od host IP-a i domena tog malware-a:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mlwr.JPG" class="image"><img alt="Mlwr.JPG" src="../images/8/81/Mlwr.JPG" width="1180" height="668" /></a>
+</p><p><br />
+</p><p><b>malfind</b>
+</p><p><br />
+</p><p>Malfind je jako korisna naredba pomoću koje možemo naći umetnuti kod ili DLL-ove u memoriji, te ju također iskoristiti kako bi pronašli regular  expression-e, redove bajtova, ANSI stringove ili Unicode stringove u krenel memoriji ili korisničkom mod-u. Pomoću malfind naredbe možemo pronaći DLL-ove koje pomoću ostalih metoda ili alata ne možemo, te se zbog toga često koristi.
+</p><p>Naredba za pokretanje:
+</p>
+<pre> .\volatility-2.4.standalone.exe -f WIN-TTUMF6EI3O3-20140203-123134.raw --profile=Win7SP1x86 malfind -p 1524 </pre>
+<p>Tu sam naredbu namjerno ostavio za kraj kako bih prošao i ostale naredbe pomoću kojih je moguće otkriti malware, jer je sa njom to najlakše:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Malfind.JPG" class="image"><img alt="Malfind.JPG" src="../images/3/38/Malfind.JPG" width="648" height="599" /></a>
+</p><p><br />
+Ovdje smo kao rezultat dobili putanju koju smo vidjeli u primjeru sa dlllist naredbom, ali također i pomoću Mutex objekta za sinkronizaciju koji se često koristi u malware-ima kako bi se spriječilo ponovno inficiranje računala koje je već zaraženo. Kopiranjem DC_MUTEX-KHNEW06 sadržaja u Google odmah sam dobio rezultat koji smo tražili:
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Malfind_mutex.JPG" class="image"><img alt="Malfind mutex.JPG" src="../images/4/4b/Malfind_mutex.JPG" width="1146" height="574" /></a>
+</p><p><br />
+</p><p>Ako pogledamo detalje malware-a možemo vidjeti kako je izdavač Microsoft te je također zaštićen copyright-om.
+</p>
+<h1> <span class="mw-headline" id="Forenzika_memorije_.28Linux.29">Forenzika memorije (Linux) </span></h1>
+<p>____________________________________
+</p>
+<h2> <span class="mw-headline" id="Instalacija_volatility-a_i_postavljanje_Linux_profila">Instalacija volatility-a i postavljanje Linux profila</span></h2>
+<p>Alat Volatility ćemo instalirati korišteni sljedeći niz koraka i naredbi za UNIX hostove (rađeno na Ubuntu 14.04):
+</p><p>1. Preuzmemo Volatility instalacijski paket s sljedeće domene: <a href="https://github.com/volatilityfoundation/volatility" class="external free" rel="nofollow">https://github.com/volatilityfoundation/volatility</a>
+</p><p>2. Raspakiramo preuzeti sadržaj
+</p><p>3. Zatim instaliramo paket dwarfdump koristeći naredbu u Terminalu: sudo apt-get install dwarfdump
+</p><p>4. Instaliramo potrebne alate za kompaliranje C izvornog koda pomoću naredbe u Terminalu: apt-get install build-essential
+</p><p>5. Pomoću naredbe cd smjestimo se u direktorij raspakiranog volatilitya pod tools/linux (primjer putanje /home/kanta/Downloads/volatility-2.4/tools/linux)
+</p><p>6. Koristimo naredbu make kako bismo kompajlirali naše "Vtypeove", rezultat operacije treba biti modul.dwarf
+</p><p>7. Provjerimo dali smo dobro obavili dosadašnje korake pomoću head modul.dwarf gdje bi trebali vidjeti jerzgrine informacije bez pogreški ("errora")
+</p><p>8. Smjestimo se na glavni direktorij volatilitya (npr. /home/kanta/Downloads/volatility-2.4/) te napravimo zip datoteku koja sadrži ključne riječi naredbom:
+</p>
+<pre>  sudo zip volatility/plugins/overlays/linux/Ubuntu1404.zip tools/linux/module.dwarf /boot/System.map-3.13.0-24-generic          
+  gdje System.map ovisi o verziji koju imamo na svom treutno operacijskom sustavu. 
+</pre>
+<p>9. Zatim provjerimo postoje li novi Linux profili naredbom:
+</p>
+<pre>  python vol.py --info | grep Linux
+</pre>
+<p>10. Provjerimo jesmo li dobro postavili volatility sljedećom naredbom:
+</p>
+<pre>   python vol.py --file=IMEDATOTEKE.ekstenzija --profile=LinuxUbuntu1404x64 linux_arp
+                        (Ubuntu.vmem)                    (kreirani profil)  (naredba volatility-u)
+</pre>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:NikolaSmrcek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:NikolaSmrcek (stranica ne postoji)">NikolaSmrcek</a> 05:50, 23. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Analiza_stuxnet-a">Analiza stuxnet-a</span></h2>
+<p>Ovim odjeljkom ćemo pokazati na koje sve načine možemo pomoću alata Volatility zaključiti da je računalo zaraženo stuxnet malware-om.
+</p><p>Nakon što smo preuzeli s web-a sliku radne memorije računala zaraženog malwarom stuxnet, postavit ćemo se u direktorij alata Volatility (Slika 1).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika1_smrki.png" class="image"><img alt="Slika1 smrki.png" src="../images/f/f2/Slika1_smrki.png" width="722" height="462" /></a>
+</p><p>Slika 1 - smještaj u volatility direktorij
+</p><p>Potom analiziramo datoteku kako bismo odabrali željeni profil prilikom statičke analize preslike radne memorije (Slika 2).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika2_smrki.png" class="image"><img alt="Slika2 smrki.png" src="../images/1/17/Slika2_smrki.png" width="722" height="462" /></a>
+</p><p>Slika 2 - Lista profila
+</p><p>Jedan od mogućih početnih koraka prilikom analize jest pogledati pomoću naredbe "pstree" (slika 3) koji su procesi bili aktivni za vrijeme dohvata slike.
+Kraći dio ispisa svih aktivnih procesa možemo vidjeti na slici 4.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika3_smrki.png" class="image"><img alt="Slika3 smrki.png" src="../images/4/45/Slika3_smrki.png" width="722" height="462" /></a>
+</p><p>Slika 3 - Pstree naredba
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika4_smrki.png" class="image"><img alt="Slika4 smrki.png" src="../images/0/06/Slika4_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 4 - Lista aktivnih procesa
+</p><p>Ako malo pomnije proučimo listu aktivnih procesa možemo vidjeti tri puta ponavljanje procesa lsass.exe (vidljivo na slici 5)
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika5_smrki.png" class="image"><img alt="Slika5 smrki.png" src="../images/b/b5/Slika5_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 5 - Ponavljanje procesa lsass.exe
+</p><p>Kako bismo doznali više o procesima lsass.exe i eventualno koji je točno od njih malware-a moramo doznati njegove "roditelje" odnosno procese koji su ga pokrenuli.
+Malim uređenjm odnosno grepanjem dobijemo pregledniji ispis kako bismo našli potrebne roditelja procesa (grepanje i proces roditelji vidljivi na slikama 6 i 7).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika6_smrki.png" class="image"><img alt="Slika6 smrki.png" src="../images/2/23/Slika6_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 6 - Grepanje procesa lsass.exe
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika7_smrki.png" class="image"><img alt="Slika7 smrki.png" src="../images/b/ba/Slika7_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 7 - Roditelji procesa lsass.exe
+</p><p>Sa slike 7 vidljivo je da su winlogon.exe i services.exe roditelji procesa lsass.exe, ponovno zbog lakšeg pregleda grepamo sve potrebne nam procese (lsass.exe, winlogon.exe i services.exe). Gdje rezultat možemo vidjeti na slici 8, gdje možemo vidjeti nepravilnost nastanka procesa. Odnosno vidimo da se napadač odlučio na proces lsass.exe jer je on uobičajen proces u Windows sustavima, no uspoređujući vremena nastanka procesa winlogon.exe i services.exe možemo vidjeti da lsass PID-om (process idom) 1928 i 868 su nastali gotovo godinu dana nakon njih, gdje već tu možemo zaključiti kako su to u biti maliciozni procesi.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika8_smrki.png" class="image"><img alt="Slika8 smrki.png" src="../images/7/7e/Slika8_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 8 - Usporedba vremena roditelja i djeteta procesa
+</p><p>Kao forenzičari želimo skupiti što je više moguće dokaza, te pomoću sockets naredbe i filtriranjem svih lsassova (PID: 680,868,1928) gledamo dali komuniciraju preko mreže. Na slici 9 možemo vidjeti da proces ID-a 680 ima otvorene UDP sockete i jedan rezervirani dok ostala dva  (868 i 1928) nemaju. Proučavajući lsass.exe  znamo da taj proces po svojoj svrsi komunicira pomoću soketa na mreži, te na ovaj način također možemo zaključiti da su procesi ID-a 868 i 1928 maliciozni.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika9_smrki.png" class="image"><img alt="Slika9 smrki.png" src="../images/9/94/Slika9_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 9 - Soketi
+</p><p>Još jedan način kako možemo zaključiti da su procesi ID-a 1928 i 868 maliciozni vidi se na slici 10. Gdje smo pomoću naredbe "dlllist" i "word count" vidjeli da proces 680 ima približno 64 DLL-a, 868 15, dok 1928 ima 35. Ponzavajući Windows procese dozna se da većina Windows procesa ima 40+ dll-ova.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika10_smrki.png" class="image"><img alt="Slika10 smrki.png" src="../images/2/24/Slika10_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 10 - Broj dllova po lsass.exe procesima
+</p><p>Naredba malfind koju nam nudi Volatility također nam ukazuje na malicioznost procesa ID-a 868 i 1928. Na slici 11 vidimo kako Volatility uspoređujući poznate uzorke malicioznog koda nije pronašao ništa sumljivog za proces ID-a 680, dok za spomenute je pronašao prijestup prava koja omogućuju malicioznim procesima READ,WRITE,EXECUTE prava.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika11_smrki.png" class="image"><img alt="Slika11 smrki.png" src="../images/b/b0/Slika11_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 11 - Malfind 
+</p><p>Proučavajući navedeni uzorak, vidimo da se poziva maliciozni ASLR dll. Pomoću ldrmodules (naredba Volatility-a) možemo doznati memorijski mapirane datoteke. Slika 12 nam pokazuje maliciozni proces gdje vidimo da lsass.exe nema mapirani dio na memorijskoj lokaciji 0x00080000. Na toj lokaciji bi se trebao nalaziti maliciozni dio procesa. Način i ponašanje malicioznog dijela procesa rade "reverse" inžinjeri koji pokušavaju doći do izvornog programskog koda pomoću različtih alata. Mi ćemo na kraju dumpat procese 680,868 i 1928. Koje će dalje koristiti "reverse" inžinjeri, a mi možemo vidjeti pomoću naredbe strings kako maliciozni procesi imaju u sebi pozive funkcija s početkom "ZW" koje nebi trebale biti u originalnom lsass.exe
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika12_smrki.png" class="image"><img alt="Slika12 smrki.png" src="../images/0/0f/Slika12_smrki.png" width="1037" height="660" /></a>
+</p><p>Slika 12 - Ldrmodules
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:NikolaSmrcek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:NikolaSmrcek (stranica ne postoji)">NikolaSmrcek</a> 06:57, 23. siječnja 2015. (CET)
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>1. Hale Ligh M., Case A., Levy J., Walter A (2014). The Art of Memory Forensics&#160;: Detecting Malware and Threats in Windows, Linux, and Mac Memory, John Wiley &amp; Sons, Inc.
+</p><p>2. Hale Ligh M., Adair S., Hartstein B., Richard M. (2011). Malware Analyst's Cookbook and DVD, Wiley Publishing, Inc.
+</p><p>3. The Volatility Foundation, Dostupno 11.01.2015. na <a href="http://www.volatilityfoundation.org/#!24/c12wa" class="external free" rel="nofollow">http://www.volatilityfoundation.org/#!24/c12wa</a>
+</p><p>4. <a href="https://code.google.com/p/volatility/wiki/CommandReference" class="external free" rel="nofollow">https://code.google.com/p/volatility/wiki/CommandReference</a>, Dostupno 11.01.2015.
+</p><p>5. <a href="https://code.google.com/p/volatility/wiki/SampleMemoryImages" class="external free" rel="nofollow">https://code.google.com/p/volatility/wiki/SampleMemoryImages</a>, Dostupno 11.01.2015.
+</p><p>6. <a href="http://volatility-labs.blogspot.com/2012/09/howto-scan-for-internet-cachehistory.html" class="external free" rel="nofollow">http://volatility-labs.blogspot.com/2012/09/howto-scan-for-internet-cachehistory.html</a>, Dostupno 11.01.2015.
+</p><p>7.<a href="https://code.google.com/p/volatility/wiki/CommandReferenceMal22" class="external free" rel="nofollow">https://code.google.com/p/volatility/wiki/CommandReferenceMal22</a>, Dostupno 20.1.2015.
+</p><p>8.<a href="http://www.tekdefense.com/news/2013/12/23/analyzing-darkcomet-in-memory.html" class="external free" rel="nofollow">http://www.tekdefense.com/news/2013/12/23/analyzing-darkcomet-in-memory.html</a>, Dostupno 20.1.2015.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 227/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7922-0!*!0!!hr!2!edit=0 and timestamp 20190203204305 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Forenzika_radne_memorije_(Volatility).html">http://security.foi.hr/wiki/index.php/Forenzika_radne_memorije_(Volatility)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Forenzika_radne_memorije_(Volatility)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Forenzika_radne_memorije_(Volatility).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Forenzika_radne_memorije_(Volatility)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Forenzika_radne_memorije_(Volatility).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Forenzika_radne_memorije_(Volatility).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Forenzika_radne_memorije_(Volatility)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Forenzika_radne_memorije_(Volatility)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Forenzika_radne_memorije_(Volatility).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Forenzika_radne_memorije_(Volatility)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Forenzika_radne_memorije_(Volatility)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Forenzika_radne_memorije_(Volatility)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Forenzika_radne_memorije_(Volatility)&amp;oldid=33690" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 06:02, 23. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.480 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Forenzika_radne_memorije_(Volatility)", "wgTitle": "Forenzika radne memorije (Volatility)", "wgAction": "view", "wgArticleId": 7922, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33690, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.686 secs. -->			</body>
+</html>

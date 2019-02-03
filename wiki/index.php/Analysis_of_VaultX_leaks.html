@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Analysis of VaultX leaks - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Analysis_of_VaultX_leaks&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Analysis_of_VaultX_leaks skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Analysis of VaultX leaks</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Analysis_of_VaultX_leaks.html#mw-head">orijentacija</a>,
+					<a href="Analysis_of_VaultX_leaks.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Vedran Gložinić
+<br />
+Temu obrađuju:<br />
+Vedran Gložinić (vedglozin)<br />
+Gabriel Ilić (gabilic)<br />
+Zlatko Mehanović (zlamehano)
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:CIA_CCI.png" class="image"><img alt="CIA CCI.png" src="../images/thumb/b/ba/CIA_CCI.png/256px-CIA_CCI.png" width="256" height="256" /></a>
+</p><p><a href="https://wikileaks.org/ciav7p1/" class="external text" rel="nofollow">Vault 7: CIA Hacking Tools - WikiLeaks</a>
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Analysis_of_VaultX_leaks.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Analysis_of_VaultX_leaks.html#Kratka_analiza"><span class="tocnumber">2</span> <span class="toctext">Kratka analiza</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Analysis_of_VaultX_leaks.html#Prikupljanje_ranjivosti"><span class="tocnumber">3</span> <span class="toctext">Prikupljanje ranjivosti</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Analysis_of_VaultX_leaks.html#Baza_u_Frankfurtu_i_fizi.C4.8Dki_zadaci"><span class="tocnumber">4</span> <span class="toctext">Baza u Frankfurtu i fizički zadaci</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Analysis_of_VaultX_leaks.html#Organizacija_CCI-a"><span class="tocnumber">5</span> <span class="toctext">Organizacija CCI-a</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Analysis_of_VaultX_leaks.html#Pregled_dokumenata"><span class="tocnumber">6</span> <span class="toctext">Pregled dokumenata</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Analysis_of_VaultX_leaks.html#Baza_znanja"><span class="tocnumber">7</span> <span class="toctext">Baza znanja</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Analysis_of_VaultX_leaks.html#Pregled_projekata"><span class="tocnumber">8</span> <span class="toctext">Pregled projekata</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Analysis_of_VaultX_leaks.html#Zaklju.C4.8Dak"><span class="tocnumber">9</span> <span class="toctext">Zaključak</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Takozvani „Trezor 7“ je skup dokumenata koji su iscurili iz zatvorene mreže američke Centralne Obavještajne Agencije i objavljeni su na stranici za objavljivanje osjetljivih i tajnih dokumenata Wikileaks. Dokumenti koji su procurili dio su serije „Year Zero“ te su izvađeni iz visoko sigurne zatvorene mreže unutar CIA-inog Centra za Cyber Intelligence. Ti dokumenti daju uvid u hakerske mogućnosti CIA-e te otkrivaju kako je agencija izgubila skup virusa i ranjivosti namijenjenih špijuniranju i nadziranju mnogih vrsta uređaja i sustava. Trenutno nije poznato tko je zaslužan za curenje ovih dokumenata no, budući da je Snowden već ranije otkrio značajan dio informacija, nije teško pretpostaviti da za Trezor 7 zaslužan netko tko je bio ili je trenutno uključen u hakerski odjel CIA-e.
+</p><p>U ovom tisućljeću CIA je povećala operacije diljem svijeta te su u te operacije sa napretkom tehnologije stigle i hakerske operacije kojima bi CIA pokušala ostvariti prednost i moć nad drugim zemljama. Tajni hakerski program pokrenut od CIA-e zove se  „Godina Nula“ (eng. Year Zero) i sadrži malware te ranjivosti koje je CIA pokušala iskoristiti protiv poduzeća u SAD-u i Europi. Ta poduzeća uključuju Apple, Google, Microsoft, Samsung i mnoga druga koja će biti spomenuta u ovom seminaru. Hakerski odjel CIA-e spada pod Centar za Cyber Intelligence, skraćeno CCI, a početkom 2017. imao je više od tisuću proizvedenih virusa i malwarea koji su bili izrađeni s ciljem špijunaže i protušpijunaže na komercijalnom tržištu.
+</p><p>Problem kod „cyber oružja“, tj. oružja poput malwarea, virusa, ranjivosti, trojanaca i slično je da kad se jednom stavi na vidjelo mogu ga svi koristiti. Tako jedan program CIA-e ili ranjivost koju je otkrio CCI može svatko koristiti ili iskoristiti, od drugih država do hakera tinejdžera u svojim podrumima. Malware i hakerske alate izradio je odjel EDG (skr. Engineering Development Group) koji se bavi razvojem softwarea unutar CCI-a. Odjel je također zaslužan za testiranje i podršku ranjivosti, malwarea, virusa i ostalih alata koje CIA koristi za svoje operacije po cijelom svijetu.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Vedglozin&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Vedglozin (stranica ne postoji)">Vedglozin</a> 23:26, 6. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Kratka_analiza"> Kratka analiza </span></h2>
+<p>Jedan od zanimljivijih projekata zvan je „Weeping Angel“. Dobio je naziv po kipu koji se pojavio u televizijskoj seriji Doctor Who i označava kipa koji se ne miče samo dok ga netko gleda. Tako se ovaj projekt može smatrati sličnim kipovima iz serije zbog toga što je u mogućnosti zaraziti pametne TV-e i pretvoriti ih u mikrofone. Nakon napada, software televizor stavlja u lažni „Off“ način u kojem se čini kao da je ugašen, no u pozadini je televizor zapravo upaljen i snima razgovore koje preko Interneta šalje na tajni CIA poslužitelj.
+</p><p>Druga zabrinjavajuća stvar na kojoj CIA radi od kraja 2014. godine je zaraza računalnih sustava u modernim automobilima i kamionima. Takva kontrola bi omogućila CIA-i da vrši ubojstva bez da vozač može išta napraviti oko toga. Teoretski, virus koji zarazi sustav bi mogao namjerno ugasiti ABS ili Traction Control kako kočnice ne bi dobro radile, što bi rezultiralo prometnom nesrećom i potencijalnom smrću vozača ili putnika. Ne treba spomenuti da su takva ubojstva gotovo nemoguća za otkriti, što stvar čini još gorom.
+</p><p>CIA-in odjel za mobilne uređaje (Mobile Devices Branch) bavi se otkrivanjem načina kako udaljeno (preko Wi-Fi-ja ili mobilne mreže) preuzeti kontrolu i hakirati pametne telefone. Zaraženi telefoni mogu CIA-i slati geografsku lokaciju, snimati zvuk i razgovore, preuzimati tekstualne poruke te potajno aktivirati mikrofon i kameru. Sve se te informacije, kao i u slučaju pametnih TV-a, šalju na tajni poslužitelj kojim upravlja CIA. Napadi i alati korišteni za napade uglavnom su korišteni za proizvode tvrtke Apple, poput iPhonea, iPadova i ostalih uređaja koji koriste iOS sustav. Razlog zbog kojeg je CIA usredotočena na proizvode Applea može biti taj što poznati i utjecajni ljudi iz politike i društva uglavnom koriste Appleove proizvode. Druga jedinica u odjelu bavi se Googleovim Android sustavom, budući da većina pametnih telefona danas koristi Android OS. „Godina nula“ otkriva kako je CIA iskoristila ranjivosti Androida kako bi izradila alate koji mogu zaraziti uređaj i zaobići enkripciju na poznatim aplikacijama poput WhatsAppa, Signala ili Telegrama. To se događa tako da alat prikupi i pošalje informacije u aplikaciji prije nego što su enkriptirani i poslani, te ih šalje CIA-inom poslužitelju.
+</p><p>CIA se također bavi zarazom uređaja koji koriste Microsoft Windows operativni sustav te nakon zaraze kontroliranjem i prikupljanjem informacija s uređaja pomoću malwarea. U tu svrhu malware je rađen tako da se može sakriti u CD-ima ili DVD-ima, USB uređajima (pogotovo memorijskim USB stickovima), sustavima za sakrivanje podataka u slikama i sakrivenim dijelovima diska (koji su kriptirani ili nisu prikazani u exploreru te možda sadrže osjetljive informacije). Izrada ovog malwarea događa se u odjelu Automated Implant Branch, a napadi protiv infrastrukture Interneta rađeni su od strane odjela Network Devices Branch.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:CIA_is_watching_you.png" class="image"><img alt="CIA is watching you.png" src="../images/7/70/CIA_is_watching_you.png" width="399" height="282" /></a>
+</p><p>Karikatura WikiLeaksa prikazuje CIA nadzor nad cijelim svijetom
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Vedglozin&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Vedglozin (stranica ne postoji)">Vedglozin</a> 23:26, 6. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prikupljanje_ranjivosti"> Prikupljanje ranjivosti </span></h2>
+<p>Nakon što je Snowden objavio dokumente o NSA-i, software i hardware industrija u SAD-u je napravila dogovor s tadašnjom administracijom da će se sve ranjivosti (nazvane „zero days“) javno otkriti i prikazati javnosti. Sve ranjivosti i bugovi proizvođača u SAD-u (npr. Apple, Google, Microsoft) bit će otkrivene kako bi se mogle popraviti tj. zakrpati te kako ih nitko ne bi mogao iskoristiti bez znanja javnosti i američke vlade. To smanjuje rizik da se ranjivosti uređaja i softwarea mogu iskoristiti te naškoditi korisnicima u SAD-u, ili još gore, u američkoj komunikacijskoj infrastrukturi. Vlade drugih zemalja u tim slučajevima mogu iskoristiti nepoznate ranjivosti da sruše ili ometu ključni dio mreže, a pojedinci teoretski mogu ucjenjivati proizvođače. Čak i ranjivosti koje ne spadaju pod ranjivosti koje se mogu iskoristiti, nego samo pod glasine, mogu biti loše za udio dionica i poslovanje američkih proizvođača, pa je zbog toga američka vlada objavila da će od 2010. godine javno objavljivati sve ranjivosti.
+</p><p>CIA-i se nije sviđao ovaj dogovor. Dokumenti „Godine nula“ otkrivaju kako CIA nije poštivala pravilo koje nalaže da se sve ranjivosti otkrivene od 2010. godine moraju javno objaviti, nego ih je koristila za izradu svojih alata. Stav CIA-e bio je da su ranjivosti mogle otkriti druge obavještajne agencije ili pojedinci te da ih je bolje pretvoriti u oružja nego ignorirati ili pokušati popraviti. Pametni telefoni sa Android i iOS operacijskim sustavima bili su i bit će ranjivi za napad sve dok CIA proizvođačima softwarea ne obznani da u njihovim sustavima postoje ranjivosti. CIA-i to nije pogodno zbog toga što su ranjivosti dostupne na svim uređajima, bilo da su to uređaji prosječnog stanovnika SAD-a, neke druge zemlje ili potpredsjednika vlade koji se služi iPhoneom ili drugim pametnim telefonom sa Android sustavom.
+</p><p>Dok god postoje takve ranjivosti i alati kojima se ranjivosti mogu iskoristiti, rizik za cyber proliferaciju je velik. Do nuklearnog materijala potrebnog za izradu nuklearne glave u hladnom ratu nije mogao doći bilo tko, no do cyber oružja se može doći vrlo lako. Pojedinac sa malo boljim znanjem u informatičkoj tehnologiji ova cyber oružja može nabaviti na crnom tržištu te, ovisno o namjeri, napraviti štetu drugim pojedincima ili informacijskim sustavima. Problem nastaje u činjenici da ljudi koji izrađuju i koriste ove cyber alate imaju dovoljno znanja da ih preuzmu i iznesu iz sigurne mreže bez ostavljanja tragova. Takvi pojedinci nakon iznošenja alate mogu objaviti, iskoristiti protiv organizacije u kojoj rade ili ih mogu prodati na crnom tržištu i zaraditi koji dolar više. Tako se ova cyber oružja mogu brzo proširiti i biti korištena od strane bilo koga tko zna malo više o informacijskim sustavima. U jednom scenariju vladin operativac CIA-e može alat za iskorištavanje ranjivosti prodati operativcu druge zemlje koji se predstavlja kao tinejdžer, pa tako druga zemlja može dobiti uvid u sigurnosne propuste uređaja kojima se služe ljudi iz obje zemlje. Zadnjih nekoliko godina događa se sve više i više iznošenja alata i informacija od strane zaposlenika u sektoru prikupljanja informacija u SAD-u. CIA-ini i NSA-ini zaposlenici i ljudi koje unajmljuju za pojedine poslove u povjerljivom okruženju bili su optuženi, pod istragom ili osuđeni za incidente koje su napravili slučajno ili s namjerom da cyber vlasništvo organizacija u kojima rade iskoriste za svoje svrhe.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Vedglozin&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Vedglozin (stranica ne postoji)">Vedglozin</a> 23:29, 6. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Baza_u_Frankfurtu_i_fizi.C4.8Dki_zadaci"> Baza u Frankfurtu i fizički zadaci </span></h2>
+<p>U dokumentima koji su iscurili objavljeno je da CIA uz svoju glavnu bazu u Langleyu koristi američko veleposlanstvo u Frankfurtu kao tajnu bazu za hakerske operacije u Europi, Bliskom Istoku i Africi. Dokument „CCI Europe Engineering“ opisuje kako pristupiti tajnoj bazi. U dokumentu se spominje pisanje lažnog razloga za posjetu prije nego što operativac krene u Njemačku, spavanje na avionu, uzimanje novaca i prijava u hotel (spominje se obavezno micanje svih elektroničkih uređaja iz hotelske sobe), pojašnjavanje puta od hotela do veleposlanstva, razgovor na ulazu u veleposlanstvo i dužnosti u tajnom odjelu veleposlanstva. Neki alati koje je proizvela CIA namijenjeni su za zatvorene mreže kojima je teško pristupiti. U takvim okolnostima agenti moraju fizički pristupiti računalu ili mreži kako bi izvukli informacije. Kako bi sakrili izvlačenje informacija, agentima na zadatku daju se posebne aplikacije koje zavaravaju korisnika koji trenutno promatra agentov ekran. Na agentovom računalu izvodi se sustav „Fine Dining“ koji agenta opskrbljuje sa 24 lažne aplikacije koje u pozadini postavljaju malware, izvlače informacije i onesposobljavaju sustav, dok se na ekranu agentovog računala izvode poznate aplikacije poput VLC-a, Prezija, računalnih igara ili lažnih antivirusnih programa.
+</p><p>Kako bi napala svoje mete, CIA zahtijeva da ubačeni programi komuniciraju s kontrolnim programima preko interneta. Kada bi ubačeni programi i software bili označen znakom „povjerljivo“, CIA bi mogla biti optužena za dijeljenje osjetljivih i tajnih informacija preko interneta, što bi značilo da CIA krši američki zakon koji ne dopušta otkrivanje tajnih informacija i softwarea preko interneta. Kako bi izbjegla kršenje zakona, CIA je svoju strukturu operacija maknula iz statusa „povjerljivo“ i sve svoje alate označila nepovjerljivim softwareom. Na taj su način izbjegli pravne nevolje koje bi ih mogle snaći ukoliko vlada SAD-a sazna za operacije koje CIA provodi koristeći prijenos informacija preko interneta. Struktura koja je postala nepovjerljiva je malware (zajedno s ranjivostima), slušne stanice (eng. Listening Posts), i sustavi za upravljanje (eng. Command and Control Systems). Zbog ove zakonske rupe CIA nije mogla tužiti hakere i druga poduzeća koji su uzeli njezine alate, a zbog ustava SAD-a nije ih mogla niti staviti pod copyright. 
+</p><p>Budući da tužbe protiv ljudi i poduzeća ne pomažu u slučaju širenja ovih alata, CIA je morala svoj arsenal cyber oružja držati pod kontrolom pomoću skrivanja, što je uglavnom uključivalo sigurne zatvorene mreže sa vrlo ograničenim pristupom na kojima su bili spomenuti alati i malware. CIA-in malware je, za razliku od ostalih oružja koja uključuju eksploziv, dizajniran da zarazi metu i ostane na uređaju. Na taj način malware može komunicirati sa CIA-inim poslužiteljima i slati podatke natrag prema Command and Control strukturi. Malware i virusi CIA-e su posebno dizajnirani tako da promaknu kriminalnim forenzičarima i antivirusnim sustavima kako bi smanjili otkrivanje i povećali učinkovitost napada. Za te svrhe CIA je za svoje tehničare napisala posebna pravila kojih bi se trebali pridržavati, tzv. DOs and DON'Ts koji uključuju opće operacije, mrežne operacije, pisanje i čitanje s diska, upravljanje datumima i vremenom (primjer je korištenje druge vremenske zone koja nije u SAD-u) i enkripciju. Pravila su pisana kako bi se izbjegli tragovi CIA-e i vlade SAD-a u forenzičkim istragama, a tajni standardi uključuju:
+</p>
+<ul><li>Enkripciju kako bi se sakrila komunikacija između hakera i malwarea (dopis što se mora raditi, što se ne mora raditi, što bi se trebalo ili ne bi trebalo raditi, što se može raditi, opis mete, poslužitelja, prijenosa i njegove enkripcije, uklapanja u normalnu sliku rada sustava i podatke koji su preuzeti s mete)
+</li><li>Opis meta i izvučenih podataka (kako spremati izvučene podatke, opis putanje i strukture direktorija, podaci koji moraju biti prisutni kod izvučenih informacija za datotečne i mrežne sustave)
+</li><li>Izvršavanje payloada (kako pokrenuti payload pomoću modula, pokretanje payloada direktno u radnoj memoriji računala mete, vrste napada u kojima se payload i komunikacija natrag mora i ne mora nadgledati i sl.)
+</li><li>Dugotrajnost (DLL moduli za Windows OS koji se moraju pokretati na početku u radnoj memoriji kako bi bili dugotrajni, operacije i upute kako treba implementirati payload da se ovo ostvari)
+</li></ul>
+<p>CIA-ini hakeri do sad su bili najuspješniji u napadima na antivirusne programe. Jedan takav primjer je Comodo, koji je zaobiđen tako da se malware postavi u Recycle Bin Microsoft OS-a. Operacije koje se moraju izvesti kako bi se zaobišao svaki poznatiji antivirusni program također su otkrivene u Trezoru 7, a otkrivaju kako je CIA uspjela zaobići otkrivanje svojih malwarea na poznatim antivirusima poput Avasta, Symantica, Nortona, Malwarebytes Anti-Malwarea, MS Security Essentialsa, McAfeea, Kasperskya, ESET-a, AVG-a te Bitdefendera. Na primjer, u jednom tajnom dokumentu (PSPs vs. DLL Injection) se spominje kako se malware može aktivirati pomoću dodavanja novog procesa, što za Windows OS radi odlično protiv Kasperskya, AVG-a i Bitdefendera koji ne nadziru korisničke procese.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Vedglozin&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Vedglozin (stranica ne postoji)">Vedglozin</a> 23:29, 6. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Organizacija_CCI-a"> Organizacija CCI-a </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Org-chart.png" class="image"><img alt="Org-chart.png" src="../images/thumb/a/a9/Org-chart.png/512px-Org-chart.png" width="512" height="783" /></a>
+</p><p>Organizacijska struktura Centra za Cyber Intelligence (<a href="https://wikileaks.org/ciav7p1/files/org-chart.png" class="external text" rel="nofollow">Link na originalnu sliku</a>)
+</p>
+<h2> <span class="mw-headline" id="Pregled_dokumenata"> Pregled dokumenata </span></h2>
+<p>Ovaj <a href="https://wikileaks.org/ciav7p1/cms/index.html" class="external text" rel="nofollow">link</a> vodi na skup iscurenih dokumenata.
+</p><p><b>ODJELI I GRANE ORGANIZACIJE</b>
+</p><p><b>Embedded Development Branch (EDB)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_753667.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Odjel koji se bavi izradom i distribucijom zlonamjernog koda (engl. <i>malware</i>) za upravljanje programima na raznim platformama i uređajima. U dokumentima se nalazi sljedeće:
+</p>
+<ul><li>	kako pokrenuti virtualno i testno razvojno okruženje za izradu novog zlonamjernog programa (<a href="https://wikileaks.org/ciav7p1/cms/page_3375474.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	razni članci na temu „Kako uraditi nešto“ u kojima se dotiču područja <i>UEFI</i>, <i>EFI</i>, programskog prevođenja (engl. <i>compiling</i>) za Linux, stvaranje <i>Polaris Boot poslužitelja</i>, <i>Solaris automatizirani poslužitelj</i>, praćenje mreže putem alata <i>Wireshark</i> i <i>Nmap</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_9535828.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	popis uređaja i poslužitelja (DNS poslužitelji, obični poslužitelji, usmjernici (engl. <i>router</i>) i točke pristupa, virtualni uređaji, <i>Solaris</i> uređaji, <i>Solaris</i> infrastruktura, upute za spajanje) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375401.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	misija i vizija odjela (<a href="https://wikileaks.org/ciav7p1/cms/page_524308.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	daljnji projekti (uglavnom vezani uz udaljeni pristup i bežični (engl. <i>wireless</i>) pristup <i>Linux</i> i <i>Unix</i> sustavima) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375431.html" class="external text" rel="nofollow">Link</a>) 
+</li></ul>
+<ul><li>	naručeni uređaji i njihovo stanje (pospremljeni ili trenutno online) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375248.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	mali usmjernici (istraživanje malih usmjernika i njihovih tipova u Pakistanu i Kini, najpopularniji usmjernici na stranici <i>Amazon</i> kanadske domene – <i>amazon.cn</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_11628738.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	osoblje (<a href="https://wikileaks.org/ciav7p1/cms/page_524306.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Remote Development Branch (RDB)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_753668.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Nije posebno navedeno čime se bavi, ali se može zaključiti da se radi o izradi zlonamjernih programa kojima se može preuzeti kontrola ili podaci sa udaljenih uređaja. Dokumenti za ovaj odjel su sljedeći:
+</p>
+<ul><li>	osoblje (<a href="https://wikileaks.org/ciav7p1/cms/page_524361.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	biblioteke za programski jezik <i>Python</i> korištene u <i>DART</i> udaljenom testiranju (<a href="https://wikileaks.org/ciav7p1/cms/page_15728808.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	misija i vizija odjela (<a href="https://wikileaks.org/ciav7p1/cms/page_524357.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	biblioteka komponenata (krađa snimke web kamere, alati za zapisivanje unesenih znakova s tipkovnice (engl. <i>keylogger</i>), prikupljanje lozinki u pregledniku <i>Internet Explorer</i>, Windows 7 administratorske ovlasti, uništavanje podataka, <i>DLL injection</i> napad, čuvanje zlonamjernih programa u listi particija prilikom pokretanja računala (engl. <i>boot</i>), <i>APC injection</i>, izbjegavanje antivirusa pomoću smanjenja vremena analiziranja, neovlašteno čitanje i pisanje u <i>Master Boot Record</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_2621753.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	alat <i>Reforge</i> (tipovi varijabli, funkcije, moduli, operatori, programsko prevođenje). (<a href="https://wikileaks.org/ciav7p1/cms/page_9535630.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Operational Support Branch (OSB)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_1736706.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Odjel koji se bavi izvlačenjem informacija i prikupljanjem podataka pomoću pozadinskih procesa korištenjem programa namijenjenih za agente na terenu. Dokumenti u odjelu su sljedeći:
+</p>
+<ul><li>	osoblje (sa popisom ureda) (<a href="https://wikileaks.org/ciav7p1/cms/page_2621660.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	vježbe za nove razvojne programere (alat <i>Visual Studio</i>, kratice, pisanje dokumentacije, verzioniranje koda, popis pravila „<i>DO's and DON'Ts</i>“, <i>DART</i>, programiranje za Windows, osnove računalne forenzike, jedinični testovi, postavljanje razvojnog okruženja) (<a href="https://wikileaks.org/ciav7p1/cms/page_11629033.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	infrastruktura virtualnih strojeva (engl. <i>virtual machine</i>) (<i>Infrastructure</i>, <i>Utility</i>, <i>Listening Posts</i>, <i>Bamboo</i>, <i>Test</i>)
+</li></ul>
+<ul><li>	najbolji citati iz 2015. godine (<a href="https://wikileaks.org/ciav7p1/cms/page_23134361.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	alat <i>Payload Tracker</i> (većinom za Windows sustave, autor se čini entuzijastičan) (<a href="https://wikileaks.org/ciav7p1/cms/page_14588332.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	članci s uputama (engl. <i>how-to</i>) (razmjena korisnih članaka unutar odjela) (<a href="https://wikileaks.org/ciav7p1/cms/page_17072139.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>OSB</i> lozinke (popis za svaki pojedini uređaj) (<a href="https://wikileaks.org/ciav7p1/cms/page_14587529.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	korisni alati (<i>Time Stomper</i>, <i>Munge Payload</i>, <i>Error Munger</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_15729436.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CIA_password_meme.jpg" class="image"><img alt="CIA password meme.jpg" src="../images/b/bb/CIA_password_meme.jpg" width="400" height="300" /></a><br />
+
+Meme vezan uz lozinke pronađen u dokumentima Vault 7</p>
+<p><b>Mobile Development Branch (MDB)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_3276804.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Odjel koji se bavi pisanjem zlonamjernih programa za pametne uređaje s naglaskom na Apple-ov iOS i Google-ov Android s kojih se nakon infekcije mogu izvlačiti podaci i upravljati dijelovima uređaja na kojima je prisutan zlonamjerni program. Nema dokumenata za ovaj odjel.
+</p><p><b>Automated Implant Branch (AIB)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_3276805.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Odjel koji je zadužen za inficiranje operacijskih sustava (većinom Windows OS koristeći ranjivosti već postojane u sustavu) zlonamjernim programima koji se mogu proširiti preko CD-a, DVD-a, USB memorija i skrivenih particija kako bi opstali u okruženju računala koje je zaraženo. Dokumenti koji su prikazani za ovaj odjel su sljedeći:
+</p>
+<ul><li>	zahtjevi alata <i>Grasshopper</i> (sustav za iskorištavanje ranjivosti Windows i Windows Server operacijskih sustava) (<a href="https://wikileaks.org/ciav7p1/cms/page_12353654.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	osoblje (<a href="https://wikileaks.org/ciav7p1/cms/page_2621636.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	misija i vizija (tvrdi se da je vizija izraditi i održavati programe umetanja (engl. <i>injection</i>)) (<a href="https://wikileaks.org/ciav7p1/cms/page_2621639.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Network Devices Branch (NDB)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_15204355.html" class="external text" rel="nofollow">Link</a>)
+</p><p>U ovom odjelu se razvijaju alati i programi koji se mogu iskoristiti protiv internetske infrastrukture i web poslužitelja. Dokumenti su sljedeći:
+</p>
+<ul><li>	alat <i>vSphere Web Client</i> (koraci kako ubrzati <i>vSphere Web Client</i> u virtualnim strojevima) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384391.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>VMware Workaround</i> (uputa kako popraviti grešku <i>OVF Deployment Failed</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384261.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	konfiguracija alata <i>Wireshark</i> na <i>Linux Ubuntu</i> sustavu (<a href="https://wikileaks.org/ciav7p1/cms/page_15728950.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	opseg testova (bilješke) (<a href="https://wikileaks.org/ciav7p1/cms/page_15729041.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za <i>backdoor</i> alate (<i>Windex</i>, <i>Chimay Red</i>, <i>TinyShell</i>, <i>BusyBox</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384604.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	infrastruktura laboratorija (poslužitelji sa konzolama, <i>VMware</i> poslužitelji, zastarjeli <i>VMware</i> poslužitelji, <i>Switchport</i> veze i <i>Secure Area Network</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_14587810.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       natjecanje u sklekovima (<a href="https://wikileaks.org/ciav7p1/cms/page_16385149.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	laboratorijske demonstrature (<a href="https://wikileaks.org/ciav7p1/cms/page_14587860.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	laboratorijske zabilješke (<a href="https://wikileaks.org/ciav7p1/cms/page_14588014.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	članci s uputama (engl. <i>how-to</i>) (dotiču se <i>Fluxwire</i>-a i <i>SOHO trijaže</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384603.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Technical Advisory Council (TAC)</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_15204361.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Bavi se pregledom i promatranjem postupaka u drugim odjelima. Zadužen je za postavljanje pitanja koja se tiču drugih obavještajnih grupa te kako izbjeći pogreške koje su one napravile. U odjelu se raspravlja o pisanju koda, praksi spremanja podataka, izvođenju testova, pisanju dokumentacije i svemu što se tiče najboljih praksi u industriji. Postoje dva dokumenta:
+</p>
+<ul><li>	što je <i>Equation</i> učinio krivo i kako mi možemo izbjeći isto (što je bilo pogrešno u pristupu i implementaciji <i>Equation grupe</i> iz NSA) (<a href="https://wikileaks.org/ciav7p1/cms/page_14588809.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Maslow's Hierarchy of Code Review</i> (najbolje prakse u programiranju) (<a href="https://wikileaks.org/ciav7p1/cms/page_15368262.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>CCI Europe Engineering</b> (<a href="https://wikileaks.org/ciav7p1/cms/page_20251151.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Odjel u Frankfurtu koji u veleposlanstvu SAD-a služi kao tajna baza CIA-e iz koje se vrše operacije u Europi, Bliskom Istoku i Africi. Jedini dokument je <i>EDG Familiarization TDY</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_26607630.html" class="external text" rel="nofollow">Link</a>) koji je objašnjen u poglavlju „Baza u Frankfurtu i fizički zadaci“.
+</p><p><b>OPERACIJSKI SUSTAVI I PLATFORME</b>
+</p><p>U ovom poglavlju nalazi se popis operacijskih sustava i platformi koje mogu biti zaražene zlonamjernim programima izrađenim od strane CIA-e. U poglavlju ću ukratko proći kroz sadržaj dokumenata koji su objavljeni u sklopu Trezora 7.
+</p><p><b>iOS</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_2359301.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	mogućnosti analiziranja dijeljene priručne memorije (engl. <i>cache</i>) alatom <i>PensiveTrace</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_23134293.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za testiranje udaljenog upravljanja sa <i>NGINX</i> alatom i <i>Apache</i> poslužiteljem (<a href="https://wikileaks.org/ciav7p1/cms/page_14587296.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	brisanje zabilježaka iz pada sustava kako bi se oslobodio prostor (<a href="https://wikileaks.org/ciav7p1/cms/page_34832403.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	prefiksi verzija iOS-a (<a href="https://wikileaks.org/ciav7p1/cms/page_16384313.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	procedure i pravila za postavljanje, nadogradnju (engl. <i>update</i>), aktivaciju i <i>jailbreak</i> pametnih telefona prije postavljanja na <i>DEVLAN</i> (zatvorenu mrežu za razvojne programere unutar odjela, sadrži upute za aktivan i neaktivan uređaj koji je najvjerojatnije iPhone) (<a href="https://wikileaks.org/ciav7p1/cms/page_7995682.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>iOS exploit</i>-i (14 navedenih exploit-a s dodatnom tablicom alata koji se mogu iskoristiti kod različitih ranjivosti) (<a href="https://wikileaks.org/ciav7p1/cms/page_13205587.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Data Transfer Object Logging</i> korišten u MDB odjelu (<a href="https://wikileaks.org/ciav7p1/cms/page_7995708.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	postavljanje <i>DNS</i> poslužitelja koji je namijenjen kako bi prevario uređaj i preusmjerio njegove <i>DNS</i> zahtjeve prema poslužitelju u odjelu (<a href="https://wikileaks.org/ciav7p1/cms/page_22052981.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	količina RAM-a prema modelu i atributi vezani uz RAM (<a href="https://wikileaks.org/ciav7p1/cms/page_39550984.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	popis uređaja za testiranje (uglavnom iPhone-i i iPad-i) (<a href="https://wikileaks.org/ciav7p1/cms/page_44269605.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	članci s uputama (debugiranje iOS sustava i stvaranje novog repozitorija/projekta) (<a href="https://wikileaks.org/ciav7p1/cms/page_17760517.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	radionice (<i>TRICLOPS</i> 2014. i 2015. u Ottawi) (<a href="https://wikileaks.org/ciav7p1/cms/page_14588064.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Bootstrapper design</i> (flowchart-ovi) (<a href="https://wikileaks.org/ciav7p1/cms/page_49119259.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	posuđeni uređaji (lista uređaja i zaposlenika koji su ih zadužili) (<a href="https://wikileaks.org/ciav7p1/cms/page_13763863.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       popis iPad Air 2 i iPhone 4 uređaja (<a href="https://wikileaks.org/ciav7p1/cms/page_33685523.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Binary Verifier</i> (program koji provjerava jesu li povjerljivi znakovni nizovi unutar binarne datoteke i generira popis znakovnih nizova koji moraju pogledati zaposlenici) (<a href="https://wikileaks.org/ciav7p1/cms/page_9536072.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>iOS Developer Setup Guide</i> (vodič za razvoj iOS-a sa savjetima, kraticama i uputama kako postaviti razvojno okruženje ili povezati iOS s drugim alatima CIA-e) (<a href="https://wikileaks.org/ciav7p1/cms/page_7995412.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	iOS poslužitelji (kratak opis poslužitelja korištenih u razvoju i testiranju programa) (<a href="https://wikileaks.org/ciav7p1/cms/page_15368230.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za prijenos podataka ili alata s jedne lokacije na drugu (korišteno za razvoj) (<a href="https://wikileaks.org/ciav7p1/cms/page_22642759.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	iOS trijaža (popis postupaka i alata koji trebaju biti instalirani kada se pojavi nova verzija iOS-a) (<a href="https://wikileaks.org/ciav7p1/cms/page_17760518.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	licence software-a (ključevi u <i>hex zapisu</i> za <i>Sublime</i> i <i>Omnigraffle</i> vezani uz pojedinog korisnika) (<a href="https://wikileaks.org/ciav7p1/cms/page_25264134.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       SoT testovi (lista testova i njihov uspjeh / neuspjeh) (<a href="https://wikileaks.org/ciav7p1/cms/page_44269576.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	alat <i>MCNUGGET</i> (lista testova, upute za korištenje itd.) (<a href="https://wikileaks.org/ciav7p1/cms/page_12353696.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	istraživanje (iOS 9, iOS 8, reverzni inženjering <i>Lockdown</i>-a, iskorištavanje neaktivnog uređaja koristeći i ne koristeći Wi-Fi) (<a href="https://wikileaks.org/ciav7p1/cms/page_25264138.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	zanimljive datoteke na uređajima (enkriptirane cache datoteke i njihove putanje) (<a href="https://wikileaks.org/ciav7p1/cms/page_22052966.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Mac</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_3506183.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	instalacija <i>Ghidra</i> alata (upute i moguće poteškoće) (<a href="https://wikileaks.org/ciav7p1/cms/page_23593064.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	alat <i>Nope</i> (često postavljena pitanja za <i>C++</i>, putanje sigurnosnih direktorija za OS X, upute za omogućavanje OS X nadogradnji na <i>DEVLAN</i>-u, upute za <i>Mac OS Kernel</i> debugiranje, upute kako napraviti zombi proces) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375387.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	development (članci s uputama, <i>SDK development</i>, <i>VMWare Fusion</i> ključevi i korisnici s ključevima na <i>DEVLAN</i>-u) (<a href="https://wikileaks.org/ciav7p1/cms/page_9535748.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Android</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_11763721.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	exploit-i i tehnike Android-a (tablica imena, opisa, uređaja koji su pogođeni i tip ranjivosti sa kratkim uputama kako iskoristiti ranjivost) (<a href="https://wikileaks.org/ciav7p1/cms/page_11629096.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Android Developer</i> instalacija (postavljanje <i>SSH</i> para, instaliranje <i>Git</i>-a, postavljanje lozinki, postavljanje Android okruženja na OS X-u, instaliranje Android okruženja za <i>Ubuntu</i>, postavljanje varijabli okruženja (engl. <i>environment variable</i>), česte greške <i>Android Studija</i> na OS X-u) (<a href="https://wikileaks.org/ciav7p1/cms/page_13762898.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>USB Reverse Tethering</i> (korisnički priručnik o tome kako dijeliti Internet vezu od stolnog računala ili laptopa do Android uređaja preko USB kabla, a da se uređaj ujedno i puni) (<a href="https://wikileaks.org/ciav7p1/cms/page_13762950.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	pravila i konvencije za programske jezike <i>Python</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_26345508.html" class="external text" rel="nofollow">Link</a>) i <i>C</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_26607644.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	postavke laboratorija (postoje dvije bežične pristupne točke za razvijanje) (<a href="https://wikileaks.org/ciav7p1/cms/page_20251175.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako simulirati kašnjenje paketa ili odbacivanje paketa (<i>firewall</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_22052974.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	korisnički priručnik za <i>RoidRage</i> (implantat za Android) (<a href="https://wikileaks.org/ciav7p1/cms/page_28049453.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	udaljeno debugiranje preglednika <i>Chrome</i> na Android-u (bez interneta na Android uređaju, priručnik pisan za sustav OS X) (<a href="https://wikileaks.org/ciav7p1/cms/page_30900234.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>AngerManagement</i> (skup <i>Hamr</i> dodataka (engl. <i>plugin</i>) za Android okruženje koje može udaljeno iskorištavati funkcije i mogućnosti Android uređaja) (<a href="https://wikileaks.org/ciav7p1/cms/page_18382897.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	Programsko prevođenje (engl. <i>compiling</i>) <i>BusyBox</i>-a za Android (<a href="https://wikileaks.org/ciav7p1/cms/page_50036745.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>JQJGUNSHY</i> (korištenje exploit-a, podizanja privilegija i implantata u uređaju <i>Samsung Galaxy Tab 2</i>, upute i mogućnosti) (<a href="https://wikileaks.org/ciav7p1/cms/page_15729036.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	instalacija <i>Spottsroide Development Kit</i>-a na <i>Ubuntu</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_30474252.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	vodič za nove razvojne programere (poveznice na Android i iOS vodiče, plan učenja za osam dana unutar MDB-a) (<a href="https://wikileaks.org/ciav7p1/cms/page_20873357.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Linux</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_16941058.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	<i>SSH forwarding</i> portova (<a href="https://wikileaks.org/ciav7p1/cms/page_16384684.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	prijava pomoću <i>SSH</i> ključa (<a href="https://wikileaks.org/ciav7p1/cms/page_16384682.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	instalacija <i>Wide Area Network</i> emulatora (<a href="https://wikileaks.org/ciav7p1/cms/page_18382873.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	instalacija <i>Ubuntu</i> sustava na <i>Mac hardware</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_36896790.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	instalacija alata <i>Wireshark</i> na <i>Ubuntu</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_16384719.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	instalacija <i>Squid Proxy</i> poslužitelja (<a href="https://wikileaks.org/ciav7p1/cms/page_16384708.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>VMware</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_17301505.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	promjena isteka vremenskog intervala za <i>vSphere Web Client</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_20873388.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	uputa kako omogućiti kopiranje i lijepljenje sadržaja između virtualnog stroja i udaljene konzole na računalu mete (<a href="https://wikileaks.org/ciav7p1/cms/page_24674311.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>RAZVOJNI ALATI</b>
+</p><p><b>Git Distributed Version Control</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_1736707.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Razvojni inženjeri u odjelima koriste <i>Git</i> kako bi verzionirali kod i dijelili ga ukoliko je to potrebno. Možemo pretpostaviti da se koristi offline verzija <i>Git</i>-a unutar odjela kako projekti ne bi slučajno dospjeli na internet. Dokumenti koji se nalaze u ovom direktoriju su sljedeći:
+</p>
+<ul><li>	općenito o <i>Git</i>-u i poveznica na mrežu za dijeljenje koda (<i><a href="https://stash.devlan.net" class="external free" rel="nofollow">https://stash.devlan.net</a></i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_1179767.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako maknuti binarne datoteke iz repozitorija prije nego se napravit <i>commit</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_41123851.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	podmoduli u <i>Git</i>-u za svrhe održavanja biblioteka (poddirektorija u direktoriju) (<a href="https://wikileaks.org/ciav7p1/cms/page_17072477.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	novi projekt i prazan <i>commit</i> (upute) (<a href="https://wikileaks.org/ciav7p1/cms/page_18382994.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako izvršiti <i>merge</i> za <i>Git</i> repozitorije (<a href="https://wikileaks.org/ciav7p1/cms/page_15729348.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	instalacija i postavljanje <i>Git</i>-a na Windows (uključuje kopiranje praznog direktorija preko <i>SSH</i> veze prema <i>git@stash.devlan.net</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_15728750.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	promjena podataka o autoru svih <i>commit</i>-ova u <i>Git</i> repozitoriju (<a href="https://wikileaks.org/ciav7p1/cms/page_15729260.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Workflow</i> (centralizirani, odvojeni u grane (engl. <i>branch</i>), <i>Git flow</i>, <i>forking</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375428.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	postavljanje <i>Git</i>-a za korisnike alata <i>Visual Studio</i> (instaliranje alata <i>Visual Studio</i> i <i>Git</i> ekstenzija, stvaranje novog projekta i kloniranje na repozitorij, datoteka <i>gitignore</i> i naredbe <i>gitcommit</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_4849779.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Git</i> alati (spominje se <i>Repo</i>, alat za upravljanje <i>Git</i> direktorijima u projektu) i reference (priručnik za <i>Git</i> i njegove naredbe) (<a href="https://wikileaks.org/ciav7p1/cms/page_1179775.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       <i>Git</i> reference (priručnik i članci) (<a href="https://wikileaks.org/ciav7p1/cms/page_1179933.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	korisni savjeti i trikovi (npr. kako vratiti <i>commit</i> koji nije još spreman) (<a href="https://wikileaks.org/ciav7p1/cms/page_1179773.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CIA_module_meme.jpg" class="image"><img alt="CIA module meme.jpg" src="../images/4/44/CIA_module_meme.jpg" width="450" height="300" /></a><br />
+
+Meme vezan uz <i>Git</i> podmodule pronađen u dokumentima Vault 7</p>
+<p><b>Igralište</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_2359297.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	zanimljiv <i>kod 2013</i> (zaobilaženje Windows 8 aktivacije i debugiranje DLL-ova u radnoj memoriji) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375301.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	wiki stranica CIA tehničara koji govori o filmu <i>Star Wars</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_3375297.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako napisati <i>to-do</i> stvari u listu (<a href="https://wikileaks.org/ciav7p1/cms/page_17072513.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako pisati retrospektivu stvari koje su dobro odrađene i kako ih poboljšati (<a href="https://wikileaks.org/ciav7p1/cms/page_33685507.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Suradništvo</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_3276808.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	suradnja na konferenciji sa NSA i radionice sa partnerima u Ujedinjenom Kraljevstvu (<a href="https://wikileaks.org/ciav7p1/cms/page_7995549.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>NERDS</i> (<i>Networking</i>, <i>Engineering</i>, <i>Research and Development Symposium</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_2621788.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	detalji i raspored <i>NERDS</i>-a (uključuje teme kao što su <i>Ruby on Rails</i>, <i>Keylogger</i>, konfiguracijske datoteke, tajno spremanje podataka, <i>Google Test Framework</i>, sreća itd.) (<a href="https://wikileaks.org/ciav7p1/cms/page_2621788.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	prošle prezentacije i njihov raspored (uključuju zanimljiv NSA sastanak 2013. godine o Windowsu 8 i ostalim sličnim temama) (<a href="https://wikileaks.org/ciav7p1/cms/page_9535799.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Razvojna pravila</b> (<a href="https://wikileaks.org/ciav7p1/cms/space_3506177.html" class="external text" rel="nofollow">Link</a>)
+</p>
+<ul><li>	zahtjevi za proizvod (što se želi postići s tim, kako ovo poboljšava opću strategiju, pretpostavke o tehničkom ili korisničkom okruženju, tablica zahtjeva sa korisničkim pričama, dodatni sadržaji poput dijagrama, pitanja i planovi za budućnost) (<a href="https://wikileaks.org/ciav7p1/cms/page_9536004.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	dokument sa popisom pravila „<i>DO's and DON'Ts</i>“ koji govori što je dobra praksa te što ne činiti (<a href="https://wikileaks.org/ciav7p1/cms/page_14587109.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	pregled koda, dostavljanje proizvoda, testiranje i integracija, planiranje projekta, pisanje dokumentacije, razvojno testiranje, <i>source control</i> (što se mora raditi, što bi se trebalo raditi, što se ne bi trebalo raditi, što se ne smije raditi) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384316.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	tehnika <i>Persistent Storage Option</i> (korištenje varijabli u <i>NVRAM</i>-u koje postoje nakon reinstalacije operacijskog sustava te su skrivene forenzičkoj analizi tvrdog diska, moguće korištenje varijabli za spremanje zlonamjernih programa koji se ne bi mogli otkriti osim ako netko ne isključi <i>UEFI Secure Boot</i> i ručno pogleda popis <i>NVRAM</i> varijabli) (<a href="https://wikileaks.org/ciav7p1/cms/page_31227915.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	tehnike u razvoju (skrivanje datoteka i procesa, skrivanje mrežne aktivnosti, podizanje ovlasti, backdoor-ovi, enkripcija itd.) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384750.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	preimenovanje <i>installer</i>-a u <i>setup.exe</i> kako ga <i>AVG</i> ne bi skenirao i otkrio trojanskog konja u njemu ako dođe na računalo mete (<a href="https://wikileaks.org/ciav7p1/cms/page_7995646.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	članak koji kaže da je <i>AVG</i> otkrio zlonamjerni program nakon što je program zarazio računalo i signalizirao CIA-inom poslužitelju da je izvršen (problem je riješen tako da se napravio proces u zamrznutom stanju i onda kroz njega druga datoteka pokreće 32-bitni DLL koji vrši operacije tako da ga <i>AVG</i> ne otkrije) (<a href="https://wikileaks.org/ciav7p1/cms/page_14588112.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	članak koji kaže da promjena tipa resursa može ukloniti upozorenja <i>Bitdefender</i>-a oko pojedinog alata (<a href="https://wikileaks.org/ciav7p1/cms/page_7995651.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	objašnjenje kako se određeni antivirusni programi ponašaju u vezi s procesima, koje procese štite i nadgledaju (uključuje upute kako pomoću zamrznutog procesa ubaciti maliciozan kod u računalo mete) (<a href="https://wikileaks.org/ciav7p1/cms/page_20873229.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Comodo Gaping Hole of DOOM</i> (svi procesi sa vlasnikom <i>SYSTEM</i> su za <i>Comodo</i> automatski legitimni i u njih se može sakriti zlonamjerni kod) (<a href="https://wikileaks.org/ciav7p1/cms/page_7995653.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Comodo</i> i <i>Recycle Bin</i> (na Windows sustavu <i>Comodo</i> ne provjerava <i>Recycle Bin</i> direktorij pa se u njega može sakriti i izvršiti bilo koji zlonamjerni kod) (<a href="https://wikileaks.org/ciav7p1/cms/page_7995655.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	korištenje padding-a na binarnim datotekama kako bi se izbjeglo otkrivanje u slučaju antivirusnog programa <i>Avira</i> koji provjerava datoteke sa velikim dijelovima sažetih ili enkriptiranih podataka (<a href="https://wikileaks.org/ciav7p1/cms/page_7995649.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	članak o tome kako prepoznati <i>Sandbox</i> ili virtualni stroj (trojanski konj <i>Upclicker</i> čeka da Windows izvrši funkciju koja se poziva kada korisnik pusti lijevu tipku miša, <i>Sandbox</i> okruženje ne izvršava većinu funkcija koje imaju veze s mišem te se tako može otkriti izvršava li se maliciozan kod u virtualnom okruženju) (<a href="https://wikileaks.org/ciav7p1/cms/page_20873368.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	lista <i>DNS</i> poslužitelja (<i>CSV</i> datoteke sa 5041 jedinstvenom IP adresom <i>DNS</i> poslužitelja, zemalja u kojima se nalaze i njihovih vlasnika koji uspješno rješavaju upite internet klijenata) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375132.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>EDG ALATI</b>
+</p><p><b>Microsoft</b>
+</p>
+<ul><li>	<i>KMS Keys</i> (ključevi za <i>Microsoft Office</i> proizvode, <i>Windows Server OS</i>, <i>Windows 8</i>, <i>Windows 10</i>, <i>Windows 7</i>, <i>Windows Vista</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_46628880.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>MSDN</i> (lista <i>MSDN</i> računa i tko je zadužen za što)
+</li></ul>
+<p><b>Alati za programsko prevođenje (engl. <i>compiling</i>)</b>
+</p>
+<ul><li>	<i>Make</i> (alat za <i>compiling</i> i <i>recompiling</i> koda, izrađen na <i>GNU</i> operacijskom sustavu) (<a href="https://wikileaks.org/ciav7p1/cms/page_13762724.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Uređivači i razvojna okruženja</b>
+</p>
+<ul><li>	<i>010 Editor</i> (uređivač heksadekadskog koda sa popisom licenci i njihovih korisnika u odjelima) (<a href="https://wikileaks.org/ciav7p1/cms/page_13205531.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Winhex</i> (uređivač heksadekadskog koda za forenziku u operativnom sustavu <i>Windows</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_52920332.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Vi</i> i <i>Vim</i> (uređivači teksta za <i>Unix</i> operacijske sustave) (<a href="https://wikileaks.org/ciav7p1/cms/page_3375350.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Sublime Text</i> (uređivači teksta za <i>Mac</i>, korisni prilikom uređivanja izvornog koda) (<a href="https://wikileaks.org/ciav7p1/cms/page_9535740.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Virtual Assist</i> (dodatak za <i>Visual Studio</i> koji omogućuje automatsko završavanje koda i bolje obojan kod) (<a href="https://wikileaks.org/ciav7p1/cms/page_47579143.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Virtualni strojevi</b>
+</p>
+<ul><li>	<i>VMware Workstation</i> (program za pokretanje i rad na virtualnim strojevima) (<a href="https://wikileaks.org/ciav7p1/cms/page_39714826.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>VMware Fusion Professional</i> (program za pokretanje i rad na virtualnim strojevima za <i>OS X</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_52002832.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>vSphere Client</i> (koristi se za upravljanje virtualnim strojevima instaliranim na poslužiteljima)
+</li></ul>
+<p><b>Reverzni inženjering</b>
+</p>
+<ul><li>	<i>Ghidra</i> (radno okruženje za reverzni inženjering izrađen od strane NSA) (<a href="https://wikileaks.org/ciav7p1/cms/page_51183656.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>IDA Pro</i> (komercijalni alat za reverzni inženjering i debugiranje)
+</li></ul>
+<ul><li>	<i>Cuckoo Sandbox</i> (automatizirani alat za analizu zlonamjernog koda, koristi se za automatsko analiziranje rezultata stvari koje zlonamjerni program radi kada se izvršava u <i>Windows</i> sustavu) (<a href="https://wikileaks.org/ciav7p1/cms/page_14587086.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Incandescent Mind</i> (alat za analizu digitalnog potpisa) (<a href="https://wikileaks.org/ciav7p1/cms/page_50495524.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Source control</b>
+</p>
+<ul><li>	<i>Git Distributed Version Contol</i> (sustav za upravljanje i verzioniranje koda)
+</li></ul>
+<ul><li>	<i>SourceTree</i> (grafičko sučelje za <i>Git</i> sustav) (<a href="https://wikileaks.org/ciav7p1/cms/page_52625432.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>Ostali alati</b>
+</p>
+<ul><li>	<i>Dia</i> (alat za izradu dijagrama koji podržava <i>UML</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_16384228.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Docker</i> (alat za jednostavnu konfiguraciju i pokretanje virtualiziranih programa koji koriste resurse operacijskog sustava na kojem se izvode) (<a href="https://wikileaks.org/ciav7p1/cms/page_20873463.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>EDG SAVJETI</b>
+</p>
+<ul><li>	<i>Winshell</i> testno okruženje (korak-po-korak vodič koji objašnjava kako testirati novoizrađeni alat koristeći <i>FIO shell</i> alat) (<a href="https://wikileaks.org/ciav7p1/cms/page_11628871.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	debugiranje virtualnog operacijskog sustava na <i>VMware</i>-u (<a href="https://wikileaks.org/ciav7p1/cms/page_14588580.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       nadogradnja <i>Windows Symbol</i> preko Interneta (<a href="https://wikileaks.org/ciav7p1/cms/page_22642765.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	preuzimanje <i>Windows Symbols</i>-a sa zajedničkog repozitorija (<a href="https://wikileaks.org/ciav7p1/cms/page_14588347.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	korisni savjeti izrade skripti u komandnom okruženju (<a href="https://wikileaks.org/ciav7p1/cms/page_17760512.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       upute kako konfigurirati Windows nadogradnje (eng. <i>Windows Updates</i>) na radnu stanicu koristeći DEVLAN-ov WSUS poslužitelj (<a href="https://wikileaks.org/ciav7p1/cms/page_13762930.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Strings-GUI</i> (alat koji omogućuje razvojnim inženjerima da pregledavaju znakovne nizove u binarnim datotekama bez uključivanja komandnog okuženja) (<a href="https://wikileaks.org/ciav7p1/cms/page_9535536.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako instalirati starije verzije <i>.NET Frameworka</i> na <i>Windows 8.1</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_13762919.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>DEVLAN RESURSI</b>
+</p>
+<ul><li>	<i>Internet Relay Chat</i> (adresa na <i>irc.devlan.net</i>, korišten za komunikaciju između zaposlenika) (<a href="https://wikileaks.org/ciav7p1/cms/page_4849704.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       popis resursa na DEVLAN-u (mrežni, operacijski sustavi, razvojni i suradnički) (<a href="https://wikileaks.org/ciav7p1/cms/page_4849677.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	mrežni resursi (<i>DEVLAN DCCA</i>, poslužitelj sa <i>Network Time</i> protokolom sa adresom 10.0.0.60 (<a href="https://wikileaks.org/ciav7p1/cms/page_4849725.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	resursi za operacijske sustave (<i>Linux Ubuntu</i> i <i>Debian OS</i>, <i>Solaris</i> poslužitelj, <i>Solaris 11</i> paket, <i>Perl</i> moduli i komponente, <i>MSDN</i> alati i programi (<a href="https://wikileaks.org/ciav7p1/cms/page_11628723.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	razvojni resursi (<i>Stash</i>, <i>Fisheye</i>, <i>Bamboo</i>, <i>Jira</i>, <i>Chrome</i> dodaci za razvoj) (<a href="https://wikileaks.org/ciav7p1/cms/page_13763093.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	suradnički resursi (rasprave i dokumentacija, <i>Internet Relay Chat</i>, zastarjeli wiki) (<a href="https://wikileaks.org/ciav7p1/cms/page_8847429.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>DART</b>
+</p><p><i>Dynamic Automated Range Testing</i> je skup alata koji omogućuju automatsko testiranje programa pomoću tehnologije <i>Tyrant</i> i koristi se kako bi razvojni inženjeri mogli istovremeno vršiti testove na velikom broju resursa. <i>DART</i> administratorima omogućava da dodaju, mijenjaju i uklanjaju resurse na kojima se izvode testovi koji se istovremeno mogu pustiti odjednom na više platformi. Na taj način se otkriva ponašanje svakog pojedinog sustava na test koji je nad njim proveden, a sve to se automatski dokumentira kako bi se moglo kasnije pregledati. Treba spomenuti da su testovi neovisni jedni o drugima, pa tako više razvojnih inženjera mogu vršiti različite testove nad istim resursima bez međusobnog isključivanja. Dokumenti koji se nalaze u ovom dijelu su sljedeći:
+</p>
+<ul><li>	korisnički priručnik za <i>DART</i> (verzije za korisnike i administratore iz 2015. i 2014. godine zajedno sa zabilješkama o trenutnoj verziji) (<a href="https://wikileaks.org/ciav7p1/cms/page_7995431.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za instalaciju <i>DART</i>-a (uključuje popis <i>DART</i> poslužitelja na virtualnim strojevima za testove (<i>Windows XP</i>, <i>Windows Vista</i>, <i>Windows 7</i> i <i>Windows 8</i>) te pripadajuća dokumentacija) (<a href="https://wikileaks.org/ciav7p1/cms/page_7995433.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	česti problemi i kako ih riješiti (<a href="https://wikileaks.org/ciav7p1/cms/page_7995512.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako izvršavati <i>GoogleTest</i> izvršne datoteke na <i>DART</i>-u (<a href="https://wikileaks.org/ciav7p1/cms/page_45383684.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       upute kako koristiti miš i tipkovnicu kako bi se dale naredbe alatu koji se vrši u testnom korisničkom sučelju (<a href="https://wikileaks.org/ciav7p1/cms/page_14587626.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>Remote Commit</i> na novi <i>Tyrant</i> poslužitelj (upute kako prebaciti testove iz lokalnog razvojnog okruženja na glavni <i>Tyrant</i> poslužitelj) (<a href="https://wikileaks.org/ciav7p1/cms/page_35618837.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za ručno dodavanje računala za testiranje na <i>Tyrant</i> poslužitelj (<a href="https://wikileaks.org/ciav7p1/cms/page_37617673.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako dobiti informacije o virtualnim strojevima na kojima se izvršavaju testovi (<a href="https://wikileaks.org/ciav7p1/cms/page_14587705.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	priručnik s uputama koje provjeravaju je li antivirusni program otkrio <i>payload</i> zlonamjernog programa na virtualnim strojevima <i>DART</i>-a (<a href="https://wikileaks.org/ciav7p1/cms/page_14587919.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za korištenje okruženja <i>PyCharm</i> kako bi se napisale <i>DART</i> skripte koje pokreću testove te upute kako koristiti <i>DART</i> module sa <i>Pythonom</i> (<a href="https://wikileaks.org/ciav7p1/cms/page_11628767.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	lista kratica za operacijske sustave na kojima se mogu vršiti testovi (<i>Windows 10</i>, <i>Windows Server 2003</i> i <i>2008</i>, <i>Windows 7</i>, <i>Windows 8</i> te različite distribucije <i>Linuxa</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_49872909.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	lista korisnih funkcija koje se koriste kod pisanja <i>DART</i> skripti (<a href="https://wikileaks.org/ciav7p1/cms/page_13763518.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute kako napisati skripte koje rade osnovni <i>ping</i>, izvršavaju naredbe u naredbenom retku, izvršavaju <i>.exe</i> datoteku (<a href="https://wikileaks.org/ciav7p1/cms/page_12353689.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       upute za stvaranje i izvršavanje prvog <i>DART</i> testa (<a href="https://wikileaks.org/ciav7p1/cms/page_7995476.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	terminologija i opis pojmova vezanih uz <i>DART</i> (<i>Tyrant</i>, <i>JACAL</i>, <i>Undermine</i>, <i>Overmind</i>, <i>Palantir</i>, <i>Leafbag</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_41648131.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za prvo izvršavanje automatskog testa i stvaranje novog <i>DART</i> virtualnog stroja tj. okruženja za testiranje (<a href="https://wikileaks.org/ciav7p1/cms/page_17072509.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	<i>LoggedLeaf</i> (klasa koja omogućava udaljeno prikupljanje datoteka zapisa (engl. <i>log file</i>), automatsko čišćenje direktorija na testnom poslužitelju, uvid u prikaze zaslona na kraju testiranja, automatsko prikazivanje <i>Tasklist</i>-a te generiranje <i>MINIDUMP</i> datoteke kad se neki proces sruši na <i>DART</i>-u i namijenjena je samo za ljude koji su <i>cool</i> i rade <i>cool</i> stvari) (<a href="https://wikileaks.org/ciav7p1/cms/page_14588691.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>       obavijest da će DART biti izvan funkcije poslije 14 sati (razlog je dodavanje novih USB prijenosnih memorija u testno okruženje) (<a href="https://wikileaks.org/ciav7p1/cms/page_14588818.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p><b>EDG MOBILE</b>
+</p><p>Drugo ime za odjel u EDG odjelu koji se bavi mobilnim uređajima i pametnim telefonima. EDG Mobile dio EDG-a se uglavnom odnosi na <i>Mobile Development Branch</i> koji se bavi izradom zlonamjernih programa za Android i iOS operativne sustave. Dokumenti prisutni za EDG Mobile su sljedeći:
+</p>
+<ul><li>       popis članova u razvojnom timu (<a href="https://wikileaks.org/ciav7p1/cms/page_13763240.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	tablica sa stanjem i prioritetom Android i iOS zadataka (tablica prikazuje završene zadatke te zadatke u tijeku za <i>Samsung Galaxy</i> i <i>Nokia X</i> pametne telefone) (<a href="https://wikileaks.org/ciav7p1/cms/page_13763254.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	popis Android exploit-a i alata koji se za njih koriste (prikazuje se tablica za udaljeno upravljanje pomoću preglednika <i>Chrome</i> i <i>Safari</i> te za podizanje ovlasti na određenim verzijama Android sustava) (<a href="https://wikileaks.org/ciav7p1/cms/page_21561399.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	upute za postavljanje <i>AngerManagement</i>-a na Android uređaje (<a href="https://wikileaks.org/ciav7p1/cms/page_20250955.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	poveznice <i>stash.devlan.net</i> na repozitorije različitih skupina projekata (<i>Android</i>, <i>iOS</i>, <i>Aquarius Stash Project</i>, <i>Poseidon WebApp</i>) (<a href="https://wikileaks.org/ciav7p1/cms/page_13763244.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<ul><li>	Popis MDB poslužitelja sa statičkim IP adresama i njihovim korisnicima (uglavnom domene na <i>devlan.net</i> zatvorenoj mreži) (<a href="https://wikileaks.org/ciav7p1/cms/page_22642852.html" class="external text" rel="nofollow">Link</a>)
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Gabilic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Gabilic (stranica ne postoji)">Gabilic</a> 23:56, 6. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Baza_znanja"> Baza znanja </span></h2>
+<p>U bazi znanja nalaze se dokumenti EDB-a koji služe kao skladište za librarye, exploite i upute kako iskoristiti određen sustav i njegove komponente. Ovdje budu ukratko objašnjene najzanimljivije stvari vezane uz tehnike i informacije koje koristi EDB. 
+</p><p><b>Općenito</b>
+</p><p>Upute kako zaobići Windows User Account Control - negdje se koristi DLL injection ili ubacivanje malicioznog koda u WUSI, a moguća je i promjena registry datoteka za podizanje privilegija (<a href="https://wikileaks.org/ciav7p1/cms/page_14587649.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Članak kako koristiti Visual Studio za diff i merge naredbe Git-a (<a href="https://wikileaks.org/ciav7p1/cms/page_11628895.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Python - informacije o korištenju lista te uputa za instaliranje Pythona na Linux Debian ili Ubuntu te CentOS i Fedoru OS (<a href="https://wikileaks.org/ciav7p1/cms/page_15728814.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Informacije o spremanju povjerljivih informacija u preglednicima Firefox, Chrome, Microsoft Edge i Internet Explorer (<a href="https://wikileaks.org/ciav7p1/cms/page_22052992.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Baza podataka za Shellcode koja sadrži popis shellcode payloada za Alphu, BSD,  Cisco, FreeBSD, Irix, Linux, NetBSD, OpenBSD, OSX, Solaris i Windows (preuzeta sa shell-storm.org/shellcode/) (<a href="https://wikileaks.org/ciav7p1/cms/page_11628644.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Standardi i specifikacije - CCDF Data, OXF Data, CODEX Data, NOD Cryptographic, Galleon, NOD Persistence, NOD in-memory code execution, NOD Kernel Execution (<a href="https://wikileaks.org/ciav7p1/cms/page_15729244.html" class="external text" rel="nofollow">Link</a>)
+</p><p><b>Library</b>
+</p><p>Upute kako postaviti Visual Studio i lokalni git repozitorij automatski (preporuča se wizard koji omogućava korištenje svih EDG libraryja) (<a href="https://wikileaks.org/ciav7p1/cms/page_13763006.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Objašnjenje grana za razvoj na gitu (Master, Develop, Feature, Bug fix) i napomena da svaka se svaki library označava kao Git podmodul (<a href="https://wikileaks.org/ciav7p1/cms/page_13763013.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Dijagram koji objašnjava hijerarhiju libraryja - Core Library -&gt; Decide / Deploy/ Persist i Collect / Protect / Transfer (<a href="https://wikileaks.org/ciav7p1/cms/page_13763004.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Survey Library za otkrivanje informacija na sustavu (<a href="https://wikileaks.org/ciav7p1/cms/page_13763158.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Library za nadziranje i manipulaciju sustava - koristi se za provjeru je li installer  datoteka bila otkrivena, također služi za pregled procesa koji su aktivni, a omogućava i uzbunu kada proces počne ili završi (<a href="https://wikileaks.org/ciav7p1/cms/page_13762674.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Data Transfer Library - dodavanje datoteka u buffer, pronalaženje datoteka, čitanje i brisanje datoteka, slanje i primanje podataka preko modula (<a href="https://wikileaks.org/ciav7p1/cms/page_13763152.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Buffers Library i upute za njihovo korištenje (<a href="https://wikileaks.org/ciav7p1/cms/page_13763156.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Core Library je skup svih inferace klasa koje koriste AED libraryje te je library potrebno uključiti u sve podmodule, a može se koristiti i za debugiranje (<a href="https://wikileaks.org/ciav7p1/cms/page_13763406.html" class="external text" rel="nofollow">Link</a>)
+</p><p>GoogleTest - dokument sadrži neki meme (<a href="https://wikileaks.org/ciav7p1/cms/page_13205558.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Library za podizanje ovlasti koji sadrži kernel funkciju za podizanje ovlasti određenog procesa i user mode funkciju koja se izvršava kao administrator (<a href="https://wikileaks.org/ciav7p1/cms/page_13763154.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Execution Vectors Library - koristi za izvršavanje payloada na putanji hard diska (direktorij, datoteka, disk) te omogućava izrvšavanje payloada na prijenosnom mediju (<a href="https://wikileaks.org/ciav7p1/cms/page_13762590.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Payload Deployment Library - koristi se za generalno ubacivanje i izvršavanje payloada u proces ili datoteku (<a href="https://wikileaks.org/ciav7p1/cms/page_13762647.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Misc Library – služi za razvijanje drugih libraryja, sadrži funkcije za pretvorbu u UTF-8, zaključavanje i otključavanje informacija o particijama, raspoznavanje encodinga, pristupanje direktorijima, otkrivanje brojeva verzija programa, CRUD vrijednosti u registryju, dobivanje trenutne razine ovlasti, raspoznavanje trenutne domene, izlistavanje instaliranih Windows updateova itd. (<a href="https://wikileaks.org/ciav7p1/cms/page_13763162.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Persistance Library – misli se na ubacivanje payloada u proces, servis, registry i DLL kod pokretanja OS-a, te micanje payloada iz procesa, servisa i registrja (<a href="https://wikileaks.org/ciav7p1/cms/page_13763160.html" class="external text" rel="nofollow">Link</a>)
+</p><p>File Collection Library - prikupljanje podataka iz datoteke i dobivanje podataka o kompresiji, enkripciji i mjestu datoteka koje se prikupljaju (<a href="https://wikileaks.org/ciav7p1/cms/page_13762944.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Zanimljive lokacije log datoteka koje sadrže USB instalacije i datume, povijest umetanja i vađenja USB uređaja, mrežnu povijest spajanja, stanja računala kod pokretanja, gašenja, spavanja, hibernacije, logina i sl. (<a href="https://wikileaks.org/ciav7p1/cms/page_46628875.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Windows debugiranje (ima mapu zabilješki za pomoć pri snalaženju) (<a href="https://wikileaks.org/ciav7p1/cms/page_13762778.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Windows Registry - popis informacija o Class ID-jevima za Windows 7, Windows 8 i Windows 8.1 sa Office paketom (<a href="https://wikileaks.org/ciav7p1/cms/page_13762780.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Zanimljivi i korisni Registry zapisi - Windows Product ključ, MS Office Product ključevi, jedinstveni GUID identifikator, postavke Windows Explorera i User Account Controla (<a href="https://wikileaks.org/ciav7p1/cms/page_11628931.html" class="external text" rel="nofollow">Link</a>)
+</p><p><b>Antivirusni programi</b>
+</p><p>Ono što mi nazivamo antivirusima, CIA zove „Personal Security Productsi“ ili skraćeno PSP. To su besplatni ili licencirani programi za zaštitu sustava koji otkrivaju i čiste sve nepoželjne programe ili datoteke koje bi računalu mogle naškoditi. Spominju se slijedeći antivirusi: ClamAV, Norton, Kaspersky, Avira, Zone Alarm, Rising, F-Secure, Zemana Antilogger, EMET (toolkit), Malwarebytes Anti-Malware, Bitdefender, Panda Security, Trend Micro, ESET, Avast, AVG, Symantec, McAfee, Comodo, GDATA i Microsoft Security Essentials. Poveznica na popis antivirusnih programa je <a href="https://wikileaks.org/ciav7p1/cms/page_13762910.html" class="external text" rel="nofollow">ovdje</a>.
+</p><p>Lista procesa vezanih uz antivirusne programe Avast (<a href="https://wikileaks.org/ciav7p1/cms/page_14587958.html" class="external text" rel="nofollow">Link</a>), AVG (<a href="https://wikileaks.org/ciav7p1/cms/page_14587872.html" class="external text" rel="nofollow">Link</a>) i Bitdefender (<a href="https://wikileaks.org/ciav7p1/cms/page_14587876.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Avira – popularan antivirusni program među protuterorističkim metama, spominje se kako je jednostavno zaobići programovu analizu enriptiranih i komprimiranih binarnih datoteka koje sadrže payload (zabilješke) (<a href="https://wikileaks.org/ciav7p1/cms/page_14587874.html" class="external text" rel="nofollow">Link</a>)
+</p><p>F-secure - antivirusni program koji otkriva binarne datoteke sa komprimiranim i enkriptiranim payloadom, no ovo je lako izbjeći koristeći datoteke s RAR manifestom i stringovima u datoteci (zabilješke) (<a href="https://wikileaks.org/ciav7p1/cms/page_14587956.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Imena procesa uz pomoć DART-a - popis procesa antivirusnih programa sakupljenih sa virtualnih strojeva unutar DART testnog okruženja (<a href="https://wikileaks.org/ciav7p1/cms/page_17760686.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Dokument „Kako zaobići dinamičku analizu kod antivirusa“ - programiranje malicioznog koda na način da ne upozori antivirusni program kad se dekriptira i izvršava u sandbox okruženju antivirusa, dokument sadrži nekoliko tehnika za zaobilaženje analize i njihovu učinkovitost u odnosu na VirusTotal (<a href="https://wikileaks.org/ciav7p1/cms/files/BypassAVDynamics.pdf" class="external text" rel="nofollow">Link</a>)
+</p><p>Prezentacija „Kako potrgati antivirusni software“ - napadi i ranjivosti antivirus programa i njihovih enginea, pronalaženje i iskorištavanje ranjivosti i propusta antivirusnih programa, korisni savjeti za korisnike koji koriste antivirusne programe (<a href="https://wikileaks.org/ciav7p1/cms/files/2014_EN_BreakingAVSoftware_JoxeanKoret.pdf" class="external text" rel="nofollow">Link</a>)
+</p><p><b>Windows</b>
+</p><p>Zanimljive Microsoft datoteke .theme, .mum, .local, .pif, autorun.inf, .cpl, desktop.ini, .library-ms, .manifest (<a href="https://wikileaks.org/ciav7p1/cms/page_13763375.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Oportunističke brave koje služe za poboljšanje performansi i sinkroniziranje cachea (<a href="https://wikileaks.org/ciav7p1/cms/page_38371356.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Windows Symbol poslužitelj postavljen na DEVLAN-u (<a href="https://wikileaks.org/ciav7p1/cms/page_16384568.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Junction direktoriji koji skriveno preusmjeravaju s jednog na drugi direktorij kako bi se ostvarila upornost malicioznog koda (<a href="https://wikileaks.org/ciav7p1/cms/page_13763373.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Izvršavanje WMI koda u C++ i izbjegavanje COM-a (<a href="https://wikileaks.org/ciav7p1/cms/page_13763881.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul koji određeni string pretvara u format UTF-8 (<a href="https://wikileaks.org/ciav7p1/cms/page_13763166.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za dohvaćanje verzija datoteke i operacijskog sustava (<a href="https://wikileaks.org/ciav7p1/cms/page_14587126.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za otkrivanje je li korisnik koji izvršava kod dio administratorske grupe (<a href="https://wikileaks.org/ciav7p1/cms/page_14587303.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za dohvaćanje korisnika koji koristi token trenutne dretve procesa (<a href="https://wikileaks.org/ciav7p1/cms/page_13763648.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za stvaranje i brisanje registry ključeva (pomoću Win 32 API-ja moguće je stvoriti ili izmijeniti registry višestrukih vrijednosti koje mogu biti string, DWORD ili binarne vrijednosti) (<a href="https://wikileaks.org/ciav7p1/cms/page_13763644.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Funkcija za whitelisting MAC adrese (također može generirati ili prazniti listu konfiguriranih MAC adresa) (<a href="https://wikileaks.org/ciav7p1/cms/page_11628923.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Funkcija koja uzima listu naziva procesa i određuje koji od njih je trenutno pristutan (<a href="https://wikileaks.org/ciav7p1/cms/page_11628918.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Moduli za Windows Update koji na različite načine dohvaćaju listu instaliranih updateova sa nazivom, verzionirani brojem i ID-jem instaliranog updatea (<a href="https://wikileaks.org/ciav7p1/cms/page_14587265.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za dohvaćanje trenutnog UAC-a na računalu koji skenira registry i dohvaća trenutne postavke Windows User Account Controla, ne radi na Windows XP-u (<a href="https://wikileaks.org/ciav7p1/cms/page_14587267.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za dohvaćanje broja particije pomoću unesenog slova particije i koristi se kod stvaranja datoteka na nekoj putanji (<a href="https://wikileaks.org/ciav7p1/cms/page_13763635.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za tekstualnu datoteku koji otkriva encoding tekstualne datoteke, ali ne otkriva je li datoteka tekstualna (<a href="https://wikileaks.org/ciav7p1/cms/page_13763176.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Moduli za ustrajnost – radi se stvaranje WMI događaja koji izvršava naredbe, stvaranje servisa koji sadrži payload, stvaranje skripte unutar registryja koja se pokreće pri pokretanju, stvaranje task registry ključa koji se izvršava kad se korisnik ili administrator ulogiraju, stvaranje taska koji se sa SYSTEM privilegijama izvršavaju pri loginu korisnika, ubacivanje DLL datoteke u explorer.exe (<a href="https://wikileaks.org/ciav7p1/cms/page_13763650.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Moduli za manipuliranje direktorija i datoteka - generiranje relativne putanje između dvije lokacije, rekurzivno i normalno stvaranje direktorija, uzimanje stanja direktorija koje uključuje atribute i vremenske podatke te resetiranje stanja direktorija (<a href="https://wikileaks.org/ciav7p1/cms/page_13763168.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Moduli za stvaranje procesa - stvaranje procesa sa WMI i korištenje COM-a za stvaranje 32-bitnog procesa na 64-bitnom Windows OS-u, koriste se kod DLL injectiona (<a href="https://wikileaks.org/ciav7p1/cms/page_11628903.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Dostavljanje payloada na disku - stvaranje i brisanje taska za stvaranje procesa kako bi se izvršila naredba, stvaranje procesa kao korisnik ili administrator, stvaranje procesa koristeći Temp direktorij, izvršavanje naredbi i stvaranje procesa uz pomoć WMI-a, stvaranje procesa koristeći Windows API, dodavanje vrijednosti u registry i stvaranje procesa na lokaciji hard diska pomoću COM-a, stvaranje procesa pomoću API-ja za command line (<a href="https://wikileaks.org/ciav7p1/cms/page_14587408.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Dostavljanje payloada u memoriji - učitavanje libraryja iz memorije, učitavanje DLL-a u memoriju, ubacivanje DLL-a u memoriju koristeći udaljeni proces, alociranje memorije u koju se bez kontakta sa hard diskom preslikava DLL payload (<a href="https://wikileaks.org/ciav7p1/cms/page_14587413.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za stvaranje shortcut datoteke koja omogućuje stvaranje prečaca na unesenu putanju (<a href="https://wikileaks.org/ciav7p1/cms/page_13763182.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Moduli za prijenos podataka - upisivanje podataka u datoteku iz jednog ili više izvora, dodavanje podataka na kraj postojeće datoteke npr. slike, prijenos koristeći komadiće podataka prenesenih sa NTFS Alternate Data prijenosom (<a href="https://wikileaks.org/ciav7p1/cms/page_13763234.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Dijelovi korisnog C++ koda za polja (<a href="https://wikileaks.org/ciav7p1/cms/page_11628878.html" class="external text" rel="nofollow">Link</a>) i vezane liste (<a href="https://wikileaks.org/ciav7p1/cms/page_11628883.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za traženje niza bajtova u memoriji od početka i od kraja (<a href="https://wikileaks.org/ciav7p1/cms/page_13763186.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Modul za Windows Access Control - otključava i zaključava direktorij kojem samo SYSTEM ima pristup i može stvoriti direktorij kojem svatko ima pristup (<a href="https://wikileaks.org/ciav7p1/cms/page_13763164.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Windows Function Hooking koji pripaja funkcije na komunikaciju među softwareom kako bi se ostvario željeni učinak, spominje se mijenjanje reference tj. adrese s jedne funkcije na drugu i stavljanje funkcije (može biti i DLL inject) u zamrznuti proces (<a href="https://wikileaks.org/ciav7p1/cms/page_16385270.html" class="external text" rel="nofollow">Link</a>)
+</p><p>Moduli za povećanje ovlasti - Cavalry UAC Bypass, LinkedIn User Mode, Artillery UAC Bypass, SandWorm INF instalacija, LinkedOut User Mode, Vanguard LPE (<a href="https://wikileaks.org/ciav7p1/cms/page_13763850.html" class="external text" rel="nofollow">Link</a>)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Vedglozin&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Vedglozin (stranica ne postoji)">Vedglozin</a> 00:46, 7. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pregled_projekata"> Pregled projekata </span></h2>
+<p><b>Protego</b> (<a href="https://wikileaks.org/vault7/#Protego" class="external text" rel="nofollow">Link</a>)
+</p><p>Protego projekt je sustav za kontrolu projektila koji je baziran na PIC mikročipovima, ovaj sustav je razvila kompanija Raytheon koja je specijalizirana za obranu te cyber sigurnost, sustav je instaliran unutar zrakoplova sa sustavima za lansiranje projektila.
+</p><p>Protego se sastoji od odvojenih mikro kontrolora koji razmjenjuju podatke i signale putem kodiranih te ovjerenih kanala. Za razliku od većine ostalih projekata iz „trezora 7“  ovdje se ne radi o uobičajenom razvoju malware-a te unutar dostupnih dokumenata nema posebne indikacije zašto se uopće ovaj projekt nalazi u CIA repozitorijima.
+</p><p><b>Angelfire</b> (<a href="https://wikileaks.org/vault7/#Angelfire" class="external text" rel="nofollow">Link</a>)
+</p><p>Angelfire je implantat odnosno skup od 5 komponenti koje iskorištavaju slabosti Windows XP-a, Viste te Windows 7 operacijskih sustava. Sastoji se od navedenih komponenti:
+</p><p>Solartime – modificira boot sektor kako bi se prilikom Windowsovog učitavanja drivera  također učitala te pokrenula komponenta Wolfcreek.
+</p><p>Wolfcreek – jednom kada se pokrene omogućuje učitavanje te pokretanje preostalih komponenti odnosno drivera te aplikacija.
+</p><p>Keystone – dio Wolfcreek-a koji je zadužen za pokretanje malicioznih korisničkih aplikacija.
+</p><p>BadMFS – biblioteka koja implementira prikriveni datotečni sustav na disku, koristi se za spremanje svih drivera te implantata koje će Wolfcreek pokrenuti.
+</p><p>Windows Transitory File System – nova metoda za instaliranje AngelFire-a, sustav omogućuje kreiranje prijelaznih datoteka za izvršavanje određenih radnji poput instalacije, dodavanje datoteka u AngelFire ili njihovo uklanjanje. 
+</p><p>AngelFire je moguće uočiti i putem upravitelja zadataka kroz Windows OS zato što se uvijek maskira kao "C:\Windows\system32\svchost.exe", tako da u slučaju da nam je OS instaliran na različitoj putanji može ga se lako uočiti.
+</p><p><b>ExpressLane</b> (<a href="https://wikileaks.org/vault7/#ExpressLane" class="external text" rel="nofollow">Link</a>)
+</p><p>ExpressLane je projekt pomoću kojega je CIA špijunirala partnerske obavještajne poput NSA, DHS i FBI. CIA nudi biometrijski sustav sa predefiniram hardware-om i software-om svojim partnerskim službama diljem svijeta što pomaže kod dobrovoljnog dijeljenja biometrijskih podataka međusobno no s obzirom da nijedna služba neće podijeliti apsolutno sve biometrijske podatke, ured za tehničke usluge odnosno OTS unutar CIA je napravio alat pomoću kojega je moguće potajno izvlačiti sve podatke sa njihovih sustava. Ključne komponente ovog sustava su bazirane nad alatima od CrossMatcha što je američka kompanija koja je specijalizirana za izradu biometrijskog software-a.
+</p><p>ExpressLane se može instalirati u sjedištu prije isporuke biometrijskog sustava te kao dio ažuriranja odnosno nadogradnje biometrijskog sustava, sastoji od nekoliko komponenti:
+</p><p>CreatePartition v 3.1.1 – GUI program koji se koristio radi pripreme za instalaciju aplikacije. Nudi nekoliko mogućnosti poput kreiranja tajne particije, odabira trajanja instalacije, odabir datuma za uništenje tajno prikupljenih podataka (po početnim postavkama uništenje se događalo nakon 6 mjeseci engl. Kill date),  konfiguracija particije te resetiranje. Sučelje je vidljivo na slijedećoj slici.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CreatePartition.png" class="image"><img alt="CreatePartition.png" src="../images/a/a3/CreatePartition.png" width="578" height="276" /></a></p>
+<p>IExpress  – program koji pojednostavljuje instalaciju ExpressLane-a, prije instalacije kod partnera potrebno je osigurati da je uređaj bio uspostavljen putem CreatePartition aplikacije, ovim putem se davao dojam instalacije ažuriranja dok su se u međuvremenu u pozadini prikupljali podaci. Podaci su se sakupljali sve dok je USB uređaj bio u ciljanom računalu bez obzira dali je instalacija bila prikazana, pokrenuta ili zaustavljena.
+</p><p>ExitRamp 3.1.1 – omogućuje dohvaćanje odnosno dekodiranje prikupljenih podataka, potrebno je jednostavno ubaciti USB koji se koristio za skupljanje te odabrati direktorij u koji se žele spremiti podaci kao što se može vidjeti na slici. 
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ExitRamp.png" class="image"><img alt="ExitRamp.png" src="../images/f/fd/ExitRamp.png" width="418" height="277" /></a></p>
+<p><b>CouchPotato</b> (<a href="https://wikileaks.org/vault7/#CouchPotato" class="external text" rel="nofollow">Link</a>)
+</p><p>Ovaj alat omogućuje prikupljanje iz udaljenih video prijenosa, prijenos se može spremiti kao video datoteka ili se mogu spremiti samo određene slike. Alat se pokreće putem terminala pomoću naredbe „$ cp_handler.py –o naziv_direktorija“  gdje je potrebno pokrenuti početnu skriptu te odabrati direktorij u koji će se spremati podaci.  
+</p><p><b>Dumbo</b> (<a href="https://wikileaks.org/vault7/#Dumbo" class="external text" rel="nofollow">Link</a>)
+</p><p>Alat omogućuje zaustavljanje rada svih kamera i mikrofona u sustavu uz korupciju postojećih snimki te onemogućavanje mrežnih adaptera. Ovaj alat koristi grupa za fizički pristup odnosno PAG (Physical Access Group) što je specijalna grana unutar centra za cyber inteligenciju te im je zadatak dobiti fizički pristup te iskoristiti propuste nad ciljanim računalima prilikom operacija na terenu. 
+</p><p>Dumbo identificira sve instalirane uređaje poput kamera i mikrofona bez obzira dali su spojeni fizički ili bežično te također identificira sve relevantne procese koji oni izvode te omogućuje njihovo zaustavljanje. Operativac također može manipulirati sa snimkama, može ih zamijeniti sa lažnim ili uništiti dokaze o upadu. Sustav se može izvršiti nad Windows XP te svim novijim verzijama s time da je nužno imati administratorski pristup računalu, sve se pokreće direktno putem USB-a.  
+</p><p>Kada je operativac završio sa radom može odrediti vrijeme za izlaz gdje upiše koliko mu treba vremena da napusti lokaciju te nakon što to vrijeme istekne brišu se svi podaci o upadu te se sustav vraća u normalan rad. Na slikama je prikazan dio alata sa grafičkim sučeljem, na prvoj slici je prikazan način kojim se može pratiti mreža te onesposobiti mrežne adaptere, na drugoj slici su prikazani detalji o mikrofonima te kamerama unutar alata.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DumboMrezniAdapteri.PNG" class="image"><img alt="DumboMrezniAdapteri.PNG" src="../images/3/36/DumboMrezniAdapteri.PNG" width="628" height="375" /></a></p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DumboCamera.png" class="image"><img alt="DumboCamera.png" src="../images/e/e5/DumboCamera.png" width="605" height="366" /></a></p>
+<p><b>Imperial</b> (<a href="https://wikileaks.org/vault7/#Imperial" class="external text" rel="nofollow">Link</a>)
+</p><p>Ovaj projekt se sastoji od tri različita alata za hakiranje čiji cilj je probiti zaštite od Mac OS-a te različitih sustava baziranih na POSIX-u.
+</p><p>Achilles – omogućuje ubacivanje trojanca unutar instalacijske datoteke OS X-a, nakon instalacije OS-a malware se pokreće u pozadini te prilikom pokretanja briše sve tragove iz datoteke u kojoj se inicijalno nalazio tako da software koji je zarazio računalo izgleda zapravo potpuno legitimno što uvelike otežava njegov pronalazak te analizu.
+</p><p>SeaPea – rootkit koji može skrivati datoteke, direktorije, veze sa na utičnicama (engl. socket) ili procese koji se izvršavaju unutar Mac OS X-a. Kako bi se instalirao potrebna su administratorska prava te kako bi ga se uspješno maknulo iz sustava može se jednostavno formatirati disk sa operacijskim sustavom ili ažurirati sustav na noviju verziju. 
+</p><p>Aeris – alat za hakiranje napisan u c programskom jeziku te ga se koristi za dobivanje stražnjeg ulaza (engl. backdoor) u portabilne operacijske sustave poput Debian, FreeBSD, Solaris itd.
+</p><p><b>UCL / Raytheon</b> (<a href="https://wikileaks.org/vault7/" class="external text" rel="nofollow">Link</a>)
+</p><p>Ovaj projekt pripada grani za udaljeni razvoj odnosno RDB (Remote Development Branch) od CIA, ovim putem su zaposlili kompaniju Raytheon Blackbird Technologies kako bi analizirala napade različitih malware-a u stvarnome svijetu kako bi na kraju dali prijedloge CIA-inim razvojnim timovima za daljnje istraživanje.
+</p><p>Neki od opisanih malware-a su varijante od NfLog i HTTPBrowser RAT(Remote Access tool), također je analizirana platforma za špijunažu Regin koja je prvi puta bila uočena 2014 međutim sumnja se da je u upotrebi još od 2008 te se vjeruje da je razvijena od strane NSA-a, Regin je namijenjen za nadzor i prikupljanje podataka te je njegov glavni atribut modularna arhitektura koja omogućuje veliku fleksibilnost te optimizaciju za napad na određene mete. 
+</p><p>HammerToss je malware za kojega se sumnja da ga je sponzorirala Rusija, ukratko funkcionira na način da kreira korisnički račun na Twitter-u te objavi poveznicu koja vodi do github stranice na kojoj se nalazi slika u kojoj se zapravo nalaze naredbe za Windows PowerShell  koja se automatski skida i dekodira te se izvršavaju zaprimljene naredbe. Nakon izvršavanja naredbi rezultati se stavljaju na poslužitelja za pohranu u oblacima (engl. cloud-storage server) koje napadač može čitati, ovaj malware je napisan u C# programskom jeziku. 
+</p><p><b>Highrise</b> (<a href="https://wikileaks.org/vault7/#Highrise" class="external text" rel="nofollow">Link</a>)
+</p><p>Highrise je aplikacija namijenjena za Android 4.0 do 4.3 sustave, funkcionira kao posrednik kod slanja SMS poruka. Potrebna je ručna instalacija na android uređaj te je potrebno pokrenuti barem jednom te prilikom prvog pokretanja je potrebno unijeti lozinku "insallah" (engl. god willing). Nakon prvog pokretanja aplikacija osluškuje događaje u pozadini te omogućuje presretanje poruka.
+</p><p><b>BothanSpy i Gyrfalcon</b> (<a href="https://wikileaks.org/vault7/#BothanSpy" class="external text" rel="nofollow">Link</a>)
+</p><p>Ovi alati su izrađeni kako bi napadali SSH (secure shell) te bi se izvukli podaci o korisničkom imenu, lozinki te SSH ključevima, koristi se također kako bi se napad mogao lakše proširiti kroz server te druge sustave. Podaci nakon izvlačenja se mogu odmah poslati server ili ih je moguće spremiti u kodiranu datoteku koja će se kasnije izvući drugim putem.
+</p><p>BothanSpy cilja na Xshell program za Windows OS dok Gyrfalcon napada OpenSSH klijent na Linux sustavima.
+</p><p><b>OutlawCountry</b> (<a href="https://wikileaks.org/vault7/#OutlawCountry" class="external text" rel="nofollow">Link</a>)
+</p><p>Pomoću ovog alata CIA ima mogućnost preusmjeravanja ili blokiranja cjelokupnog mrežnog prometa od svoje mete. Malware se sastoji od kernel modula kojega je potrebno učitati preko ljuske te on jednom kada se učita kreira novu tajnu netfilter tablicu sa nazivom tipa „dpxvke8h18”, novo kreirana tablica omogućuje kreiranje novih pravila putem „iptables“ naredbe koje ima veći prioritet te nadjačavaju sva prethodna pravila, ova pravila su vidljiva administratoru samo ukoliko je poznat naziv tablice. 
+</p><p><b>Elsa</b> (<a href="https://wikileaks.org/vault7/#Elsa" class="external text" rel="nofollow">Link</a>)
+</p><p>Elsa omogućuje pronalazak geo-lokacije mete na kojoj je instaliran malware, pritom da je uključen Wi-Fi uređaj poput laptopa na kojemu je instaliran Windows OS. Jednom kada je malware instaliran na uređaju on u određenim intervalima skenira sve vidljive Wi-Fi ulaze te bilježi njihove ESS (Extended Service Set) identifikatore, MAC adrese te snagu signala. Kako bi se prikupljali podaci nije ni potrebno biti spojen na Internet već je samo potrebno imati uključen Wi-Fi kako bi se moglo uspješno skenirati, ukoliko je uređaj spojen na Internet malware automatski koristi baze sa geo lokacijama od Google-a ili Microsofta te sprema sve geografske dužine i širine skupa sa njihovom vremenskom oznakom nazad na uređaj u kodiranom obliku. Ovaj malware ne šalje podatke nazad u CIA već se čeka na zasebno izvlačenje podataka sa uređaja. Upravo objašnjeni scenarij je moguće vidjeti i na prikazanoj slici.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ElsaScenarijRada.png" class="image"><img alt="ElsaScenarijRada.png" src="../images/d/d7/ElsaScenarijRada.png" width="551" height="453" /></a></p>
+<p><b>Brutal Kangaroo</b> (<a href="https://wikileaks.org/vault7/" class="external text" rel="nofollow">Link</a>)
+</p><p>Brutal Kangaroo je malware koji služi za infiltriranje zatvorenih mreža na Windows OS. Malware se širi na način da prvo zarazi jedno računalo koje je spojeno na Internet unutar organizacije tzv. primarni domaćin (engl. Primary host), jednom kada korisnik spoji USB na računalo odmah će se i spojeni uređaj zaraziti, ukoliko se radi o uređaju koji služi za kopiranje podataka između računala spojenog sa internetom te zatvorenog sustava malware će se na taj način veoma brzo proširiti kroz zatvorenu mrežu. Jednom kada se USB otvori putem Windows Explorera pokreće se malware za prikupljanje podataka te ukoliko je nekoliko računala na mreži zaraženo oni će skupa napraviti tajnu mrežu na kojoj će se koordinirati zadaci te razmjenjivati podatci. Ovaj malware sastoji se od sljedećih komponenti:
+</p><p>Drifting Deadline – alat za zarazu USB uređaja
+</p><p>Shattered Assurance – serverski alat koji upravlja sa automatskom zarazom USB uređaja te koristi Drifting Deadline za pojedinačne zaraze.
+</p><p>Broken Promise – postprocesor koji evaluira prikupljene informacije
+</p><p>Shadow – mehanizam koji se raspodjeljuje kroz zatvorenu mrežu te uzima kontrolu nad stvorenom mrežom.
+</p><p><b>Cherry Blossom</b> (<a href="https://wikileaks.org/vault7/" class="external text" rel="nofollow">Link</a>)
+</p><p>Cherry Blossom omogućuje kompletan nadzor, kontrole te manipulaciju nad internetskim prometom svih korisnika koji su spojeni na ugrožene Wi-Fi mrežne uređaje poput bežičnih usmjerivača (engl. router) te ostalih drugih bežičnih pristupnih točaka. Ovim putem je moguć napad kroz tok podataka između interneta te korisnika odnosno mete koju se želi napasti, uređaj može ubaciti maliciozni kod u tok podataka koji zatim može iskorištavati druge slabosti u aplikacijama ili operacijskom sustavu od ciljanog korisnika.
+</p><p>Način na koji se napada Wi-Fi uređaj je ubacivanje Cherry Blossom firmware-a u uređaj s time da popriličan broj uređaja ima mogućnost nadogradnje vlastitih firmware-a tako da nije ni potrebno imati fizički pristup samome uređaju kako bi ga se uspješno zarazilo. Jednom kada je pristupna točka zaražena ona postaje takozvana zamka za muhe odnosno FlyTrap koji odašilje informacije te prima naredbe iz svog zapovjednog i kontrolnog servera pod nazivom CherryTree. Flytrap prvo šalje sve informacije o uređaju u CherryTree koji potom sprema podatke u bazu te kao odgovor šalje misiju koju je potrebno izvršiti. Operator koji definira misije to može vršiti putem CherryWeb-a što je web sučelje u kojemu može vidjeti FlyTrap statuse te sigurnosne detalje, planirati misije te ih postavljati na uređaje, vidjeti detalje vezane uz izvršene misije te izvršavati administratorske poslove. 
+</p><p>Neke od misija koje se mogu izvršavati uključuju jednostavan kompletan nadzor mete, postavljanje instrukcija kada da se šalju ponovno informacije na server, skeniranje email/MAC adresa te korisničkih imena u chatu ili pak preusmjeriti web preglednik na drugu adresu kao što se može vidjeti na prvoj slici te sama dodjela misija se može vidjeti na drugoj slici.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CBTargetAssignment.png" class="image"><img alt="CBTargetAssignment.png" src="../images/1/15/CBTargetAssignment.png" width="605" height="176" /></a></p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CBMissionAssignment.png" class="image"><img alt="CBMissionAssignment.png" src="../images/8/83/CBMissionAssignment.png" width="614" height="273" /></a></p>
+<p><b>Pandemic</b> (<a href="https://wikileaks.org/vault7/#Pandemic" class="external text" rel="nofollow">Link</a>)
+</p><p>Ovaj projekt je namijenjen za Windows računala koja dijele datoteke ili programe sa udaljenim korisnicima unutar lokalne mreže. Kada jedan korisnik želi preuzeti neku datoteku sa zaraženog računala, Pandemic tokom preuzimanja tzv. on-the-fly zamjenjuje traženu datoteku sa datotekom proširenom sa trojancem, kako bi ostao prikriven orginalna datoteka ostaje bez promjena, alat dopušta promjenu nad 20 programa sa maksimalnom veličinom od 800 MB. Jedan od nedostataka alate je taj što se može uočiti razlika u veličini preuzete datoteke te izvorne datoteke.
+</p><p><b>Athena</b> (<a href="https://wikileaks.org/vault7/#Athena" class="external text" rel="nofollow">Link</a>)
+</p><p>Athena je alat za konzolu koji omogućuje praktički potpunu kontrolu nad ciljanim računalom, malware pruža mogućnosti skidanja datoteka sa zaraženog računala, stavljanje drugih datoteka iliti maliciozni kod na ciljano računalo, podesiti postavke ili pak izvršavati odnosno pokretati aplikacije. Ovaj malware je izrađen u suradnji sa kompanijom za Siege Technologies koja se bavi defanzivnom i ofenzivnom cyber sigurnošću, malware također radi nad svim Windows operacijskim sustavima od Windows XP do 10. U nastavku se nalaze neki primjeri naredbi koje operator može koristiti.
+</p><p>execute pre=&lt;value&gt; post=&lt;value&gt; filename=&lt;executable&gt; arguments=&lt;string&gt;
+</p><p>Execute naredba omogućuje izvršavanje bilo kakvih naredbi na zaraženom računalu, parametar „pre“ odnosno pre-delay određuje koliko vremena je željeno da proces čeka prije nego li se počne izvršavati neka radnja, „post“ isto kao i „pre“ predstavlja vrijeme čekanja samo se u ovom slučaju radi o čekanju nakon izvršenja naredbi, „filename“ prima naziv izvršnog programa kojega se želi pokrenuti, „arguments“ naravno prima argumente potrebne za izvršavanje programa.
+</p><p>get flag=&lt;number&gt; filename=&lt;string&gt;
+</p><p>Get dohvaća te preuzima datoteku sa zaraženog računala, „flag“ označava dali ovaj zahtjev ima prioritet, „filename“ je naziv datoteke koju se želi preuzeti 
+</p><p>put local _filename=&lt;filename&gt; remote _filename=&lt;filename&gt; 
+</p><p>Put omogućuje stavljanje datoteke sa računala operativca na zaraženo računalo. „local_filename“ je naziv datoteke koju želimo poslati, „remote_filename“ je naziv datoteke koji se želi da datoteke poprimi prilikom slanja na zaraženo računalo.
+</p><p><b>AfterMidnight/Assassin</b> (<a href="https://wikileaks.org/vault7/#AfterMidnight" class="external text" rel="nofollow">Link</a>)
+</p><p>AfterMidnight omogućuje dinamičko izvršavanje i učitavanje malware payloada na ciljanom računalu na način da se glavni kontrolor zamaskira kao Windows servis te on zapravo pruža sigurno pokretanje takozvanih Gremlina putem LP (Listening Post) sustava zvanog Octopus, Gremlini su mali payloadi koji su namijenjeni da se izvršavaju skriveni na ciljanom računalu te mogu imati cilj da prekidaju rad nekih funkcionalnosti određenih software-a, nadgledaju metu te izvlače podatke o radu ili da pružaju interne servise za druge gremline.
+</p><p>Jednom kada je AfterMidnight instaliran na računalu on prema svojem promjenjivom rasporedu provjerava dali postoji nekakav novi plan koji je potrebno izvršiti, ukoliko postoji onda ga preuzima skupa sa svim potrebnim komponentama te sprema na računalo prije nego li što ponovno pokrene sve Gremline u memoriji. Također postoji i specijalni payload pod nazivom AlphaGremlin koji čak ima i izrađeni skriptni jezik koji omogućuje operatorima izvršavanje posebnih zadataka na računalu. Na slici se nalazi prikaz arhitekture ovog malware-a.
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:AfterMidnightArhitektura.png" class="image"><img alt="AfterMidnightArhitektura.png" src="../images/2/2d/AfterMidnightArhitektura.png" width="605" height="315" /></a></p>
+<p>Assassin je sličan malware kao i AfterMidnight te služi za iste svrhe međutim on se sastoji od četiri podsustava.
+</p><p>Implant – sadrži logiku i funkcionalnosti koje se izvršavaju na ciljanom računalu
+</p><p>Builder – služi za konfiguraciju Implanta
+</p><p>Command and Control (C2) – sustav koji generira zadatke za Implant i šalje ih na LP, također prima rezultate iz LP-a
+</p><p>Listening Post (LP) – posreduje u komunikaciji između Implanta i C2 sustava putem web servera.
+</p><p><b>Archimedes</b> (<a href="https://wikileaks.org/vault7/#Archimedes" class="external text" rel="nofollow">Link</a>)
+</p><p>Pomoću ovog alata se napadaju LAN mreže gdje je jedno računalo zaraženo te njegovu kontrolu ima CIA, malware se u ovom slučaju ponaša kao osoba u sredini odnosno kada neko sa računala A šalje poruku na računalo B međutim između se nalazi zaraženo računalo koje prvo dohvaća poslanu poruku te si ju zatim prekopira i tek onda prosljeđuje do računala B.  
+</p><p><b>Scribbles</b> (<a href="https://wikileaks.org/vault7/#Scribbles" class="external text" rel="nofollow">Link</a>)
+</p><p>Scribbles je alat čiji je glavni cilj bio pronalazak uljeza a to radi na način da postavlja web svjetionik (engl. beacon) unutar nevidljivog žiga u dokumentima, čim bi netko otvorio dokument zapisala bi se njegova IP adresa te poslala na servere. Treba napomenuti da ovaj alat radi na svim Microsoft Office alatima od verzija 97 do 2016, ukoliko se koristi neki drugi alat za otvaranje dokumenta žig te url će biti vidljivi, također ukoliko je datoteka kodirana ili pod lozinkom onda alat neće funkcionirati.
+</p><p><b>Weeping Angel</b> (<a href="https://wikileaks.org/vault7/" class="external text" rel="nofollow">Link</a>)
+</p><p>Ovaj alat je namijenjen za snimanje zvuka preko ugrađenih mikrofona unutar Samsung F serije pametnih TV-a, na ovom projektu CIA je surađivao sa MI5. Za instalaciju ili ekstrakciju podataka potrebno je jednostavno ubaciti USB uređaj u TV, kada alat više nije potreban na TV-u može se samostalno uništiti postavljanjem datuma za uništenje odnosno postavljanjem mogućnosti pod nazivom „Kill Date“. Jedan od navedenih problema ovoga alata je taj što ne može dijeliti mikrofon, ukoliko se događa npr. skype poziv alat neće moći istovremeno snimati zvuk te će nastaviti sa svojim radom tek nakon što poziv završi. 
+</p><p><b>Hive</b> (<a href="https://wikileaks.org/vault7/#Hive" class="external text" rel="nofollow">V7 Link</a> i <a href="https://wikileaks.org/vault8/#Hive" class="external text" rel="nofollow">V8 Link</a>)
+</p><p>Hive je serverska infrastruktura koja služi kako bi se na siguran način dohvaćali podaci izvučeni iz trenutno postavljenih malware-a te kako bi ih se spremilo u vlastite baze. Kako bi operatori malware-a također mogli sigurno izvršavati određene zadatke nad ciljanim uređajima moraju ovim putem poslati naredbe.  
+</p><p>U slučaju da se jedan od malware-a ne oglasi unutar određenog perioda ili ako to operator odluči, pokreće se  proces za samo uništenje. Komunikacija između operatera i implantata se odvija putem SSL osiguranih tunela, nakon što se implantat pokrene on pozove LP te dobiva certifikat od servera koji treba verificirati. Nakon uspostave tunela klijent i implantat izvršavaju Diffie-Hellman razmjenu ključeva kako bi dobili tajni ključ koji se koristi za drugi sloj enkripcije pomoću AES algoritma. 
+</p><p>Unutar trezora 8 objava nalazi se i kompletan programski kod za Hive.
+</p><p><b>Grasshopper</b> (<a href="https://wikileaks.org/vault7/#Grasshopper" class="external text" rel="nofollow">Link</a>)
+</p><p>Grasshopper je CLI (Command Line Interface) okvir (engl. framework) kojega je CIA napravila za izradu prilagođenih malware payloada s ciljem da upadaju u Windows OS te zaobilaze antivirusne zaštite. Grasshopper automatski spaja nekoliko različitih komponenti koje su potrebne za napadanje mete te ih daje u obliku instalacijske datoteke koju se može jednostavno pokrenuti na ciljanom računalu.
+</p><p><b>Marble Framework</b> (<a href="https://wikileaks.org/vault7/" class="external text" rel="nofollow">Link</a>)
+</p><p>Marble se koristi kako bi se CIA zaštitila od prepoznavanja prilikom bilo kakvog analiziranja njihovog malware-a od strane forenzičara ili antivirusnih kompanija. Marble to radi sakrivajući fragmente teksta unutar malware-a te zamjenjujući znakove sa stranim jezicima poput ruskog, kineskog, arapskog ili korejskog kako bi što više istražitelja bacili na krivi trag, ovim načinom su dosta vlastitih malware-a predstavili kao napade iz drugih zemalja. Na slici  se nalazi isječak koda koji su koristili za dodavanje stranih jezika. 
+</p>
+<p align="center"><a href="http://security.foi.hr/wiki/index.php/Datoteka:MarbleJezici.png" class="image"><img alt="MarbleJezici.png" src="../images/3/36/MarbleJezici.png" width="605" height="408" /></a></p>
+<p><b>Dark Matter</b> (<a href="https://wikileaks.org/vault7/" class="external text" rel="nofollow">Link</a>)
+</p><p>Dark Matter je skup projekata koji ciljaju Apple Mac firmware što znači da malware ostaje čak i nakon ponovne instalacije operacijskog sustava.
+Sonic Scredriver je mehanizam koji omogućuje pokretanje na perifernim uređajima tokom pokretanja Mac laptopa što omoguće napad na sustav putem USB-a čak i dok je postavljena lozinka nad firmware-om.
+</p><p>NightSkies je malware koji radi u pozadini te omogućuje potpunu udaljenu kontrolu i nadzor nad Iphone uređajima, moguće je preuzimanje podataka uključujući kontakte, poruke te zapisnike. Ovaj malware je potrebno fizički instalirati na uređaje te ga je CIA instalirala na uređaje direktno iz tvornica još od 2008 godine.  
+</p><p>DarkSeaSkies je implantat koji služi za dobivanje potpune kontrole nad Apple MacBook Air uređajem te se sastoji od Dark Matter, SeaPea i NightSkies, moguće ga je jednostavno pokrenuti putem USB-a.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlamehano&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlamehano (stranica ne postoji)">Zlamehano</a> 17:22, 6. veljače 2018. (CET)
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Projekt se u većem dijelu usredotočio na tehničke mogućnosti CIA-e i praktične alate koji se mogu iskoristiti protiv sustava, no ovdje će biti riječi o društvenim i širim implikacijama koje proizlaze iz curenja Trezor 7 dokumenata. Ovo je samo dio od 8761 CIA-inih dokumenata koji su iscurili iz zatvorene mreže u Langleyu, no i taj dio analiziran može biti vrlo zabrinjavajući. WikiLeaks je zbog sigurnosti maknula sva korisnička imena u dokumentima te se dokumenti zbog autentičnosti prijašnjih WikiLeaks objava mogu smatrati pravima, što je iskazao i Edward Snowden. Cilj izvora curenja bio je potaknuti raspravu o posljedicama i utjecaju cyber oružja na SAD i svijet. CIA je prikupljala ranjivosti i bugove kako bi ih iskoristila za svoje svrhe, što je u suprotnosti sa obavezom da sve takve ranjivosti moraju biti objavljene kako ih ne bi mogle iskoristiti strane obavještajne agencije i civili. Mnoge tehnike za iskorištavanje ranjivosti posuđene su od malwarea koji kruži Internetom i nije originalni dio CIA-e, te ih CIA koristi kako bi izradila manje dijelove koda koji se nalaze u CIA-inim bibliotekama i mogu biti od koristi u hakerskim aktivnostima. 
+</p><p>CIA je za svoje tehničare također napisala pravila koja osiguravaju da se njihove aktivnosti ne mogu otkriti forenzičkom analizom ili praćenjem do izvora napada. CIA je nedavno izgubila kontrolu nad svojim cyber arsenalom, što znači da malware, viruse i ranjivosti može u suštini iskoristiti bilo tko, nevezano je li to vlada druge države ili maloljetni haker koji se igra sa ovim alatima. U dokumentima se spominje kako CIA ima mogućnost iskorištavanja ranjivosti mobilnih uređaja i pametnih telefona kako bi mogla pristupiti bilo kojem uređaju na planetu koji vrti iOS ili Android. Uz to se veže prikupljanje podataka, nevezano jesu li oni kriptirani ili nekriptirani, pristup porukama, datotekama, mikrofonu i kameri uređaja na kojem se malware izvršava. Svi se ti podaci šalju natrag CIA-u na posebno dizajnirane poslužitelje, a među njima se nalaze i podaci o svim Wi-Fi paketima koje Android pametni telefoni mogu prikupljati bez znanja njihovih korisnika. Vezano uz ovo, CIA ima mogućnost snimati i slati razgovore preko Samsung Smart TV-a, koji se čini ugašen no potajno pomoću mikrofona snima zvuk i šalje ga na CIA-ine poslužitelje. Nije potrebno reći da je ovo vrlo slično sa autoritativnom državom koja svakodnevno prati građane, opisanoj u knjizi 1984. od Georgea Orwella, koji je predvidio naizgled svemogući globalni sustav nadgledanja. 
+</p><p>Postoje dokumenti sastanaka koji opisuju zanimanje CIA-e u računalne automobilske sustave koji bi se mogli zaraziti malwareom te upravljati vozilom (npr. ubrzavati ili kočiti) bez kontrole vozača. Svrha ove kontrole nije navedena, no ne treba razmišljati puno prije nego je jasno da pomoću ove tehnike CIA može izvršiti ciljano ubojstvo koje je prikriveno kao automobilska nesreća. Ovo je potaknulo teoriju zavjere koja navodi da je CIA udaljenom kontrolom vozila ubila novinara Michaela Hastingsa koji je nekoliko dana ranije napisao članak o nadzoru tada demokratske vlade SAD-a nad svojim građanima. Ako ovo čitate i niste još zabrinuti, vrijeme je da počnete biti. Objavljeni dokumenti pokazuju kako CIA posjeduje tajnu hakersku bazu u veleposlanstvu u Frankfurtu, što ima potencijal stvoriti poteškoće u međunarodnom odnosu SAD-a i Njemačke. Iz dokumenata koje je analizirao WikiLeaks ispostavlja se da je CIA često hakirala svoje dvostruke agente, ljude od interesa u SAD-u i u svijetu, saveznike SAD-a i zemlje članice NATO saveza te, naravno, neprijateljske države poput Rusije i Kine. Kratko rečeno, svi koji su američkoj vladi važni ili zanimljivi bili su špijunirani od strane CIA-e. 
+</p><p>Postoje izvješća koja upućuju na to da je CIA htjela otvoriti novi odjel nazvan Meme Warfare Center, koji bi se bavio analizom trenutnih memeova i izradom vojnih memeova. Svrha centra bila bi utjecaj na opću kulturu te kao takva otvara pitanje što zapravo CIA želi napraviti, a tome ne pomaže činjenica da su tehničari koji rade na ovim projektima upoznati s memeovima i popularnom kulturom. Nije sigurno pod čijom ovlasti su poduzete ove radnje, no mogućnosti su da je to naredila vlada SAD-a koja želi nadgledati i upravljati svojim i tuđim građanima ili je CIA ove radnje poduzela po svojem nalogu te efektivno prekoračila svoje ovlasti. Ovo curenje dokumenata označava kraj razdoblja potpune tajnosti za CIA-u i upozorava svakog tko se želi informirati, da svijet bez nadzora, nažalost, danas više nije moguće ostvariti. Neovisno o tome postoji li u ovom svemu stupanj paranoje, nedvojbeno je jasno da se danas ljudi promatraju te u budućnosti možda naše pravo na mišljenje i sloboda govora više neće biti osigurani.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Vedglozin&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Vedglozin (stranica ne postoji)">Vedglozin</a> 23:30, 6. veljače 2018. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 46/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9856-0!*!0!!hr!2!edit=0 and timestamp 20190203204123 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Analysis_of_VaultX_leaks.html">http://security.foi.hr/wiki/index.php/Analysis_of_VaultX_leaks</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Analysis_of_VaultX_leaks" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Analysis_of_VaultX_leaks.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Analysis_of_VaultX_leaks&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Analysis_of_VaultX_leaks.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Analysis_of_VaultX_leaks.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Analysis_of_VaultX_leaks&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Analysis_of_VaultX_leaks&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Analysis_of_VaultX_leaks.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Analysis_of_VaultX_leaks" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Analysis_of_VaultX_leaks" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Analysis_of_VaultX_leaks&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Analysis_of_VaultX_leaks&amp;oldid=43867" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:17, 18. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 808 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Analysis_of_VaultX_leaks", "wgTitle": "Analysis of VaultX leaks", "wgAction": "view", "wgArticleId": 9856, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43867, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.617 secs. -->			</body>
+</html>

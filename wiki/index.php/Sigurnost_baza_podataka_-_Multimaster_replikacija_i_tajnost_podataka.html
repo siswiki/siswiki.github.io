@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnost baza podataka - Multimaster replikacija i tajnost podataka - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnost baza podataka - Multimaster replikacija i tajnost podataka</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#mw-head">orijentacija</a>,
+					<a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Replikacija_baza_podataka"><span class="tocnumber">1</span> <span class="toctext">Replikacija baza podataka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Multimaster_replikacija"><span class="tocnumber">1.1</span> <span class="toctext">Multimaster replikacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Mogu.C4.87nost_sukoba_u_asinkronoj_replikaciji"><span class="tocnumber">1.1.1</span> <span class="toctext">Mogućnost sukoba u asinkronoj replikaciji</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Vrlo_kratki_intervali_pra.C5.BEnjenja_redova"><span class="tocnumber">1.1.2</span> <span class="toctext">Vrlo kratki intervali pražnjenja redova</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Alat_za_nadgledanje_replikacijskog_sustava"><span class="tocnumber">1.1.3</span> <span class="toctext">Alat za nadgledanje replikacijskog sustava</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Dodavanje_novog_mjesta_u_replikacijsku_grupu"><span class="tocnumber">1.1.4</span> <span class="toctext">Dodavanje novog mjesta u replikacijsku grupu</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Kori.C5.A1tenje_vi.C5.A1e_replikacijskih_grupa"><span class="tocnumber">1.1.5</span> <span class="toctext">Korištenje više replikacijskih grupa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Sinkrona_replikacija_u_PostgreSQL-u_9.1"><span class="tocnumber">1.2</span> <span class="toctext">Sinkrona replikacija u PostgreSQL-u 9.1</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Osnovne_postavke"><span class="tocnumber">1.2.1</span> <span class="toctext">Osnovne postavke</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Planiranje_performansi"><span class="tocnumber">1.2.2</span> <span class="toctext">Planiranje performansi</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Planiranje_visoke_dostupnosti"><span class="tocnumber">1.2.3</span> <span class="toctext">Planiranje visoke dostupnosti</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Aplikacija"><span class="tocnumber">2</span> <span class="toctext">Aplikacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Multimaster_replikacija_pomo.C4.87u_sustava_Bucardo"><span class="tocnumber">2.1</span> <span class="toctext">Multimaster replikacija pomoću sustava Bucardo</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Instalacija"><span class="tocnumber">2.1.1</span> <span class="toctext">Instalacija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-15"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Master-slave_replikacija_u_PostgreSQL"><span class="tocnumber">2.2</span> <span class="toctext">Master-slave replikacija u PostgreSQL</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Literatura"><span class="tocnumber">2.2.1</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Replikacija_u_CouchDB"><span class="tocnumber">2.3</span> <span class="toctext">Replikacija u CouchDB</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Korisnici_i_sigurnost"><span class="tocnumber">2.3.1</span> <span class="toctext">Korisnici i sigurnost</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Replikacija_u_MySQL-u"><span class="tocnumber">2.4</span> <span class="toctext">Replikacija u MySQL-u</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#O_radu"><span class="tocnumber">3</span> <span class="toctext">O radu</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Literatura_2"><span class="tocnumber">3.1</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#Dodatno_.C5.A1tivo"><span class="tocnumber">3.2</span> <span class="toctext">Dodatno štivo</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Replikacija_baza_podataka"> Replikacija baza podataka </span></h1>
+<p>Replikacija baza podataka je kreiranje i održavanje višestrukih kopija iste baze. U većini implementacija replikacije baze podataka, jedan server baze podataka (engl. <i>database server</i>) održava glavnu (engl. <i>master</i>) kopiju baze, dok dodatni serveri održavaju kopije baze podataka, takozvane robove (engl. <i>slave</i>). U takvoj se arhitekturi sve što se treba zapisati u baze podataka šalje na <i>master</i> server, pa se replicira na <i>slave</i> servere, a čitanje se dijeli između svih servera; to rezultira povećanim performansama, budući da se dijeli teret. Replikacija baza podataka, također, može povećati dostupnost, budući da se <i>slave</i> serveri mogu konfigurirati da preuzmu <i>master</i> ulogu, ako prvotni <i>master</i> server postane nedostupan.
+</p><p>Tri su osnovna načina za izvođenje replikacije baze podataka:
+</p>
+<ol><li> Replikacija snimkama: podaci se iz jednog servera baze podataka kopiraju u drugi ili u drugu bazu na istom serveru.
+</li><li> Replikacija spajanjem: podaci iz dvije ili više baza podataka se kombiniraju u jednu bazu.
+</li><li> Replikacija transakcijama: korisnici dobiju kompletne početne kopije baze, pa onda periodički dobijaju ažurirane podatke.
+</li></ol>
+<h2> <span class="mw-headline" id="Multimaster_replikacija"> Multimaster replikacija </span></h2>
+<p>Multimaster (ili više-gospodarska, odnosno koja ima više gospodara) replikacija je usluga koja dozvoljava da podaci u većem broju baza podataka budu sinkronizirani. Ako se u sustavu s multimaster replikacijom u jednu bazu unese neki red, taj se red propagira svim drugim bazama unutar sustava. Analogno vrijedi za ažuriranje i brisanje podataka.
+</p><p>Da bi se uspostavila multimaster replikacija, konfiguracijom uključujemo baze podataka u "replikacijsku grupu", pri čemu je jedna baza iz grupe definirana kao "glavno mjesto definicije", a ostale kao "glavna mjesta". Razlika između ove dvije vrste mjesta je što se većina administratorskih komandi vezanih uz replikaciju moraju izvršiti na glavnom mjestu definicije.
+</p><p>Transakcije se u udaljene baze podataka propagiraju na dva načina: sinkrono i asinkrono. Sinkrona replikacija primjenjuje svaku transakciju na sva glavna mjesta u grupu odmah, dok asinkrona replikacija sprema sve transakcije koje se dogode na nekom mjestu u međuspremnik (engl. <i>buffer</i>) zvan "red odgođenih transakcija" (engl. <i>deferred transaction queue</i>) ili kraće <i>deftran</i> red, koji se periodički (recimo svake minute) prazni šaljući sve transakcije drugim mjestima.
+</p><p>Sustav za upravljanje bazama podataka <a href="http://www.oracle.com/us/products/database/index.html" class="external text" rel="nofollow">Oracle</a> je sinkronu replikaciju postigao koristeći funkcionalnost dvofaznog izvršavanja transakcije, kako bi se potvrdilo da su sve baze primjenile danu transakciju. Ako bilo koje od mjesta iz grupe nemože prihvatiti transakciju, tada nijedno mjesto u replikacijskoj grupi neće prihvatiti transakciju, što dovodi do neuspješnog izvršavanja transakcije. Za asinkronu replikaciju koriste proceduru pod nazivom <i>schedule_push</i>. Većina njihovih korisnika koji koriste multimaster replikaciju, radije izabiru asinkronu od sinkrone replikacije, zbog njenih mnogih prednosti.
+</p><p>Prije svega, asinkrona replikacija koristi puno manje mrežne propusnosti (engl. <i>network bandwidth</i>) i pruža bolje performanse nego sinkrona replikacija. Glavni razlog ovome je to što je efikasnije pohraniti nekoliko transakcija i onda ih propagirati kao grupu, nego propagirati svaku transakciju odvojeno. Važnost ove karakteristike se povećava s povećanjem udaljenosti između mjesta.
+</p><p>Također, sinkrone aplikacije imaju puno veći dodatak (engl. <i>overhead</i>), budući da svaka transakcija zahtijeva uspostavljanje nove veze prema svim mjestima iz grupe, dok asinkrona replikacija zahtijeva manje konekcija, budući da se transakcije propagiraju kao grupa.
+</p><p><a href="http://www.oracle.com/us/products/database/index.html" class="external text" rel="nofollow">Oracle 8.0</a> uveo je "paralelno propagiranje" s asinkronom replikacijom. Na ovaj se način propagira više od jedne transakcije u danom trenutku, što znatno povećava performanse replikacije. Paralelna propagacija se ne može primjeniti na sinkronu replikaciju budući da je stupanj paralelnosti propagacije definiran u proceduri <i>schedule_push</i>, koju sinkrona replikacija ne koristi.
+</p><p>Ipak, najveća prednost asinkrone replikacije je što pruža visoku dostupnost replikacijske grupe. To znači da ako jedno mjesto iz grupe prestane funkcionirati, druga će mjesta i dalje moći nastaviti raditi, dok će se transakcije gomilati u <i>deftran</i> redovima čekajući da nefunkcionalno mjesto ponovno postane dostupno.
+</p><p>S druge strane, sinkrona replikacija ne dozvoljava normalan rad ostalih mjesta, ako je jedno mjesto nedostupno. Razlog tomu je što je svaka transakcija mora odmah primjeniti na svim mjestima u replikacijskoj grupi, što naravno neće uspjeti za nedostupnu bazu. Zbog ovoga sinkrona replikacija pruža manje dostupnosti nego korištenje samo jedne baze.
+</p><p>Ipak, asinkrona replikacija ima i nedostatke: postoji mogućnost sukoba podataka, te ako se neko mjesto sruši, transakcije koje nisu propagirane mogu biti izgubljene.
+</p><p>U daljnjem tekstu su objašnjeni neki od težih problema kod multimaster replikacije, zajedno s nekim mogućim rješenjima.
+</p>
+<h3> <span class="mw-headline" id="Mogu.C4.87nost_sukoba_u_asinkronoj_replikaciji"> Mogućnost sukoba u asinkronoj replikaciji </span></h3>
+<p>Zbog spremi-i-proslijedi prirode asinkrone replikacije, postoji mogućnost nekonzintentnih promjena podataka, koje smatramo sukobima. Tri su osnovne vrste sukoba:
+</p>
+<ul><li> sukob ažuriranja - pojavljuje se kad se isti red ažurira u dvije ili više bazi podataka prije nego je ijedna od tih promjena propagirana ijednoj drugoj bazi podataka,
+</li><li> sukob jedinstvenosti - pojavljuje se kad bi propagacija podataka uzrokovala više različitih redova da imaju istu vrijednost u istom stupcu, koji ima ograničenje jedinstvenosti (engl. <i>unique</i>),
+</li><li> sukob brisanja - pojavljuje se kad se iz jedne baze izbriše jedan ili više redova, ali kad se takav zahtjev pokuša propagirati, sustav ne uspijeva naći sve redove u udaljenim bazama, što može biti posljedica prethodnih transakcija koje su ili već izbrisale te redove ili ih promijenile.
+</li></ul>
+<p>Kako bi pokušao riješiti ovakve sukobe, <a href="http://www.oracle.com/us/products/database/index.html" class="external text" rel="nofollow">Oracle</a> ima "rukovatelje rezolucije sukoba" (engl. <i>conflict resolution handlers</i>), koji u većini slučajeva dobro rješavaju sukobe ažuriranja, ali ne rade dobro s sukobima jedinstvenosti, dok ih uopće nema za sukobe brisanja; rukovatelje je moguće i sam napisati.
+</p><p>Drugi način rješavanja sukoba je konfiguriranje aplikacije koja radi s bazama da piše samo u jednu bazu, dok sve ostale služe samo za čitanje. Na taj način ne može doći ni do jedne vrste sukoba. Ipak, treba omogućiti da aplikacija, u slučaju ispada baze u koju piše iz rada, nastavi daljnje zahtjeve slati na neku drugu bazu podataka.
+</p><p>Dakle, zaključujemo da ako planiramo koristiti asinkronu replikaciju, moramo dizajnirati aplikaciju sukladno tome, budući da asinkronu replikaciju nije jednostavno dodati kasnije.
+</p>
+<h3> <span class="mw-headline" id="Vrlo_kratki_intervali_pra.C5.BEnjenja_redova"> Vrlo kratki intervali pražnjenja redova </span></h3>
+<p>Još jedan od problema asinkrone replikacije je postavljanje prekratkih intervala između pražnjenja redova, budući da to može iskoristiti velik broj resursa sustava. Pokretanje i zaustavljanje pražnjenja redova zahtijeva puno procesorskih ciklusa, pa je očito da će proces morati više raditi što je pražnjenje češće. Moguća je situacija u kojoj procesor nema dovoljno ciklusa dostupnih da bi započeo i završio pražnjenja u predviđenoj brzini, pa tako ni da bi zaista praznio redove odgođenih transakcija.
+</p><p>Rješenje ovakvog problema je ne pretjerivati kad se postavljaju intervali pražnjenja redova; intervali od 1 ili više minuta su sasvim u redu.
+</p>
+<h3> <span class="mw-headline" id="Alat_za_nadgledanje_replikacijskog_sustava"> Alat za nadgledanje replikacijskog sustava </span></h3>
+<p>Kad replikacijska grupa koristi sinkronu replikaciju, sva mjesta u grupi moraju biti aktivna i ispravna kako bi se moglo ažurirati bilo koje mjesto, što uvelike smanjuje dostupnost replikacijske grupe. Mogući pristup sinkronoj replikaciji je napraviti automatizirani alat koji će periodično provjeravati status svih mjesta u replikacijskoj grupi. Ako alat odredi da je bilo koje mjesto nedostupno, pokušat će ga ponovno pokrenuti. Ako ne uspije, alat će dinamički ukloniti to mjesto iz replikacijske grupe, kako bi grupa mogla nastaviti funkcionirati.
+</p><p>Preporuka je da se ovakav alat pokreće s dva različita mjesta u grupi; jedno bi trebalo biti glavno mjesto definicije s kojeg se motre sva ostala mjesta, a s drugog mjesta se motri samo na glavno mjesto definicije. Kad alat s drugog mjesta otkrije kako se glavno mjesto definicije srušilo i ne može se ponovno pokrenuti, trebao bi dinamički realocirati glavno mjesto definicije na mjesto s kojeg se alat pokreće, a tek nakon toga briše prvotno glavno mjesto definicije iz grupe.
+</p><p>Budući da sinkrona replikacija ne sprema transakcije u <i>deftran</i> redove, nema načina za pratiti transakcije koje se pojavljuju na tim mjestima. Dakle, ako se mjesto na neko vrijeme ukloni iz sinkrone replikacijske grupe, pa ga želimo ponovno vratiti nazad u nju, potrebno je sve podatke u grupi ponovno učitati u to mjesto, odnosno, nije moguće učitati samo transakcije koje su se zbile nakon ispada mjesta iz grupe.
+</p><p>Također, da bi vratili mjesto u replikacijsku grupu, obavezno je suspendirati svu aktivnost nad cijelom grupom. Razumljivo je da povratak mjesta u replikacijsku grupu zahtijeva puno posla i dugo vrijeme ispada (engl. <i>down time</i>), zbog čega je preporučljivo planirati vrijeme ispada grupe.
+</p>
+<h3> <span class="mw-headline" id="Dodavanje_novog_mjesta_u_replikacijsku_grupu"> Dodavanje novog mjesta u replikacijsku grupu </span></h3>
+<p>U sustavu za upravljanje bazama podataka <a href="http://www.oracle.com/us/products/database/index.html" class="external text" rel="nofollow">Oracle</a> postoji procedura <i>add_master_database</i> koja služi dodavanju mjesta u replikacijsku grupu. Jedan od parametara te procedure pruža odabir želimo li koristiti objekte (tablice, indekse i drugo) koji već postoje u novom mjestu ili želimo da se oni automatski kreiraju kao dio procesa dodavanja novog mjesta. Pomoću drugog parametra moguće je odabrati želimo li da sustav sam kopira podatke iz postojećih mjesta u novu bazu ili želimo koristiti podatke koji su već učitani u bazu. Kako ne bi došlo do pogreške, preporuča se prvo u novoj bazi kreirati sve objekte i popuniti tablice podacima, a tek onda dodavati mjesto u replikacijsku grupu. Ako radimo s drugom opcijom, potrebno je čekati duže vrijeme da se u novom mjestu kreira sve potrebno.
+</p>
+<h3> <span class="mw-headline" id="Kori.C5.A1tenje_vi.C5.A1e_replikacijskih_grupa"> Korištenje više replikacijskih grupa </span></h3>
+<p>Moguće je kreirati više replikacijskih grupa unutar jedne baze podataka, te ih čak podijeliti u sinkrone i asinkrone grupe. Jedino je ograničenje da bilo koji objekt može pripadati samo jednoj grupi; na taj način particioniramo objekte između više grupa.
+</p><p>Razlog korištenja više grupa može biti u različitosti vremenske osjetljivosti podataka u baz (poput visoko osjetljivih cijena dionica i malo osjetljivih sportskih rezultata). Tada je korisno podatke s visokom osjetljivošću smjestiti u sinkronu grupu ili u asinkronu grupu s vrlo malim intervalom pražnjenja redova, a one s niskom osjetljivošću u asinkrone grupe s normalnim ili dužim intervalom pražnjenja redova. Ova podjela vodi smanjenju ukupnog korištenja mrežnog prometa, budući da samo dio podataka šaljemo često.
+</p><p>Drugi razlog za korištenje više grupa je ako relativno malena količina vrijednosti u bazi vrlo problematična s obzirom na podatkovne sukobe. Ukoliko se radi o većoj količini problematičnih vrijednosti, preporuča se korištenje samo jedne sinkrone replikacijske grupe.
+</p><p>Ipak, korištenje više replikacijskih grupa povećava kompleksnost baze i čini posao njenog administriranja još težim. Potrebno je paziti da se izbjegnu ovisnosti između replikacijskih grupa, odnosno, ne smije se dozvoliti da se vanjski ključevi prostiru kroz nekoliko grupa.
+</p><p>Problemi se mogu pojaviti ako se tablica roditelj nalazi u asinkronoj grupi sa dugim intervalom pražnjenja redova, a tablica dijete u grupi s kratkim intervalom pražnjenja redova ili u sinkronoj grupi. Ako jedna transakcija u lokalnoj bazi kreira roditelja, a zatim i dijete koje se referencira na tog roditelja, postoji mogućnost da će se dijete propagirati u ostale grupe prije roditelja, što bi dovelo do kršenja referencijalnog integriteta.
+</p><p>Čak i ako nema vanjskih ključeva koji se prostiru kroz nekoliko grupa, SQL izrazi koji pristupaju bazi ne bi trebali pristupati podacima koji se nalaze u različitim replikacijskim grupama. To zahtijeva čvrstu i trajnu koordinaciju između administratora baza podataka i razvojnih programera.
+</p><p>Za kraj vrijedi reći da je multimaster replikacija vrlo snažna i fleksibilna mogućnost, ali sa snagom i fleksibilnošću dolazi i kompleksnost.
+</p>
+<h2> <span class="mw-headline" id="Sinkrona_replikacija_u_PostgreSQL-u_9.1"> Sinkrona replikacija u PostgreSQL-u 9.1 </span></h2>
+<p>Uobičajena replikacija u PostgreSQL-u je asinkrona. Ako se primarni, tj. <i>master</i>, server sruši, tada se možda neke izvršene transakcije neće replicirati na ostale servere, što uzrokuje gubitak podataka.
+</p><p>Sinkrona replikacija nudi mogućnost potvrđivanja da su sve promjene koje je napravila transakcija prenesene na jedan sinkroni pričuvni server. Ovo proširuje standardnu razinu trajnosti koju nudi izvršavanje transakcije.
+</p><p>Kad se zahtjeva sinkrona replikacija, svako izvršavanje transakcije koja piše će čekati da stigne potvrda da je izvršenje zapisano u transakcijski dnevnik na disku od oba (primarnog i pričuvnog) servera. Jedini način na koji podaci mogu biti izgubljeni je ako oba servera padnu u isto vrijeme. Stoga ovo pruža puno višu razinu trajnosti, ako je sistemski administrator oprezan što se tiče smještanja i upravljanja serverima. Čekanje na potvrdu povećava korisničko povjerenje da se promjene neće izgubiti u slučaju pada sustava, ali i nužno povećava vrijeme odgovora. Minimalno vrijeme čekanja je vrijeme odziva (engl. <i>roundtrip time</i>) između primarnog i pričuvnog servera.
+</p><p>Transakcije koje samo čitaju i poništenja transakcija ne moraju čekati odgovor od pričuvnog servera, kao ni izvršenja podtransakcija. Dugotrajne akcije poput učitavanja podataka ili izgradnje indeksa ne trebaju čekati konačnu poruku potvrde (izvršenja). Sve akcije s dvofaznim izvršenjem trebaju čekati na potvrdu, uključujući pripremu i izvršenje.
+</p>
+<h3> <span class="mw-headline" id="Osnovne_postavke"> Osnovne postavke </span></h3>
+<p>Jednom kad je replikacija podešena, podešavanje sinkrone replikacije zahtijeva samo jedan dodatan korak: <i>synchronous_standby_names</i> trebaju biti postavljeni kao nepraznu vrijednost. Također, <i>synchronous_commit</i> se mora uključiti, ali to većinom nije potrebno, jer je to uobičajena vrijednost. Ova konfiguracija će uzrokovati da svako pohranjivanje čeka potvrdu da je pričuva pohranila bilješku o izvršenju na dugotrajno spremište podataka, čak iako je za to potrebno puno vremena.
+</p><p>Nakon što je izvršenje pohranjeno na disku na primarnom serveru, WAL bilješka (WAL je kratica za <i>write-ahead logging</i>, tj. <i>bilježenje za pisanje unaprijed</i>) se šalje na pričuvni. Pričuvni šalje poruku odgovora svaki put kad se nova skupina WAL podataka zapiše na disk, osim ako je <i>wal_receiver_status_interval</i> postavljen na nulu na pričuvnom serveru. U slučaju gašenja servera, server se neće ugasiti dok sve WAL bilješke nisu prenesene na pričuvne servere.
+</p>
+<h3> <span class="mw-headline" id="Planiranje_performansi"> Planiranje performansi </span></h3>
+<p>Sinkrona replikacija uobičajeno zahtijeva pažljivo isplanirane i postavljene pričuvne servere kako bi osigurali da će se aplikacija ponašati prihvatljivo. Čekanje ne koristi sistemske resurse, ali transakcijska zaključavanja nastavljaju držati dok se prijenos ne potvrdi. Neoprezna uporaba sinkrone replikacije će smanjiti performanse za aplikacije baze podatka, budući da je povećano vrijeme čekanja odgovora i količina sukoba.
+</p><p>PostgreSQL dozvoljava razvojnim programerima aplikacija specificiranje razine trajnosti potrebne za replikaciju. Ovo može biti specificirano za cjelokupni sustav ili za pojedine korisnike, konekcije ili transakcije.
+</p>
+<h3> <span class="mw-headline" id="Planiranje_visoke_dostupnosti"> Planiranje visoke dostupnosti </span></h3>
+<p>Izvršenja napravljena kad je synchronous_commit uključen će čekati dok pričuva ne odgovori. Ako se posljednji (ili jedini) pričuvni server sruši, odgovor nikad neće stići.
+</p><p>Najbolja solucija za izbjegavanje gubitka podataka je utvrđivanje da ne gubimo posljednji pričuvni server. Ovo se može postići imenovanjem više potencionalnih sinkronih servera koristeći <i>synchronous_standby_names</i>. Prvi imenovani pričuvni server će biti korišten kao sinkroni pričuvni, a ostali će preuzimati njegovu ulogu ako on padne.
+</p><p>Kad je pričuvni isprva vezan na primarni, neće biti odmah pravilno sinkroniziran, nego prvo ulazi u način rada dostizanja (engl. <i>catchup mode</i>). Jednom kad je kašnjenje između pričuvnog i primarnog servera dostiglo nulu, ulazimo u pravovremensku replikaciju. Pričuvni server postaje sinkroni pričuvni server tek kad je izvršio dostizanje.
+</p><p>Ako se primarni resetira dok izvršenja čekaju potvrde, te će se transakcije potpuno izvršiti jednom kad se primarna baza oporavi. Nema načina na koji bi mogli biti sigurni da su svi pričuvni primili sve WAL podatke za vrijeme rušenja primarnog. Neke transakcije se možda neće pokazati kao izvršene na pričuvnima, iako se pokazuju izvršenima na primarnom. PostgreSQL garantira da aplikacija neće dobiti eksplicitne potvrde uspješnih izvršenja transakcija dok nije sigurno da su pričuvni primili WAL podatke.
+</p>
+<h1> <span class="mw-headline" id="Aplikacija"> Aplikacija </span></h1>
+<h2> <span class="mw-headline" id="Multimaster_replikacija_pomo.C4.87u_sustava_Bucardo"> Multimaster replikacija pomoću sustava Bucardo </span></h2>
+<p>Za aplikativni dio izrade projekta izabrao sam izraditi aplikaciju u sustavu <a href="http://www.postgresql.org/" class="external text" rel="nofollow">Postgresql</a>, sustavu otvorenog koda (engl. <i>open source</i>) za upravljanje objektno-relacijskim bazama podataka. Do verzije 9.1 PostgreSQL je podržavao samo asinkronu replikaciju, ali od nje podržava i sinkronu replikaciju. Problem je što ne podržava multimaster replikaciju. Stoga ću koristiti <a href="http://bucardo.org/wiki/Bucardo" class="external text" rel="nofollow">Bucardo</a> sustav za asinkronu replikaciju koji omogućava multimaster replikaciju, objavljen pod BSD licencom. Bucardo ne podržava udruživanje konekcija, balansiranje tereta i particioniranje upita (engl. <i>connection pooling</i>, <i>load balancing</i> i <i>query partitioning</i>), ali ću tek vidjeti hoće li mi to stvarati probleme u radu.
+</p>
+<h3> <span class="mw-headline" id="Instalacija"> Instalacija </span></h3>
+<p>Pomoću programa <a href="https://www.virtualbox.org/" class="external text" rel="nofollow">VirtualBox</a> sam podigao dvije virtualne mašine i u njima podigao <a href="http://www.ubuntu.com/business/server/overview" class="external text" rel="nofollow">Ubuntu server</a>. Zatim sam instalirao Bucardo, koji je sam instalirao potrebne pakete, a među njima i PostgreSQL 8.4 (Bucardo još nije konfiguriran za rad s verzijom 9.1).
+</p><p>Podesio sam PostgreSQL kako bi slušao lokalnog domaćina (engl. <i>localhost</i>), dodao lozinku za <i>postgres</i> korisnika i namjestio MD5 autentikaciju za njega. Pomoću <i>sudo -u postgres createuser --superuser vatra</i> sam kreirao korisnika s nazivom <i>vatra</i>, a zatim i bazu pomoću naredbe <i>createdb vatra</i>. Kreirao sam i dodatnu bazu, <i>sis_bp</i>, s kojom ću raditi na ovom projektu.
+</p><p>Restartirao sam PostgreSQL i zatim instalirao Bucardo jednostavnom naredbom <i>sudo apt-get install bucardo</i>, koja je odmah instalirala i ostale potrebne pakete. Zatim sam u željenom direktoriju pokrenuo naredbu <i>sudo bucardo_ctl install</i> kako bih kreirao Bucardo bazu podataka, prethodno u /var/run napravivši direktorij <i>bucardo</i> s ovlastima 770 i nakon objavljene greške promijenio zadanu lozinku bucardo-a. Ali tu je sve stalo, te nisam uspio dovršiti instalaciju.
+</p>
+<h2> <span class="mw-headline" id="Master-slave_replikacija_u_PostgreSQL"> Master-slave replikacija u PostgreSQL </span></h2>
+<p>Na dvije nove virtualne mašine podignuo sam ponovno Ubuntu server, OpenSSH i PostgreSQL 9.1, te započeo rad na uobičajenoj replikaciji.
+</p><p>Za početak je potrebno kreirati klaster bazi podataka (engl. <i>database cluster</i>). To je kolekcija bazi podataka kojom se upravlja pomoću jedne instance pokrenutog servera baze podataka.
+</p><p>Budući da zadani PostgreSQL korisnik (<i>postgres</i>) nema <i>.bashrc</i>, ni <i>.bash_profile</i> nakon što je PostgreSQL instaliran, potrebno ih je ručno kreirati. Početni direktorij za korisnika <i>postgres</i> je <i>/var/lib/postgresql/</i>, pa sam u njemu kreirao <i>.bashrc</i> sa samo jednom linijom: <i>export PATH="/usr/lib/postgresql/9.1/bin:/usr/local/sbin:/usr/bin:/bin"</i>. U <i>.bash_profile</i> sam stavio dvije linije: <i>export PGLIB=/usr/lib/pgsql</i> i <i>export PGDATA=/var/lib/pgsql/data</i>. Tako sam odredio da će mi direktorij za podatke klastera biti <i>/var/lib/pgsql/data</i>.
+</p><p>Kreirao sam direktorij <i>/var/lib/pgsql</i> i dodijelio mu prava pomoću naredbe <i>chown postgres /var/lib/pgsql/</i>. Tada sam se prebacio na korisnika <i>postgres</i> i pokrenuo naredbu za inicijalizaciju klastera bazi podataka: <i>initdb /var/lib/pgsql/data</i>.
+</p><p>Sve ove prethodne korake je potrebno napraviti i na master i na slave serveru.
+</p><p>Za daljnje potrebe sam kreirao par ključeva na oba servera za <i>postgres</i> korisnika naredbom <i>ssh-keygen -t rsa</i>, pa poslao javni ključ na drugom serveru naredbom <i>scp /var/lib/postgresql/.ssh/id_rsa.pub postgres@&lt;IP servera kojem šaljem&gt;:~/.ssh/authorized_keys</i>, kako ne bih svaki puta morao upisivati lozinku za pristup tom serveru (potrebno je znati lozinku <i>postgres</i> korisnika ili ju postaviti kao <i>root</i> korisnik naredbom <i>passwd postgres</i>). Tako sam si olakšao idući korak: izradu početne kopije (engl. <i>base backup</i>) klastera bazi podataka. Budući da bi arhiviranje trebalo vršiti na lokaciju kojoj slave server može pristupiti čak i kada master nije u funkciji, bolje je čuvati arhivu na slave serveru ili na nekom drugom serveru od povjerenja, pa stoga na slave serveru, u <i>postgres</i> ulozi, kreiramo direktorij <i>/var/lib/pgsql/archive</i>.
+</p><p>Na master serveru u <i>/var/lib/pgsql/data/postgresql.conf</i> treba napraviti sljedeće izmjene:
+</p>
+<ul><li>wal_level = hot_standby
+</li><li>archive_mode = on
+</li><li>archive_command = 'scp&#160;%p postgres@192.168.1.101:/var/lib/pgsql/archive/%f'
+</li></ul>
+<p>Pojašnjenje komande za arhiviranje:
+</p>
+<ul><li>%p = zamjenjuje se s putanjom datoteke koja se arhivira
+</li><li>%f = zamjenjuje se s nazivom datoteke
+</li></ul>
+<p>Ugasimo PostgreSQL oba servera naredbom <i>/etc/init.d/postgresql stop</i> kao <i>root</i>.
+</p><p>Na masteru, kao <i>postgres</i> korisnik u <i>/var/lib/pgsql</i> direktoriju, pokrenemo inicijalizirani klaster naredbom <i>pg_ctl -D /var/lib/pgsql/data start</i>. Nakon toga obavimo sigurnosnu pohranu (engl. <i>backup</i>) svih datoteka iz podatkovnog direktorija klastera sljedećim naredbama:
+</p>
+<ul><li><i>psql -c "select pg_start_backup('initial backup for SR')" template1</i>
+</li><li><i>tar cvf pg_base_backup.tar /var/lib/pgsql/data</i>
+<ul><li>sada će se izlistati sve datoteke koje pohranjujemo
+</li><li>cvf su zastavice koje znače: kreiraj novi arhiv, izlistaj datoteke koje se arhiviraju i zapiši arhivu u datoteku
+</li></ul>
+</li><li><i>psql -c "select pg_stop_backup()" template1</i>
+</li></ul>
+<p>Kopiramo dobivenu <i>tar</i> datoteku na slave server naredbom <i>scp pg_base_backup.tar postgres@192.168.1.111:/var/lib/pgsql</i>, a zatim na slave serveru kao <i>root</i> korisnik napravimo:
+</p>
+<ul><li>mv /var/lib/pgsql/pg_base_backup.tar /
+</li><li>tar xvf pg_base_backup.tar
+<ul><li>xvf znači: izvadi sadržaj iz arhive, izlistaj datoteke koje se arhiviraju i zapiši arhivu u datoteku
+</li></ul>
+</li></ul>
+<p>Nakon toga još treba izbrisati postmaster.pid iz /var/lib/pgsql/data/.
+</p><p>Sada je potrebno napraviti dodatne izmjene u <i>postgresql.conf</i> i <i>pg_hba.conf</i> datotekama.
+</p><p>Izmjene u <i>/var/lib/pgsql/data/postgresql.conf</i>, na master serveru:
+</p>
+<ul><li>omogućiti konekcije sa slave servera:
+<ul><li>listen_addresses = '*'
+</li></ul>
+</li><li>odrediti maksimalni broj slave servera:
+<ul><li>max_wal_senders = 5
+</li></ul>
+</li><li>da bi odrediti broj prethodnih WAL datoteka koje se čuvaju na master serveru
+<ul><li>wal_keep_segments = 32
+</li></ul>
+</li></ul>
+<p>Izmjene u <i>/var/lib/pgsql/data/pg_hba.conf</i>, na master serveru:
+</p>
+<ul><li>dodati liniju za prihvaćanje replikacijskih konekcija sa slave servera sa IP adresom slave servera (jednog ili više)
+<ul><li>host    replication     postgres     192.168.1.101/24   trust
+</li></ul>
+</li></ul>
+<p>Izmjene u <i>/var/lib/pgsql/data/postgresql.conf</i>, na slave serveru:
+</p>
+<ul><li>omogućiti upite koji samo čitaju na slave serveru
+<ul><li>hot_standby = on
+</li></ul>
+</li></ul>
+<p>Dodati <i>/var/lib/pgsql/data/recovery.conf</i>, na slave server, sa sadržajem:
+</p>
+<ul><li>omogućiti način rada samo sa čitanjem
+<ul><li>standby_mode = 'on'
+</li></ul>
+</li><li>odrediti informacije konekcije na master server
+<ul><li>primary_conninfo = 'host=192.168.1.100 port=5432 user=postgres'
+</li></ul>
+</li><li>odrediti komandu za oporavak
+<ul><li>restore_command = 'scp /var/lib/postgresql/archive/%f postgres@192.168.1.101:/var/lib/postgresql/archive/%p'
+</li></ul>
+</li></ul>
+<p>Sada možemo ponovno pokrenuti oba servera pomoću <i>pg_ctl -D /var/lib/pgsql/data start</i>.
+</p>
+<h3> <span class="mw-headline" id="Literatura"> Literatura </span></h3>
+<ul><li><a href="http://www.postgresql.org/docs/8.3/static/creating-cluster.html" class="external free" rel="nofollow">http://www.postgresql.org/docs/8.3/static/creating-cluster.html</a>
+</li><li><a href="http://wiki.postgresql.org/wiki/Streaming_Replication" class="external free" rel="nofollow">http://wiki.postgresql.org/wiki/Streaming_Replication</a>
+</li><li><a href="http://www.postgresql.org/docs/9.0/static/continuous-archiving.html" class="external free" rel="nofollow">http://www.postgresql.org/docs/9.0/static/continuous-archiving.html</a>
+</li><li><a href="http://www.postgresql.org/docs/9.0/static/warm-standby.html" class="external free" rel="nofollow">http://www.postgresql.org/docs/9.0/static/warm-standby.html</a>
+</li><li><a href="http://wiki.postgresql.org/wiki/What's_new_in_PostgreSQL_9.1" class="external free" rel="nofollow">http://wiki.postgresql.org/wiki/What's_new_in_PostgreSQL_9.1</a>
+</li><li><a href="http://www.javahotchocolate.com/tutorials/postgres.html" class="external free" rel="nofollow">http://www.javahotchocolate.com/tutorials/postgres.html</a>
+</li><li><a href="http://pgsnaga.blogspot.com/2010/05/5-steps-to-implement-postgresql.html" class="external free" rel="nofollow">http://pgsnaga.blogspot.com/2010/05/5-steps-to-implement-postgresql.html</a>
+</li><li><a href="http://www.postgresql.org/docs/devel/static/continuous-archiving.html#BACKUP-BASE-BACKUP" class="external free" rel="nofollow">http://www.postgresql.org/docs/devel/static/continuous-archiving.html#BACKUP-BASE-BACKUP</a>
+</li><li><a href="http://www.linuxjournal.com/article/8600" class="external free" rel="nofollow">http://www.linuxjournal.com/article/8600</a>
+</li><li><a href="http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html" class="external free" rel="nofollow">http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Replikacija_u_CouchDB"> Replikacija u CouchDB </span></h2>
+<p>Izvršavanjem jednostavne naredbe <i>apt-get install couchdb</i> intaliran je CouchDB. Preko web browsera (izvan virtualnih mašina) pristupimo CouchDB-u na svakoj mašini upisom njene IP adrese s portom 5984. Dodamo li nakon toga još i <i>/_utils</i>, dobit čemo <i>Futon</i>, konzolu za administraciju baze putem web-a. Jedina potrebnu izmjenu obavljamo u odjelu <i>Configuration</i>, mjenjajući vrijednost <i>bind_address</i> polja u 0.0.0.0, kako bi CouchDB slušao sve IP adrese.
+</p><p>Sada je potrebno na obje mašine kreirati bazu podataka (i dalje putem <i>Futon</i>-a), koje ne moraju imati isto ime. Zatim na jednoj mašini u <i>Replicator</i>-u podesimo da se promjene repliciraju s lokalne baze na udaljenu, s time da pod udaljenu moramo upisati IP adresu druge vritualne mašine, njen port i nakon znaka / ime baze iz druge virtualne mašine (primjer: <a href="http://192.168.2.2:5984/baza_na_drugoj_masini" class="external free" rel="nofollow">http://192.168.2.2:5984/baza_na_drugoj_masini</a>). Opciju <i>Continuous</i> je preporučljivo uključiti jer ona uključuje kompleksan algoritam koji sam odlučuje kada je najbolje napraviti replikaciju na udaljenu bazu, stalno provjeravajući ima li promjena koje je potrebno replicirati. Klikom na gumb <i>Replicate</i> napravili smo master-slave replikaciju u CouchDB-u.
+</p><p>Ako želimo napraviti multimaster replikaciju na način da u svaku bazu možemo upisivati i replicirati te podatke na ostale baze, potrebno je isti postupak ponoviti na bazama koje su do sada bile slave; u našem slušaju to je <i>baza_na_drugoj_masini</i>. Dakle, u <i>Replicator</i>-u na drugoj mašini podesimo s koje lokalne baze i na koju udaljenu (na primjer: <a href="http://192.168.2.1:5984/baza_na_prvoj_mašini" class="external free" rel="nofollow">http://192.168.2.1:5984/baza_na_prvoj_mašini</a>) se replicira. Uključimo opciju <i>Continuous</i> i kliknemo <i>Replicate</i>, tako dobivši multimaster replikaciju u dvije CouchDB baze podataka.
+</p>
+<h3> <span class="mw-headline" id="Korisnici_i_sigurnost"> Korisnici i sigurnost </span></h3>
+<ul><li><a href="http://wiki.apache.org/couchdb/Security_Features_Overview" class="external free" rel="nofollow">http://wiki.apache.org/couchdb/Security_Features_Overview</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Replikacija_u_MySQL-u"> Replikacija u MySQL-u </span></h2>
+<p>Podigao sam nove virtualne mašine i na njih instalirao MySQL server, pa na obje kreirao novu bazu podataka imena <i>replicate_me</i>.
+</p><p>Na <i>master</i> serveru u <i>/etc/mysql/my.cnf</i> sam napravio određene izmjene:
+</p>
+<ul><li>liniju u kojoj stoji <i>bind-address</i> stavio kao komentar
+</li><li>maknuo iz komentara: <i>log-bin = /var/log/mysql/mysql-bin.log</i>
+</li><li>maknuo iz komentara, pa zatim dodao ime baze podataka koju želim replicirati: <i>binlog-do-db=replicate_me</i>
+</li><li>maknuo iz komentara: <i>server-id=1</i>
+</li></ul>
+<p>Snimio sam datoteku, resetirao mysql i ponovno ušao u njega. Zatim sam izvršio naredbe:
+</p>
+<ul><li><i>grant replication slave on *.* to root@192.168.1.35 identified by '0';</i>
+</li><li><i>grant reload slave on *.* to root@192.168.1.35 identified by '0';</i>
+</li><li><i>grant super slave on *.* to root@192.168.1.35 identified by '0';</i>
+</li><li><i>flush privileges;</i>
+</li><li><i>use replicate_me;</i>
+</li><li><i>show master status;</i>
+</li><li><i>unlock tables;</i>
+</li></ul>
+<p>Na <i>slave</i> serveru sam izmjenio postojeći <i>/etc/mysql/my.cnf</i>, dodavši:
+</p>
+<ul><li><i>server-id=2</i>
+</li><li><i>master-host=192.168.1.34</i> (trenutna IP adresa <i>master</i> servera)
+</li><li><i>master-user=slave_user</i>
+</li><li><i>master-password=secret</i>
+</li><li><i>master-connect-retry=60</i>
+</li><li><i>replicate-do-db=replicate_me</i>
+</li></ul>
+<p>I zatim u mysql-u napravio:
+</p>
+<ul><li>stop slave;
+</li><li><i>change master to master_host='192.168.1.34', master_user='root', master_password='0',master_log_file='mysql-bin.000001', master_log_pos=106;</i> (posljednja dva podatka su saznata na master-u naredbom <i>show master status</i>)
+</li><li>start slave;
+</li></ul>
+<p>Sada je replikacija uspostavljena, i svaka tablica kreirana na <i>masteru</i>, kreira se i na <i>slave</i>-u.
+</p>
+<h1> <span class="mw-headline" id="O_radu"> O radu </span></h1>
+<p>Autor: <a href="http://security.foi.hr/wiki/index.php/Suradnik:Vatroslav" title="Suradnik:Vatroslav">Vatroslav</a>
+</p><p>Tema registrirana: 21:59, 25. rujna 2011. (CEST)
+</p>
+<h2> <span class="mw-headline" id="Literatura_2"> Literatura </span></h2>
+<ul><li><a href="http://www.tech-faq.com/database-replication.html" class="external free" rel="nofollow">http://www.tech-faq.com/database-replication.html</a>
+</li><li><a href="http://www.dbspecialists.com/files/presentations/mm_replication.html" class="external free" rel="nofollow">http://www.dbspecialists.com/files/presentations/mm_replication.html</a>
+</li><li><a href="http://www.postgresql.org/about/" class="external free" rel="nofollow">http://www.postgresql.org/about/</a>
+</li><li><a href="http://www.postgresql.org/docs/9.1/static/warm-standby.html#SYNCHRONOUS-REPLICATION" class="external free" rel="nofollow">http://www.postgresql.org/docs/9.1/static/warm-standby.html#SYNCHRONOUS-REPLICATION</a>
+</li><li><a href="http://wiki.postgresql.org/wiki/Replication,_Clustering,_and_Connection_Pooling" class="external free" rel="nofollow">http://wiki.postgresql.org/wiki/Replication,_Clustering,_and_Connection_Pooling</a>
+</li><li><a href="http://bucardo.org/wiki/DBIx-Safe" class="external free" rel="nofollow">http://bucardo.org/wiki/DBIx-Safe</a>
+</li><li><a href="http://bucardo.org/wiki/Bucardo" class="external free" rel="nofollow">http://bucardo.org/wiki/Bucardo</a>
+</li><li><a href="https://help.ubuntu.com/11.10/serverguide/C/postgresql.html" class="external free" rel="nofollow">https://help.ubuntu.com/11.10/serverguide/C/postgresql.html</a>
+</li><li><a href="http://www.spamlaws.com/data-security.html" class="external free" rel="nofollow">http://www.spamlaws.com/data-security.html</a>
+</li><li><a href="http://wiki.postgresql.org/wiki/Binary_Replication_Tutorial" class="external free" rel="nofollow">http://wiki.postgresql.org/wiki/Binary_Replication_Tutorial</a>
+</li><li><a href="http://couchdb.apache.org/" class="external free" rel="nofollow">http://couchdb.apache.org/</a>
+</li><li><a href="http://wiki.apache.org/couchdb/Replication" class="external free" rel="nofollow">http://wiki.apache.org/couchdb/Replication</a>
+</li><li><a href="http://www.webdevelopersnotes.com/tutorials/sql/mysql_primer_creating_a_database.php3" class="external free" rel="nofollow">http://www.webdevelopersnotes.com/tutorials/sql/mysql_primer_creating_a_database.php3</a>
+</li><li><a href="http://www.howtoforge.com/mysql_database_replication" class="external free" rel="nofollow">http://www.howtoforge.com/mysql_database_replication</a>
+</li><li><a href="http://lists.mysql.com/bugs/13761" class="external free" rel="nofollow">http://lists.mysql.com/bugs/13761</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Dodatno_.C5.A1tivo"> Dodatno štivo </span></h2>
+<ul><li><a href="http://www.wikivs.com/wiki/MySQL_vs_PostgreSQL#Replication_and_High_Availability" class="external free" rel="nofollow">http://www.wikivs.com/wiki/MySQL_vs_PostgreSQL#Replication_and_High_Availability</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 87/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:27-0!*!0!!hr!*!edit=0 and timestamp 20190203204031 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html">http://security.foi.hr/wiki/index.php/Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka&amp;oldid=9420" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 18:02, 20. svibnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 15.561 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnost_baza_podataka_-_Multimaster_replikacija_i_tajnost_podataka", "wgTitle": "Sigurnost baza podataka - Multimaster replikacija i tajnost podataka", "wgAction": "view", "wgArticleId": 27, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 9420, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.330 secs. -->			</body>
+</html>

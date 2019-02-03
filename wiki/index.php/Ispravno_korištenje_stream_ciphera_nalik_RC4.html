@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Ispravno korištenje stream ciphera nalik RC4 - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Ispravno_korištenje_stream_ciphera_nalik_RC4 skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Ispravno korištenje stream ciphera nalik RC4</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#mw-head">orijentacija</a>,
+					<a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Algoritmi_sa_asimetri.C4.8Dnim_klju.C4.8Dem"><span class="tocnumber">2</span> <span class="toctext">Algoritmi sa asimetričnim ključem</span></a>
+<ul>
+<li class="toclevel-2"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Osnovni_algoritam_rada"><span class="tocnumber">2.1</span> <span class="toctext">Osnovni algoritam rada</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Prakti.C4.8Dna_uporaba"><span class="tocnumber">2.2</span> <span class="toctext">Praktična uporaba</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Autentifikacija"><span class="tocnumber">2.3</span> <span class="toctext">Autentifikacija</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Primjena_u_praksi"><span class="tocnumber">2.4</span> <span class="toctext">Primjena u praksi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Algoritmi_sa_simetri.C4.8Dnim_klju.C4.8Dem"><span class="tocnumber">3</span> <span class="toctext">Algoritmi sa simetričnim ključem</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Blok_.C5.A1ifre"><span class="tocnumber">3.1</span> <span class="toctext">Blok šifre</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Proto.C4.8Dne_.C5.A1ifre_.28stream_ciphers.29"><span class="tocnumber">3.2</span> <span class="toctext">Protočne šifre (stream ciphers)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#RC4"><span class="tocnumber">4</span> <span class="toctext">RC4</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Ranjivosti_.C5.A1ifri_sli.C4.8Dnih_RC4"><span class="tocnumber">4.1</span> <span class="toctext">Ranjivosti šifri sličnih RC4</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Ranjivosti_temeljene_na_PRG_algoritmu"><span class="tocnumber">4.1.1</span> <span class="toctext">Ranjivosti temeljene na PRG algoritmu</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Ranjivosti_temeljene_na_klju.C4.8Du"><span class="tocnumber">4.1.2</span> <span class="toctext">Ranjivosti temeljene na ključu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Ispravno_kori.C5.A1tenje_.C5.A1ifri_nalik_RC4"><span class="tocnumber">4.2</span> <span class="toctext">Ispravno korištenje šifri nalik RC4</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Problem_sa_PRG_baziranim_.C5.A1iframa"><span class="tocnumber">4.2.1</span> <span class="toctext">Problem sa PRG baziranim šiframa</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Problem_sa_Key_Scheduling_Algoritmom_.28KSA.29"><span class="tocnumber">4.2.2</span> <span class="toctext">Problem sa Key Scheduling Algoritmom (KSA)</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Najpoznatiji_napad_na_RC4_KSA"><span class="tocnumber">4.2.3</span> <span class="toctext">Najpoznatiji napad na RC4 KSA</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Da_li_se_.C5.A1ifre_kao_RC4_mogu_koristiti_ispravno.3F"><span class="tocnumber">4.2.4</span> <span class="toctext">Da li se šifre kao RC4 mogu koristiti ispravno?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#WEP_protokol"><span class="tocnumber">4.3</span> <span class="toctext">WEP protokol</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#Sources"><span class="tocnumber">5</span> <span class="toctext">Sources</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Kako bi se moglo pričati o pojedinim područjima kriptografije bitno je prvo postaviti temelje, stoga ćemo ukratko započeti sa osnovama kako bi lakše razumjeli srže teme.
+</p><p>Kriptografija je proučavanje i primjena tehnika za sigurno komuniciranje u prisutnosti treće osobe, odnosno, u grubo, primjena i razvoj načina kako trećoj osobi onemogućiti pristup komunikaciji. Kriptografija je jedan od ključnih elemenata na području informacijske sigurnosti budući da je danas informacija definirana kao imovina i ima svoju vrijednost.
+</p><p>Jedna od stručnih definicija kaže:
+	„Kriptografija je proučavanje matematičkih tehnika povezanih sa aspektima informacijske sigurnosti poput povjerljivosti, podatkovnog integriteta, autentikacije entiteta i autentikacije porijekla podataka.<a href="http://web.archive.org/web/20050305140333/http://www.cacr.math.uwaterloo.ca/hac/about/chap1.pdf" class="external autonumber" rel="nofollow">[1]</a>“
+</p><p><br />
+Četiri temeljna cilja kriptografije, iz kojih proizlaze svi ostali su<a href="http://web.archive.org/web/20050305140333/http://www.cacr.math.uwaterloo.ca/hac/about/chap1.pdf" class="external autonumber" rel="nofollow">[2]</a>:
+</p>
+<ol><li> <i>Privatnost ili povjerljivost</i> je usluga koja čuva sadržaj informacije od svih koji nisu autorizirani za njezino posjedovanje.
+</li><li> <i>Integritet podataka</i> je usluga koja se fokusira na ne autoriziranu izmjenu podataka. Kako bi se osigurao integritet trebaju postojati načini otkrivanja manipulacije podacima od treće osobe.
+</li><li> <i>Autentikacija</i> je usluga vezana uz identifikaciju. Ona se veže i uz informaciju i uz entitete, a temelji se na tome da kada dvije strane stupaju u komunikaciju moraju se i identificirati. Iz ovoga proizlaze dvoje glavne klase kriptografije: autentifikacija identiteta i autentifikacija porijekla podataka.
+</li><li> <i>Ne-negiranje</i> je usluga koja onemogućava nekom entitetu da negira prethodne radnje ili obveze. Kada nastanu neslaganja pri negiranja entiteta da je počinio određene akcije, potrebno je imati protumjere za rješavanje takvih situacija.
+</li></ol>
+<p><br />
+Stoga je temeljni cilj kriptografije primjereno uvažavanje  navedenih područja u teoriji i praksi kako bi se moglo otkriti i spriječiti neprimjerene štetne radnje.
+</p><p>Kako bismo dalje mogli pričati o kriptografiji i njenim primjenama potrebno je definirati temeljne pojmove vezane uz kriptografiju s kojima se susrećemo. Kako je osnovna zadaća kriptografije osigurati neometanu i sigurnu komunikaciju između dva entiteta putem nekog nesigurnog komunkacijskog kanala. Prilikom komunikacije entiteti imaju uloge, od kojih je jedan pošiljalac a drugi primalac. Poruka koja se šalje komunikacijskim kanalom je otvoreni tekst (<i>eng. plaintext</i>) koji može biti bilo kakva vrsta podatka. Kada pošiljalac šalje poruku taj se otvoreni tekst transformira, odnosno šifrira pomoću unaprijed dogovorenog ključa. Tako šifrirana poruka se naziva šifrat (<i>eng. ciphertext</i>) i ona se šalje putem nesigurnog komunikacijskog kanala. Primalac nakon što primi poruku putem ključa dešifrira poruku, te tako dobiva izvorni otvoreni tekst. Umeđuvremenu, ukoliko postoji treći entitet koji želi naštetiti komunikaciji (primjerice pročitati poruku) on će ukoliko ne zna ključ moći vidjeti sadržaj šifrirane poruke, ali neće moći odrediti njen izvorni oblik<a href="http://web.math.pmf.unizg.hr/~duje/kript/osnovni.html" class="external autonumber" rel="nofollow">[3]</a>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kriptiranje.jpg" class="image"><img alt="Prikaz što je to kriptiranje." src="../images/thumb/d/d7/Kriptiranje.jpg/360px-Kriptiranje.jpg" width="360" height="110" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kriptiranje.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Kriptiranje</div></div></div></div>
+<p>Kriptografski algoritam je matematička funkcija koju koristimo za kriptiranje i dekriptiranje, odnosno to su dvije funkcije od kojih jedna obavlja posao kriptiranja a druga dekriptiranja. Te se funkcije odabiru iz određene skupine funkcija ovisno o ključu. Također imamo prostor ključeva koji predstavlja skup svih mogućih vrijednosti ključeva. 
+</p><p>Kriptosustavi se u pravilu klasificiraju u skladu sa slijedećim kriterijima<a href="http://web.archive.org/web/20050305140333/http://www.cacr.math.uwaterloo.ca/hac/about/chap1.pdf" class="external autonumber" rel="nofollow">[4]</a>:<br />
+</p>
+<ol><li><i>Tip operacija koje se koriste pri šifriranju</i> <br />Pod ovom kategorijom su dvije podjele: supstitucijske šifre i transpozicijske šifre. Kod supstitucijskih šifri se svaki element otvorenog teksta zamijenjuje s nekim drugim elementom, dok kod transpozicijskih šifri se elementi otvorenog teksta permutiraju odnosno premještaju.<br />
+</li><li><i>Način na koji se obrađuje otvoreni tekst</i> <br /> Ova se kategorija dijeli na blokovne šifre i protočne šifre. Kod blokovnih šifri se obrađuje jedan po jedan blok elemenata otvorenog teksta korištenjem istog ključa, dok se kod protočnih šifri elementi otvorenog teksta obrađuju jedan po jedan korištenjem niza ključeva koji se paralelno generira.<br />
+</li><li><i>Tajnost i javnost ključa</i> <br /> Unutar ove kategorije postoje dvije podjele: simetrični ključevi i kriptosustavi s javnim ključem. Kod simetričnih sustava ključ za dešifriranje se može izračunati poznavajući ključ za dešifriranje i obratno, ali je bitno kako sigurnost takvih sustava leži u tajnosti ključa pa se tako ti sustavi još nazivaju i kriptosustavi s tajnim ključem. Kod kriptosustava s javnim ključem još zvanih i asimetričnih kriptosustava, ključ za dešifriranje se u nekom razumnom vremenu ne može izračunati iz ključa za šifriranje. Kod ovakvih sustava je ključ za šifriranje javan, te svatko njime može šifrirati poruku dok ju jedino entitet koji posjeduje tajni, odnosno privatni ključ može dešifrirati.
+</li></ol>
+<p>Kao osnova kriptografije su osnovni kriptografski alati, odnosno <i>Cryptographic primitives<a href="http://web.archive.org/web/20050305140333/http://www.cacr.math.uwaterloo.ca/hac/about/chap1.pdf" class="external autonumber" rel="nofollow">[5]</a></i>, kao dobro uspostavljeni kriptografski algoritmi niže razine koji se učestalo koriste za igradnju sustava za računalnu sigurnost. To zapravo znači da se prilikom izgradnje sustava zaštite programeri koriste ovim algoritmima kao osnovama i temeljima za daljnju izgradnju kompleksnijeg sustava budući da su osmišljeni na način da izvršavaju jednu određenu radnju ali sa visokim postotkom pouzdanosti. Postoji nekoliko osnovnih kriptografskih primitiva poput hash funkcija, blok šifri i protočnih šifri.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Topografija.jpg" class="image"><img alt="Cryptographic primitives taksonomija." src="../images/thumb/1/17/Topografija.jpg/360px-Topografija.jpg" width="360" height="355" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Topografija.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Cryptographic primitives taksonomija</div></div></div></div>
+<p>Ovi se algoritmi procjenjuju prema nekoliko kriterija:
+</p>
+<ol><li><i>Stupanj sigurnosti</i>, budući da je to često teško odrediti on se definira nekom gornjom granicom vezanom za količinu rada potrebnog za osvajanje nekog cilja.
+</li><li><i>Funkcionalnost</i>, ovi se algoritmi u konačnici kombiniraju kako bi se postigli razni sigurnosni ciljevi, stoga funkcionalnost prikazuje koji od ovih algoritama prema svojim svojstvima najviše odgovara zadanom cilju.
+</li><li><i>Metode rada</i>, prikazuju kako algoritmi ovisno o ulaznim podacima i primjenama u različitim situacijama ostvaruju različite funkcionalnosti, odnosno način rada.
+</li><li><i>Učinak</i>, prikazuje učinkovitost pojedinog algoritma u nekom određenom načinu rada.
+</li><li><i>Lakoća implementacije</i>, se odnosi na stupanj težine integracije algoritma u praktičnu primjenu.
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jelvalcic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jelvalcic (stranica ne postoji)">Jelena Valčić</a> 20:17, 19. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Algoritmi_sa_asimetri.C4.8Dnim_klju.C4.8Dem"> Algoritmi sa asimetričnim ključem </span></h2>
+<p>Asimetrično kriptiranje je sustav koji se odnosi na posjedovanje dva ključa za svaku osobu, jedan javni, a drugi tajni. Ta dva ključa su povezana matematičkom funkcijom, i generirani su od istog algoritma, koji vraća dva povezana ključa. Javni ključ služi za kriptiranje poruke, i pomoću njega se ne može dekriptirati poruka zaključana tim istim javnim ključem. Takva poruka se može dekriptirati samo odgovarajućim tajnim ključem. Budući da su ti ključevi matematički povezani, isto vrijedi i suprotno, poruka kriptirana tajnim ključem se može dekriptirati javnim ključem. Ovo se u praksi ne radi, jer javni ključ je najčešće dostupan svima, te bi svi mogli pročitati tu poruku.
+Ovakav pristup kriptiranju omogućuje sigurnu razmjenu informacija između dvije strane, bez da se prije toga mora razmijeniti ključ (kao kod simetričnog kriptiranja). Štoviše, ovim putem se najčešće i šalje ključ koji se koristi u simetričnom kriptiranju.<a href="http://www.cl.cam.ac.uk/~rja14/Papers/SE-05.pdf" class="external autonumber" rel="nofollow">[6]</a><br />
+</p>
+<h3> <span class="mw-headline" id="Osnovni_algoritam_rada"><span class="mw-headline">Osnovni algoritam rada</span></span></h3>
+<ul>
+<li>Boris ima svoj <i>privatni</i> i svoj <i>javni</i> ključ, te <i>javni</i> ključ od Nataše. Nataša ima svoj <i>privatni</i> i <i>javni</i> ključ, te <i>javni</i> ključ od Borisa.</li>
+<li>Boris želi poslati poruku Nataši, te <b>kriptira</b> tu poruku Natašinim <i>javnim</i> ključem.</li>
+<li>Natasha prima tu poruku, <b>dekriptira</b> tu poruku svojim <i>privatnim</i> ključem.</li>
+<li>Zatim <b>kriptira</b> svoj odgovor Borisevim <i>javnim</i> ključem, te mu šalje tu kriptiranu poruku.</li>
+<li>Boris <b>dekriptira</b> tu poruku svojim <i>privatnim</i> ključem, te je razmjena gotova.</li>
+</ul>
+<p>Jednostavni grafički primjer:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:526px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Public_key_encryption.gif" class="image"><img alt="Jednostavan primjer asimetričnog kriptiranja." src="../images/2/24/Public_key_encryption.gif" width="524" height="273" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Public_key_encryption.gif" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Prikaz kriptiranja javnim ključem i dekriptiranja privatnim ključem.</div></div></div></div>
+<h3> <span class="mw-headline" id="Prakti.C4.8Dna_uporaba">Praktična uporaba</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:536px-Public_key_shared_secret.svg.png" class="image"><img alt="Simetrični sesijski ključ" src="../images/thumb/3/38/536px-Public_key_shared_secret.svg.png/180px-536px-Public_key_shared_secret.svg.png" width="180" height="201" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:536px-Public_key_shared_secret.svg.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Prikaz algoritma za stvaranje zajedničkog simetričnog ključa pomoću javnog i tajnog ključa.</div></div></div>
+<p>Ovaj algoritam se u praksi intezivno koristi, radi toga što nije potrebno prethodno razmijeniti nikakve informacije (kao što kod simetričnog moramo razmijeniti tajni ključ), te se vrlo lako može uspostaviti veza.
+Jedan od najčešćih primjena ovog algoritma je Diffie-Hellmanova razmjena ključeva. U toj razmjeni Boris uzima svoj privatni ključ i Natašin javni ključ, te ih spaja i time dobije jedan unikatan ključ. Nataša ponavlja isti proces sa svojim privatnim ključem, i Borisevim javnim ključem. Budući da su ti parovi ključeva međusobno povezani matematički, rezultirajući ključevi će se podudarati. Time su Boris i Nataša stvorili unikatan simetričan ključ, pomoću kojeg mogu razmijenjivati poruke bez sa totalnom sigurnošću, pod uvjetom da netko ne sazna jedan od njihovih privatnih ključeva.<a href="http://en.wikipedia.org/wiki/Public-key_cryptography" class="external autonumber" rel="nofollow">[7]</a>
+</p>
+<h3> <span class="mw-headline" id="Autentifikacija">Autentifikacija</span></h3>
+<p>Autentifikacija kod ovakvog načina razmjene poruka se vrši digitalnim potpisom. Digitalni potpis je metoda verifikacije poruke koja se također vrši sa parom ključeva. Ako Nataša želi poslati potpisanu poruku m Borisu, njen javni ključ označimo kao (n, e), a eksponent dekriptiranja sa d, tada se potpisana poruka izračunava primjenom dekriptirajućeg algoritma na poruku m, i dobivamo s = m^d kao potpisanu poruku. Tada Boris preuzima tu poruku skupa sa njenim potpisom (m, s), i koristeći Natašin javni ključ e izračunava s^e. Ako je s^e jednak poruci m koju je dobio, to znači da je poruka prenesena bez greške, i da je ispravna.
+Primjenom digitalnom potpisa prije kriptiranja poruke javnim ključem od osobe kojoj želimo poslati poruku se istovremeno zaštiti i potpiše poruka, čime se osigurava da osoba kojoj šaljemo poruku može biti sigurna da smo to mi.<a href="http://www.cl.cam.ac.uk/~rja14/Papers/SE-05.pdf" class="external autonumber" rel="nofollow">[8]</a>
+</p>
+<h3> <span class="mw-headline" id="Primjena_u_praksi">Primjena u praksi</span></h3>
+<p>Ova vrsta enkripcije se koristi u mnogim tehnologijama, pa ćemo navesti samo par poznatijih: TLS, PGP i GPG.
+</p>
+TLS (Transport Layer Security) je protokol koji osigurava sigurnost na transportnoj razini u mreži.<a href="http://en.wikipedia.org/wiki/Transport_Layer_Security" class="external autonumber" rel="nofollow">[9]</a> TLS radi na slijedećem principu:<ul>
+<li>Server i klijent uspostave komunikaciju</li>
+<li>Klijent generira tajnu (pre-master secret), i šalje tajnu pomoću asimetričnog kriptiranja serveru</li>
+<li>Servera iz tajne generira glavnu tajnu (master secret), za to vrijeme klijent također generira glavnu tajnu, pomoću istog algoritma</li>
+<li>Budući da sad i klijent i server posjeduju istu tajnu, pomoću nje generiraju isti ključ, što je ključ koji će se upotrebljavati u simetričnom kriptiranju pri komunikaciji između servera i klijenta</li>
+<li>Server i klijent jedno drugom šalju povratnu informaciju o uspješnoj uspostavi simetričnog ključa, te se daljnja komunikacija odvija simetričnim kriptiranjem</li></ul>
+<p>PGP koristi sličan princip, gdje se generira simetrični ključ koji vrijedi samo za trenutnu sesiju, i šalje se pomoću asimetričnog kriptiranja, ali inkorporira sustav provjere i certifikacije javnih ključeva, gdje se može pratiti tko je sve potpisao određeni javni ključ, te time i vjerodostojnost tog javnog ključa. Najčešće se traže potpisi vjerodostojnih entiteta, sve do najviše razine, na kojoj se nalaze posebne organizacije koje izdaju certifikate za javne ključeve.<a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy" class="external autonumber" rel="nofollow">[10]</a>
+GPG je PGP sustav koji se nalazi pod GNU General Public License.<a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard" class="external autonumber" rel="nofollow">[11]</a><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Brajuric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Brajuric (stranica ne postoji)">Branimir Jurić</a> 22:25, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Algoritmi_sa_simetri.C4.8Dnim_klju.C4.8Dem"> Algoritmi sa simetričnim ključem </span></h2>
+<p>Kriptiranje sadržaja simetričnim ključem osigurava korisnicima tajnost podataka. Za primjer uzmimo dvije osobe, Alice i Bob koji nastoje komunicirati. Treća strana (Ivan) koja presreće njihove poruke ne bi trebala saznati ništa korisno iz njihovog sadržaja, što je bit kriptiranja općenito. Kako bi osigurali siguran komunikacijski kanal, Alice i Bob se prvo moraju složiti oko nekog ključa k. Ovaj dijeljeni ključ <i>k</i> mora biti tajan. Prije nego što pošalje poruku m (message) Bobu, Alice kriptira <i>m</i>  koristeći algoritam <i>E</i> i ključ <i>k</i>. Dobije kriptotext (eng. <i>ciphertext</i>) <i>c = E (k,m)</i>  te pošalje <i>c</i> Bobu. Koristeći dekripcijski algoritam D  i isti ključ <i>k</i>, Bob dekriptira <i>c</i> te tako dolazi do izvornog teksta (eng. <i>plaintext</i>) <i>m = D (k,c)</i>. Iz ovoga primjera se vidi zašto se ovaj tip kriptiranja naziva simetričnim – obje strane koriste isti ključ, k za kriptiranje i dekriptiranje sadržaja. Algoritmi kriptiranja E i dekriptiranja D su javno poznati te svi mogu dekriptirati kriptotekst ukoliko poznaju ključ. Ukoliko Alice i Bob žele da njihova poruka ostane tajna, moraju nekako zadržati ključ <i>k</i> tajnim. Na sljedećoj slici je vidljivo kako bi to pojednostavljeno izgledalo: 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Simetricni_kljuc.gif" class="image"><img alt="Jednostavan primjer simetričnog kriptiranja." src="../images/thumb/e/e1/Simetricni_kljuc.gif/360px-Simetricni_kljuc.gif" width="360" height="260" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Simetricni_kljuc.gif" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Simetrično kriptiranje - isti ključ za kriptiranje izvornog teksta i dekriptiranje kriptoteksta.</div></div></div></div>
+<p><br />
+Upravo tu leži glavni problem simetričnog ključa, Alice i Bob se moraju složiti oko ključa <i>k</i> na siguran i efikasan način. Za razmjenu ključa potrebne su metode kriptografije javnog ključa, o kojima nešto kasnije. 
+Potrebno je da se kriptirani tekst <i>m</i> može na jedinstveni način dobiti iz kriptoteksta <i>c</i>, što znači da za ključ fiksne duljine <i>k</i>, mapa kriptiranja mora biti bijektivna (injektivna i surjektivna), što bi (matematički govoreći) izgledalo ovako: <br /><br />
+<i>E∶KxM→C</i>
+takav da je za svaki <i>k∈K</i> mapa
+<i>E_k ∶M→C,m→E(k,m)</i>
+invertibilna. <br /><br />Elementi <i>m∈M</i> predstavljaju poruke (plaintext). <i>C</i> je set kriptotekstova ili kriptograma, elementi <i>k∈K</i> su ključevi. <i>E_k</i> se naziva funkcija kriptiranja sa obzirom na ključ <i>k</i>. Inverzna funkcija <i>D_k≔E_k^(-1)</i> se zove funkcija dekripcije. Pretpostavlja se da efikasni algoritmi koji računaju spomenute funkcije postoje. 
+Osnovi sigurnosni zahtjev za mapu kriptiranja E je da , bez poznavanja ključa k, ne bi smjelo biti moguće uspješno izvršiti funkciju dekripcije. 
+Od svih algoritama kriptiranja, algoritmi sa simetričnim ključem se najbrže implementiraju hardverski i softverski. Upravo iz tog razloga se koriste za kriptiranje velike količine podataka. Da bi Alice i Bob sigurno razmjenili poruke, moraju prvo razmijeniti ključ <i>k</i> preko sigurnog komunikacijskog kanala, za što se često koriste metode kriptiranja sa javnim ključem. Iz ovoga zaključujemo da se te dvije spomenute metode trebale koristiti zajedno kako bi izgradili praktične kriptosustave. 
+Kada se govori o algoritmima kriptiranja sa simetričnim ključem, obično se spominju blok šifre i stream šifre. Funkcija kriptiranja koja koristi blok šifru obrađuje tekst fiksne duljine dok stream šifra radi na slijedu (toku) teksta obrađujući znak po znak kriptira tekst proizvoljne duljine. Ukoliko tekst prelazi veličinu bloka u blok šifri, koriste se razne operacije od kojih neke koriste i stream šifre. --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ljubarac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ljubarac (stranica ne postoji)">Ljubarac</a> 19:45, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Blok_.C5.A1ifre"> Blok šifre </span></h3>
+<p>Blok šifra koristi tajni ključ <i>k</i> binarne duljine <i>r</i>, algoritam kriptiranja <i>E</i> kriptira blokove teksta <i>m</i> fiksne binarne duljine n te rezultirajući blokovi kriptoteksta <i>c = E (K,m)</i>  također imaju duljinu <i>n</i>. <i>n</i> se naziva blok duljina šifre. Tipične blok duljine su 64 (DES) ili 128 (AES), tipična duljina ključa je 56 (DES), 128, 192, 256 (AES) ili 512 (SHACAL2). 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blok_sifra.png" class="image"><img alt="Jednostavan primjer blok simetričnog kriptiranja." src="../images/thumb/9/96/Blok_sifra.png/360px-Blok_sifra.png" width="360" height="137" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Blok_sifra.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Blok šifra - jednostavna shema.</div></div></div></div>
+<p>Pogledajmo sada blok šifru <i>E</i> sa duljinom bloka <i>n</i> i ključem duljine <i>r</i>. Postoji 2^n blokova teksta te 2^n blokova kriptoteksta duljine <i>n</i>. Za ključ fiksne duljine <i>k, </i> funkcija kriptiranja <i>Ek&#160;: </i>m -&gt; E (k,m) mapa {0,1}^n bijektivnih sa {0,1}^n je permutacija (mapa <i>f&#160;: D -&gt; D </i>se naziva permutacija od <i>D</i> ukoliko je <i>f </i>bijektivan) od {0,1}^n. Dakle, izabrati ključ <i>k</i> znači izabrati permutaciju od <i>Ek </i>od {0,1}n te se zatim ta permutacija koristi da se kriptiraju blokovi teksta. 2n permutacija <i>Ek</i> , sa <i>k </i>koji prolazi kroz set od {0,1}r ključeva, formiraju gotovo zanemarivo mali podset u velikom setu svih permutacija {0,1}^n, koji se sastoji od 2^n! elemenata. Zato se nasumično bira <i>r-</i>bitni ključ <i>k</i> za <i>E</i> te se zatim ograničava selekcija permutacije kriptiranja na ekstremno mali podset. Iz prethodnoga bi trebali moći zaključiti da ne možemo imati idealnu blok šifru sa savršenom tajnošću u praksi. Maksimalna razina sigurnosti blok šifre znači i maksimalnu slučajnost (dok se bira slučajni bit ključa), što znači da, dok biramo ključ, moramo uzeti slučajni element iz seta svih permutacija od {0,1}n. Ovo se u praksi pokazalo iznimno nepraktično, što i (napokon) ima nekog smisla. Mogli bi pokušati pobrojati sve permutacije te onda nasumično uzeti indeks (koji bi bio ključ). 
+</p><p>Prisjetimo se da postoji 2^n! permutacija, što bi značilo da moramo negdje spremiti sve te brojeve. Za blok šifru duljine <i>n </i> od 64 bita, trebali bi 267 byteova da bi spremili jedan ključ, što je izrazito nepraktično (gotovo nemoguće). U praksi se stoga ograničavamo na mnogo manje ključeve i biramo permutaciju kriptiranja <i>Ek </i>za ključ <i>k</i> iz mnogo manjeg seta od 2r permutacija, sa <i>r </i>koji je obično u rasponu od 56 do 256. Ideja je i dalje ista – doći do funkcije kriptiranja koja se ponaša kao nasumično izabrana funkcija za jako veliki set svih permutacija. Najpoznatiji algoritmi sa blok šifrom su DES (3DES) te AES koji se ovdje neće detaljno spominjati. --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ljubarac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ljubarac (stranica ne postoji)">Ljubarac</a> 19:45, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Proto.C4.8Dne_.C5.A1ifre_.28stream_ciphers.29"> Protočne šifre (<i>stream ciphers</i>) </span></h3>
+<p>Generator slučajnih brojeva (eng. random generator) je drugi osnovni kriptografski primitiv. Poznad je i pod nazivom keystream generator ili stream cipher (protočna šifra). Također je i slučajna funkcija, ali za razliku od hash funkcija ima manji ulaz i duži izlaz. Na konceptualnoj razini, stream šifru promatramo kao pronalazak slučajnih brojeva čija je duljina fiksna dok je duljina izlaza dugački niz bitova, poznat kao keystream. U praksi se može koristiti kako bi se jednostavno zaštitila povjerljivost backup podataka; iskoristimo generator toka ključeva, upišemo ključ, dobijemo datoteku sa slučajnim bitovima, i XOR-amo ih sa izvornim tekstom da bi dobili kriptotekst. Ukoliko trebamo doći do izvornih podataka, vratimo se do generatora, unesemo isti ključ, dobijemo datoteku sa slučajnim podacima, XOR-amo ih sa kriptotekstom i dobijemo izvorni tekst. Matematički, protočne šifre bi se definirale kao: <br /><br />
+</p><p>Neka je K set ključeva i M set izvornih tekstova. U ovom kontekstu, elementi M se nazivaju znakovima. Protočna šifra (<i>stream cipher</i>) <br /><br />
+<i>E* ∶ K* x M*→ C*,E* (k,m)≔c≔c_1 c_2 c_3… </i><br /><br />
+kriptira tok (eng. <i>stream</i>) <i>m&#160;:= m1 m2 m3... ∈ M*</i> znakova izvornog teksta <i>m_i ∈ M</i> kao tok <i>c∶= c_1 c_2 c_3… ∈ C*</i> znakova kriptoteksta <i>c_i ∈ C</i> koristeći tok ključeva (<i>keystream</i>) <i>k∶= k_1 k_2 k_3… ∈ K*),k_i ∈ K</i>. <br />
+Tok izvornog teksta se kriptira znak po znak. Za ovu svrhu postoji mapa kriptiranja<br /><br />
+<i>E ∶ KxM→C,</i><br /><br />
+koja kriptira jedan znak izvornog teksta mi sa odgovarajućim znakom ključa <i>k_i</i> <br /><br />
+<i>c_i=E(k_i,m_i ),i=1,2,3…</i><br /><br />
+Obično su znakovi iz <i>M</i> i <i>C</i> te elementi ključa <i>K</i> binarne znamenke. Dekriptiranje se također vrši znak po znak koristeći funkciju dekripcije <i>D</i> sa istim tokom ključeva (<i>keystream</i>) koji se koristio za kriptiranje. Većina protočnih šifri koristi binarni XOR operator. --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ljubarac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ljubarac (stranica ne postoji)">Ljubarac</a> 19:45, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="RC4"> RC4 </span></h2>
+<p>RC4 je jedna vrsta protočnih šifri, također veoma popularna, razvijena od Ron Rivesta iz RSA Data Security Inc. Koristi se u sklopu brojih aplikacija, a jednu od najvažnijih uloga ima u SSL-u koji se koristi za sigurnost većine svjetskog elektroničkog poslovanja preko interneta. Također je primjenu našao i u WEP-u, IEEE-ovom standardu za sigurnost bežične mreže, te u aplikacijama koje uključuju e-mail kriptiranje.
+</p><p>RC4 je binarno dodavajuća protočna šifra. Koristi ključ varirajuće veličine u rasponu od 8 do 2048 bita u višekratnicima od 8 bita. To zapravo znači da je srž algoritma sadržana u funkciji koja generira tok ključeva. Ta funkcija generira sekvencu bitova koji se kombiniraju sa otvorenim tekstom pomoću XOR metode. Dekripcija funkcionira na način da se regeneriratok ključeva koje se zatim putem XOR metode kombinira sa kriptiranim tekstom. 
+Drugi bitan dio algoritma je inicijalizacijska funkcija koja prihvaća ključ varirajuće veličine, te ga koristi kako bi inicijalizirala početno stanje generator toka ključeva. Ta se funkcija još naziva algoritam rasporeda ključeva. 
+</p><p>Ovaj algoritam je zapravo skup algoritama koji za parameter imaju veličinu bloka, gdje je taj <i>n</i> parameter veličina riječi za taj algoritam. Preporučeno je da on bude jednak 8, doduše za svrhe analiziranja može biti i manji, a ukoliko se želi dodatna sigurnost taj se parameter može i povećati. Unutarnja stanje RC4 algoritma se sastoji od tablice veličine 2^<i>n</i> riječi i dva brojača koji su veličine jedne riječi. Tablica se zove <i>S</i>-box, te uvijek sadrži permutaciju mogućih 2^<i>n</i> vrijednosti riječi<a href="http://rickwash.net/papers/stream.pdf" class="external autonumber" rel="nofollow">[12]</a>.
+</p><p>U nastavku je prikazan algoritam rasporeda ključa u RC4. Unutar algoritma varijabla <i>S</i> predstavlja <i>S</i>-box tablicu, <i>K</i> je skup ključeva dok su <i>i</i> i <i>j</i> brojači. Algoritam prihvaća kao ulazni podatak ključ koji je pohranjen u <i>K</i> i duljine je <i>l</i> bajtova. Zatim započinje permutaciju identiteta u <i>S</i>, te korištenjem ključa neprestano zamijenjuje vrijednost kako bi dobio nove nepoznate permutacije koje su ovisne o ključu<a href="http://rickwash.net/papers/stream.pdf" class="external autonumber" rel="nofollow">[13]</a>.
+</p>
+<code><pre>
+Inicijalizacija:
+ For (i = 0 do 2n – 1)
+      S[i] = i
+ j = 0
+
+
+
+
+Izmjena:
+ For ( i = 0 do 2n – 1)
+	j = j + S[i] + K[i mod l]
+	Zamijeni(S[i], S[j])
+
+</pre></code>
+<p><br />
+Generator toka ključeva unutar RC4 je prikazan slijedećim pseudokodom. On neprestano izmjenjuje premutacije pohranjene unutar varijable <i>S</i> u svakom slijedećem krugu birajući drugačiju vrijednost iz <i>S</i> permutacija kao izlaznu informaciju. Jedna iteracija RC4 algoritma kao izlaz daje <i>n</i> bitnu riječ kao tok ključeva koji se tada može pomoću XOR metode kombinirati sa otvorenim tekstom kako bi se dobio kriptirani tekst<a href="http://rickwash.net/papers/stream.pdf" class="external autonumber" rel="nofollow">[14]</a>.
+</p>
+<code><pre>
+Inicijalizacija:
+ i = 0
+ j = 0
+
+
+Generirajuća petlja:
+ i = i + 1
+ j = j + S[i]
+ Zamijeni(S[i], S[j])
+ Izlaz z = S[ S[i] + S[j] ]
+
+</pre></code>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Generator.jpg" class="image"><img alt="Pseudo-slučajni generator." src="../images/thumb/6/6e/Generator.jpg/360px-Generator.jpg" width="360" height="153" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Generator.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Prikaz iteracije unutar generatora toka ključeva</div></div></div></div>
+<p>U svakoj iteraciji pseudo-slučajni generator se povećava za vrijednost <i>i</i> i traži <i>i</i>-ti element unutar <i>S</i>, odnosno S[<i>i</i>] te ga zbraja sa <i>j</i>. Zatim zamjenjuje vrijednosti S[<i>i</i>] i S[<i>j</i>] i zbroj vrijednosti S[<i>i</i>] + S[<i>j</i>] (modulo 256) koristi kao indeks kako bi dohvatio treći element od <i>S</i> (vrijednost toka ključeva <i>K</i>) koji se zatim metodom XOR kombinira sa slijdećim bajtom poruke kako bi dobio slijedeći bajt otvorenog teksta ili kriptiranog teksta. Tokom ovog procesa se svako element od <i>S</i> zamijenjuje sa nekim drugim elementom barem jednom unutar 256 iteracija<a href="http://en.wikipedia.org/wiki/RC4" class="external autonumber" rel="nofollow">[15]</a>.
+</p><p><br />
+Ključne stvari kod RC4<a href="http://rickwash.net/papers/stream.pdf" class="external autonumber" rel="nofollow">[16]</a>:
+</p>
+<ul><li>Bitno je primjetiti kako se primjerice kako je snaga RC4 kod <i>S</i> jer započinje kao permutacija 2n mogućih riječi i jedina operacija nad <i>S</i> je <i>Izmijeni</i> ona ostaje permutacija, ali ono bitno je da se ta permutacija s vremenom mijenja. 
+</li><li>Unutarnje stanje se pohranjuje u <i>M</i> = <i>n</i>2^<i>n</i> + 2<i>n</i> bita. A kako je <i>S</i> permutacija to stanje može efektivno pohraniti približno 1700 bita informacija (log2(2<i>n</i>!)). 
+</li><li>Zanimljivo je to što ukliko je u danom trenutku poznato cijelu unutarnje stanje <i>M</i> dovoljno je da bi se moglo predvidjeti sav tok ključeva u budućnosti, što dovodi do toga da ukoliko je poznato cijelo početno stanje dovoljno je da se predvidi sav tok ključeva i time učinkovito probity RC4. 
+</li><li>Također, kako je početno stanje ovisno jedino o ključu <i>K</i> znajući taj ključ isto je dovoljno za probijanje RC4. 
+</li><li>Iako je algoritam rasporeda ključeva (skraćeno KSA) obostran, odnosno reverzibilni teško je odrediti <i>K</i> iz početnog stanja <i>S</i>. 
+</li><li>Ključe je ono što jednistveno i potpuno određuje tok ključeva.
+</li><li>Period RC4 je teško predvidjeti i ovisan je o ključu, doduše postoje empirijski dokazi kako je taj period uglavnom veoma dug.
+</li></ul>
+<p><br />
+</p>
+<code><pre>
+import sys
+
+#KSA - Key-Scheduling Algorithm (wiki)
+def KSA(kljuc):
+
+    duljina_kljuca = len(kljuc) #predstavlja broj bajtova u kljucu
+    S = range(256) #postavljanje permutacija identiteta
+    
+    j = 0
+    
+    for i in range (256):
+
+        j = (j + S[i] + kljuc[i&#160;% duljina_kljuca])&#160;% 256
+        S[i], S[j] = S[j], S[i] #zamjena vrijednosti
+
+    return S
+
+
+#PRGA - Pseudo-Random Generation Algorithm (wiki)
+def PRGA(S):
+
+    i = 0
+    j = 0
+
+    while True:
+
+        i = (i + 1)&#160;% 256
+        j = (j + S[i])&#160;% 256
+        S[i], S[j] = S[j], S[i] #zamjena vrijednosti
+        K = S[(S[i] + S[j])&#160;%256] #bajt toka kljuceva
+        
+
+        yield K #yield se ovdje koristi jer je pogodniji za generatore
+
+def RC4(kljuc):
+    S = KSA(kljuc)
+    return PRGA(S)
+
+
+def konverzija_kljuca(v_k):
+    return [ord(c) for c in v_k]
+
+
+
+def kriptiraj(text, k):
+
+    kljuc = konverzija_kljuca(k)
+    tok_kljuceva = RC4(kljuc)
+
+
+    for c in text:
+        sys.stdout.write(&quot;%02X&quot;&#160;% (ord(c) ^ tok_kljuceva.next()))
+    print
+
+</pre></code>
+<p>Kod se temelji na primjeru implementacije koji se može naći na RC4 wiki<a href="http://en.wikipedia.org/wiki/RC4" class="external autonumber" rel="nofollow">[17]</a> i Learning Python by example: RC4<a href="http://blog.cdleary.com/2009/09/learning-python-by-example-rc4/" class="external autonumber" rel="nofollow">[18]</a> te prikazuje jednostavno korištenje RC4 algoritma za kriptiranje, također su se koristili testni podaci priloženi na wiki stranici:
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Ključ </th>
+<th> Tok ključeva </th>
+<th> Otvoreni tekst </th>
+<th> Kriptirani tekst
+</th></tr>
+<tr>
+<td> <code><pre>Key</pre></code> </td>
+<td> <code><pre>EB9F7781B734CA72A719...</pre></code> </td>
+<td> <code><pre>Plaintext</pre></code> </td>
+<td> <code><pre>BBF316E8D940AF0AD3</pre></code>
+</td></tr>
+<tr>
+<td> <code><pre>Wiki</pre></code> </td>
+<td> <code><pre>6044DB6D41B7...</pre></code> </td>
+<td> <code><pre>pedia</pre></code> </td>
+<td> <code><pre>1021BF0420</pre></code>
+</td></tr>
+<tr>
+<td> <code><pre>Secret</pre></code> </td>
+<td> <code><pre>04D46B053CA87B59...</pre></code> </td>
+<td> <code><pre>Attack at dawn</pre></code> </td>
+<td> <code><pre>45A01F645FC35B383552544B9BF5</pre></code>
+</td></tr></table>
+<p>Izvorni kod se može naći ovdje<a href="https://gist.github.com/4574783" class="external autonumber" rel="nofollow">[19]</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jelvalcic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jelvalcic (stranica ne postoji)">Jelena Valčić</a> 21:02, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Ranjivosti_.C5.A1ifri_sli.C4.8Dnih_RC4">Ranjivosti šifri sličnih RC4</span></h3>
+<p>Šifre slične RC4 su ranjive na niz problema već po svom dizajnu. Neke od njih su već spomenute u prethodnom tekstu, ovdje su objašnjene ostale šifre.
+</p>
+<h4> <span class="mw-headline" id="Ranjivosti_temeljene_na_PRG_algoritmu">Ranjivosti temeljene na PRG algoritmu</span></h4>
+<p>PRG algoritam generira ključeve koji se koriste u RC4 algoritmu. Budući da je taj algoritam jednostavan, postoji nekoliko načina za probijanje šifre.
+<br />
+<b>Pogađanje stanja</b>
+<br />
+Pogađanje stanja se bazira na tome da se pogodi mali dio početnog stanja RC4 generatora ključa (PRG), te da se paralelno vrti algoritam. Ako u bilo kojem trenutku dođe do kontradikcije u dobivenim ključevima (ključ koji je izgenerirao RC4 je drukčiji od ključa kojeg mi usporedno generiramo), moguće je otkriti gdje je greška u inicijalnoj pretpostavci, i krenuti ispočetka sa ispravljenom greškom. Nakon određenog broja prolaza se otkrije početni ključ, a dalje je trivijalno naći bilo koju izvedenicu.
+<br />
+<b>Pristranost prema drugom byteu</b>
+<br />
+Ako je treći byte orginalnog stanja nula, a drugi byte nije 2, tada je vjerovatnost da je drugi byte u šifri jedan 0 duplo veća nego što bi trebala biti (1/128 umjesto 1/256). To znači da ako je vrijednost drugog bytea jednaka nula, može se pretpostaviti vrijednost trećeg byte početne vrijednosti sa vjerovatnošću 1/2, što se onda može iskoristiti za pogađanje stanja.<a href="http://rickwash.net/papers/stream.pdf" class="external autonumber" rel="nofollow">[20]</a>
+</p>
+<h4> <span class="mw-headline" id="Ranjivosti_temeljene_na_klju.C4.8Du">Ranjivosti temeljene na ključu</span></h4>
+<p>Neke ranjivosti iskorištavaju ključeve koji se koriste u RC4 algoritmima, da probiju šifru preko nekih njihovih svojstava.
+<br />
+<b>Analiza sličnih ključeva</b><br />
+Neki ključevi su povezani na određeni način, te daju sličan izlaz za prvih par izlaznih byteova. To je dokazano tako da se uspoređuju dva ključa, koji se razliku u samo jednom byteu (t). Dok god radimo t-1 iteracija, ključevi i stanje će biti isti. Tek na t koraku će se izmjeniti stanja, i razlikovat će se u dva bytea. Ako se t nalazi u početnih par byteova, tada će se stanja jako brzo razlikovati, ali ako se t nalazi pri kraju 2n, tada će se početna stanja podudarati u većinskom dijelu.
+<br />
+<b>Pristranost izlaza prema ključu</b>
+<br />
+Određeni ključevi su okarakterizirani kao slabi, to jest, da imaju neka svojstva koja ih čine ranjivima na napade. Dio takvih slabih ključeva je takvog oblika da neki njihov podset potpuno određuje podset izlaznih bitova. Za određene vrijednosti takvih ključeva čak možemo dobiti i da njihov određen podset potpuno određuje veliku većinu bitova izlaznog stanja.<a href="http://rickwash.net/papers/stream.pdf" class="external autonumber" rel="nofollow">[21]</a>
+<br />
+<b>Ranjivosti temeljene na inicijalizacijskom vektoru (WEP)</b>
+<br />
+WEP koristi IV (inicijalizacijski vektor) od 3 bytea, koji se dodaje ključu da stvori sesijski ključ. Prilikom razmjena podataka između wireless routera i klijenta podatci se šifriraju sa RC4 algoritmom, koji uzima sesijski ključ. Budući da sesijski ključ sadrži IV, razumno je pretpostaviti da će se IV slati mnogo puta, ako postoji nekakav promet sa routerom. 
+Ako pretpostavimo da se IV konstatno mijenja, to ne predstavlja nikakav problem. Ali kod WEP-a to nije slučaj. Inicijalizacijski vektor je najčešće uvijek isti, nekad čak i na različitim routerima (ovisi o proizvođaču). Pod pretpostavkom da se podatci konstatno razmjenjuju, to znači imamo 24 bita (3 bytea) ključa koji su uvijek konstatni u svakom paketu. Nakon presretanja dovoljnog broja poruka se može odrediti koji su to točno dijelovi paketa.
+IV se automatski stavlja uvijek na isto mjesto, ili na početak ili na kraj tajnog ključa.
+Tada se jako lako može prethodnim metodama pronaći cijeli ključ, a preko njega i početno stanje, što je u ovom slučaju lozinka za pristup mreži.
+Ovaj propust se lako rješava, hashiranjem IV sa ključem, umjesto da se IV samo dodaje na ključ. <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Brajuric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Brajuric (stranica ne postoji)">Branimir Jurić</a> 22:25, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Ispravno_kori.C5.A1tenje_.C5.A1ifri_nalik_RC4"> Ispravno korištenje šifri nalik RC4 </span></h3>
+<p>Korištenje šifri nalik RC4 (i same RC4 šifre) sigurno je problematično. Ne možemo biti potpuno sigurni kako bi općenito upotrebljavali RC4, zbog teoretskih slabosti koje su objašnjene u prethodnim poglavljima. Ipak, RC4 i druge šifre nalik RC4 je moguće koristiti ispravno. Počnimo od najjednostavnijih problema koji se susreću pri korištenju PRG-baziranih šifri (<i>pseudo random generator</i>) nalik RC4. Očito je da se ne smije koristiti isti tok ključeva (<i>keystream</i>) da se kriptiraju dvije različite poruke. 
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Problem_sa_PRG_baziranim_.C5.A1iframa">Problem sa PRG baziranim šiframa</span></h4>
+<p>Iako je prethodno možda i (pre)očito, Microsoft je učinio upravo to u Office paketu 2007. godine <a href="http://eprint.iacr.org/2005/007.pdf" class="external autonumber" rel="nofollow">[22]</a>, kriptirajući više verzija Word dokumenta sa istim ključem. Ukoliko se baš mora koristiti isti ključ, rješenje je kombinirati ga sa inicijalizacijskim vektorom (IV) ili „nonce“ <a href="http://en.wikipedia.org/wiki/Cryptographic_nonce" class="external autonumber" rel="nofollow">[23]</a>. Naravno, to može također biti problematično, kao kod WEP-a<a href="http://en.wikipedia.org/wiki/Wired_Equivalent_Privacy" class="external autonumber" rel="nofollow">[24]</a>.  
+Još jedan veliki problem je – ukoliko se obrne bit u RC4 kriptotekstu, isti bit u dekriptiranom izvornom tekstu će se također obrnuti što može voditi do praktičnih „padding-oracle“ <a href="http://en.wikipedia.org/wiki/Padding_oracle_attack" class="external autonumber" rel="nofollow">[25]</a> napada koji kompromitiraju sigurnost kriptosustava. Rješenje ovog problema bi bilo korištenje MAC-a (eng. <i>message authentication code</i>) na kriptotekstu kako bi se isti autentificirao. 
+</p>
+<h4> <span class="mw-headline" id="Problem_sa_Key_Scheduling_Algoritmom_.28KSA.29">Problem sa Key Scheduling Algoritmom (KSA)</span></h4>
+<p>Navjeći problem KSA algoritma RC4 šifre je njegova jednostavnost. Pogledajmo jednu implementaciju:<br />
+</p>
+<code><pre>
+for i from 0 to 255
+S[i] = i endfor
+j = 0
+
+for i from 0 to 255
+j = (j + S[i] + key[i mod keylength]) mod 256
+swap values of S[i] and S[j]
+endfor
+</pre></code> <br />
+<p>KSA se koristi kako bi se inicijalizirana permutacija u listi S. Duljina ključa (<i>keylength</i>) se definira kao broj byteova u ključu i može biti u rasponu od 1 do 256, tipično između 5 i 16, što odgovara duljini ključa 40-128 bitova. S se obrađuje kroz 256 iteracija na način prikazan u kodu. 
+KSA jednostavno nije dovoljno nepredvidljiv. Usporedimo to sa novim špilom karata. Počevši od nepromiješanog špila, sistematski radimo od vrha prema dnu mijenjajući poziciju svake karte sa drugom kartom u špilu. Pozicije koje se mijenjaju su određene sa nekoliko jednostavnih računskih operacija koje uključuju vrijednost originalne karte i kriptografski ključ. Ukoliko se isto napravi sa pet špilova karata, dobije se nešto slično RC4 KSA. 
+</p>
+<h4> <span class="mw-headline" id="Najpoznatiji_napad_na_RC4_KSA">Najpoznatiji napad na RC4 KSA</span></h4>
+<p>FMS (Fluhrer, Mantin i Shamir) napad se prvi put pojavio 2001. godine. Promatrao je KSA za koji je otkriveno da je za neke slabe ključeve prvi byte izlaza PRGA povezan sa byteovima ključa. Ovaj napad savršeno radi kod implementacija koje dodaju poznati inicijalizacijski vektor (IV) na WEP ključ. Promatrajući nekoliko milijuna IV-a , napadač može skupiti dovoljno tokova ključa (<i>keystream</i>) kako bi došao do šifre.  
+Rješenje problema FMS-a bi bilo: <br /><br />
+</p>
+<ul><li>	izbaciti prvih N byteova RC4 keystreama, 256 &lt; N &lt; 3072
+</li><li>	ne spajati (<i>concat</i>) IV sa ključem. Bolji pristup je hashirati IV i ključ <br /><br />
+</li></ul>
+<p>Efikasnost prve metode je diskutabilna. Drugu metodu je usvojio WPA-TKIP. Kao hash funkcija TKIP se nije pokazao najprikladnijim. Preporuka je da se za RC4 koristi bolji hash algoritam kao SHA-256 kako bi se hashirao IV i ključ. 
+</p>
+<h4> <span class="mw-headline" id="Da_li_se_.C5.A1ifre_kao_RC4_mogu_koristiti_ispravno.3F">Da li se šifre kao RC4 mogu koristiti ispravno?</span></h4>
+<p>Ukratko – mogu. Potrebno je koristiti dobru hash funkciju koja će hashirati inicijalizacijski vektor (IV) i ključ i/ili izbacivanje prvih N byteova i MAC. Ove mehanizme zaštite treba adekvatno koristiti kako bi bili efikasni. Držeći se osnovnih sigurnosnih preporuka te mehanizama zaštite, moguće je ispravno koristiti algoritme kao RC4. Pogledajmo jednostavnu implementaciju nekih od mehanizama zaštite (uz napomenu da je implementacija urađena samo za primjer, ima svoje greške i ne preporučujem da koristite sljedeći kod&#160;:D). Skripta je rađena u Python programskom jeziku. 
+</p>
+<code><pre>
+def crypt(data, key):
+   
+    j = 0
+    S = range(256)
+    for i in range(256):
+        j = (j + S[i] + ord(key[i&#160;% len(key)]))&#160;% 256
+        S[i], S[j] = S[j], S[i]
+
+    j = i = 0
+    out = [] 
+
+    for i in xrange(1024):
+        i = (i + 1)&#160;% 256
+        j = (j + S[i])&#160;% 256
+        S[i], S[j] = S[j], S[i]
+
+
+    for char in data:
+        i = (i + 1)&#160;% 256
+        j = (j + S[i])&#160;% 256
+        S[i], S[j] = S[j], S[i]
+        out.append(chr(ord(char) ^ S[(S[i] + S[j])&#160;% 256]))  
+
+    return ''.join(out)
+</pre></code> 
+<p>Prvi dio se odnosi na standardnu implementaciju RC4 algoritma koji je javan. Pseudokod i informacije o algoritmu su javno dostupne na wiki sustavu<a href="http://en.wikipedia.org/wiki/RC4" class="external autonumber" rel="nofollow">[26]</a>, a kako implementirati algoritam je tema koja je obrađena u jednom od prethodnih poglavlja. Funkcija <i> crypt </i>, dakle, sadrži KSA i PRGA RC4 algoritma koji su također obrađeni u jednom od prethodnih poglavlja. U sljedećem dijelu koda se nalazi funkcija <i> encrypt </i> koja prima dva argumenta: data (izvorni tekst, <i>plaintext</i> te key (ključ). Sve je base64 enkodirano radi jednostavnosti. 
+</p>
+<code><pre>
+def encrypt(data, key, encode=base64.standard_b64encode, salt_length=16):
+	
+	
+	# HMAC za provjeru autenticnosti i integriteta podataka
+	# moze se i generirati slucajni mackey
+	# preporuka: ne koristiti isti kljuc za kriptiranje i mac!
+	# ovdje se koristi. neka je. 
+	
+	mackey = key
+	
+	salt = os.urandom(salt_length) #random salt duljine 16
+
+	# Hash SHA512
+	key = hashlib.sha512(key + salt).digest() #hashiramo kljuc zajedno sa salt
+	
+	# kriptiranje		
+	data = chr(salt_length) + salt + crypt(data, key) #nisam siguran da je ok
+
+	if encode:
+		data = encode(data)	    
+
+	# HMAC (sha512)
+	check = hmac.new(mackey, data, hashlib.sha512).digest()
+	check = encode(check)
+	
+	# print len(check) #da se sjetim duljine u base64 -.-
+	
+	data = data + check
+
+	return data
+</pre></code>
+<p>Ovdje se koristi SHA512, salt duljine 16 te MAC (HMAC) mehanizam zaštite. HMAC se koristi za provjeru autentičnosti i integriteta podataka <a href="http://en.wikipedia.org/wiki/Hash-based_message_authentication_code" class="external autonumber" rel="nofollow">[27]</a>. HMAC se dodaje na kraj hashiranih podataka te će se koristiti u <i>decrypt</i> funkciji. Odmah je moguće primjetiti i grešku - za HMAC se koristi isti ključ kao i za kriptiranje podataka RC4, što nikako nije preporučljivo. Sljedeća funkcija služi kako bi se sadržaj dekriptirao: 
+</p>
+<code><pre>
+def decrypt(data, key, decode=base64.standard_b64decode):
+	
+	mackey = key
+	
+	# 88 bytes za mac provjeru koji smo dodali na kraj (check)
+	# base64 encodano je 88 '-.-
+	
+	mac = data [(len(data) - 88):] # koji dio podataka je check
+	data = data [0: (len(data) - 88)] # a koji zapravo podaci
+	
+	# provjera HMAC
+	check = hmac.new(mackey, data, hashlib.sha512).digest() #ponovno racunanje provjere
+	mac = decode(mac) #dekodiranje iz base64 za provjeru
+	
+	if check&#160;!= mac: # ponovno kreirani mac razlicit od dohvacenog?
+	    print 'Manipulirana poruka ili krivi kljuc!'
+	
+	elif decode:
+	    data = decode(data)
+		
+	pos = ord(data[0]) + 1
+	salt = data[1:pos]
+	
+	key = hashlib.sha512(key + salt).digest()
+
+	clear = crypt(data[pos:], key)
+	
+	return clear
+</pre></code>
+<p>Računa se od koje pozicije se u podacima nalazi dodani HMAC kako bi se isti mogao usporediti sa ponovno izračunatim HMAC-om te vidjeti da li je došlo do manipulacije sadržajem ili je korišten krivi ključ. Zatim se podaci dekriptiraju te se vraća izvorni tekst. Cijelokupni izvorni kod sa licencom možete vidjeti ovdje: <a href="https://gist.github.com/4573721" class="external autonumber" rel="nofollow">[28]</a>. <br /><br />
+Još neke opće preporuke vezane uz korištenje <i>stream</i> šifri (ali i drugih): <br />
+</p>
+<ul><li> ne koristiti vlastite kriptografske funkcije, nikako. Postoji jako velika vjerojatnost da ćete nešto krivo napraviti. Preporuka je koristiti postojeće, provjerene sustave. 
+</li><li> ne koristiti ključeve sa lošom entropijom
+</li><li> ne zaboraviti provjeriti poruku (npr. MAC)
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ljubarac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ljubarac (stranica ne postoji)">Ljubarac</a> 19:45, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="WEP_protokol">WEP protokol</span></h3>
+<p>WEP protokol koristi RC4 za stvaranje šifrirane poruke. Izvorni kod cijelog WEP protokola se nalazi ovdje.[<a href="https://gist.github.com/4581974" class="external autonumber" rel="nofollow">[29]</a>] 
+Funkcije koje se koriste za RC4 protokol su opisane u gornjem tekstu. Funkcije koje su potrebne za WEP su slijedeće:<br />
+<b>Dodaj IV</b>
+</p>
+<code><pre>
+def dodaj_IV(kljuc):
+    import random
+    import string
+    for i in range(3):
+        znak = ord(random.choice(string.ascii_letters + string.digits))
+        IV.append(znak)
+        kljuc.append(znak)
+    return kljuc
+
+</pre></code>
+<p>Ova funkcija uzima ključ nakon što je već obrađen sa algoritmom za prijelaz u brojčane znakove, te generira nasumični ASCII znak, kojeg onda pretvara u brojčanu vrijednost. ASCII znakovno polje je uzeto radi jednostavnosti, funkcija može biti prilagođena da koristi sav raspon mogućnosti 24 bitnog zapisa.
+<br />Tako stvoreni IV se zatim dodaje u ključ (na kraju ključa u ovoj imeplementaciji), te se dodaju u polje IV, kojesluži za proslijeđivanje tog vektoru funkciji za dekriptiranje. Time se simulira generiranje istog IV-a od strane routera.
+<br />
+<b>Kriptiraj</b>
+</p>
+<code><pre>
+def kriptiraj(kljuc):
+    kljuc_kriptiraj = konvertiraj_kljuc(kljuc)
+    kljuc_s_IV = dodaj_IV(kljuc_kriptiraj)
+    keystream = RC4(kljuc_s_IV)
+    for slovo in plaintext:
+        cipher.append(ord(slovo) ^ keystream.next())
+    return cipher
+</pre></code>
+<p>Ova funkcija uzima ključ, pretvara ga u brojačanu vrijednost pomoću ord funkcije, te mu dodaje IV. Nakon što mu je dodan IV, proslijeđuje tako generiranu listu u RC4 algoritam, koji od koketaniranih IV i ključ polja stvara polje stanja, što je ujedno i ključ za šifriranje poruke.<br />
+<b>Šifriranje</b>
+</p>
+<code><pre>
+import sys
+    for slovo in plaintext:
+        cipher.append(ord(slovo) ^ keystream.next())
+    return cipher
+</pre></code>
+<p>Ova funkcija uzima poruku i generirani ključ za šifriranje, te ih XOR-a međusobno.<br />
+<b>Dekriptiranje</b>
+</p>
+<code><pre>
+def dekriptiraj(cipher):
+    dekript = []
+    kljuc_dekriptiraj = konvertiraj_kljuc(kljuc)
+    for znak in IV:
+        kljuc_dekriptiraj.append(znak)
+    keystream=RC4(kljuc_dekriptiraj)
+    procitano = []
+    for znak in cipher:
+        dekript.append(znak ^ keystream.next())
+    for znak in dekript:
+        procitano.append(chr(znak))
+    return ''.join(procitano)
+</pre></code>
+<p>Ova funkcija ima istu funkcionalnost kao i funkcija kriptiranja, ponovno prolazi kroz RC4 algoritam koristeći ključ (lozinku za wireless pristup) i proslijeđeni IV vektor (na taj način simuliramo generiranje istog IV-a od strane routera).<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Brajuric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Brajuric (stranica ne postoji)">Branimir Jurić</a> 23:25, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Sources">Sources</span></h2>
+<p><br /><br />
+</p>
+<ul><li> S. Mister, S.E. Tavares, Cryptanalysis of RC4-like Ciphers, Queen's University, Kingston dostupno 19.1.2013. na <a href="http://www.n-pn.info/repo/MadChat/crypto/codebreakers/Y_23_rc4_cryptana.pdf" class="external free" rel="nofollow">http://www.n-pn.info/repo/MadChat/crypto/codebreakers/Y_23_rc4_cryptana.pdf</a>
+</li><li> Stream Ciphers, dostupno 19.1.2013. na <a href="http://www.cryptosmith.com/book/export/html/16" class="external free" rel="nofollow">http://www.cryptosmith.com/book/export/html/16</a>
+</li><li> Hongjun Wu, The Misuse of RC4 in Microsoft Word and Excel, Institute for Infocomm Research, Singapore, dostupno 19.1.2013. na <a href="http://eprint.iacr.org/2005/007.pdf" class="external free" rel="nofollow">http://eprint.iacr.org/2005/007.pdf</a>
+</li><li> Security Engineering, Ross Anderson, Wiley, dostupno 19.1.2013. na <a href="http://www.cl.cam.ac.uk/~rja14/book.html" class="external free" rel="nofollow">http://www.cl.cam.ac.uk/~rja14/book.html</a>
+</li><li> Lecture Notes on Stream Ciphers and RC4, Rick Wash, dostupno 19.1.2013. na <a href="http://rickwash.net/papers/stream.pdf" class="external free" rel="nofollow">http://rickwash.net/papers/stream.pdf</a>
+</li><li> Handbook of Applied Cryptography, A. Menezes, P. van Oorschot, S. Vanstone, dostupno 19.1.2013. na <a href="http://web.archive.org/web/20050305140333/http://www.cacr.math.uwaterloo.ca/hac/about/chap1.pdf" class="external free" rel="nofollow">http://web.archive.org/web/20050305140333/http://www.cacr.math.uwaterloo.ca/hac/about/chap1.pdf</a>
+</li><li> Kriptografija, Andrej Dujella, dostupno 19.1.2013. na <a href="http://web.math.pmf.unizg.hr/~duje/kript/osnovni.html" class="external free" rel="nofollow">http://web.math.pmf.unizg.hr/~duje/kript/osnovni.html</a>
+</li><li> Learning Python by example: RC4, Chris Leary, dostupno 19.1.2013. na <a href="http://blog.cdleary.com/2009/09/learning-python-by-example-rc4/" class="external free" rel="nofollow">http://blog.cdleary.com/2009/09/learning-python-by-example-rc4/</a>
+</li><li> RC4, Wikipedia, dostupno 19.1.2013. na <a href="http://en.wikipedia.org/wiki/RC4" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/RC4</a>
+</li><li> WEP, Wireless Security - How WEP works, dostpuno 20.1.2013 na <a href="http://palizine.plynt.com/issues/2006Dec/wep-encryption/" class="external free" rel="nofollow">http://palizine.plynt.com/issues/2006Dec/wep-encryption/</a>
+</li><li> H. Delfs, H.Knebl, Introduction to Cryptography, Springer, 2007.
+</li></ul>
+<p><br /><br />
+</p><p><br />
+Ljubo Barać, Branimir Jurić, Jelena Valčić
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 285/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4413-0!*!0!!hr!2!edit=0 and timestamp 20190203204017 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html">http://security.foi.hr/wiki/index.php/Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Ispravno_korištenje_stream_ciphera_nalik_RC4.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Ispravno_kori%C5%A1tenje_stream_ciphera_nalik_RC4&amp;oldid=17057" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:19, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.859 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Ispravno_korištenje_stream_ciphera_nalik_RC4", "wgTitle": "Ispravno korištenje stream ciphera nalik RC4", "wgAction": "view", "wgArticleId": 4413, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17057, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.626 secs. -->			</body>
+</html>

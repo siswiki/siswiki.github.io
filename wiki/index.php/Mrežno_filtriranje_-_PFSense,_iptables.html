@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Mrežno filtriranje - PFSense, iptables - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Mre%C5%BEno_filtriranje_-_PFSense,_iptables&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Mrežno_filtriranje_-_PFSense_iptables skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Mrežno filtriranje - PFSense, iptables</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Mrežno_filtriranje_-_PFSense,_iptables.html#mw-head">orijentacija</a>,
+					<a href="Mrežno_filtriranje_-_PFSense,_iptables.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>PFSense -&gt; Dario Šagud <br />
+iptables -&gt; Bojan Jungić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PFSense"><span class="tocnumber">1</span> <span class="toctext">PFSense</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PFSense_-_op.C4.87enito"><span class="tocnumber">1.1</span> <span class="toctext">PFSense - općenito</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PFSense_mogu.C4.87nosti"><span class="tocnumber">1.2</span> <span class="toctext">PFSense mogućnosti</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Firewall"><span class="tocnumber">1.2.1</span> <span class="toctext">Firewall</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablica_stanja"><span class="tocnumber">1.2.2</span> <span class="toctext">Tablica stanja</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#NAT"><span class="tocnumber">1.2.3</span> <span class="toctext">NAT</span></a>
+<ul>
+<li class="toclevel-4 tocsection-7"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#NAT_ograni.C4.8Denja"><span class="tocnumber">1.2.3.1</span> <span class="toctext">NAT ograničenja</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-8"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Redundancija"><span class="tocnumber">1.2.4</span> <span class="toctext">Redundancija</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Ograni.C4.8Denja"><span class="tocnumber">1.2.4.1</span> <span class="toctext">Ograničenja</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-10"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#VPN"><span class="tocnumber">1.2.5</span> <span class="toctext">VPN</span></a>
+<ul>
+<li class="toclevel-4 tocsection-11"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#IPsec"><span class="tocnumber">1.2.5.1</span> <span class="toctext">IPsec</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#OpenVPN"><span class="tocnumber">1.2.5.2</span> <span class="toctext">OpenVPN</span></a></li>
+<li class="toclevel-4 tocsection-13"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PPTP"><span class="tocnumber">1.2.5.3</span> <span class="toctext">PPTP</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-14"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PPPoE_server"><span class="tocnumber">1.2.6</span> <span class="toctext">PPPoE server</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Dinami.C4.8Dki_DNS"><span class="tocnumber">1.2.7</span> <span class="toctext">Dinamički DNS</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Portal_zato.C4.8Deni.C5.A1tva_.28Captive_Portal.29"><span class="tocnumber">1.2.8</span> <span class="toctext">Portal zatočeništva (Captive Portal)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PFSense_verzije"><span class="tocnumber">1.3</span> <span class="toctext">PFSense verzije</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Nove_instalacijske_datoteke"><span class="tocnumber">1.3.1</span> <span class="toctext">Nove instalacijske datoteke</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Nadogra.C4.91ene_datoteke"><span class="tocnumber">1.3.2</span> <span class="toctext">Nadograđene datoteke</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Minimalni_hardverski_zahtjevi"><span class="tocnumber">1.4</span> <span class="toctext">Minimalni hardverski zahtjevi</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tim_developera"><span class="tocnumber">1.5</span> <span class="toctext">Tim developera</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tutorial"><span class="tocnumber">1.6</span> <span class="toctext">Tutorial</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Raspored"><span class="tocnumber">1.6.1</span> <span class="toctext">Raspored</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Konfiguacija_LAN_mre.C5.BEe"><span class="tocnumber">1.6.2</span> <span class="toctext">Konfiguacija LAN mreže</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#PFSense_instalacija_i_konfiguracija"><span class="tocnumber">1.6.3</span> <span class="toctext">PFSense instalacija i konfiguracija</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#GUI_pristup_i_Proxy_server"><span class="tocnumber">1.6.4</span> <span class="toctext">GUI pristup i Proxy server</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Firewall_pravila"><span class="tocnumber">1.6.5</span> <span class="toctext">Firewall pravila</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#SquidGuard"><span class="tocnumber">1.6.6</span> <span class="toctext">SquidGuard</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#VPN_-_PPTP"><span class="tocnumber">1.6.7</span> <span class="toctext">VPN - PPTP</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-30"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Zaklju.C4.8Dak"><span class="tocnumber">1.7</span> <span class="toctext">Zaključak</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-31"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#IPTables"><span class="tocnumber">2</span> <span class="toctext">IPTables</span></a>
+<ul>
+<li class="toclevel-2 tocsection-32"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Razvojni_tim"><span class="tocnumber">2.1</span> <span class="toctext">Razvojni tim</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Dinami.C4.8Dko_filtriranje"><span class="tocnumber">2.2</span> <span class="toctext">Dinamičko filtriranje</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablice_i_lanci"><span class="tocnumber">2.3</span> <span class="toctext">Tablice i lanci</span></a>
+<ul>
+<li class="toclevel-3 tocsection-35"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Lanci_.28eng._chains.29"><span class="tocnumber">2.3.1</span> <span class="toctext">Lanci (eng. chains)</span></a>
+<ul>
+<li class="toclevel-4 tocsection-36"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Princip_crne_i_bijele_liste"><span class="tocnumber">2.3.1.1</span> <span class="toctext">Princip crne i bijele liste</span></a>
+<ul>
+<li class="toclevel-5 tocsection-37"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Crna_lista"><span class="tocnumber">2.3.1.1.1</span> <span class="toctext">Crna lista</span></a></li>
+<li class="toclevel-5 tocsection-38"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Bijela_lista"><span class="tocnumber">2.3.1.1.2</span> <span class="toctext">Bijela lista</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-39"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablice_.28eng._tables.29"><span class="tocnumber">2.3.2</span> <span class="toctext">Tablice (eng. tables)</span></a>
+<ul>
+<li class="toclevel-4 tocsection-40"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablica_filter"><span class="tocnumber">2.3.2.1</span> <span class="toctext">Tablica filter</span></a></li>
+<li class="toclevel-4 tocsection-41"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablica_nat"><span class="tocnumber">2.3.2.2</span> <span class="toctext">Tablica nat</span></a></li>
+<li class="toclevel-4 tocsection-42"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablica_mangle"><span class="tocnumber">2.3.2.3</span> <span class="toctext">Tablica mangle</span></a></li>
+<li class="toclevel-4 tocsection-43"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Tablica_raw"><span class="tocnumber">2.3.2.4</span> <span class="toctext">Tablica raw</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-44"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#IPTables_na_mobilnim_ure.C4.91ajima"><span class="tocnumber">2.4</span> <span class="toctext">IPTables na mobilnim uređajima</span></a></li>
+<li class="toclevel-2 tocsection-45"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Primjer"><span class="tocnumber">2.5</span> <span class="toctext">Primjer</span></a></li>
+<li class="toclevel-2 tocsection-46"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Zaklju.C4.8Dak_2"><span class="tocnumber">2.6</span> <span class="toctext">Zaključak</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-47"><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#Literatura"><span class="tocnumber">3</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="PFSense"> PFSense </span></h1>
+<h2> <span class="mw-headline" id="PFSense_-_op.C4.87enito"> PFSense - općenito </span></h2>
+<p>PFSense je <a href="http://hr.wikipedia.org/wiki/Otvoreni_kod" class="external text" rel="nofollow">open source</a> [3]distribucija <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD-a</a> koja je prilagođena za uporabu kao <a href="http://hr.wikipedia.org/wiki/Firewall" class="external text" rel="nofollow">firewall</a>/<a href="http://hr.wikipedia.org/wiki/Router" class="external text" rel="nofollow">router</a>. Kako sadrži mnoge mogućnosti i osobine, spada među vrlo moćne i fleksibilne <a href="http://hr.wikipedia.org/wiki/Firewall" class="external text" rel="nofollow">firewall</a> i rout platforme. [4]PFSense ima mogućnost daljnjih proširenja bez potrebe dodavanja potencijalnih sigurnosnih propusta kod glavne distribucije. Također, vrlo je popularan jer je prešao jedan milijun <i>download</i>-a od nastavka, a može se koristiti od malih kućnih mreža za zaštitu računala i Xboxa do velikih korporacija kako bi zaštitio tisuće mrežnih uređaja.
+</p><p>Ovaj projekt je vrlo sličan <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external text" rel="nofollow">m0n0wallu</a>, [6]koji je također usmjeren na stvaranje firewall softver paketa. Razlika između <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external text" rel="nofollow">m0n0walla</a> i PFSensea je sljedeća:
+</p>
+<ul><li> PFSense je zapravo “odvojen” od <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external text" rel="nofollow">m0n0wall</a> projekta 2004. godine
+</li><li> PFSense je namijenjen za više naprednih mogućnosti poslovne klase nego m0n0wall
+</li><li> <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external text" rel="nofollow">m0n0wall</a> je puno jednostavniji
+</li><li> PFSense je puno popularniji
+</li><li> <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external text" rel="nofollow">m0n0wall</a> je baziran na starom BSD <a href="http://bs.wikipedia.org/wiki/Kernel" class="external text" rel="nofollow">karnelu</a>
+</li><li> PFSense je <i>update</i>-iraniji i sadrži više dodataka
+</li><li> PFSense ima podršku <a href="http://en.wikipedia.org/wiki/Universal_Plug_and_Play" class="external text" rel="nofollow">UPnP-a</a>, balansiranje više <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN-a</a>, <a href="http://en.wikipedia.org/wiki/Traffic_shaping" class="external text" rel="nofollow">ITMPs-a</a> itd.
+</li><li> PFSense je više usmjeren <i>full</i> PC instalacijama, dok je <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external text" rel="nofollow">m0n0wall</a> na građen hardver
+</li></ul>
+<p>PFSense također nudi ugrađenu sliku tj. može biti usmjeren na ugrađeni hardver, a oboje omogućavaju postavljanje site-to-site i <a href="http://en.wikipedia.org/wiki/Vpn" class="external text" rel="nofollow">VPN</a> veze, staticki najam <a href="http://hr.wikipedia.org/wiki/DHCP" class="external text" rel="nofollow">DHCP-a</a>, jednostavno spremanje i obnovu konfiguracija itd. 
+</p><p>PFSense je baziran na prilagođenoj verziji <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD-a</a>, zajedno sa <a href="http://hr.wikipedia.org/wiki/Web_server" class="external text" rel="nofollow">web serverom</a> <a href="http://en.wikipedia.org/wiki/LightTPD" class="external text" rel="nofollow">LightTPD</a>, <a href="http://hr.wikipedia.org/wiki/PHP" class="external text" rel="nofollow">PHP-om</a> i nekoliko drugih usluga. Važno je reći da je cijela sistemska konfiguracija spremljena u jedinstvenu <a href="http://hr.wikipedia.org/wiki/XML" class="external text" rel="nofollow">XML</a> tekstualnu datoteku da bi se radnje odvijale transparentno. PFSense je drugi <a href="http://hr.wikipedia.org/wiki/Unix" class="external text" rel="nofollow">UNIX</a> sistem koji ima konfiguraciju vremena <i>boot</i>-anja u <a href="http://hr.wikipedia.org/wiki/PHP" class="external text" rel="nofollow">PHP-u</a> i koji ima cijelu konfiguraciju spremljenu u <a href="http://hr.wikipedia.org/wiki/XML" class="external text" rel="nofollow">XML</a> formatu.
+</p><p>PFSense se konfigurira i nadograđuje preko <i>web</i> baziranog sučelja i ne zahtjeva neko veliko predznanje prijašnjih <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD</a> sistema da bi se njime upravljalo.
+</p><p>Mogućnosti koje pruža PFSense su:
+</p>
+<ul><li> [9]<a href="http://hr.wikipedia.org/wiki/Firewall" class="external text" rel="nofollow">Firewall</a>
+</li><li> Jednostavno grafičko sučelje (nije potrebno znati kako kreirati pravila <a href="http://hr.wikipedia.org/wiki/Firewall" class="external text" rel="nofollow">firewalla</a>)
+</li><li> Čarobnjak za instalaciju
+</li><li> <a href="http://en.wikipedia.org/wiki/Wireless_access_point" class="external text" rel="nofollow">Wireless Access Point</a> (potrebno <a href="http://hr.wikipedia.org/wiki/WiFi" class="external text" rel="nofollow">WiFi</a> sučelje)
+</li><li> Mogućnost postavljanja više subneta
+</li><li> Traffic Shaping (<a href="http://en.wikipedia.org/wiki/Traffic_shaping" class="external text" rel="nofollow">ITMPs</a>)
+</li><li> <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a>
+</li><li> Redundancija
+</li><li> <a href="http://en.wikipedia.org/wiki/Common_Address_Redundancy_Protocol" class="external text" rel="nofollow">CARP</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Pfsync" class="external text" rel="nofollow">pfsync</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Nmap" class="external text" rel="nofollow">nmap</a>, <a href="http://hr.wikipedia.org/wiki/Ping" class="external text" rel="nofollow">ping</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Vpn" class="external text" rel="nofollow">VPN</a> – <a href="http://en.wikipedia.org/wiki/Ipsec" class="external text" rel="nofollow">IPsec</a>, <a href="http://en.wikipedia.org/wiki/Openvpn" class="external text" rel="nofollow">OpenVPN</a>, <a href="http://en.wikipedia.org/wiki/Pptp" class="external text" rel="nofollow">PPTP</a>
+</li><li> <a href="http://hr.wikipedia.org/wiki/PPPoE" class="external text" rel="nofollow">PPPoE</a> Server
+</li><li> RPD
+</li><li> Koristi <a href="http://en.wikipedia.org/wiki/Ajax_(programming)" class="external text" rel="nofollow">AJAX</a> za pravovremene informacije
+</li><li> Dinamički <a href="http://hr.wikipedia.org/wiki/Dns" class="external text" rel="nofollow">DNS</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Captive_Portal" class="external text" rel="nofollow">Captive Portal</a>
+</li><li> <a href="http://hr.wikipedia.org/wiki/DHCP" class="external text" rel="nofollow">DHCP</a> Server
+</li><li> <a href="http://hr.wikipedia.org/wiki/Secure_Shell" class="external text" rel="nofollow">Shell</a> pristup
+</li><li> <a href="http://en.wikipedia.org/wiki/Wake-on-LAN" class="external text" rel="nofollow">WOL</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Proxy_Server" class="external text" rel="nofollow">Proxy Server</a>
+</li><li> Mogućnost <a href="http://hr.wikipedia.org/wiki/Backup" class="external text" rel="nofollow">backup-a</a> i povrata <a href="http://hr.wikipedia.org/wiki/Firewall" class="external text" rel="nofollow">firewall</a> konfiguracije preko <a href="http://hr.wikipedia.org/wiki/GUI" class="external text" rel="nofollow">GUI-a</a>
+</li><li> Uređivanje datoteka preko <i>web</i> <a href="http://hr.wikipedia.org/wiki/GUI" class="external text" rel="nofollow">GUI-a</a>
+</li></ul>
+<p>PFSense Verzija 1.0 je izdana 04. listopada 2006.
+</p>
+<h2> <span class="mw-headline" id="PFSense_mogu.C4.87nosti"> PFSense mogućnosti </span></h2>
+<p>[8]PFSense ima podršku za većinu dodataka koje koriste skupi komercijalni <a href="http://hr.wikipedia.org/wiki/Firewall" class="external text" rel="nofollow">firewalli</a>. U nastavku su navedene mogućnosti koje verzija 2.0 podržava. Važno je napomenuti kako je sve te mogućnosti moguće kontrolirati uz pomoć <i>web</i> sučelja i nije potrebno koristiti komandnu liniju. Osim što sadrži dadatke PFSensea, ovo poglavlje također sadrži ograničenja sustava. Kako svaki sustav ima ograničenja, neke radnje su moguće, dok druge nisu. 
+</p>
+<h3> <span class="mw-headline" id="Firewall"> Firewall </span></h3>
+<ul><li> [8]omogućava filtriranje prema izvornoj i destinacijskoj IP adressi, IP protokolu, izvornom i destinacijskom portu za <a href="http://hr.wikipedia.org/wiki/TCP" class="external text" rel="nofollow">TCP</a> i <a href="http://hr.wikipedia.org/wiki/UDP" class="external text" rel="nofollow">UDP</a> promet
+</li><li> omogućava ograničenje istovremenih veza prema definiranom pravilu 
+</li><li> PFSense koristi p0f, napredni i pasivni OS uzimatelj otisaka koji omogućava filtriranje preko operacijskog sustava inicijalizirajući vezu. PFSense može također blokirati računala sa određenim operacijskim sustavom i onemogućiti im pristup internetu. Npr. može blokirati sve <a href="http://hr.wikipedia.org/wiki/Linux" class="external text" rel="nofollow">Linux</a> OS-ove. PFSense jednostavno detektira OS i blokira mu pristup.
+</li><li> omogućava opciju zapisa prometa koji odgovara određenom pravilu
+</li><li> sadrži iznimno fleksibilnu politiku usmjeravanja tako da odabire prolaz (gateway) na osnovu pravila (za failover, više <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN-a</a> i sl.)
+</li><li> zadana imena omogućuju grupiranje i imenovanje IP-eva, mreža i portova. To pomaže da Vaša firewall pravila ostanu jasna i jednostavna za shavatiti, posebno u okolinama sa više javnih IP-eva i brojnim serverima.
+</li><li> Prozirni sloj 2 (Transparent layer 2) osposobljen firewall-om može spojiti sučelja i filtere prometa između njih. Čak omogućuje i IP-less firewall (ako trebate IP za upravljačke svrhe)
+</li><li> paket normalizacije - opis iz pf scrub dokumentacije - "<i>ribanje</i>" (<i>scrubbing</i>) je normalizacija paketa na način da ne postoji nejasnoća u saznanju krajnje destinacije paketa. Scrub direktiva ponovno sastavlja fragmentirane pakete, zaštičujući pojedine operacijske sustave od napada i ispušta <a href="http://hr.wikipedia.org/wiki/TCP" class="external text" rel="nofollow">TCP</a> pakete koji imaju nevažeću kombinaciju. To je uključeno prema defaultu, a može se isključiti ako je potrebno. Ova opcija donosi probleme nekim <a href="http://en.wikipedia.org/wiki/Network_File_System_(protocol)" class="external text" rel="nofollow">NFS</a> implementacijama, ali je sigurna i bilo bi poželjno kad bi ostala uključena.
+</li><li> Isključen filter (možete isključiti firewall filter potpuno ako želite prebaciti PFSense na čisti router)
+</li></ul>
+<h3> <span class="mw-headline" id="Tablica_stanja"> Tablica stanja </span></h3>
+<p>[8]Firewallova tablica stanja održava informacije na otvorenim mrežnim konekcijama. Kako većina firewalla nema sposobnost dobrog kontroliranja tablice stanja, PFSense ima brojne mogućnosti za tu kontrolu zahvaljujući <a href="http://hr.wikipedia.org/wiki/OpenBSD" class="external text" rel="nofollow">OpenBSD-ovom</a> <a href="http://en.wikipedia.org/wiki/PF_(firewall)" class="external text" rel="nofollow">pf-u</a> (firewallu).
+</p><p>Mogućnosti tablice stanja su sljedeće:
+</p>
+<ul><li> [8]Podesiva veličina tablice stanja - PFSense ima više produkcijskih instalacija koristeći stotine tisuća različitih stanja. Zadana veličina tablice stanja ovisi o <a href="http://hr.wikipedia.org/wiki/RAM" class="external text" rel="nofollow">RAM-ima</a> u Vašem računalu i može se podesiti prema želji. Svako stanje zauzima oko 1 KB <a href="http://hr.wikipedia.org/wiki/RAM" class="external text" rel="nofollow">RAM-a</a>, pa je potrebna prilagodba tablice stanja prema Vašem računalu.
+</li><li> Temelje se na nekoliko pravila:
+<ul><li> istodobno limitiranje konekcije klijenata
+</li><li> limitiranje novih konekcija po sekundi
+</li><li> definiranje timeouta stanja
+</li><li> definiranje vrste stanja
+</li></ul>
+</li><li> Postoje više vrsta stanja, a PFSense nudi opcije za njihovo rukovanje. To su:
+<ul><li> Zadrži stanje - "Keep state" (radi sa svim protokolima i <i>default</i>-no je za sva pravila)
+</li><li> Podesi stanje - "Modulate state" (radi samo sa <a href="http://hr.wikipedia.org/wiki/TCP" class="external text" rel="nofollow">TCP-om</a>)
+</li><li> Synproxy stanje (Proxiji dolaze <a href="http://hr.wikipedia.org/wiki/TCP" class="external text" rel="nofollow">TCP</a> vezama da bi pomogli zaštititi servere od <a href="http://en.wikipedia.org/wiki/SYN_flood" class="external text" rel="nofollow">SYN poplava</a>. Ova opcija uključuje funkcionalnost kombiniranja "Zadrži" stanja i "Podasi" stanja.)
+</li><li> Nijedno - "None" (Nije poželjno zadržavati stanje unosa za ovaj promet. Ovo se vrlo rijetko koristi, ali je dostupno jer se može upotrijebiti kod ograničenih okolnosti.
+</li></ul>
+</li><li> Opcije optimizacije tablice stanja (<a href="http://en.wikipedia.org/wiki/PF_(firewall)" class="external text" rel="nofollow">pf</a> nudi četiri opcije optimizacije:
+<ul><li> Normlano - "Normal" (<i>defaultn</i>-i algoritam)
+</li><li> Visoka latencija - "High latency" (Korisno za poveznice sa visokom latencijom, npr. Statelitske veze. Na taj način veze koje miruju kasnije ističu.)
+</li><li> Agresivno - "Aggressive" (Kod ove opcije veze koje miriju puno brže ističu i puno efektivnije se koriste hardverski resursi, ali može odbacti potrebne (zakonite) veze.)
+</li><li> Konzervativno - "Conservative" (Pokušava izbjeći odbacivanje potrebne (zakonite) veze tako da poveća memoriju i korištenje <a href="http://hr.wikipedia.org/wiki/CPU" class="external text" rel="nofollow">CPU-a</a>.)
+</li></ul>
+</li></ul>
+<h3> <span class="mw-headline" id="NAT"> NAT </span></h3>
+<p>[8]Network Address Translation
+</p>
+<ul><li> omogućuje korištenje više javnih IP adresa
+</li><li> 1:1 <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a> za pojedine IP-jeve ili čitave subnet-e (podmreže). 
+</li><li> odlazni <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a>
+<ul><li> <i>Default</i>-ne postavke <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT-a</a> - sav odlazni promet do <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a> IP-ja. Kod više <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN-a</a> korištene su <i>default</i>-ne postavke <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a> odlaznog prometa do IP-jeva od <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a> sučelja.
+</li><li> Napredni odlazni <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a> omogućuje da ovakvo <i>default</i>-no ponašanje bude isključeno i uključuje fleksibilna <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a> pravila.
+</li></ul>
+</li><li> <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a> refleksija - kod nekih konfiguracija, <a href="http://en.wikipedia.org/wiki/Network_address_translation" class="external text" rel="nofollow">NAT</a> refleksija je moguća, tako da se servisi mogu pristupati preko javnih IP-jeva od internih mreža.
+</li></ul>
+<h4> <span class="mw-headline" id="NAT_ograni.C4.8Denja"> NAT ograničenja </span></h4>
+<p>[8]<a href="http://en.wikipedia.org/wiki/PPTP" class="external text" rel="nofollow">PPTP</a> / <a href="http://en.wikipedia.org/wiki/Generic_Routing_Encapsulation" class="external text" rel="nofollow">GRE</a> ograničenja - kod za pračenje stanja u <a href="http://en.wikipedia.org/wiki/PF_(firewall)" class="external text" rel="nofollow">pf-u</a> za <a href="http://en.wikipedia.org/wiki/Generic_Routing_Encapsulation" class="external text" rel="nofollow">GRE</a> protokol može  pratiti samo jednu sezonu po javnoj IP adresi po vanjskom serveru. To znači da ako koristite <a href="http://en.wikipedia.org/wiki/PPTP" class="external text" rel="nofollow">PPTP</a> <a href="http://en.wikipedia.org/wiki/Vpn" class="external text" rel="nofollow">VPN</a> veze, samo se jedna unutarnja mašina može spojiti istodobno na <a href="http://en.wikipedia.org/wiki/PPTP" class="external text" rel="nofollow">PPTP</a> server na internetu. Tisuće drugih mašina može se spojiti istodobno na tisuće različitih <a href="http://en.wikipedia.org/wiki/PPTP" class="external text" rel="nofollow">PPTP</a> servera, ali jedna samo na jedan server. Jedino što je korisno je korištenje više IP-jeva na firewallu, jedan po klijentu, ili koristiti javne IP-jeve na vanjskom <a href="http://en.wikipedia.org/wiki/PPTP" class="external text" rel="nofollow">PPTP</a> serveru. Ovo nije problem sa <a href="http://en.wikipedia.org/wiki/Vpn" class="external text" rel="nofollow">VPN-ovima</a> druge vrste, a rješenje se trenutno razvija.
+</p>
+<h3> <span class="mw-headline" id="Redundancija"> Redundancija </span></h3>
+<p>[8]<a href="http://en.wikipedia.org/wiki/Common_Address_Redundancy_Protocol" class="external text" rel="nofollow">CARP</a> iz <a href="http://en.wikipedia.org/wiki/Openbsd" class="external text" rel="nofollow">OpenBSD-a</a> dozvoljava hardversko prebacivanje u slučaju propusta (<a href="http://en.wikipedia.org/wiki/Failover" class="external text" rel="nofollow">failover</a>). Dva ili više firewalla mogu se konfigurirati kao <a href="http://en.wikipedia.org/wiki/Failover" class="external text" rel="nofollow">failover</a> grupa. Ako jedno primarno sučelje "<i>padne</i>", sekundarno ga automatski zamjenjuje. U slučaju zamjene sučelja, postavke koje ste namjestili na primarnom, automatski se sinkroniziraju na sekundarni firewall. 
+</p><p>[8]pfsync osigurava da je tablica stanja replicirana na sve zamjenske konfigurirane firewallove. Tako se postojeće veze samo održavaju u slučaju nekog propusta, a to je vrlo važno kod velikih mreža. 
+</p>
+<h4> <span class="mw-headline" id="Ograni.C4.8Denja"> Ograničenja </span></h4>
+<p>[8]Redundancija radi samo sa statičkim javnim IP-evima. Također je nedostatak to što ne radi sa <i>failover</i>-ima koji koriste <a href="http://hr.wikipedia.org/wiki/DHCP" class="external text" rel="nofollow">DHCP</a>, <a href="http://hr.wikipedia.org/wiki/PPPoE" class="external text" rel="nofollow">PPPoE</a>, i <a href="http://en.wikipedia.org/wiki/PPTP" class="external text" rel="nofollow">PPTP</a> <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a>.
+</p>
+<h3> <span class="mw-headline" id="VPN"> VPN </span></h3>
+<p>[8] PFSense nudi tri opcije za Virtualne privatne mreže koje će biti opisane u nastavku. To su:
+</p>
+<ol><li> <a href="http://en.wikipedia.org/wiki/Ipsec" class="external text" rel="nofollow">IPsec</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Openvpn" class="external text" rel="nofollow">OpenVPN</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/Pptp" class="external text" rel="nofollow">PPTP</a>
+</li></ol>
+<h4> <span class="mw-headline" id="IPsec"> IPsec </span></h4>
+<p>[8]<a href="http://en.wikipedia.org/wiki/Ipsec" class="external text" rel="nofollow">IPsec</a> dozvoljava konekciju sa bilo kojim uređajem koji podržava <a href="http://en.wikipedia.org/wiki/Ipsec" class="external text" rel="nofollow">IPsec</a>. Ovakva vrsta konekcije se pretežno koristi za različite PFSense instalacije, <a href="http://hr.wikipedia.org/wiki/Otvoreni_kod" class="external text" rel="nofollow">open source</a> firewallove, a može se koristiti i za mobilna povezivanja.
+</p>
+<h4> <span class="mw-headline" id="OpenVPN"> OpenVPN </span></h4>
+<p>[8]<a href="http://en.wikipedia.org/wiki/Openvpn" class="external text" rel="nofollow">OpenVPN</a> je izuzetno dobro i fleksibilno <a href="http://en.wikipedia.org/wiki/Secure_Sockets_Layer" class="external text" rel="nofollow">SSL</a> <a href="http://en.wikipedia.org/wiki/Vpn" class="external text" rel="nofollow">VPN</a> rješenje koje podržava široki raspon operacijskih sustava. [10]<a href="http://en.wikipedia.org/wiki/Openvpn" class="external text" rel="nofollow">OpenVPN</a> omogućuje sudionicima da potvrde jedan drugoga koristeći zajednički tajni ključ, certifikat ili korisničko ime i lozinku. Kada se koristi u konfiguraciji kod servera sa više klijenata, omogućuje serveru da oslobodi certifikat za svakog klijenta, koristeći digitalni potpis i certifikat. <a href="http://en.wikipedia.org/wiki/Openvpn" class="external text" rel="nofollow">OpenVPN</a> koristi <a href="http://en.wikipedia.org/wiki/OpenSSL" class="external text" rel="nofollow">OpenSSL</a> enkripciju biblioteku i sadrži sigurnosnih i upravljačkih dodataka.
+</p>
+<h4> <span class="mw-headline" id="PPTP"> PPTP </span></h4>
+<p>[8]<a href="http://en.wikipedia.org/wiki/Pptp" class="external text" rel="nofollow">PPTP</a> ili Point-to-Point Tunneling Protocol je popularana <a href="http://en.wikipedia.org/wiki/Vpn" class="external text" rel="nofollow">VPN</a> metoda zato što skoro svaki operacijski sustav ima ugrađen <a href="http://en.wikipedia.org/wiki/Pptp" class="external text" rel="nofollow">PPTP</a> (npr. svaka Windows verzija od Windows 95 na dalje). [11]<a href="http://en.wikipedia.org/wiki/Pptp" class="external text" rel="nofollow">PPTP</a> koristi kontrolnu ploču preko <a href="http://hr.wikipedia.org/wiki/TCP" class="external text" rel="nofollow">TCP</a> i <a href="http://en.wikipedia.org/wiki/Generic_Routing_Encapsulation" class="external text" rel="nofollow">GRE</a> tunela za operacije enkapsulacije <a href="http://en.wikipedia.org/wiki/Point-to-Point_Protocol" class="external text" rel="nofollow">PPP</a> paketa.
+</p>
+<h3> <span class="mw-headline" id="PPPoE_server"> PPPoE server </span></h3>
+<p>[8]PFSense nudi i <a href="http://hr.wikipedia.org/wiki/PPPoE" class="external text" rel="nofollow">PPPoE</a> server. [12]<a href="http://hr.wikipedia.org/wiki/PPPoE" class="external text" rel="nofollow">PPPoE</a> je mrežni protokol za enkapsulaciju <a href="http://en.wikipedia.org/wiki/Point-to-Point_Protocol" class="external text" rel="nofollow">PPP</a> paketa unutar <a href="http://en.wikipedia.org/wiki/Ethernet" class="external text" rel="nofollow">Ethernet</a> okvira. Najviše se koristi sa <a href="http://en.wikipedia.org/wiki/DSL" class="external text" rel="nofollow">DSL</a> servisima gdje se pojedini korisnici spajaju na <a href="http://en.wikipedia.org/wiki/DSL" class="external text" rel="nofollow">DSL</a> modem preko <a href="http://en.wikipedia.org/wiki/Ethernet" class="external text" rel="nofollow">Ethernet-a</a>. Lokalna korisnička baza podataka može se koristiti za autentikaciju i <a href="http://en.wikipedia.org/wiki/RADIUS" class="external text" rel="nofollow">RADIUS</a> atentikaciju.
+</p>
+<h3> <span class="mw-headline" id="Dinami.C4.8Dki_DNS"> Dinamički DNS </span></h3>
+<p>[8]Dinamički <a href="http://hr.wikipedia.org/wiki/Dns" class="external text" rel="nofollow">DNS</a> klijent omogućava registraciju javne IP adrese sa brojnim DNS uslugama:
+</p>
+<ul><li> <a href="http://en.wikipedia.org/wiki/DynDNS" class="external text" rel="nofollow">DynDNS</a>
+</li><li> DHS
+</li><li> DNSexit
+</li><li> DyNS
+</li><li> easyDNS
+</li><li> <a href="http://en.wikipedia.org/wiki/FreeDNS" class="external text" rel="nofollow">freeDNS</a>
+</li><li> HE.net
+</li><li> Loopia
+</li><li> <a href="http://en.wikipedia.org/wiki/Namecheap" class="external text" rel="nofollow">Namecheap</a>
+</li><li> <a href="http://en.wikipedia.org/wiki/No-IP" class="external text" rel="nofollow">No-IP</a>
+</li><li> ODS.org
+</li><li> <a href="http://en.wikipedia.org/wiki/OpenDNS" class="external text" rel="nofollow">OpenDNS</a>
+</li><li> ZoneEdit
+</li></ul>
+<h3> <span class="mw-headline" id="Portal_zato.C4.8Deni.C5.A1tva_.28Captive_Portal.29"> Portal zatočeništva (Captive Portal) </span></h3>
+<p>[8]Portal zatočeništva omogućuje prisilnu ovjeru autentičnosti ili preusmjeravanja preko stranice za mrežni pristup. [13]Ovaj portal prisiljava korisnika na mreži da vidi neku specijalnu web stranicu prije nego što koristi internet. Obično koristi za ovjeru autentičnosti kod Hot spot mreža i korporacijskih mreža kao dodatan sloj sigurnosti za wireless i internet pristup. Najjednostavnije, portal zatočeništva pretvara web browser u "aparat" za provjeru autentičnosti. Slijedi lista dodataka portala zatočeništva:
+</p>
+<ul><li> Najveći broj istovremenih veza - limitira broj veza koje je moguće uspostaviti.
+</li><li> Idle timeout (vrijeme za klijente koji miruju) - isključuje klijente koji miruju na mreži određeno vrijeme.
+</li><li> Hard timeout (teški (strogi) timeout) - <i>disconnect</i>-a sve klijente na mreži u određeno vrijeme.
+</li><li> Login prozor - prozor koji iskoči sa potrebe <i>logout</i>-a.
+</li><li> URL preusmjeravanje - nakon logiranja klijent može biti ponovo preusmjeren na drugu adresu.
+</li><li> MAC filtriranje - PFSense filteri koriste MAC adrese i ako imate <i>subnet</i> iza <i>router</i>-a na portalu zatočeništva, svaki uređaj iza routera će se autorizirati kada se korisnik prijavi. MAC filtriranje se isto tako može i iskljčiti.
+</li><li> Mogućnosti provjere - postoji tri opcije:
+<ul><li> nema autentikacije
+</li><li> lokalni voditelj (Local user manager) - korisnik prođe kroz portal bez logiranja.
+</li><li> <a href="http://en.wikipedia.org/wiki/RADIUS" class="external text" rel="nofollow">RADIUS</a> autentikacija - koristi se u korporacijama. 
+</li></ul>
+</li><li> <a href="http://en.wikipedia.org/wiki/RADIUS" class="external text" rel="nofollow">RADIUS</a> sposobnosti su:
+<ul><li> prisiljena ponovna provjera autentičnosti
+</li><li> mogućnosti slanja <i>update</i>-ova pojedinih računa korisnika
+</li><li> <a href="http://en.wikipedia.org/wiki/RADIUS" class="external text" rel="nofollow">RADIUS</a> MAC autentikacija dozvoljava portalu zatočeništva da se ovjeri <a href="http://en.wikipedia.org/wiki/RADIUS" class="external text" rel="nofollow">RADIUS</a> serveru koristeći klijentsku MAC adresu kao korisničko ime i lozinku
+</li><li> dozvoljava konfiguraciju redundantnih <a href="http://en.wikipedia.org/wiki/RADIUS" class="external text" rel="nofollow">RADIUS</a> servera
+</li></ul>
+</li><li> <a href="http://en.wikipedia.org/wiki/HTTP" class="external text" rel="nofollow">HTTP</a> ili <a href="http://en.wikipedia.org/wiki/HTTP_Secure" class="external text" rel="nofollow">HTTPS</a> - portal može koristiti i <a href="http://en.wikipedia.org/wiki/HTTP" class="external text" rel="nofollow">HTTP</a> i <a href="http://en.wikipedia.org/wiki/HTTP_Secure" class="external text" rel="nofollow">HTTPS</a>.
+</li><li> Upravitelj datoteka - dozvoljava <i>upload</i>-anje slika koje će se koristiti na portalu.
+</li></ul>
+<p>PFSense omogućuje i mnoge druge mogućnosti koje ovdje nisu spomenute.
+</p>
+<h2> <span class="mw-headline" id="PFSense_verzije"> PFSense verzije </span></h2>
+<p>[14]Trenutna stablina verzija koja se može preuzeti je <i>2.0.1</i>. Ova se verzija preporuća za sve instalacije, te je sigurnija i sadrži manje <i>bug</i>-ova od prošle verzije (<i>2.0</i>). 
+</p><p>[14]PFSense se može preuzeti kao Nove instalacijske datoteke (New Install Files) ili kao Nadograđene datoteke (Upgrade Files). U nastavku slijedi prikaz:
+</p>
+<h3> <span class="mw-headline" id="Nove_instalacijske_datoteke"> Nove instalacijske datoteke </span></h3>
+<p>[14]Oblici:
+</p>
+<ul><li> pfSense-2.0.1-RELEASE-arch.iso.gz (za live CD)
+</li><li> pfSense-memstick-2.0.1-RELEASE-arch.img.gz (za USB stick) 
+</li><li> pfSense-2.0.1-RELEASE-size-arch-nanobsd.img.gz (NanoBSD/ugrađeni pristup - Serijska konzola) 
+</li><li> pfSense-2.0.1-RELEASE-size-arch-nanobsd_vga.img.gz (NanoBSD/ugrađeni pristup VGA konzola) 
+</li><li> *.md5 (MD5 hash datoteke za provjeru preuzimanja) 
+</li><li> *.sha256 (SHA256 hash datoteke za provjeru preuzimanja)
+</li></ul>
+<h3> <span class="mw-headline" id="Nadogra.C4.91ene_datoteke"> Nadograđene datoteke </span></h3>
+<p>[14]Oblici:
+</p>
+<ul><li> pfSense-Full-Update-2.0.1-RELEASE-arch.tgz (cijela <i>upadate</i> instalacija)
+</li><li> pfSense-2.0.1-RELEASE-size-arch-nanobsd-upgrade.img.gz (NanoBSD/ugrađeni pristup - Serijska konzola) 
+</li><li> pfSense-2.0.1-RELEASE-size-arch-nanobsd_vga-upgrade.img.gz (NanoBSD/ugrađeni pristup - VGA konzola) 
+</li><li> *.md5 (MD5 hash datoteke za provjeru preuzimanja 
+</li><li> *.sha256 (SHA256 hash datoteke za provjeru preuzimanja)
+</li></ul>
+<p>[14]PFSense ima verzije posebno za i386 (32-<i>bit</i>-a) i amd64 (64-<i>bit</i>-a), koje su se počele razvijati sa PFSense 2.0 verzijom. Ako se ne možete odlučiti koju verziju preuzeti, uzmite i386 (32-<i>bit</i>-a) jer ona radi na 32-<i>bit</i>-nim ii 64-<i>bit</i>-nim sustavima.
+</p><p>[14]Kao što je gore navedeno, postoji tri dostupne platforme. To su:
+</p>
+<ol><li> Live CD ili USB stick instalacija
+</li><li> Hard disk instalacija
+</li><li> Ugrađena (NanoBSD) instalacija
+</li></ol>
+<p>[14]Za razliku od Live CD i Hard disk instalacija koje se izvode preko Live CD-a USB <i>stick</i>-a i hard <i>disk</i>-a, Ugrađena instalacija se koristi pomoću <a href="http://en.wikipedia.org/wiki/CompactFlash" class="external text" rel="nofollow">CF kartica</a> (<a href="http://en.wikipedia.org/wiki/CompactFlash" class="external text" rel="nofollow">Compact Flash</a>). Postoje dvije varijante NanoBSD platforma:
+</p>
+<ol><li> Verzija koja koristi Serijsku konzolu
+</li><li> Verzija koja koristi VGA konzolu
+</li></ol>
+<h2> <span class="mw-headline" id="Minimalni_hardverski_zahtjevi"> Minimalni hardverski zahtjevi </span></h2>
+<p>[15]Ovdje su navedeni zahtjevi koji se odnose na početnu PFSense verziju (<i>1.2.x</i>), tako da treba imati na umu da ovi zahtjevi nisu za sve verzije i sve platforme. Zahtjevi su sljedeći:
+</p>
+<ul><li> CPU - 100 MHz Pentium  
+</li><li> RAM - 128 MB
+</li></ul>
+<p><br />
+[15]Zahtjevi za pojedine platforme:<br />
+Za Live CD / USB stick:
+</p>
+<ul><li> CD-ROM uređaj
+</li><li> USB flash uređaj ili uređaj za diskete (Floppy drive)
+</li></ul>
+<p>Za Hard disk:
+</p>
+<ul><li> CD-ROM uređaj za početne instalacije
+</li><li> Hard disk od 1GB
+</li></ul>
+<p>Za ugrađeni pristup:
+</p>
+<ul><li> CF kartica od 512 MB
+</li><li> Serijski port za konzolu
+</li></ul>
+<h2> <span class="mw-headline" id="Tim_developera"> Tim developera </span></h2>
+<p>[16]Utemeljitelji:
+</p>
+<ul><li> Chris Buechler
+</li><li> Scott Ullrich
+</li></ul>
+<p>[16]Aktivni developeri:
+</p>
+<ul><li> Bill Marquette
+</li><li> Holger Bauer 
+</li><li> Erik Kristensen 
+</li><li> Seth Mos 
+</li><li> Scott Dale
+</li><li> Martin Fuchs 
+</li><li> Ermal Luçi 
+</li><li> Matthew Grooms 
+</li><li> Mark Crane 
+</li><li> Jim Pingle 
+</li><li> Rob Zelaya 
+</li><li> Renato Botelho
+</li></ul>
+<h2> <span class="mw-headline" id="Tutorial"> Tutorial </span></h2>
+<h3> <span class="mw-headline" id="Raspored"> Raspored </span></h3>
+<p>Za ovaj tutorial koristi se <a href="http://en.wikipedia.org/wiki/VMware_Workstation" class="external text" rel="nofollow">VMware Workstation</a> 8.0 i <a href="http://en.wikipedia.org/wiki/VirtualBox" class="external text" rel="nofollow">VirutalBox</a> sa <a href="http://en.wikipedia.org/wiki/Windows_XP" class="external text" rel="nofollow">Windows XP</a>, <a href="http://en.wikipedia.org/wiki/Ubuntu_11.10#Ubuntu_11.10_.28Oneiric_Ocelot.29" class="external text" rel="nofollow">Linux Ubuntu 11.10</a> i <a href="http://en.wikipedia.org/wiki/Freebsd" class="external text" rel="nofollow">FreeBSD</a> virtualnim mašinama. Uz pomoć <a href="http://en.wikipedia.org/wiki/Freebsd" class="external text" rel="nofollow">FreeBSD-a</a> koristiti ćemo PFSense kao što se vidi na slici ispod (Raspored komponenata).
+Za početak da bi uspostavili vezu sa PFSense <a href="http://bs.wikipedia.org/wiki/GUI" class="external text" rel="nofollow">GUI-em</a> i da bi mogli provesti određene sigurnosne i zaštitne mjere, moramo postaviti korektan raspored mrežnih komponenata.
+Raspored mrežnih komponenata za ovaj tutorial će biti sljedeći:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PocetnaSlika.png" class="image"><img alt="Raspored komponenata" src="../images/thumb/8/84/PocetnaSlika.png/360px-PocetnaSlika.png" width="360" height="270" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PocetnaSlika.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Raspored komponenata</div></div></div></div>
+<h3> <span class="mw-headline" id="Konfiguacija_LAN_mre.C5.BEe"> Konfiguacija LAN mreže </span></h3>
+<p>Nakon što obavimo instalacije <a href="http://en.wikipedia.org/wiki/Windows_XP" class="external text" rel="nofollow">Windows XP-a</a> i <a href="http://en.wikipedia.org/wiki/Ubuntu_11.10#Ubuntu_11.10_.28Oneiric_Ocelot.29" class="external text" rel="nofollow">Linux Ubuntu 11.10</a>, slijedi konfiguracija mreže. Prvo smo postavili "Network adapter" na Custom: Sprecific virtual network i odabrali VMnet0 (i na Windows XP-u i na Ubuntu 11.10). VMnet0 je inače mreža VMware-a za Bridged connection.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika1.png" class="image"><img alt="Network adapter" src="../images/thumb/f/fa/Slika1.png/360px-Slika1.png" width="360" height="288" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network adapter</div></div></div></div> 
+<p>Slijedi konfiguracija IP adresa. Na Windows XP-u koristili smo:
+</p>
+<ul><li> IP address: 192.168.1.5
+</li><li> Subnet mask: 255.255.255.0
+</li><li> Default gateway: 192.168.1.1 (za PFSense)
+</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika2.png" class="image"><img alt="Konfiguracija (XP)" src="../images/thumb/4/45/Slika2.png/360px-Slika2.png" width="360" height="144" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Konfiguracija (XP)</div></div></div></div> 
+<p>Na isti način smo konfigurirali i u Linux Ubuntu 11.10. Jedino smo koristili drugu IP adresu. Koristili smo:
+</p>
+<ul><li> IP address: 192.168.1.6
+</li><li> Subnet mask: 255.255.255.0
+</li><li> Default gateway: 192.168.1.1 (za PFSense)
+</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika3.png" class="image"><img alt="Konfiguacija (Ubuntu)" src="../images/thumb/4/49/Slika3.png/360px-Slika3.png" width="360" height="192" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika3.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Konfiguacija (Ubuntu)</div></div></div></div> 
+<p>Nakon što upisemo IP adrese na oba OS-a, bilo bi dobro testirati mrežu pomocu "<i>ping</i>"-a. Test se može vidjeti na slici ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika4.png" class="image"><img alt="Ping test" src="../images/thumb/2/28/Slika4.png/360px-Slika4.png" width="360" height="192" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ping test</div></div></div></div> 
+<p>Sa slike se može vidjeti da je ping "<i>prošao</i>" tj. da se OS-ovi međusobno vide na mreži. 
+</p>
+<h3> <span class="mw-headline" id="PFSense_instalacija_i_konfiguracija"> PFSense instalacija i konfiguracija </span></h3>
+<p>Sada trebamo instalirati i podesiti PFSense. Kreiramo novu virutalnu mašinu i odaberemo operacijski sustav <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD</a>. Moramo paziti na odabir <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD-a</a>. Postoji <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD</a> i <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD</a> 64-bit. Ako smo preuzeli PFSense amd64 tada koristimo <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD</a> 64-bit, u drugom slučaju koristimo samo <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD</a>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika5.png" class="image"><img alt="Odabir OS-a" src="../images/thumb/f/f5/Slika5.png/360px-Slika5.png" width="360" height="327" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika5.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Odabir OS-a</div></div></div></div>  
+<p>Uzeli smo 4GB prostora diska i označili da koristimo "<i>Single file</i>".
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika6.png" class="image"><img alt="Kapacitet diska" src="../images/thumb/7/7d/Slika6.png/360px-Slika6.png" width="360" height="327" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika6.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Kapacitet diska</div></div></div></div>
+<p>Preporučena memorija nam je 256 MB, pa ćemo tako i ostaviti. Sjetimo se da smo u gornjem dijelu pričali kako PFSense minimalno zahtjeva 128 MB, ali ne za sve verzije. U ovom slučaju koristimo PFSense 2.0.1, pa smatramo da će biti dovoljno.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika7.png" class="image"><img alt="Odabir memorije" src="../images/thumb/d/d0/Slika7.png/360px-Slika7.png" width="360" height="306" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika7.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Odabir memorije</div></div></div></div>
+<p>Sada dolazimo do najvažnijeg dijela. Odabir network adaptera je izuzeto bitan zato što definiramo jednu i drugu stranu PFSense routera. Kako nam je potrebno da jedna strana (<a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a>) bude mreža interneta našeg računala/laptopa tada na prvom network adapteru koristimo Bridge Adapter kako bi FreeBSD-u omogućili pristup internetu, a na drugom network adapteru koristimo također Bridge Adapter, samo biramo mrežu koju smo prethodno sami kreirali (VMnet0). Slike ispod prikazuju odabir na VMWare-u i VirtualBox-u.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika8.png" class="image"><img alt="Network adapter 1 (VMWare)" src="../images/thumb/c/c5/Slika8.png/360px-Slika8.png" width="360" height="313" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika8.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network adapter 1 (VMWare)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika9.png" class="image"><img alt="Network adapter 2 (VMWare)" src="../images/thumb/d/d6/Slika9.png/360px-Slika9.png" width="360" height="313" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika9.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network adapter 2 (VMWare)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika8-vb.jpg" class="image"><img alt="Network adapter 1 (VirtualBox)" src="../images/thumb/6/68/Slika8-vb.jpg/360px-Slika8-vb.jpg" width="360" height="269" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika8-vb.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network adapter 1 (VirtualBox)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika9-vb.jpg" class="image"><img alt="Network adapter 2 (VirtualBox)" src="../images/thumb/f/ff/Slika9-vb.jpg/360px-Slika9-vb.jpg" width="360" height="269" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika9-vb.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network adapter 2 (VirtualBox)</div></div></div></div>
+<p>Sada možemo startati virtualnu mašinu. Prvo što nam se prikaže je "<i>Welcome screen</i>" od PFSensa. Možemo ga vidjeti na slici ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika10.png" class="image"><img alt="PFSense start screen" src="../images/thumb/6/6e/Slika10.png/360px-Slika10.png" width="360" height="192" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika10.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>PFSense <i>start screen</i></div></div></div></div>
+<p>Kada nam se prikaže <i>screen</i> kao na slici ispod, pritisnemo "I" za ulazak u instalacijski proces.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika11.png" class="image"><img alt="&quot;I&quot; za početak instalacije" src="../images/thumb/1/1e/Slika11.png/360px-Slika11.png" width="360" height="453" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika11.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>"I" za početak instalacije</div></div></div></div>
+<p>Za konfiguraciju konzole pritisnemo "Accept these Settings".
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika12.png" class="image"><img alt="Konfiguracija konzole" src="../images/thumb/d/d5/Slika12.png/360px-Slika12.png" width="360" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika12.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Konfiguracija konzole</div></div></div></div>
+<p>Nadalje, "Quick/Easy Install".
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika13.png" class="image"><img alt="&quot;Quick/Easy Install&quot;" src="../images/thumb/4/4a/Slika13.png/360px-Slika13.png" width="360" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika13.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>"Quick/Easy Install"</div></div></div></div>
+<p>Pritisnemo OK i pričekamo da instalacija završi. Instalacija nas pita za <a href="http://bs.wikipedia.org/wiki/Kernel" class="external text" rel="nofollow">Karnel</a> konfiguraciju, gdje biramo "<i>Symetric mutiprocessing karnel</i>"
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika14.png" class="image"><img alt="Karnel konfiguracija" src="../images/thumb/e/e8/Slika14.png/360px-Slika14.png" width="360" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika14.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><a href="http://bs.wikipedia.org/wiki/Kernel" class="external text" rel="nofollow">Karnel</a> konfiguracija</div></div></div></div>
+<p>Za kraj restartamo virtualnu mašinu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika15.png" class="image"><img alt="Restart" src="../images/thumb/b/b8/Slika15.png/360px-Slika15.png" width="360" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika15.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Restart</div></div></div></div>
+<p>Prije ponovnog pokretanja virtualne mašine, potrebno je <i>disconnect</i>-at PFSense image u virtualnom CD uređaju. Sada nam se pojavljuje ekran gdje biramo <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a> i <a href="http://en.wikipedia.org/wiki/Local_area_network" class="external text" rel="nofollow">LAN</a> mrežu. Ovo je doista važno, jer u slučaju da odaberemo krivu mrežu PFSense neće raditi "svoj posao". Prvo nas pita: "<i>Želimo li namjestiti <a href="http://en.wikipedia.org/wiki/VLAN" class="external text" rel="nofollow">VLAN-ove</a>?</i>", na što odgovaramo sa "no" jer se to može i kasnije namjestiti.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika16.png" class="image"><img alt="VLANs" src="../images/thumb/9/96/Slika16.png/360px-Slika16.png" width="360" height="202" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika16.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>VLANs</div></div></div></div>
+<p><br />
+Ako nismo sigurni koja mreža bi trebala biti <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a> i koja <a href="http://en.wikipedia.org/wiki/Local_area_network" class="external text" rel="nofollow">LAN</a> možemo pogledati MAC adresu u postavkama virtualne mašine. Slika ispod prikazuje da su zadnja dva znaka željene <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a> mreže "dc".
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:298px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika17.png" class="image"><img alt="MAC adresa WAN mreže" src="../images/a/a7/Slika17.png" width="296" height="369" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika17.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>MAC adresa WAN mreže</div></div></div></div>
+<p>Sada znamo da moramo staviti "<i>em0</i>" za <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a>, a "<i>em1</i>" za <a href="http://en.wikipedia.org/wiki/Local_area_network" class="external text" rel="nofollow">LAN</a> mrežu. Kada nas pita za opcionalno sučelje, pritisnemo ENTER.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika18.png" class="image"><img alt="Odabir sučelja" src="../images/thumb/0/0b/Slika18.png/360px-Slika18.png" width="360" height="192" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika18.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Odabir sučelja</div></div></div></div>
+<p>Nakon odabira, dobivamo prikaz <a href="http://hr.wikipedia.org/wiki/WAN" class="external text" rel="nofollow">WAN</a> i <a href="http://en.wikipedia.org/wiki/Local_area_network" class="external text" rel="nofollow">LAN</a> sučelja. Ovdje pritisnemo "<i>yes</i>" ili "<i>y</i>" za prihvaćanje.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika19.png" class="image"><img alt="Odabir sučelja" src="../images/thumb/1/12/Slika19.png/360px-Slika19.png" width="360" height="192" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika19.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Odabir sučelja</div></div></div></div>
+<p>Zadnja slika PFSensa u <a href="http://hr.wikipedia.org/wiki/FreeBSD" class="external text" rel="nofollow">FreeBSD-u</a> je prikaz glavnog izbornika. Ovdje možemo vidjeti sa koje adrese možemo pristupiti PFSense <a href="http://bs.wikipedia.org/wiki/GUI" class="external text" rel="nofollow">GUI-u</a>. U ovom slučaju je to 192.168.1.1. kako smo i podesili <i>Default Getaway</i>-e na virtualnim mašinama. PFSense automatski uvijek postavlja 192.168.1.1 adresu, pa ju je potrebno promijeniti ako nam ne odgovara.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika20.png" class="image"><img alt="Glavni izbornik" src="../images/thumb/d/d9/Slika20.png/360px-Slika20.png" width="360" height="192" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika20.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Glavni izbornik</div></div></div></div>
+<h3> <span class="mw-headline" id="GUI_pristup_i_Proxy_server"> GUI pristup i Proxy server </span></h3>
+<p>Nakon prijašnjih koraka imamo mogućnost pristupa PFSense <a href="http://en.wikipedia.org/wiki/Graphical_user_interface" class="external text" rel="nofollow">GUI-u</a> na svim virtualnim mašinama (XP i Ubuntu 11.10). Slika ispod prikazuje početni ekran PFSense <a href="http://en.wikipedia.org/wiki/Graphical_user_interface" class="external text" rel="nofollow">GUI-a</a>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika21.png" class="image"><img alt="PFSense GUI - početni zaslon" src="../images/thumb/3/3f/Slika21.png/360px-Slika21.png" width="360" height="188" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika21.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>PFSense GUI - početni zaslon</div></div></div></div>
+<p>Kako prvo želimo svim virtualnim mašinama na mreži 192.168.1.x omogućiti pristup internetu, koristit ćemo Proxy server. Nadalje, moramo provjeriti ima li pfSense FreeBSD virtualna mašina uopće pristup internetu. To možemo provjeriti pomoću <a href="http://en.wikipedia.org/wiki/Shell_(computing)" class="external text" rel="nofollow">Shell-a</a> (slika ispod).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika22.png" class="image"><img alt="Shell - ping Google" src="../images/thumb/5/5c/Slika22.png/360px-Slika22.png" width="360" height="236" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika22.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Shell - ping Google</div></div></div></div>
+<p>Sa slike je očito da FreeBSD mašina ima pristup internetu. 
+Sada ulazimo ponovo u <a href="http://en.wikipedia.org/wiki/Graphical_user_interface" class="external text" rel="nofollow">GUI</a> i promijenimo određene postavke. Prvo, na System -&gt; General setup upišemo Hostname, Domain i DNS servers (u našem slučaju je samo jedan). Ovdje možemo promijeniti i Time zone.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika23.png" class="image"><img alt="General setup" src="../images/thumb/a/af/Slika23.png/360px-Slika23.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika23.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>General setup</div></div></div></div>
+<p>Na Interfaces -&gt; LAN postavili smo Type: Static, te na slici ispod vidimo da je statična IP adresa 192.168.1.1. Kod Interfaces -&gt; WAN smo postavili Type: DHCP. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika24.png" class="image"><img alt="LAN interface" src="../images/thumb/5/5c/Slika24.png/360px-Slika24.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika24.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>LAN interface</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika25.png" class="image"><img alt="WAN interface" src="../images/thumb/1/10/Slika25.png/360px-Slika25.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika25.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>WAN interface</div></div></div></div>
+<p>Sada možemo instalirati squid za pristup internetu preko Proxy servera. Idemo na System -&gt; Packages -&gt; Available packages i odabremo squid. Nakon što instalacija završi na Services -&gt; Proxy Server možemo omogućiti proxy. Odaberemo Proxy interface (u našem slučaju LAN), označimo "<i>Allow users on interface</i>", upišemo log store directory i Proxy port. Ako ne odaberemo samo Proxy port, po <i>default</i>-u će mu pfSense dodijeliti 3128.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika26.png" class="image"><img alt="Proxy server: General settings" src="../images/thumb/4/42/Slika26.png/360px-Slika26.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika26.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Proxy server: General settings</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika27.png" class="image"><img alt="Proxy server: General settings" src="../images/thumb/7/7e/Slika27.png/360px-Slika27.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika27.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Proxy server: General settings</div></div></div></div>
+<p>Sljedeće što je važno je na Services -&gt; Proxy Server -&gt; Access Control -&gt; Allowed subnets upisati <i>subnet</i>-e kojima će biti dopušteno korištenje Proxy servera (slika ispod). Ako <i>scroll</i>-amo malo dolje, vidjet ćemo da ovdje možemo upisati <i>ban</i>-ane host adrese (Banned host addresses) i adrese na <i>white</i> i <i>black</i> listi.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika28.png" class="image"><img alt="Proxy server: Access Control" src="../images/thumb/f/f4/Slika28.png/360px-Slika28.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika28.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Proxy server: Access Control</div></div></div></div>
+<p>To bi trebalo biti to. Sada ako na bilo kojem <i>browser</i>-u omogućimo Proxy server (Address: 192.168.1.1/24 i port koji smo gore odabrali), trebali bi imati pristup internetu sa te virtualne mašine.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika29.png" class="image"><img alt="Proxy server (Google Chrome)" src="../images/thumb/3/39/Slika29.png/360px-Slika29.png" width="360" height="318" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika29.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Proxy server (Google Chrome)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika30.png" class="image"><img alt="Internet pristup sa virtualne mašine (Google Chrome)" src="../images/thumb/d/d0/Slika30.png/360px-Slika30.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika30.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Internet pristup sa virtualne mašine (Google Chrome)</div></div></div></div>
+<h3> <span class="mw-headline" id="Firewall_pravila"> Firewall pravila </span></h3>
+<p>Kod firewall pravila moguće je obaviti gotovo sve vrste filtriranja prometa. Mi ćemo u ovom tutorialu pokazati kako blokirati kompletan promet jednog računala. Odlučili smo se za blokiranje prometa Ubuntu računala (IP: 192.168.1.6). Za početak potrebno je otići na Firewall -&gt; Rules -&gt; LAN i odabrati Add new rule. Pod Action odaberemo Block, Interface: LAN (u ovom slučaju nam treba za LAN mrežu), Protocol: any (zato što blokiramo sav promet), Source: Single host or alias i adresu 192.168.1.6 (Ubuntu VM).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika31.png" class="image"><img alt="Firewall rule" src="../images/thumb/f/f1/Slika31.png/360px-Slika31.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika31.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Firewall rule</div></div></div></div>
+<p>U nastavku još možemo uključiti Log i upisati opis <i>block</i>-a po želji. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika32.png" class="image"><img alt="Firewall rule" src="../images/thumb/6/66/Slika32.png/360px-Slika32.png" width="360" height="254" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika32.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Firewall rule</div></div></div></div>
+<p>Za kaj je potrebno pritisnuti "<i>Apply changes</i>". Ako sada odemo na Ubuntu računalo vidjeti ćemo da nemamo pristup <i>web</i>-u, dok kod XP računala nemamo ograničenja.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika33.png" class="image"><img alt="Ubuntu VM" src="../images/thumb/e/e3/Slika33.png/360px-Slika33.png" width="360" height="298" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika33.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ubuntu VM</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika34.png" class="image"><img alt="XP VM" src="../images/thumb/4/49/Slika34.png/360px-Slika34.png" width="360" height="298" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika34.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>XP VM</div></div></div></div>
+<p>Sada naravno, ako želimo možemo <i>disable</i>-ati taj firewall rule i ponovo vratiti na staro stanje.
+</p>
+<h3> <span class="mw-headline" id="SquidGuard"> SquidGuard </span></h3>
+<p>Pomoću squidGuarda možemo blokirati ili dozvoliti pristup određenim stranicama. Kako bi ga omogućiti, idemo na Services -&gt; Proxy filter i odaberemo opcije kao na slikama ispod. Najvažnije je da označimo enabled i Apply svaki puta kada nešto promijenimo.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika35.png" class="image"><img alt="Proxy filter" src="../images/thumb/5/58/Slika35.png/360px-Slika35.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika35.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Proxy filter</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika36.png" class="image"><img alt="Proxy filter" src="../images/thumb/8/82/Slika36.png/360px-Slika36.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika36.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Proxy filter</div></div></div></div>
+<p>Označimo blacklist jer ćemo ju dodati u nastavku.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika37.png" class="image"><img alt="Blacklist" src="../images/thumb/b/b3/Slika37.png/360px-Slika37.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika37.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Backlist</div></div></div></div>
+<p>Mi smo blacklist-u preuzeli sa sljedeće adrese: <a href="http://www.shallalist.de/Downloads/shallalist.tar.gz" class="external free" rel="nofollow">http://www.shallalist.de/Downloads/shallalist.tar.gz</a> jer smatramo da je napisana za uobičajene potrebe. Blacklist-u možemo vidjeti na Common ACL tabu kao na slici ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika38.png" class="image"><img alt="Common ACL" src="../images/thumb/f/fa/Slika38.png/360px-Slika38.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika38.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Common ACL</div></div></div></div>
+<p>Ako <i>scroll</i>-amo dolje vidimo da možemo upisati i proxy denied error.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika39.png" class="image"><img alt="proxy denied error" src="../images/thumb/7/70/Slika39.png/360px-Slika39.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika39.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>proxy denied error</div></div></div></div>
+<p>Pod Target categories dodamo korisnika kojem ćemo dozvoliti pristup na sljedeće <i>web</i> stranice:
+</p>
+<ul><li> Google.com
+</li><li> Google.hr
+</li><li> Net.hr
+</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika40.png" class="image"><img alt="Target categories" src="../images/thumb/8/8e/Slika40.png/360px-Slika40.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika40.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Target categories</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika41.png" class="image"><img alt="Target categories" src="../images/thumb/6/61/Slika41.png/360px-Slika41.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika41.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Target categories</div></div></div></div>
+<p>Za kraj je potrebno kod Target categories <i>allow</i>-at Korisniku pristup i ponovo <i>Apply</i>-at squidGuard servis.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika42.png" class="image"><img alt="Target categories - Allow" src="../images/thumb/1/1a/Slika42.png/360px-Slika42.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika42.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Target categories - Allow</div></div></div></div>
+<p>Na slika ispod vidimo da je pristup net.hr-u moguć, dok pristup npr. facebook.com nije moguć. Za <i>facebook</i>-ov slučaj, ispisuje se error poruka.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika43.png" class="image"><img alt="net.hr - allowed" src="../images/thumb/6/64/Slika43.png/360px-Slika43.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika43.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>net.hr - allowed</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika44.png" class="image"><img alt="facebook.com - denied" src="../images/thumb/2/28/Slika44.png/360px-Slika44.png" width="360" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika44.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>facebook.com - denied</div></div></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="VPN_-_PPTP"> VPN - PPTP </span></h3>
+<p>Za kraj bi htjeli pokazati i VPN PPTP metodu. Postavljanje VPN-a u pfSensu je iznimno jednostavno. Upišemo potrebne IP-eve i dodamo usere koje želimo da imaju pristup. 
+Za početak odemo u VPN -&gt; PPTP i označimo Enable PPTP server, te upišemo IP adrese koje ne spadaju u našu postojeću mrežu. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika45.png" class="image"><img alt="VPN PPTP" src="../images/thumb/9/9a/Slika45.png/360px-Slika45.png" width="360" height="228" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika45.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>VPN PPTP</div></div></div></div>
+<p>Sada odemo na tab Users i dodamo usera po želji.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika46.png" class="image"><img alt="VPN PPTP User" src="../images/thumb/1/14/Slika46.png/360px-Slika46.png" width="360" height="228" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika46.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>VPN PPTP User</div></div></div></div>
+<p>Nakon dodavanja usera, moramo još otići na Firewall -&gt; Rules -&gt; PPTP - Edit. Odaberemo <i>Destination port range from any to any</i>, upišemo <i>Description</i> po želi i kliknemo <i>Save</i>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika47(firewall-pptp-edit).png" class="image"><img alt="Firewall PPTP" src="../images/thumb/6/64/Slika47(firewall-pptp-edit).png/360px-Slika47(firewall-pptp-edit).png" width="360" height="228" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika47(firewall-pptp-edit).png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Firewall PPTP</div></div></div></div>
+<p>Ako se pokušamo spojiti na VPN mrežu unutar npr. XP-a, tada vidimo da nam je omogućen pristup (slike ispod).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:350px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika47.png" class="image"><img alt="Connect to VPN" src="../images/f/f1/Slika47.png" width="348" height="372" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika47.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Connect to VPN</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika48.png" class="image"><img alt="Connect to VPN (success)" src="../images/thumb/8/8f/Slika48.png/360px-Slika48.png" width="360" height="263" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika48.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Connect to VPN (success)</div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Na temelju svega pročitanog i istestiranog mogu zaključiti da je pfSense iznimno moćan alat koji zamjenjuje router/firewall. Takav router/firewall daje napredne mogućnosti za različite vrste mreža na koje se "<i>postavlja</i>". Kako ja nisam mogao testirati u takvom okruženju, koristio sam <a href="http://en.wikipedia.org/wiki/VMware_Workstation" class="external text" rel="nofollow">VMware Workstation</a> 8.0 i <a href="http://en.wikipedia.org/wiki/VirtualBox" class="external text" rel="nofollow">VirutalBox</a>. U tutorialu sam pokazao instalaciju, konfiguraciju, podešavanje mreža sa GUI-em, Firewall rules, squid, squidGuard i VPN PPTP.
+</p><p>Kao što sam i spomenuo prije, pfSense ima brojne mogućnosti i mislim da se za ovaj projekt od mene ne traži da to sve testiram, nego da se bolje uvedem u ovaj projekt, te da se bolje snalazim u slučaju ako će mi nešto slično zatrebati. 
+</p><p><a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dsagud&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dsagud (stranica ne postoji)">Dsagud</a> 19:34, 28. prosinca 2011. (CET)
+</p>
+<hr />
+<h1> <span class="mw-headline" id="IPTables"> IPTables </span></h1>
+<p>IPTables su nastale kao dio NetFilter projekta, projekta koji je usmjeren na razvoj programske podrške za filtriranje i nadziranje mrežnih susutava.
+IPTables je besplatna implementacija vatrozida. Namijenjena je Linux operacijskim sustavima. 
+Prvenstveno orijentirana ka drugom sloju (mrežni sloj) TCP/IP modela, ali može koristiti i elemente trećeg sloja (transportni sloj) kao i većina današnjih IP filtara. 
+</p><p>Postoji mnogo različitih opcija, od prevođenja adresa, preko dinamičkog praćenja veza pa sve do modifikacija mrežnih paketa. Jedna od prednosti je i mogućnost zaštite na više slojeva TCP, od dohvaćanja MAC adresa do analize aplikacijskog sloja. 
+Čitav mehanizam filtriranja zasniva se na tablicama i lancima (chains). 
+</p><p>Alat je namijenjen prvenstveno administratorima sustava, ne postoji grafičko sučelje već se isključivo koristi putem komandne linije.
+IPTables omogućuje ispis pravila, dodavanje, brisanje i uređivanje postojećih pravila i ispis i pojedinog pravila.
+</p>
+<h2> <span class="mw-headline" id="Razvojni_tim"> Razvojni tim </span></h2>
+<p>Temeljni razvojni  tim čine: 
+</p>
+<ul><li> Marc Boucher, 
+</li><li> Martin Josefsson, 
+</li><li> Jozsef Kadlecsik, 
+</li><li> Patrick McHardy, 
+</li><li> James Morris, 
+</li><li> Harald Welte i 
+</li><li> Rusty Russell, 
+</li></ul>
+<p>a kako se IPTables razvija kao rješenje otvorenog koda u njegovu stvaranju i usavršavanju su pomogli i mnogi drugi diljem svijeta. 
+</p>
+<h2> <span class="mw-headline" id="Dinami.C4.8Dko_filtriranje"> Dinamičko filtriranje </span></h2>
+<p>Funkcionalnost koja razlikuje IPTables od prvih vartozidova. 
+Za razliku od statičkog filtriranja koje se provodi samo na pojedinačnom paketu kod dinamičkog filtriranja se uzima u obzir i pripadnost paketa određenoj konekciji. Statičkim filtriranjem se ispituju izvorna i ciljana adresa paketa dok se kod dinamičkog filtriranja koriste odgovarajuće tablice da bi se zapisali podaci o uspostavljenim konekcijama i to od početka uspostave veze do njezinog kraja. 
+Tijekom dinamičkog filtriranja se pored tablica sa pravilima statičkog filtriranja koriste i podaci iz opisnih tablica.Najviše resursa se troši na analizu paketa za uspostavljanje veza. 
+</p><p>Dinamičko uspoređivanje paketa odvija se u tri koraka:
+</p>
+<ol><li> Klijent najprije šalje paket sa postavljenom SYN zastavicom u zaglavlju paketa. Kod IPTables svi takvi paketi dobijaju atribut NEW.
+</li><li> Druga strana, kojoj je namijenjen paket, odgovara povratnim paketom koji ima postavljene SYN i ACK zastavice.
+</li><li> Na kraju slijedi odgovor klijenta slanjem paketa sa postavljenom ACK zastavicom. 
+</li></ol>
+<p>IPTables tada paketima te veze dodjeljuje atribut ESTABLISHED i propušta sve izlazne pakete, a prihvaćaju se samo oni ulazni koji su dio te veze. Zatvaranje veze odvija se na sličan način samo što se na kraju dodjeljuje atribut CLOSED.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Tablice_i_lanci"> Tablice i lanci </span></h2>
+<h3> <span class="mw-headline" id="Lanci_.28eng._chains.29"> Lanci (eng. <i>chains</i>)</span></h3>
+<p>Lanac je određena točka kroz koju u određenom trenutku prođe svaki paket i gdje se uspoređuje sa nizom pravila koja dalje usmjeravaju taj paket.  
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lanci.png" class="image"><img alt="" src="../images/thumb/3/37/Lanci.png/400px-Lanci.png" width="400" height="166" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lanci.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pregleda lanaca i tablica od kojih se sastoje</div></div></div></div>
+<p><br />
+Postoji pet vrsta lanaca:
+</p>
+<ul><li> PREROUTING
+</li><li> FORWARD
+</li><li> INPUT
+</li><li> OUTPUT
+</li><li> POSTROUTING
+</li></ul>
+<p>Kroz INPUT lanac prolaze svi paketi kojima je odredište neki lokalni proces na računalu na kojemu se nalazi IPTables vatozid. Ako je odredište paketa neko drugo računalo iza vatrozida tada se paket prosljeđuje FORWARD lancu. Ukoliko je paket kreiran od strane neke lokalne aplikacije usmjerava se na OUTPUT lanac. PREROUTING i POSTROUTING lanci se najčešće ne koriste u izradi kućnog vatrozida.
+Nakon što se paket nađe u lancu nad njem je primjenljivo nekoliko akcija, a najznačajnije su 
+</p>
+<ul><li> DROP
+</li><li> ACCEPT
+</li><li> REJECT
+</li><li> LOG
+</li></ul>
+<p>DROP akcija se koristi kada paket želimo jednostavno zanemariti tj. odbaciti ga i ne poslati nikakvu povratnu poruku. 
+ACCEPT znači da se paket propušta dalje.
+REJECT slično kao i DROP odbacuje paket, ali i šalje povratnu poruku pošiljaocu. 
+LOG se koristi za zapisivanje podataka o paketima i drugih potencijalno važnih informacija.
+</p><p>Sva pravila su zapisana u odgovarajućoj tablici i sva imaju isti oblik tipa „ako zaglavlje_paketa odgovara PRAVILU onda AKCIJA“. Pravila unutar tablice se provjeravaju linearno, ako prvo pravilo na odgovara paketu kojeg se provjerava prelazi se na drugi itd.
+Ako se ne pronađe niti jedno pravilo koje bi se odnosilo na dani paket, primjenjuje se opće pravilo. Opće pravilo može uključivati ili prihvaćanje ili odbijanje svih paketa za koje se ne pronađe specifično pravilo.
+</p>
+<h4> <span class="mw-headline" id="Princip_crne_i_bijele_liste"> Princip crne i bijele liste </span></h4>
+<h5> <span class="mw-headline" id="Crna_lista"> Crna lista </span></h5>
+<p>Crna lista ja princip u kojem dizajner pravila za opće pravilo stavlja prihvaćanje svih paketa, a specifičnim pravilima određuje koje pakete je potrebno odbaciti, tj. ne dopustiti im prolaz.
+Prednosti ovakvog sustava su te što se ne mora brinuti o tome da se je zaboravio propustiti određeni paket, a to mu je i najveća mana, jer ako zaboravimo zabraniti odeređenom paketu da prođe narušili smo sigurnost sustava kojega čuvamo vatrozidom.
+</p>
+<h5> <span class="mw-headline" id="Bijela_lista">Bijela lista</span></h5>
+<p>Bijela lista je princip suprotan Crnoj listi. Za opće pravilo se stavi da se svi paketi odbacuju, a određenim paketima se pomoću specifičnih pravila dopušta prolaz.
+Prednost ovog sustava je veći nivo sigurnosti jer ne može doći do prolaza nepredviđenih paketa, a obrnuto principu Crne liste mana mu je to što možemo na propustiti određene pakete koji bi trebali biti propušteni.
+Za veću sigurnost računalne mreže se predlaže korištenja principa Bijele liste.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Tablice_.28eng._tables.29"> Tablice (eng. <i>tables</i>)</span></h3>
+<p>Svaki lanac se sastoji od nekoliko podelemenata, tablica.
+INPUT sadrži dvije tablice (mangle, filter), OUTPUT četiri tablice (raw, mangle, nat, filter), a FORWARD također dvije tablice (mangle, nat).
+U tablicama su zapravo sadržana pravila kojima upravljamo filtriranjem mrežnih paketa.
+</p><p>Postoje četiri vrste tablica:
+</p>
+<ul><li> filter- određuje da li se paketi prihvaćaju ili odbijaju
+</li><li> mangle – izmjena pojedinih polja paketa ukoliko je potrebno
+</li><li> nat – prevođenje IP adresa i portova
+</li><li> raw – ispitivanje paketa prije nago li ga obuhvati mehanizam praćenja veza
+</li></ul>
+<h4> <span class="mw-headline" id="Tablica_filter">Tablica filter</span></h4>
+<p>Najčešće se koristi za filtriranje paketa. U tablicu se upisuju pravili i akcije koje se događaju ukoliko se ta pravila zadovolje. Nakon analize sadržaja paketa isti se ili propuštaju ili odbijaju. U tablicu se mogu upisivati sva pravila vezana za pakete, ali se preporuča da se upisuju samo pravila vezana za filtriranje.
+</p>
+<h4> <span class="mw-headline" id="Tablica_nat">Tablica nat</span></h4>
+<p>Tablica nat se koristi za podešavanje pravila vezanih za prevođenje adresa (Network Address Translation), tj. tablicu bi trebalo koristiti samo za pravila koja se tiču izmjene izvorne i ciljane IP adrese paketa.
+</p><p>Akcije koje se mogu provoditi korištenjem nat tablice:
+</p>
+<ul><li>DNAT – koristi se kod prevođenja ciljnih adresa, npr. kada se web poslužitelj nalazi u okviru privatne mreže, prevođenjem ciljne adrese omogućena je komunikacija sa Internetom
+</li><li>SNAT – koristi se kod prevođenja izvornih adresa, npr. kada iz privatne mreže želimo komunicirati sa Internetom
+</li><li>REDIRECT – moguće koristiti samo u PREROUTING i OUTPUT lancima, sa namjenom preusmjeravanja paketa na lokalno računalo, npr. primjenjuje se kod posredničkih poslužitelja (eng. proxy).
+</li></ul>
+<h4> <span class="mw-headline" id="Tablica_mangle">Tablica mangle</span></h4>
+<p>Koristi se sa aktivnostima koje mijenjaju sadržaj paketa. 
+</p><p>Akcije koje je moguće koristiti samo u mangle tablici:
+</p>
+<ul><li>TOS – izmjena polja Type Of Service, određuje načine prosljeđivanja paketa
+</li><li>TTL – Time To Live, broj ponovnog odašiljanja paketa nakon zanemarivanja
+</li><li>MARK – dodavanje posebnih oznaka paketima
+</li><li>SECMARK – dodavanje oznaka vezanih za sigurnost
+</li><li>CONNSECMARK – kopiranje sigurnosnih oznake jednog paketa na sve pakete u toj vezi
+</li></ul>
+<h4> <span class="mw-headline" id="Tablica_raw">Tablica raw</span></h4>
+<p>Tablica se nalazi isključivo u PREROUTING i OUTPUT lancima. Namjena joj je koristeći akcije onemogućiti rad sustava za praćenje veze.
+</p><p>Akcija:
+</p>
+<ul><li>NOTRACK – onemogućuje praćenje veze pojedinog paketa
+</li></ul>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="IPTables_na_mobilnim_ure.C4.91ajima">IPTables na mobilnim uređajima</span></h2>
+<p>IPTables je moguće primjeniti i na mobilnim uređajima. Za sada je to moguće samo na uređajuma koji koriste Android OS i imaju root prava. Kao primjer korištenja IPTables ima aplikacija <a href="http://code.google.com/p/droidwall/" class="external text" rel="nofollow">DroidWall</a> koja pomoću IPTables akcija spriječava određene aplikacije da pristupaju Internetu.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Primjer">Primjer</span></h2>
+<p>Neke naredbe:
+</p>
+<pre>  iptables -L                                              ispisuje sva pravila u svim lancima
+  iptables -A LANAC [PRAVILO]                              dodaje PRAVILO u LANAC
+  iptables -F                                              brisanje svih pravila
+  iptables -P LANAC AKCIJA                                 mijenja opću politiku lanca
+  iptables -A LANAC -p PROTOKOL --sport PORT -j AKCIJA     odabir politike za pojedini port  
+</pre>
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virtualka.png" class="image"><img alt="" src="../images/thumb/1/19/Virtualka.png/400px-Virtualka.png" width="400" height="299" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virtualka.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Podešavanje postavki mreže na virtualnom računalu</div></div></div></div>
+<p>Kako je IPtables aplikacija koja se pokreće samo na Linux OS, odlučili smo koristiti <a href="https://www.virtualbox.org/" class="external text" rel="nofollow">VirtualBox</a> za instalaciju Linux sustava na virtualno računalo. Prije same instalacije bilo je potrebno konfigurirati postavke. Jedna od najbitnijih stavki je bila konfiguracija mreže. Smatramo da je najbolji izbor bio napraviti Bridget Adapter način spajanja virtualnog računala sa stvarnim jer tako je simulirana prava mreža i virtualno račualo ima pristup Internetu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Instalacija.png" class="image"><img alt="" src="../images/thumb/2/2f/Instalacija.png/400px-Instalacija.png" width="400" height="267" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Instalacija.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Instalacija Ubuntu-a</div></div></div></div>
+<p>Kako nam je bila potrebna neka Linux distribucija odlučili smo se za Ubuntu 11.10 jer je to trenutno najpopularnija Linux distribucija.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Iptables-l.png" class="image"><img alt="" src="../images/thumb/6/64/Iptables-l.png/400px-Iptables-l.png" width="400" height="181" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Iptables-l.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Postoje samo opća pravila</div></div></div></div>
+<p>Kao što vidimo na slici postavljena su samo opća pravila i to na sva tri lanca ACCEPT.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PrvaAkcija.png" class="image"><img alt="" src="../images/thumb/a/a6/PrvaAkcija.png/400px-PrvaAkcija.png" width="400" height="166" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PrvaAkcija.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Dodano je prvo pravilo u INPUT lanac</div></div></div></div>
+<p>Dodali smo pravilo koje ne dopušta dolazni promet sa IP adrese 213.202.98.138 (www.net.hr) kako bi provjerili radi li aplikacija ono što bi trebala raditi u teoriji, tj. blokira li nam pristup IP adresi 213.202.98.138.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DokazNetHR.png" class="image"><img alt="" src="../images/thumb/f/ff/DokazNetHR.png/400px-DokazNetHR.png" width="400" height="189" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DokazNetHR.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pristup stranici je onemogućen</div></div></div></div>
+<p>Nakon toga smo dodali još neke stranice kojima je bio zabranjen pristup.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DokazFOI.png" class="image"><img alt="" src="../images/thumb/9/9c/DokazFOI.png/400px-DokazFOI.png" width="400" height="190" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DokazFOI.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pristup stranici je onemogućen</div></div></div></div>
+<p><br />
+Na kraju smo složili konfiguraciju koja bi bila pogodna za neki poslovno uredski prostor. Tako postavljena pravila dozvoljavaju samo surfanje web prostorom odbacujući sve ostale pakete. To je zapravo konfiguracija na principu Bijele liste, svi paketi su zabranjeni osim onih kojima smo eksplicitno dozvolili da prođu. Da se doda još koje pravilo koje ne dozvoljava prolaz paketima specifičnih stranica vjerojatno bi dobili bazu najčešće korištene konfiguracije IPTables-a.
+</p>
+<pre>  iptables -P INPUT DROP
+  iptables -A INPUT -p -tcp --sport html -j ACCEPT
+  iptables -A INPUT -p -udp --sport html -j ACCEPT
+  iptables -A INPUT -p -tcp --sport htmls -j ACCEPT
+  iptables -A INPUT -p -udp --sport htmls -j ACCEPT
+  iptables -A INPUT -p -tcp --sport 53 -j ACCEPT
+  iptables -A INPUT -p -udp --sport 53 -j ACCEPT
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SamoWeb.png" class="image"><img alt="" src="../images/thumb/f/f8/SamoWeb.png/400px-SamoWeb.png" width="400" height="199" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SamoWeb.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Konfiguracija pravila koja dozvoljava samo surfanje web-om</div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak_2">Zaključak</span></h2>
+<p>IPTables je vrlo koristan alat za filtriranje nepoželjnog mrežnog prometa. Jedan je od najboljih alata za upotrebu na osobnim računalima ponajprije zbog opsega svojih mogućnosti, a i zbog činjenice da je u potpunosti besplatan. Uz malo truda i dosta znanja moguće je složiti vatrozid koji će uspješno braniti i naše računalo i našu kućnu mrežu.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Bojan_Jungi%C4%87&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Bojan Jungić (stranica ne postoji)">Bojan Jungić</a> 20:02, 6. siječnja 2012. (CET)
+</p><p><br />
+</p><p><br />
+</p>
+<hr />
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<ol><li> <a href="http://doc.pfsense.org/index.php/InstallationGuide" class="external free" rel="nofollow">http://doc.pfsense.org/index.php/InstallationGuide</a> (Preuzeto 27.12.2011.)
+</li><li> <a href="http://www.iceflatline.com/2010/08/install-and-configure-pfsense-in-your-home-network/" class="external free" rel="nofollow">http://www.iceflatline.com/2010/08/install-and-configure-pfsense-in-your-home-network/</a> (Preuzeto 27.12.2011.)
+</li><li> <a href="http://bs.wikipedia.org/wiki/PfSense" class="external free" rel="nofollow">http://bs.wikipedia.org/wiki/PfSense</a> (Preuzeto 28.12.2011.)
+</li><li> <a href="http://en.wikipedia.org/wiki/PfSense" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/PfSense</a> (Preuzeto 28.12. 2011.)
+</li><li> <a href="http://timita.org/wordpress/2011/08/01/protect-windows-with-pfsense-and-virtualbox-part-4-installing-and-configuring-pfsense-on-virtualbox/" class="external free" rel="nofollow">http://timita.org/wordpress/2011/08/01/protect-windows-with-pfsense-and-virtualbox-part-4-installing-and-configuring-pfsense-on-virtualbox/</a> (Preuzeto 28.12.2011.)
+</li><li> <a href="http://bs.wikipedia.org/wiki/M0n0wall" class="external free" rel="nofollow">http://bs.wikipedia.org/wiki/M0n0wall</a> (Preuzeto 28.12.2011.)
+</li><li> <a href="http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=71&amp;Itemid=81" class="external free" rel="nofollow">http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=71&amp;Itemid=81</a> (Preuzeto 28.12.2011.)
+</li><li> <a href="http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=40&amp;Itemid=43" class="external free" rel="nofollow">http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=40&amp;Itemid=43</a> (Preuzeto 28.12.2011.)
+</li><li> <a href="http://doc.pfsense.org/index.php/Features_List" class="external free" rel="nofollow">http://doc.pfsense.org/index.php/Features_List</a> (Preuzeto 28.12.2011.)
+</li><li> <a href="http://en.wikipedia.org/wiki/Openvpn" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Openvpn</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://en.wikipedia.org/wiki/PPTP" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/PPTP</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://en.wikipedia.org/wiki/Pppoe" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Pppoe</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://en.wikipedia.org/wiki/Captive_portal" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Captive_portal</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=43&amp;Itemid=44" class="external free" rel="nofollow">http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=43&amp;Itemid=44</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=45&amp;Itemid=48" class="external free" rel="nofollow">http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=45&amp;Itemid=48</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=58" class="external free" rel="nofollow">http://www.pfsense.org/index.php?option=com_content&amp;task=view&amp;id=59&amp;Itemid=58</a> (Preuzeto 30.12.2011.)
+</li><li> <a href="http://www.youtube.com/watch?v=5vnnBl-5K9k&amp;feature=related" class="external free" rel="nofollow">http://www.youtube.com/watch?v=5vnnBl-5K9k&amp;feature=related</a>
+</li><li> <a href="http://www.youtube.com/watch?v=4HAhaLE8xJo&amp;feature=related" class="external free" rel="nofollow">http://www.youtube.com/watch?v=4HAhaLE8xJo&amp;feature=related</a>
+</li><li> <a href="http://www.youtube.com/watch?v=yAl2fOciKz4" class="external free" rel="nofollow">http://www.youtube.com/watch?v=yAl2fOciKz4</a>
+</li></ol>
+<p><br />
+</p>
+<ol><li> <a href="http://barok.foi.hr/~tkisason/dl/iptables-quick-reference.pdf" class="external free" rel="nofollow">http://barok.foi.hr/~tkisason/dl/iptables-quick-reference.pdf</a> (Preuzeto 05.01.2012.)
+</li><li> <a href="http://www.dd-wrt.com/wiki/index.php/Iptables_command#Tables.2C_Chains.2C_and_Targets" class="external free" rel="nofollow">http://www.dd-wrt.com/wiki/index.php/Iptables_command#Tables.2C_Chains.2C_and_Targets</a> (Preuzeto 05.01.2012.)
+</li><li> <a href="http://en.wikipedia.org/wiki/Iptables" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Iptables</a> (Preuzeto 03.01.2012.)
+</li><li> <a href="http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Firewalls_Using_iptables" class="external free" rel="nofollow">http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Firewalls_Using_iptables</a> (Preuzeto 05.01.2012.)
+</li><li> <a href="http://sistemac.carnet.hr/system/files/Netfilter.pdf" class="external free" rel="nofollow">http://sistemac.carnet.hr/system/files/Netfilter.pdf</a> (Preuzeto 05.01.2012.)
+</li><li> <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2007-07-198.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2007-07-198.pdf</a> (Preuzeto 05.01.2012.)
+</li><li> <a href="http://www.justlinux.com/nhf/Security/IPtables_Basics.html" class="external free" rel="nofollow">http://www.justlinux.com/nhf/Security/IPtables_Basics.html</a> (Preuzeto 05.01.2012.)
+</li><li> <a href="http://www.netfilter.org/projects/iptables/index.html" class="external free" rel="nofollow">http://www.netfilter.org/projects/iptables/index.html</a> (Preuzeto 03.01.2012.)
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 190/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:39-0!*!0!!hr!2!edit=0 and timestamp 20190203204003 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Mrežno_filtriranje_-_PFSense,_iptables.html">http://security.foi.hr/wiki/index.php/Mre%C5%BEno_filtriranje_-_PFSense,_iptables</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Mre%C5%BEno_filtriranje_-_PFSense,_iptables" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Mrežno_filtriranje_-_PFSense,_iptables.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Mre%C5%BEno_filtriranje_-_PFSense,_iptables&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Mrežno_filtriranje_-_PFSense,_iptables.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Mre%C5%BEno_filtriranje_-_PFSense,_iptables&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Mre%C5%BEno_filtriranje_-_PFSense,_iptables&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Mrežno_filtriranje_-_PFSense,_iptables.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Mre%C5%BEno_filtriranje_-_PFSense,_iptables" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Mre%C5%BEno_filtriranje_-_PFSense,_iptables" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Mre%C5%BEno_filtriranje_-_PFSense,_iptables&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Mre%C5%BEno_filtriranje_-_PFSense,_iptables&amp;oldid=5524" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:56, 6. siječnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 26.175 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Mrežno_filtriranje_-_PFSense,_iptables", "wgTitle": "Mrežno filtriranje - PFSense, iptables", "wgAction": "view", "wgArticleId": 39, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 5524, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.827 secs. -->			</body>
+</html>

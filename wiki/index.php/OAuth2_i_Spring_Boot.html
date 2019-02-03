@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>OAuth2 i Spring Boot - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=OAuth2_i_Spring_Boot&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-OAuth2_i_Spring_Boot skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">OAuth2 i Spring Boot</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="OAuth2_i_Spring_Boot.html#mw-head">orijentacija</a>,
+					<a href="OAuth2_i_Spring_Boot.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="OAuth2_i_Spring_Boot.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="OAuth2_i_Spring_Boot.html#OAuth"><span class="tocnumber">2</span> <span class="toctext">OAuth</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="OAuth2_i_Spring_Boot.html#Role"><span class="tocnumber">2.1</span> <span class="toctext">Role</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="OAuth2_i_Spring_Boot.html#Registracija_aplikacije_-_Client_ID_i_Client_Secret"><span class="tocnumber">2.2</span> <span class="toctext">Registracija aplikacije - Client ID i Client Secret</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="OAuth2_i_Spring_Boot.html#Tokeni"><span class="tocnumber">2.3</span> <span class="toctext">Tokeni</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="OAuth2_i_Spring_Boot.html#Grant_Types"><span class="tocnumber">2.4</span> <span class="toctext">Grant Types</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="OAuth2_i_Spring_Boot.html#Spring_Boot"><span class="tocnumber">3</span> <span class="toctext">Spring Boot</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="OAuth2_i_Spring_Boot.html#Konfiguracija"><span class="tocnumber">4</span> <span class="toctext">Konfiguracija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="OAuth2_i_Spring_Boot.html#Tomcat"><span class="tocnumber">4.1</span> <span class="toctext">Tomcat</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="OAuth2_i_Spring_Boot.html#Authorization_i_Resource_server"><span class="tocnumber">4.2</span> <span class="toctext">Authorization i Resource server</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="OAuth2_i_Spring_Boot.html#Testiranje"><span class="tocnumber">4.3</span> <span class="toctext">Testiranje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="OAuth2_i_Spring_Boot.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="OAuth2_i_Spring_Boot.html#Liteatura"><span class="tocnumber">6</span> <span class="toctext">Liteatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>U ovom radu bit će objašnjen princip rada OAuth protokola te će ukratko biti razjašnjeno što je to Spring Boot.
+Bit će objašnjeno koje sve role postoje u OAuth protokolu, vrste token storea, grant typeova i slično.
+Na kraju će biti pokazano kako pomoću Spring Boota ostvariti OAuth2 standard, točnije i Authorization server i Resource server.
+</p>
+<h2> <span class="mw-headline" id="OAuth"> OAuth </span></h2>
+<p>OAuth je autorizacijski standard koji omogućava klijentskim aplikacijama pristup korisničkim podacima  na HTTP servisima kao što su Facebook, Google, Twiter itd. Bez dijeljenja korisnikove lozinke. Na primjer, ako imate aplikaciju koja za korisnika može objavljivati postove na Facebooku, korisnik se prijavljuje na Facebook svojim korisničkim imenom i lozinkom te na taj način autorizira aplikaciju da u njegovo ime smije objavljivati postove. Jednom kad se korisnik prijavio aplikacija dobiva access token te se na taj način autorizira bez da koristi i zna korisničke podatke.
+</p><p>Nastao je krajem 2006. godine, a krajem 2012. objavljena je nova verzija nazvana Oauth 2.0 ili kraće OAuth2. Kod OAuth2 je pojednostavljen razvoj klijentskih aplikacija jer pruža posebne autorizacijske tokove za web aplikacije, desktop aplikacije i mobilne telefone.
+</p>
+<h3> <span class="mw-headline" id="Role"> Role </span></h3>
+<p>Kod OAuth standarda je ključno raspoznavati 4 role:
+</p>
+<ul><li> Resource owner – korisnik koji autorizira klijentsku aplikaciju (Client) tj. Dozvoljava joj pristup podacima.
+</li><li> Authorization server – autenticira korisnika (Resource ownera) te dodijeljuje access token klijetskoj aplikaciji (Client)
+</li><li> Resource server (API) – server s podacima kojima se želi pristupiti
+</li><li> Client – klijentska aplikacija koja želi pristupiti korisničkim podacima.
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Oauth_flow.PNG" class="image"><img alt="Oauth flow.PNG" src="../images/1/1c/Oauth_flow.PNG" width="714" height="438" /></a>
+</p>
+<h3> <span class="mw-headline" id="Registracija_aplikacije_-_Client_ID_i_Client_Secret"> Registracija aplikacije - Client ID i Client Secret </span></h3>
+<p>Da bi bilo moguće koristiti autentikaciju i autorizacijeu preko neke treće strane potrebno je prvo registrirati svoju aplikaciju na tom servisu. Kod registracije je potrebno popuniti informacije kao što su ime aplikacije, web adresa aplikacije i redirect ili callback URL.
+Nakon registracije bit će dodijeljeni client ID i client secret. Client id je javni string koji služi za identifikaciju aplikacije i sastavljanje autorizacijskog URL-a. Client ID služi kako bi servis autenticirao aplikaciju i naravno mora biti privatan.
+</p><p>U našem primjeru registracija neće biti potrebna jer će u konfiguraciji autorizacijskog servera biti postavljeni client id i secret koji će se koristiti.
+</p>
+<h3> <span class="mw-headline" id="Tokeni"> Tokeni </span></h3>
+<p>Tokeni se dobivaju o strane autorizacijskogservera naon što su autentikacija i utorizacija prošli. 
+</p><p>Postoje dvije vrste tokena:
+</p>
+<ul><li> Access token - Token koji aplikacija šalje kako bi mogla pristupiti resursima. Ima graničen, kratak vijek trajanja što napadaču daje kratak rok da ga iskoristi ako je slučajno neovlašteno došao do istog. Postoje Bearer i MAC access tokeni. Bearer se koristi češće i kod jega se jednostavno dobiva čisti access token u obliku stringa. Kod MACa se token sprema u Key Manager kao secret te se aplikaciji šalje kriptiran.
+</li><li> Refresh token - Služi za dobavljanje novog access tokena. Ukoliko netko i neovlašteno dođe do refresh tokena, ne može napraviti ništa jer se uz njega moraju poslati i client ID i client secret kako bi se dobio novi access token.
+</li></ul>
+<h3> <span class="mw-headline" id="Grant_Types"> Grant Types </span></h3>
+<p>Postoje četiri načina traženja pristupa te se koriste ovisno o tipovima koje podržava servis API te vrsti aplikacije koja traži pristup.
+</p><p>Tipovi traženja pristup su:
+</p>
+<ul><li> Authorization Code - Koristi se kod server-side aplikacija gdje source kod nije dostupan javno i gdje se može garantirati tajnost Client secreta. Bazira se na redirect URL-u te je najkorišteniji. Access token se šalje direktno aplikaciji.
+</li><li> Implicit - Koristi se kod mobilnih i web aplikacija, tj. aplikacijama koje se pokreću na korisnikovom uređaju te se ne može garantirati povjerljivost Client secreta. Bazira se isto a redirect URL-u, ali se kod njega access token ne šalje aplikaciji već user agent (npr. browseru) dobiva skriptu iz koje može izvući access token i proslijediti ga aplikaciji. Ovdje se ne provjerava aplikacija koja pokušava pristupiti servisu (ne šalje se client secret). Također, refresh token ovdje nije podržan.
+</li><li> Resource Owner Password Credentials - Korisnik upisuje username i password direktno u aplikaciju te ih aplikacija koristi za dobivanje access tokena. Nije preporučeno koristiti ovaj način osim kod aplikacija kojima vjerujemo ili ako baš ni jedan drugi način nije moguć.
+</li><li> Client Credentials - Korisiti se kad aplikacija želi pristupiti svom vlastitom servisnom raučunu i promijeniti npr. opis registracije ili redirect URL ili dohvatiti neke podatke svog računa putem API-ja.
+</li></ul>
+<h2> <span class="mw-headline" id="Spring_Boot"> Spring Boot </span></h2>
+<p>Spring Boot znatno olakšava izradu aplikacija koje koriste Spring tako da na temelju startera koji se uključe u pom automatski pretpostavlja koji su sve jar-ovi potrebni te na temelju toga i anotacija slaže konfiguraciju. Npr. Ako želimo napraviti web aplikaciju u pom je potrebno uključiti “spring-boot-starter-web” te će Spring Boot uključiti apsolutno sve što je potrebno za razvoj full-stack web aplikacije pa čak i Tomcat i spring-webmvc. 
+Također omogućava lagano mijenjanje ili podešavanje nekih postavki kroz application.properties s već unaprijed određenim ključevima i mogućim vrijednostima.
+Ako za nešto želimo ručno napisati konfiguraciju i to je naravno moguće uz određenu anotaciju.
+</p>
+<h2> <span class="mw-headline" id="Konfiguracija"> Konfiguracija </span></h2>
+<p>Kao server bit će korišten Apache Tomcat. Biti će konfigururan da koristi ssl, tj. HTTPS, te će i Spring Boot aplikacija biti konfigurirana da prihvaća samo HTTPS zahtjeve.
+</p>
+<h3> <span class="mw-headline" id="Tomcat"> Tomcat </span></h3>
+<p>Kako bi omogućili ssl na Tomcatu, potrebno je izgenerirati certfikat pozivanjem naredbe:
+</p>
+<pre>$JAVA_HOME/bin/keytool -genkey -alias tomcat -keyalg RSA -keystore /path/to/my/keystore</pre>
+<p>Nakon toga potrebno je u server.xml datoteci odkomentirati sljedeći dio
+</p>
+<pre>&lt;Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+              maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+              keystoreFile="" keystorePass=""
+              clientAuth="false" sslProtocol="TLS" /&gt;
+</pre>
+<p>To će omogućiti ssl na portu 8443. Pod  keystoreFile potrebno je dodati putanju do keystorea, a pod  keystorePass lozinku za taj keystore.
+</p>
+<h3> <span class="mw-headline" id="Authorization_i_Resource_server"> Authorization i Resource server </span></h3>
+<p>Ovaj tutorial bit će orijentiran na Oauth pa neće biti prikazane klase kao što su hibernate modeli ili interface i implementacije servisnog ili DAO sloja.
+</p><p>Preko web stranice <a href="https://start.spring.io/" class="external free" rel="nofollow">https://start.spring.io/</a> ili Eclipse dodatka moguće je izgenerirati projekt koji će automatski postaviti sve što treba za početak te je aplikaciju odmah moguće pokrenuti.
+</p><p><br />
+Klasa u kojoj je konfiguracija OAuth Authorization servera i Resource servera izgleda ovako:
+</p>
+<pre>
+package hr.optimit.security;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@Configuration
+public class OAuth2Configuration {
+
+	@Configuration
+	@EnableResourceServer
+	protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
+		@Autowired
+		private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+		@Autowired
+		private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+
+			http
+				.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
+				.and()
+				.logout()
+				.logoutUrl(&quot;/oauth/logout&quot;)
+				.logoutSuccessHandler(customLogoutSuccessHandler)
+				.and()
+				.csrf()
+				.requireCsrfProtectionMatcher(new AntPathRequestMatcher(&quot;/oauth/authorize&quot;))
+				.disable()
+				.headers()
+				.frameOptions().disable()
+				.and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.requiresChannel()
+				.anyRequest().requiresSecure()
+				.and()
+				.authorizeRequests()
+				.antMatchers(&quot;/mt2a/api/**&quot;).authenticated();
+		}
+	}
+
+	@Configuration
+	@EnableAuthorizationServer
+	protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter implements EnvironmentAware {
+
+		private static final String ENV_OAUTH = &quot;authentication.oauth.&quot;;
+
+		private static final String PROP_CLIENTID = &quot;clientid&quot;;
+
+		private static final String PROP_SECRET = &quot;secret&quot;;
+
+		private static final String PROP_TOKEN_VALIDITY_SECONDS = &quot;tokenValidityInSeconds&quot;;
+
+		private RelaxedPropertyResolver propertyResolver;
+
+		@Autowired
+		private DataSource dataSource;
+
+		@Bean
+		public TokenStore tokenStore() {
+			return new JdbcTokenStore(dataSource);
+		}
+
+		@Autowired
+		@Qualifier(&quot;authenticationManagerBean&quot;)
+		private AuthenticationManager authenticationManager;
+
+		@Override
+		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+			endpoints
+					.tokenStore(tokenStore())
+					.authenticationManager(authenticationManager);
+		}
+
+		@Override
+		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
+			clients
+					.inMemory()
+					.withClient(propertyResolver.getProperty(PROP_CLIENTID))
+					.scopes(&quot;read&quot;, &quot;write&quot;)
+					.authorizedGrantTypes(&quot;password&quot;, &quot;refresh_token&quot;)
+					.secret(propertyResolver.getProperty(PROP_SECRET))
+					.accessTokenValiditySeconds(
+							propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, PROP_TOKEN_VALIDITY_SECONDS));
+
+		}
+
+		@Override
+		public void setEnvironment(Environment environment) {
+			this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_OAUTH);
+		}
+
+	}
+
+}
+
+</pre>
+<p>Application.properties datoteka sadrži sljedeće vrijednosti
+</p>
+<pre>
+#data source properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/mt2a
+spring.datasource.username=postgres
+spring.datasource.password=Zagy1991
+
+# JPA properties
+spring.jpa.show_sql=true
+spring.jpa.generate-ddl=false
+spring.jpa.hibernate.ddl-auto=update
+spring.data.jpa.repositories.enabled=true
+
+spring.data.rest.base-path=/mt2a/api
+
+#Application specific
+authentication.oauth.clientid=mt2a
+authentication.oauth.secret=Zagy1991
+authentication.oauth.tokenValidityInSeconds=1800
+
+security.require_ssl=true
+</pre>
+<p>Kod konfigracije Resource servera koištene su neke standardnespring postavke kao što su rukovanje iznimkama kod logina, logout url i success handler, zaštita od CSRF-a i slino. Najvažnije su zapravo zadnjedvije linije koje kažu da svaki zahjev koji dolazi na url /mt2/api/ mora biti autenticiran.
+</p><p>Kod Authorization servera je postavljn authentication manager i Jdbc Token Store. 
+Kod Jdbc Token Storea se tokeni spremaju u bazu podataka. Postoje još i In Memory Token Store koji sprema tokene u memorijuili JWT Token store koji ih zapravo ne sprema nigdje već samo čita informacije iz tokena.
+</p><p>Da bi se mogao koristiti Jdbc Token store potrebno je kreirati određene tablice u bazi. Sljedeće skripte služe za kreiranje tih tablica na Postgres bazi.
+</p>
+<pre>
+create table oauth_access_token (
+  token_id VARCHAR(256),
+  token bytea,
+  authentication_id VARCHAR(256),
+  user_name VARCHAR(256),
+  client_id VARCHAR(256),
+  authentication bytea,
+  refresh_token VARCHAR(256)
+);
+
+create table oauth_refresh_token (
+  token_id VARCHAR(256),
+  token bytea,
+  authentication bytea
+);
+</pre>
+<p>Grant Type je postavljen na password i na refresh token. Client ID, client secret i trajanje access tokena se čitaju iz application.properties datoteke.
+</p>
+<h3> <span class="mw-headline" id="Testiranje"> Testiranje </span></h3>
+<p>Za dobivanje access tokena poslan je sljedeći zahtjev:
+</p>
+<pre>
+curl -k -vu mt2a:Zagy1991 -d &quot;username=hlevnjak&amp;password=test&amp;grant_type=password&quot; https://localhost:8443/oauth/token
+</pre>
+<p>U odgovoru su dobiveni access i refresh token.
+</p>
+<pre>
+{&quot;access_token&quot;:&quot;2cacdb78-b7f2-4d14-a518-75c68cca8881&quot;,&quot;token_type&quot;:&quot;bearer&quot;,&quot;refresh_token&quot;:&quot;361a6e1b-1864-4f10-8433-744447fd8d98&quot;,&quot;expires_in&quot;:59,&quot;scope&quot;:&quot;read write&quot;}
+</pre>
+<p>Nakon toga je iskorišten access token kako bi dohvatili podatke. Poslan je sljedeći zahtjev:
+</p>
+<pre>
+curl -i -k -H &quot;Authorization: Bearer 2cacdb78-b7f2-4d14-a518-75c68cca8881&quot; https://localhost:8443/mt2a/api/users
+&lt;pre&gt;
+
+Dobiven je sljedeći odgovor:
+
+&lt;pre&gt;
+{
+  &quot;_embedded&quot;&#160;: {
+    &quot;users&quot;&#160;: [ {
+      &quot;userUsername&quot;&#160;: &quot;hlevnjak&quot;,
+      &quot;userPassword&quot;&#160;: &quot;57900f52882ff73115d43a5cfb82b1fcf4730ff2dd5ab8746c7a663887cb605a3fa8ecab41ad22b7&quot;,
+      &quot;userStatus&quot;&#160;: &quot;active&quot;,
+      &quot;userRole&quot;&#160;: &quot;user&quot;,
+      &quot;userFirstName&quot;&#160;: &quot;Tomislav&quot;,
+      &quot;userLastName&quot;&#160;: &quot;Hlevnjak&quot;,
+      &quot;userEmail&quot;&#160;: &quot;hlevnjak.tomislav@gmail.com&quot;,
+      &quot;userCreationTimestamp&quot;&#160;: &quot;2016-02-25T17:49:38.640+0000&quot;,
+      &quot;sysModificationTimestamp&quot;&#160;: &quot;2016-02-25T17:49:38.640+0000&quot;,
+      &quot;sysModificationUser&quot;&#160;: 1,
+      &quot;allowedDomains&quot;&#160;: &quot;*&quot;,
+      &quot;_links&quot;&#160;: {
+        &quot;self&quot;&#160;: {
+          &quot;href&quot;&#160;: &quot;https://localhost:8443/mt2a/api/users/1&quot;
+        },
+        &quot;apnaUser&quot;&#160;: {
+          &quot;href&quot;&#160;: &quot;https://localhost:8443/mt2a/api/users/1&quot;
+        }
+      }
+    } ]
+  },
+  &quot;_links&quot;&#160;: {
+    &quot;self&quot;&#160;: {
+      &quot;href&quot;&#160;: &quot;https://localhost:8443/mt2a/api/users&quot;
+    },
+    &quot;profile&quot;&#160;: {
+      &quot;href&quot;&#160;: &quot;https://localhost:8443/mt2a/api/profile/users&quot;
+    },
+    &quot;search&quot;&#160;: {
+      &quot;href&quot;&#160;: &quot;https://localhost:8443/mt2a/api/users/search&quot;
+    }
+  }
+}
+</pre>
+<p>Kada istekne access token,moguće ga je ponovno zatražiti pomoću refresh tokena.
+</p>
+<pre>
+curl -k -vu mt2a:Zagy1991 -d &quot;username=hlevnjak&amp;password=test&amp;grant_type=refresh_token&amp;refresh_token=361a6e1b-1864-4f10-8433-744447fd8d98&quot; http://localhost:8080/oauth/token
+</pre>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>OAuth je odličan i trenutno jako korišten način autentikacije i autorizacije klijentsikh aplikacija sa HTTP servisima kao što su Facebook, Twitter, Google itd. Obzirom da svi večina takvih servisa ima omogućen OAuth, nije komplicirana implementacija istog na klijentskim aplikacijama bilo da se radi o web aplikacijama, desktop aplikacijama ili mobilim aplikacijama. 
+Uz Sprng Boot implementacija Autorizacijskog i Resurce servera je također jednostavna što je i prikazano ranije.
+</p>
+<h2> <span class="mw-headline" id="Liteatura"> Liteatura </span></h2>
+<ul><li> Java CodeGeeks<a href="https://www.javacodegeeks.com/2015/10/spring-boot-oauth2-security.html" class="external autonumber" rel="nofollow">[1]</a>
+</li><li> Spring Documentation <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/index.html" class="external autonumber" rel="nofollow">[2]</a>
+</li><li> Wikipedia <a href="https://en.wikipedia.org/wiki/OAuth" class="external autonumber" rel="nofollow">[3]</a>
+</li><li> Digital Ocean<a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2" class="external autonumber" rel="nofollow">[4]</a>
+</li><li> Varonis Blog <a href="https://blog.varonis.com/introduction-to-oauth/" class="external autonumber" rel="nofollow">[5]</a>
+</li><li> Storm Path <a href="https://stormpath.com/blog/what-the-heck-is-oauth/" class="external autonumber" rel="nofollow">[6]</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.hlevnjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.hlevnjak (stranica ne postoji)">Tomislav Hlevnjak</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 122/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9212-0!*!0!!hr!2!edit=0 and timestamp 20190203204229 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="OAuth2_i_Spring_Boot.html">http://security.foi.hr/wiki/index.php/OAuth2_i_Spring_Boot</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=OAuth2_i_Spring_Boot" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="OAuth2_i_Spring_Boot.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:OAuth2_i_Spring_Boot&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="OAuth2_i_Spring_Boot.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="OAuth2_i_Spring_Boot.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=OAuth2_i_Spring_Boot&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=OAuth2_i_Spring_Boot&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="OAuth2_i_Spring_Boot.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/OAuth2_i_Spring_Boot" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/OAuth2_i_Spring_Boot" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=OAuth2_i_Spring_Boot&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=OAuth2_i_Spring_Boot&amp;oldid=38265" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:34, 26. travnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.973 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "OAuth2_i_Spring_Boot", "wgTitle": "OAuth2 i Spring Boot", "wgAction": "view", "wgArticleId": 9212, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 38265, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.342 secs. -->			</body>
+</html>

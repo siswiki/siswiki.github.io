@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Procjena rizika po ISO 27005 - Implementacija FLOSS alata - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Procjena rizika po ISO 27005 - Implementacija FLOSS alata</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#mw-head">orijentacija</a>,
+					<a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<hr />
+<p>TIM: Davorin Špičko, Ivan Rostohar, Ivan Šantalab<br />
+NAPOMENA: Svaki član tima svojim je potpisom označio dio koji je radio dok su u izradi praktičnog dijela sudjelovali svi članovi tima
+</p>
+<hr />
+<p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#Koraci_u_provedbi_norme"><span class="tocnumber">2</span> <span class="toctext">Koraci u provedbi norme</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#FLOSS"><span class="tocnumber">3</span> <span class="toctext">FLOSS</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#Prakti.C4.8Dni_dio"><span class="tocnumber">4</span> <span class="toctext">Praktični dio</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>ISO 27005 je jedna od ključnih normi iz porodice ISO 27000, a prvenstveno služi za procjenu rizika nekog poslovnog procesa u organzaciji ili cijele organizacije. Na jedinstven i kategoričan način povezuje imovinu nekog poslovnog sustava za koji se vrši procjena, definira vlasnika imovine odnosno odgovornu osobu te visinu odnosno vrijednost te imovine. Određivanje vrijednosti imovine je jedna od najtežih sastavnica procjene jer se može odrediti na više načina i često je subjektivna odnosno ovisi o ocjeni organizacije i nadležne osobe. <br />Uz imovinu, zadatak ove norme je i odrediti prijetnje koje prijete toj imovini kao i ranjivosti od kojih se treba zaštitit na najbolji mogući način. I ove sastavnice imaju svoje vrijednosti za koje vrijede iste sastavnice koje sam naveo i za imovinu. Kod određivanja vrijednosti ovih sastavnicavažnije definirati neki kontekst odnosno svesti ih na zajedničku bazu zbog što jednostavnijeg izračuna rizika za pojedinu imovinu. Kao što sam napomenuo ovaj postupak je relativno jednostavan, ali u stvarnosti ima potencijala i tendenciju usložavanja te se zbog toga teži što jednostavnijem izračunu rizika s time da organizacija i ocjenjivač moraju imati na umu da je tu riječ o okvirno izračunatim vrijednostima. <br />U normi je definirano više postupaka izračuna rizika od čega je naglasak stavljen na kvantitativnu i kvalitativnu metodu. U praktičnom radu smo implementirali izračun rizika po kvalitativnoj metodi jer je ona najjednostavnija i te se u praksi često koristi za dobivanje nekih općih pokazatelja visine rizika kao i identifikacija visoko rizične imovine. Ako se ovaj postupak ponavlja odnosno usložava i želi se vidjeti situacija na detaljnijoj razini, tada se primjenjuje kvantitativna analiza jer je točnija, ali za nju treba puno više podataka kako sadašnjih tako i povijesnih podataka same organizacije.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Irostoha&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Irostoha (stranica ne postoji)">Irostoha</a> 11:27, 18. siječnja 2015. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Koraci_u_provedbi_norme"> Koraci u provedbi norme </span></h2>
+<p>Sama proces vezan uz analizu rizika definiran je cijelom normom te se sastoji od nekoliko koraka koji se mogu iterativno ponavljati ovisno o zahtjevima organizacije i procjenjivača.
+Prvi korak je definiranje konteksta organizacije odnosno konteksta u kojem se provodi proces analize rizika. Nakon toga slijedi procjena rizika koja je najvažnija sastavnica cijelokupnog procesa te se sastoji od tri dijela: identifikacija rizika, njegova procjena i njegova evaluacija.<br />
+Identificiranje rizika ima nekoliko važnih koraka koje ocjenjivač mora što točnije pratiti da bi dobio što bolji i točniji rezultat za visinu rizika. Prvi korak u ovom stadiju je uvod u identifikaciju rizika gdje se determiniraju posljedice i okviri kao i pogodnosti koje se mogu dobiti nakon završetka samog procesa. Sljedeći korak je identifikacija imovine zajedno spripadajućim odgovornim osobama kao i valuacija pripadajuće identificirane imovine. <br />
+Nakon toga slijedi identifikacija prijetnji koje se dobiju s raznim razgovorima kako s vlasnicima imovine, tako i vanjskim suradnicima, uvidom u katalog prijetnji... što kao rezultat mora dati listu prijetnji s njihovim izvorima, tipom i vrijednošću.<br />
+Nakon toga slijedi proces identifikacije postojećih kontrola bilo postojećih ili planiranih zajedno s njihovom implementacijom i statusom korištenja.
+Nakon toga slijedi proces identifikacije ranjivosti koje su u relaciji s nekom imovinom, prijetnjom i kontrolom te lista incidentnih scenarija u relaciji s određenom imovinom.
+Nakon identifikacije rizika slijedi njegova procjena koja se može vršiti pomoću nekoliko metoda od kojih su najvažnije kvalitativna i kvantitativna pri čemu njihov odabir ovisi o potrebama organizacije i ocjenjivača.<br />
+Nakon što je ocjenjivač izvršio prethodne procese sada ima potrebne podatke za razne analize kao što su odnos imovine, prijetnji, ranjivosti, kontrola i visina rizika ili odnos incidentnih scenarija s visinom rizika... Odabir je prvenstveno na ocjenjivaču. U našoj aplikaciji smo se odlučili na prikaz prve analize jer daje najviše podataka i njihovu međusobnu korelaciju te je lako razumljiva i drugom osoblju koje će možda morati raditi s tim podacima, a to ujedno predstavlja i rezultat evaluacije rizika.<br />
+Nakon ovog procesa slijedi obrada rizika te njegovo prihvaćanje ako smo zadovoljni s rezultatima obrade rizika. Detaljniji prikaz cijelokupnog procesa prikazan je na slici 1.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Irostoha&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Irostoha (stranica ne postoji)">Irostoha</a> 11:27, 18. siječnja 2015. (CET)<br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Procjena_rizika.png" class="image"><img alt="" src="../images/thumb/d/d1/Procjena_rizika.png/500px-Procjena_rizika.png" width="500" height="622" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Procjena_rizika.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 1. <i>Proces upravljanja rizikom</i></div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="FLOSS"> FLOSS </span></h2>
+<p>FLOSS je računalni software koji može biti klasificiran kao besplatan i otvoreni software kojeg svatko može koristiti, kopirati, proučavati te mijenjati. Izvorni kod je javno dostupan tako da korisnici mogu slobodno izmijeniti i poboljšati taj software. Kratica FLOSS dolazi od naziva Free/Libre Open-Source Software, nastala je 2001. godine, a osmislio ju je Rishab Aiyer Ghosh. Ona ustvari pokušava otkloniti nesporazume oko odabira strana, tj. je li neki software besplatan (free) software ili otvoreni (open-source) software. Te dvije strane se razlikuju po pristupu dijeljenja izvornog koda i legalnim obavezama koje imaju korisnici.<br />
+<br />
+Da bi neki software bio besplatan, prema Free Software Foundation mora zadovoljiti ova 4 uvjeta:<br />
+-	Korištenja programa za bilo koju svrhu (sloboda 0)<br />
+-	Mogućnost proučavanja, modificiranja i poboljšanja prema svojim potrebama (sloboda 1)<br />
+-	Davanje kopija software-a drugim ljudima besplatno ili za komisiju (sloboda 2)<br />
+-	Poboljšanje i objavljivanje poboljšanja javno kako bi zajednica imala koristi (sloboda 3)<br />
+<br />
+Da bi neki software bio otvoreni (open-source) njegova licenca mora zadovoljavati ove uvjete:<br />
+-	Slobodna redistribucija<br />
+-	Dostupnost izvornog koda<br />
+-	Mogućnost izrade novih programa na temelju postojećih<br />
+-	Zaštita autorovog izvornog koda<br />
+-	Ne smije biti diskriminacije protiv osobe ili skupine<br />
+-	Ne smije biti diskriminacije područja primjene<br />
+-	Daljnjom redistribucijom se automatski prenose i prava<br />
+-	Licenca se ne smije vezati na određeni proizvod<br />
+-	Licenca ne smije ograničavati drugi softver<br />
+-	Licenca mora biti tehnološki neutralna <br />
+</p><p>Ako je neki software licenciran po licencama koje obilježavaju besplatan software tada je on u skladu i s otvorenim software-om. Obrnuto ne vrijedi je otvoreni software sadrži licence koje nisu u skladu s besplatnim software-om. Prema tome se može zaključiti da je otvoreni software nadskup besplatnog software-a, no kako je broj licenci/uvjeta koje se razlikuju između ta dva software-a vrlo mali te dvije vrste software-a su gotovo identične. Ideja je da besplatan software omogućuje da svaki korisnik ima slobodu pri korištenju software-a dok se otvoreni software odnosi na model razvoja software-a.<br />
+<br />
+Prednosti korištenja FLOSS-a su potencijalna smanjenja troškova razvoja software-a, povećanje stabilnosti i sigurnosti, zaštita privatnosti i davanje korisnicima veću kontrolu nad njihovim hardware-om. IT tvrtke koje razvijaju FLOSS software profit ostvaruju na ugradnji, integraciji i prilagodbi te pružanju podrške i poduci osoblja koje će ga koristiti. Sam FLOSS ima dosta protivnika, glavni razlog je profit, jer tako se nanosi „šteta“ velikim tvrtkama koje profitiraju od prodaje software-a.<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivasantal&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivasantal (stranica ne postoji)">Ivasantal</a> 16:37, 18. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio"> Praktični dio </span></h2>
+<p>Adresa Demo aplikacije: <a href="http://risk-assessment.us.wak-apps.com/" class="external free" rel="nofollow">http://risk-assessment.us.wak-apps.com/</a>
+</p><p>GitHub repozitorij: <a href="https://github.com/daspicko/RiskAssessment" class="external free" rel="nofollow">https://github.com/daspicko/RiskAssessment</a>
+</p><p>Aplikacija omogućuje registraciju korisnika kako bi se pamtili testovi koje je provodio za vrijeme procjene rizika. Prilikom prijave, otvara mu se mogućnost dodavanja novog testa, a kasnije na taj test dodaje kriterije procjene, imovina koja se procjenjuje te za svaku stavku od imovine dodaje prijetnje, kontrole i ranjivosti. Na kraju mu sustav prema zadanim kriterijima izračuna prihvatljiv rizik koji se odnosi na svaku stavku imovine.
+</p><p>ERA model
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ERAriskAssessment.png" class="image"><img alt="" src="../images/thumb/d/d9/ERAriskAssessment.png/500px-ERAriskAssessment.png" width="500" height="260" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ERAriskAssessment.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika2. ERA model <a href="http://risk-assessment.ddns.net/images/ERAriskAssessment.png" class="external text" rel="nofollow">Povećaj</a></div></div></div></div>
+<p>Pregled sučelja
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:RiskAssessment.gif" class="image"><img alt="" src="../images/thumb/f/f7/RiskAssessment.gif/500px-RiskAssessment.gif" width="500" height="287" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:RiskAssessment.gif" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika3. Sučelje aplikacije <a href="http://risk-assessment.ddns.net/images/riskAssessment.gif" class="external text" rel="nofollow">Povećaj</a></div></div></div></div>
+<p><br />
+</p><p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Daspicko&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Daspicko (stranica ne postoji)">Daspicko</a> 00:06, 19. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] Information technology-Security techniques-Information security risk management, <a href="http://www.pqm-online.com/assets/files/standards/iso_iec_27005-2008.pdf" class="external free" rel="nofollow">http://www.pqm-online.com/assets/files/standards/iso_iec_27005-2008.pdf</a>, učitano 18.1.2015.<br />
+[1] Information security risk management using ISO/IEC 27005:2008, <a href="http://www.taotesting.com/wp-content/uploads/2014/09/sec3_risk-management_iso27005.pdf" class="external free" rel="nofollow">http://www.taotesting.com/wp-content/uploads/2014/09/sec3_risk-management_iso27005.pdf</a>, učitano 18.1.2015.<br />
+[3] Information technology-Security techniques- Code of practice for information security controls,  <a href="http://www.slinfo.una.ac.cr/documentos/EIF402/ISO27001.pdf" class="external free" rel="nofollow">http://www.slinfo.una.ac.cr/documentos/EIF402/ISO27001.pdf</a>, učitano 18.1.2015.<br />
+[4] Information technology-Security techniques- Information security management systems-Requirements, <a href="http://web.bryant.edu/~commtech/guidelines/iso27001.pdf" class="external free" rel="nofollow">http://web.bryant.edu/~commtech/guidelines/iso27001.pdf</a>,  učitano 18.1.2015.<br />
+[5] FLOSS Concept Booklet, <a href="http://en.wikibooks.org/wiki/FLOSS_Concept_Booklet" class="external free" rel="nofollow">http://en.wikibooks.org/wiki/FLOSS_Concept_Booklet</a>, učitano 18.1.2015.<br />
+[6] O slobodnom i otvorenom softveru, <a href="http://wiki.open.hr/w/index.php?title=O_slobodnom_i_otvorenom_softveru" class="external free" rel="nofollow">http://wiki.open.hr/w/index.php?title=O_slobodnom_i_otvorenom_softveru</a>, učitano 18.1.2015.<br />
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 19/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7932-0!*!0!!hr!2!edit=0 and timestamp 20190203204244 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html">http://security.foi.hr/wiki/index.php/Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata&amp;oldid=33806" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 12:01, 5. veljače 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.022 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Procjena_rizika_po_ISO_27005_-_Implementacija_FLOSS_alata", "wgTitle": "Procjena rizika po ISO 27005 - Implementacija FLOSS alata", "wgAction": "view", "wgArticleId": 7932, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33806, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.297 secs. -->			</body>
+</html>

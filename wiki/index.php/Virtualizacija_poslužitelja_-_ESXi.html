@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Virtualizacija poslužitelja - ESXi - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_ESXi&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Virtualizacija_poslužitelja_-_ESXi skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Virtualizacija poslužitelja - ESXi</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Virtualizacija_poslužitelja_-_ESXi.html#mw-head">orijentacija</a>,
+					<a href="Virtualizacija_poslužitelja_-_ESXi.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Prijavljuju: Mihael Horvat, Marin Mikuličić, Zvonimir Krička
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Uvod_u_virtualizaciju"><span class="tocnumber">1</span> <span class="toctext">Uvod u virtualizaciju</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Uvod_u_ESX_server"><span class="tocnumber">1.1</span> <span class="toctext">Uvod u ESX server</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Od_VMware_Workstation_do_VMware_ESXi_-_povijest_razvoja"><span class="tocnumber">1.2</span> <span class="toctext">Od VMware Workstation do VMware ESXi - povijest razvoja</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Interakcija_sa_ESX_server_sustavima"><span class="tocnumber">1.3</span> <span class="toctext">Interakcija sa ESX server sustavima</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Pregled_virtualizacije"><span class="tocnumber">1.4</span> <span class="toctext">Pregled virtualizacije</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Arhitektura_VMware_ESXi"><span class="tocnumber">1.5</span> <span class="toctext">Arhitektura VMware ESXi</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Osnovne_karakteristike_VMware_ESXi_i_ESX"><span class="tocnumber">1.6</span> <span class="toctext">Osnovne karakteristike VMware ESXi i ESX</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="Virtualizacija_poslužitelja_-_ESXi.html#1.Prilago.C4.91avanje_performansi_optere.C4.87enju_virtualizacije."><span class="tocnumber">1.6.1</span> <span class="toctext">1.Prilagođavanje performansi opterećenju virtualizacije.</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="Virtualizacija_poslužitelja_-_ESXi.html#2.Pobolj.C5.A1ane_performanse_pohrane_za_iSCSI."><span class="tocnumber">1.6.2</span> <span class="toctext">2.Poboljšane performanse pohrane za iSCSI.</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Virtualizacija_poslužitelja_-_ESXi.html#3.64-bitna_arhitektura"><span class="tocnumber">1.6.3</span> <span class="toctext">3.64-bitna arhitektura</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Virtualizacija_poslužitelja_-_ESXi.html#4.Podr.C5.A1ka_za_vi.C5.A1e_virtualnih_ma.C5.A1ina_ve.C4.87ih_dimenzija_i_ja.C4.87eg_hardvera_za_sam_server"><span class="tocnumber">1.6.4</span> <span class="toctext">4.Podrška za više virtualnih mašina većih dimenzija i jaćeg hardvera za sam server</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Virtualizacija_poslužitelja_-_ESXi.html#5.Podr.C5.A1ka_do_osam_puta_za_SMP"><span class="tocnumber">1.6.5</span> <span class="toctext">5.Podrška do osam puta za SMP</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="Virtualizacija_poslužitelja_-_ESXi.html#6.VMware_Vmsafe.E2.84.A2."><span class="tocnumber">1.6.6</span> <span class="toctext">6.VMware  Vmsafe™.</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="Virtualizacija_poslužitelja_-_ESXi.html#7.VMDirectPath_za_virtualne_ma.C5.A1ine"><span class="tocnumber">1.6.7</span> <span class="toctext">7.VMDirectPath za virtualne mašine</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="Virtualizacija_poslužitelja_-_ESXi.html#8.Pobolj.C5.A1ana_u.C5.A1teda_energije"><span class="tocnumber">1.6.8</span> <span class="toctext">8.Poboljšana ušteda energije</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="Virtualizacija_poslužitelja_-_ESXi.html#9.Pobolj.C5.A1anja_u_arhitekturi"><span class="tocnumber">1.6.9</span> <span class="toctext">9.Poboljšanja u arhitekturi</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="Virtualizacija_poslužitelja_-_ESXi.html#10.Napredno_upravljanje_resursima"><span class="tocnumber">1.6.10</span> <span class="toctext">10.Napredno upravljanje resursima</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="Virtualizacija_poslužitelja_-_ESXi.html#11.Performanse_i_skalabilnost"><span class="tocnumber">1.6.11</span> <span class="toctext">11.Performanse i skalabilnost</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="Virtualizacija_poslužitelja_-_ESXi.html#12.Sigurnosti"><span class="tocnumber">1.6.12</span> <span class="toctext">12.Sigurnosti</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="Virtualizacija_poslužitelja_-_ESXi.html#13.Upravljanje"><span class="tocnumber">1.6.13</span> <span class="toctext">13.Upravljanje</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Usporedba_ESXi_s_ESX"><span class="tocnumber">2</span> <span class="toctext">Usporedba ESXi s ESX</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXi_Server_nema_.E2.80.9Eservice_console.E2.80.9C"><span class="tocnumber">2.1</span> <span class="toctext">Vmware ESXi Server nema „service console“</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXi_Server_koristi_RCLI_umjesto_konzolnih_naredba"><span class="tocnumber">2.2</span> <span class="toctext">Vmware ESXi Server koristi RCLI umjesto konzolnih naredba</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXI_Server_ima_samo_osnovne_opcije_.3D_brza_instalacija_i_br.C5.BEi_boot"><span class="tocnumber">2.3</span> <span class="toctext">Vmware ESXI Server ima samo osnovne opcije = brza instalacija i brži boot</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="Virtualizacija_poslužitelja_-_ESXi.html#VMware_ESXi_Server_se_mo.C5.BEe_kupiti_kao_ugra.C4.91eni_hipervizor_na_hardwareu"><span class="tocnumber">2.4</span> <span class="toctext">VMware ESXi Server se može kupiti kao ugrađeni hipervizor na hardwareu</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXi_Server_firewall_je_druk.C4.8Dije_konfiguriran"><span class="tocnumber">2.5</span> <span class="toctext">Vmware ESXi Server firewall je drukčije konfiguriran</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXi_Server_ima_jednostavnu_konzolu"><span class="tocnumber">2.6</span> <span class="toctext">Vmware ESXi Server ima jednostavnu konzolu</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXi_Server_ima_ugra.C4.91eno_pra.C4.8Denje_stanja_zdravlja_servera"><span class="tocnumber">2.7</span> <span class="toctext">Vmware ESXi Server ima ugrađeno pračenje stanja zdravlja servera</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Neke_mre.C5.BEne_opcije_su_konfigurirane_kroz_service_console_i_zato_nisu_dostupne_ili_su_eksperimentalne"><span class="tocnumber">2.8</span> <span class="toctext">Neke mrežne opcije su konfigurirane kroz service console i zato nisu dostupne ili su eksperimentalne</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXi_Server_zahtjeva_manje_preinaka_i_resetiranja"><span class="tocnumber">2.9</span> <span class="toctext">Vmware ESXi Server zahtjeva manje preinaka i resetiranja</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Vmware_ESXI_Server_je_dostupan_ve.C4.87_od_3000_kuna"><span class="tocnumber">2.10</span> <span class="toctext">Vmware ESXI Server je dostupan već od 3000 kuna</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Usporedba_zna.C4.8Dajki_dostupnih_VMware_verzija_servera"><span class="tocnumber">2.11</span> <span class="toctext">Usporedba značajki dostupnih VMware verzija servera</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-33"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Kako_pove.C4.87ati_razinu_sigurnosti_virtualizacijom"><span class="tocnumber">3</span> <span class="toctext">Kako povećati razinu sigurnosti virtualizacijom</span></a>
+<ul>
+<li class="toclevel-2 tocsection-34"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Virtualizacija_za_sandboxing"><span class="tocnumber">3.1</span> <span class="toctext">Virtualizacija za  sandboxing</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Virtualizacija_za_oporavak_od_katastrofe_i_visoku_dostupnost"><span class="tocnumber">3.2</span> <span class="toctext">Virtualizacija za oporavak od katastrofe i visoku dostupnost</span></a></li>
+<li class="toclevel-2 tocsection-36"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Virtualizacija_za_forenzi.C4.8Dku_analizu"><span class="tocnumber">3.3</span> <span class="toctext">Virtualizacija za forenzičku analizu</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Virtualizacija_za_.E2.80.9Ehoney_potting.E2.80.9C"><span class="tocnumber">3.4</span> <span class="toctext">Virtualizacija za „honey potting“</span></a></li>
+<li class="toclevel-2 tocsection-38"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Budu.C4.87nost_primjene_virtualizacije_u_sis-u"><span class="tocnumber">3.5</span> <span class="toctext">Budućnost primjene virtualizacije u sis-u</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-39"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Instalacija_ESXi_Servera"><span class="tocnumber">4</span> <span class="toctext">Instalacija ESXi Servera</span></a>
+<ul>
+<li class="toclevel-2 tocsection-40"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Instalacija_ESXi_Servera_i_vSphere_Client-a"><span class="tocnumber">4.1</span> <span class="toctext">Instalacija ESXi Servera i vSphere Client-a</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Konfiguracija_VMware_Client-a"><span class="tocnumber">4.2</span> <span class="toctext">Konfiguracija VMware Client-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-42"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-43"><a href="Virtualizacija_poslužitelja_-_ESXi.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Uvod_u_virtualizaciju"> Uvod u virtualizaciju </span></h1>
+<p>Virtualizacija se odnosi na metode koje dozvoljavaju podjelu ili sažimanje resursa računala (pogotovo u području servera). Sam pojam virtualizacije nije moguće jednoznačno objasniti pošto primjenu pronalazi u više slučajeva. Postoje različiti koncepti i tehnologije u području hardvera i softvera koji se bave pojmom virtualizacije. Primarni cilj virtualizacije je korisniku pružati apstraktni prikaz izolacije hardvera - kapaciteta izračunavanja i memorijskog prostora. Logički sloj se uklapa između korisnika i resursa. U takvim slučajevima svakom se korisniku stvara dojam da: 
+</p>
+<pre>      a) je općenito korisnik nekog resursa
+      b) se više (heterogenih) hardverskih resursa spaja sa homogenom okolinom
+</pre>
+<p>Zadatak samog operacijskog sustava tada je u pravilu upravljanje za korisnika ne vidljivim i transparentnim resursima. 
+Kada govorimo o virtualizaciji treba napomenuti da je ona prisutna po cijelom svijetu. Ovdje nije bitno da li se radi o Linux-Community putem Open Source Projekta XEN ili Intela sa Vanderpool naslovnim stranama. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin.Mikulicic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin.Mikulicic (stranica ne postoji)">Marin.Mikulicic</a> 23:05, 2. siječnja 2012. 
+</p>
+<h2> <span class="mw-headline" id="Uvod_u_ESX_server"> Uvod u ESX server </span></h2>
+<p>VMware ESXi omogućuje vrlo jednostavan pristup virtualizaciji na potpuno besplatan način. Ovdje se omogućava konsolidiranje primjene na manje servere te samim time ušteda novaca uz jeftinije troškove za hardver, hlađenje i administraciju. VMware ESXi je optimiran i podešen rigorozno na način da podržava intenzivnu primjenu resursa i baza podataka prilikom minimalnih performansi. VMware ESXI nudi slijedeće mogućnosti: 
+</p>
+<pre>   -   Smanjenje IT troškova i poboljšanje fleksibilnosti putem konsolidacijom servera
+ - Reduciranje vremena prekida i povećanje pouzdanosti putem Business Continuity and Disaster Recovery
+   -   Poboljšanje efikasnosti energije kroz manji broj psihičkih servera 
+</pre>
+<p>Kod ESXi virtualizacije susrećemo se također pojmom hipervizor ili VMM koji se odnosi na tehniku virtualizacije hardvera koja nam omogućava korištenje više operacijskih sustava (gostiju) na jednom računalu (domaćinu). 
+Na sljedećoj slici možemo vidjeti prikaz interakcije komponenata. Za ESX server domaćina imamo konfigurirane 4 virtualne mašine. Na svakoj virtualnoj mašini se izvodi neki svojevrstan operacijski sustav i svojevrsna primjena. Administratori imaju dva načina na koja mogu nadgledati domaćina i virtualne mašine. Prvi je upotreba nekog VI Client-a za direktnu vezu sa nekim ESX server domaćinom. Drugi se odnosi na upotrebu nekog VI Client-a za povezivanje nekog središnjeg virtualnog servera. Središnji virtualni server ima sposobnost upravljanja redom ESX server domaćina.  
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika1a.JPG" class="image"><img alt="Slika1a.JPG" src="../images/0/04/Slika1a.JPG" width="721" height="432" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin.Mikulicic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin.Mikulicic (stranica ne postoji)">Marin.Mikulicic</a> 23:25, 4. siječnja 2012. 
+</p>
+<h2> <span class="mw-headline" id="Od_VMware_Workstation_do_VMware_ESXi_-_povijest_razvoja"> Od VMware Workstation do VMware ESXi - povijest razvoja </span></h2>
+<p>ESXi je proizvod tvrtke VMware koja je osnovana 1998 godine kako bi pružila virtualizacijska rješenja za x86 platformu. Virtualizacija je nastala 1970ih godina kako bi se omogućilo aplikacijama da dijele i bolje koriste centralizirane resurse na velikim mainframe sustavima. Kroz osamdesete i devedesete virtualizacija je ispala iz igre kao poželjno rješenje jer su jeftina x68 desktop računala i poslužitelji omogućili učvršćivanje modela distribuiranog računalstva. Široka rasprostranjenost Linuxa i Windowsa učvrstila se kao standardna x86 arhitektura za poslužitelje. Takva je situacija dovela do novih izazova:
+</p>
+<ul><li><b>Malo opterećenje poslužitelja</b> – broj poslužitelja u organizacijama se drastično povećao. Razne studije su pokazale da prosječno opterećenje servera varira između 10 i 15%. Do toga dolazi jer se na jedan server tipično instalira samo jedna aplikacija da bi se minimalizirali sigurnosni rizici i problemi nakon instaliranja novih verzija aplikacija.
+</li><li><b>Povećanje troškova za infrastrukturu i upravljanje</b> – kako su se serveri proširili kroz organizacije tako su porasli operacijski troškovi poput potrošnje električne energije, hlađenja i prostora za poslužitelje što je postajalo neprihvatljivo za poslužitelje s jako niskim opterećenjem.. 
+</li><li><b>Otežano održavanje desktop računala krajnjih korisnika</b> – distribuirano računalstvo je pružilo slobodu i fleksibilnost korisnicima i aplikacijama koje koriste ali je ujedno otežao upravljanje takvim sustavima i povećalo sigurnosne rizike.
+</li></ul>
+<p>1999 godine VMware je izdao <b>VMware Workstation</b>, proizvod koji je omogućio da istovremeno izvršava više operativnih sustava na desktop računalu. Taj je proizvod značajno smanjio troškove hardvera i upravljanja u scenarijima u kojima je korisniku potrebno više različitih okolina koje su se sada sve mogle izvoditi na jednoj radnoj stanici. Uvedena je i „<b>snapshot</b>“ tehnologija koja je omogućila lako vraćanje virtualnog uređaja na ispravnu konfiguraciju. Jednom izrađen virtualni uređaj se lako dijelio među korisnicima jer se sastojao od nekoliko specifičnih datoteka. 
+</p><p>2001 godine VMware je izdao<b>VMware GSX Server</b> i <b>ESX Server</b>. GSX server je bio sličan Workstationu jer je bio potreban operativni sustav domaćin (host) na koji se GSX mogao instalirati. S GSX serverom korisnici su mogli kreirati virtualne uređaje na isti način kao i u Workstation ali su se one nalazile na poslužitelju a ne na korisničkom desktopu. Kasnije je GSX server preimenovan u VMware Server.  VMware ESX Server je također izdan kao centralizirano rješenje za opsluživanje virtualnim uređajima ali sa značajno drugačijom arhitekturom od ESX servera. ESX-u nije potreban operacijski sustav domaćin već se instalira izravno na hardver poslužitelja te time uklanja uzaludno trošenje performansi od host operacijskog sustava, neke sigurnosne rizike i potrebu za upravljanjem host OS-ima poput Windowsa ili Linuxa. ESX-ov <b>hipervizor</b> poznat kao <b>VMkernel</b> je izrađen specifično s namjerom da bude host virtualnim uređajima i da ukloni rasipanje resursa i potencijalne sigurnosne rizike.
+</p><p>VMware ESX je sa sobom donio i <b>VMware Virtual Machine File System (VMFS)</b>, format za particije tvrdih diskova. Prva verzija koje je vezana uz ESX 1.0 je jednostavan datotečni sustav optimiziran za operacije virtualnih uređaja. VMFS v.2 je izdan sa ESX 2.0 te implementira mogućnost klasteriranja koja omogućuje pristup istom spremištu podataka od više ESX hostova. Karakteristike VMFS-a i ESX-a su 2003 otvorile put pojavi <b>VMware VirtualCenter Server-a</b>, poznatijeg kao <b>vCenter Server</b>. vCenter Server pruža mogućnost centraliziranog upravljanja s više ESX hostova i omogućava inovativne funkcionalnosti poput vMotion koja omogućuje migraciju između dva virtualna hosta bez njihova prekidanja ili stvaranje klastera za sustave s visokom dostupnošću.
+</p><p>2007 godine VMware predstavlja drugu generaciju tzv. „bare-metal“ hipervizora - <b>VMware ESXi (ESX integrated) 3.5</b>. Taj je projekt započet 2001 godine s namjerom da se iz ESX-a odstrani <b>COS (Console Operating System)</b>. To smanjuje izloženost napadima na hipervizor, pojednostavljuje obnavljanje novim verzijama (čini potrebu za tim rijeđim) i ima potencijal sa smanjenjem potrošnje energije.
+</p><p>ESXi je izazvao veliku pozornost, posebno zbog nedostatka COS-a koji je bio jedan od važnih načina za izvršavanje upravljačkih skripti. COS je također bio i mehanizam koji su aplikacije raznih proizvođača koristile za rješenja poput sigurnosnih kopija ili nadzora hardvera. Takva je situacija značajno otežala migraciju s ESX-a na ESXi; no da bi olakšali tu migraciju VMware je izdao <b>Remote Command-Line Interface (RCLI)</b> koji je pružao pristup naredbama koje su bile dostupne na COS-u.
+</p><p>Značajan napredak prema uklanjanu zapreka za lakim upravljanjem do kojih je došlo zbog micanja COS-a je postignut izdavanjem vSphere 4.0 i 2010 godine vSphere 4.1. Unaprijeđen je i RCLI koji je sada preimenovan u<b> vSphere Command-Line Interface – vCLI</b>. Još jedna opcija za skriptiranje je omogućena izdavanjem <b>PowerCLI</b>-ja koji je baziran na Windows PowerShellu. vSphere ima svoj API kojim je omogućeno i drugim tvrtkama da razvijaju softver koji radi s ESXi-jem. To je omogućilo da svi proizvođači koji su imali softver za ESX, unaprijede u verzije koje rade s ESXa-jem – što je zadnji korak koji olakšava migraciju od ESX-a prema ESXi-ju.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 13:00, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Interakcija_sa_ESX_server_sustavima"> Interakcija sa ESX server sustavima </span></h2>
+<p>VMware ESX server postoji trenutno u dvije verzije: ESX (komercijalna) sa integriranim Linux-Desktopom i ESXi (postoji i besplatna) kao usađen sustav sa Web sučeljem. Oboje su bazirani na jezgri koja je proširena za Linux pogonsku jedinicu te samim time nema potrebe za operacijskim sustavom (tzv. bare metal hypervisor). ESX verzije servera su zamišljene za primjenu u računalnim centrima. U suštini VMware podržava ESX server samo za certificirani server hardver ali postoje i ne sereverski hardveri na kojima također se vrti ESX. Detalje o usporedbi ESX i ESXi serverima navesti ćemo u nastavku. 
+</p><p>U interakciji sa ESX server sustavima administratori mogu koristiti sljedeće mogućnosti: a) upotreba klijenata (VI-Client ili VI Web Access). Klijenti mogu biti direktno povezani sa ESX server domaćina ili mogu sa virtualnim menadžment sustavom servera upravljati istovremeno više ESX server domaćina. b) upotreba konzole usluga. Bitno je napomenuti da upotreba konzole usluga u ESX serveru 3.0 i višim verzijama općenito nije poželjna ni uspješna pošto većina administratorskih procesa se može izvoditi pomoću VI-Client ili VI Web Access. Za skriptni menadžment poželjno je koristiti SDK infrastrukturu. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin.Mikulicic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin.Mikulicic (stranica ne postoji)">Marin.Mikulicic</a> 00:15, 4. siječnja 2012. 
+</p>
+<h2> <span class="mw-headline" id="Pregled_virtualizacije"> Pregled virtualizacije </span></h2>
+<p>ESX server virtualizira resurse fizičkih sustava za samu upotrebu kroz virtualne mašine. Više virtualnih mašina koristi se fizičkim uređajima istovremeno. 
+</p><p>Na sljedećoj slici možemo vidjeti dvije virtualne mašine koje su konfiguirane na sljedeći način: 
+</p>
+<pre>   - jedan procesor (CPU)
+   - alokacija memorije i mrežnog adaptera (NIC)
+   - dva virtualna tvrda diska
+</pre>
+<p>Virtualne mašine koriste jedan procesor (CPU) na serveru i napadaju ne ograničene stranice spremnika gdje je jedan dio spremnika spremljen na jednoj virtualnoj mašini (nije prikazano). Dva virtualna mrežna adaptera su sa dva fizička mrežna adaptera spojena. Tvrdi diskovi su posloženi sljedećim redom: Tvrdi disk 1 virtualne mašine 1 je pripojen direktno jednom FAW tvrdom disku. Takva konfiguracija u normalnim uvjetima nije preporučljiva ali u posebnim uvjetima se može izvesti. Tvrdi disk 2 virtualne mašine 1 i oba dva tvrda diska virtualne mašine 2 rezidiraju na VMFS-u (Virtual Machine File System) koji se na jednom od SAN spremnika nalazi. VMFS osigurava uvijek aktivaciju određene sigurnosti i blokade. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika2a.jpg" class="image"><img alt="Slika2a.jpg" src="../images/2/29/Slika2a.jpg" width="690" height="491" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin.Mikulicic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin.Mikulicic (stranica ne postoji)">Marin.Mikulicic</a> 11:05, 4. siječnja 2012.
+</p>
+<h2> <span class="mw-headline" id="Arhitektura_VMware_ESXi"> Arhitektura VMware ESXi </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ars.jpg" class="image"><img alt="Ars.jpg" src="../images/1/11/Ars.jpg" width="550" height="380" /></a>
+</p><p>U samoj arhitekturi možemo vidjeti autorizaciju tercijarnih proizvođača koji se mogu izvoditi u VM jezgri (VM kernel). Vrši se nadzor nad hardverom i hardverskim sklopovljem. VMware agenti se portiraju i direktno izvode u VM jezgri. VMware komponente i komponente drugih proizvođača mogu neovisno jedna o drugoj se izvoditi. Opcija "Dual-Image" omogućava vračanje na sliku prije snimljenu. Nema mogućnosti da se unosi neki kod u sustav. U potpunosti se daje na korištenje više integriranih funkcija unutar centra poduzeća.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin_M&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin M (stranica ne postoji)">Marin M</a> 04:14, 6. siječnja 2012. (CET)
+</p><p>Tehnologija koja se skriva iza VMWare ESXi je hipervizor sljedeće generacije na kojem će se temeljiti  VMware virtualna infrastruktura u nadolazećim godinama. Funkcionalnost je jednaka ESX-u ali je odstranjena na Linuxu bazirana servisna konzola potrebna za upravljanje ESX-om. Takav hipervizor nema ovisnost o bilo kojem operativnom sustavu što povećava pouzdanost i sigurnost. Njegov otisak nije veći od 90 MB što omogućuje da se smjesti na flash disk što nas riješava potrebe za lokalnim boot diskom. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:326px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESXiServerArhitektura.png" class="image"><img alt="" src="../images/7/7c/ESXiServerArhitektura.png" width="324" height="205" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESXiServerArhitektura.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Arhitektura ESXi Servera - Izvor: D. Mishchenko; VMware ESXi: Planning, Implementation, and Security; 2011 godina; Course Technology, a part of Cengage Learning</div></div></div></div>
+<p><br />
+U srcu ESXi-ja je VMkernel, jezgra prikazana na slici prethodnoj. Svi procesi se izvode povrh VMkernela koji kontrolira sav pristup hardveru od ESXi hosta. VMkernel je operacijski sustav sličan POSIX-u i ostalim OS-ovima utoliko što ima mehanizme kreiranja procese, datotečni sustav i dretve procesa. Za razliku od ostalih OS-ova opće namjene, kreiran je isključivo za virtualizaciju što znači da mu je fokus na dodjeljivanju resursa (resource scheduling), upravljačkim programima za uređaje te I/O stack. Upravljačka komunikacija s VMkernelom se vrši preko vSphere API-ja. Postoji paleta servisa koji koriste taj API: vSphere client, vCenter Server, vCLI (zamjena za COS) i ostale aplikacije ...
+</p><p>Iznad VMkernela se izvode brojni procesi koji pružaju izvršnu okolinu u kojoj radi virtualni uređaj. Ti se procesi nazivaju i „user world“ procesi jer se izvode i obavljaju zadatke slično kao i kod OS-a opće namjene, ali su ipak prilagođeni za davanje podrške sloju hipervizora. 
+</p><p>VMM ili virtual machine monitor je proces zadužen za pružanje izvršne okoline u kojoj djeluje Operacijski sustav gost u interakciji s skupom virtualnog hardvera koji mu je izložen. Svakom VMM procesu je dodijeljen jedan pomoćni VMX proces. 
+</p><p>Hostd proces je programsko sučelje prema VMkernelu. Koristi ga vSphere API i vSphere klijent kod uspostavljanja direktne upravljačke veze prema hostu.  Taj proces upravlja korisnicima i korisničkim grupama i njima dodijeljenim privilegijama.
+</p><p>Za nadzor nad hardverom , VMware ESXi se oslanja na Common Information Model (CIM) sustav. CIM broker pruža niz API-ja koje razne upravljačke i nadzorne aplikacije mogu koristiti za slanje upita prema hardveru ESXi posužitelja. Proizvođači hardvera mogu proizvesti vlastite CIM pluginove koji će obagatiti informacije dobivene od ESXi poslužitelja. 
+</p><p>DCUI (Direct Console User Interface)  je proces koji pruža lokalnu upravljačku konzolu. DCUI izgleda kao BIOS sučelje s mnogo menija. Da bi se pristupilo DCUI-ju korisnik treba imati administratorske ovlasti. Izgled DCUI sučelja je dan na slici dolje.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:572px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DCUI_izgled.png" class="image"><img alt="" src="../images/b/b9/DCUI_izgled.png" width="570" height="325" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DCUI_izgled.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>DCUI (Direct Console User Interface)</div></div></div></div>
+<p>Vpxa je proces koji omogućuje komunikaciju s vCenter Serverom. Sve naredbe  ili upiti od vCenter Servera su primljene od ovog procesa prije nego što budu proslijeđene na obradu hostd procesu.
+</p><p>Agent proces se instalira i izvršava kad ESXy poslužitelj pridružimo klasteu visoke dostupnosti - High Availability (HA) cluster. 
+</p><p>Syslog je proces zadužen za prosljeđivanje zabilježenih podataka udaljenim senzorima dakle omogućuje nadzor i upravljanje.
+</p><p>Da bi omogućio upravljačku komunikaciju ESXi otvara ograničeni broj portova. Sva mrežna komunikacija se odvija preko hostd procesa koji služi kao proxy. Sav mrežni promet koji nije prepoznat se odbacuje pa ne može doči do ostalih sistemskih procesa. Uobićajeno otvoreni portovi su sljedeći:
+</p>
+<ul><li>80 – kroz ovaj port se može pristupiti samo statičkoj stranici dobrodošlice, sav ostali promet se preusmjerava na port 443
+</li><li>443 – SSL kriptirana komunikacija za rasne servise, poput vSphere API
+</li><li>902 – udaljeni konzolni pristup se vrši preko ovog porta
+</li><li>5989 – ovaj port je otvoren kako bi se omogućila komunikacija s CIM brokerom za nadzor i dobivanje podataka o hardveru
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 16:18, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Osnovne_karakteristike_VMware_ESXi_i_ESX"> Osnovne karakteristike VMware ESXi i ESX </span></h2>
+<p>Osnovne karakteristike
+</p>
+<h3> <span class="mw-headline" id="1.Prilago.C4.91avanje_performansi_optere.C4.87enju_virtualizacije."> <b>1.Prilagođavanje performansi opterećenju virtualizacije.</b></span></h3>
+<p>Performanse ESXi 4.0 sve su više prilagođene poslovnim subjektima za poslovne aplikacije tipa Oracle baze podataka, Microsoft SQL Server te Microsoft Exchange. Može se dosegnuti sve do 8.600 transakcija u sekudni, 200.000 operacija I/O u sekondi te 16.000 primanja i slanja e-pošte po jednom domaćinu (host-u).  
+</p>
+<h3> <span class="mw-headline" id="2.Pobolj.C5.A1ane_performanse_pohrane_za_iSCSI."> <b>2.Poboljšane performanse pohrane za iSCSI.</b> </span></h3>
+<p>Ugrađeni su novi drajveri SCSI i optimizirani za virtualizaciju te poboljšani stog za pohranu do nivoa Vmkernel (jezgre) kako bi se pružale što bolje karakteristike I/O intenzive za kao što su npr. baze podataka te aplikacije za poruke.
+</p>
+<h3> <span class="mw-headline" id="3.64-bitna_arhitektura"> <b>3.64-bitna arhitektura</b></span></h3>
+<p>Bolje performanse imaju podršku za RAM do 1 TB veličine kod domaćina (host)
+</p>
+<h3> <span class="mw-headline" id="4.Podr.C5.A1ka_za_vi.C5.A1e_virtualnih_ma.C5.A1ina_ve.C4.87ih_dimenzija_i_ja.C4.87eg_hardvera_za_sam_server"> <b>4.Podrška za više virtualnih mašina većih dimenzija i jaćeg hardvera za sam server</b></span></h3>
+<p>Može se koristiti fizički hardver koji sadrže fizički do 64 core CPU, 265 virtualni CPU, 1 TB RAM-a, te stotine virtualnih strojeva na jednom domaćinu (host-u) kako bi se olakšali projekti konsolidacije i oporavak (recovery). Moguće je također konfigurirati virtualne mašine sve do 255 GB RAM-a.   
+</p>
+<h3> <span class="mw-headline" id="5.Podr.C5.A1ka_do_osam_puta_za_SMP"> <b>5.Podrška do osam puta za SMP</b></span></h3>
+<p>VMware simetrični multiprocessing (SMP) ima mogućnost za poboljšanje svake virtualne mašine za svaki sustav simultano sa osam fizičkih procesora istovremeno.  Na taj način nam je omogućeno virtualizirati aplikacije te koristiti intenzivu CPU-a kao za baze podataka i aplikacije za ERP te CRM.
+</p>
+<h3> <span class="mw-headline" id="6.VMware_Vmsafe.E2.84.A2."> <b>6.VMware  Vmsafe™.</b> </span></h3>
+<p>VMware Vmsafe je jedna nova vrsta tehnologije za sigurnost koja pomaže prilikom zaštite u opterećenju virtualizacije te ima više učinka od nego kod fizičke mašine. VMware pruža skup  sigurnosnih  API-ova zahvaljujući kojima proizvodi treće strane dobivaju na uvid kako funkcionira virtualna mašina kod VMware ESX ili VMware ESXi sa ciljem identifikacije i eliminacije malwera  kao što su virusi, trojanski konj te keylogger-i.  Tako napredan sustav zaštite je moguć zbog sposobnosti  detaljnog kapaciteta  vizualizacije resursa hardvera same mašine kao što i memorije, CPU-a ili diska te također I/O sustava.
+</p>
+<h3> <span class="mw-headline" id="7.VMDirectPath_za_virtualne_ma.C5.A1ine"> <b>7.VMDirectPath za virtualne mašine</b></span></h3>
+<p>Poboljšana je CPU učinkovitost za beneficij aplikacija koji zahtijevaju česti pristup uređajima I/O, pristajući na specifične virtualne mašine koje imaju direktni pristup nižim hardverskim uređajima.
+</p>
+<h3> <span class="mw-headline" id="8.Pobolj.C5.A1ana_u.C5.A1teda_energije"> <b>8.Poboljšana ušteda energije</b> </span></h3>
+<p>Energetska učinkovitost je postignuta između beneficija i dinamičnosti obujma napona i same frekvencije koja je podržana od strane Intel SpeedStep® i AMD PowerNow!
+</p>
+<h3> <span class="mw-headline" id="9.Pobolj.C5.A1anja_u_arhitekturi"> <b>9.Poboljšanja u arhitekturi</b></span></h3>
+<p>Neka od poboljšanja obuhvaćaju:
+Iskorištenost VMDK (Virtual Machine Disk File) – virtualni sustav datoteka
+64 bitna arhitektura hipervizora 
+VMware vStorage VMFS – za eliminaciju kritičnih točaka pogreške – Virtual Machine File System
+Bootanje preko SAN tehnologije – mogućnost pokretanja VMware ESX servera bez potrebe medija
+Virtualna mreža – klijenti koji stvaraju kompleksu mrežu između virtualnih mašina
+</p>
+<h3> <span class="mw-headline" id="10.Napredno_upravljanje_resursima"> <b>10.Napredno upravljanje resursima</b></span></h3>
+<p>Ovdje se nudi mogućnost naprednog stupnja upravljanja resursa putem:
+upravljanje resursima za virtualne mašine – definiranje naprednih kriterija
+Inteligentna CPU virtualizacija – iskorištenje pune CPU snage na domaćinu (host-u)
+Veća dodjela RAM-a
+Dijeljenje prozirnih stranica (dupliciranje memorije)
+oblikovanje prometa kroz mrežu
+Označavanje prioriteta prometa za pohranu na I/O 
+Poboljšana ušteda energije
+</p>
+<h3> <span class="mw-headline" id="11.Performanse_i_skalabilnost"> <b>11.Performanse i skalabilnost</b> </span></h3>
+<p>Prilagođavanje performansi opterećenju virtualizacije
+Poboljšane performanse za pohranu iSCSI
+Raw	Device	Mapping	(RDM).	
+Podrška osam puta za virtualni SMP
+Podrška snažnijeg hardvera za server
+Podrška za veće dimenzije na virtualnim strojevima
+Podrška za virtualizaciju hardvera
+Podrška za stranice velikih dimenzija
+Optimizacija performansi mreže 
+Podrška za nove uređaje i protokole  za visoke performanse
+Podrška za paralelnu virtualizaciju
+I/O VMware DirectPath za virtualne mašine
+</p>
+<h3> <span class="mw-headline" id="12.Sigurnosti"> <b>12.Sigurnosti</b></span></h3>
+<p>VMware	Vmsafe™
+Zaštita putem VMKernel (jezgra)
+Kriptografija
+Mogućnost provjere za iSCI uređaje
+Polica sigurnosti za mrežu
+</p>
+<h3> <span class="mw-headline" id="13.Upravljanje"> <b>13.Upravljanje</b></span></h3>
+<pre>- VMware vSphere™ Client.
+- VMware vCenter Server.	
+- VMware vSphere™ Command-Line	Interface 4.0 (vCLI)
+- VMware vSphere™ Power Command-Line Interface	4.0(PowerCLI).
+- VMware vSphere™ Management Assistant
+- Hardver Managment model sa CIM (Common Information Mode)
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin_M&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin M (stranica ne postoji)">Marin M</a> 21:20, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Usporedba_ESXi_s_ESX"> Usporedba ESXi s ESX </span></h1>
+<p>Oni zainteresirani za ovu temu su vjerojatno upoznati s Vmware ESX Serverom, jer se koristi već više godina. ESX server sadrži „service console“ što je efektivno operacijski sustav tog servera i zbog toga je instalacija daleko veća u usporedbi sa novim ESXi.
+Najnovija verzija ESXi je daleko manja, između ostalog i zato što ne sadrži tu „service console“. 
+Naglašavam međutim, da ESXi nije zamjena za tradicionalne ESX servere, nego alternativa koja radi uz njih. Niti jedna verzija nije bolja od druge, samo drugačija. U ovome dijelu ćemo prikazati te razlike s ciljem lakšeg odabira servera koji je potreban za neku uslugu.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXi_Server_nema_.E2.80.9Eservice_console.E2.80.9C"> Vmware ESXi Server nema „service console“ </span></h2>
+<p>Tradicionalni ESX Server ima posebnu ugrađenu virtualnu mašinu po imenu „service console“. Ta konzola ja zapravo modificirana verzija Red Hat Enterprise verzije linuxa koji je instaliran i prema zadanim postavkama od strane sustava radi na svakom ESX serveru. Konzola ima poseban pristup Vmwareovom vlasničkom VMFS datotečnom sustavu. Aplikacije treće strane se mogu instalirati u konzolu, a također se mogu pokrenuti usluge bazirane na linuxu. Također, Vmware pridodaje određeni broj ESX srodnih alata u konzoli, koji se pokreću pristupanjem konzoli pomoću SSH. 
+</p><p>Vmware ESXi Server nema tu konzolu, niti nema SSH pristup serveru. Također, aplikacije treće strane se ne mogu instalirati na ovaj server. Međutim, zbog nedostatka ovih opcija postoje i određene prednosti koje ćemo spomenuti kasnije
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXi_Server_koristi_RCLI_umjesto_konzolnih_naredba"> Vmware ESXi Server koristi RCLI umjesto konzolnih naredba </span></h2>
+<p>S ozbirom da ESXi nema CLI s uslugama povezanim sa Vmwareom ili linuxom, Vmware je morao dodati CLI sučelje ESXi-u. Ono što su smislili je Remote Command line Interface (RCLI). To je aplikacija koja se u pravilu instalira kao virtualna mašinu i koristi se obavlja predviđeno ili ad hock skriptiranje na Vmware infrastrukturi. ESXi RCLI je zapravo svoja vlastita komandna linija gdje bi usluge skriptiranja ESX server konzole bile sastavljene večinom od linux naredba.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXI_Server_ima_samo_osnovne_opcije_.3D_brza_instalacija_i_br.C5.BEi_boot"> Vmware ESXI Server ima samo osnovne opcije = brza instalacija i brži boot </span></h2>
+<p>Zato što je service console uklonjen iz ESXi, veličina je smanjena na samo 32 MB. Zapravo je fascinantno da je moguće pokrenuti VMM (hypervisor), koji dopušta pokretanje virtualnih mašina na serveru, sa samo 32 MB. Usporedbe radi, puni ESX Server zauzme oko 2 GB. 
+Zato što je hypervisor tako malen, instalacija je gotovo u 10ak minuta, a server se boota u 1-2 minute. Ovo je velika razlika u usporedbi sa punom ESX server instalacijom i bootom, koji traju daleko dulje.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="VMware_ESXi_Server_se_mo.C5.BEe_kupiti_kao_ugra.C4.91eni_hipervizor_na_hardwareu"> VMware ESXi Server se može kupiti kao ugrađeni hipervizor na hardwareu </span></h2>
+<p>ESXi je tako malen da ga se može lagano instalirati i čak bootati sa USB diska, ono što je stvarno jedinstveno u vezi ESXi-a je činjenica da ga prodaju i kao ugrađenog hipervizora. To znaći da npr. kupite Dellov server, ESXi može biti ugrađen unutar servera na čipu na matičnoj. Nema nikakve instalacije ESXi na disku.
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXi_Server_firewall_je_druk.C4.8Dije_konfiguriran"> Vmware ESXi Server firewall je drukčije konfiguriran </span></h2>
+<p>S obzirom da nema service konzole koju bi trebalo štititi s softverskim firewallom, slaganje sigurnosne konfiguracije u ESXi-u je vrlo jednostavno. Konfiguracija ESXi sigurnosniog profila sastoji se od nekoliko servisa koje se može ili ne mora aktivirati. 
+Dolje je prikazana ta razlika, gdje je prva slika ESXi a druga ESX.
+</p><p>Slika 2.1: ESXi Sigurnosni Profil
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pic1.jpg" class="image"><img alt="Pic1.jpg" src="../images/5/54/Pic1.jpg" width="465" height="335" /></a>
+</p><p><br />
+</p><p>Slika 2.2: VMware ESX Server (full) Sigurnosni Profil
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pic2.jpg" class="image"><img alt="Pic2.jpg" src="../images/3/37/Pic2.jpg" width="474" height="375" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:10, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXi_Server_ima_jednostavnu_konzolu"> Vmware ESXi Server ima jednostavnu konzolu </span></h2>
+<p>Umjesto punog ESX Server „service console“ boota (koji izgleda kao Linux server bootanje), ESXi ima malen „Direct Console User Interface (DCUI)“. U toj ESXi konzoli, jedino što se može konfigurirati su neke osnovne ESXi server opcije poput root user lozinke, mrežne postavke i nekoliko drugih sličnih postavki. 
+</p><p><br />
+Slika 2.3: ESXi žuta firmware konzola / DCUI
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pic3.jpg" class="image"><img alt="Pic3.jpg" src="../images/b/bb/Pic3.jpg" width="575" height="319" /></a>
+</p><p><br />
+Zato što ova firmware konzola ima tako malo opcija, server praktički nema svoje stanje. Novi server bi se mogao ukonfigurirati u nekoliko sekundi zato što nema skoro pa ništa za konfigurirati.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:11, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXi_Server_ima_ugra.C4.91eno_pra.C4.8Denje_stanja_zdravlja_servera"> Vmware ESXi Server ima ugrađeno pračenje stanja zdravlja servera </span></h2>
+<p>Kod ESXi neke opcije pračenja hardwarea su ugrađene u hipervizora. Sa ESX Serverom, to još nije slučaj. Umjesto toga, potrebno je instalirati software za pračenje hardwarea u „service console“. 
+</p><p><br />
+Slika 4: ESXi Stanje zdravlja
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pic_4.jpg" class="image"><img alt="Pic 4.jpg" src="../images/2/2a/Pic_4.jpg" width="575" height="421" /></a>
+</p>
+<h2> <span class="mw-headline" id="Neke_mre.C5.BEne_opcije_su_konfigurirane_kroz_service_console_i_zato_nisu_dostupne_ili_su_eksperimentalne"> Neke mrežne opcije su konfigurirane kroz service console i zato nisu dostupne ili su eksperimentalne </span></h2>
+<p>S obzirom da je ESXi jos uvijek relativno nov, a ESX serveri imaju opciju instalirati kod za napredne ESX server opcije. Zbog toga, postoje neke opcije dostupne punom (full) ESX serveru koje nisu dostupne ESXi-u. Postoje čak problemi sa pokretanjem Vwware High Availability (VMHA), koji do prije nedavnih zakrpa nije čak ni bio službeno podržan. Sada, čak i nakon zakrpa, još uvijek dolazi do problema sa ESXi i VMHA.
+Za punu listu ESX Server opcija koje su trenutno još uvijek eksperimentalne na ESXi pogledajte sljedeći link: 
+</p><p><a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1003345" class="external text" rel="nofollow">Puna lista</a>
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXi_Server_zahtjeva_manje_preinaka_i_resetiranja"> Vmware ESXi Server zahtjeva manje preinaka i resetiranja </span></h2>
+<p>Zato što full ESX server efektivno ima modificirani Linux sustav kao service console, dolazi do mnogih zakrpa koje se mora primijeniti da bi ostao siguran. Sa ESXi je totalno suprotno.  Server ima jako malo patheva koje se mora primijeniti. Zato što ESXi nema service konzolu, smatra se sigurnijim i pouzdanijim. A sigurnost, pouzdanost i težina održavanja su sve veliki faktori pri odlučivanju hipervizora.
+</p>
+<h2> <span class="mw-headline" id="Vmware_ESXI_Server_je_dostupan_ve.C4.87_od_3000_kuna"> Vmware ESXI Server je dostupan već od 3000 kuna </span></h2>
+<p>Sa full verzijom ESX Servera, najjeftinija opcija je Foundation (Starter) kit za nekakvih devet tisuća (9000) kuna, a ESXi (bez podrške) je dostupan već od tri tisuće kuna. Sa druge strane, ako nabavite Foundation kit, ne dobije se samo ESX Server, nego također i ESXi i dosta dodatnih Vmware Infrastructure Suite opcija.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:08, 6. siječnja 2012. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:08, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Usporedba_zna.C4.8Dajki_dostupnih_VMware_verzija_servera"> Usporedba značajki dostupnih VMware verzija servera </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pic5.jpg" class="image"><img alt="Pic5.jpg" src="../images/6/60/Pic5.jpg" width="713" height="306" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:07, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Kako_pove.C4.87ati_razinu_sigurnosti_virtualizacijom"> Kako povećati razinu sigurnosti virtualizacijom </span></h1>
+<p>Virtualizacija poslužitelja je vrlo aktualna tema zbog svojeg utjecaja na rezanje troškova održavanja. Česta je situacija da tvrtke imaju nekoliko poslužitelja pod vrlo malim opterećenjem što znači da zauzimaju prostor i resurse bez opravdanja u smislu njihove iskorištenosti. Najčešći uzrok takve situacije je kupnja jeftinih low-end poslužitelja za pojedine aplikacije ili spajanja i preuzimanja tvrtki gdje se poslužitelji ne konsolidiraju. Virtualizacijom poslužitelja se takva situacija može ispraviti. Također se smanjuje potreba za količinom hardvera i softvera, smanjuje se potrošnja energije i zahtjevi za održavanjem. 
+</p><p>Međutim, osim navedenog virtualizacija ima veliki potencijal u poboljšanju sigurnosti. Virtualizirani poslužitelji olakšavaju lociranje i izolaciju nestabilnih ili kompromitiranih aplikacija. Omogućavaju izradu vrlo brzih rješenja za oporavak od katastrofe, nude forenzičke analitičke mogućnosti i kreiranje jeftinih rješenja za detektiranje upada u sustav.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 23:05, 5. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Virtualizacija_za_sandboxing"> Virtualizacija za  sandboxing </span></h2>
+<p>Najlakša upotreba virtualizacije u svrhu sigurnosti je izolacija aplikacije. Premještanje aplikacije ili skupa aplikacija u virtualnu okolinu pomaže IT menadžerima kontrolu nad dvije vrste problema:
+</p>
+<ul><li>Nestabilnost aplikacije
+</li><li>Kompromitiranje aplikacije
+</li></ul>
+<p>Nestabilne aplikacije mogu uzaludno potrošiti puno resursa a u najgorem slučaju izazvati i rušenje sustava. Kompromitiranje aplikacije može dovesti i do toga da netko neautoriziran upravlja sustavom.
+</p><p>Virtualni uređaj je ključan koncept u izbjegavanju navedenih scenarija. Jedan od pionira na tom području je tvrtka  VMware Inc, koji između ostalog nudi gotove uređaje spremne za razne namjene. Jedan takav uređaj je i tzv Browser Appliance, koji sadrži operativni sustav u virtualnom hardveru s aplikacijama za zadaće vezane uz internet poput surfanja, čitanja e-mailova, korištenje chat programa, p2p programa i sl. U slučaju narušavanja sigurnosti, napadač ne može utjecati izvan okvira virtualnog uređaja, dakle ne može komunicirati s operativnim sustavom domaćinom, pristupiti njegovima podacima ili dobiti pristup korporativnoj mreži.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 23:08, 5. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Virtualizacija_za_oporavak_od_katastrofe_i_visoku_dostupnost"> Virtualizacija za oporavak od katastrofe i visoku dostupnost </span></h2>
+<p>Najznačajniji zahtijevi na IT su svakako očuvanje i pohrana podataka i dostupnost usluga.
+</p><p>Pohranu i očuvanje podataka danas postižemo upotrebom softverskih rješenja za backup podataka koja djeluju na nivou datoteka unutar štićenog poslužitelja. Dva zanačajna nedostatka ovakvok pristupa su:
+</p>
+<ul><li>Obnova podataka vremenski dugotrajna
+</li><li>Potreban je originalan hardver ili njegova kopija.
+</li></ul>
+<p>Virtualizacija uvelike pojeftinjuje i skraćuje postupke oporavka od katastrofe. Umjesto spremanja datoteka, backup rješenja na nivou operacijskog sustava domaćina stvaraju kopiju cijelog virtualnog uređaja, čak i kad je pokrenut. Sigurnosna kopija je tada jedna velika datoteka i pri njezinom korištenju za oporavak štedimo vrijeme u odnosu na potrebu za instalicijom operacijskog sustava i oporavkom podataka. Imajmo na umu da je moguće obnoviti virtualni uređaj na bilo kojem operacijskom sustavu domaćinu i na bilo kojem hardveru. Čak i u slučaju fizičkog kvara hardvera, možemo izbjeći dugotrajne prekide rada.
+</p><p>Ukoliko je prekid rada nedopustiv, postoje dvije mogućnosti:
+</p>
+<ul><li>Konfiguracije s visokom dostupnošću – čvorovi organizirani u klastere međusobno raspoređuju i dijele promet
+</li><li>tzv. hot-standby konfiguracije – jedan ili više sekundarnih čvorova preuzimaju funkciju primarnog čvora u slučaju njegova ispada
+</li></ul>
+<p>Oba rješenja se pouzdaju u dostupnost dva ili više fizička servera umnoženo s brojem usluga koje želimo zaštiti. Virtualizacija nam pri tome može pomoći da jeftinije postignemo neke od navedenih funkcionalnosti. Sve više tvrtki nudi rješenja u kojima je primarni čvor instaliran na fizički hardver dok su sekundarni čvorovi u virtualnim uređajima spremni da preuzmu funkciju primarnog čvora u slučaju ispada. Kako „stand-by“ čvor ne zauzima resurse, jedan fizički uređaj može ugostiti više „stand-by“ čvorova i dinamčki im dodjeljivati potrebne resurse u slučaju ispada primarnog čvora. U navedenom scenariju često je problematična izvedba replikacije podataka s fizičkog na virtualni čvor. Na tom području se polako javljaju replikacijski servisi za sve uobičajene virtualizacijske platforme (npr. tvrtka Vizioncore Inc.).
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 23:24, 5. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Virtualizacija_za_forenzi.C4.8Dku_analizu"> Virtualizacija za forenzičku analizu </span></h2>
+<p>Današnji oblik forenzičke analize se pojavio kao potreba državnih organa (policija i razne agencije) za kopiranjem čvrstih diskova osoba u kriminalnoj radnji u svrhu „offsite“ analize sadržaja.
+</p><p>Danas je taj postupak većim djelom automatiziran i naziva se P2V migracija (physical to virtual). Rezultat postupka je kreiranje potpune kopije fizičkog računala zajedno sa skrivenim ili kriptiranim particijama. 
+</p><p>Iako je postupak jednostavan i (ovisno o količini podataka) brz, još uvijek nije prevladan nedostatak da je potrebno ugasiti originalni uređaj što znači da ne možemo sačuvati sadržaj radne memorije.
+</p><p>Najveće tvrtke na P2V području su Leostream, PlateSpin Ltd. i VMware, osim njih postoje i startupovi koji nude besplatna rješenja. Tradicionalna rješenja za stvaranje slika diskova (npr Symantec LiveState) također preuzimaju ovaj pristup pošto virtualizacijski softver može u virtualni uređaj importirati i formate specifične samo za pojedine tvrtke (proprietary).
+</p><p>Osim P2V migracije, najbolji alat za forenzičku analizu virtualizacijom su takozvane snimke (snapshots). Snimke su zamrznuta stanja operacijskog sustava koja omogućuju oporavak u slučaju kompromitiranja stabilnosti, npr. testiranje beta proizvoda. Slike se mogu izraditi neovisno o tome da li je virtualni uređaj pokrenut ili ne. Ako je uređaj nije pokrenut onda slika sadrži stanje čvrstog diska, a ako je uređaj pokrenut slika će sadržati i stanje radne memorije.
+</p><p>Suočeni smo navalom takozvanih „zero-day“ alata koji mogu iskoristiti ranjivosti bez da budu prepoznati od softvera za zaštitu od malicioznog koda. Koristeći takve alate napadač ima priliku sakriti svoje tragove brišući dijelove log datoteka i samog malicioznog alata. Protiv takvih napada se borimo upotrebom HIDS sustava (host intrusion detection system) koji prate promjene na datotekama i radnoj memoriji te šalju informacije odgovarajućoj log infrastrukturi. Nedostatak tih alata je što su skupi, zauzimaju puno resursa na poslužitelju kojeg štite te ih je moguće kompromitirati. U ovom slučaju, virtualizacija je jeftina alternativa jer nam snimak uzet u pravom trenutku može zamrznuti „zero-day“ alat u radnoj memoriji ili na čvrstom disku prije nego što napadač uspije obrisati svoje tragove.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 23:28, 5. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Virtualizacija_za_.E2.80.9Ehoney_potting.E2.80.9C"> Virtualizacija za „honey potting“ </span></h2>
+<p>Honey pot je sustav koji izgleda i ponaša se kao i produkcijski sustav. Takav se sustav postavlja na specifična mjesta unutar korporativne mreže te sadrži podatke koji su interesantni napadaču i primamljivi za izvršavanje napada, međutim sadrži mnoge logging senzore. Svrha takvog sustava je da otkrije što je više moguće o novim alatima i tehnikama za hakiranje te da zavara napadača dovoljno dugo kako bi se stvarni produkcijski sustavi uspjeli zaštiti od otkrivene prijetnje. 
+</p><p>Prije raširene upotrebe virtualizacije u računarstvu, postavljanje honeypot uređaja ili cijele mreže (honeynet) samo za sigurnosne svrhe je predstavljalo teško ostvariv zahvat zbog visokih troškova i potrebe za upravljanjem/administriranjem. Danas se možemo osloniti na besplatne platforme za virtualizaciju, besplatne alate za generiranje prometa i virtualne automatizirane laboratorije (neke od tvrtki koje nude takva rješenja su Akimbi Systems ili Dunes Technologies koje su obje preuzete od VMWarea do 2007. g.). 
+</p><p>Virtualni honey potting je  efikasan i u simuliranju rada računala te hvatanja internih prijetnji koje antivirusni alati ne mogu otkriti. Slični projekti postoje u Microsoftu pod imenom Honeymonkey ili IBM-u pod imenom Billy Goat. Oba rješenja automatiziraju virtualna računala za surfanje internetom kako bi se zarazila i otkrila nove viruse.
+</p><p>Veliki nedostatak korištenja virtualnih računala za honeypoting je u tome što je virtualni uređaj lako prepoznati s nekoliko jednostavnih provjera na nivou mreže ili operacijskog sustava nakon što napadač otkrije pristup. Ako napadač utvrdi da je se nalazi unutar virtualne okoline može odustati od napada jer će posumnjati na zamku. To ipak nije toliko velik nedostatak jer su mnogi napadi automatizirani (poput crva) i nisu dovoljno razvijeni da bi mogli izbjegavati virtualne uređaje. Drugi razlog zašto je to minoran nedostatak – danas uopće nije neuobičajeno da se produkcijski sustavi nalaze na virtualnoj infrastrukturi, pa nije neophodno da je svaki virtualni sustav ujedno i zamka od koje će napadač odmah odustati.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 23:28, 5. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Budu.C4.87nost_primjene_virtualizacije_u_sis-u"> Budućnost primjene virtualizacije u sis-u </span></h2>
+<p>Tehnologije i njihova primjena  u ovom segmentu napreduju vrlo brzo te iskorištavaju stalni porast procesorske moći računala i bolja programibilna sučelja. Sa stajališta sigurnosti jedna od koristi će biti prestanak traćenja resursa raznih sigurnosnih agenata čemu najviše pridonosi otvaranje strukture virtualnih čvrstih diskova virtualizacijskih platformi prema trećim stranama. Kompanije koje znaju kako je strukturiran virtualni čvrsti disk mogu raditi softver koji na njega djeluje s razine operacijskog sustava domaćina. To znači da antivirusni alati, alati za ažuriranje i izradu sigurnosnih kopija podataka mogu djelovati na podatke unutar virtualnog uređaja s razine hosta. Još jedna prednost toga je što neće biti moguće onesposobiti sigurnosnog agenta jer će se nalaziti na nedostupnom sloju (hostu). 
+</p><p>Proizvođači hardvera ugrađuju podršku za virtualizaciju u svoje proizvode (poput intelove vPro tehnologije), a razne tvrtke nude rješenja koja iskorištavaju takve mogućnosti tehnologije.
+</p><p>Današnja virtualizacijska tehnologija se može upotrijebiti za brojne zadatke iz područja sigurnosti ali još uvijek zahtijeva brojne prilagodbe i ručne intervencije. Na tom području se očekuju mnoga poboljšanja u smislu olakšanja upotrebe virtualizacije u sigurnosne svrhe. 
+</p><p>Očekuje se veliki napredak u integriranju IDS-a (intrusion detection system) na razini hosta što će omogućiti transparentnu analizu mrežnog prometa i sigurnosnih prijetnji. Tada takvi sustavi neće samo upozoravati o prijetnji ili blokirati opasne sesije, moći će zatražiti izradu snimke (snapshot) te ovisno u kojem je trenutku izrađena pružiti restore point za oporavak virtualnog uređaja ili zamrznuti napadnutu memoriju koja se tada može forenzički analizirati. Drugi scenarij je da takvi sustavi budu u mogućnosti da kad prepoznaju napad, preusmjeriti promet prema drugoj virtualnoj mreži ili honeypotu čija je namjena da zabilježi pojavu zero-day alata i novih tehnika napada.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mihael.horvat&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mihael.horvat (stranica ne postoji)">Mihael.horvat</a> 23:28, 5. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Instalacija_ESXi_Servera"> Instalacija ESXi Servera </span></h1>
+<h2> <span class="mw-headline" id="Instalacija_ESXi_Servera_i_vSphere_Client-a"> Instalacija ESXi Servera i vSphere Client-a </span></h2>
+<p>Sama instalacija VMware ESXi 4 je vrlo jednostavna i ne predstavlja nikakve poteškoće. U sljedećih par koraka pokazati ćemo kako instalirati VMware ESXi 4 te uključiti korake za instalaciju klijenta. 
+</p><p>Koraci za instalaciju VMware ESXi 4: 
+</p><p><b>1. korak</b>
+</p><p>Prvo verificiramo da li je hardver našeg servera podržan sa minimalnim potrebnim performansama prema vodiču za kompatibilnost za ESXi (HCL) <i>link:</i> <a href="http://www.vmware.com/vmwarestore/" class="external autonumber" rel="nofollow">[1]</a>.. Na navedenom linku može se preuzeti besplatna ISO datoteka za VMware ESXi Hypervisor te snimiti na cd ili neki drugi prijenosni medij. Kako bi se to moglo učiniti prvo se treba registrirati na navedenom web mjestu. VMware ESXi server se također može instalirati na VirtualBox-u, bitno je sama konfiguracija računala za koju treba minimalno procesor od 64 bita te 2 GB RAM-a. 
+</p><p><b>2. korak</b>
+</p><p>Nakon što smo preuzeli softver otvaramo virtualnu mašinu te startamo server na koji ćemo instalirati ESXi preko CD-a ili medija na kojem je spremljen te radimo boot-anje. Pojavit će nam se sljedeći ekran: 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN1.jpg" class="image"><img alt="SlikaIN1.jpg" src="../images/a/a2/SlikaIN1.jpg" width="720" height="400" /></a>
+</p><p><b>3. Korak</b>
+</p><p>automatski započinje instalacija
+</p><p><b>4. korak</b>
+</p><p>Sljedeće nas se pita koju radnju želimo izvršiti. Od ponuđenog: Cancel (ESC), Repair (R), Install (enter), biramo instalaciju kao što je prikazano na slici. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN2.jpg" class="image"><img alt="SlikaIN2.jpg" src="../images/5/54/SlikaIN2.jpg" width="692" height="386" /></a>
+</p><p><b>5. korak</b>
+</p><p>Dalje trebamo prihvatiti ugovor softvera, tzv EULA (end user license agreement). Pritišćemo tipku F11.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN3.jpg" class="image"><img alt="SlikaIN3.jpg" src="../images/a/a8/SlikaIN3.jpg" width="672" height="374" /></a>
+</p><p><b>6. korak</b> 
+</p><p>Sada dolazimo do izbora tvrdog diska gdje želimo instalirati cijeli sustav. U navedenom primjeru na slici raspolažemo samo s jednim diskom pa samo nastavljamo s tipkom enter.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN4.jpg" class="image"><img alt="SlikaIN4.jpg" src="../images/e/e4/SlikaIN4.jpg" width="672" height="374" /></a>
+</p><p><b>7. korak</b>
+</p><p>Pošto nam javlja da na tvrdom disku postoji instaliran već neki drugi sustav u ovom primjeru pita nas se da potvrdimo za eliminaciju svega što se tamo nalazi. Ukoliko bi tvrdi disk bio prazan do ovog upozorenja se ne dolazi. Nastavljamo sa enterom.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN5.jpg" class="image"><img alt="SlikaIN5.jpg" src="../images/f/f9/SlikaIN5.jpg" width="692" height="386" /></a>
+</p><p><b>8. korak</b> 
+</p><p>Sada potvrđujemo da ćemo instalirati VMware ESXi 4 na disk koji smo izabrali. Tipka F11
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN6.jpg" class="image"><img alt="SlikaIN6.jpg" src="../images/2/2c/SlikaIN6.jpg" width="672" height="374" /></a>
+</p><p><br />
+<b>9. korak</b> 
+</p><p>Instalacija je vrlo kratka te nakon nje dolazi nam sljedeći ekran sa porukom da je uspješno prošla i traži ponovo pokretanje. Tipa enter kao na slici te postavljamo boot-anje normalno sa tvrdog diska. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN7.jpg" class="image"><img alt="SlikaIN7.jpg" src="../images/2/22/SlikaIN7.jpg" width="768" height="428" /></a>
+</p><p><b>10. korak</b>
+</p><p>Na samom početku se susrećemo sa početnim zaslonom VMware ESXi te prije samog početka rada trebamo konfigurirati ga sa tipkom F2. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN8.jpg" class="image"><img alt="SlikaIN8.jpg" src="../images/d/dd/SlikaIN8.jpg" width="720" height="400" /></a>
+</p><p><b>11. korak</b>
+</p><p>Zaslon za konfiguraciju nam osvrće pažnju na to da je vrlo jednostavan za upravljanje te nema mnogo mogućnosti. Prvo što trebamo napraviti je izabrati lozinku za pristupanje root-u koju sustav po prvim postavkama nema zadan. Kako bi to napravili smjestimo se nad Configure Root Password te stisnemo enter.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN9.jpg" class="image"><img alt="SlikaIN9.jpg" src="../images/c/cc/SlikaIN9.jpg" width="720" height="400" /></a>
+</p><p>i sada upišemo novu lozinku
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN10.jpg" class="image"><img alt="SlikaIN10.jpg" src="../images/2/20/SlikaIN10.jpg" width="720" height="400" /></a>
+</p><p><b>12. korak</b>
+</p><p>Vraćamo se natrag na zaslon za konfiguraciju te sada mijenjamo postavke mreže. U principu pošto kod nas na primjer imamo server DHCP dok ESXi već ima pripisanu IP adresu (kako bi bilo koji server trebao imati). Znači postavimo se nad Configure Managment Network i pritisnemo enter kao na slici.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN11.jpg" class="image"><img alt="SlikaIN11.jpg" src="../images/9/9d/SlikaIN11.jpg" width="648" height="360" /></a>
+</p><p>Nakon toga nam se pojavi zaslon s opcijama za IP konfiguraciju te pritisnemo enter.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN12.jpg" class="image"><img alt="SlikaIN12.jpg" src="../images/e/e3/SlikaIN12.jpg" width="720" height="400" /></a>
+</p><p><b>13. korak</b>
+</p><p>Sada u nastavku biramo Set static IP address and network configuration kako bi statičku ip adresu postavili pod Default Gateway te unesemo IP adresu. Pritisnemo enter.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN13.jpg" class="image"><img alt="SlikaIN13.jpg" src="../images/a/a8/SlikaIN13.jpg" width="648" height="360" /></a>
+</p><p><br />
+I sada smo konfiguirali VMware ESXi te možemo ugasiti monitor i premjestiti se za neko drugo računalo koje je spojeno u istu mrežu (ili virtualnu mašinu) sa instaliranim Windows sučeljem.
+</p><p><b>14. korak</b>
+</p><p>Kako bi provjerili postavke i podesili u pregledniku otvaramo u windowskima preglednik (mi ćemo za primjer navesti firefox) i upisujemo ip adresu koju smo konfigurirali sa VMware ESXi serverom. 
+</p><p>U slučaju firefox-a moramo prvo dozvoliti exeption kada to radimo. Dalje označimo da dodamo iznimku (add exeption). Tada biramo da zadržimo certifikat i nastavimo (confirme security exeption). I samim time smo spremni za rad.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN14.jpg" class="image"><img alt="SlikaIN14.jpg" src="../images/0/0b/SlikaIN14.jpg" width="612" height="471" /></a>
+</p><p><br />
+<b>15. korak</b>
+</p><p>Dalje što nam je činiti je da trebamo instalirati klijenta. Biramo VMware-viclient.exe te pokrećemo instalaciju VMware vSphere Client.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN15.jpg" class="image"><img alt="SlikaIN15.jpg" src="../images/0/01/SlikaIN15.jpg" width="384" height="145" /></a> 
+</p><p>Nakon što izaberemo jezik za instalaciju dalje biramo Next sve do kraja instalacije.
+</p><p><b>16. korak</b>
+</p><p>Nakon što smo instalirali otvaramo VMware vSphere Client i pojavlju nam se prozor za povezivanje gdje trebamo unjeti IP adresu ESXi servera, korisničko ime i lozinku kao na slici. Na početku je zadano korisničko ime root sa lozinkom koju smo sami unijeli prilikom instalacije servera. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN16.jpg" class="image"><img alt="SlikaIN16.jpg" src="../images/6/69/SlikaIN16.jpg" width="420" height="371" /></a>
+</p><p><b>17. korak</b>
+</p><p>Prilikom pokušavanja spajanja nam se pojavljuje upozorenje o sigurnosti certifikata SSL. Kako bismo to maknuli biramo Ignore. U slučaju da želimo riješiti problem trebali bi birati View Certificate i instalirati certifikat. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN17.jpg" class="image"><img alt="SlikaIN17.jpg" src="../images/e/e9/SlikaIN17.jpg" width="510" height="266" /></a>
+</p><p><br />
+<b>18. korak</b>
+</p><p>Prvo što možemo uočiti kada ulazimo u vSphere Client je poruka o tome koliko nam je dana ostalo da nam istekne licenca. VMware ESXi 4 je besplatan ali kako bi ga mogli koristiti trebamo broj licence. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN18.jpg" class="image"><img alt="SlikaIN18.jpg" src="../images/f/fa/SlikaIN18.jpg" width="367" height="243" /></a>
+</p><p><br />
+<b>19. korak</b>
+</p><p>Na kraju se susrećemo sa VMware vSphere Client-om koji nam dopušta da na vrlo jednostavan način administriramo naš server. Ali prije nego što počnemo igrati se sa serverom riješit ćemo se probnog perioda sa unosom koda za licencu kako bi dalje mogli besplatno koristiti. Ovdje kliknemo na Inventory.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN19.jpg" class="image"><img alt="SlikaIN19.jpg" src="../images/a/aa/SlikaIN19.jpg" width="737" height="439" /></a>
+</p><p><b>20. korak</b>
+</p><p>U panelu sa lijeve strane u Inventory možemo vidjeti IP adresu našeg servera, a sa desne strane različite mogućnosti. Izabrat ćemo Configuration.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN20.jpg" class="image"><img alt="SlikaIN20.jpg" src="../images/8/88/SlikaIN20.jpg" width="737" height="439" /></a>
+</p><p><b>21. korak</b>
+</p><p>Sada dalje kliknemo iznad Licensed Features na sekciju softvera te u nastavku biramo Edit (gore, s desne strane) koji se nalazi u visini gdje i License Source. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN21.jpg" class="image"><img alt="SlikaIN21.jpg" src="../images/8/80/SlikaIN21.jpg" width="737" height="439" /></a>
+</p><p><br />
+<b>22. korak</b>
+</p><p>Otvara nam se sljedeći prozor u kojem biramo Assign a new license key to this host te kliknemo iznad Enter Key. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN22.jpg" class="image"><img alt="SlikaIN22.jpg" src="../images/7/7d/SlikaIN22.jpg" width="382" height="366" /></a>
+</p><p><b>23. korak</b>
+</p><p>Sada upišemo kod za licencu koji nam je ponudio VMware i kliknemo OK.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN23.jpg" class="image"><img alt="SlikaIN23.jpg" src="../images/4/44/SlikaIN23.jpg" width="387" height="371" /></a>
+</p><p>Možemo vidjeti karakteristike licence te kliknemo OK.
+</p><p><b>24. korak</b>
+</p><p>Sada možemo vidjeti u prozoru kako nam se promjenila točna licena.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SlikaIN24.jpg" class="image"><img alt="SlikaIN24.jpg" src="../images/a/a8/SlikaIN24.jpg" width="737" height="439" /></a>
+</p><p><br />
+Ovim tutorijalom smo pokazali kako je lagano instalirati ESXi server putem virtualne mašine VMware i vSphere Cleint-a ili samo virtualizirati fizičke mašine sa VMware vCenter Converter Standalone 4.0.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin.Mikulicic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin.Mikulicic (stranica ne postoji)">Marin.Mikulicic</a> 3:05, 6. siječnja 2012. 
+</p>
+<h2> <span class="mw-headline" id="Konfiguracija_VMware_Client-a"> Konfiguracija VMware Client-a </span></h2>
+<p>U slučaju pristupanja sa stranice preko web pretraživača spajamo se preko HTTP-a i ip-adrese na ESXi server. Tamo preuzmemo <i>VMware  Infrastructure Client</i>  program za instalaciju i instaliramo ga. Nakon instalacije možemo pokrenuti <i>VMware Infrastructure Client</i> koji se spaja sa ESXi serverom. Za konfiguraciju biramo ikonu Inventory i prebacimo se na tab Configuration.
+Kako bi sada ponovno mogli konfigurirati virtualne prespojnike (switch) za sustave gosta napravit ćemo sljedeću konfiguraciju:
+</p><p><br />
+</p>
+<pre>    Configuration &gt; 
+     Networking &gt; 
+      Add Networking &gt; 
+       Virtual Machine &gt; 
+       Create a virtual switch
+    Network Label = Production
+    VLAN ID = Empty
+    
+    Configuration &gt; 
+     Networking &gt; 
+      vSwitch0 &gt; 
+       Properties &gt; 
+        VM Network &gt; 
+         Remove
+</pre>
+<p>Konfiguracija virtualnog prespojnika (switch) za uređaje za pohranu
+</p>
+<pre>    Configuration &gt; 
+     Networking &gt; 
+      Add Networking &gt; 
+       VMkernel &gt; 
+       Create a virtual switch
+    Network Label = Storage
+    VLAN ID = Empty
+    IP Address: 192.168.1.xxx
+    Netmask: 255.255.255.xxx 
+</pre>
+<p>Sada treba unijeti ključ za licencu 
+</p>
+<pre>     Configuration &gt; 
+      Licensed Features &gt; 
+       License Source &gt; 
+        Edit &gt; 
+         Use Serial Number 
+</pre>
+<p>Unosimo NTP Server
+</p>
+<pre>    Configuration &gt; 
+     Time Configuration &gt; 
+      Properties &gt; 
+       Options
+    NTP Settings &gt; 
+     Add &gt; esxgw.mycompany.com
+    General &gt; Start automatically 
+</pre>
+<p>Syslog-Server konfiguriramo na način: 
+</p>
+<pre>    Configuration &gt; 
+     Advanced Settings &gt; 
+      Syslog &gt; 
+       Remote
+    Syslog.Remote.Hostname = sylogserver.mydomain.com
+    Syslog.Remote.Port = 514 
+</pre>
+<p>Ukoliko želimo limitirati resurse (SFCB) procesora radimo sljedeće:  
+</p>
+<pre>    Configuration &gt; 
+     System Resource Allocation &gt; 
+      Advanced &gt; 
+       host &gt; 
+        vim &gt; 
+         sfcb &gt; 
+          Edit Settings &gt; 
+           CPU Resources &gt; Limit = 500 MHz 
+</pre>
+<p>Ukoliko raspolažemo NFS-serverom u mreži trebamo podesiti adrese:
+</p><p><br />
+</p>
+<pre>    Configuration &gt; Storage &gt; Network File System
+    Server = 192.168.xxx.xxx
+    Folder = /some/path
+    Datastore Name = xxx
+</pre>
+<p>Ukoliko imamo iSCSI-server u mreži, njegove adrese podešavamo:
+</p>
+<pre>    Configuration &gt; 
+     Storage Adapters &gt; 
+      iSCSI Software Adapter &gt; 
+       Properties
+    General&gt; 
+     Configure &gt; 
+      Enabled
+    Dynamic Discovery &gt; 
+     Add &gt; 
+      iSCSI Server = xxx.xxx.xxx.xxx 
+</pre>
+<p>Prilikom pokretanja sustava mogu se virtualne mašine automatski pokrenuti. U slučaju smanjenja brzine sustava domaćina (host) trebala bi se i smanjit brzina sustava gosta. To se riješava na način:
+</p>
+<pre>     Configuration &gt; 
+      Virtual Machine Startup/Shutdown &gt; 
+       Properties &gt; 
+        Allow virtual machines to start and stop automatically 
+        with the system
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marin_M&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marin M (stranica ne postoji)">Marin M</a> 19:05, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h1>
+<p>VMware ESxi je dizajniran od dna prema gore da bi osigurao sigurnu okolinu u kojoj bi vrtili svoju virtualnu mašinu. Hipervizor, virtualna mašina i virtualni mrežni slojevi ESXi-a omogućuju virtualnoj mašini da djeluje u izolaciji. To joj osigurava relativnu sigurnost od malicioznih kodova unutar virtualne mašine, te da oni ne mogu probiti hipervizor i napasti poslužitelja ili drugu virtualnu mašinu. 
+ESXi dopušta promjene resursa ćime se osigurava da virtualna mašina ima dovoljno resursa u svakome trenutku za svoju zadanu zadaću.
+</p><p>Ono što se ovdje moglo primijetiti je da postoje drastične razlike između dvije verzije ESX servera. Po našem mišljenju ESX (full) serveri se koriste ako su potrebne aplikacije treće strane ili jednostavno ako želite imati pristup service konzoli sa bazom linuxa.
+</p><p>S druge strane, ako ste voljni odreći se tih prednosti, sa ESXi dobije se pristup ESXi Serveru koji se brže boota, ima daleko manje potrebnih zakrpa i ima veću pouzdanost. Naravno, treba i reći ESXi je i daleko jeftinija opcija. 
+</p><p>Ovisno o potrebama preporućili bi testirati i VMware ESX server i ESXi server. Oba su dostupna za besplatnu procijenu na <a href="http://www.vmware.com/" class="external free" rel="nofollow">http://www.vmware.com/</a>.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zkricka&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zkricka (stranica ne postoji)">Zkricka</a> 16:06, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>[1] D. Mishchenko; VMware ESXi: Planning, Implementation, and Security; 2011. godina; Course Technology, a part of Cengage Learning
+</p><p>[2] Techtarget Portal, <a href="http://searchservervirtualization.techtarget.com/tip/Step-by-step-virtualization-Using-virtualization-to-improve-security-part-1" class="external free" rel="nofollow">http://searchservervirtualization.techtarget.com/tip/Step-by-step-virtualization-Using-virtualization-to-improve-security-part-1</a>, učitano 3.1.2012
+</p><p>[3] Techtarget Portal, <a href="http://searchservervirtualization.techtarget.com/tip/Step-by-step-virtualization-Using-virtualization-to-improve-security-part-2" class="external free" rel="nofollow">http://searchservervirtualization.techtarget.com/tip/Step-by-step-virtualization-Using-virtualization-to-improve-security-part-2</a>, učitano 3.1.2012
+</p><p>[4] Wikipedia, ESX, <a href="http://en.wikipedia.org/wiki/VMware_ESX" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/VMware_ESX</a>, učitano 4.1.2012
+</p><p>[5] Wikipedia, VMware, <a href="http://en.wikipedia.org/wiki/VMware" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/VMware</a>, učitano 4.1.2012
+</p><p>[6] Wikipedia, Virtualization, <a href="http://en.wikipedia.org/wiki/Virtualization" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Virtualization</a>, učitano 4.1.2012
+</p><p>[7] Virtualizierung artikel, <a href="http://www.tecchannel.de/server/virtualisierung/" class="external free" rel="nofollow">http://www.tecchannel.de/server/virtualisierung/</a>, učitano 4.1.2012
+</p><p>[8] VMware ESX server, <a href="http://www.vmware.com/files/de/pdf/esx_datasheet_de.pdf" class="external free" rel="nofollow">http://www.vmware.com/files/de/pdf/esx_datasheet_de.pdf</a>, učitano 3.1.2012
+</p><p>[9] VMware und Servervirtualizirung, <a href="http://www.tubit.tu-berlin.de/fileadmin/a40000000/tubIT/stammtisch/Servervirtualisierung_mit_VMware.pdf" class="external free" rel="nofollow">http://www.tubit.tu-berlin.de/fileadmin/a40000000/tubIT/stammtisch/Servervirtualisierung_mit_VMware.pdf</a>., učitano 5.1.2012
+</p><p>[10] VMware ESX Configuration, <a href="http://www.vmware.com/files/de/pdf/vi3_esx_san_cfg_de.pdf" class="external free" rel="nofollow">http://www.vmware.com/files/de/pdf/vi3_esx_san_cfg_de.pdf</a>, učitano 4.1.2012
+</p><p>[11] VMware ESXi Configuration, <a href="http://vmware-forum.de/viewforum.php?f=26" class="external free" rel="nofollow">http://vmware-forum.de/viewforum.php?f=26</a>, učitano 4.1.2012
+</p><p>[12] VMware karakteristike, <a href="http://www.systematika.it/IMG/TecDocs/Vmware/VMW_09Q1_BRO_ESX_ESXi_ITA.pdf" class="external free" rel="nofollow">http://www.systematika.it/IMG/TecDocs/Vmware/VMW_09Q1_BRO_ESX_ESXi_ITA.pdf</a>, učitano 4.1.2012
+</p><p>[13] VMware Vsphere, <a href="http://www.vmware.com/products/vsphere-hypervisor/overview.html" class="external free" rel="nofollow">http://www.vmware.com/products/vsphere-hypervisor/overview.html</a>, učitano 5.1.2012.
+</p><p>[14] VMware Infrastructure ESXi, <a href="http://www.vmware.com/products/vi/overview.html" class="external free" rel="nofollow">http://www.vmware.com/products/vi/overview.html</a>, učitano 5.1.2012.
+</p><p>[15] <a href="http://communities.vmware.com/message/1329532" class="external free" rel="nofollow">http://communities.vmware.com/message/1329532</a>, učitano 5.1.2012.
+</p><p>[16] Administration ESX, <a href="http://www.petri.co.il/5_ways_to_adminster_esx_server.htm" class="external free" rel="nofollow">http://www.petri.co.il/5_ways_to_adminster_esx_server.htm</a>, učitano 5.1.2012.
+</p><p>[17] <a href="http://www.dedoimedo.com/computers/vmware-esxi-clone-machine.html" class="external free" rel="nofollow">http://www.dedoimedo.com/computers/vmware-esxi-clone-machine.html</a>, učitano 5.1.2012.
+</p><p>[18] tutorial ESX, <a href="http://www.virtualizationadmin.com/articles-tutorials/vmware-esx-and-vsphere-articles/general/overview-of-vmware-esx-vmware-infrastructure-advanced-features.html" class="external free" rel="nofollow">http://www.virtualizationadmin.com/articles-tutorials/vmware-esx-and-vsphere-articles/general/overview-of-vmware-esx-vmware-infrastructure-advanced-features.html</a>, učitano 5.1.2012
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 171/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:36-0!*!0!!hr!2!edit=0 and timestamp 20190203203954 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Virtualizacija_poslužitelja_-_ESXi.html">http://security.foi.hr/wiki/index.php/Virtualizacija_poslu%C5%BEitelja_-_ESXi</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Virtualizacija_poslu%C5%BEitelja_-_ESXi" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Virtualizacija_poslužitelja_-_ESXi.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Virtualizacija_poslu%C5%BEitelja_-_ESXi&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Virtualizacija_poslužitelja_-_ESXi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Virtualizacija_poslužitelja_-_ESXi.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_ESXi&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_ESXi&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Virtualizacija_poslužitelja_-_ESXi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Virtualizacija_poslu%C5%BEitelja_-_ESXi" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Virtualizacija_poslu%C5%BEitelja_-_ESXi" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_ESXi&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Virtualizacija_poslu%C5%BEitelja_-_ESXi&amp;oldid=5322" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:28, 6. siječnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 16.660 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Virtualizacija_poslužitelja_-_ESXi", "wgTitle": "Virtualizacija poslužitelja - ESXi", "wgAction": "view", "wgArticleId": 36, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 5322, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.637 secs. -->			</body>
+</html>

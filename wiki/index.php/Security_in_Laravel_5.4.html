@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Security in Laravel 5.4 - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Security_in_Laravel_5.4&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Security_in_Laravel_5_4 skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Security in Laravel 5.4</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Security_in_Laravel_5.4.html#mw-head">orijentacija</a>,
+					<a href="Security_in_Laravel_5.4.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Izradio: Zoran Hrnčić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Security_in_Laravel_5.4.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Security_in_Laravel_5.4.html#Framework_Laravel_5.4.27"><span class="tocnumber">2</span> <span class="toctext">Framework Laravel 5.4.27</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Security_in_Laravel_5.4.html#Kreiranje_projekta"><span class="tocnumber">3</span> <span class="toctext">Kreiranje projekta</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Security_in_Laravel_5.4.html#Prvi_koraci_u_izradi_aplikacije"><span class="tocnumber">3.1</span> <span class="toctext">Prvi koraci u izradi aplikacije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Security_in_Laravel_5.4.html#Model_.28eng._Model.29"><span class="tocnumber">4</span> <span class="toctext">Model (eng. Model)</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Security_in_Laravel_5.4.html#Kontroler_.28eng._Controller.29"><span class="tocnumber">5</span> <span class="toctext">Kontroler (eng. Controller)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Security_in_Laravel_5.4.html#Middleware"><span class="tocnumber">5.1</span> <span class="toctext">Middleware</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Security_in_Laravel_5.4.html#Artisan_konzola"><span class="tocnumber">6</span> <span class="toctext">Artisan konzola</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Security_in_Laravel_5.4.html#Autentifkacija"><span class="tocnumber">7</span> <span class="toctext">Autentifkacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Security_in_Laravel_5.4.html#Guards"><span class="tocnumber">7.1</span> <span class="toctext">Guards</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Security_in_Laravel_5.4.html#Providers"><span class="tocnumber">7.2</span> <span class="toctext">Providers</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Security_in_Laravel_5.4.html#Dohva.C4.87anje_prijavljenog_korisnika"><span class="tocnumber">7.3</span> <span class="toctext">Dohvaćanje prijavljenog korisnika</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Security_in_Laravel_5.4.html#Za.C5.A1tita_ruta"><span class="tocnumber">7.4</span> <span class="toctext">Zaštita ruta</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Security_in_Laravel_5.4.html#Login_Throttling"><span class="tocnumber">7.5</span> <span class="toctext">Login Throttling</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Security_in_Laravel_5.4.html#Pohrana_lozinki_.2F_hashing"><span class="tocnumber">7.6</span> <span class="toctext">Pohrana lozinki / hashing</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="Security_in_Laravel_5.4.html#Bcrypt"><span class="tocnumber">7.6.1</span> <span class="toctext">Bcrypt</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="Security_in_Laravel_5.4.html#Ru.C4.8Dno_spremanje_lozinki_.2F_hashing"><span class="tocnumber">7.7</span> <span class="toctext">Ručno spremanje lozinki / hashing</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="Security_in_Laravel_5.4.html#Ru.C4.8Dna_usporedba_lozinke_sa_spremljenim_sa.C5.BEetkom"><span class="tocnumber">7.8</span> <span class="toctext">Ručna usporedba lozinke sa spremljenim sažetkom</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="Security_in_Laravel_5.4.html#Provjera_da_li_je_potrebno_ponovno_napraviti_sa.C5.BEetak_lozinke"><span class="tocnumber">7.9</span> <span class="toctext">Provjera da  li je potrebno ponovno napraviti sažetak lozinke</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="Security_in_Laravel_5.4.html#Autorizacija"><span class="tocnumber">8</span> <span class="toctext">Autorizacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="Security_in_Laravel_5.4.html#Vrata_.28eng._Gates.29"><span class="tocnumber">8.1</span> <span class="toctext">Vrata (eng. Gates)</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="Security_in_Laravel_5.4.html#Politike_.28eng._Policies.29"><span class="tocnumber">8.2</span> <span class="toctext">Politike (eng. Policies)</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="Security_in_Laravel_5.4.html#Autorizacija_akcija"><span class="tocnumber">8.3</span> <span class="toctext">Autorizacija akcija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="Security_in_Laravel_5.4.html#Enkripcija"><span class="tocnumber">9</span> <span class="toctext">Enkripcija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-25"><a href="Security_in_Laravel_5.4.html#Konfiguracija"><span class="tocnumber">9.1</span> <span class="toctext">Konfiguracija</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="Security_in_Laravel_5.4.html#.C5.A0ifriranje_i_de.C5.A1ifriranje_koriste.C4.87u_encryptor"><span class="tocnumber">9.2</span> <span class="toctext">Šifriranje i dešifriranje koristeću encryptor</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="Security_in_Laravel_5.4.html#.C5.A0ifriranje_i_de.C5.A1ifriranje_bez_serijalizacije"><span class="tocnumber">9.3</span> <span class="toctext">Šifriranje i dešifriranje bez serijalizacije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28"><a href="Security_in_Laravel_5.4.html#SQL_injection"><span class="tocnumber">10</span> <span class="toctext">SQL injection</span></a></li>
+<li class="toclevel-1 tocsection-29"><a href="Security_in_Laravel_5.4.html#Cross_site_scripting"><span class="tocnumber">11</span> <span class="toctext">Cross site scripting</span></a></li>
+<li class="toclevel-1 tocsection-30"><a href="Security_in_Laravel_5.4.html#Cross_site_request_forgery"><span class="tocnumber">12</span> <span class="toctext">Cross site request forgery</span></a></li>
+<li class="toclevel-1 tocsection-31"><a href="Security_in_Laravel_5.4.html#Security_Misconfiguration"><span class="tocnumber">13</span> <span class="toctext">Security Misconfiguration</span></a></li>
+<li class="toclevel-1 tocsection-32"><a href="Security_in_Laravel_5.4.html#Aplikacija"><span class="tocnumber">14</span> <span class="toctext">Aplikacija</span></a></li>
+<li class="toclevel-1 tocsection-33"><a href="Security_in_Laravel_5.4.html#Zaklju.C4.8Dak"><span class="tocnumber">15</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-34"><a href="Security_in_Laravel_5.4.html#Literatura"><span class="tocnumber">16</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod">Uvod</span></h2>
+<p>Došlo je vrijeme kada se sve zbiva na internetu i sve je postalo nezamislivo bez interneta. Gotovi svi poslovni sustavi su ovisni o računalnoj podršci u obavljanju svakodnevnog posla. U mnogim poduzećima se posao obavlja na više lokacija i potreban im je softver pomoću koji će sve to povezati i uskladiti. Kao najbolje rješenje u sve više situacija je Web aplikacija. Trenutno internet bazirane aplikacije i usluge postaju dominantne među korisnicima. Milijuni korisnika diljem svijeta koriste web aplikacije za kupnju preko interneta, kontaktiranje s prijateljima, plaćanje računa, čitanje novosti itd. Najveći razlog u tome je višestruko povećanje brzine interneta, te značajan skok u performansama računala i veliki napredak u mogućnostima web preglednika. Veliku ulogu u napretku razvojnih tehnologija „igra“ sigurnost podataka, te brzina razvoja same web stranice, odnosno aplikacije.
+</p><p>Ovdje se javlja potreba za dobrim programskim arhitekturama, te razvojnim okvirima poput Laravela (bit će kasnije detaljno objašnjen). Arhitektura Model-View-Controller (MVC) nam pomaže logički odjeliti prava pristupa podatcima. Što je najkorisnije razvojni okviri znatno skraćuju vrijeme potrebno za razvoj određene aplikacije.
+U ovom radu ćemo detaljno objasniti kako radi framework Laravel 5.4,  te kako je kod njega rješeno pitanje sigurnosti podataka. Prikazat ću koji su to najčešći napadi na web aplikacije, te kako nam ovaj predivan framework pomaže u obrani od istih. Potom ću na malenom projektu prikazati kako je jednostavno obaviti sigurnu registraciju i prijavu krisnika, te kasniju autentifikaciju i autorizaciju korinika. 
+</p>
+<h2> <span class="mw-headline" id="Framework_Laravel_5.4.27">Framework Laravel 5.4.27</span></h2>
+<p>Zašto sam odabrao baš ovaj PHP framework?  Prvenstveno sam se na to odlučio radi sigurnosti krađe podataka, jednostavnosti izrade i jednostavnosti kasnijeg snalaženja u kodu i nadogradnji. 
+</p><p>Laravel je besplatan, objektno orijentirani open-source PHP framework. Napravio ga je Taylor Otwell za izradu web aplikacija sljedeći MVC (model-view-controler) arhitekturu. Uz Symphony ovo je najpopularniji framework za izradu web aplikacija. Omogućava izradu modularnih aplikacija, pojednostavljuje čitav proces izrade i održavanja aplikacija te ima ugrađeni veliki broj metoda i paketa za upravljanje sa bazama i vanjskim resursima.
+</p><p>U nastavku rada ću detaljno opisati framework i njegov način rada te sve to prikazati primjerima na izradi aplikacije.
+</p><p>Laravel je MVC framework. Što to znači? To je arhitektura koja je osmišljena još 80-tih godina najviše zbog razvoja GUI softvera. Organizacija podataka odvija se na relaciji korisnik-sučelje-baza podataka.
+</p><p>MVC arhitektura se sastoji od tri djela:
+</p>
+<ul><li>Modela (eng. Model)
+</li><li>Pogleda (eng. View)
+</li><li>Kontrolera (eng. Controller)
+</li></ul>
+<p><b>Routing</b> - unutar svakog projekta postoji app/routes.php datoteka u kojoj definiramo naredbe za upravljanje preusmjeravanja te poziva "Controller" klase prilikom korisnikovog posjeta nekoj stranici unutar naše aplikacije
+</p><p><b>Kontroler</b> -  vrši glavnu ulogu, prima podatke od korisnika i korisnikove naredbe. Vrši obradu podataka i svu potrebnu obradu u programu i kreira pogled
+</p><p><b>Model</b> -  služi za spremanje podataka u bazu podataka i upravljanje istima.. 
+</p><p><b>Pogled</b> - je samo prezentacija podataka i prikaz formi korisniku.
+</p><p><b>Migrations</b> - omogućuju nam jednostavan razvoj i modificiranje naše baze podataka, odnosno tablica i veza među njima. 
+</p><p>Relacija među njima je sljedeća; Model prima informacije samo iz Kontrolera, dok drugi korisnik ili računalo može komunicirati direktno sa kontrolerom i pogledom. Sljedeća slika najbolje prikazuje ovu arhitekturu.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:627px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Laravel_arhitektura.png" class="image"><img alt=" Alt text" src="../images/thumb/4/40/Laravel_arhitektura.png/625px-Laravel_arhitektura.png" width="625" height="395" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Laravel_arhitektura.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Kreiranje_projekta">Kreiranje projekta</span></h2>
+<p>Za izradu Web aplikacije koristeći Laravel framework nam je pored XAMPP servera potreban i sam razvojni okvir. Ja sam izabrao Laravel 5.4 MVC razvojni okvir. Za korištenje Laravel razvojnog okvira, prvo moramo imati instaliran Composer. Na Windows 10 OS-u dovoljno je preuzeti Composer instalacijski paket te ga instalirati. 
+</p><p>Laravel možemo instalirati preko komandne linije koristimo create-project naredbu:
+</p>
+<pre>
+composer create-project –prefer-dist laravel/laravel #naziv_aplikacije
+</pre>
+<p><b>#naziv_aplikacije</b> Composer koristi kao referencu preko koje stvara direktorij pod istim imenom unutar putanje komandne linije.
+Za pokretanje servera je dovoljno se pozicionirati se unutar mape projekta i pozvati naredbu:
+</p>
+<pre>
+php artisan serve 
+</pre>
+<p>Ova naredba pokreće lokalni server na adresi <b><a href="http://localhost:8000" class="external free" rel="nofollow">http://localhost:8000</a></b>. 
+Iz servera se izlazi kombinacijom CTRL + c tipki na tastaturi. Laravel također koristi Homestead/Vagrant virtualno okruženje koje se preporuča za razvoj kompleksnijih aplikacija. Za izradu projekta ja koristim razvojno okruženje <i>NetBeans IDE 8.2.</i> 
+</p>
+<h3> <span class="mw-headline" id="Prvi_koraci_u_izradi_aplikacije">Prvi koraci u izradi aplikacije</span></h3>
+<p>Prije početka razvoja aplikacije potrebno je napraviti bazu podataka u MySQL sustavu za upravljanje bazom podataka. Moja, već izrađena,  baza podataka se zove „ISS“, no prije nego ju popunimo tablicama, trebamo upisati u Laravel ime baze i podatke za pristup bazi. U Laravelu 5.4 to se radi upisivanjem podataka u  .env datoteku koja se nalazi u početnom direktoriju. Konfiguracija ove datoteke izgleda ovako: 
+</p>
+<pre>
+APP_NAME=Laravel
+APP_ENV=local   
+APP_KEY=base64:0e7dXELU0PEooARW3CICZigEez7GHlvlKaRyGIoNZKY=
+APP_DEBUG=true
+APP_LOG_LEVEL=debug
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=iss
+DB_USERNAME=iss
+DB_PASSWORD=iss_password
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_DRIVER=sync
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=sis.projekt.laravel@gmail.com
+MAIL_PASSWORD=&quot;************&quot;
+MAIL_ENCRYPTION=tls
+
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+</pre>
+<p>Tablice možemo izraditi i  preko phpMyAdmin sučelja, no u Laravelu se preporuča korištenje artisan naredbi u konzoli , pa ću tako i ja koristiti. Artisan sučelje komandne linije dolazi u paketu sa razvojnim okvirom, te jedna od vrlo korisnih mogućnosti artisana je automatsko generiranje tzv. Migracija. U nastavku više o tome. Sada kada smo uspješno povezani sa bazom podataka, možemo krenuti sa izradom aplikacije.
+</p>
+<h2> <span class="mw-headline" id="Model_.28eng._Model.29">Model (eng. Model)</span></h2>
+<p>Modeli su kopije relacija iz baze podataka te se sva logika za rad s bazom podataka se izvršava korištenjem modela. Unutar njih se nalaze i pravila za validaciju podataka koji se spremaju u bazu podataka. Glavni posao modela je dohvaćanje podataka iz baze podataka i spremanje u odgovarajuće objekte i potom izvršavanje svih potrebnih operacija nad podatcima u bazi. Svi se modeli nalaze u direktoriju <b>„./app“</b>  i  nasljeđuju  Laravel  klasu Model. Drugačiji je jedino model User  koji se koristi za pohranjivanje korisnika aplikacije i njihovu autentikaciju. Ovaj model nasljeđuje klasu Authenticatable. Metode modela mogu biti različitog tipa ovisno o tome koja im je svrha te prema tome razlikujemo:
+</p>
+<ul><li>relationships
+</li><li>mutators
+</li><li>accessors
+</li><li>scopes
+</li></ul>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Kontroler_.28eng._Controller.29">Kontroler (eng. Controller)</span></h2>
+<p>Kontroler se ponaša kao poveznica između modela i pogleda, pripada u sloj poslovne logike. Obrađuje sve zahtjeve korisnika aplikacije. Kontroler zaprima korisnikove zahtjeve, izvrši potrebne akcije te vraća odgovarajući odgovor pogledu. U njemu se izvršava sva logika aplikacije kao na primjer:
+</p>
+<ul><li>	validacija primljenih HTTP zahtjeva, 
+</li><li>	validacija poslanih korisnikovih podataka,
+</li><li>	pozivanje modela radi potrebe obrade podataka,
+</li><li>	autorizacija zahtijeva.
+</li></ul>
+<p>Svi kontroleri su smješteni u  direktoriju <b>"/app/Http/Controllers/"</b>, a sva logika obrade HTTP zahtjeva nalazi se u <b>"/app/Http/"</b> . 
+</p><p>Unutar kontrolera odvija se proces validacije podataka. Validacija se može izvršiti na dva načina:
+</p>
+<ul><li> putem dodavanja novih <i>Requestova</i> (primljeni podatci iz forme)
+</li><li> uz pomoć klase Validatora
+</li></ul>
+<p>Ispod ovog teksta možemo vidjeti jednu metodu  kontrolera koja je zadužena za spremanje novog zapisa za izvršeno mjerenje krvnog tlaka. Prilikom poziva funkcije njoj se prosljeđuje objekt korisnik (osoba smještena u domu) kojem je izvršeno mjerenje. Najprije su u jedno polje upisani Hrvatski prijevodi poruka za greške u validaciji podataka. Pozivom funkcije <b>„validate(request)“</b> se vrši validacija primljenih podataka iz popunjene forme. 
+</p><p>Ako je validacija uspješna poziva se statička metoda modela <i>KrvniTlak</i>, metoda  <i>novoMjerenje</i>. Metodi se prosljeđuju podatci za pohranu. Na kraju se funkcijom <b>back()</b> vraća korisnika na stranicu iz koje je poslan zahtjev.
+</p><p>Ako je validacija neuspješna korisnika se vraća na stranicu iz koje je poslan zahtjev i šalje se popis grašaka.
+</p>
+<pre>
+    public function spremiIzmjereniTlak(\App\Korisnici $korisnik) {
+        
+          $messages = [
+            'date' =&gt; 'Datum nije pravilnog oblika',
+            'numeric' =&gt; 'Polje mora sadržavati samo brojeve.',
+            'alpha' =&gt; 'Polje smije sadržavati samo slova.',
+            'required' =&gt; 'Nešto mora biti odabrano.',
+            'min' =&gt; 'Polje mora sadržavati minimalno&#160;:min znakaova.',
+        ];
+
+
+
+        $this-&gt;validate(request(), [
+            'sistoličkiTlak' =&gt; 'required|numeric',
+              'dijastolickiTlak' =&gt; 'required|numeric'
+                ], $messages);
+
+
+     
+        \App\KrvniTlak::novoMjerenje(
+                request('sistoličkiTlak'),
+                request('dijastolickiTlak'),
+                request('napomena'), 
+                $korisnik, 
+                auth()-&gt;id());
+        
+       
+
+         
+        return back();
+    }
+</pre>
+<h3> <span class="mw-headline" id="Middleware">Middleware</span></h3>
+<p>Uloga middlewarea u <i>model-view-controller</i> arhitekturi bi bio jednostavnim riječima „kontroler kontrolera“.  On kontrolira dozvole pristupa  određenom sadržaju,  štiti od neovlaštenog pristupa sadržaju web aplikacije. Koristi se za autentikaciju i autorizaciju pristupa sadržaju.
+Ispod teksta je prikazano korištenje middleware klase za provjeru autentifikacije korisnika. Provjera se izvršava pri svakom pozivu bilo koje funkcije iz te klase, točnije u ovom slučaju čim se zatraži prikaz stranice za prijavu korisnika. Ukoliko je korisnik već prijavljen njega se automatski preusmjerava na početnu stranicu i ne dozvoljava mu prikaz stranice za prijavu.
+</p>
+<pre>
+&lt;?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\LogSustava;
+use Illuminate\Support\Facades\Route;
+class KrvniTlakController extends Controller
+{
+    //
+     public function __construct() {
+         
+        //provjera da li je korisnik prijavljen
+         //prilikom poziva bilo koje metode iz ove klase. najprije se provjerava dali je korisnik prijavljen
+        $this-&gt;middleware('auth');
+    }
+</pre>
+<p>Svaka metoda kontrolera se poziva na jedan zatraženi URL. Oni su povezani preko skripte <i>/routes/web.php.</i> Unutar tog dokumenta mogu se pronaći svi dostupni URL-ovi te imena kontrolera i metoda koji se pozivaju traženjem određenog URL-a. Tu se definiraju i podatci koji se prenose unutar URL linka, te naziv za ovu rutu.
+</p>
+<pre>
+&lt;?php
+
+Route::get('/','HomeController@index')-&gt;name('home'); //prikaz svih postova
+
+Route::get('/posts/create','PostsController@create')-&gt;name('postCreate'); //stranica za izradu novog posta
+
+Route::post('/posts','PostsController@store')-&gt;name('postShow'); //stranica za pohranu novog posta
+
+Route::get('/posts/{post}','PostsController@show'); //prikaz posta sa komentarima
+
+Route::post('/posts/{post}/comments','CommentsController@store'); //dodavanje komentara na post
+
+
+Route::get('/register', 'RegistrationController@create'); //prikaz forme za registraciju
+
+Route::post('/register', 'RegistrationController@store'); //izvršavanje registracije
+</pre>
+<h2> <span class="mw-headline" id="Artisan_konzola">Artisan konzola</span></h2>
+<p>Artisan je komandno sučelje uključeno u samo Laravel projekt. Omogućuje nam mnoštvo korisnih naredbi koje nam uveliko pomažu tijekom razvoja aplikacije. Korištenje sučelja je vrlo jednostavno. Potrebno se je pozicionirati u root folder projekta i pozvati naredbu oblika:
+</p>
+<pre>
+php artisan „ime naredbe“ 
+</pre>
+<p>Na slici ispod je prikazan poziv naredbe koja će nam  ispisati listu svih mogućih naredbi:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Artisan_list.png" class="image"><img alt=" Alt text" src="../images/thumb/1/1b/Artisan_list.png/525px-Artisan_list.png" width="525" height="457" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Artisan_list.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2> <span class="mw-headline" id="Autentifkacija">Autentifkacija</span></h2>
+<p>Laravel nam omogućuje izradu kompletnog sustava za autentifikaciju pozivom samo dvije jednostavne artisan naredbe:
+</p>
+<pre>
+	php artisan make:auth 
+	php artisan migrate
+</pre>
+<p>Pozivom iznad nevedenih naredbi kreirat će se sve rute, pogledi, modeli i svi potrebni kontroleri koji omogućuju sljedeće:
+</p>
+<ul><li>	Registraciju
+</li><li>	Prijavu
+</li><li>	Vraćanje zaboravljene lozinke koristeći email
+</li><li>	Pamćenje prijave posljednjeg korisnika (po želji)
+</li></ul>
+<p>Izgled sućelja za prijavu sada izgleda ovako: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:LoginView.png" class="image"><img alt=" Alt text" src="../images/thumb/2/2e/LoginView.png/525px-LoginView.png" width="525" height="173" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:LoginView.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Za izradu mnogih klasićnih web aplikacija više neće biti potrebno dodatno dograđivati kontrolere i samu logiku autentifikacije. Naravno izgled se može vrlo jednostavno promjeniti i prolagoditi vlastitim željama i potrebama.
+</p><p>Sustav je sada spreman za registraciju novog korisnika i prijavu istog u sustav, te je osiguran od <b>Broken Authentication</b> and <b>Session Management napada</b>.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Guards">Guards</span></h3>
+<p>Autentifikacija kod Laravela je izrađena pomoću dvije važne stavke.  To su <b>„Gurads“</b> i <b>„Providers“</b>. 
+</p><p>Guards nam definira kako će biti korisnici autentificirani kod svakog zahtjeva. Kod laravela je već ugrađen Guard za sesije koje kontrolira jeli korisnik prijavljen koristeći pohranu sesije i kolačića u pregledniku. Naravno, vrlo jedostavno se može dodati novi guard.
+</p>
+<h3> <span class="mw-headline" id="Providers">Providers</span></h3>
+<p>Provideri definiraju kako će postojeći korisnici biti dohvaćeni iz baze podataka ili neke druge trajne pohrane gdje se čuvaju njihovi podatci. 
+Laravel ima ugrađenu podršku za dohvaćanje korisnika iz baze podataka koristeći Eloquent i database query builder. Isto kao i u prethodnom slučaju, jednostavno se može dodati vlastiti provider.
+</p>
+<h3> <span class="mw-headline" id="Dohva.C4.87anje_prijavljenog_korisnika">Dohvaćanje prijavljenog korisnika</span></h3>
+<p>Nakon uspješne prijave korisnika u  sustav, njegovi podatci uvijek mogu biti jednostavno dohvaćeni pozivom jedne od sljedeće dvije naredbe:
+</p>
+<pre>
+    //dohvaćanje ID-a trenutno prijavljenog korisnika
+    auth()-&gt;id();
+    
+    //dohvaćanje trenutno prijavljenog korisnika
+    auth()-&gt;user();
+</pre>
+<p>Isto tako na vrlo jednostavan način se uvijek može provjeriti je li trenutni korisnik prijavljen u sustav:
+</p>
+<pre>
+
+  if (Auth:check()) {
+//Trenutni korisnik je prijavljen u sustav
+
+}
+</pre>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_ruta">Zaštita ruta</span></h3>
+<p>U skripti <b>web.php</b> su nam pohranjene sve dostupne rute za našu aplikaciju, odnosno svi mogući <b>„URL linkovi“</b>. Već ovdje možemo uraditi zaštitu koristeći <i>middleware</i> i omogućiti da samo prijavljeni korisnici mogu  pristupiti određenim  rutama.
+</p>
+<pre>
+
+Route::get('/iss', 'HomeController@iss_home')-&gt;name('iss_home')-&gt;middleware('auth');
+
+</pre>
+<h3> <span class="mw-headline" id="Login_Throttling">Login Throttling</span></h3>
+<p>Login kontroler ima automatski uključeni throttling koji po defaultnim postavkama onemogućuje prijavu korisniku ukoliko se više puta uzastopno pokuša prijaviti sa pogrešnim podatcima.  Throttling je ograničen na način da se korisnik smatra jedinstvenim ako pokuša prijavu sa  jednakim korisničkim imenom/email-adresom sa jednake IP adrese.
+</p>
+<h3> <span class="mw-headline" id="Pohrana_lozinki_.2F_hashing">Pohrana lozinki / hashing</span></h3>
+<p>Laravel nam nudi sigurnu pohranu lozinki koristeći Bcrypt hashing. Ako koristimo automatski generirane kontrolere za prijavu i registraciju, oni već imaju građene sve potrebne metode za provjeru lozinke.
+</p>
+<h4> <span class="mw-headline" id="Bcrypt">Bcrypt</span></h4>
+<p>Bcrypt je trenutno najbolji način za izradu hash sažetka lozinke. Glavni razlog je taj što je  njegov „work factor“ podesiv, što znaći da se vrijeme za generiranej sažetka povećava usporedno sa povećanjem snage hardwera.
+</p>
+<h3> <span class="mw-headline" id="Ru.C4.8Dno_spremanje_lozinki_.2F_hashing">Ručno spremanje lozinki / hashing</span></h3>
+<p>Ukoliko ručno radimo sustav za autentifikaciju, ili nam je iz nekog razloga potrebno napraviti sažetak lozinke možemo koristiti metode iz klase <b>Hash.</b>
+Kreiranje sažetka lozinke možemo izraditi na način prikazan ispod:
+</p>
+<pre>
+        echo '&lt;br&gt;&lt;h1&gt;HASH:&lt;/h1&gt;';
+
+        echo (Hash::make(&quot;ZOKY&quot;));
+</pre>
+<p>Ispis prethodnog koda izgleda ovako:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hash_echo.png" class="image"><img alt=" Alt text" src="../images/thumb/6/61/Hash_echo.png/525px-Hash_echo.png" width="525" height="95" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hash_echo.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Ru.C4.8Dna_usporedba_lozinke_sa_spremljenim_sa.C5.BEetkom">Ručna usporedba lozinke sa spremljenim sažetkom</span></h3>
+<p><b>Check</b> metoda iz klase <b>Hash</b> omogućuje nam da provjerimo dal nam čist tekst (lozinka) odgovara pohranjenom sažetku. Provjera sažetka se obavlja na sljedeći način: 
+</p>
+<pre>
+        $hash = Hash::make(&quot;ZOKY&quot;);
+
+        if (Hash::check(&quot;ZOKY&quot;, $hash)) {
+            echo 'The passwords match..';
+        } else {
+            echo 'Passwords does not match..';
+        }
+</pre>
+<h3> <span class="mw-headline" id="Provjera_da_li_je_potrebno_ponovno_napraviti_sa.C5.BEetak_lozinke">Provjera da  li je potrebno ponovno napraviti sažetak lozinke</span></h3>
+<p>Metoda <b>needsRehash</b> iz klase <b>Hash</b> nam omogućuje  da utvrdimo jeli se možda od kreiranja sažetka lozinke,pa do danas promjenio <i>"work factor"</i> od hasher-a. 
+U slučaju da se je faktor promjenio, potrebno se pohraniti novi sažetak lozinke.
+</p>
+<pre>
+        echo '&lt;br&gt;&lt;h1&gt;REHASH:&lt;/h1&gt;';
+        $hashed = Hash::make(&quot;ZOKY&quot;);
+
+        if (Hash::needsRehash($hashed)) {
+            $hashed = Hash::make('plain-text');
+
+            echo '&lt;br&gt;' . $hashed;
+        }
+
+</pre>
+<h2> <span class="mw-headline" id="Autorizacija">Autorizacija</span></h2>
+<p>Uz pružanje autentifikacije, Laravel također nudi jednostavan način za autorizaciju korisničkih akcija nad nekim objektima, odnosno resursima. Pristup autorizaciji je poprilično jednostavan. U ovom slučaju također imamo dva načina autorizacije aktivnosti:
+</p>
+<ul><li> gates
+</li><li> policies. 
+</li></ul>
+<p>Korištenjem ovakvih načina autorizacije smo osigurani od <b>Missing Function Level Access Control</b>  i <b>Insecure Direct Object References</b> napada.
+</p><p>Vrata (eng. Gates) i politike (eng. Policies) su, moglo bi se reći, ekvivalentni pojmovima rute i kontroleri. Vrata omogućuju jednostavan pristup autorizaciji, a politike, poput kontrolera, vrše svu logiku pristupa određenom modelu ili resursu.
+</p>
+<h3> <span class="mw-headline" id="Vrata_.28eng._Gates.29">Vrata (eng. Gates)</span></h3>
+<p>Vrata nam blokiraju, odnosno dopuštaju pristup nekom objektu, ovisno o politici koja „leži“ iza njih. Vrata uvijek primaju prvi argument instancu objekta <i>User</i>, a ostale mogu biti bilo koji objekti modela. Ispod je prikazana definicija vrata:
+</p><p><br />
+</p>
+<pre>
+/**
+ * Register any authentication / authorization services.
+ *
+ * @return void
+ */
+public function boot()
+{
+    $this-&gt;registerPolicies();
+
+    Gate::define('update-post', function ($user, $post) {
+        return $user-&gt;id == $post-&gt;user_id;
+    });
+}
+</pre>
+<h3> <span class="mw-headline" id="Politike_.28eng._Policies.29">Politike (eng. Policies)</span></h3>
+<p>Politike su klase koje organiziraju logiku autorizacije akcija nad određenim modelima. Na primjer u ovoj klasi možemo definirati pod kojim uvjetima trenutni korisnik može uređivati ili brisati neki model. Primjer klase policies klase:
+</p>
+<pre>
+&lt;?php
+
+namespace App\Policies;
+
+use App\User;
+use App\Post;
+
+class PostPolicy
+{
+    /**
+     * Determine if the given post can be updated by the user.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return bool
+     */
+    public function update(User $user, Post $post)
+    {
+        return $user-&gt;id === $post-&gt;user_id;
+    }
+}
+</pre>
+<h3> <span class="mw-headline" id="Autorizacija_akcija">Autorizacija akcija</span></h3>
+<p>Kako bi za autorizaciju koristili vrata moramo koristiti metode <b>allows</b> i <b>denies</b>. Naravno, "u vrata" ne trebamo proslijediti trenutno prijavljenog korisnika, jer njega se dohvaća automatski iz sesije. Kao drugo argument može se proslijediti bilo koji objekt modela. Ispod je prikazan je primjer korištenja vrata:
+</p>
+<pre>
+if (Gate::allows('update-post', $post)) {
+    // The current user can update the post...
+}
+
+if (Gate::denies('update-post', $post)) {
+    // The current user can't update the post...
+}
+</pre>
+<h2> <span class="mw-headline" id="Enkripcija">Enkripcija</span></h2>
+<p>Laravel enkriptor koristi <b>OpenSSL</b> kako bi omogućio <b>AES-256</b> i <b>AES-128</b> enkripciju. 
+</p><p>Preporučeno je koristiti već ugrađene algoritme za šifriranje, i <b>nikako se ne preporuča izrada vlastitih algoritama za šifriranje</b>. Sve Laravelove šifrirane poruke su potpisane pomoću koda za autentifikaciju poruka <b>MAC</b> <i>(eng. Message authentication code)</i>  koji nam osigurava na šifrirani sadržaj ne može biti izmijenjen nakon šifriranja.
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija">Konfiguracija</span></h3>
+<p>Prije korištenja enkriptora potrebno je podesiti key option u konfiguracijskoj datoteci <b>(config/app.php)</b>. Za generiranje ključevai prethodno podešavanje potrebno je pozvati sljedeću artisan naredbu:
+</p>
+<pre>
+php artisan key:generate
+</pre>
+<h3> <span class="mw-headline" id=".C5.A0ifriranje_i_de.C5.A1ifriranje_koriste.C4.87u_encryptor">Šifriranje i dešifriranje koristeću encryptor</span></h3>
+<p>Poruke se mogu šifrirati koristeći helper <b>encrypt</b> koji šifrira koristeći <b>OpenSSL</b> i <b>AES-256-CBC</b>, te sve vrijednosti potpisuje <b>MAC</b> kodom za otkrivanje promjena. Korištenje kriptiranja i dekriptiranja poruka je prikazano je ispod:
+</p>
+<pre>
+        echo '&lt;br&gt;&lt;h1&gt;KRIPTIRANO:&lt;/h1&gt;';
+       
+        echo (encrypt(&quot;ZOKY&quot;));
+     
+        $a = encrypt(&quot;ZOKY&quot;);
+
+
+        echo '&lt;br&gt;&lt;h1&gt;DEKRIPTIRANO:&lt;/h1&gt;';
+       
+        echo (decrypt($a));
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id=".C5.A0ifriranje_i_de.C5.A1ifriranje_bez_serijalizacije">Šifriranje i dešifriranje bez serijalizacije</span></h3>
+<p>Šifriranje koristeći <b>encryptor</b> provodi sve vrijednosti serijalizaciju što nam omogućuje šifriranje objekta i polja. Dakle, klijenti koji ne koriste PHP programski jezik neće moći dešifrirati ovakve poruke. Zbog toga nam Laravel omogućuje i šifriranje stringova bez serijalizacije koristeći sljedeće metode klase Crypt; <b>encryptString</b>, <b>decryptString</b>
+</p>
+<pre>
+        echo (Crypt::encryptString(&quot;ZOKY&quot;));
+
+        echo (Crypt::decryptString(Crypt::encryptString(&quot;ZOKY&quot;)));
+</pre>
+<h2> <span class="mw-headline" id="SQL_injection">SQL injection</span></h2>
+<p>Za sprijećavanje ove vrte napada Laravel koristi <b>The Eloquent ORM</b> koji omogućuje sigurno i jednostavno upravljanje sa bilo kojom vrstom baze podataka. Svaka tablica iz baze ima svoju pripadajuću klasu (Model) pomoću koje se izvršavaju sve interakcije sa dotičnom tablicom. 
+</p><p><b>Ukoliko korisitmo Eloquent model za dohavaćanje podataka iz baze, onda smo osigurni od sql injection napada.</b>
+</p><p>Svi upiti se kriraju koristeći Laravel query builder koji u pozadini koristi <b>PDO povezivanje parametara</b> i na taj način štiti od napada ovakve vrste.
+</p><p>Ispod možemo vidjeti izgled klase modela koja predstavlja tablicu, iz baze podataka, <i>„Houses“</i>; naziva modela ove tablice je <i>House</i> (jednina od naziva tablice)
+</p>
+<pre>
+&lt;?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class House extends Model
+{
+    //
+    
+      public function photos()
+    {
+        return $this-&gt;belongsToMany('App\Photo','photo_phototype_houses','house_id','photo_id');
+    }
+    
+        public function photoType()
+    {
+        return $this-&gt;belongsToMany('App\PhotoType','photo_phototype_houses','house_id','photo_type_id');
+    }
+    
+    public function address()
+{
+        
+    return $this-&gt;belongsTo('App\Address', 'address_id');
+    
+}
+
+    public static function addNewHouse($streetName,$streetNumber,$place,Post $post,$longitude,$latitude, $name_owner,$surname_owner, $number_of_tenants, $number_of_floors, $list_of_floors, $number_of_children, $year_children, $number_of_adults, $years_adults, $number_of_powerless_and_elders, $years_powerless_elders, $disability_person, $power_supply, $gas_connection, $type_of_heating, $number_of_gas_bottle, $type_of_roof, $hydrant_distance, $high_risk_object, $HRO_type_of_roof, $HRO_power_supply, $HRO_content,$HRO_animals, $telNumber, $mobNumber) {
+
+       // $date = Carbon::createFromFormat('Y-m-d H:i', $date . ' ' . $time);
+       
+       $address = Address::addAddress($streetName, $streetNumber, $place, $post, $longitude, $latitude);
+      
+       $house = new House();
+   $house -&gt;address_id = $address-&gt;id;
+        $house -&gt; name_owner = $name_owner;
+        $house -&gt; surname_owner = $surname_owner;
+        $house -&gt; number_of_tenants = $number_of_tenants;
+        $house -&gt; number_of_floors = $number_of_floors;
+        $house -&gt; list_of_floors = $list_of_floors;
+        $house -&gt; number_of_children = $number_of_children;
+        $house -&gt; year_children = $year_children;
+        $house -&gt; number_of_adults = $number_of_adults;
+        $house -&gt; years_adults = $years_adults;
+        $house -&gt; number_of_powerless_and_elders = $number_of_powerless_and_elders;
+        $house -&gt; years_powerless_elders = $years_powerless_elders;
+        $house -&gt; disability_person = $disability_person;
+        $house -&gt; power_supply = $power_supply;
+        $house -&gt; gas_connection = $gas_connection;
+        $house -&gt; type_of_heating = $type_of_heating;
+        $house -&gt; number_of_gas_bottle = $number_of_gas_bottle;
+        $house -&gt; type_of_roof = $type_of_roof;
+        $house -&gt; hydrant_distance = $hydrant_distance;
+        $house -&gt; high_risk_object = $high_risk_object;
+        $house -&gt; HRO_type_of_roof = $HRO_type_of_roof;
+        $house -&gt; HRO_power_supply= $HRO_power_supply;
+        $house -&gt; HRO_content = $HRO_content;
+        $house -&gt; HRO_animals = $HRO_animals;
+        $house -&gt; telNumber = $telNumber;
+        $house -&gt; mobNumber = $mobNumber;
+        $house -&gt; save();
+        
+        
+        return $house;
+     
+    }
+</pre>
+<p>Iapod je prikazan pravilan, siguran upit kriran koristeći <b>Eloquent ORM model</b> i <b>query builder</b>, i ovakav upit je siguran on SQL injection napada.
+</p>
+<pre>
+$user = DB::table('users')-&gt;where('name', &quot;zoky001&quot;)-&gt;first();
+</pre>
+<p>I još jedan primjer kako se u laravelu mogu pisati klasični <b>SQL upiti koji su ranjivi</b> na ovakvu vrstu napada.
+</p><p><b>Nikako nije preporučeno pisati upite na ovakav način!!!</b>
+</p>
+<pre>
+        $someVariable = &quot; ' OR '1'='1 &quot;;
+
+        $user = DB::select(DB::raw(&quot;SELECT * FROM users WHERE name = '$someVariable'&quot;));
+
+        
+        if ($user&#160;!= null) {
+
+            echo &quot;&lt;br&gt; IME KORISNIKA: &quot; . $user[0]-&gt;name . &quot;&lt;br&gt;&quot;;
+            echo &quot;E-mail KORISNIKA: &quot; . $user[0]-&gt;email;
+        } else {
+
+            echo &quot;NE postoji korisnik: &quot;;
+        }
+</pre>
+<p>Rezultat gore navedenog koda je sljedeći:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SQL_injaction_echo.png" class="image"><img alt=" Alt text" src="../images/thumb/f/f2/SQL_injaction_echo.png/525px-SQL_injaction_echo.png" width="525" height="150" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SQL_injaction_echo.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Drugi oblik zaštite od napade ovakve vrste je da posebno definiramo za svaki model/tablicu koje podatke je moguće promijaneiti. 
+U sljedećem primjeru je moguće izmjeniti samo: 
+</p>
+<ul><li>ime, 
+</li><li>email
+</li><li>password
+</li></ul>
+<pre>
+&lt;?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+}
+
+</pre>
+<h2> <span class="mw-headline" id="Cross_site_scripting">Cross site scripting</span></h2>
+<p>U laravelu se ovakve vrste napada sprječavaju, gotovo automatski.  Prilikom svakog ispisa u pogledu stavljamo sve varijable u dvostruke vitičaste zagrade. Na taj način se automatski  sav sadržaj filtrira i ispisuje kao čisti tekst. Ispod je primjer <b>klasičnog/sigurnog</b> ispisa u laravelu:
+</p>
+<pre>
+                        &lt;div class=&quot;form-group{{ $errors-&gt;has('name')&#160;? ' has-error'&#160;: '' }}&quot;&gt;
+                            &lt;label for=&quot;name&quot; class=&quot;col-md-4 control-label&quot;&gt;Name&lt;/label&gt;
+
+                            &lt;div class=&quot;col-md-6&quot;&gt;
+                                &lt;input id=&quot;name&quot; type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;name&quot; value=&quot;{{ old('name') }}&quot; required autofocus&gt;
+
+                                @if ($errors-&gt;has('name'))
+                                    &lt;span class=&quot;help-block&quot;&gt;
+                                        &lt;strong&gt;{{ $errors-&gt;first('name') }}&lt;/strong&gt;
+                                    &lt;/span&gt;
+                                @endif
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+</pre>
+<p>I ovdje primjer ispisa bez filtriranja specijalnih znakova, ako baš želimo ili ima neka potreba, može se koristiti ovaj način ispisa bez filtriranja.
+</p>
+<pre>
+                       &lt;!-- ovakav ispis ne vrši filtriranje znakova i omogućuje Cross site scripting napad--&gt;
+                       
+
+                       {!! old('name')&#160;!!}
+                        
+                        
+                        
+                        &lt;div class=&quot;form-group{{ $errors-&gt;has('name')&#160;? ' has-error'&#160;: '' }}&quot;&gt;
+                            &lt;label for=&quot;name&quot; class=&quot;col-md-4 control-label&quot;&gt;Name&lt;/label&gt;
+
+                            &lt;div class=&quot;col-md-6&quot;&gt;
+                                &lt;input id=&quot;name&quot; type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;name&quot; value=&quot;{{ old('name') }}&quot; required autofocus&gt;
+
+                                @if ($errors-&gt;has('name'))
+                                    &lt;span class=&quot;help-block&quot;&gt;
+                                        &lt;strong&gt;{{ $errors-&gt;first('name') }}&lt;/strong&gt;
+                                    &lt;/span&gt;
+                                @endif
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+</pre>
+<p>Ispis gore napisanog koda sada izgleda ovako:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:527px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:XSS-propust.png" class="image"><img alt=" Alt text" src="../images/thumb/e/ee/XSS-propust.png/525px-XSS-propust.png" width="525" height="346" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:XSS-propust.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2> <span class="mw-headline" id="Cross_site_request_forgery">Cross site request forgery</span></h2>
+<p>Obrana protiv ove vrste napada je također automatizirana u Laravel-u. Za svaku aktivnu sesiju se krira <b>CRSF token</b>. Ovaj token se koristi za verifikaciju trenutnog korisnika. Unutar svake forme je potrebno dodati polje koje sadrži ovaj token, kako bi se onda prilikom slanja forme na server, koristeči ovaj token, u middleware-u mogla obaviti validacija korisnika. 
+</p>
+<pre>
+
+                        &lt;form class=&quot;form-horizontal&quot; method=&quot;POST&quot; action=&quot;{{ route('register') }}&quot;&gt;
+                       
+
+                        &lt;!-- ovdje se kreira skriveno polje koje sadrži token--&gt;
+                
+                        {{ csrf_field() }}
+                     
+                        &lt;div class=&quot;form-group{{ $errors-&gt;has('name')&#160;? ' has-error'&#160;: '' }}&quot;&gt;
+                            &lt;label for=&quot;name&quot; class=&quot;col-md-4 control-label&quot;&gt;Name&lt;/label&gt;
+
+                            &lt;div class=&quot;col-md-6&quot;&gt;
+                                &lt;input id=&quot;name&quot; type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;name&quot; value=&quot;{{ old('name') }}&quot; required autofocus&gt;
+
+                                @if ($errors-&gt;has('name'))
+                                    &lt;span class=&quot;help-block&quot;&gt;
+                                        &lt;strong&gt;{{ $errors-&gt;first('name') }}&lt;/strong&gt;
+                                    &lt;/span&gt;
+                                @endif
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+
+                     ...
+</pre>
+<p><br />
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:1027px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CSFR_field.png" class="image"><img alt=" Alt text" src="../images/thumb/a/a3/CSFR_field.png/1025px-CSFR_field.png" width="1025" height="466" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CSFR_field.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2> <span class="mw-headline" id="Security_Misconfiguration">Security Misconfiguration</span></h2>
+<p>Nakon uspješne izrade aplikacije i puštanje trenutne verzije u produkciju na produkcijski server potrebno je onemogućiti korisnicima ispis neočekivano nastalih grešaka. Te opisa istih pogrešaka. Ove pogreške bi napadač mogao iskoristi u svoju koristi i naštetiti sustavu. Za sprječavanje takve vrste napada, potrebno je prilikom deploymenta izmjeni samo dvije stvari u  <b>.env</b> datoteci projekta.
+</p>
+<pre>
+
+/*ukoliko razvijamo aplikaciju na lokalnom serveru i želimo ispis grešaka*/
+APP_ENV=local   
+APP_DEBUG=true
+
+/*kada je aplikaciju u produkciji i ne želimo ispis grešaka*/
+APP_ENV=release
+APP_DEBUG=false
+
+</pre>
+<h2> <span class="mw-headline" id="Aplikacija">Aplikacija</span></h2>
+<p>Na sljedećem linku je moguće preuzeti aplikaciju izrađenu u Laravelu 5.4 sa prikazom implementacije sigurne obrane od različitih vrsta napad na web aplikacije. Prikazano je i na koji način je moguće učiniti ranjivu na prijetnje, te je potrebno ovakve načine programiranja izbjegavati.
+<br />
+Link na projekt:
+<a href="https://github.com/zoky001/ISS" class="external free" rel="nofollow">https://github.com/zoky001/ISS</a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>Upoznavajući se sa svim prijetnjama koje postoje prema web aplikacijama vrlo je bitno pravilno se osigurati odnosno preventivno obraniti od istih. Milijuni korisnika svakodnevno koristi web aplikacije za posao, kupovinu i zabavu. Kako bi zaštitili njihovu privatnost i osigurali im sigurnost, korištenjem naše aplikacije, preporuča se korištenje provjerenih i sigurnim framework-a za razvoj aplikacije. 
+Laravel je predivan framework i stvarno omogućuje na elegantan način izraditi sve što je potrebno jednoj suvremenoj web aplikaciji. Ima automatski ugrađene mehanizme za obranu od mnogih vrsta napada, tako da programer uopće ne mora voditi brigu o tome.
+Moja preporuka je koristiti ga, jer tko jednom savlada ovaj predivan framework, teško se od njega odvaja.
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p>1. Laravel Framework - documentation  - <a href="https://laravel.com/docs/5.4" class="external free" rel="nofollow">https://laravel.com/docs/5.4</a> 23.01.2017<br />
+2. Laracast - <a href="https://laracasts.com/" class="external free" rel="nofollow">https://laracasts.com/</a> 23.01.2017<br />
+3. Stack Overflow - <a href="http://stackoverflow.com/" class="external free" rel="nofollow">http://stackoverflow.com/</a> 23.01.2017<br />
+4. PHP documentation - <a href="http://php.net/docs.php" class="external free" rel="nofollow">http://php.net/docs.php</a> 23.01.2017 <br />
+5. Architecture of Laravel - <a href="http://www.sinisalekovic.com/blog/architecture-of-laravel-5-2-applications" class="external free" rel="nofollow">http://www.sinisalekovic.com/blog/architecture-of-laravel-5-2-applications</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 387/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9914-0!*!0!!hr!2!edit=0 and timestamp 20190203204146 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Security_in_Laravel_5.4.html">http://security.foi.hr/wiki/index.php/Security_in_Laravel_5.4</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Security_in_Laravel_5.4" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Security_in_Laravel_5.4.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Security_in_Laravel_5.4&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Security_in_Laravel_5.4.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Security_in_Laravel_5.4.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Security_in_Laravel_5.4&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Security_in_Laravel_5.4&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Security_in_Laravel_5.4.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Security_in_Laravel_5.4" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Security_in_Laravel_5.4" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Security_in_Laravel_5.4&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Security_in_Laravel_5.4&amp;oldid=42295" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 14:41, 24. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 259 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Security_in_Laravel_5.4", "wgTitle": "Security in Laravel 5.4", "wgAction": "view", "wgArticleId": 9914, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42295, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.566 secs. -->			</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>PHP auditing - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=PHP_auditing&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-PHP_auditing skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">PHP auditing</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="PHP_auditing.html#mw-head">orijentacija</a>,
+					<a href="PHP_auditing.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirala: Valentina Krhlanko
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="PHP_auditing.html#Op.C4.87enito_o_auditingu"><span class="tocnumber">1</span> <span class="toctext">Općenito o auditingu</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="PHP_auditing.html#Na.C4.8Dini_auditinga"><span class="tocnumber">2</span> <span class="toctext">Načini auditinga</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="PHP_auditing.html#Stati.C4.8Dka_analiza"><span class="tocnumber">2.1</span> <span class="toctext">Statička analiza</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="PHP_auditing.html#Dinami.C4.8Dka_analiza"><span class="tocnumber">2.2</span> <span class="toctext">Dinamička analiza</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="PHP_auditing.html#PHP_auditing_-_smjernice"><span class="tocnumber">3</span> <span class="toctext">PHP auditing - smjernice</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="PHP_auditing.html#Primjer_analize_programskog_koda_pomo.C4.87u_smjernica"><span class="tocnumber">4</span> <span class="toctext">Primjer analize programskog koda pomoću smjernica</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="PHP_auditing.html#Alati"><span class="tocnumber">5</span> <span class="toctext">Alati</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="PHP_auditing.html#RIPS"><span class="tocnumber">5.1</span> <span class="toctext">RIPS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="PHP_auditing.html#Analiza_dobivenih_rezultata"><span class="tocnumber">5.1.1</span> <span class="toctext">Analiza dobivenih rezultata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="PHP_auditing.html#DevBug"><span class="tocnumber">5.2</span> <span class="toctext">DevBug</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="PHP_auditing.html#Analiza_dobivenih_rezultata_2"><span class="tocnumber">5.2.1</span> <span class="toctext">Analiza dobivenih rezultata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="PHP_auditing.html#OWASP_WAP_-_Web_Application_Protection_Project"><span class="tocnumber">5.3</span> <span class="toctext">OWASP WAP - Web Application Protection Project</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="PHP_auditing.html#Analiza_dobivenih_rezultata_3"><span class="tocnumber">5.3.1</span> <span class="toctext">Analiza dobivenih rezultata</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="PHP_auditing.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Op.C4.87enito_o_auditingu"> Općenito o auditingu </span></h2>
+<p>Auditing programskog koda označava  sveobuhvatnu analizu izvornog koda s ciljem otkrivanja buggova, sigurnosnih propusta ili kršenja programskih konvencija(pravila). Predstavlja sastavni dio paradigme obrambenog programiranja te služi za smanjenje pogrešaka i potencijalnih propusta prije izdavanja softvera. Postoji mnoštvo smjernica za reviziju programskog koda, no općenito je pravilo da bi se svaki ključni dio treba analizirati zasebno, ali i u sklopu cijele aplikacije. Dobra praksa je započeti od ranjivosti koje su višeg stupnja rizika te se postupno spuštati prema manje rizičnim prijetnjama. Prijetnje se mogu tražiti pomoću penetracijskih testova, te različitim statičkim i dinamičkim analizama. <a href="PHP_auditing.html#Literatura"> [3]</a>
+</p>
+<h2> <span class="mw-headline" id="Na.C4.8Dini_auditinga"> Načini auditinga </span></h2>
+<p>Najčešći načini sigurnosne provjere su statička i dinamička analiza. Kombinacija statičke analize provedene od stane iskusnog stručnjaka i pripadna dinamička analiza mogu otkriti i do 95% pogrešaka i ranjivosti. (Brain)
+</p>
+<h3> <span class="mw-headline" id="Stati.C4.8Dka_analiza"> Statička analiza </span></h3>
+<p>Najčešće se odnosi na analizu koda pomoću alat za statičku analizu (eng. Static Application Security Testing (SAST) Tools). Cilj je pronaći ranjivosti u "statičkom" izvornom kodu,tj. pronalaze se ranjivosti koje su vidljive iz izvornog programskog koda i ne zahtjevaju izvršavanje.
+</p><p>Prednosti statičke analize su:
+</p>
+<ol><li> Pronalazi točnu lokaciju ranjivosti u kodu
+</li><li> Može se analizirati sav izvorni kod
+</li><li> Ranjivosti se otkrivaju u ranim fazama razvoja
+</li></ol>
+<p>Nedostatci statičke analize:
+</p>
+<ol><li> Rijetko se pronalaze ranjivosti proizašle izvođenjem
+</li><li> Ponekad prikaže lažno pozitivne ili negativne rezultate
+</li></ol>
+<p>(Codementor)
+</p>
+<h3> <span class="mw-headline" id="Dinami.C4.8Dka_analiza">Dinamička analiza</span></h3>
+<p>Dinamička analiza koda za razliku od statičke ima mogućnost pronalaska ranjivosti prouzročenih interakcijom koda sa drugim komponentama, poput SQL baze podataka, servera ili web servisa. Često se parametri šalju back-end serverima na procesuiranje što omogućava modifikaciju podataka prilikom njihova vraćanja. Dinamička analiza pretpostavlja širok spektar ulaznih vrijednosti i sigurnosnih testova i najčešće otkriva oko 85%  nedostataka u programskom kodu. No kod ovakve analize važno je napomenuti da alati moraju biti u stanju razumijeti programski kod kako bi se kreirati adekvatni parametri.
+Prednosti:
+</p>
+<ol><li> Za razliku od statičke analize otkriva i ranjivosti pri izvođenju programa
+</li><li> Može prepoznati lažne rezultate iz statičke analize
+</li><li> Omogućuje provjeru ispravnosti rezultata statičke analize
+</li></ol>
+<p>Nedostatci:
+</p>
+<ol><li> Potrebno je pronači područje tj. liniju/e koda koja je prouzročila ranjivost. Često je pronalazak monoton i dugotrajan posao.
+</li><li> Automatizirani alati također mogu generirati lažne pozitivne ili lažne negativne rezultate
+</li><li> Automatizirani alati za dinamičku analizu češće pružaju lažni osjećaj sigurnosti i zaštićenosti aplikacije
+</li></ol>
+<p>(Codementor)
+</p>
+<h2> <span class="mw-headline" id="PHP_auditing_-_smjernice"> PHP auditing - smjernice</span></h2>
+<p>Prilikom vlastoručnog auditiniga najbolje je pratiti određene smjernice. Iako postoji mnoštvo smjernica koje variraju od univerzalnih do specifičnih za pojedini programski jezik, odabran je popis naveden na stranici php-developer.org  koji je posebno prilagđen php programskom jeziku. Popis stvari koje treba provjeriti sastoji se od 14 stavki koje će biti navedene i opisane u nastavku teksta. 
+</p>
+<ol><li> Jesu li provjerene SVE vrijednosti koje unosi korisnik?<br /> Npr. ako očekujemo da je unesena vrijednost integer u PHP aplikaciji treba dodatno provjeriti da li je korisnik stvarno unio vrijednost tipa interger ili ne. Potrebno je i dodatno provjeriti sve vrijednosti dobivene preko POST i GET metode.
+</li><li> Da li su  provjerene i sanirane sve varijable koje se koriste u MySQL upitima?<br /> Negativan odgovor na ovo pitanje znači da je aplikacije ranjiva na XSS napade i SQL injection. <a href="http://www.php-developer.org/best-practices-of-mysql_real_escape_string-function-in-php/,mysql_real_escape_string" class="external autonumber" rel="nofollow">[1]</a> i <a href="http://www.php-developer.org/best-practices-when-sanitizing-post-to-prevent-mysql-and-xss-attacks/,saniranje" class="external text" rel="nofollow">POST parametara za prevenciju MySQL i XSS napada</a>
+</li><li> Da li se koristi čisti PHP kod ili se aplikacija razvija  u nekom CMS-u npr. WordPress,Joomla,Drupal i sl.)? <br />Važno je napomenuti da se preporuča korištenje minimalno PHP5 zbog sigurnosnih ažuriranja koja su bolja u odnosu na prijašnje verzije, a primarno zbog toga što je uklonjen register_globals koji je predstavlja visok sigurnosni rizik.
+</li><li> Da li su osigurane administratorske datoteke u PHP aplikaciji?<br /> Ako je dozvoljen javni pristup administratorkim login datotekama potiču se brute force napadi na prijavu. Dobra praksa je koristit .htaccess za postavljanje IP adresa koje imaju pravo pristupa na te datoteke. 
+</li><li> Provjerite da se ne koriste korisnička imena i lozinke čije vrijednsti su "admin" ili je korisničko ime "admin",a lozinka "admin123" <br /> Prilikom razvoja aplikacije programeri često koriste jednostavna korisnička imena i lozinke u svrhu testiranja. Problem se javlja kad se testni podatci zaborave obrisati ili izmijenti.
+</li><li> Da li je isključeno izvješće o pogreškama tijekom deploymenta? <br /> MySQL i PHP pogreške pružaju korisne informacije za napadača i često mu olakšavaju napad.
+</li><li> Da li se koristi SSH za upload ili download povjerljivih PHP datoteka <br /> Ako se šalje povjerljiva datoteka koja sadržava korisničko ime i lozinku za MySQL ili neke druge osjetljive podatke za prijavu preko FTP-a sadržaj će biti prikazan u plain tekstu. Takve podatke napadač može lako presresti, te se preporuča sve podatke koje uploadamo ili downloadom slati preko SSH.
+</li><li> Treba provijeriti da ne dolazi do izlaganja prijava kroz njihovu pohranu u tekstualni ili neki drugi dokument na serveru koji sami hostamo! <br /> 
+</li><li> Da li je provjereno da PHP skripte nisu ranjive na Remote File Inclusion? <br /> Problem se najednostavnije rješava postavljanjem pravila i uvjeta preusmjeravanja. Uvijet bi trebao provjeravat da li se u parametrima nalazi tekst koji sadrži http,https ili ftp. U slučaju da sadrži potrebno je odbaciti zahtjev.
+</li><li> Da li je PHP izložen javnosti? <br /> Napadači mogu pomoću phpinfo() funkcije saznati dodatne informacije o postavkama PHP-a i servera. Poznavanjem postavki napadač može jednostavnije i brže pronaći ranjivosti.
+</li><li> Da li su zaštićene datoteke koje uključujemo u PHP-u? Napadač može preko web preglednika uključiti neku vlastititu bilioteku ili php skriptu ako nije zaštićen direktan pristup dokumentima ili ako nije zaštićen direktorij u kojem se nalaze sve datoteke koje se ukljućuju u php skripti
+</li><li> Da li je sakriven PHP? Ako je sakrivena činjenica da se PHP koristin na serverskoj strani otežat će se otkrivanje pomoću automatiziranih metoda.
+</li><li> Ako je konfiguriran Apache server i kao Apache modul je instaliran PHP, da li su nekome dodijeljena korjenska prava( root permissions) od Apachea? 
+</li><li> Da li ste pročitali službenu PHP dokumentaciju? <br /> Dobar primjer ranjivosti koji možemo saznati iz dokumentacije je PHP automatski ispravlja neodgovarajuć tip podataka u onaj koji se očekuje .Preporuča se koištenje funkcija i operatora koji ne rade implicitne konverzije tipova (npr. korist === umjesto ==) (Owasp)
+</li></ol>
+<h2> <span class="mw-headline" id="Primjer_analize_programskog_koda_pomo.C4.87u_smjernica"> Primjer analize programskog koda pomoću smjernica</span></h2>
+<p>Na temelju smjernica, proučen je programski kod skripte registracija.php. Progamski kod cijelog projekta nalazi se na <a href="https://github.com/valkrhlan/sis_test" class="external text" rel="nofollow">git repozitoriju</a>. Prilikom analize pomoću alata analizirat će se i skripta baza_class.php smiještena u podirektoriju klase. Na temelju smjernica proći će se dijelovi programksog koda i navesti mjesto pronalaska moguće ranjivosti. Kako je nemoguće obuhvatit sve smjernice, ovje će se prikazati samo one u kojima je otkrivena potencijalna ranjivost.
+Prva smjernica odnosi se ne provjeru svih vrijednosti koje korisnik nosi. U kodu unutar registracija.php obavlja se djelomična provjera unosa, tj. provjerava se da li je korisnik unio neku vrijednost i njen raspon, ali se nigdje striktno ne provjerava kojeg je tipa. Također direktno se pristupa globalnoj varijabli bez escapanja specijalnih zankova.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Smjernice1.png" class="image"><img alt="Smjernice1.png" src="../images/thumb/b/b8/Smjernice1.png/500px-Smjernice1.png" width="500" height="135" /></a></div></div>
+<p><br />
+</p><p>Druga smjernica odnosi se na provjeru i saniranje varijabli koje se koriste u MySQL upitima. Kako je to prvi PHP projekt autorice, naravno da se na to nije obračala pažnja. Aplikacija je ranjiva na SQL injection jer se upiti nisu parametrizirani, a korisnički unos se ni ne provjerava.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Smjernice2.png" class="image"><img alt="Smjernice2.png" src="../images/thumb/b/ba/Smjernice2.png/800px-Smjernice2.png" width="800" height="50" /></a></div></div>
+<p><br />
+Smjernica tri odnosi se na to da li se koristi čisti PHP kod ili razvijamo aplikaciju u CMS-u. Projekt koji koristimo u primjeru rađen bez uporabe CMS-a i to u PHP verziji 5.6 koja ima manje sigurnosnih propusta u odnosu na starije verzije.
+U petoj smjernici potrebno je obaviti provjeru korisničkih imena i lozinki koje se koriste prilikom prijave. Prilikom registracije  u aplikaciju,tj. prilikom popunavanja registracijskih podataka potrebno je ispuniti određene uvjete. Npr. zahtjev da korisničko ime i lozinka moraju sadržavati brojke,određene specijalne znakove i slova dodaje dodatnu razinu kompleksnosti.
+Šesta smjernica odnosi se na provjeru isključenosti izvješća o pogreškama tijekom deploymenta. Pomoću php ini možemo pogledati da li je to omogućeno ili nije. U našem slučaju je omogućeno,a iskljućiti se može pomoću jedne od slijedećih naredbi:
+</p><p>error_reporting(0);
+@ini_set('display_errors', 0);
+</p><p>Dodatno ugrožavanje sigurnosti vezano za ovu smjernicu možemo vijdeti i u skripti baza_class.php gdje se prilikom pogreške pri spajanj na bazu ista ispiše na ekran.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Smjernice3.png" class="image"><img alt="Smjernice3.png" src="../images/thumb/8/89/Smjernice3.png/800px-Smjernice3.png" width="800" height="133" /></a></div></div>
+<p><br />
+Osma smjernica se odnosi na provjeru mogućnosti izlaganja podataka za prijavu. Napadač može iskoristiti činjenicu da su korisnički podatci izloženi  u direktoriju zaštićenom sa lozinkom pomoću .htaccess-a (jedan od zahtjeva projekta bia je pohrana svih korisnička imena i lozinki na jednom mjestu unutar projekta). Pošto se podatci nalaze u podirektoriju i zaštićeni su jednom lozinkom napadač lako može doći do njih. 
+U desetoj smjernici se postavlja pitanje da li je PHP izložen javnosti. Ako prije nije bio,nakon postavljanaj koda na git javni repozitorij postao je izložen. Još jedna mana je to da je ne postoji zaštita za pozivanje phpinfo() metode te napadač tako može saznati dodatne informacije koje mu olakšavaju napad. Zadnja mana se odnosi i na smjernicu pod brojem dvanaest (Da li je prikriveno korištenje PHP-a). Uz to da se lagano može pozvati phpinfo, nisu sakrivene ni .php ekstenzije pa napadač odmah prepoznaj o kojem programskom jeziku se radi.
+</p>
+<h2> <span class="mw-headline" id="Alati"> Alati </span></h2>
+<h3> <span class="mw-headline" id="RIPS"> RIPS </span></h3>
+<p>RIPS je alat za statičku analizu PHP aplikacija. Tokenizacijom i parsiranjem svih datoteka sa izvornim kodom pretvara izvorni kod u model programa i pronalazi ranjivosti koje može iskoristiti napadač tijeko izvršenja programskog toka. Korištena je starija 0.5 verzija koja ne pruža potporu za objektno orijentirano programiranje te se ne izvršava analiza klasa. Nova verzija je komercijaizirana i može se kupiti na stranici <a href="https://www.ripstech.com/" class="external free" rel="nofollow">https://www.ripstech.com/</a> .
+</p><p>Prije korištenj RIPS alata potrebno je instalirati xamp ili wamp server.Za potrebe ovog rada korišten je već ranije instaliran wampserver (link za download i upute se nalaze na <a href="http://www.wampserver.com/en/).Nakon" class="external free" rel="nofollow">http://www.wampserver.com/en/).Nakon</a> što je instalian server za lokalno pokretanj programskog koda potrebno je skinuti kod RIPS alata. Starija i besplatna 0.55 verzija koja se koristi u ovom radu preuzeta je sa <a href="https://sourceforge.net/projects/rips-scanner/" class="external text" rel="nofollow">sourceforge.net</a>. 
+Pohranjeni zip potrebno je raspakirati u www datoteku i pokrenuti na lokalom webserveru. Početni zaslon možete vidjeti na slici ispod teksta ovo paragrafa. 
+</p>
+ <div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips_pocetni_zaslon.png" class="image" title="Početni zaslon Rips alata"><img alt="Početni zaslon Rips alata" src="../images/thumb/1/12/Rips_pocetni_zaslon.png/1000px-Rips_pocetni_zaslon.png" width="1000" height="628" /></a></div></div>
+<p>Dobra strana Rips alata je to da omogućuje skeniranje samo jedne php skripte te se uključivanjem ostalih skripata provjerava i njihova ranjivost, a s druge strane može se napraviti analiza cjeloukupnog direktorija sa svim programskim kodom aplikacije. Omogućuje analizu svi podržanih ranjivosti,ali i filtriranje prema određenoj kategoriji sa klijentske ili poslužiteljske strane. Ranjivosti na poslužiteljskoj strani prema kojima se može filtrirati su: Code execution,Command Execution,File Disclosure, File Inclusion, File Manipulation, DAP Injection, PH Object Injection,Protocol Injection, Reflection Injection, SQL Injection i other. Za razliku od poslužiteljskih mogućnosti,klijentska strana ima samo tri moguće opcije filtriranja za traženje ranjivosti: Cross-Site Scripting, HTTP Response Splitting i Session Fixation.
+Rips omogućuje i analizu prema pet razina opširnosti:
+</p>
+<ol><li> user tainted only 
+</li><li> file/DB tainted +1 
+</li><li> show secured +1,2
+</li><li> untainted +1,2,3
+</li><li> debug mode
+</li></ol>
+<p>Kako bi napravili što detaljniju analizu koristit ćemo untainted +1,2 ,3 razinu opširnosti jer daje najbolji prikaz.Na primjer ak analiziramo sa user tainted only otkriveno je 9 potencijalnih ranjivosti u danom kodu, sa show secured +1,2 11 ranjivosti, a sa untainted +1,2,3 99 ranjivosti. Statistički regled rezultata vidljiv je na slici ispod teksta.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips_stat_rez.png" class="image" title="Rezultat analize"><img alt="Rezultat analize" src="../images/thumb/c/c0/Rips_stat_rez.png/1000px-Rips_stat_rez.png" width="1000" height="481" /></a></div></div>
+<p><br />
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Analiza_dobivenih_rezultata">Analiza dobivenih rezultata</span></h4>
+<p>Ako krenemo top-down pristupom prvih nekoliko ranjivosti koje su uočene odnosi na File Inclusion. Većina tih ranjivosti je false positive jer se u include funkciji ne nalazi vrijednost neke varijable već predefinirana vrijednost. Ako pogledamo detalje ranjivosti (za svaku ranjivost u Ripsu se klikom na help ikonu prikaže definicija te ranjivosti te moguće rješenje problema). Da bi postojalo file inclusion ranjivost programski kod bi trebao biti definiran kao na slici,a u našem slučaju je include("header.php").
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:File_inclusion.png" class="image"><img alt="File inclusion.png" src="../images/thumb/5/56/File_inclusion.png/400px-File_inclusion.png" width="400" height="556" /></a></div></div>
+<p><br />
+Nakon detaljng pregleda dobivenih rezultata, prebacit ćemo se na manju opširnost analize (secured +1,2) jer je većina sigurnosnih propusta uzrokovana korištenjem Smarty sustava predložaka. Važno je napomenuti da su oni bili dodatna mogućnost prilikom izrade projekta u sklopu kolegija Web dizajn te ćemo njihovu analizu zanemariti u ovome radu.
+Jedna primjer Cross-Site Scripting-a je prikazan na prvoj slici ispod teksta ovog paragrafa. Zanimljivo je da uz ovu ranjivost nije omogućen prikaz "pomoći" koja prikazuju strukturu i moguće rješenje ranjivosti već se se omogućio prikaz načina iskorištavanja te ranjivosti.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips_cross_site_scripting.png" class="image"><img alt="Rips cross site scripting.png" src="../images/thumb/c/ca/Rips_cross_site_scripting.png/1000px-Rips_cross_site_scripting.png" width="1000" height="411" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips_cross_site_scripting4.png" class="image"><img alt="Rips cross site scripting4.png" src="../images/thumb/c/c2/Rips_cross_site_scripting4.png/500px-Rips_cross_site_scripting4.png" width="500" height="504" /></a></div></div>
+<p><br />
+</p><p>Još jedan primjer stvarne ranjivosti, njenih detalja i mogućeg rješenja:
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips_cross_site_scripting2.png" class="image"><img alt="Rips cross site scripting2.png" src="../images/thumb/0/03/Rips_cross_site_scripting2.png/1000px-Rips_cross_site_scripting2.png" width="1000" height="106" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rips_cross_site_scripting3.png" class="image"><img alt="Rips cross site scripting3.png" src="../images/thumb/7/7f/Rips_cross_site_scripting3.png/500px-Rips_cross_site_scripting3.png" width="500" height="599" /></a></div></div>
+<h3> <span class="mw-headline" id="DevBug"> DevBug </span></h3>
+<p>DevBug je jednostavan i poprilično primaran online alat za statičku analizu koda napisan u JavaScriptu. Nastao je s ciljem povećanja osvještenosti o sigurnosti i integraciji alata za statičku analizu u proces razvoja programskog koda. Služi za osnovnu i brzu analizu ranjivosti. Nastao je velikim dijelo na temelj RIPS alata i projekta CodeMirror. Pristupa mu se preko web adrese <a href="http://www.devbug.co.uk" class="external free" rel="nofollow">http://www.devbug.co.uk</a> . Programski kod koji želimo testirati potrebno je zalijepiti/napisati unutar za to predloženo mijesto. 
+DevBug provjerava ranjivosti korisničkog unosa. Popis mogućih ranjivosti koje može prepoznati:
+</p>
+<ol><li>XSS
+</li><li>Header Manipulation
+</li><li>Code Evaluation
+</li><li>File Inclusion
+</li><li>File Reads
+</li><li>Command Injection
+</li><li>SQL Injection
+</li><li>XPath Injection
+</li><li>LDAP Injection
+</li><li>Header injection
+</li></ol>
+<h4> <span class="mw-headline" id="Analiza_dobivenih_rezultata_2">Analiza dobivenih rezultata</span></h4>
+<p>Za razliku od RIPS-a ne može provjeravati cijeli folder, pa ćemo radi jednostavnosti provijeriti greške u programskom kodu skripti registracija.php i baza.php
+U kodu skripte registracija.php pronađene su četiri ranjivosti, jedan command injection, jedan header injection i dvije XSS ranjivosti. Ako usporedimo ovu analizu sa rezultatom RIPS analize(četvrta razina opširnosti) možemo vidjeti da RIPS nije prepoznao ni jedan command injection. 
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DevBug_registracija.png" class="image"><img alt="DevBug registracija.png" src="../images/thumb/8/83/DevBug_registracija.png/800px-DevBug_registracija.png" width="800" height="376" /></a></div></div>
+<p><br />
+Prilikom analize skripte baza.php nije pronađena ni jedna ranjivost. No alat nas upozorava da ipak možda postoje ranjivosti i sigurnosni propusti iako nisu pronađeni. 
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DevBug_baza.png" class="image"><img alt="DevBug baza.png" src="../images/thumb/6/65/DevBug_baza.png/1000px-DevBug_baza.png" width="1000" height="467" /></a></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="OWASP_WAP_-_Web_Application_Protection_Project">OWASP WAP - Web Application Protection Project</span></h3>
+<p>WAP je alat za pronalazak i prepravak ranjivosti ulaznih vrijenosti. Specijaliziran je posebno za PHP programski jezik i predviđa lažne pozitivne rezultate. Alat objedinjuje statičku analizu sa rudarenjem podataka.Alat je preuzet sa <a href="http://awap.sourceforge.net/" class="external text" rel="nofollow">awap.sourceforege.net</a> Može pronaći 8 različitih tipova ranjivosti: [6]
+</p>
+<ol><li>SQL injection
+</li><li>XSS
+</li><li>Remote File Inclusion (RFI)
+</li><li>Local File Inclusion (LFI)
+</li><li>Directory Traversal or Path Traversal (DT/PT)
+</li><li>OS Command Injection (OSCI)
+</li><li>PHP Code Injection
+</li></ol>
+<p>Postoji mnoštvo različitih opcija analize ranjivosti aplikacije. U svrhu ovog rada korištena je opcija -all koja pretražuje programski kod za svih osam mogućih ranjivosti. U svim primjerima korištena je -a opcija koja sprječava automatsku korekciju ranjivosti.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wap_hepl.png" class="image"><img alt="Wap hepl.png" src="../images/thumb/d/de/Wap_hepl.png/1000px-Wap_hepl.png" width="1000" height="495" /></a></div></div>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Analiza_dobivenih_rezultata_3">Analiza dobivenih rezultata</span></h4>
+<p>Kao i RIPS, i WAP uz kratki statistički prikaz omogućuje i detaljan prikaz ranjivosti i mogućnosti za ispravak pronađene ranjivosti. Prilikom analize skripte registracija.php pronađene su dvije XSS ranjivosti. Iste ranjivosti su zamijećene i u prethodna dva alata. Analiza je obavljena u Linux-u zbog loše dokumentacije vezane za korištenje na Windows operacijskom sustavu.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wap_pokretanje.png" class="image"><img alt="Wap pokretanje.png" src="../images/thumb/a/a7/Wap_pokretanje.png/1000px-Wap_pokretanje.png" width="1000" height="495" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wap.png" class="image"><img alt="Wap.png" src="../images/thumb/2/2f/Wap.png/1000px-Wap.png" width="1000" height="495" /></a></div></div>
+<p><br />
+Primjer prepoznavanja mogućih lažnih ranjivosti i danog rješenja vidljiv je na slikama ispod ovog teksta. Radi većeg skupa podataka kako bi se lakše našao potencijalni lažni rezultat skeniran je cijeli projekt.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wap2.png" class="image"><img alt="Wap2.png" src="../images/thumb/b/b4/Wap2.png/1000px-Wap2.png" width="1000" height="495" /></a></div></div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wap_false_positive.png" class="image"><img alt="Wap false positive.png" src="../images/thumb/4/40/Wap_false_positive.png/1000px-Wap_false_positive.png" width="1000" height="495" /></a></div></div>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] Brain R., <i>Dynamic code analysis vs static analysis source code testing</i>, dostupno 6.1.2017 na <a href="http://www.computerweekly.com/answer/Dynamic-code-analysis-vs-static-analysis-source-code-testing" class="external free" rel="nofollow">http://www.computerweekly.com/answer/Dynamic-code-analysis-vs-static-analysis-source-code-testing</a>
+</p><p>[2] PHP developer, <i>PHP website application security audit and check list</i> dostupno 6.1.2017 na <a href="http://www.php-developer.org/php-website-application-security-audit-and-check-list/" class="external free" rel="nofollow">http://www.php-developer.org/php-website-application-security-audit-and-check-list/</a> 
+</p><p>[3] Wikipedija, <i>Code audit</i>, dostupno 6.1.2017 na <a href="https://en.wikipedia.org/wiki/Code_audit" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Code_audit</a>  
+</p><p>[4] Owasp, <i>PHP Security Cheat Sheet</i>, dostupno 7.1.2017 na <a href="https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet" class="external free" rel="nofollow">https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet</a>
+</p><p>[5] Codementor,<i>Performing a security audit for your code:The basic</i>,dostupno 8.1. na <a href="https://www.codementor.io/learn-programming/performing-security-audit-for-your-code-the-basics" class="external free" rel="nofollow">https://www.codementor.io/learn-programming/performing-security-audit-for-your-code-the-basics</a>
+</p><p>[6] Owasp,<i>OWASP WAP-Web Application Protection</i>, dostupno 8.1. na <a href="https://www.owasp.org/index.php/OWASP_WAP-Web_Application_Protection" class="external free" rel="nofollow">https://www.owasp.org/index.php/OWASP_WAP-Web_Application_Protection</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 55/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9228-0!*!0!!hr!2!edit=0 and timestamp 20190203204158 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="PHP_auditing.html">http://security.foi.hr/wiki/index.php/PHP_auditing</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=PHP_auditing" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="PHP_auditing.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:PHP_auditing&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="PHP_auditing.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="PHP_auditing.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_auditing&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_auditing&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="PHP_auditing.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/PHP_auditing" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/PHP_auditing" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=PHP_auditing&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=PHP_auditing&amp;oldid=39187" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 15:55, 9. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 7.430 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "PHP_auditing", "wgTitle": "PHP auditing", "wgAction": "view", "wgArticleId": 9228, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 39187, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.406 secs. -->			</body>
+</html>

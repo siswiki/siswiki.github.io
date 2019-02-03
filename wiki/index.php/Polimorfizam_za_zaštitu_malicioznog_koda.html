@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Polimorfizam za zaštitu malicioznog koda - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Polimorfizam_za_za%C5%A1titu_malicioznog_koda&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Polimorfizam_za_zaštitu_malicioznog_koda skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Polimorfizam za zaštitu malicioznog koda</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#mw-head">orijentacija</a>,
+					<a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b> Temu prijavili:</b>
+</p>
+<ul><li>Brkić Antonio
+</li><li>Erdelji Bogdan
+</li></ul>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#Sa.C5.BEetak:"><span class="tocnumber">1</span> <span class="toctext">Sažetak:</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#Malware:"><span class="tocnumber">2</span> <span class="toctext">Malware:</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#O_projektu"><span class="tocnumber">3</span> <span class="toctext">O projektu</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#Memory_Module"><span class="tocnumber">4</span> <span class="toctext">Memory Module</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#DOS_header.2Fsub"><span class="tocnumber">5</span> <span class="toctext">DOS header/sub</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#PE_header"><span class="tocnumber">6</span> <span class="toctext">PE header</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#Section_header"><span class="tocnumber">7</span> <span class="toctext">Section header</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#U.C4.8Ditavanje_biblioteke_na_Windows_operacijskim_sustavima"><span class="tocnumber">8</span> <span class="toctext">Učitavanje biblioteke na Windows operacijskim sustavima</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#Kori.C5.A1tenje_programa"><span class="tocnumber">9</span> <span class="toctext">Korištenje programa</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#Literatura"><span class="tocnumber">10</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Sa.C5.BEetak:"> Sažetak: </span></h2>
+<p>Cilj ovog projekta jest napraviti engine koji će skrivati malware pomoću polimorfizma.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Malware:"> Malware: </span></h2>
+<p>Malver je zlonamjerni softver koji je napisan prvenstveno da napravi štetu samom korisniku. U globalu, to je računalni program koji se pokreće na računalu bez stvarnog korisnikovog pristanka te ima neku vrstu nepoželjenog učinka, kao što je npr. krađa podataka ili oštećenje programa. U principu, ljudi koji pišu malver imaju tzv. "četiri protivnika" s kojima se suočavaju prilikom pisanja zlonamjernog koda:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Malware.png" class="image"><img alt="Malware.png" src="../images/2/2e/Malware.png" width="912" height="569" /></a>
+</p><p>Izvor: <i>Github: Ebowla</i>
+</p><p>Samo pisanje malicioznog koda je zahtjevno i istiskuje puno napora i znanja. Potrebno je imati znanja u nekoliko područja i samom radu računala kako bi se implementacija malvera izvela što uspješnije i kvalitetnije. Na slici su prikazani osnovni neprijatelji s kojima se suočavaju osobe koje pišu malver, odnosno prikazani su mogući načini kako se može uočiti malver i samim time se spriječiti njegovo daljnje širenje. Naime, osim organa reda, autori zlonamjernih programa moraju izbjeći antivirusne softvere, reverzni inženjering binarnih datoteka, dinamičku analizu (ali i ostale također), a koja se vrši uz pomoć virtualnih računala tzv. sandboxa te u konačnici autori malwarea moraju se nositi i s dijenjem informacija (crowdsourcing). Od ove 4 kategorije, piscu malwarea najteže je poraziti iskusno reverznog inženjera, a ukoliko se porazi reverzni inženjer umanjuje se i prijetnja od strane crowdsourcinga (manja vjerojatnost da će netko uspjeti reverseati binarnu datoteku). Što se tiče antivirusa, oni nisu naročito efikasni te ih se može izbjeći korištenjem jednostavnih metoda poput konkatenacije stringova i sl. Sandboxi bi predstavljali problem kad ih ne bi bilo lako otkriti, međutim, većina tih virtualnih mašina bazira se na zastarijelim operacijskim sustavima, sadrže lako prepoznatljive vrijednosti okoline (engl. environment), poznate MAC i IP adrese i sl. Ukratko, lako ih je prepoznati što znači da je isto tako prilično jednostavno učiniti da se malware ponaša drukčije (benigno) u takvim sustavima.
+</p>
+<h2> <span class="mw-headline" id="O_projektu"> O projektu </span></h2>
+<p><b>Izbor tehnologije</b>
+Prilikom rada na projektu, odlučeno je kako će se kreirati program engine čija će zadaća i način rada biti objašnjeni u daljnjem tekstu. Sam pojam engine predstavlja program koji korisniku omogućava pojednostavljenje izrade ili izvršavanja nekavog složenog procesa ili proizvoda. Cjelokupni projekt osmišljen je od dva dijela koje smo prozvali engine i packer no o tome nešto kasnije. 
+</p><p>Nakon kratkih konzultacija s profesorom odlučili smo se za odabir programskog jezika GoLang popularno zvanog go. Pošto je Go programski jezik razvijan od strane Googla, krase ga jako dobra dokumentiranost, brojni službeni primjeri, naputci i sl. Zbog toga što je relativno nov (svega 8 godina), nema toliko puno informacija o raznim problemima na ostalim stranicama interneta (npr. StackOverflow) no ipak to nije predstavljalo velik problem, a Go rado preporučamo svima koje zanimaju programski jezici toga tipa (C, C++, Rust itd.). 
+</p><p>S obzirom da je Windows najčešće korišten operacijski sustav, a postoji i velika količina malicioznog softvera namijenjena njemu i mi smo se odlučili okušati u kreiranju enginea za zaštitu malicioznog koda namijenjenog Windows operacijskim sustavima. 
+</p><p>Što se tiče razvoja softwarea također je odlučeno da će ovaj software biti razvijan na Windowsima što se nije pokazalo najboljom odlukom, s obzirom na znatno veću količinu potrebnog posla vezanog uz pronazalak alata i zavisnosti (engl. dependencya). 
+</p><p>Kao IDE korišten je JetBrains GoLand koji je studentima besplatan tokom studiranja. 
+</p><p>Kao metoda enkripcije odabran je AES GCM iz razloga što je prilično siguran, a mogućnost autentificiranja poruke je kao stvorena kod dekripcije gdje program ne zna koji je ključ već ga mora izračunati tj. izabrati jedan od n mogućnosti (nije potrebno pohranjivati poseban podatak o hashu payloada). 
+</p><p><b>Engine</b>
+Programski kod enginea nalazi se u engine.go datoteci. Svrha ovog programa jest pronaći i učitati traženi payload, kriptirati ga i dodati na program packer. 
+</p><p>Da bi to mogao izvršiti potrebne su mu metode za generiranje ključa kriptiranja (ovisno o varijablama okoline), generiranje jednokratnog broja (engl. nonce), kritpiranje sadržaja (payload), nadopisivanje kriptiranog sadržaja na packer na način koji će packer znati prepoznati. 
+</p><p><b>Packer</b>
+Programski kod packera nalazi se u PolymorphicEngine.go datoteci. Packer je karakterističan po tome što svoj payload sadrži pohranjen na kraju izvršne datoteke. Prilikom pokretanja packer pronalazi i učitava kriptirani payload s kraja datoteke u jedan byte slice, dekriptira ga te pokreće. Nakon što je payload pokrenut potrebno ga je ponovno kriptirati i pohraniti za ponovnu upotrebu. 
+</p><p>Da bi sve ovo bilo moguće packer ima nešto više implementiranih metoda. Počevši nekim redom sličnim redu izvođenja funkcionalnosti unutar programa packeru su potrebne sljedeće metode: učitaj payload s kraja datoteke, odredi ključ, dohvati inicijalizacijski vektor, dekriptiraj payload, dohvati sadržaj programa bez payloada, odredi ime para datoteka, kreiraj novu datoteku bez payloada, učitaj payload u memoriju i pokreni, generiraj ključ, generiraj nonce, kriptiraj payload, pohrani sadržaj na kraju druge datoteke. 
+</p><p>S obzirom da na modernim operacijskim sustavima nije dozvoljeno mijenjati datoteke koje se koriste, nije moguće niti izmijeniti sadržaj datoteke polymorphicOne.exe (tj. packera) dok je ona pokrenuta. Iz tog razloga datoteka polymorphicOne.exe kreira svoju praznu kopiju (bez payloada) na koju zatim dodaje payload kriptiran novim, nasumično odabranim ključem (naravno iz seta mogućih ključeva). Trenutno u sklopu projekta ne postoji metoda koja briše prvu datoteku (koja je kreirala drugu) no to bi bilo potrebno implementirati kako bi bilo teže zamijetiti program. Samo pokretanje trenutno je implementirano s diska umjesto pokretanja iz memorije no nažalost iz još uvijek nepoznatog razloga MemoryModule ne uspjeva pokrenuti payload. Za eventualne buduće verzije postoji i metoda za izvršavanje shellcode-a, međutim metoda kontrole izbora između malwarea i shellcode-a još nije implementirana. U konačnici kreirana je i skripta koja olakšava korištenje engine-a time što automatizira proces builda svih datoteka te se jednim klikom izgenerira packer koji sadrži payload.
+</p>
+<h2> <span class="mw-headline" id="Memory_Module"> Memory Module </span></h2>
+<p>Memory Module je biblioteka napisana u C programskom jeziku koja služi kako bi se DLL i PE datoteke učitale iz memorije, bez spremanja na disk. Sučelje je slično kao i kod standardnih metoda za učitavanje DLL-ova i PE izvršnih datoteka sa diska (LoadLibrary):
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Memory.png" class="image"><img alt="Memory.png" src="../images/e/eb/Memory.png" width="601" height="151" /></a>
+</p><p>Izvor: <i>Github: Memory Module</i>
+
+U samoj bibliotici korištena je struktura HMEMORYMODULE koja je kreirana da imitira tj. sadrži zaglavlja koja sadrži i standardna PE datoteka. Metoda MemoryLoadLibrary praktički je istovjetna standardnoj metodi <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175(v=vs.85).aspx" class="external text" rel="nofollow">LoadLibrary</a>. Autorova ideja bila je kreirati proizvod koji je jednostavan za korištenje te prethodno poznat korisnicima.
+Većina windows binarnih datoteka koje u sebi sadrže exe ili dll imaju isti format datoteka koji se sastoji od idućih dijelova:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exe.png" class="image"><img alt="Exe.png" src="../images/1/1d/Exe.png" width="212" height="348" /></a>
+</p><p>Izvor: <i>Github: Memory Module</i>
+
+</p>
+<h2> <span class="mw-headline" id="DOS_header.2Fsub"> DOS header/sub </span></h2>
+<p>Kako bi se osigurala kompatibilnost, Microsoft je razvio nekoliko instrukcija u zaglavlju svakog PE file-a. Ukoliko se npr. Windows 32-bitni file pokrene u 16-bitnom DOS okruženju, ispisat će se poruka: "Program se ne može pokrenuti u DOS modu", te se isti terminira. Na slici je prikazan način na koji je Microsoft definirao DOS:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Microsoft.png" class="image"><img alt="Microsoft.png" src="../images/8/85/Microsoft.png" width="791" height="467" /></a>
+</p>
+<h2> <span class="mw-headline" id="PE_header"> PE header </span></h2>
+<p>PE header sadrži informacije o različitim sekcijama unutar izvršne datoteke koji služi za pohranu podataka i koda ili kako bi se definirali "uvozi" iz drugih biblioteka. Na slici ispod je prikazan način na koji je definiran PE header.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pe.png" class="image"><img alt="Pe.png" src="../images/9/90/Pe.png" width="582" height="156" /></a>
+</p><p><br />
+FileHeader sadrži fizički format datoteke, npr. informacije o simbolima. OptionalHeader sadrži informacije o logičkom formatu biblioteke, koje se prvenstveno odnose na traženu verziju operacijskog sustava, zahtjeve memorije i sl.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Section_header"> Section header </span></h2>
+<p>Section header se nalazi poslije OptionalHeader-a u PE formatu. Sam section header predstavlja listu informacija za svaki dio u datoteci. Dio (section) može sadržavati kod, informacije, resurse i sl.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Section.png" class="image"><img alt="Section.png" src="../images/4/45/Section.png" width="734" height="330" /></a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="U.C4.8Ditavanje_biblioteke_na_Windows_operacijskim_sustavima"> Učitavanje biblioteke na Windows operacijskim sustavima</span></h2>
+<p>Prilikom samog učitavanja biblioteke, Windows obavlja iduće zadatke:
+</p><p>1.Otvaranje željene datoteke i provjera PE i DOS header-a.
+</p><p>2.Alokacija memorijskog bloka
+</p><p>3.Parsiranje section headersa i kopiranje sekcija (dijelova) i njihovih adresa. Odredišna adresa za svaku sekciju nalazi se u IMAGE_SECTION_HEADER strukturi u atributu VirtualAdress.
+</p><p>4.Ukoliko se alocirani memorijski blok razlikuje od ImageBase, razne reference u kodu i podaci moraju se prilagoditi. Ovo je poznato kao i realokacija baze.
+</p><p>5.Specifiranje biblioteka iz kojih se učitavaju simboli.
+</p><p>6.Dijelovi memorije raznih sekcija moraju se zaštiti ovisno o karakteristikama same sekcije. Neke od sekcija sadržavaju temporalne podatke koji su nužni samo kod "uvoza" biblioteke, kao što su npr. informacije o realokaciji baze.
+</p><p>7.Pozivanje DLL "ulazne točke" i na taj način obavijestiti biblioteku korištenjem zastavice DLL_PROCESS_ATTACH.
+</p>
+<h2> <span class="mw-headline" id="Kori.C5.A1tenje_programa"> Korištenje programa </span></h2>
+<p>1. Potrebno je instalirati zavisnosti (engl. dependencies) - konkretno najnoviju verziju gcc-a, g++-a (za pripadajuću arhitekturu) te golang 
+</p><p>2. Moguće je samostalno izmijeniti varijable označene komentarima unutar koda (npr. početne vrijednosti varijabli okoline pomoću kojih se može ciljano birati meta napada)
+</p><p>3. Postoje 2 mogućnosti:
+</p>
+<ul><li> Urediti (prilagoditi) skriptu buildAndRun.bat
+</li><li> Ručno buildati sve datoteke naredbom go build
+</li></ul>
+<p>4. Ukoliko ste birali skriptu, ona bi trebala pokrenuti attachanje payloada (prema argumentima definiranim u skripti) pa je packer spreman za isporuku.
+Ukoliko ste ručno buildali sve datoteke potrebno je pokrenuti attacher.exe (tj. output buildanja engine.go datoteke) s argumentima u tekstualnom obliku u sljedećem obliku <i>attacher.exe c:\putanja\Do\Payloada d:\putanja\do\packera</i>. Nakon ovog koraka packer je spreman za isporuku.
+</p><p><i>Packerom nazivamo rezultat buildanja PolymorphicEngine.go datoteke, a attacher nazivamo program nastao buildom Engine.go datoteke</i>
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] Github: Ebowla, <a href="https://github.com/Genetic-Malware/Ebowla" class="external free" rel="nofollow">https://github.com/Genetic-Malware/Ebowla</a>
+</p><p>[2] Github: Memory Module, <a href="https://github.com/fancycode/MemoryModule/tree/master/doc" class="external free" rel="nofollow">https://github.com/fancycode/MemoryModule/tree/master/doc</a> 
+</p><p>[3] Microsoft: PE format, <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms680547(v=vs.85).aspx" class="external free" rel="nofollow">https://msdn.microsoft.com/en-us/library/windows/desktop/ms680547(v=vs.85).aspx</a>
+</p><p>[4] Wikipedia: MS-DOS
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 39/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9881-0!*!0!!hr!2!edit=0 and timestamp 20190203204133 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Polimorfizam_za_zaštitu_malicioznog_koda.html">http://security.foi.hr/wiki/index.php/Polimorfizam_za_za%C5%A1titu_malicioznog_koda</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Polimorfizam_za_za%C5%A1titu_malicioznog_koda" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Polimorfizam_za_za%C5%A1titu_malicioznog_koda&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Polimorfizam_za_za%C5%A1titu_malicioznog_koda&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Polimorfizam_za_za%C5%A1titu_malicioznog_koda&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Polimorfizam_za_zaštitu_malicioznog_koda.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Polimorfizam_za_za%C5%A1titu_malicioznog_koda" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Polimorfizam_za_za%C5%A1titu_malicioznog_koda" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Polimorfizam_za_za%C5%A1titu_malicioznog_koda&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Polimorfizam_za_za%C5%A1titu_malicioznog_koda&amp;oldid=43510" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 05:54, 6. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 247 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Polimorfizam_za_zaštitu_malicioznog_koda", "wgTitle": "Polimorfizam za zaštitu malicioznog koda", "wgAction": "view", "wgArticleId": 9881, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43510, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.297 secs. -->			</body>
+</html>

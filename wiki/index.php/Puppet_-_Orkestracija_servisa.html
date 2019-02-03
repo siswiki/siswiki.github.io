@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Puppet - Orkestracija servisa - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Puppet_-_Orkestracija_servisa&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Puppet_-_Orkestracija_servisa skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Puppet - Orkestracija servisa</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Puppet_-_Orkestracija_servisa.html#mw-head">orijentacija</a>,
+					<a href="Puppet_-_Orkestracija_servisa.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Sistem administratori i računalni operateri često obavljaju iste zadaće: konfiguriranje <i>host</i> računala, upravljanje korisničkim računima, upravljanje aplikacijama i <a href="http://en.wikipedia.org/wiki/Daemon_(computing)" class="external text" rel="nofollow"><i>daemonsima</i></a> (na UNIX sustavima to su pozadinske aplikacije, procesi koji nisu u direktnom kontaktu s korisnikom računala). Ove se zadaće često ponavljaju više puta u životnom ciklusu računala kojeg administriraju.
+</p><p>Uobičajen odgovor na ove ponavljajuće zadaće je pokušaj njihove automatizacije skriptama i raznim alatima za rad na daljinu što dovodi do razvoja tzv. <i>custom-built</i> skripti i aplikacija.
+</p><p>Puppet je reakcija <i>open source</i> zajednice na sve nedostatke trenutačno dostupnih alata za sistem administratore, operatere i developere. Sam Puppet osmišljen je tako da im olakša živote pružajući jednostavnu, laganu i jeftinu infrastrukturu za održavanje računala. Puppet je <i>open source</i> <a href="http://en.wikipedia.org/wiki/Application_framework" class="external text" rel="nofollow">framework</a> za orkestraciju servisa o čemu će bit riječ uskoro.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Puppet_-_Orkestracija_servisa.html#Orkestracija"><span class="tocnumber">1</span> <span class="toctext">Orkestracija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Puppet_-_Orkestracija_servisa.html#Orkestracija_i_SOA"><span class="tocnumber">1.1</span> <span class="toctext">Orkestracija i SOA</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Puppet_-_Orkestracija_servisa.html#Sigurnost_orkestriranja"><span class="tocnumber">1.2</span> <span class="toctext">Sigurnost orkestriranja</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Puppet_-_Orkestracija_servisa.html#Orkestracija_na_cloudu"><span class="tocnumber">1.3</span> <span class="toctext">Orkestracija na cloudu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Puppet_-_Orkestracija_servisa.html#.C5.A0to_je_Puppet.3F"><span class="tocnumber">2</span> <span class="toctext">Što je Puppet?</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Puppet_-_Orkestracija_servisa.html#Model_Puppet_infrastrukture"><span class="tocnumber">3</span> <span class="toctext">Model Puppet infrastrukture</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Puppet_-_Orkestracija_servisa.html#Deployment"><span class="tocnumber">3.1</span> <span class="toctext">Deployment</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Puppet_-_Orkestracija_servisa.html#Konfiguracijski_jezik"><span class="tocnumber">3.2</span> <span class="toctext">Konfiguracijski jezik</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Puppet_-_Orkestracija_servisa.html#Sloj_poop.C4.87enja_resursa"><span class="tocnumber">3.3</span> <span class="toctext">Sloj poopćenja resursa</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Puppet_-_Orkestracija_servisa.html#Prijenosni_sloj"><span class="tocnumber">3.4</span> <span class="toctext">Prijenosni sloj</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Puppet_-_Orkestracija_servisa.html#Instalacija_Puppeta"><span class="tocnumber">4</span> <span class="toctext">Instalacija Puppeta</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="Puppet_-_Orkestracija_servisa.html#Instalacija_na_Debian_i_Ubuntu_sustavima"><span class="tocnumber">4.1</span> <span class="toctext">Instalacija na Debian i Ubuntu sustavima</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Puppet_-_Orkestracija_servisa.html#Instalacija_na_Microsoft_Windows_sustavima"><span class="tocnumber">4.2</span> <span class="toctext">Instalacija na Microsoft Windows sustavima</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Puppet_-_Orkestracija_servisa.html#Konfiguriranje_Puppeta"><span class="tocnumber">5</span> <span class="toctext">Konfiguriranje Puppeta</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="Puppet_-_Orkestracija_servisa.html#puppet.conf_datoteka"><span class="tocnumber">5.1</span> <span class="toctext">puppet.conf datoteka</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Puppet_-_Orkestracija_servisa.html#site.pp_datoteka"><span class="tocnumber">5.2</span> <span class="toctext">site.pp datoteka</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Puppet_-_Orkestracija_servisa.html#Pode.C5.A1avanje_vatrozida_.28firewalla.29"><span class="tocnumber">5.3</span> <span class="toctext">Podešavanje vatrozida (firewalla)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="Puppet_-_Orkestracija_servisa.html#Povezivanje_Puppet_agenta_i_mastera"><span class="tocnumber">6</span> <span class="toctext">Povezivanje Puppet agenta i mastera</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="Puppet_-_Orkestracija_servisa.html#Pokretanje_Puppet_mastera"><span class="tocnumber">6.1</span> <span class="toctext">Pokretanje Puppet mastera</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="Puppet_-_Orkestracija_servisa.html#Povezivanje_Puppet_agenta"><span class="tocnumber">6.2</span> <span class="toctext">Povezivanje Puppet agenta</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="Puppet_-_Orkestracija_servisa.html#Digitalno_potpisivanje_SSL_certifikata"><span class="tocnumber">6.3</span> <span class="toctext">Digitalno potpisivanje SSL certifikata</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="Puppet_-_Orkestracija_servisa.html#Primjer_potpisanog_SSL_certifikata"><span class="tocnumber">6.3.1</span> <span class="toctext">Primjer potpisanog SSL certifikata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-23"><a href="Puppet_-_Orkestracija_servisa.html#Prakti.C4.8Dni_primjer_povezivanja_Puppet_agenta_i_mastera_.28s_screenshotovima.29"><span class="tocnumber">6.4</span> <span class="toctext">Praktični primjer povezivanja Puppet agenta i mastera (s screenshotovima)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="Puppet_-_Orkestracija_servisa.html#MySQL_i_Puppet"><span class="tocnumber">7</span> <span class="toctext">MySQL i Puppet</span></a></li>
+<li class="toclevel-1 tocsection-25"><a href="Puppet_-_Orkestracija_servisa.html#WordPress_i_Puppet"><span class="tocnumber">8</span> <span class="toctext">WordPress i Puppet</span></a></li>
+<li class="toclevel-1 tocsection-26"><a href="Puppet_-_Orkestracija_servisa.html#Za_dodatno_.C4.8Ditanje"><span class="tocnumber">9</span> <span class="toctext">Za dodatno čitanje</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="Puppet_-_Orkestracija_servisa.html#Izvori"><span class="tocnumber">10</span> <span class="toctext">Izvori</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Orkestracija">Orkestracija</span></h1>
+<p>Prema definiciji, <b>orkestracija je proces automatiziranog uređivanja, koordiniranja i upravljanja kompleksnih informacijskih sustava i servisa</b>.
+</p><p>Praktični primjer orkestracije bi bio (ujedno obrađen u našem projektnom zadatku) instalacija WordPressa na tek "podignutom" računalnom sustavu. WordPress zahtjeva dostupan SUBP i korisnički račun za korištenje BP, a tu je i sama instalacija WP-a. Orkestracija u navedenom primjeru znači pokretanje skripte za instalaciju WP-a koja će automatizmom instalirati WP preduvjete (npr. MySQL) i podesiti okolinu (generirati bazu podataka, korisnički račun za rad s BP i dr.).
+</p><p>Proces nastajanja pojma orkestracije tekao je poprilično prirodno. IT stručnjaci i <i>system administratori</i> koji su bili zaduženi za upravljanje informacijskim sustavima i servisima susretali su se s nizom ponavljajućih (repetitivnih) radnji kao što je npr. dodavanje novih članova, izmjena inačica sustava i sl. Te repetitivne radnje bile su neophodne, a zahtijevale su dosta vremena tj. dosta ljudskog rada. Potrebu za smanjivanje repetitivnih zadataka iskoristile su veće kompanije plasirajući programska rješenja koja su za zadani predložak automatizirale određene zadatke. Nedostatak tih programskih rješenja se nalazio u njihovoj cijeni i neprilagodljivosti potrebama specifičnih informacijskih sustava. Njihovo prilagođavanje zahtijevalo je naručivanje dodataka programskim rješenjima što za sobom povlači dodatak na već preveliku cijenu.
+</p><p>Pojavom  programskih rješenja otvorenih kodova dosjetljivi IT stručnjaci mogli su prilagođavati sustave za automatizaciju svojim informacijskim sustavima i specifičnim zadacima. Programska rješenja prilagođena orkestraciji servisa omogućuju centralizirano upravljanje sustavima. Također, automatiziranim procesom se pristupa potrebama specifičnih aplikacija.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 18:01, 6. siječnja 2012. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Orkestracija_i_SOA"> Orkestracija i SOA </span></h2>
+<p>Najkraće rečeno, SOA je arhitekturalni stil u smislu IT arhitekture. Kao takav, SOA predstavlja skup odrednica koje nastoje zadovoljiti zahtjeve postavljene pred IT sada, kao i u budućnosti. Jedan od korijena SOA su upravo web servisi.
+</p><p>Kao jedna od najvažnijih osobina SOA arhiterturalnog stila, ističe se <i>kombiniranje</i> - "implementacija poslovnih procesa koje se ostvaruju kombiniranjem (<i>orkestracija</i> i koreografija) servisa i njihovom višekratnom uporabom" (prema <a href="http://www.infodom.hr/default.aspx?id=536" class="external text" rel="nofollow">Infodom - SOA</a>). Kao sa poslovnim procesima, tako i sa web servisima, principi SOA su isti - kad jednom razvijemo kvalitetan skup servisa, trud potreban za njihovu implementaciju drastično se smanjuje.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 18:31, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Sigurnost_orkestriranja">Sigurnost orkestriranja</span></h2>
+<p>Orkestracija, osim što ima velike uloge u smanjivanju vremenskog ljudskog tada, ima veliki utjecaj na umanjivanje mogućih pogrešaka što je njena poveznica sa SIS-om kao i manja i enkriptirana razmjena osjetljivih podataka. Automatizacijom zahtjeva prema potrebama različitih klijentskih aplikacija odstranjuju ljudsku pogrešku iz računice što direktno predstavlja sigurnije i stabilnije sustave te ekvivalentno povećava zadovoljstvo korisnika.
+</p><p>Sigurni prijenos paketa između glavnog poslužitelja i klijenata osigurava se prema sigurnosnim standardima posebno za svaki sustav. Kod Puppet sustava, koji je bio naš projektni zadatak, koristi se <b>SSL</b> te <b>X509 PKI</b> što će biti pojašnjeno dalje kroz tekst.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 18:01, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Orkestracija_na_cloudu">Orkestracija na cloudu</span></h2>
+<p>Porast potrebe za orkestracijom servisa pojavljuje se kod razvoja <i>cloud computing</i> sustava. Sve više zastupljeni sustavi, koji su decentralizirani tj. dislocirani - koriste mrežnu infrastrukturu, zahtijevaju centralizirano upravljanje klijentima. S obzirom da se klijenti nalaze na različitim domenama, pojavljuje se potreba upravljanjem procesima s posebnom pažnjom na pojedinačne zaštite (npr. <i>firewall</i>) te na upravljanje iznimkama koje nastaju u različitim slučajevima. 
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 18:01, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id=".C5.A0to_je_Puppet.3F">Što je Puppet?</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puppet-logo.jpg" class="image"><img alt="" src="../images/thumb/f/f7/Puppet-logo.jpg/180px-Puppet-logo.jpg" width="180" height="69" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puppet-logo.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Puppet Labs logo</div></div></div>
+<p><a href="http://puppetlabs.com/puppet/" class="external text" rel="nofollow"><b>Puppet</b></a> je razvijen u <a href="http://www.ruby-lang.org/en/" class="external text" rel="nofollow">Rubyu</a>, licenciran kao <a href="http://www.gnu.org/licenses/gpl-2.0.html" class="external text" rel="nofollow">GPLv2</a> i može se koristiti u <a href="http://en.wikipedia.org/wiki/Client%E2%80%93server_model" class="external text" rel="nofollow">klijent-server paradigmi</a> i kao samostalna aplikacija – na računalu domaćinu gdje je instaliran (<i>host</i> računalo). Puppet razvijaju Luke Kanies i njegov tim iz tvrtke <a href="http://puppetlabs.com/" class="external text" rel="nofollow"><b>Puppet Labs</b></a> (prijašnji Reductive Labs). Kanies je od sredine 90-ih prošlog stoljeća razvijao softver i administrirao UNIX/Linux računala pa je motiviran svojim iskustvom s radom sa softverom za automatizaciju raznih administrativnih zadaća krenuo razvijati Puppet.
+</p><p>Puppet se može koristi na UNIX (uključujući i OSX) i Linux platformama, a od nedavno i na Windows sustavima (Puppet 2.6.0+ verzije).
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Model_Puppet_infrastrukture">Model Puppet infrastrukture</span></h1>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puppet-model.png" class="image"><img alt="Puppet-model.png" src="../images/6/63/Puppet-model.png" width="255" height="126" /></a>
+</p><p>Puppet infrastruktura ima jednostavan model koji se lako razumije i implementira. Model se sastoji od tri komponente:
+</p>
+<ul><li> <i>Deployment</i> - pojam označava instalaciju i uspostavljanje veze među dislociranim Puppet aplikacijama
+</li><li> Konfiguracijski jezik i Sloj poopćenja resursa (<i>Configuration Language and Resource Abstraction Layer</i>)
+</li><li> Prijenosni sloj (<i>Transactional layer</i>)
+</li></ul>
+<h2> <span class="mw-headline" id="Deployment">Deployment</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puppet-infra.png" class="image"><img alt="" src="../images/thumb/3/3b/Puppet-infra.png/200px-Puppet-infra.png" width="200" height="134" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Puppet-infra.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Puppet infrastruktura</div></div></div>
+<p>Puppet se obično koristi u klijent-poslužitelj načinu rada. U takvom načinu rada, Puppet infrastruktura se može pojasniti sljedećim modelom.
+</p><p>Puppet instanca instalirana na serveru se naziva <i><b>Puppet master</b></i> a instanca na klijentu se naziva <i><b>Puppet agent</b></i>. Računalo Puppet agenta se naziva <b>Puppet čvor</b> (<i>node</i>). Puppet master je pokrenut na svom <i>host</i> računalu kao <i>daemon</i> i sadrži konfiguracijske upute za umreženi računalni sustav kojeg kontrolira – tzv. <b>Puppet okolinu</b> (<i>Puppet environment</i>). Puppet agenti se povezuju s Puppet masterom putem <b>sigurne veze</b> koja obuhvaća proces enkripcije podataka u razmjeni i autentikacije subjekata u vezi što je ostvareno SSL protokolom. Puppet agenti  "povlače" (<i>pull</i>) konfiguracijske upute koje se odnose na njih i koje trebaju primijeniti na svom <i>host</i> računalu. Ukoliko Puppet agent nema dostupne konfiguracijske upute od Puppet mastera ili ukoliko je već primijenio dostupne konfiguracijske upute na <i>host</i> računalu, tada on ne čini ništa. Dakle, Puppet agent će učiniti konfiguracijske izmjene samo ukoliko su one potrebne. Cijeli ovaj proces se naziva <i>configuration run</i>.
+</p><p>Puppet agent može biti pokrenut kao <i>daemon</i> putem posebnih mehanizama kao što je <i>cron</i>, a veza s Puppet masterom može biti inicijalizirana i s unaprijed konfiguriranim okidačem (korisnički definiran <i>trigger</i>). Primjer najčešće prakse rada s Puppetom jest konfiguriranje Puppeta za periodičko povezivanje sa serverom za moguće nove upute kako bi svi Puppet agenti bili ažurirani (<i>up-to-date</i>) s najnovijim stanjem. U tom slučaju, period dohvaćanja uputa se najčešće postavlja na 30 minuta što se može konfigurirati u postavkama Puppeta.
+</p><p>Vrlo sličan scenarij je i kod korištenja Puppeta kao samostalne aplikacije lokalno (konfiguracijske upute s povlače s lokalnog računala, nema bitnijih razlika).
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Konfiguracijski_jezik"> Konfiguracijski jezik </span></h2>
+<p>Konfiguracijski jezik neizbježna je komponenta svih administratorskih alata iz klase aplikacija kao što je Puppet.
+Problemu pisanja konfiguracijskih uputa koje treba primijeniti na nekom računalu, Puppet prilazi na posve novi način.
+</p><p><b>Konfiguracijske upute</b> Puppet definira kao upute za niz resursa koji se kontroliraju na <i>host</i> računalu gdje je Puppet instaliran i pokrenut. Jedan takav resurs se sastoji od sljedećih elemenata:
+</p>
+<ol><li> <b>type</b> – tip resursa kojim se upravlja: <i>package</i>, servis ili <i>cron</i> zadaća,
+</li><li> <b>title</b> – naziv tog resursa,
+</li><li> <b>declarations</b> - niz deklaracija kojima su opisani atributi tog resursa tj. njegovo stanje (npr. je li servis pokrenut ili zaustavljen); deklaracije dolaze u paru <b>atribut-vrijednost</b>.
+</li></ol>
+<p>Način pisanja uputa je sljedeći:
+</p><p><code>type { title:
+</p>
+<dl><dd>attribute =&gt; value,
+</dd></dl>
+<p>}</code>
+</p><p>Pod atributom se smatraju operacije koje je moguće izvoditi nad određenim tipom resursa.
+</p><p>Kao primjer navodimo sljedeće:
+</p><p><code>package { "vim":
+</p>
+<dl><dd>ensure =&gt; present,
+</dd></dl>
+<p>}</code>
+</p><p>U ovom primjeru želimo utvrditi je li na određenom <i>host</i> računalu instalirana aplikacija <i>vim</i>. Atribut <i>ensure</i> može primiti vrijednosti <i>present</i> ili <i>absent</i> ovisno o tome da li je aplikacija instalirana ili ne.
+</p><p>Potpuna lista svih tipova resursa (<i>type</i>) kojima Puppet može upravljati je dostupna na web mjestu <a href="http://docs.puppetlabs.com/references/stable/type.html" class="external free" rel="nofollow">http://docs.puppetlabs.com/references/stable/type.html</a>. No, također je moguće definirati i korisničke tipove resursa koje Puppet inicijalno, po <i>defaultu</i>, ne podržava. Valja napomenuti i kako određeni tipovi resursa imaju određene deklaracije koje su primjenjive upravo za njih ili, drugim riječima, za određeni tip resursa postoji popis podržanih atributa resursa kojima je moguće upravljati.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Sloj_poop.C4.87enja_resursa"> Sloj poopćenja resursa </span></h2>
+<p>Nakon što su resursi za upravljanje opisani (konceptualno "što"), potrebno je opisati i <b>kako upravljati tim resursima (konceptualno "kako")</b>. Puppet je <i>framework</i> što znači da pokriva nekoliko različitih platformi na kojima se mogu nalaziti resursi kojima je moguće upravljati Puppetom. Te instrukcije koje se tiču upravljanja resursima, korisnik Puppeta ne treba znati niti ih treba pisati. One su unaprijed zadane za svaki tip resursa i njegove atribute koje Puppet podržava.
+</p><p>Prije nego se Puppet agent spaja sa Puppet masterom (ili u slučaju načina samostalnog rada), Puppet agent saznaje podatke o host računalu na kojem je instaliran – za tu svrhu koristi alat imena <a href="http://puppetlabs.com/puppet/related-projects/facter/" class="external text" rel="nofollow"><i><b>Facter</b></i></a> ("onaj koji skuplja činjenice" u doslovnom prijevodu). <i>Facter</i> saznaje <b>podatke o operacijskom sustavu, IP adresi računala i sl.</b> na kojem je Puppet agent instaliran a ti se podaci koriste kako bi se saznao način za upravljanje resursom tj. dohvatile instrukcije od Puppet mastera za primjenu konfiguracijskih uputa opisanih resursa. Primjerice, nastavimo prethodni primjer, ako želimo saznati je li na nekom <i>host</i> računalu instalirana aplikacija <i>vim</i>, na Red Hat računalima trebali bi pokrenuti u naredbenom retku naredbu <code>yum</code>, na Ubuntu okruženju naredbu <code>aptitude</code> a na Solaris sustavima naredbu <code>pkg</code>.
+</p><p>Upravo ta instrukcija koja je svojstvena za svaki posebni operacijski sustav predstavlja konceptualno "kako" i najjača je karika Puppet <i>frameworka</i>. Korisnici Puppeta lišeni su potrebe za tako specifičnim znanjem i mogu s daljine upravljati različitim računalnim sustavima neovisno o njihovom lokalnom okruženju i konfiguraciji!
+</p><p>Podaci koje dohvaća <i>Facter</i> nazivaju se činjenice (<i>facts</i>) i prikazani su u ključ-vrijednost paru kao npr.:
+</p><p><code>operatingsystem =&gt; Ubuntu</code>
+</p><p><code>ipaddress =&gt; 10.0.0.10</code>
+</p><p>Skupina administratorskih alata kojima pripada <i>Facter</i> nazivaju se <i>system inventory tool</i>.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prijenosni_sloj"> Prijenosni sloj </span></h2>
+<p>Implementacija prijenosnog sloja u Puppetu je u biti njen <i>engine</i>, mehanizam koji je sama srž aplikacije. Upravo ova komponenta modela kojeg prakticira Puppet je <b>zaslužna za proces konfiguriranja svakog pojedinog <i>host</i> računala</b> uključujući:
+</p>
+<ul><li> interpretaciju i kompilaciju konfiguracijskih uputa pojedinačnih resursa
+</li><li> izmjenjivanje kompiliranih uputa između Puppet mastera i agenta
+</li><li> primjenjivanje konfiguracijskih uputa na <i>host</i> računalo Puppet agenta
+</li><li> izvješćivanje Puppet mastera o rezultatima primjenjivanja tih uputa
+</li></ul>
+<p>Nakon što korisnik Puppeta zada opise resursa koji svi zajedno čine konfiguracijske upute, aplikacija njegove upute kompajlira u tzv. kataloge koje prosljeđuje Puppet agentima na zahtjev. Rezultat primjene konfiguracijskih uputa Puppet agent vraća natrag server aplikaciji u obliku izvješća.
+</p><p>Prijenosni sloj omogućuje da se konfiguracijske upute primjenjuju višestruko na više <i>host</i> računala. U terminologiji Puppeta ova se osobina naziva <i>idempotent</i> a znači upravo primjenu jedinstvenih uputa na više različitih računalnih sustava, s različitim platformama i lokalnim okruženjem, putem Puppet agenata s tim da je rezultat procesa na tim različitim sustavima jednak. Ipak, Puppetov prijenosni sloj nema sva obilježja (teoretskog modela) prijenosnog sloja budući da ne pruža neke karakteristične funkcionalnosti poput vođenja dnevnika događaja (<i>log</i>), <i>roll back</i> mogućnost i sl., mada Puppet nudi <i>noop</i> način rada razvijen za testiranje funkcionalnosti (<i>no operation mode</i> – izvršavanje, primjenjivanje konfiguracijskih uputa i prividno stvaranje promjena na <i>host</i> računalu, ali bez stvarnih promjena).
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Instalacija_Puppeta">Instalacija Puppeta</span></h1>
+<p>Puppet se može instalirati i u potpunosti koristiti na sljedećim platformama:
+</p>
+<ul><li> Red Hat Enterprise Linux, CentOS, Fedora i Oracle Enterprise Linux
+</li><li> Debian i Ubuntu
+</li><li> Mandrake i Mandriva
+</li><li> Gentoo
+</li><li> Solaris i OpenSolaris
+</li><li> MacOS X i MacOS X Server
+</li><li> BSD
+</li><li> AIX
+</li><li> HP UX
+</li><li> Microsoft Windows (Puppet 2.6.0+ verzije no s ograničenim mogućnostima upravljanja datotečnim resursima)
+</li></ul>
+<p>Na ovim platformama moguće je upravljati sa sljedećim resursima (popis nije konačan zbog mogućnosti kreiranja vlastitih korisničkih resursa za koje postoji potreba za upravljanjem):
+</p>
+<ul><li> datoteke
+</li><li> servisi
+</li><li> <i>packages</i> (općenito: instalirani programski sustavi)
+</li><li> korisnici i korisnički računi
+</li><li> grupe korisnika i njihove ovlasti
+</li><li> <i>cron</i> zadaće
+</li><li> SSH ključevi
+</li><li> konfiguriranje Nagiosa
+</li></ul>
+<p>Instalacije Puppet servera i agenta su vrlo slične. Neke platforme (koje Puppet podržava) nude instalacijske datoteke Puppet aplikacija odvojeno. Na nekim pak platformama potrebno je prethodno instalirati Ruby budući da je Puppet napisan upravo u tom programskom jeziku; potreban je Ruby interpreter. Općenito, ukoliko to nije slučaj, prije instalacije Puppeta potrebno je osigurati preduvjete za Puppet i <i>Facter</i>.
+</p><p>Preporuča se instalacija Puppeta pomoću sistemskog upravitelja instalacijama programskih sustava prvenstveno u slučajevima kad se Puppet instalira na daljinu na veći broj <i>host</i> računala. Osim preko spomenutog upravitelja, Puppet je moguće i instalirati iz <i>sourcea</i>.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Instalacija_na_Debian_i_Ubuntu_sustavima">Instalacija na Debian i Ubuntu sustavima</span></h2>
+<p>Na Debian i Ubuntu sustavima potrebno je prethodno instalirati <i>Ruby packages</i> kao preduvjete za Puppet:
+</p><p><code>apt-get install ruby libshadow-ruby1.8</code>
+</p><p>Zatim se instaliraju Puppet <i>packages</i>: <i>puppet</i>, <i>puppetmaster</i> i <i>facter</i>. Puppet <i>package</i> sadrži Puppet agenta, <i>puppetmaster package</i> sadrži master aplikaciju i <i>facter package</i> sadrži <i>Facter</i> alat.
+</p><p>Na računalu serveru potrebno je instalirati sljedeće:
+</p><p><code>apt-get install puppet puppetmaster facter</code>
+</p><p>Na računalu agentu instalira se samo Puppet agent i <i>Facter</i>:
+</p><p><code>apt-get install puppet facter</code>
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:26, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Instalacija_na_Microsoft_Windows_sustavima">Instalacija na Microsoft Windows sustavima</span></h2>
+<p>Prije instalacije Puppeta potrebno je instalirati <i>Ruby</i>. Najjednostavnija instalacije je preko <i>on-click installera</i> dostupnog na <a href="http://rubyinstaller.rubyforge.org/wiki/wiki.pl?RubyInstaller" class="external free" rel="nofollow">http://rubyinstaller.rubyforge.org/wiki/wiki.pl?RubyInstaller</a>. Na <a href="http://www.ruby-lang.org/en/downloads/" class="external free" rel="nofollow">http://www.ruby-lang.org/en/downloads/</a> može se preuzeti instalacijska datoteka. Prilikom instalacije potrebno je označiti <i>Use RubyGems</i> kućicu.
+</p><p>Pokreće se <i>RubyGems Package Manager</i> preko izbornika Start: Programs &gt; Ruby-186-27 &gt; RubyGems &gt; RubyGems Package Manager.
+Otvara se naredbeni redak preko kojeg se instaliraju <i>Facter</i> i Puppet <i>gemsi</i>:
+</p><p><code>C:\gem install puppet facter</code>
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Konfiguriranje_Puppeta">Konfiguriranje Puppeta</span></h1>
+<h2> <span class="mw-headline" id="puppet.conf_datoteka">puppet.conf datoteka</span></h2>
+<p>Konfiguriranje Puppeta se vrši ručno mijenjanjem <b>puppet.conf</b> datoteke najčešće smještene u <b>/etc/puppet</b> direktoriju (vrijedi samo za UNIX/Linux distribucije za koje su ove upute i pisane!). Ukoliko ova datoteka nije kreirana prilikom instalacije Puppeta, u naredbeni redak se zadaje naredba:
+</p><p><code>puppetmasterd --genconfig &gt; puppet.conf</code>
+</p><p>Kako bi specificirali Puppet mastera, dodajemo <i>certname</i> redak u <i>puppet.conf</i>. Redak se dodaje u [master] sekciju ove datoteke koja svojom strukturom podsjeća na uobičajene datoteke tipa INI. (Ako [master] sekcija ne postoji, kreira se!)
+</p><p><code>[master]</code>
+</p><p><code>certname = puppet.example.com</code>
+</p><p>(Zamijenite puppet.example.com sa ispravnim nazivom domene vašeg računala poslužitelja.)
+</p><p>Preporuča se i kreiranje DNS CNAME zapisa za zadani Puppet <i>host</i> (u konfiguracijskoj datoteci). Na UNIX/Linux sustavima ovo se čini izmjenom /etc/hosts:
+</p><p><code>127.0.0.1 localhost</code>
+</p><p><code>192.168.0.1 puppet.example.com puppet</code>
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="site.pp_datoteka">site.pp datoteka</span></h2>
+<p>Datoteka <b>site.pp</b> nosi informacije o konfiguracijskim uputama koje treba primijeniti na <i>host</i> računala Puppet agenata – informacije govore gdje se nalaze konfiguracijske upute i na koje Puppet agente se one odnose.
+</p><p>Ova datoteka treba biti u <b>manifest</b> direktoriju unutar <b>/etc/puppet</b>. Sve manifest konfiguracijske datoteke trebaju imati datotečni nastavak (sufiks) <i>.pp</i> (manifest je u terminologiji Puppeta vrsta datoteke koja sadrži konfiguracijske postavke). Manifest direktorij se obično kreira prilikom instalacije Puppeta no, ukoliko nije kreiran, u naredbenom retku zadajemo:
+</p><p><code>mkdir /etc/puppet/manifests</code>
+</p><p><code>touch /etc/puppet/manifests/site.pp</code>
+</p><p><i><b>Napomena.</b></i> Puppet aplikacija se <b>neće</b> moći pokrenuti ako site.pp datoteka ne postoji!
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pode.C5.A1avanje_vatrozida_.28firewalla.29">Podešavanje vatrozida (<i>firewalla</i>)</span></h2>
+<p>Puppet master koristi <b>TCP port 8140</b>. Ovaj port treba biti otvoren za svu komunikaciju TCP protokolom. Za <i>Netfilter firewall</i> unosimo pravilo:
+</p><p><code>-A INPUT -p tcp -m state --state NEW --dport 8140 -j ACCEPT</code>
+</p><p>Ako želimo suziti prostor IP adresa čiji dolazni promet prihvaćamo, unosimo:
+</p><p><code>-A INPUT -p tcp -m state --state NEW -s 192.168.0.0/24 --dport 8140 -j ACCEPT</code>
+</p><p>Ovo su upute na UNIX/Linux sustave, a slično treba izvesti na bilo kojoj platformi na kojoj smo instalirali Puppet a koja koristi vrstu zaštite vatrozidom.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Povezivanje_Puppet_agenta_i_mastera">Povezivanje Puppet agenta i mastera</span></h1>
+<p>Povezivanje dislociranih instanci Puppet agenata s Puppet masterom odnosno uspostavljanje Puppet <i>environmenta</i> odvija se sljedećim postupkom:
+</p>
+<ol><li> pokrenuti Puppet mastera na server računalu
+</li><li> pokrenuti Puppet agente na <i>node</i> računalima
+</li><li> digitalno potpisati SSL certifikate agenata (potpisuje ih Puppet master)
+</li></ol>
+<p>Nakon ova tri koraka, Puppet komunicira sigurno - ostvaruje se enkripcija i autentifikacija subjekata!
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pokretanje_Puppet_mastera">Pokretanje Puppet mastera</span></h2>
+<p>Na Debian i Ubuntu sustavima, Puppet master pokrećemo sa naredbom:
+</p><p><code>invoke-rc.d puppetmaster start</code>
+</p><p>(Dnevnik događaja – <i>log</i>, <i>daemona</i> kao što je Puppet na ovim sustavima nalazi pod /var/log/daemon.log.)
+</p><p>Pokretanjem <i>daemona</i> instancira se Puppet okolina što znači da se kreira lokalni <i>Certificate Authority</i>, certifikati i kriptografski ključevi za Puppet mastera, ali se i otvaraju mrežni <i>socketi</i> koji u tom trenutku izvode radno čekanje tj. čekaju na komunikaciju s Puppet agentima.
+</p><p>Puppet <b>SSL podaci</b> i <b>certifikati</b> se nalaze u <b>/etc/puppet/ssl</b> direktoriju.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Povezivanje_Puppet_agenta">Povezivanje Puppet agenta</span></h2>
+<p>Pretpostavimo da pokrećemo Puppet agenta na <i>host</i> računalu <i>node1.example.com</i> koji se spaja sa svojim Puppet masterom na <i>puppet.example.com</i>. Zadajemo naredbu (naravno, na <i>host</i> računalu Puppet agenta):
+</p><p><code>puppet agent --server=puppet.example.com --no-daemonize –verbose</code>
+</p><p>Zastavicom (točnije argumentom) server specificiramo domenu ili IP adresu server računala na kojeg se spajamo a gdje je pokrenut Puppet master. Druge dvije zastavice omogućuju (1) tekstualni opis događaja prilikom <i>log</i> zapisa (detaljniji zapisi) i (2) forsiraju pokretanje Puppet agenta kao <i>foreground</i> aplikacije (ne kao <i>daemon</i>).
+</p><p>Ako ne zadamo server argument, Puppet agent pretražuje lokalni DNS za izraz "puppet" – zbog toga je pametno dodati ručno CNAME zapis (opisano prethodno) ili u <i>puppet.conf</i> datoteci u sekciji [main] dodati npr. server = puppet.example.com.
+</p><p><b>Pokretanjem Puppet agenta</b>, isti <b>zahtjeva digitalno potpisivanje SSL certifikata od Puppet mastera</b> te kreira svoj privatni kriptografski ključ za sigurnu komunikaciju. Puppet agent je i dalje pokrenut i čeka odgovor (potpisani certifikat) od Puppet mastera; čekanje se prekida jedino iznimkom kao npr. Ctrl-C pri čemu je interval provjere potpisivanja certifikata po defaultu 2 minute.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Digitalno_potpisivanje_SSL_certifikata">Digitalno potpisivanje SSL certifikata</span></h2>
+<p>Kako bi veza između klijenta i servera odnosno Puppet agenta i mastera bila uspostavljena, potrebno je digitalno potpisati SSL certifikat kojim se ostvaruje sigurna veza između ova dva subjekta. <b>Potpisivanje certifikata ne ide automatski</b> već ga sistem administrator na strani servera treba <b>"ručno" odobriti</b>.
+</p><p>Za pregled certifikata na čekanju koji tek trebaju biti potpisani zadaje se naredba
+</p><p><code>puppet cert –list</code>
+</p><p>a za potpisivanje određenog certifikata treba znati domenu ili IP adresu računala s kojeg dolazi zahtjev Puppet agenta – potpisivanje se vrši naredbom
+</p><p><code>puppet cert --sign node1.example.com</code>
+</p><p>(Domena node1.example.com je primjera radi – koristi se u ovom tekstu radi pojednostavljenja.)
+</p><p>Postoji i mogućnost <i>autosigna</i> za automatski potpisivanje certifikata sa zadanih domena/IP adresa. Ovaj pristup ima i svojih nedostataka; rasprava o tome može se pročitati na <a href="http://puppetlabs.com/trac/puppet/wiki/FrequentlyAskedQuestions#why-shouldn-t-i-use-autosignfor-all-my-clients" class="external free" rel="nofollow">http://puppetlabs.com/trac/puppet/wiki/FrequentlyAskedQuestions#why-shouldn-t-i-use-autosignfor-all-my-clients</a>.
+</p><p>Nakon potpisivanja certifikata uspostavlja se nova veza s Puppet masterom a ona je ovaj put autentificirana. Ukoliko Puppet master nema spremnih konfiguracija za tek verificiranog Puppet agenta, javlja se upozorenje o nepostojećim konfiguracijskim uputama (katalozima) za preuzimanje – ova je greška sasvim u redu.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 13:42, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Primjer_potpisanog_SSL_certifikata">Primjer potpisanog SSL certifikata</span></h3>
+<p>Jednom kreiran certifikat nalazi se u direktoriju (po <i>defaultnim</i> postavkama):
+</p><p><code>/var/lib/puppet/ssl/certs/</code>
+</p><p>Naredbom
+</p><p><code>openssl x509 –text –in /var/lib/puppet/ssl/certs/naziv_certifikata</code>
+</p><p>... ispisuje se isti:
+</p>
+<pre> Certificate: 
+   Data: 
+      Version: 3 (0x2)
+       Serial Number: 3 (0x3)
+       Signature Algorithm: sha1WithRSAEncryption
+       Issuer: CN=Puppet CA: host
+       Validity
+           Not Before: Jan  4 22:21:45 2012 GMT
+           Not After&#160;: Jan  3 22:21:45 2017 GMT
+       Subject: CN=puppet.host
+       Subject Public Key Info:
+           Public Key Algorithm: rsaEncryption
+               Public-Key: (1024 bit)
+               Modulus:
+                   00:a1:b6:cd:7a:b2:c6:87:64:d7:6d:42:b1:ad:2d:
+                   12:82:88:ac:eb:e8:ac:34:20:55:c0:4f:16:d7:e0:
+                   b1:db:76:46:fd:b9:4a:0f:4b:42:c1:a6:0c:f9:76:
+                   55:f1:cc:7b:05:76:69:8c:6e:ac:fd:01:a5:e1:1f:
+                   dd:8f:b6:5e:30:6b:8c:31:c8:40:18:a8:b3:90:c8:
+                   6a:1c:78:05:35:2b:17:22:22:04:0a:51:0d:5f:4e:
+                   7f:10:83:9d:b0:0c:25:23:40:69:7a:05:09:8c:16:
+                   8a:9a:83:a9:44:44:e6:4e:6d:e1:13:13:6c:18:af:
+                   7f:eb:a4:f7:7a:10:15:ed:b3
+               Exponent: 65537 (0x10001)
+       X509v3 extensions:
+           X509v3 Basic Constraints: critical
+               CA:FALSE
+           Netscape Comment: 
+               Puppet Ruby/OpenSSL Internal Certificate
+           X509v3 Key Usage: critical
+               Digital Signature, Key Encipherment
+           X509v3 Subject Key Identifier: 
+               2A:A9:43:34:7E:C1:A0:B2:33:A7:3B:E2:32:A6:77:26:C4:4D:05:4C
+           X509v3 Extended Key Usage: critical
+               TLS Web Server Authentication, TLS Web Client Authentication
+   Signature Algorithm: sha1WithRSAEncryption
+       21:15:a6:dd:8d:72:e6:df:85:b2:92:7a:af:b6:c3:2d:45:6f:
+       b1:30:1c:a5:ba:9d:fb:42:f6:bf:c2:0d:83:bd:e7:f5:c5:da:
+       b9:a7:52:89:b0:12:2a:bd:76:98:cd:54:0f:25:a7:65:6f:eb:
+       e2:c0:c3:33:c3:26:78:42:e4:7c:cc:3f:a2:1e:0b:a8:44:54:
+       e7:dc:82:4f:8a:2a:0c:46:68:f5:45:97:a0:5c:a9:11:6e:c5:
+       6c:50:86:af:9d:49:1d:48:e0:b9:f5:88:00:1e:22:6e:9e:93:
+       c9:bc:1a:0c:02:9a:7d:2e:74:1f:35:7d:2c:a7:e8:f8:93:46:
+       c2:50
+ BEGIN CERTIFICATE 
+   MIICQjCCAaugAwIBAgIBAzANBgkqhkiG9w0BAQUFADAaMRgwFgYDVQQDDA9QdXBw
+   ZXQgQ0E6IGhvc3QwHhcNMTIwMTA0MjIyMTQ1WhcNMTcwMTAzMjIyMTQ1WjAWMRQw
+   EgYDVQQDDAtwdXBwZXQuaG9zdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA
+   obbNerLGh2TXbUKxrS0Sgois6+isNCBVwE8W1+Cx23ZG/blKD0tCwaYM+XZV8cx7
+   BXZpjG6s/QGl4R/dj7ZeMGuMMchAGKizkMhqHHgFNSsXIiIEClENX05/EIOdsAwl
+   I0BpegUJjBaKmoOpRETmTm3hExNsGK9/66T3ehAV7bMCAwEAAaOBmzCBmDAMBgNV
+   HRMBAf8EAjAAMDcGCWCGSAGG+EIBDQQqFihQdXBwZXQgUnVieS9PcGVuU1NMIElu
+   dGVybmFsIENlcnRpZmljYXRlMA4GA1UdDwEB/wQEAwIFoDAdBgNVHQ4EFgQUKqlD
+   NH7BoLIzpzviMqZ3JsRNBUwwIAYDVR0lAQH/BBYwFAYIKwYBBQUHAwEGCCsGAQUF
+   BwMCMA0GCSqGSIb3DQEBBQUAA4GBACEVpt2NcubfhbKSeq+2wy1Fb7EwHKW6nftC
+   9r/CDYO95/XF2rmnUomwEiq9dpjNVA8lp2Vv6+LAwzPDJnhC5HzMP6IeC6hEVOfc
+   gk+KKgxGaPVFl6BcqRFuxWxQhq+dSR1I4Ln1iAAeIm6ek8m8GgwCmn0udB81fSyn
+   6PiTRsJQ
+ END CERTIFICATE
+</pre>
+<p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 19:01, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_primjer_povezivanja_Puppet_agenta_i_mastera_.28s_screenshotovima.29">Praktični primjer povezivanja Puppet agenta i mastera (s <i>screenshotovima</i>)</span></h2>
+<p>Korišteni elementi za praktični primjer:
+</p>
+<ul><li>Puppet master (host: 192.168.0.21)
+</li><li>Puppet agent (client 192.168.0.15)
+</li></ul>
+<p>U trenutku kada su pokrenuti i Puppet master i Puppet agent, agent naredbom
+</p><p><code>puppet agent --server=puppet.host --no-daemonize –verbose</code>
+</p><p>... inicijalizira povezivanje s masterom.
+Na Puppet agent <i>node</i> računalu pojavljuju se sljedeće informativne naredbe koje izvještavaju:
+</p>
+<ul><li>izrada SSL ključa
+</li><li>izradi novog SSL zahtjeva za certifikat
+</li><li>izrada <i>fingerprint</i>-a za zahtjev certifikata
+</li></ul>
+<p>Kada su ovi koraci izvršeni, Puppet agent čeka potpisani certifikat od strane mastera.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sis1.PNG" class="image"><img alt="Sis1.PNG" src="../images/d/d6/Sis1.PNG" width="804" height="181" /></a>
+</p><p>Na strani Puppet mastera prikazuju se dobiveni zahtjevi za certificiranje naredbom:
+</p><p><code>puppet cert --list</code>
+</p><p>... te se isti po želji Puppet mastera potpisuju sa:
+</p><p><code>puppet cert –sign client</code>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sis2.PNG" class="image"><img alt="Sis2.PNG" src="../images/9/9f/Sis2.PNG" width="813" height="128" /></a>
+</p><p>Jednom potpisan certifikat omogučuje autentifikaciju Puppet mastera i Puppet agenta što je vidljivo na strani agenta.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sis3.PNG" class="image"><img alt="Sis3.PNG" src="../images/4/41/Sis3.PNG" width="467" height="39" /></a>
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 18:47, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="MySQL_i_Puppet">MySQL i Puppet</span></h1>
+<p>Za ovaj primjer kreirati ćemo takozvanu novu konfiguraciju koju će Puppet agent pokretati prilikom pokretanja.
+Prvi korak je izmjena datoteke <code>/etc/puppet/manifests/site.pp</code>.
+</p><p>Ta datoteka je do sada bila prazna (samo postojanje je bilo potrebno za pokretanje Puppeta) te ćemo je sada nadopuniti s sljedećim kodom:
+</p><p><code>import 'primjer.pp'</code>
+</p><p><code>$mysql_password="pass1950"</code>
+</p><p>Naredba <i>import</i> definira pokretanje datoteke <code>primjer.pp</code>, dok druga linija koda predstavlja varijablu (varijable se označavaju s znakom $) koja će nam biti potrebna poslije.
+</p><p>Drugi korak je kreiranje datoteke <code>primjer.pp</code>
+</p><p><code>touch /etc/puppet/manifests/primjer.pp</code>
+</p><p>sa sljedećim kodom
+</p><p><code>node 'puppet.client' {
+include mysql
+}</code>
+</p><p>S <i>node</i> definiramo klijenta (<i>puppet.client</i>) te pridružujemo istom pokretanje MySQL modula.
+</p><p>Treći korak je kreiranje samog modula.
+</p><p>Svaki modul zahtjeva specifičnu strukturu direktorija i datoteku <code>init.pp</code>. Definirana struktura omogućava željenu automatizaciju.
+</p><p>Za početak je potrebno u prije spomenutoj datoteci <code>puppet.conf</code> pod [main] sekciju upisati lokaciju direktorija
+</p><p><code>moduledir = /etc/puppet/modules:/var/lib/puppet/modules:/opt/modules</code>
+</p><p>... te nakon toga kreirati sam direktorij i datoteku <code>init.pp</code> sa:
+</p><p><code> mkdir –p /etc/puppet/modules/mysql/{files,templates,manifests}</code>
+</p><p><code>touch /etc/puppet/modules/mysql/manifests/init.pp</code>
+</p><p>Unutar datoteke <code>init.pp</code> upisujemo sljedeći kod:
+</p>
+<pre>class mysql{
+ package { "mysql-server": ensure =&gt; installed }
+ package { "mysql": ensure =&gt; installed }
+ service { "mysqld":
+   enable =&gt; true,
+   ensure =&gt; running,
+   require =&gt; Package["mysql-server"],
+ }
+ file { "/var/lib/mysql/my.cnf":
+   owner =&gt; "mysql", group =&gt; "mysql",
+   source =&gt; "puppet:///mysql/my.cnf",
+   notify =&gt; Service["mysqld"],
+   require =&gt; Package["mysql-server"],
+ }
+  file { "/etc/my.cnf":
+   require =&gt; File["/var/lib/mysql/my.cnf"],
+   ensure =&gt; "/var/lib/mysql/my.cnf",
+ }
+ exec { "set-mysql-password":
+   unless =&gt; "mysqladmin -uroot -p $mysql_password status",
+   path =&gt; ["/bin", "/usr/bin"],
+   command =&gt; "mysqladmin -uroot password $mysql_password",
+   require =&gt; Service["mysqld"],
+ }
+}
+</pre>
+<p>Sada imamo osigurano da će svaki Puppet agent jednom (prvi put) kada je spojen na Puppet mastera konfigurirati MySQL sustav.
+</p><p>Primjer je preuzet sa <a href="http://bitfieldconsulting.com/puppet-and-mysql-create-databases-and-users" class="external free" rel="nofollow">http://bitfieldconsulting.com/puppet-and-mysql-create-databases-and-users</a>.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zlaletica&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zlaletica (stranica ne postoji)">Zlatan Letica</a> 20:02, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="WordPress_i_Puppet">WordPress i Puppet</span></h1>
+<p>U ovom poglavlju je opisan primjer instalacije poznate <i>blogging</i> platforme WordPress pomoću Puppeta. Primjer je nastao po uzoru na tutorial s web mjesta <a href="http://blog.shanemeyers.com/2010/09/14/installing-wordpress-via-puppet/" class="external text" rel="nofollow">Shane's Blog</a> a u skladu s instalacijskim uputama WordPressa prema tutorialu s web mjesta <a href="http://codex.wordpress.org/Installing_WordPress" class="external text" rel="nofollow">Wordpress.org: Installing WordPress</a>.
+</p><p>Puppet manifest za automatsku instalaciju WordPress sustava pomoću Puppeta je poprilično jednostavan budući da je instalacijska datoteka WordPressa dostupna <i>online</i> sa službenih stranica u obliku .zip arhive (<i>WordPress tarball</i>). Također, pretpostavlja MySQL, poznate <i>login</i> podatke korisnika baze podataka s potrebnim privilegijama i da je datoteka <code>wp-config-sample.php</code> preimenovana u <code>wp-config.php</code>.
+</p><p>Najprije <b>osigurajmo rad s bazom podataka</b>.
+</p><p><code>CREATE DATABASE database;</code>
+</p><p><code>GRANT ALL PRIVILEGES ON database* TO "db_user"@"localhost" IDENTIFIED BY "db_pass";</code>
+</p><p>[Ovo je također moguće izvesi automatizmom preko Puppet, ali nam nažalost nije uspjelo.&#160;:)]
+</p><p>Uz to, jedini preostali zadatak koji treba obaviti "ručno" (budući da Puppet automatizmom rješava sve) jest u <code>site.pp</code> <b>definirati novi Wordpress blog</b> pomoću:
+</p>
+<pre>wordpress { "blog.primjer.hr":
+   domain =&gt; "blog.primjer.hr",
+   path =&gt; "/lokacija/mog/bloga",
+   db =&gt; "sis_baza",
+   db_user =&gt; "sis",
+   db_pass =&gt; "sis1",
+}
+</pre>
+<p>Definirani parametri se tumače na sljedeći način. WordPress blog se instalira na domeni <i>domain</i>, na lokaciji <i>path</i> na <i>domain-host</i> računalu. WordPress koristi bazu podataka <i>db</i> kao korisnik s korisničkim imenom <i>db_user</i> i zaporkom <i>db_pass</i>.
+</p><p>Slijedi <code><b>wordpress.pp</b></code> <b>datoteka</b>.
+</p>
+<pre>define wordpress($domain, $path, $db, $db_user, $db_pass) {
+   $auth_key = sha1("auth_key$name")
+   $secure_auth_key = sha1("secure_auth_key$name")
+   $logged_in_key = sha1("logged_in_key$name")
+   $nonce_key = sha1("nonce_key$name")
+   $auth_salt = sha1("auth_salt$name")
+   $secure_auth_salt = sha1("secure_auth_salt$name")
+   $logged_in_salt = sha1("logged_in_salt$name")
+   $nonce_salt = sha1("nonce_salt$name")
+   include mysql-server-50
+   # php5 auto-includes apache2
+   include php5
+   file { "$path":
+       ensure =&gt; "directory",
+       source =&gt; "puppet://puppet.primjer.hr/dist/apps/wordpress/wordpress",
+       recurse =&gt; "true",
+       force =&gt; true,
+       mode =&gt; "0644",
+   }
+   file { "$path/wp-config.php":
+       content =&gt; template("/etc/puppet/dist/apps/wordpress/wp-config.php.erb"),
+       mode =&gt; "0644",
+       require =&gt; File["$path"],
+   }
+   file { "$path/wp-content/plugins":
+       source =&gt; "puppet://puppet.primjer.hr/dist/apps/wordpress/plugins",
+       recurse =&gt; "true",
+       force =&gt; true,
+       group =&gt; "www",
+       mode =&gt; "0644",
+       require =&gt; File["$path"],
+   }
+}
+</pre>
+<p>Prava pristupa za pisanje potrebno je omogućiti sljedećim datotekama i putanjama:
+</p>
+<ul><li> /.htaccess
+</li><li> /wp-content/advanced-cache.php
+</li><li> /wp-content/wp-cache-config.php
+</li><li> /sitemap.xml
+</li><li> /sitemap.xml.gz
+</li><li> /wp-content/cache
+</li></ul>
+<p>Primjer za to u Puppet sintaksi je napisan ovdje (po jedan primjer za datoteku i putanju):
+</p>
+<pre>file { "$path/.htaccess":
+    ensure =&gt; "file",
+    group =&gt; "www",
+    mode =&gt; "0664",
+    require =&gt; File["$path"],
+}
+file { "$path/wp-content/cache":
+    ensure =&gt; "directory",
+    group =&gt; "www",
+    mode =&gt; "0664",
+    require =&gt; File["$path/wp-content/plugins"],
+}
+</pre>
+<p><i>Napomena.</i> 0664 <i>mode</i> znači prava (<i>permissions</i>) RW, RW, R respektivno (R - <i>read</i>, W - <i>write</i>).
+</p><p>Posljednja stvar koju treba objasniti jest <code>wp-config.php</code> datoteka. Ona je generiran iz <code>wp-config.php.erb</code> predloška. Generiranje iz predloška je definirano sljedećom linijom koda u <code>wordpress.pp</code> datoteci (pažnja - ovo je samo <i>copy &amp; paste</i> linije!):
+</p><p><code>content =&gt; template("/etc/puppet/dist/apps/wordpress/wp-config.php.erb"),</code>
+</p><p>Slijedi <code>wp-config.php.erb</code> datoteka.
+</p>
+<pre>define('DB_NAME', '&lt;%= db&#160;%&gt;');
+define('DB_USER', '&lt;%= db_user&#160;%&gt;');
+define('DB_PASSWORD', '&lt;%= db_pass&#160;%&gt;');
+define('DB_HOST', 'localhost');
+define('DB_CHARSET', 'utf8');
+define('DB_COLLATE', <i>);</i>
+define('AUTH_KEY',         '&lt;%= auth_key&#160;%&gt;');
+define('SECURE_AUTH_KEY',  '&lt;%= secure_auth_key&#160;%&gt;');
+define('LOGGED_IN_KEY',    '&lt;%= logged_in_key&#160;%&gt;');
+define('NONCE_KEY',        '&lt;%= nonce_key&#160;%&gt;');
+define('AUTH_SALT',        '&lt;%= auth_salt&#160;%&gt;');
+define('SECURE_AUTH_SALT', '&lt;%= secure_auth_salt&#160;%&gt;');
+define('LOGGED_IN_SALT',   '&lt;%= logged_in_salt&#160;%&gt;');
+define('NONCE_SALT',       '&lt;%= nonce_salt&#160;%&gt;');
+$table_prefix  = 'wp_';
+define ('WPLANG', <i>);</i>
+define('WP_DEBUG', false);
+define('WP_CACHE', true);
+if (&#160;!defined('ABSPATH') )
+   define('ABSPATH', dirname(__FILE__) . '/');
+require_once(ABSPATH . 'wp-settings.php');
+</pre>
+<p>Ovim su kreirane konfiguracijske upute kojima se instalira WordPress, valjani <code>wp-config.php</code>, željeni <i>pluginovi</i> i postavljaju prava pristupa (za pisanje) na određene direktorije kako bi <i>pluginovi</i> funkcionirali ispravno (a njihova instalacija bila uspješna).
+</p><p>Nakon što Puppet agent instalira i podesi WordPress, potrebno je s web preglednikom (Firefox, Chrome, Opera, IE, ...) posjetiti <b>http://&lt;domain&gt;/</b> i dovršiti instalaciju WordPressa. (Napomena! Isti onaj <i>domain</i> kao u definiciji bloga u <code>site.pp</code> datoteci.)
+</p><p>Primjer Puppet manifesta za instalaciju WordPressa vrlo sličan uputama iz ovog tutoriala dostupan je na githubu na adresi <a href="https://github.com/simpsonjulian/puppet-wordpress" class="external free" rel="nofollow">https://github.com/simpsonjulian/puppet-wordpress</a>.
+</p><p>-- <a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 23:24, 6. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Za_dodatno_.C4.8Ditanje">Za dodatno čitanje</span></h1>
+<ul><li> Puppet Bug Tracker: <a href="http://projects.puppetlabs.com" class="external free" rel="nofollow">http://projects.puppetlabs.com</a>
+</li><li> Puppet Source Code: <a href="https://github.com/puppetlabs/puppet" class="external free" rel="nofollow">https://github.com/puppetlabs/puppet</a>
+</li><li> Facter Source Code: <a href="https://github.com/puppetlabs/facter" class="external free" rel="nofollow">https://github.com/puppetlabs/facter</a>
+</li><li> Puppet dokumentacija:
+<ul><li> <a href="http://docs.puppetlabs.com/" class="external free" rel="nofollow">http://docs.puppetlabs.com/</a>
+</li><li> <a href="http://docs.puppetlabs.com/learning/" class="external free" rel="nofollow">http://docs.puppetlabs.com/learning/</a>
+</li><li> <a href="http://docs.puppetlabs.com/references/" class="external free" rel="nofollow">http://docs.puppetlabs.com/references/</a>
+</li></ul>
+</li><li> Puppet Wiki: <a href="http://projects.puppetlabs.com/projects/puppet/wiki" class="external free" rel="nofollow">http://projects.puppetlabs.com/projects/puppet/wiki</a>
+</li><li> Puppet FAQ: <a href="http://docs.puppetlabs.com/guides/faq.html" class="external free" rel="nofollow">http://docs.puppetlabs.com/guides/faq.html</a>
+</li><li> Puppet SSL: <a href="http://www.masterzen.fr/2010/11/14/puppet-ssl-explained/" class="external free" rel="nofollow">http://www.masterzen.fr/2010/11/14/puppet-ssl-explained/</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Snjegovan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Snjegovan (stranica ne postoji)">Sandro Njegovan</a> 11:03, 16. siječnja 2012. (CET)
+</p>
+<h1> <span class="mw-headline" id="Izvori">Izvori</span></h1>
+<ol><li> Orchestration - <a href="http://en.wikipedia.org/wiki/Orchestration_(computing)" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Orchestration_(computing)</a>
+</li><li> Infodom.hr: SOA arhitektura - <a href="http://www.infodom.hr/default.aspx?id=536" class="external free" rel="nofollow">http://www.infodom.hr/default.aspx?id=536</a>
+</li><li> Introduction to Puppet - <a href="http://docs.puppetlabs.com/guides/introduction.html" class="external free" rel="nofollow">http://docs.puppetlabs.com/guides/introduction.html</a>
+</li><li> Puppet Installation - <a href="http://docs.puppetlabs.com/guides/installation.html" class="external free" rel="nofollow">http://docs.puppetlabs.com/guides/installation.html</a>
+</li><li> Puppet Configuration Guide - <a href="http://docs.puppetlabs.com/guides/configuring.html" class="external free" rel="nofollow">http://docs.puppetlabs.com/guides/configuring.html</a>
+</li><li> Puppet Configuration Reference - <a href="http://docs.puppetlabs.com/references/stable/configuration.html" class="external free" rel="nofollow">http://docs.puppetlabs.com/references/stable/configuration.html</a>
+</li><li> MySQL i Puppet - <a href="http://bitfieldconsulting.com/puppet-and-mysql-create-databases-and-users" class="external free" rel="nofollow">http://bitfieldconsulting.com/puppet-and-mysql-create-databases-and-users</a>
+</li><li> WordPress i Puppet - <a href="http://blog.shanemeyers.com/2010/09/14/installing-wordpress-via-puppet/" class="external free" rel="nofollow">http://blog.shanemeyers.com/2010/09/14/installing-wordpress-via-puppet/</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 116/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:784-0!*!0!!hr!2!edit=0 and timestamp 20190203203959 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Puppet_-_Orkestracija_servisa.html">http://security.foi.hr/wiki/index.php/Puppet_-_Orkestracija_servisa</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Puppet_-_Orkestracija_servisa" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Puppet_-_Orkestracija_servisa.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Puppet_-_Orkestracija_servisa&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Puppet_-_Orkestracija_servisa.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Puppet_-_Orkestracija_servisa.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Puppet_-_Orkestracija_servisa&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Puppet_-_Orkestracija_servisa&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Puppet_-_Orkestracija_servisa.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Puppet_-_Orkestracija_servisa" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Puppet_-_Orkestracija_servisa" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Puppet_-_Orkestracija_servisa&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Puppet_-_Orkestracija_servisa&amp;oldid=5987" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 10:10, 16. siječnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 21.162 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Puppet_-_Orkestracija_servisa", "wgTitle": "Puppet - Orkestracija servisa", "wgAction": "view", "wgArticleId": 784, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 5987, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.586 secs. -->			</body>
+</html>

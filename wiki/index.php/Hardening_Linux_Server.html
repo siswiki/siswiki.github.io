@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Hardening Linux Server - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Hardening_Linux_Server&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hardening_Linux_Server skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Hardening Linux Server</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Hardening_Linux_Server.html#mw-head">orijentacija</a>,
+					<a href="Hardening_Linux_Server.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirali: Tomislav Budimlić,  Matej Cvitković, Tomislav Čivčija
+</p><p><br />
+Očvršćivanje Linux poslužitelja (eng. Hardening Linux Server) je proces povećanja sigurnosti poslužitelja putem raznih sredstava što rezultira puno sigurnijem radnom okruženju poslužitelja. Postoje razni načini očvršćivanja ovdje će biti nabrojani neki od najkorištenijih:
+</p>
+<ol>
+  <li> Fizičko očvrišćivanje</li>
+  <li> Kreiranje particija </li>
+  <li> Minimizacija količine paketa(smanjivanje površine napada) </li>
+  <li> Korištenje SSH </li>
+  <li> Ažuriranje sustava </li>
+  <li> Enkripcija podataka </li>
+  <li> Postavljanje firewalla </li>
+</ol>
+<p><br />
+<b> Linux Server </b>
+</p><p>Trenutno na tržištu nalazi se velik broj raznih distribucija (eng. distribution) Linux poslužitelja. Uglavnom distribucije nastaju na način da njihova jezgra bude utemeljena na nekoj već postojećoj Linux distribuciji. Tako da u svijetu Linux poslužitelja trenutno oni se dijele na tri tipa. Distribucije su uglavnom utemljene na:
+</p>
+<pre>1. Debian
+  a) Debian
+  b) Ubuntu
+2. RedHat
+  a) CentOS
+  b) RedHat
+3. Slackware 
+4. Razni (eng. Miscellaneous)
+  a) Arch Linux 
+  b) Gentoo
+</pre>
+<p>Za primjenu određenih metoda očvršćivanja Linux poslužitelja koristiti ćemo Debian i RedHat distribucije zato što se zapravo najviše koriste. Točnije rečeno odabrali smo Debian i CentOS kao distribucije gdje ćemo prikazati metode očvršćivanja. (<a href="http://www.linux.org/threads/which-server-distro-is-right-for-me.7783/" class="external autonumber" rel="nofollow">[1]</a>)
+</p><p><b> Debian </b>
+</p><p>Debian Projekt je udruga pojedinaca koji su si postavili za cilj stvaranje slobodnog operativnog sustava. Operativni sustav koji su stvorili se zove Debian GNU/Linux, ili jednostavno skraćeno, Debian. Danas se razni operativni sustavi temelje na Debianu. Najpoznatiji primjer je zasigurno Ubuntu. Za jednostavnije korištenje Debiana potrebno je instalirati sudo (Super-user do ) i dodijeliti korisnika sudo grupi (adduser username sudo) kako bi se moglo instalirati sve potrebne pakete i programe. (<a href="https://www.debian.org/intro/about" class="external autonumber" rel="nofollow">[2]</a>)
+</p><p><b> CentOS </b>
+</p><p>CentOS je kao što je ranije rečeno distribucija temeljena na RedHatu. Razlika između izvornog RedHata i CentOS je zapravo u plaćanju podrške, brandingu, te arhitekturalnog podršci. Za razliku od RedHata CentOS podržava samo x86-64 arhitekture. Treba napomenuti da je CentOS zapravo besplatna alternativa RedHatu i iz tog razloga je jedan od najpopularnih poslužiteljskih distribucija. Koristi Yum kao glavni package manager.(<a href="https://wiki.centos.org/About/Product" class="external autonumber" rel="nofollow">[3]</a>)
+</p><p>Očvrišćivanje poslužitelja(<a href="https://linux-audit.com/linux-server-hardening-most-important-steps-to-secure-systems/" class="external autonumber" rel="nofollow">[4]</a>):
+</p>
+<ol>
+  <li> Ažuriranje sustava - Matej Cvitković</li>
+<p>Prvi korak prilikom očvršćivanja trebalo bi biti ažuriranje sustava, kako bi sustav imao sva najnovija ažuriranja te samim time nadogradnje,ispravke slučajnih propusta i slično. Naredba za ažuriranje:
+</p>
+<pre> [CentOS] 
+ yum update 
+</pre>
+<pre> [Debian]
+ sudo apt-get update &amp;&amp; sudo apt-get upgrade 
+</pre>
+  <li> Organizacija datotečnih sustava (<a href="https://www.cyberciti.biz/tips/linux-security.html" class="external autonumber" rel="nofollow">[5]</a>) - Matej Cvitković </li> 
+<p>Odvajanje datoteka operacijskog sustava od datoteka korisnika rezultirati će boljim i sigurnijim sustavom. Datotečne sustave treba postaviti na odvojene particije:
+</p>
+<pre> /(root) 
+ /boot  
+ /home  
+ /tmp 
+ /var 
+</pre>
+<p>Particija /var je mjesto gdje se sve log poruke spremaju na disk. Kod ovog dijela sustava postoji šansa za eksponencijalnim rastom u veličini na serverima koji obrađuju velike količine podataka. Zbog toga treba kreirati dovoljno veliku particiju ili razmotriti korištenje logičkih datotečnih sustava. Također postoji još mogućnost da se koristi više fizičkih diskova koji se spajaju u RAID 0 za obrađivanje jako velikih količina podataka. <a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external text" rel="nofollow">| 3</a>
+</p><p>Još jedan način za zaštiti svoje podatke je enkripcija samih diskova. Postoje razni alati za smještanje čitavih particija u enkriptirane posude (eng. container) poput VeraCrypta i TrueCrypta. Također moguće je potpuna enkripcija diskova koja uglavnom nije preporučena zato što je puno teže vratiti podatke i postoji šansa da će performanse sustava pasti. Za potpunu enkripciju koristi se PGP i kriptografija javnim ključevima ili openssl naredba.  
+</p>
+<li> Minimizacija količine paketa(smanjivanje površine napada) Matej Cvitković <a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external text" rel="nofollow">| 3</a> </li>
+<p>Treba napraviti lokalnu listu instaliranih aplikacija kako bi se mogle usporediti aplikacije nakon nekog perioda vremena kako se ne bi povećala mogućnost površine napada zbog nemarnosti administratora. Uklanjanje svih nepotrebnih paketa obavlja se pomoću:
+</p>
+<pre>  [CentOS]
+  rpm-qa
+  yum list installed &gt;&gt; installed.txt  
+</pre>
+<pre>  [Debian]
+  dpkg -–list
+  dpkg –-info pacageName
+  apt-get –-purge remove pacageName  
+</pre>
+<p>Nakon toga treba ukloniti sve stavke koje su poslužitelju nepotrebne.Ispod će biti navedeni neki primjeri:
+</p>
+<ul>
+<li> Pronalaz datoteka bez vlasnika</li>
+<pre>find / -nouser -o -nogroup -exec ls -l {} \;
+</pre>
+<p>Njih treba ukloniti nakon što ih se pronađe <b> rm -r "filename" </b>
+</p>
+<li> Uklanjanje grafičkog sučelja na poslužiteljima kojima nije potrebno npr. LAMP poslužitelji </li>
+<pre>[CentOS]
+yum groupremove "X Window System" (<a href="http://danblee.com/uninstall-x-window-system-on-centos-6/" class="external autonumber" rel="nofollow">[6]</a>)
+</pre>
+<pre>[Debian]
+sudo apt-get --purge remove x11-*
+sudo apt-get --purge autoremove  <a href="http://raspberrypi.stackexchange.com/questions/5258/how-can-i-remove-the-gui-from-raspbian-debian" class="external text" rel="nofollow">| 4</a>
+</pre>
+<li> Isključiti IPv6 ukoliko se ne koristi </li>
+<p>Dodati u datoteku <b> /etc/sysconfig/network </b>
+</p>
+<pre>NETWORKING_IPV6 = no <a href="https://www.cyberciti.biz/faq/redhat-centos-disable-ipv6-networking/" class="external text" rel="nofollow">| 5</a>
+</pre>
+<li> Isključivanje beskorisnih SUID i SGID naredbi (<a href="http://www.tecmint.com/centos-7-hardening-and-security-guide/" class="external autonumber" rel="nofollow">[7]</a>) </li> 
+<p>Pronalaz naredbi: 
+</p>
+<pre>find /  -path /proc -prune -o -type f \( -perm -4000 -o -perm -2000 \) -exec ls -l {} \;
+</pre>
+<p>Uklanjanje SetUid
+</p>
+<pre>chmod u-s /path/
+</pre>
+<p>Uklanjanje SetGid
+</p>
+<pre> chmod g-s /path/ 
+</pre>
+<li> Zaključavanje Virtual User Console <a href="http://www.tecmint.com/vlock-lock-user-virtual-console-terminal-linux/" class="external text" rel="nofollow">| 6</a></li>
+<pre>[CentOS]
+yum install vlock
+vlock                      
+</pre>
+<pre>[Debian]
+sudo apt-get install vlock  
+vlock –current             
+</pre>
+<li> Onemogućavanje USB uređaja <a href="https://www.cyberciti.biz/faq/linux-disable-modprobe-loading-of-usb-storage-driver/" class="external text" rel="nofollow">| 7</a></li>
+<pre>echo 'install usb-storage /bin/true' &gt;&gt; disable-usb-storage.conf
+Nakon toga je potrebno otvoriti <b> /etc/modprobe.d/blacklist.conf </b> i dodati:
+blacklist usb-storage
+</pre>
+<li> Onemogućavanje kontrole Ctrl+Alt+Del (<a href="http://www.tecmint.com/security-and-hardening-centos-7-guide/2/" class="external autonumber" rel="nofollow">[8]</a>)</li>
+<pre>systemctl mask ctrl-alt-del.target 
+</pre>
+<li> Uklanjanje nepotrebnih servisa (<a href="http://www.tecmint.com/security-and-hardening-centos-7-guide/2/" class="external autonumber" rel="nofollow">[9]</a>)</li>
+<p>Provjera servisa koji trenutno rade <a href="https://www.linode.com/docs/security/securing-your-server" class="external text" rel="nofollow">| 1</a>
+</p>
+<pre>ss -tulpn
+</pre>
+<p>Listanje svih korištenih servisa
+</p>
+<pre>systemctl list-units -t service 
+</pre>
+<p>Pr. Server koji se ne koristi kao mail server, potrebno je očvrsnuti na način da se obrišu stvari potrebne za mail servere koje se ne koriste.
+</p>
+<pre>[CentOS]
+yum remove postfix
+</pre>
+<pre>[Debian]
+sudo apt-get autoremove postfix
+</pre>
+<li> Uklanjanje nepotrebih kompajlera </li>
+<p>Pomoću naredbe ispod mogu se pronaći kompajleri. Zatim pomoću jednostavne naredbe <b> yum remove </b> ukloniti nepotrebne kompajlere. 
+</p>
+<pre>[CentOS]
+rpm -q -g "Development/Languages"
+</pre>
+<pre>[Debian]
+dpkg --list | grep compiler <a href="https://www.cyberciti.biz/faq/linux-how-to-check-what-compiler-is-running-installed/" class="external text" rel="nofollow">| 8</a>
+
+</pre>
+</ul>
+  <li> Korištenje SSH - Tomislav Budimlić, Matej Cvitković</li>
+<p>OpenSSH postao je standard za remote pristup spajanja na server. Ali također default instalacija SSH-a nije idealna te sadrži određeni broj propusta, ali postoji par jednostavnih koraka kako bi se dramatično očvrsnula njegova instalacija.
+</p>
+<ol>
+<li> Korištenje jakih lozinski i korisničkih imena </li>
+<pre> Minimalno 8 znakova, kombinacija velikih i malih slova, kombinacija brojeva i slova te dodavanje posebnih znakova poput&#160;! $&#160;% &amp; /&#160;? *
+</pre>
+<li> Ukidanje root logina <a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external text" rel="nofollow">| 3</a></li>
+<pre>U datoteci <b>/etc/ssh/sshd_config </b> treba dodati sljedeći liniju:
+PermitRootLogin no
+</pre>
+<p>Nakon toga treba ponovo pokrenuti uslugu pomoću naredbe <b> service sshd restart </b>. Umjesto root računa preporuča se korištenje sudo.  
+</p>
+<li> Limitiranje korisnika <a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external text" rel="nofollow">| 3</a></li>
+<pre>U datoteci <b> /etc/ssh/sshd_config </b> dodati linije:
+AllowUsers admin
+DenyUsers cvitka
+</pre>
+<li> Ukidanje Protokola 1 <a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external text" rel="nofollow">| 3</a></li>
+<pre>U datoteci <b> /etc/ssh/sshd_config </b> ukolniti komentar i promijeniti liniju:
+# Protocol 2,1
+Protocol 2
+</pre>
+<li> Prebacivanje sa standarnog porta (<a href="https://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html" class="external autonumber" rel="nofollow">[10]</a>)</li>
+<p>OpenSSH nalazi se na portu 22 i kada napadač odluči napasti poslužitelj uglavnom krenu prvo sa skeniranjem portova pomoću alata(npr. nmap). Ukoliko se OpenSSH nalazi na standarnom portu velike šanse su da će ga pronaći, zbog toga port treba prebaciti na neki brojčano visoki slobodni port koji inače nije poznat po korištenju za slične uporabe. Ukoliko to želimo promijeniti  u datoteci <b> /etc/ssh/sshd_config </b> treba promijeniti port. Npr:
+</p>
+<pre># Run ssh on a non-standard port:
+Port 2345  
+</pre>
+<p>Port 2345 je slobodan i nije poznat po sličnim uporabama. Nakon toga ukoliko poslužitelj ima postavljen firewall treba ga dodati u iznimke iptablesa. <a href="https://uk.godaddy.com/help/changing-the-ssh-port-for-your-linux-server-7306" class="external text" rel="nofollow">| 9</a>
+</p>
+<li> Korištenje javnih/privatnih ključeva za autentifikaciju <a href="https://www.linode.com/docs/security/securing-your-server" class="external text" rel="nofollow">| 1</a></li>
+<p>Korištenje šifriranih ključeva za provjeru autentičnosti nudi dvije glavne prednosti. Prva je ta što je praktičan jer više ne morate upisati lozinku ako koristite javni / privatni ključ. Drugo, nakon što je autentifikacija postavljena na poslužitelju možete onemogućiti provjeru lozinke u potpunosti. Ključevi se generiraju pomoću:
+</p>
+<pre>ssh-keygen -b 4096
+</pre>
+<p>Moguće je unijeti frazu (eng. passphrase) koja se mora unositi svaki put prilikom povezivanja na server. Na to možemo gledati kao dodatni mehanizam zaštite. Nakon što su ključevi izgenerirani, potrebo je uploadat ključ na server pomoću:
+</p>
+<pre>ssh-copy-id example_user@ip_adress
+</pre>
+<p>Jedini problem autentifikacije na ovaj način je taj da se mora generirati par ključeva za svaki uređaj koji bi se spajao na server.
+</p>
+</ol>
+  <li> Iptables - Tomislav Budimlić</li>
+<p>Iptables je firewall koji koristi policy chains za dopustiti ili blokirati promet. Kada veza pokušava ostvariti se na poslužitelju, iptables traži je u svom popisu kako bi znao kako reagirati. Ukoliko ne pronađe odvija se defaultna akcija. Postoje tri tipa lanaca INPUT, OUTPUT, FORWARD. INPUT koristi se za kontrolu dolaznih veza, OUTPUT koristi se za kontrolu odlaznih veza, dok FORWARD se koristi za dolazne veze koje zapravo neće dospijeti do poslužitelja tj.one se preusmjeravaju negdje drugdje. Postoje također i tri reakcije na veze Accept, Drop i Reject. Accept prihvaća vezu, Drop odbacuje vezu i pretvara se kao da se ništa nije dogodilo, dok Reject ne dopušta vezu i vraća korisniku grešku.
+</p><p><b>Debian</b> po defaultu nema definirane policy chains te ih je potrebno ručno definirati. <a href="https://www.upcloud.com/support/configuring-iptables-on-debian-8-0/" class="external text" rel="nofollow">| 10</a>
+</p><p><b>CentOS</b> koristi u svojoj instalaciji umjesto  iptables, firewalld. Ukoliko se želi koristiti iptables prvo treba ukloniti firewalld. Proces dodavanja iptables nalazi se ispod(<a href="https://wiki.centos.org/HowTos/Network/IPTables" class="external autonumber" rel="nofollow">[11]</a>):
+</p>
+<pre>systemctl mask firewalld
+systemctl stop firewalld
+yum -y install iptables-services
+sudo systemctl enable iptables
+systemctl start iptables
+</pre>
+<p>Sada nakon što je dodan iptables možemo postaviti defaulta pravila. 
+</p>
+<pre>#default za sve
+sudo iptables -P INPUT DROP
+sudo iptables -P FORWARD DROP
+sudo iptables -P OUTPUT DROP
+</pre>
+<pre>#Allow incoming SSH 
+sudo iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<pre>#Allow incoming HTTP
+sudo iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<pre>#Allow outgoing SSH
+sudo iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<p>Ispod se nalazi popis nekih osnovnih portova. Preporuka je postaviti da sve veze kao DROP, te ručno prihvatiti one koje se potrebne za rad poslužitelja.
+</p>
+<ol> 
+ <li> TCP port 80 – HTTP Server </li>
+ <li> TCP port 443 – HTTPS Server </li>
+ <li> TCP port 25 – Mail Server </li>
+ <li> TCP port 22 – OpenSSH (remote) secure shell server  </li>
+ <li> TCP port 110 – POP3 (Post Office Protocol v3) server </li>
+ <li> TCP port 143 – Internet Message Access Protocol (IMAP) </li>
+ <li> TCP / UDP port 53 – Domain Name System (DNS) </li>
+</ol>
+  <li> Upravljanje računima - Tomislav Budimlić, Tomislav Čivčija</li>
+  <ol>
+  <li> Onemogućiti remote access za root račun <a href="https://www.rootusers.com/23-hardening-tips-to-secure-your-linux-server/#3" class="external text" rel="nofollow">| 11</a></li>
+<pre>root:x:0:0:root:/root:/sbin/nologin 
+</pre>
+  <li> Onemogućiti console access za root račun </li> 
+<p>Inače se preporuča uklanjanje root računa i upravljanje serverom pomoću naredbe <b> sudo </b> koja daje adminska prava korisnicima koji se nalaze u datoteci <b> /etc/sudoers </b>.
+</p>
+<pre>Potrebno je obrisati sve stavke iz datoteke <b>/etc/securetty</b>.
+</pre>
+ <li>Dodavanje računa (admin) <a href="https://www.linode.com/docs/security/securing-your-server" class="external text" rel="nofollow">| 1</a></li>
+<p>Kako ne želimo da se netko može prijaviti kao root i imati sva prava nad serverom, potrebno je kreirati novog, limitiranog usera koji će moći izvoditi sve administratorske operacije pomoću sudo.
+</p>
+<pre>[CentOS]
+useradd example_user &amp;&amp; passwd example_user
+usermod -aG wheel example_user (omogućava sudo)
+</pre>
+<pre>[Debian]
+adduser example_user sudo
+passwd example_user
+</pre>
+  <li> Dodati mogućnost starenja lozinki <a href="https://www.cyberciti.biz/tips/linux-security.html" class="external text" rel="nofollow">| 2</a></li>
+<p>Na ovaj način osiguravaju se česte izmijene lozinki i na taj način se zaključavaju računi koji se često ne koriste i prisiljavaju se administratori na česte promijene, što sigurno doprinosi sigurnosti. 
+</p>
+<pre> chage -M 60 -m 7 -W 7 cvitka
+</pre>
+  <li> Zaključavanje računa </li>  
+<p>Zaključavanje računa u CentOS-u radi se pomoću aplikacije pam_tally2 <a href="https://www.rootusers.com/23-hardening-tips-to-secure-your-linux-server/#20" class="external text" rel="nofollow">|11</a>. Aplikacija čita iz svoje datoteke pravila pomoću kojih zaključava račun. Datoteka se nalazi na lokaciji <b> /etc/pam.d/password-auth </b>. U tu datoteku potrebno je dodati sljedeće linije:
+</p>
+<pre>auth     required       pam_tally2.so file=/var/log/tallylog deny=3 even_deny_root unlock_time=1200 #dodati u auth dio datoteke
+account     required      pam_tally2.so #dodati u account dio datoteke
+</pre>
+<p>Parametri dodani u prvoj predstavljaju sljedeće: 
+</p>
+<ul>
+<li> file=/var/log/tallylog – Default log datoteka korištena za čuvanje login brojača.</li>
+<li> deny=3 – Zabrani pristup nakon tri netočna pokušaja i zaključaj korisnika.</li>
+<li> even_deny_root – Odnosi se i na root račun.</li>
+<li> unlock_time=1200 – Račun će biti zaključan 20minuta. </li>
+</ul> 
+<p>Provjera korisnika:
+</p>
+<pre>pam_tally2 --user=cvitka
+</pre>
+<p>Resetiranje status korisnika:
+</p>
+<pre>pam_tally2 --user=cvitka --reset
+</pre>
+<p>Na Debianu je dovoljno ispisati sve korisnike pomoću:
+</p>
+<pre>cat /etc/passwd
+</pre>
+<p>Odabrani račun je moguće zaključati pomoću:
+</p>
+<pre>passwd -l accountName  <a href="https://www.cyberciti.biz/tips/linux-security.html" class="external text" rel="nofollow">| 2</a>
+</pre>
+<li> Limitiranje pristupa </li>
+<p>Dopustiti pristup poslužitelju samo ovlaštenim korisnicima. 
+</p>
+<li> Nadziranje korisničke aktivnosti <a href="http://www.tecmint.com/how-to-monitor-user-activity-with-psacct-or-acct-tools/" class="external text" rel="nofollow">| 12</a></li>
+<p>Za nadziranje korisničke aktivnosti u <b>CentOS</b> koristi se aplikacija <b>psacct</b>. Ona radi u pozadini i prati svaku od korisničkih aktivnosti na poslužitelju uključujići i resurse koje koristi. Neke od najkorištenijih psacctovih funkcija su <b>ac</b>, <b>lastcomm</b>, <b>accton</b>, <b>sa</b>, <b>last</b>. Također koristi se i aplikacija <b> sysstat </b>.
+</p>
+<pre>yum install psacct
+yum -y install sysstat
+</pre>
+<p>Provjera statusa: 
+</p>
+<pre>/etc/init.d/psacct status
+Process accounting is disabled.
+</pre>
+<p>Po defaultu pssact aplikacija u <b>CentOS</b> je onesposobljena i treba je ručno pokrenuti. 
+</p>
+<pre>chkconfig psacct on
+/etc/init.d/psacct start
+Starting process accounting:             [ OK ]   
+</pre>
+<p>Pokretanje aplikacije sysstat i omogućavanje prilikom boota.  
+</p>
+<pre>systemctl start sysstat  
+systemctl enable sysstat 
+</pre>
+<p>Za razliku od CentOS-a, Debian koristi aplikaciju <b>acct</b> koja je zapravo identična psacct-u i funkcionira na isti način.
+</p>
+<pre>sudo apt-get install acct
+/etc/init.d/acct start
+</pre>
+</ol> 
+  <li> SELinux - Tomislav Budimlić<a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external text" rel="nofollow">| 3</a></li>
+<p>SELinux je dogradnja u Linux kernelu koja implementira MAC(eng. Mandatory Acces Control) koji dopušta korisnicima da definiraju sigurnosna pravila koja pružaju preciznija dopuštenja za sve korisnike,aplikacije,procese,datoteke i uređaje. Odluke kernelove kontrole pristupa temelje se na posve sigurnosnom relevantnom kontekstu umjesto o ovlaštenju korisnika. Kako bi dohvatili status SELinuxa u <b> CentOS </b>(sadrži ga već u minimalnoj instalaciji) i rekli mu da provede svoj rad treba pokrenuti sljedeće naredbe: 
+</p>
+<pre>getenforce
+setenforce 1
+sestatus
+</pre>
+<p>Također bilo bi dobro instalirati paket <b> policycoreutils-python </b> koji pruža dodatne Python usluge za rad SELinuxa.Neke od dodatnih usluge su <b> audit2allow </b>, <b> audi2why </b>, <b> chcat </b>, <b> semanage </b>. 
+</p>
+<pre>sudo yum install  policycoreutils-python
+</pre>
+<p>U Debianu za razliku od CentOS nije moguće omogućiti SELinux u novijim verzijama (<a href="https://lists.debian.org/debian-devel/2015/04/msg00207.html" class="external autonumber" rel="nofollow">[12]</a>)
+</p>
+<li> Očvršćivanje <b> /etc/sysctl.conf </b> (<a href="http://www.tecmint.com/centos-7-hardening-and-security-guide/3/" class="external autonumber" rel="nofollow">[13]</a>) - Matej Cvitković</li>
+<p><b>Sysctl </b> je sučelje koje omogućuje da se naprave promjene na radnom Linux kernelu. Pomoću datoteke <b>/etc/sysctl.conf</b> mogu se podesiti razne Linux mrežne i sustavke opstavke. Primjeri se nalaze ispod:
+</p><p>Onesposobljavanje adresiranja putova(eng. path addressing)
+</p>
+<pre>net.ipv4.conf.all.accept_source_route=0
+</pre>
+<p>Onesposobljavanje IPv4 preusmjeravanja
+</p>
+<pre>ipv4.conf.all.forwarding=0
+</pre>
+<p>Onesposobljavanje IPv6 
+net.ipv6.conf.all.disable_ipv6 = 1
+</p>
+<pre>net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+net.ipv4.conf.all.rp_filter=2
+</pre>
+<li> Korištenje vanjskih sustavskih skeniranja - Tomislav Čivčija</li>
+<p>Kako bi zaštitili poslužitelj potrebno je stati u ulogu napadača i provjeti slabosti koje su vidljive izvana. Za te uporabe koriste se alati pomoću <b> nmap </b>, <b>nessus </b>, <b> openVAS </b>.
+</p>
+<ol>
+<li> nmap <a href="https://www.howtoforge.com/tutorial/nmap-on-linux/" class="external text" rel="nofollow">| 13</a></li>
+<p>Nmap je alat koji se koristi za mrežna istraživanja ili sigurnosne revizije. Omogućava ping skeniranje, razne tehnike skeniranja portova te TCP/IP "otisak prsta". Važno je reći kako korištenje nmapa nije u potpunosti bezopasno. Potrebno je dopuštenje vlasnika sustava za skeniranje servera. 
+</p>
+<pre>[Debian]
+sudo apt-get install nmap
+nmap IP_adresa
+</pre>
+<pre>[CentOS]
+yum install nmap
+nmap IP_adresa
+
+</pre>
+<p><br />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Centos_nmap_before.png" class="image"><img alt="" src="../images/thumb/1/1d/Centos_nmap_before.png/600px-Centos_nmap_before.png" width="600" height="185" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Centos_nmap_before.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Server prije očvršćivanja</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Centos_nmap_after.png" class="image"><img alt="" src="../images/thumb/e/e5/Centos_nmap_after.png/700px-Centos_nmap_after.png" width="700" height="146" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Centos_nmap_after.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Server poslije očvršćivanja</div></div></div>
+<p><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</p>
+<li> Nessus (<a href="http://static.tenable.com/documentation/nessus_6.4_installation_guide.pdf" class="external autonumber" rel="nofollow">[14]</a>)</li>
+<p>Nessus je besplatan alat koji omogućava udaljeno skeniranje lokalne mreže kako bi se provjerilo postoje li kakvi nedostatci koje bi napadaći mogli iskoristiti protiv servera. 
+</p>
+<pre>[Debian]
+wget <a href="http://downloads.nessus.org/nessus3dl.php?file=Nessus-6.6.1-debian6_amd64.deb&amp;licence_accept=yes&amp;t=f7aa904ae5609c7ac593e61d2f68042e" class="external free" rel="nofollow">http://downloads.nessus.org/nessus3dl.php?file=Nessus-6.6.1-debian6_amd64.deb&amp;licence_accept=yes&amp;t=f7aa904ae5609c7ac593e61d2f68042e</a>
+sudo dpkg -i Nessus*.deb
+sudo /etc/init.d/nessusd start
+</pre>
+<pre>[CentOS]
+yum install glibc zlib
+wget <a href="http://downloads.nessus.org/nessus3dl.php?file=Nessus-6.6.1-debian6_amd64.deb&amp;licence_accept=yes&amp;t=f7aa904ae5609c7ac593e61d2f68042e" class="external free" rel="nofollow">http://downloads.nessus.org/nessus3dl.php?file=Nessus-6.6.1-debian6_amd64.deb&amp;licence_accept=yes&amp;t=f7aa904ae5609c7ac593e61d2f68042e</a>
+rpm -ivh Nessus*.rpm
+
+</pre>
+<p>Nakon toga je potrebno otici na stranicu koja nam se prikaže nakon uspješne instalacije i tamo kreirati korisnika, odnosno administratora i svi izvještaji se tamo pregledavaju.
+</p>
+</ol>
+<li> Korištenje unutarnje zaštite - Tomislav Čivčija</li>
+<p>Osim vanjske zaštite potrebno je vršiti i zaštitu iz unutra protiv virusa, rootkitova, malware itd. Postoje razni alati i neki od njih mogu otkriti nedopuštene aktivnosti poput DDOS napada, skeniranja portova itd.
+Neki od alaata su <b>ClamAV</b>(Antivirus), <b>Rkhunter</b>(Rootkit detection system), <b>Fail2Ban</b>(Intrusion prevention software framework), <b>OSSEC</b>(Open-source host-based intrusion detection system),<b> Mod_Security</b>(Intrusion detection and prevention) (<a href="http://www.tecmint.com/centos-7-hardening-and-security-guide/4/" class="external autonumber" rel="nofollow">[15]</a>).
+</p>
+<ol>
+<li> ClamAV <a href="https://wiki.debian.org/ClamAV" class="external text" rel="nofollow">| 14</a> </li>
+<p><b> ClamAV </b> je open source antivirus koji može pomoći u otkrivanju trojanaca, virusa, malwarea itd.
+Prvo je potrebno instalirati EPEL 7 repozitorij. To se radi na način. 
+</p>
+<pre>[CentOS]
+yum install epel-release
+</pre>
+<p>Kod Debiana postupak je puno jednostavniji i potrebno je upisati samo jednu naredbu i ClamAV se automatski pokrece nakon istalacije. Ukoliko to nije slučaj, dovoljno je upisati clamd. 
+</p>
+<pre>[Debian]
+sudo apt-get install clamav clamav-daemon
+
+</pre>
+<p>Nakon što je dodan repozitorij potrebno je instalirati i postaviti ClamAV pakete.
+</p>
+<pre>[CentOS]
+yum install clamav clamav-scanner-systemd
+</pre>
+<p>Zatim treba stvoriti simboličnu vezu (eng. symbolic link) do defaultnog puta i povezati s clamd@scan datotekom. 
+</p>
+<pre>[CentOS]
+ln -s /etc/clamd.d/scan.conf /etc/clamd.conf
+</pre>
+<p>U datoteci <b> /etc/clamd.d/scan.conf </b> treba staviti <b> # </b> ispred Example i maknuti komentar ispred naredbe <b> LocalSocket /var/run/clamd.scan/clamd.sock </b> Te uključiti SELinux boolean za antivirus.
+</p>
+<pre>[CentOS]
+setsebool -P antivirus_can_scan_system 1
+</pre>
+<p>Na posljetku preostalo je pokrenuti uslugu i omogućiti joj start prilikom bootanja poslužitelja, te instalirati i postaviti ClamAV updater.
+</p>
+<pre>[CentOS]
+systemctl start clamd@scan
+systemctl enable clamd@scan
+</pre>
+<p>Instalacija updatera.
+</p>
+<pre>[CentOS]
+yum install clamav-update
+</pre>
+<p>Kao prilikom postavljanja ClamAV u datoteci <b> /etc/freshclam.conf </b> potrebno je dodati # prije <b>Example</b> i <b> FRESHCLAM_DELAY=disabled-warn </b> u datoteci <b> /etc/sysconfig/freshclam </b>.
+Na kraju ostalno je samo skenirati poslužitelja za malwareom.Jedan primjer skeniranja <b> /var/log/* </b> mape prikazan je ispod.
+</p>
+<pre>clamdscan --fdpass /var/log/*
+</pre>
+<pre>[Debian]
+clamscan -r / 
+</pre>
+<li> RkHunter <a href="http://www.woktron.com/secure/knowledgebase/79/Installation-Rootkit-Hunter-rkhunter-on-CentOS-5-and-6.html" class="external text" rel="nofollow">| 15 </a> &amp; <a href="https://help.ubuntu.com/community/RKhunter" class="external text" rel="nofollow">| 16</a> </li>
+<p>RKHunher je alat za otkrivanje rootkitova, backdoorova i mogućih lokalnih exploitova.  
+Za instalaciju potrebno je dodati EPEL repozitorij za instalaciju RKHuntera. Instalacija se provodi sljedećim naredbama:
+</p>
+<pre>[CentOS]
+yum --enablerepo=epel -y install rkhunter
+</pre>
+<p>Situacija za RKHunter slična je kao za prošlu aplikaciju i dovoljno je pokrenuti jednu naredbu za instalaciju.
+</p>
+<pre>[Debian]
+apt-get install rkhunter
+</pre>
+<p>Nakon toga potrebno je urediti  datoteku <b> /etc/sysconfig/rkhunter </b>. Datoteka treba izgledati ovako:
+</p>
+<pre>[CentOS]
+MAILTO=root@localhost
+DIAG_SCAN=no
+</pre>
+<p>Nakon toga potrebno je ažurirati bazu aplikacije i njezina svojstva datotečnog sustava.
+</p>
+<pre>[CentOS]
+rkhunter --update
+rkhunter --propupd
+</pre>
+<p>Na Debianu je potreno prvo update-ati data files u kojima se nalaze informacije koje RkHunter provjerava kako bi utvrdio je li određeni file ili ponašanje sumnjivo ili ne.
+</p>
+<pre>[Debian]
+sudo rkhunter --update
+</pre>
+<p>Sljedeća stvar je postaviti temeljne vrijednosti kako bi RkHunter mogao kasnije ustaniviti je li se dogodila kakva promjena ili ne.
+</p>
+<pre>[Debian]
+sudo rkhunter --propupd
+</pre>
+<p>Sada jedino preostalo je pokrenuti potragu.
+</p>
+<pre>rkhunter -c 
+rkhunter --check --sk
+</pre>
+<li> Fail2Ban <a href="https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7" class="external text" rel="nofollow">| 17</a></li>
+<p><b> Fail2Ban </b> blokira IP adresu s koje je unesena lozinka nakon što je unesena krivo tri puta zaredom. Odnosno, možemo reći kako Fail2ban samo dodaje novo pravilo u iptables.  
+Prvo ga je potreno instalirati:
+</p>
+<pre>[CentOS]
+yum install fail2ban
+</pre>
+<pre>[Debian]
+sudo apt-get install fail2ban
+</pre>
+<p>Nakon toga je potrebno napraviti kopije jail.conf jer nije pametno mjenjati podatke u tim field-ovima.
+</p>
+<pre>sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+</pre>
+<p>Sve potrebne promjene se rade u <b>jail.local</b>. Moguće je definirati IP adresu koju će Fail2ban ignorirati (nasa adresa s koje se uvijek prijavljujemo), vijeme zaključanosti IP adresa, broj pokušaja krivog prijavljivanja, itd. Takožer, moguće je postaviti email na koji želimo primati obavijesti o neuspješnim prijavama.
+</p>
+<pre>[DEFAULT]
+ignoreip = 127.0.0.1
+bantime  = 3600 
+findtime = 600
+maxretry = 3
+</pre>
+<pre># Destination email address used solely for the interpolations in
+# jail.{conf,local} configuration files.
+destemail = your@email
+</pre>
+<p>Račune je moguće i ručno zaključati/otključati:
+</p>
+<pre>sudo fail2ban-client set &lt;jail&gt; banip/unbanip &lt;ip address&gt;
+</pre>
+<li> OSSEC <a href="https://www.linode.com/docs/security/ossec-ids-debian-7" class="external text" rel="nofollow">| 18</a></li>
+<p><b>OSSEC</b> je alat koji se može instalirati na server kako bi se pratila njegova aktivnost. OSSEC je open-source aplikacija koja provodi analize logova, provjere integriteta, otkrivanje rootkitova, real-time upozorenja o napadima i slično. Instalacija izgleda ovako:
+</p>
+<pre>[CentOS]
+yum install mysql-devel postgresql-devel gcc
+wget -U ossec <a href="https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.3.tar.gz" class="external free" rel="nofollow">https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.3.tar.gz</a> 
+tar -zxvf ossec-hids-2.8.3.tar.gz 
+cd ossec-hids-2.8.3 cd ossec-hids-2.8.3 
+./install.sh
+</pre>
+<pre>[Debian]
+apt-get install build-essential inotify-tools
+wget -U ossec <a href="https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.3.tar.gz" class="external free" rel="nofollow">https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.3.tar.gz</a> 
+tar -zxvf ossec-hids-2.8.3.tar.gz 
+cd ossec-hids-2.8.3 cd ossec-hids-2.8.3 
+./install.sh
+</pre>
+<p>Postoji puno koraka prilikom instalacije na koje je potrebno odgovoriti <b> y </b> ili <b> n </b>. Neka od pitanja su vrsta instalacije(server,agent,local,hybrid), lokacija instalacije,želite li e-mail notifikacije, želite li engine za otkrivanje rootkita,želite omogućiti remote syslog itd. Prilikom instalacije odgovorili smo sve s <b> y </b> osim kod pitanja za dodavanje IP adresa na white list tamo smo odabrali <b> n </b>.
+</p><p>Nakon što je uspiješno instaliran OSSEC i dalje neće biti u funkciju ,to se može provjeriti pomoću naredbe: 
+</p>
+<pre>/var/ossec/bin/ossec-control status
+</pre>
+<p>Ukoliko je OSSEC neaktivan aktivira se pomoću naredbe:
+</p>
+<pre>/var/ossec/bin/ossec-control start
+</pre>
+<li> Mod_Security <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_security-with-apache-on-debian-ubuntu" class="external text" rel="nofollow">| 19</a> &amp; <a href="http://tecadmin.net/install-modsecurity-with-apache-on-centos-rhel/#" class="external text" rel="nofollow">| 20</a></li>
+<p><b> Mod_Security </b> je aplikacijski firewall koji se pokreće kao modul na webserveru i on pruža zaštitu protiv raznih napada. Nadzire HTTP promet i provodi real-time analize. Dostupan je za Apache,Nginx i IIS. Kako bi se mogao instalirati potrebno je dodati EPEL repozitorij, to smo već raditi tako da to nećemo ponavljati. 
+</p>
+<pre>[CentOS] 
+yum install mod_security mod_security_crs 
+</pre>
+<p>Nakon instalacije potrebno ga je aktivirati to se radi na način da se promijene postavke u datoteci <b> /etc/httpd/conf.d/mod_security.conf </b>. Točnije potrebno je SecRuleEngine pravilo promijeniti, postoje tri stanja On, Off, DetectionOnly. On - pravila su aktivirana, Off - pravila su isključena, DetectionOnly - samo presreće i bilježi aktivnosti. Kako mi na serveru želimo presresti i blokirati napade postaviti ćemo On. 
+</p>
+<pre>SecRuleEngine on
+</pre>
+<p>Nakon toga potrebno je samo ponovo pokrenuti uslugu.
+</p>
+<pre>service httpd restart
+</pre>
+<p>Kako bi potvrdili da aplikacija uistinu radi provjerimo sadržaj error_loga.
+</p>
+<pre>tail /var/log/httpd/error_log
+</pre>
+<pre>[Debian]
+sudo apt-get install libapache2-modsecurity
+</pre>
+<p>Nakon toga je potrebno restartati server i nakon toga je potrebno otvoriti modsecurity.conf i podesiti sljedeće linije:
+</p>
+<pre>SecRuleEngine DetectionOnly - postaviti na On
+SecResponseBodyAccess On - postaviti na Off
+</pre>
+<li> Korištenje aplikacija za reviziju i skeniranje nedostataka (<a href="https://cisofy.com/lynis/" class="external autonumber" rel="nofollow">[16]</a>) </li>
+<p><b> Lynis </b> je aplikacija korištena za skeniranje poslužitelja i testiranje razine zaštite. Ona će pokazati moguće nedostatke koje je potrebno očvrstiti kako bi poslužitelj bio siguran.Za instalaciju ove aplikacije potrebno je instalirati git kako bi se moglo skinut aplikaciju. <a href="https://github.com/CISOfy/lynis" class="external text" rel="nofollow">| 20</a>
+</p>
+<pre>[CentOS]
+sudo yum install git
+</pre>
+<pre>[Debian]
+sudo apt-install git
+</pre>
+<p>Nakon toga potrebno je skinuti projekt.
+</p>
+<pre>git clone <a href="https://github.com/CISOfy/lynis.git" class="external free" rel="nofollow">https://github.com/CISOfy/lynis.git</a>
+</pre>
+<p>Sada je preostalo samo pokrenuti aplikaciju to se radi pomoću naredbe:
+</p>
+<pre>sudo ./lynis audit system -Q
+</pre>
+<p>Na Debianu je još moguće skinuti lynis pomoću:
+</p>
+<pre>sudo apt-get install lynis
+</pre>
+<p>I nakon toga se jednostavno pokrene pomoću:
+</p>
+<pre>sudo lynis -c
+</pre>
+<p><a href="https://www.maketecheasier.com/audit-linux-security-with-lynis/" class="external text" rel="nofollow">| 21</a>
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Centos_lynis_before.png" class="image"><img alt="" src="../images/thumb/a/a9/Centos_lynis_before.png/600px-Centos_lynis_before.png" width="600" height="338" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Centos_lynis_before.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Server revizija prije očvršćivanja</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CentOS_lynis_after.png" class="image"><img alt="" src="../images/thumb/c/c1/CentOS_lynis_after.png/600px-CentOS_lynis_after.png" width="600" height="338" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:CentOS_lynis_after.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Server revizija poslije očvršćivanja</div></div></div>
+<p><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</p>
+</ol>
+<li> Zaključak - Tomislav Budimlić </li>
+<p>Očvršćivanje Linux poslužitelja je iznimno zahtjevan i dugotrajan posao prilikom izgradnje servera. Na ovom projektu obuhvatili smo one najvažnije korake koje je potrebno poduzeti kako bismo smanjili ranjivost servera. Može se vidjeti kako se samo očvršćivanje odnosi i na fizičko i programsko očvršćicanje. U ovom projetku smo se bavili programskim očvršćivanjem jer svi serveri su nam radili virtualno. Obradili smo dvije distribucije koje se najviše koriste u praksi, a to su CentOS i Debian. Možemo zaključiti kako očvršćivanje ovih distribucija je jako slično, u nekim dijelovima identično. Naravno, to je tako jer obje distribucije su Linux i temeljene su na Unixu. Proces očvščivanja servera je jako ozbiljan i zahtjevan posao jer želimo imati server do kojeg se neće moći lako doći kako bismo imali što manje štete. Smatramo kako smo u ovom projektu zagrebli samo gornji dio sante leda i kako ima još puno posla sa očvršćivanjem servera i dovođenjem istog do sto postotne spremnosti na odbijanje napada. Naravno, ako je uopće moguće obraniti sve napade.
+</p>
+<li> Literatura </li>
+<ol>
+<li> <a href="https://www.debian.org/intro/about" class="external free" rel="nofollow">https://www.debian.org/intro/about</a> </li>
+<li> <a href="https://www.cyberciti.biz/tips/linux-security.html" class="external free" rel="nofollow">https://www.cyberciti.biz/tips/linux-security.html</a> </li>
+<li> <a href="http://www.tecmint.com/linux-server-hardening-security-tips/" class="external free" rel="nofollow">http://www.tecmint.com/linux-server-hardening-security-tips/</a> </li>
+<li> <a href="http://raspberrypi.stackexchange.com/questions/5258/how-can-i-remove-the-gui-from-raspbian-debian" class="external free" rel="nofollow">http://raspberrypi.stackexchange.com/questions/5258/how-can-i-remove-the-gui-from-raspbian-debian</a> </li>
+<li> <a href="https://www.cyberciti.biz/faq/redhat-centos-disable-ipv6-networking/" class="external free" rel="nofollow">https://www.cyberciti.biz/faq/redhat-centos-disable-ipv6-networking/</a> </li>
+<li> <a href="http://www.tecmint.com/vlock-lock-user-virtual-console-terminal-linux/" class="external free" rel="nofollow">http://www.tecmint.com/vlock-lock-user-virtual-console-terminal-linux/</a> </li>
+<li> <a href="https://www.cyberciti.biz/faq/linux-disable-modprobe-loading-of-usb-storage-driver/" class="external free" rel="nofollow">https://www.cyberciti.biz/faq/linux-disable-modprobe-loading-of-usb-storage-driver/</a> </li>
+<li> <a href="https://www.cyberciti.biz/faq/linux-how-to-check-what-compiler-is-running-installed/" class="external free" rel="nofollow">https://www.cyberciti.biz/faq/linux-how-to-check-what-compiler-is-running-installed/</a> </li>
+<li> <a href="https://uk.godaddy.com/help/changing-the-ssh-port-for-your-linux-server-7306" class="external free" rel="nofollow">https://uk.godaddy.com/help/changing-the-ssh-port-for-your-linux-server-7306</a> </li>
+<li> <a href="https://www.upcloud.com/support/configuring-iptables-on-debian-8-0/" class="external free" rel="nofollow">https://www.upcloud.com/support/configuring-iptables-on-debian-8-0/</a> </li>
+<li> <a href="https://www.rootusers.com/23-hardening-tips-to-secure-your-linux-server/#3" class="external free" rel="nofollow">https://www.rootusers.com/23-hardening-tips-to-secure-your-linux-server/#3</a> </li>
+<li> <a href="http://www.tecmint.com/how-to-monitor-user-activity-with-psacct-or-acct-tools/" class="external free" rel="nofollow">http://www.tecmint.com/how-to-monitor-user-activity-with-psacct-or-acct-tools/</a> </li>
+<li> <a href="https://www.howtoforge.com/tutorial/nmap-on-linux/" class="external free" rel="nofollow">https://www.howtoforge.com/tutorial/nmap-on-linux/</a> </li>
+<li> <a href="https://wiki.debian.org/ClamAV" class="external free" rel="nofollow">https://wiki.debian.org/ClamAV</a> </li>
+<li> <a href="http://www.woktron.com/secure/knowledgebase/79/Installation-Rootkit-Hunter-rkhunter-on-CentOS-5-and-6.html" class="external free" rel="nofollow">http://www.woktron.com/secure/knowledgebase/79/Installation-Rootkit-Hunter-rkhunter-on-CentOS-5-and-6.html</a> </li>
+<li> <a href="https://help.ubuntu.com/community/RKhunter" class="external free" rel="nofollow">https://help.ubuntu.com/community/RKhunter</a> </li>
+<li> <a href="https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7" class="external free" rel="nofollow">https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7</a> </li>
+<li> <a href="https://www.linode.com/docs/security/ossec-ids-debian-7" class="external free" rel="nofollow">https://www.linode.com/docs/security/ossec-ids-debian-7</a> </li>
+<li> <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_security-with-apache-on-debian-ubuntu" class="external free" rel="nofollow">https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_security-with-apache-on-debian-ubuntu</a> </li>
+<li> <a href="http://tecadmin.net/install-modsecurity-with-apache-on-centos-rhel/#" class="external free" rel="nofollow">http://tecadmin.net/install-modsecurity-with-apache-on-centos-rhel/#</a> </li>
+<li> <a href="https://www.maketecheasier.com/audit-linux-security-with-lynis/" class="external free" rel="nofollow">https://www.maketecheasier.com/audit-linux-security-with-lynis/</a> </li>
+<li> <a href="https://linux-audit.com/linux-server-hardening-most-important-steps-to-secure-systems/%7C" class="external text" rel="nofollow">Linux - Audit Most important steps</a> </li>
+<li> <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-securing-your-linux-vps%7C" class="external text" rel="nofollow">Digital Ocean - Introduction to hardening</a> </li>
+<li> <a href="https://www.cyberciti.biz/tips/linux-security.html%7C" class="external text" rel="nofollow">Cyberciti - Linux security tips</a> </li>
+<li> <a href="http://www.tecmint.com/linux-server-hardening-security-tips/%7C" class="external text" rel="nofollow">Tecmint - Linux Server Hardening Security Tips</a> </li>
+<li> <a href="https://www.rootusers.com/23-hardening-tips-to-secure-your-linux-server/%7C" class="external text" rel="nofollow">Root users 23 tips to secure Linux server </a>  </li>
+<li> <a href="https://www.linux.com/learn/how-make-your-linux-server-more-secure%7C" class="external text" rel="nofollow">Linux make your server your more secure </a> </li>
+<li> <a href="https://wiki.debian.org/Hardening%7C" class="external text" rel="nofollow">Debian Hardening</a> </li>
+<li> <a href="http://www.tecmint.com/security-and-hardening-centos-7-guide/" class="external text" rel="nofollow">Tecmint CentOS Hardening Part 1</a> </li>
+<li> <a href="http://www.tecmint.com/centos-7-hardening-and-security-guide/" class="external text" rel="nofollow">Tecmint CentOS Hardening Part 2</a></li>
+<li> <a href="https://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html" class="external text" rel="nofollow">Hardening SSH</a> </li>
+</ol></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 1/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9241-0!*!0!!*!2!edit=0 and timestamp 20190203204157 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Hardening_Linux_Server.html">http://security.foi.hr/wiki/index.php/Hardening_Linux_Server</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Hardening_Linux_Server" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Hardening_Linux_Server.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Hardening_Linux_Server&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Hardening_Linux_Server.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Hardening_Linux_Server.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Hardening_Linux_Server&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Hardening_Linux_Server&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Hardening_Linux_Server.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Hardening_Linux_Server" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Hardening_Linux_Server" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Hardening_Linux_Server&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Hardening_Linux_Server&amp;oldid=40523" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 14:21, 18. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.223 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Hardening_Linux_Server", "wgTitle": "Hardening Linux Server", "wgAction": "view", "wgArticleId": 9241, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40523, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.373 secs. -->			</body>
+</html>

@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnosno spremanje podataka - NAS storage - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnosno_spremanje_podataka_-_NAS_storage&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnosno_spremanje_podataka_-_NAS_storage skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnosno spremanje podataka - NAS storage</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#mw-head">orijentacija</a>,
+					<a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Izradili:
+<i><b>Ivan Kudeljnjak, Đuro Kostelac</b></i>
+</p><p><b>Napomena</b>: pri izradi projekta oba člana tima su sudjelovala u svim dijelovima, no samo pisanje je podijeljeno što se vidi i prema potpisima, dok je praktični dio odrađen zajedno.
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Tehnologije_skladi.C5.A1tenja.2Fmediji"><span class="tocnumber">2</span> <span class="toctext">Tehnologije skladištenja/mediji</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Opti.C4.8Dki_mediji"><span class="tocnumber">2.1</span> <span class="toctext">Optički mediji</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Podatkovne_vrpce"><span class="tocnumber">2.2</span> <span class="toctext">Podatkovne vrpce</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#.C4.8Cvrsti_diskovi"><span class="tocnumber">2.3</span> <span class="toctext">Čvrsti diskovi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Arhitekture_diskova"><span class="tocnumber">3</span> <span class="toctext">Arhitekture diskova</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#RAID"><span class="tocnumber">3.1</span> <span class="toctext">RAID</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#RAID_razine_-_RAID_0"><span class="tocnumber">3.1.1</span> <span class="toctext">RAID razine - RAID 0</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#RAID_razine_-_RAID_1"><span class="tocnumber">3.1.2</span> <span class="toctext">RAID razine - RAID 1</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#RAID_razine_-_RAID_2"><span class="tocnumber">3.1.3</span> <span class="toctext">RAID razine - RAID 2</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#RAID_razine_-_RAID_3_i_4"><span class="tocnumber">3.1.4</span> <span class="toctext">RAID razine - RAID 3 i 4</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#RAID_razine_-_RAID_5"><span class="tocnumber">3.1.5</span> <span class="toctext">RAID razine - RAID 5</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Usporedba_RAID_polja"><span class="tocnumber">3.1.6</span> <span class="toctext">Usporedba RAID polja</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#JBOD"><span class="tocnumber">3.2</span> <span class="toctext">JBOD</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#MAID"><span class="tocnumber">3.3</span> <span class="toctext">MAID</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Mre.C5.BEna_spremi.C5.A1ta_podataka_i_njihova_organizacija"><span class="tocnumber">4</span> <span class="toctext">Mrežna spremišta podataka i njihova organizacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#DAS"><span class="tocnumber">4.1</span> <span class="toctext">DAS</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#NAS"><span class="tocnumber">4.2</span> <span class="toctext">NAS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Op.C4.87enita_arhitektura"><span class="tocnumber">4.2.1</span> <span class="toctext">Općenita arhitektura</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Protokoli_za_komunikaciju_s_klijentima"><span class="tocnumber">4.2.2</span> <span class="toctext">Protokoli za komunikaciju s klijentima</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#NAS_OS"><span class="tocnumber">4.2.3</span> <span class="toctext">NAS OS</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Datote.C4.8Dni_sustavi"><span class="tocnumber">4.2.4</span> <span class="toctext">Datotečni sustavi</span></a>
+<ul>
+<li class="toclevel-4 tocsection-23"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#ZFS"><span class="tocnumber">4.2.4.1</span> <span class="toctext">ZFS</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Ostali"><span class="tocnumber">4.2.4.2</span> <span class="toctext">Ostali</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-25"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#S.M.A.R.T."><span class="tocnumber">4.2.5</span> <span class="toctext">S.M.A.R.T.</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#iSCSI"><span class="tocnumber">4.2.6</span> <span class="toctext">iSCSI</span></a>
+<ul>
+<li class="toclevel-4 tocsection-27"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#iSCSI_koncepti"><span class="tocnumber">4.2.6.1</span> <span class="toctext">iSCSI koncepti</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-28"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#SAN"><span class="tocnumber">4.3</span> <span class="toctext">SAN</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Sigurnost_skladi.C5.A1tenih_podataka"><span class="tocnumber">5</span> <span class="toctext">Sigurnost skladištenih podataka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-30"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Enkripcija_diska"><span class="tocnumber">5.1</span> <span class="toctext">Enkripcija diska</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Backup"><span class="tocnumber">5.2</span> <span class="toctext">Backup</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Cijena_skladi.C5.A1tenja_podataka"><span class="tocnumber">6</span> <span class="toctext">Cijena skladištenja podataka</span></a></li>
+<li class="toclevel-1 tocsection-33"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Projektni_rad"><span class="tocnumber">7</span> <span class="toctext">Projektni rad</span></a></li>
+<li class="toclevel-1 tocsection-34"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Zaklju.C4.8Dak"><span class="tocnumber">8</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-35"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Literatura"><span class="tocnumber">9</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-36"><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#Reference"><span class="tocnumber">10</span> <span class="toctext">Reference</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod">Uvod</span></h2>
+<p>Cilj ovog rada je proučiti i procijeniti načine sigurnosnog spremanja podataka. U radu ćemo proučiti sve važnije medije i načine skladištenja podataka kao načina održavanja efektivne strategije manipulacije podacima. Činjenica je da se količina podataka koja je generirana u poduzećima današnjice udvostruči u prosjeku svake godine, naravno ovisno o poduzeću. Također je činjenica da je skladištenje podataka, odnosno posjedovanje pravih podataka u pravo vrijeme jedna od okosnica kvalitetnog informacijskog sustava.
+</p><p>Tako je vrlo važan zadatak održavati korak sa našim podacima. Naravno, naglasak nije nikako isključivo na osiguravanju jednostavnog prostora za skladištenje podataka, već i na njegovoj sigurnosti. Za jedan informacijski sustav uvijek se moramo pobrinuti tako da osigurano da podaci neće biti izgubljeni u slučajevima nekog ispada ili slično. Zato danas poznajemo mnogo tehnologija koje omogućuju spremanje podataka na sigurno.
+</p><p>Tako u ovom radu trebamo za početak promotriti medije na koje sprememo podatke, koje su njihove prednosti i mane. Poznajemo mnoge medije, CD, DVD..., Čvrsti disk, SSD disk, magnetna vrpca, itd. No ipak, uglavnom ćemo se osvrnuti na čvrsti disk, kao današnji de facto standard te na njegove različite implementacije.
+</p><p>S druge strane, važno je promotriti i alternativnu tehnologiju, koja doduše koristi čvrsti disk, ali se razlikuje u arhitekturi, a to su mrežna spremišta podataka. Vidjet ćemo tako razliku između SAN, NAS, DAS i sličnih arhitektura mrežnog skladištenja.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 15:56, 5. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Tehnologije_skladi.C5.A1tenja.2Fmediji">Tehnologije skladištenja/mediji</span></h2>
+<p>Skladištenje podataka može se u stvarnosti odvijati na mnoge načine. Jedan od najočitijih je pisanje na papir i arhiviranje zapisa. No ipak, budući da se ovdje raspravljamo o računalnom spremanju podatka, razmotriti ćemo samo medije koji služe arhiviranju. Očita je potreba za zadržavanjem materije kroz duže vrijeme. Osobito je taj primjer prisutan u poduzećima koja nekada moraju vrlo dugo držati arhive. Iz tog razloga danas još uvijek imamo velike arhive u papirnatom obliku. Jedan od prvih načina smanjenja tog obujma dokumentacija je bio fotografiranje dokumentacije i čuvanje mikrofilma. Tako se mogao vjerno rekonstruirati zapis očuvan na papiru, ali u puno manjem obujmu. U nastavku ćemo ocijeniti neke od alternativnih (i modernijih) medija.
+</p>
+<h3> <span class="mw-headline" id="Opti.C4.8Dki_mediji">Optički mediji</span></h3>
+<p>Jedna od prvih dobrih alternativa papiru, koja je omogućila spremanje velike količine podataka u malom formatu su bili optički mediji. Tako jedan CD može čuvati 665600 stranica teksta s dvostrukim proredom. Očito je koliko je to unaprjeđenje od fizičkog arhiviranja 665600 stranica teksta na papiru. CD je tako dugo živio kao kralj skladištenja podataka. No, zahvaljujući naglom rastu konkurencije (čvrsti disk) došlo je pitanje koji je idući racionalni korak u budućnosti CD medija. Naime, kako su godine prolazile CD i dalje zadržava svoj osnovni obujam od 650 – 700 MB, a cijena čvrstog diskova u ovisnosti na broj GB opada. Uočeno je kako se CD mora naglo proširiti (ne dimenzijama, koliko kapacitetom). Rješenje je bilo unaprijediti gustoću zapisa podataka smanjenjem valne duljine laserske zrake za čitanje CD-a koja je iznosila λ = 780nm. 
+</p><p>Tako je stvorena druga generacija optičkih diskova zasnovana na CD tehnologiji – DVD (Digital Versatile Disc). DVD je nudio kapacitet od 4.7GB po sloju diska, odnosno 9.4GB za dvoslojan disk ili 18.8GB za dvostrani, dvosloji disk. Kapacitet je tako povećan i više od 20 puta. Povećanje kapaciteta se ostvarilo gušćim zapisom podataka. Tako je DVD koristio lasersku zraku od λ = 650nm. Jednom kada je i DVD postao premali, stvorena je Blue-Ray tehnologija. Blue layer koristi λ = 405nm lasersku zraku i tako sprema 25GB po sloju. 
+Pitanje je naravno trebamo li koristiti optičke medije kao medij za arhiviranje podataka. To naravno ovisi o nekoliko faktora:
+</p>
+<ol><li>Optički mediji su u pravilu WORM tehnologije (Write-once-read-many), što predstavlja problem kod revizije podataka
+</li><li>Pristupne brzine optičkih diskova su relativno sporije u odnosu na črvste diskove i slične tehnologije.
+</li><li>Optičke medije je potrebno fizički skladištiti i fizički umetnuti u računalo kako bi se pročitali.
+</li></ol>
+<p>S druge strane, optički mediji nude i mnoge prednosti poput:
+</p>
+<ol><li>Ukoliko su pravilno korišteni, mogu imati vrlo niske troškove. To počinje od niskih početnih ulaganja, a trajno predstavlja niska ulaganja u održavanje.
+</li><li>Jedan od primarnih razloga jeftinog održavanja je gotovo neusporediva niska potrošnja energije u usporedbi sa RAID poljem istog kapaciteta. 
+</li><li>Predviđen je vrlo brz rast kapaciteta tih tehnologija
+</li><li>Ostalo...
+</li></ol>
+<p>Jedna od zanimljivosti koju svakako moramo pogledati je da su optički mediji i danas popularni. Štoviše, ne samo to, oni ostvaruju rast. To vidimo i na sljedećem grafu&#160;:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Distribucija_uskladi%C5%A1tenih_podataka_po_medijima_u_svijetu.jpg" class="image"><img alt="Distribucija uskladištenih podataka po medijima u svijetu.jpg" src="../images/3/31/Distribucija_uskladištenih_podataka_po_medijima_u_svijetu.jpg" width="394" height="289" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 16:04, 5. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Podatkovne_vrpce">Podatkovne vrpce</span></h3>
+<p>Podatkovna vrpaca je medij koji već dugo smatramo zaboravljenim. No ipak, po prijašnjem grafu vidimo da je to još uvijek daleko od istine. Zapravo, slučaj je da su se mnogi proizvođaći medija za pohranu podataka udružili kako bi stvorili veće, bolje i sigurnije vrpce. 
+</p><p>Snaga vrpce kao medija leži u primjenama gdje se vrlo velika količina podataka mora spremiti na siguran i jeftin način te da pri tome zauzima čim manje mjesta je moguće. Tako vrpce imaju dvije osnovne namjene:
+</p>
+<ol><li>Backup rješenja
+</li><li>Skladištenje ogromnih količina podataka
+</li></ol>
+<p>Tehnologija podatkovnih vrpci ima svoje korijene u magnetskoj vrpci, vrlo sličnoj onima u audi kazetama. Sastoji se od duge i uskle plastične vrpe koja je obložena magnetskim materijalom. Radi zaštite, sama vrpca i traka su najčećše obložene plastičnim oklopom (kazetom).
+</p><p>Princip korištenja podatkovne vrpce je jednostavan, ali i vrlo sličan ostalim magnetski medijima. Traka se pomiče ispod magnetske glave koja zapisuje podatke. Promjena u smjeru struje predstavlja 0 ili 1.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Razli%C4%8Diti_tipovi_vrpci.jpg" class="image"><img alt="Različiti tipovi vrpci.jpg" src="../images/3/30/Različiti_tipovi_vrpci.jpg" width="420" height="320" /></a></div></div>
+<p>Naravno, problem kod ovog pristupa je također karakterističan za sve magnetske medije. Budući da je kontakt između magnetske vrpce i glave stalno pristuan prilikom pisanja i/ili čitanja, dolazi do značajne deterioacije medija. Neke vrpce su tako dizajnirane da postoji malen oblak zraka između glave i vrpce, kako bi se smanjilo propadanje tijekom vremena. 
+</p><p>U nastavku ćemo pogledati različite tehnologije vrpci i njihove karakteristike. Na slici ispodvidimo različite tipove vrpci . 
+Ilustraciju količinu podataka koju možemo spremiti na pojedinu vrpcu vidimo na sljedećim tablicama:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DLT_vrpce.jpg" class="image"><img alt="DLT vrpce.jpg" src="../images/f/ff/DLT_vrpce.jpg" width="420" height="138" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:AIT_vrpce.jpg" class="image"><img alt="AIT vrpce.jpg" src="../images/e/e7/AIT_vrpce.jpg" width="380" height="105" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:LTO_vrpce.jpg" class="image"><img alt="LTO vrpce.jpg" src="../images/9/91/LTO_vrpce.jpg" width="444" height="88" /></a></div></div>
+<p><br />
+Vidimo da vrpce ne zaostaju previše veličinom skladišta za HDD-ovima. Jedan osobitiji primjer su LTO vrpce, opisane u posljednjoj tablici. One su specijalno dizajnirane tako da je olaksana robotska manipulacija. Tako jedno skladište LTO vrpci može sadržavati i do nekoliko petabajta podataka. Skladišta LTO vrpci spajam s računalom preko SCSI-a ili optičkih kablova
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 17:26, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id=".C4.8Cvrsti_diskovi">Čvrsti diskovi</span></h3>
+<p>Čvrsti ili tvrdi disk (eng. Hard disk) služi za pohranu podataka u računalima. Povijest započinje još tamo 1956. kada IBM razvija prvi tvrdi disk te traje sve do danas. Taj prvi disk bio je veličine 4,4 MB, a zanimljiv je podataka da je IBM godišnji najam za taj disk naplaćivao u iznosu od 35.000 $. S obzirom na današnje razdoblje kada su prisutni diskovi od više TB (terabajta), koji su cijenom daleko povoljniji nego tadašnji najam koji je IBM naplaćivao, zapravo vidimo koji je razvojni put prošao čvrsti disk. Od nečega što je namijenjeno samo pojedincima do toga da danas gotovo svatko posjeduje računalo u kojem ima čvrsti disk. 
+</p><p>Osnovni dijelovi diska su:
+</p>
+<ul><li>Magnetska ploča
+</li><li>Magnetska glava
+</li><li>Upravljački mehanizam
+</li><li>Nosač glave
+</li><li>Osovina
+</li></ul>
+<p>Na slici ispod možemo vidjeti jedan čvrsti disk s prikazom svih njegovih dijelova.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hard_disk.jpg" class="image"><img alt="Hard disk.jpg" src="../images/7/7a/Hard_disk.jpg" width="500" height="400" /></a></div></div>
+<p>Zapitamo li se kako čvrsti disk radi. Na sljedećem <a href="http://www.youtube.com/watch?v=yUUqRlRO3Fc" class="external text" rel="nofollow">linku</a> nalazi se video s kratkim prikazom rada čvrstog diska. Kako disk sadrži magnetske dijelove, on svoj rad upravo i temelji na magnetskom polju. Glava služi za upisivanje podataka (preciznije mala zavojnica koja je dio glave), tako da kroz spomenutu zavojnicu prolazi struja te  se podaci zapisuju na principu binarnog sustava. Glava se može pomicati po cijelom disku, a to joj omogućuje upravljački mehanizam. U starim diskovima bila je jedna glava za čitanja i pisanje, dok je u današnjim čvrstim diskovima to odvojeno pa imamo čitaču i pisaču glavu.
+</p><p>Neka od pozitivnih svojstava čvrstog diska su:
+</p>
+<ul><li>Veliki kapacitet
+</li><li>Pristupačna cijena
+</li><li>Postojanost podataka
+</li><li>Relativno brzi pristup podacima
+</li></ul>
+<p>Negativna svojstva:
+</p>
+<ul><li>Osjetljivost na prašinu i prljavštinu
+</li><li>Osjetljivost na elektromagnetska polja
+</li><li>Ograničena maksimalna gustoća podataka
+</li></ul>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hard_disk2.jpg" class="image"><img alt="Hard disk2.jpg" src="../images/d/df/Hard_disk2.jpg" width="225" height="224" /></a></div></div>
+<p>Kroz povijest razvilo se je nekoliko sučelja, od kojih su poznatija:
+</p>
+<ul><li>ST-412/506
+</li><li>ESDI – razvila ga je tvrtka Maxtor, no nije previše zaživjelo
+</li><li>ATA – vrlo popuralan i rasprostranjen, započeo s IDE, a trenutno aktualna SATA (serijska ATA)
+</li><li>SCSI – jedna od mogućnosti ovog sučelja je priključivanje vanjskih jedinica (printer, skener)
+</li></ul>
+<p>U današnje vrijeme najpopularniji proizvođači diskova su:
+</p>
+<ul><li>Hitachi
+</li><li>Samsung
+</li><li>Seagate
+</li><li>Western digital
+</li></ul>
+<p>U zadnjih nekoliko godina sve popularniji postaju SSD diskovi koje odlikuje puno veća brzina čitanja i pisanja, ali  isto tako imaju i oni neke svoje mane.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 19:12, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Arhitekture_diskova">Arhitekture diskova</span></h2>
+<h3> <span class="mw-headline" id="RAID">RAID</span></h3>
+<p>RAID ili Redundant Array of Inexpensive Disks (RAID) predstavlja upravo ono što mu ime govori. Osnovni cilj RAID polja je ponuditi jeftini način osiguravanja dostupnosti podataka i spriječiti njihovo gubljenje nekim oblikom redudancije. Postoje mnoge razine RAID-a od kojih svaka nudi različitu toleranciju na gubitak . 
+</p><p>Sama RAID tehnologija potiče sa Barkeley-a, Sveučilište u Kaliforniji. Tijekom 1987, istraživači sa Barkeleya su se pitali kako skladištiti podatke jeftino, na više diskova, koji se predstavljaju kao jedan logički čvrsi disk . Pretpostavka je bila da je jedan veliki čvrsti disk skuplji od nekolicine manjih, te takođjer nudi manju toleranciju na propadanje. Ideja je bila pružiti rješenje koje će se sastojati od mnogo malih, jeftinih diskova, koji će dopuštati otkazivanje jednog ili više diskova. Pretpostavka osiguravanja mogućnosti ispadanja diska bez posljedica je bila logička raspodjela redudatnih podataka preko različitih diskova.
+</p><p>Tako za razliku od jednog velikog diska, RAID polje kombinira dva ili više fizičkih diskova koji tvore jedan logički disk. U usporedbi sa fizičkim diskovima, RAID polja često imaju znatno veću propusnost podataka, kao i znatno veći kapacitet spremanja podataka. Također, namjerna redudancija podataka povećava pouzdanost cijelog sustava, tako da je moguć ispad pojedinih komponenti, bez učinka na cijeli sustav. U modernijim sustavima je moguće zamijeniti čitave diskove, tijekom rada sustava, bez ometanja rada.
+Prednosti korištenja RAID polja su:
+</p>
+<ol><li>Povećana sigurnost podataka (redudancija
+</li><li>Povećan prijenos podataka
+</li><li>Mogućnost kreiranja vrlo velikih logičkih diskova
+</li><li>Uklanjanje pokvarenih diskova, bez narušavanja rada sustava
+</li><li>Smanjenje troškova
+</li></ol>
+<p>RAID polja imaju mnoge implementacije i izvedbe. Tako poznajemo sljedeće razine RAID polja:
+</p>
+<h4> <span class="mw-headline" id="RAID_razine_-_RAID_0">RAID razine - RAID 0</span></h4>
+<p>RAID 0 – RAID 0 / Striping predstavlja RAID polje koje ne ispunjava zahtjeve redudantnosti podataka. Poanta RAID 0 polja je isključivo povećavanje brzine pristupa i pisanja podataka. U takvom polju kombiniramo nekoliko diskova za pisanje podataka, gdje se pojedini dijelovi zapisuju na različite diskove. Tako postižemo veću brzinu. To je izvedeno pomoću dijeljenja datoteka u Strip-ove (naziv Striping) koji predstavljaju definiranu veličinu dijela datoteke. Svaki strip se zapisuje na drugi čvrsti disk. Ovakvo rješenje ne štiti od gubljenja podataka ali pospješuje brzinu čitanja. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_RAID_0.png" class="image"><img alt="Arhitektura RAID 0.png" src="../images/f/fe/Arhitektura_RAID_0.png" width="175" height="120" /></a></div></div>
+<p>Na sljedećoj slici vidimo primjer datoteka zapisanih u RAID 0 polju sa četiri diska. Veličina strip-a je 16KB, a veličine datoteka su&#160;:
+</p>
+<ol><li>Crvena - 4KB
+</li><li>Plava - 20KB
+</li><li>Zelena - 100KB
+</li><li>Roza - 500KB
+</li></ol>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Raspored_datoteka_u_RAID_0_polju.jpg" class="image"><img alt="Raspored datoteka u RAID 0 polju.jpg" src="../images/d/d5/Raspored_datoteka_u_RAID_0_polju.jpg" width="228" height="181" /></a></div></div>
+<p>Sa slike vidimo da će računalo moći čitati datoteku 4 sa sva četiri diska paralelno. RAID 0 zahtjeva minimalno dva diska, a podržano je maksimalno koliko to dopušta kontroler. Preporučena upotreba RAID 0 sustava je za ne kritične podatke, podatke koji se ne mijenjaju često, a postoji neki oblik back-upa, sustave kojima su potrebne visoke performanse kao što su grafički dizajn i igre. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 16:37, 5. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="RAID_razine_-_RAID_1">RAID razine - RAID 1</span></h4>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_RAID_1.jpg" class="image"><img alt="Arhitektura RAID 1.jpg" src="../images/e/ec/Arhitektura_RAID_1.jpg" width="231" height="125" /></a></div></div>
+<p>RAID 1 polje obično je implementirano kao zrcaljenje podataka na diskovima. Tako poznajemo sinonime poput Mirroring ili Duplexing. Implementacija je obično izvedena sa dva različita diska koji su upareni sa hardware-skim ili software-skim RAID kontrolerom. Prednost ovakvog polja je zadržavanje istih podataka na oba diska. Tako u slučaju ispada jednog diska, svi podaci ostaju sadržani na drugom disku. Ilustracija zapisa datoteka iz prošlog slučaja je vidljiva na idućoj slici.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Raspored_datoteka_u_RAID_1_polju.jpg" class="image"><img alt="Raspored datoteka u RAID 1 polju.jpg" src="../images/6/60/Raspored_datoteka_u_RAID_1_polju.jpg" width="113" height="288" /></a></div></div>
+<p>RAID 1 polje zahtjeva točno 2 diska, budući da se zrcaljenje odvija s jednog na drugi. Diskovi bi idealno trebali biti identične veličine, budući da je veličina polja zapravo veličina manjeg diska. Prednost ovog sustava je njegova visoka tolerancija na ispadanje, također, večina RAID kontrolera će podržavati hot-spare diskove i automatsku rekreaciju RAID polja. Neke od pozitivnih osobina RAID 0 polja su pozitivne i ovdje. Naime, budući da su svi podaci zapisani dvostruko, računalo ih može paralelno čitati. Tako je brzina čitanja jednaka 2X (gdje je X brzina čitanja jednog čvrstog diska). S druge strane, brzina pisanja je narušena zbog potrebe da se sve zapiše dva puta. Tako je brzina pisanja RAID 1 polja nešto manja od 1X. 
+Sama RAID 1 izvedba je relativno skupa i ne nudi previše, budući da je cijeli jedan disk redundantan i ima najmanju efikasnost skladištenja podataka, u usporedbi sa ostalim RAID poljima. No, njegova jednostavna izvedba ga čini pogodnim za „kućne“ izvedbe. Osim toga, vrlo često je korišten u računovodstvu i financijama, budući da se „čvrsta“ kopija podataka smatra nečim opipljivijim od paritetnih podataka.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 04:54, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="RAID_razine_-_RAID_2">RAID razine - RAID 2</span></h4>
+<p>RAID 2 ne koristi tehnologije koje su poznate kod ostalih RAID razina (zrcaljenje, paritet i dijeljenje datoteka). Za razliku od ostalih strip RAID polja, RAID 2 koristi nešto slično dijeljenju datoteke s paritetom. Implementiran je podjelom datoteke na razini bita i širenjem na različite diskove koji sadrže podatke te na diskove koji sadrže redudantne podatke. Redundanti bitovi se računaju Hemmingovim kodovima, koji se također koristi u mrežama kao kod za ispravljanje pogrešaka prilikom mrežnog prijenosa. Tako se svaki put priliko zapisa podataka na disk računaju i bitovi koji će biti zapisani na redundante diskove. Prilikom svakog čitanja, pomoću tih bitova se provjerava i nepromijenjenost u podacima. Pogrešku u jednom bitu moguće je i ispraviti u samom radu. Na slici ispod vidimo arhitekturu RAID 2 polja. Arhitektura je pojednostavljena, budući da RAID 2 polje koristi znatno više diskova, ali je osnovna ideja tu.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_RAID_2.jpg" class="image"><img alt="Arhitektura RAID 2.jpg" src="../images/4/4a/Arhitektura_RAID_2.jpg" width="397" height="232" /></a></div></div>
+<p>Ono što je zanimljivo kod RAID 2 razine je da je ona jedina koja se ne koristi danas. Razlozi su mnogobrojni, ali je primaran i najočitiji – cijena. Naime, RAID 2 polje zahtijeva mnogo diskova, a sam RAID kontroler je kompliciran, stoga specijaliziran i skup. Zbog samog dijeljenja datoteke na razini bita, očito imamo i vrlo spore prijenose. Ovisno o implementaciji, RAID 2 polje tipično sadrži 14 ili čak 39 diskova. Osim toga, diskovi trebaju biti sinkronizirani u vrtnji. Konačno, perfromanse čitanja i pisanja su sve samo ne spektakularne. Zato se RAID 2 polje ne koristi.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 04:54, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="RAID_razine_-_RAID_3_i_4">RAID razine - RAID 3 i 4</span></h4>
+<p>RAID polje razine 3 koristi striping na razini bajta sa dediciranim paritetom. Podaci su podijeljeni tako da se zapisuju na različite diskove i s različitim veličinama. Informacije o paritetu podataka su poslane i zapisane na određeni paritetni disk. Tako se ispad svakog od diskova može tolerirati. Na slici desno  vidimo tu arhitekturu. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_RAID_3.jpg" class="image"><img alt="Arhitektura RAID 3.jpg" src="../images/6/68/Arhitektura_RAID_3.jpg" width="381" height="204" /></a></div></div>
+<p>Problem sa RAID 3 poljem je što paritetni disk predstavlja usko grlo RAID polja. Tako će se prilikom zapisa neke veće datoteke morati poduzeti dvije akcije&#160;: 
+</p>
+<ol><li>Distribuiranje datoteke preko diskova u RAID polju i
+</li><li>Računanje i zapisivanje pariteta na paritetni disk
+</li></ol>
+<p>Očito gubimo mnogo vremena na zapisivanje svog rastavljanja na razini bajta, računanja pariteta i zapisivanja na određeni paritetni disk. Također, ješ jedan problem ove RAID izvedbe su relativno skupi kontroleri, te relativna neiskorištenost cijelog jednog diska. 
+</p><p>S druge strane, RAID 3 polje trpi ispad jednog diska, te zbog više klase kontrolera obično posjeduje i Hot Spare te automatsku rekreaciju RAID polja u slučaju ispada. Također, jedna od iznenađujućih prednosti RAID 3 polja je odlična brzina zapisivanja sekvencijalnih podataka. Tako je RAID 3 preporučeno koristiti u poljima koja rade s velikim datotekama (multimedia). 
+</p><p>RAID 4 polje koristi striping na razini bloka i dediciran paritet. Rastavljanje na razini bloka je prednost nad RAID 3 poljem. Osobine dopuštenog ispada, kapaciteta polja i efikasnosti zapisa ostaju iste.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 04:58, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="RAID_razine_-_RAID_5">RAID razine - RAID 5</span></h4>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_RAID_5.jpg" class="image"><img alt="Arhitektura RAID 5.jpg" src="../images/9/98/Arhitektura_RAID_5.jpg" width="243" height="154" /></a></div></div>
+<p>RAID polje razine 5 koristi striping na razini bloka i distribuirani paritet. Predstavlja jednu od najpopularnijih implementacija RAID-a. Kao što možemo vidjeti, vrlo je sličan RAID 4 polju, osim što koristi distribuirani paritet. Distribuirani paritet se tako zapisuje preko tri ili više čvrstih diskova umjesto na specijalizirani paritetni disk. Tako je izbjegnuto usko grlo prisutno kod RAID 3 i RAID 4 polja. Tolerancija na ispade se osigurava tako da se svaki paritet bloka nužno sprema na disk koji nije isti onaj na kojemu je zapisan blok. Osim toga, RAID 5 omogućava različite primjenje promjenjivom veličinom bloka, ovisno o potrebama korisnika. Na sljedećoj slici vidimo implementaciju RAID 5  polja sa istim datotekama kao i u primjerima za RAID 1 i RAID 0.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Raspored_datoteka_u_RAID_5_polju.jpg" class="image"><img alt="Raspored datoteka u RAID 5 polju.jpg" src="../images/b/bc/Raspored_datoteka_u_RAID_5_polju.jpg" width="330" height="289" /></a></div></div>
+<p>RAID 5 zahtjeva minimalno tri diska u RAID polju te relativno skuplji kontroler. Neki OS-ovi nude software-sku podršku za ovu implementaciju RAID polja, ali uz ozbiljne nedostatke u performansama. Tolerira se ispad jednog čvrstog diska te su obično podržane Hot Spare opcije, kao i automatska rekreacija. Pisanje i čitanje na disk su obično vrlo dobri do izvrsni, zbog nedostatka potrebe za posebnim diskom za paritet.
+</p><p>Generalno se RAID 5 smatra najboljim kompromisom između dobrih performansi, dobre tolerancije na ispade i dobrog kapaciteta te iskorištenja prostora. Tako ga vrlo često vidimo u širokoj praksi, a osobito kao podršku ERP sustavima.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 05:01, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="Usporedba_RAID_polja">Usporedba RAID polja</span></h4>
+<p>U tablici ispod vidimo konačnu usporedbu RAID razina. Mogli bismo argumentirati kako je realizacija RAID polja skuplja ovisno o postignutim rezultatima. Npr. RAID 0 polje je relativno jeftino, ali nudi užasnu dostupnost podatka. Prateći 'zvjezdice' možemo reći kako je najbolji omjer cjene i kvalitete postignut u RAID polju 5 ili ugnježđenom RAID polju 01/10. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Usporedba_RAID_polja.jpg" class="image"><img alt="Usporedba RAID polja.jpg" src="../images/4/44/Usporedba_RAID_polja.jpg" width="655" height="399" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 05:03, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="JBOD">JBOD</span></h3>
+<p>JBOD (Just a Bunch Of Disks) je jedna od arhitektura diskovnih polja. U RAID poljima smo vidjeli agregaciju diskova koji podržavaju redundaciju kako bi se osigurala dostupnost podataka, u večini slučajeva čak i kada ispada pojedini disk. Međutim, čest je slučaj da se u pojedinom računalu nalazi više diskova koje iz ovog ili onog razloga ne želimo složiti u RAID polje (najčešći razlog pri tome je relativna cijena organizacije takvog polja – primarno RAID kontrolera).
+</p><p>JBOD je tako arhitektura koju moramo razlikovati od RAID polja. U suštini, JBOD je suprotnost od particioniranja naših diskova. Particioniranje primarno radi na tome da smanji diskove u manje logičke dijelove. S druge strane JBOD okrupnjava diskove koje imamo u veći logički disk. No, za razliku od RAID polja kod JBOD-a nema toleranicje na ispade, kao niti unaprjeđenje performansi.
+</p><p>Budući da u osnovi čak i RAID 0 nudi znatna unaprjeđenja performansi, pitanje je zašto bi koristili JBOD. Postoje dva osnovna razloga zašto bi koristili JBOD.
+</p>
+<ol><li>Izbjegavanje gubitka prostora – JBOD nudi kombiniranje veličina diskova bez gubitaka. Tako će dva diska od 100 i 250 GB tvoriti jedan logički disk od 350GB. S druge strane RAID polje će najčešće tvoriti polje veličine manjeg diska, dakle 100GB.
+</li><li>Lakše povraćanje podataka – Pod pretpostavkom ispada jednog diska, nisu izgubljeni svi podaci u JBOD polju, nego samo oni sadržani na takvom disku. Problem ovdje je da je nepoznatno koji podaci se nalaze gdje, zbog osobitosti pojedinog OS-a.
+</li></ol>
+<p>Vidimo da su prednosti JBOD-a zapravo minorne. Stoga se on uglavnom ne prakticira u stvarnosti.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 05:06, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="MAID">MAID</span></h3>
+<p>MAID ili  Massive Array od Idle Disks (MAID) je sustav diskova koji se sastoji od nekoliko stotina ili čak tisuća diskova koji se koriste za trajno skladištenje podataka. MAID sustavi imaju mnogo primjena ali su u osnovi dizajnirani za spremanje podataka koji se jednom zapišu, a onda vrlo rijetko čitaju. Osnovna ideja sustava je da što više smanji potrošnju energije budući da postoji vrlo malo zahtjeva za tim podacima, ali ih ipak treba posjedovati. 
+Neke od osnovnih karakteristika MAID polja su:
+</p>
+<ol><li>Vrlo visoka gustoća diskova u MAID arhitekturi – MAID diskovi su često nagurani u vrlo skučene uvjete. Poanta je da kontroleri u ovom polju često ograničavaju brzinu vrtnje diskova, ali i broj diskova koji se vrte u isto vrijeme. Tako je omogućeno da ti diskovi ne moraju biti hlađeni, te ih se može nagurati u vrlo male prostore. Samim time, aktivnije diskove imamo kamo smjestiti.
+</li><li>Ograničeni broj diskova u uporabi – u MAID arhitekturi često imamo ograničenje na broj diskova koji se trenutno koriste. To je nekada čak i 25% diskova u polju. Takvo ograničenje donosi neke pozitivne stvari poput već spomenute prednosti da se diskovi ne moraju hladiti. Osim toga, uvijek jednak broj diskova u vrtnji osigurava manju potrošnju struje te svakako manju mogućnost oštećenja uslijed vibracija.
+</li><li>Dugo dohvaćanje podataka – MAID diskovi često imaju mali broj okretaja u minuti te tako pristup podacima traje i do desetak sekundi.
+</li></ol>
+<p>Osnovno polje korištenja ovakvih polja je u poduzećima koja moraju čuvati arhive podatka dugo vremena. Neki od primjera takvih podataka su stari financijski podaci i slično. Također, slična rješenja implementiraju i internetski servisi za skladištenje fotografija, budući da je analizama utvrđeno da korisnici svoje fotografije pregledavaju nekoliko puta, a onda sve rjeđe i rjeđe, ako ne i nikada više. Međutim, te arhitekture su znatno složenije i predstavljaju cijeli sustav servera koji se brine o promoviranju i degradiranju podataka kroz mrežu servera.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 05:08, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Mre.C5.BEna_spremi.C5.A1ta_podataka_i_njihova_organizacija">Mrežna spremišta podataka i njihova organizacija</span></h2>
+<h3> <span class="mw-headline" id="DAS">DAS</span></h3>
+<p>DAS predstavlja akronim za Direct-Attached storage. Za razliku od SAN ili NAS mreža kod DAS tehnologije teško možemo govoriti o mrežnom spremištu podataka. DAS se odnosi primarno na digitalno skladištenje podataka koje je direktno priključeno na neki server ili radnu stanicu gdje ne postoji mreža između računala. Možemo reći da je arhitektura DAS sustava vrlo jednostavna. Ona podrazumijeva spremišta podataka  koji su direktno priključeni na neko računalo, te se mogu dijeliti posredstvom tih računala. Primjer takve arhitekture vidimo na slici ispod:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DAS_arhitektura.jpg" class="image"><img alt="DAS arhitektura.jpg" src="../images/e/ed/DAS_arhitektura.jpg" width="605" height="444" /></a></div></div>
+<p>Spremitšte podataka u kontekstu DAS arhitekture može biti bilo koji uređaj za skladištenje podataka, kao što je ormar sa diskovima ili jedan disk sadržan u klijentskom računalo. Poanta DAS skladištenja je da ne postoje mrežne karakteristike povezivanja između samog uređaja za skladištenje podataka i „klijentskog računala“. Tako na slici vidimo jedno klijentsko računalo koje je spojeno na DAS storage box, te dva servera koja su spojena na pojedinačne uređaje. Bitno je primjetiti postojanje Ethernet usmjerivača koji ne služi spajanju samog DAS uređaja, već komunikaciji računala koja su spojena na DAS uređaje. Dakle, u DAS arhitekturi ne postoji direktan pristup spremištima podataka, već je on izveden kroz eventualno dijeljenje kroz računala. 
+</p><p>Nedostaci takve arhitekture su očiti. Čest je termin „informacijski otoci“ kada govorimo o DAS skladištenju. Ukoliko nije direktno omogućeno, drugi serveri i/ili klijenti ne mogu pristupiti podacima koji su sadržani na DAS uređajima. 
+</p><p>S druge strane, budući da je to vrlo raširen i poznat koncept, mada možda nismo svjesni njegovog postojanja u našim računalima, očito je kako je inicijalni trošak postojanja minimalan, kao i kasniji troškovi održavanja i slično.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:23, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="NAS">NAS</span></h3>
+<h4> <span class="mw-headline" id="Op.C4.87enita_arhitektura">Općenita arhitektura</span></h4>
+<p>NAS predstavlja akronim za Network-Attached Storage. NAS arhitektura skladištenja podataka je računalno skladište podataka koje je priključeno u mrežu. Svojim mrežnim osobinama dopušta pristup različitim klijent računalima koji su na neki način priključeni u mrežu. Jedan od primjera bi bila kućna mreža koja sadrži nekoliko računala (desktop, laptop) koji su povezani u LAN mrežu usmjernikom. NAS uređaj se tako priključuje u LAN mrežu ravnopravno s ostalim računalima, te mu ostali klijenti mogu pristupiti, gdje su klijenti potencijalno na različitim operacijskim sustavima i slično. Na slici vidimo ilustraciju jedne takve mreže. Tri klijenta i dva servera su međusobno umreženi u lokalnu mrežu ethernet usmjernikom. Na usmjernik je također priključen i NAS server. Ta računala tako mogu dijeliti podatke. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NAS_arhitektura.jpg" class="image"><img alt="NAS arhitektura.jpg" src="../images/a/ae/NAS_arhitektura.jpg" width="605" height="402" /></a></div></div>
+<p>NAS skladišta podataka postoje još od osamdesetih godina prošlog stoljeća, ali svoju popularnost stiču tek nedavno. Naime, uočeno je kako je NAS skladištenje podataka iznimno prikladna metoda ne samo skladištenja podatka, već i pristupanja podacima s različitih računala. Ta prednost dolazi iz različitosti s podatkovnim serverima. Naime, umjesto da se NAS skladišta postavljaju na npr. desktop računala ili servere opće namjene, oni se često izgrađuju kao specijalizirana računala koja služe isključivo NAS realizaciji. Tako se znatan dio potrebne infrastrukture NAS mreže može riješiti u samom hadrware-u računala. Takva računala često imaju sljedeće osobine&#160;:
+</p>
+<ol><li>Velike diskove
+</li><li>Relativno jeftine ostale komponente
+</li><li>Ne zahtjevaju periferne jedinice
+</li><li>Troše malo energije
+</li></ol>
+<p>Prednost takvog pristupa je uklanjanje potrebe da centralni serveri poslužuje podatkovne zatheve. Tako uviđamo i prednosti NAS arhitekture:
+</p>
+<ol><li>Olakšana administracija pristupa i prava
+</li><li>Jednostavnije postavljanje usluge
+</li><li>Decentralizacija podataka
+</li><li>Redudantnost podataka
+</li><li>Lako postavljanje RAID polja
+</li><li>Brži pristup podacima
+</li><li>Neovisnost o operacijskom sustavu i mrežama pristupa
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:26, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="Protokoli_za_komunikaciju_s_klijentima">Protokoli za komunikaciju s klijentima</span></h4>
+<p>Osobito bi trebali promotriti točku sedam iz prethodnog razmatranja. Naime, budući da NAS uređaji često vrte neki LINUX / UNIX operacijski sustav, potrebno je organizirati pristup podacima sa Windows ili Mac računala. Takav pristup se rješava mrežnim protokolima za dijeljenje podataka. Ti protokoli su:
+</p>
+<ol><li>NFS
+</li><li>SMB/CIFS
+</li><li>AFP
+</li><li>rsync
+</li></ol>
+<p><b>NFS  – Network File System protocol</b> (NFS) razvijene je od strane Sun Microsystem-s. Odmah je prihvaćen kao standard za UNIX servere. Njegova implementacija izvedena je kroz korištenje RPC protokola, koji je dizajniran da podržava pokretanje procedura s udaljenosti. Njegove osobine su slične onima RPC protokola, budući da je sto stateless te RRP (request-reply protocol) često ima vrlo loše performanse na mrežama širokog raspona. Najbolje performanse se ostvaruju na manjim ili srednjim LAN mrežama. 
+</p><p><b>SMB/CIFS  - Server Message Block</b> (SMB) protokol je mrežni protokol za dijeljenje podataka. Implementirao ga je Microsoft te je samim time i poznat kao MicrosoftSMB. SMB je tako standardni dio MS Windowsa i pruža podršku za dijeljenje podataka preko mreže na Windows pokretanim računalima. SMB protokol može imati različite setove naredbi koje zovemo dijalekti. CIFS (Common Internet File System) je tako jedan od dijalekata SMB protokola. Osim Windows računala, koristi se i na nekim LINUX računalima. Za razliku od NFS protokola koji je Stateless protokol, SMB podržava i:
+</p>
+<ul><li>Pregovaranje dijalekta
+</li><li>Pronalaženje drugih SMB uređaja i pretraživanje mreže
+</li><li>Print preko mreže
+</li><li>Autentifikacija na razini datoteke i direktorije 
+</li><li>Zaključavanje direktorija i datoteka
+</li><li>Praćenje promjena
+</li></ul>
+<p><b>AFP  – Apple Filing Protocol</b> je protokol za komuniciranje sa Apple datotečnim serverima. AFP je nasljednik AppleTalk protokola. 
+</p><p><b>rsync </b> - Rsync je alat koji služi kopiranju podataka preko mreže ili lokalno. Prednosti su mu brzina i svestranost. Najčešća uporaba rsynca je za sigurnosne pohrane podataka i zrcaljenje podataka. Jedno od najvažnijih obilježja rsync-a je njegov lqquic checkrq algoritam. Taj algoritam provjerava datoteke za promjenu u veličini i/ili last-modified tag-u. Upotrebom tog algoritma rsync efektivno smanjuje broj svakog prijenosa podataka tako da izbjegava kopiranje podataka koji se nisu promjenili od zadnjeg prijenosa. Ostale prednosti su:
+</p>
+<ul><li>Podrška za kopiranje poveznica, uređaja, vlasnika, grupa i ovlaštenja
+</li><li>Uključi i isključi-iz opcije 
+</li><li>Ne zahtjeva SU privilegije
+</li><li>Uporaba cjevovoda za smanjivanje latencije
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:30, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="NAS_OS">NAS OS</span></h4>
+<p>Kao što smo već rekli, NAS se najčešće realizira preko NAS jedinice, odnosno NAS servera. Mada je arhitektura NAS servera prilično slična običnom serveru, često nije u potpunosti prilagođena da bude server opće namjene. Također, za NAS jedinice su izrađeni i posebni OS-ovi koji služe primarno jednostavnom radu s podacima. Primjer takvog OS-a su:
+</p>
+<ol><li>FreeNAS
+</li><li>Darma NAS OS
+</li><li>unRaid
+</li><li>EON
+</li></ol>
+<p>Oni posjeduju različite osobine i implementacije načina kako NAS funkcionira. Primarni interes prilikom odabira OS-a su svakako:
+</p>
+<ol><li>Brizna pisanja i čitanja
+</li><li>Kvaliteta kompresije
+</li><li>Sigurnost podataka
+</li><li>Organizacija podataka
+</li></ol>
+<p>Primjer jednog testa brzine pisanja i čitanja različitih OS-ova na istoj konfiguraciji možemo pronaći na slici ispod:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Usporedba_NAS_OS.jpg" class="image"><img alt="Usporedba NAS OS.jpg" src="../images/b/bd/Usporedba_NAS_OS.jpg" width="442" height="250" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:31, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="Datote.C4.8Dni_sustavi">Datotečni sustavi</span></h4>
+<p>U nastavku ovog poglavlja ćemo promotriti datotečne sustave i što oni omogućavaju a spefifični su za NAS uređaje. Datotečni sustavi naranvo ovise o vrsti i distribuciji OS-a koji se nalazi na određenoj NAS jedinici. Zato ćemo promotriti datotečne sustave koje podržava FreeNAS OS. Važnost razmatranja datotečnih sustava koje podržavaju NAS uređaji potiče iz činjenice da su oni često specijalizirani za skladištenje podataka.
+</p>
+<h5> <span class="mw-headline" id="ZFS">ZFS</span></h5>
+<p>ZFS je datotečni sustav koji je osmislio i implementirao SunMicrosystems tijekom 2004. Godine. ZFS je akronim za Zettabyte File System. Osnovna ideja ZFS-a je kombiniranje datotečnog sustava i upravljanja logičkim cjelinama. Osim toga ZFS uključuje&#160;:
+</p>
+<ol><li>Verifikaciju integriteta podataka
+</li><li>Podršku za velike diskove
+</li><li>System Snapshot
+</li><li>Copy-on-Write
+</li><li>Raid-Z
+</li></ol>
+<p><b>Verifikaciju integriteta podataka</b>  – predstavlja osobito važan dio ZFS datotečnog sustava. Integritet podataka je jedan od najvažnijih razloga zašto je ZFS dizajniran od nule, za razliku od ostalih modernih datotečnih sustava. Naime, uočeno je da se ostali datotečni sustavi, kao niti alternativna rješenja poput RAID polja, ne mogu efektivno boriti sa gubitkom integriteta podataka koji potiče iz raznoraznih izvora. Integritet podataka je u ZFS datotečnom sustavu postignut korištenjem kontrolnih zbirova (Checksum-a) kroz cijelo datotečno stablo. Zbirovi se spremaju na odvojene lokacije od samog podatka, tako da postoje kopije koje provjeravaju ispravnost podataka. Odvojeni kontrolni zbirovi tvore Markle-ovo stablo. Jednom kada postoji zahtjev za nekim podatkom, on se provjerava nasuprot kontrolnog zbira te u slučaju neispravnosti, mijenja sa nekom redundantnom kopijom (ukoliko ona postoji). 
+</p><p><b>Podršku za velike diskove</b>   – ZFS datotečni sustav podržava „Storage Pools“. To znači da ZFS konstruira virtualnu, logičku jedinicu za skladište podataka koju naziva zpools. Svaki uređaj u Zpool-u predstavlja virtualizaciju jednog blok uređaja (datoteka, particija, cijeli disk). Osim toga, ZFS je 128-bitni datotečni sustav. Tako može adresirati mnogo više podataka od NTFS datotečnog sustava. ZFS tako podržava više zapisanih podataka nego što se u teoriji može pohraniti. 
+</p><p><b>System Snapshot</b> – predstavlja trenutnu sliku stanja operacijskog sustava na razini datotečnog sustava. Slika koja je stvorena u svakom datom trenutku nema veličinu sama po sebi, nego se ona povećava sa promjenama datoteka i zapisima novih datoteka. Premda slikama sustava nije moguće pristupiti na razini samog datotečnog sustava, definirane su akcije tipa roll-back, restore i slično.
+</p><p><b>Copy-on-Write</b> 
+</p><p><b>RAID –Z</b>  –nije po strogoj definiciji RAID polje, kao što je to na primjer RAID 1 polje. No ipak adresira dva temeljna nedostatka RAID polja:
+</p>
+<ul><li>RAID rupe u pisanju
+</li><li>Uzastopne provjere pariteta na datotekama manjim od veličine stripe-a.
+</li></ul>
+<p>RAID-Z je vrlo sličan RAID 5 polju. Koristi striping i dinamičan paritet. No, unaprjeđuje ga sa dinamičkim veličinama stripova. Tako nikada neće postojati prostor koji nije popunjen jer je datoteka manja od stripa. Ovdje treba naglasiti da dinamička veličina stripova ne znači da korisnik može odrediti veličinu stripa na razini logičkog diska, već da se OS, odnosno datotečni sustav brine da je svaki stripe velik kao i datoteka. Rješenje problema je zapravo vlo očito, ali ne može funkcionirati na razini hardwarea, osobito u konjukciji s RAID poljem druge vrste. Zato je RAID-Z nužno inkorporiran u datotečni sustav pojedinog OS-a. Postignuća RAID Z-a su dakle:
+</p>
+<ul><li>Podaci koji se sami popravljaju, što znači na razini bloka, kao i cijelog logičkog diska
+</li><li>Ne traži nikakavu posebnu računalnu opremu.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:35, 6. siječnja 2012. (CET)
+</p>
+<h5> <span class="mw-headline" id="Ostali">Ostali</span></h5>
+<p>Osim ZFS-a podržani su i mnogi drugi datotečni sustavi koje ovdje nećemo pregledavati u velike detalje jer su unaprijed poznati. Tu imamo:
+</p>
+<ol><li><b>UFS  – Unix File System</b> je datotečni sustav primarno stvoren za UNIX operacijske sustave. Posjeduje hijerarhijsku strukuru sa / direktorijem u korijenu. / direktorij tako sadrži sve ostale direktorije. Također, u Unixu-u se sve smatra datoteku, uključujući i disketne jedinice, CD/DVD uređaje, itd. U pravilu UFS se koristi i u sustavima sličnim UNIX-u poput Linux-a. No, on se u današnje vrijeme koristi kao podloga za legacy software, budući da je esencijalno zastario i zamijenio ga je ext2 i slični datotečni sustavi.
+</li></ol>
+<ol><li><b>NTFS – „NTFS (New Technology File System)</b> datotečni sustav. Poboljšava sigurnost, omogućavajući šifriranje datoteka i mapa te ograničavanje pristupa datotekama. Najmanja dostupna jedinica za upis također je klaster. Podaci o datoteci čuvaju se u MFT (Master File Table) tablici u kojoj su svi njeni potrebni atributi. Podrazumna veličina klastera NTFS sustava također ovisi o veličini volumena. Jedna od pogodnosti NTFS sustava je formatiranje particije (volumena) s klasterom veličine po želji i veći broj atributa koji se mogu pridružiti datoteci, ali je najvažnija razlika u odnosu na FAT što je NTFS 'journaling' tip operativnog sustava, odnosno mogućnost samooporavka po nasilnom isključivanju računala. Zapisi o promjenama tijekom rada indeksiraju se i popisuju u JOURNALU na osnovu čega se potom promjene upisuju u datoteke te se sprječava gubitak podataka i oštećenje datotečnog sustava.“.
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:37, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="S.M.A.R.T.">S.M.A.R.T.</span></h4>
+<p>Self-Monitoring, Analysis and Reporting Technology (SMART) tehnologija je računalni sustav praćenja rada čvrstih diskova u računalima kako bi uvidjeli postojeće greške u radu i eventualno sprječili konačne fatalne ispade.
+</p><p>S.M.A.R.T. (u daljnjem tekstu SMART) se uglavnom implementira kao hardware kontroler u samom čvrstom disku. No, operativni sustav mora podržavati SMART tehnologiju i primati upozorenja od čvrstog diska. Naravno postoje slučajevi u kojima se ispad ne može predvidjeti. Primjer takvog ispada je nepropisno rukovanje (op.a. kada disk ispadne na pod) i slično. 
+</p><p>SMART tehnologija koristi sljedeće podatke kao moguće razloge za upozorenje na postojeći problem&#160;:
+</p>
+<ol><li>Visina leta glave čvrstog diska – ukoliko visina lebdenja glave pada s vremenom, to može biti znak za probleme.
+</li><li>Broj pogrešaka i korištenja ECC-a – ukoliko se ECC algoritam često koristi, postoji mogućnost pogreške na čvrstom disku
+</li><li>Temperatura – porast temperature u pravilu znači da se nešto loše događa s motorom
+</li><li>Propusnost podataka – smanjenje propusnosti je upozorenje na problem
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:38, 6. siječnja 2012. (CET)
+</p>
+<h4> <span class="mw-headline" id="iSCSI">iSCSI</span></h4>
+<p>S SCSI protokolom smo upoznati i znamo da je mapiran preko mnogo medija prijenosa, kao što su SCSI, IPI, IEEE-1394. Ovi načini prijenosa su I/O specifični i imaju limitirane funkcionalnosti preko većih udaljenosti.
+</p><p>Tako iSCSI (Internet Small Computer System Interface, iSCSI) protokol definiramo kao način slanja SCSI paketa preko TCP/IP protokola. iSCSI tako pruža interoperabilno rješenje koje koristi postojeće prednosti trenutne infrastrukture interneta kako bi doskočio nedostacima SCSI-a.
+</p><p>iSCSI je razvijen od strane IETF-a, s ćije  stranice smo i preuzeli prijašnju definiciju. Osnovna ideja je bila koristiti IP mreže (internet) kako bi pospješili prijenos podataka preko većih udaljenosti od obične LAN mreže. Tako je iSCSI jedna od vrlo važnih tehnologija u NAS i SAN mrežama. Kažemo da iSCSI služi prijenosu podataka preko WAN-ova (široke mreže) i interneta te omogućuje prijenos podataka neovisan o udaljenosti.
+</p><p>U iSCSI protokolu, kada krajnji korisnik pošalje zahtjev, operativni sustav generira prikladne naredbe koje poznajemo i u SCSI protokolu. Za razliku od prenošenja na lokalni vod, kao kod SCSI protokola, iSCSI enkapsulira zahtjev za IP prijenos. Pakete je moguće i enkriptirati, ukoliko se to pokaže potrebnim. 
+</p><p>Jednon kada je paket primljen na drugoj strani (koristeći standardnu ISO OSI arhitekturu interneta), dekriptira se, i rastavlja na zaglavlja te korisni payload. Payload je u ovom slučaju zahtjev i SCSI naredbe. SCSI naredbe se prosljeđuju SCSI kontroleru i potom SCSI skladištu podataka (čvrsti disk). 
+</p><p>SCSI skladište dostavlja potrebne podatke i budući da je iSCSI protokol dvosmjeran, odgovoara na zahtjev. iSCSI je jedan od glavnih protokola za prijenos skladištenih podataka preko IP mreža. Alternativa mu je FCIP (Fibre Channel over IP) protokol. FCIP koristi sličan princip da prenosi kodove i podatke u IP pakete preko geografski udaljenih FCIP SAN-ova. Problem ove konkurencije, što ide u korist iSCSI-u je da FCIP isključivo koristi Fibre Channel tehnologije, samim time, ovisan je o mediju. Dakle, za razliku od iSCSI-a ne koristi trenutnu infrastrukturu interneta, nego zahtjeva izdvojenu implementaciju. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 17:06, 6. siječnja 2012. (CET)
+</p>
+<h5> <span class="mw-headline" id="iSCSI_koncepti">iSCSI koncepti</span></h5>
+<p>Sada kada smo svjesni generalnog funkcioniranja iSCSI protokola pogledajmo neke od važnijih oznaka sudionika i načina prijenosa u jednoj iSCSI transakciji. One su sve definirane u [RFC3720]  dokumentu koji je i javno dostupan. 
+</p>
+<ul><li><b>Inicijator (SCSI inicijator)</b> – iSCSI inicijator predstavlja stranu koja inicira, odnosno započinje „razgovor“. Samim time, sukladno tradiciji mrežnih tehnologija, automatski mu dodjeljujemo i ime iSCSI klijenta. Inicijator generira neki zahtjev koji SCSI kontroler treba obraditi i dostaviti podatke. Kao što smo već napomenuli, temeljna razlika kod iSCSI incijatora je posebitost da se naredbe i podaci enkapsuliraju u IP datagram i šalju kroz mrežu.
+</li><li><b>Meta (SCSI Target)</b> – iSCSI meta predstavlja odredišni skladišni resurs koji je lociran na serveru na koji iSCSI inicijator upućuje. iSCSI meta je tako najčešće neka određena skladišna jedinica ili disk. 
+</li><li><b>SCSI naredba</b> – predstavlja temeljni SCSI podatkovni segment. Njegov detaljan opis vidimo na slici ispod: 
+</li></ul>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ISCSI_datagram.jpg" class="image"><img alt="ISCSI datagram.jpg" src="../images/a/a9/ISCSI_datagram.jpg" width="558" height="526" /></a></div></div>
+<ul><li><b>SCSI – iSCSI mapiranje</b> – predstavlja način na koji se SCSI upiti pretvaraju i iSCSI protokol. Opis vidimo na slici ispod.
+</li></ul>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SCSI_u_iSCSI.jpg" class="image"><img alt="SCSI u iSCSI.jpg" src="../images/6/6e/SCSI_u_iSCSI.jpg" width="321" height="489" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 17:10, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="SAN">SAN</span></h3>
+<p>SAN ili Storage Area Network je po definiciji tip LAN mreže koja je dizajnirana da podnosi velike količine prijenosa podataka. SAN tehnologija je slična ali i različita od NAS tehnologije. Razlika leži primarno u protokolima odvijanja protoka podataka. U NAS mrežama se prijenos odvija primarno TCP/IP prijenosom, što olakšava kućnu uporabu. S druge strane SAN mreže koriste mrežne protokole niske razine . Arhitektura SAN mreže izgleda ovako:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SAN_mre%C5%BEa.jpg" class="image"><img alt="SAN mreža.jpg" src="../images/3/3d/SAN_mreža.jpg" width="431" height="456" /></a></div></div>
+<p>SAN mreže najčešće koriste SCSI (Small Computer Storage Interconnect) i FC (Fibre Channel) protokole da presele podatke preko mreže i smjeste ih na diskove u obliku blok podataka. Arhitektura podrazumjeva mnogo uređaja za spremanje podataka koji su međusobno povezani i tako dijele svoje podatke. Na slici vidimo LAN mrežu klijenata koja je preko servera spojena na mrežu SAN uređaja. Ti uređaji su na slici prikazani kao uređaji u blizini jedan drugoga. U praksi je to i često slučaj. Najčešće SAN mreže prepoznajemo kao gomilu SAN jedinica u pojedinoj sobi. Međutim, osnovna arhitektura i komunikacijske osobine SAN mreže dopuštaju i disperziju SAN jedinica preko udaljenosti. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:39, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Sigurnost_skladi.C5.A1tenih_podataka">Sigurnost skladištenih podataka</span></h2>
+<p>Sigurnost podaka u računalnom smislu je praksa osiguravanja podataka od neovlaštene promjene  sadržaja te pristupanju istom. Promjena se može dogoditi ili neautoriziranim pristupom podacima korisnika, nekim kvarom ili nekom trećom silom koja utječe na podatke. 
+</p><p>Kako bi pokazali važnost sigurnosti uskladištenih podataka prikazati ćemo jednu statistiku iz 2005. g. Tablica ilustrira neke od prijavljenih incidenata koji su zabilježeni tokom te godine. Također, u krajnjem desnom stupcu vidimo i broj korisnika na koje je propust utjecao. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prikaz_napada_na_sigurnost_podataka.jpg" class="image"><img alt="Prikaz napada na sigurnost podataka.jpg" src="../images/7/72/Prikaz_napada_na_sigurnost_podataka.jpg" width="616" height="377" /></a></div></div>
+<p>Vidimo da je okviran broj osoba na koje su utjecali različiti sigurnosni propusti oko 52.000.000. Stručnjaci govore da je ovih 10 navedenih slučajeva zapravo svega 20% stvarnog broja. Naravno, po pretpostavci, taj broj će samo i rasti. 
+</p><p>Definiramo nekoliko osnovnih zahtjeva prilikom razmišljanja o podatkovnoj sigurnosti. Oni su redom&#160;: 
+</p>
+<ul><li>Tajnost
+</li><li>Integritet
+</li><li>Dostupnost
+</li></ul>
+<p>Gdje tajnost predstavlja zahtjev da podaci koji su u vlasništvu jednog korisnika i obilježeni su kao privatni takvi i ostanu. Integritet predstavlja zahtjev da podaci ostanu u jednakom stanju, osim u slučaju da ih korisnik sam ne mijenja, a dostupnost zahtjev da su podaci dostupni na traženje korisnika. 
+</p><p>Postoje brojne mjere koje na ovaj ili onaj način osiguravaju jedan, više ili sve ove zahtjeve u podatkovnoj sigurnosti, stoga ćemo ih u nastavku ovog poglavlja razmotriti. 
+</p><p>Ali prvo, razmotrimo neke realne prijetnje. Oracle u svojem dokumentu Oracle9i Security overview definira sljedeće rizike za naše uskladištene podatke.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rizici_uskladi%C5%A1tenih_podataka.jpg" class="image"><img alt="Rizici uskladištenih podataka.jpg" src="../images/7/72/Rizici_uskladištenih_podataka.jpg" width="460" height="463" /></a></div></div>
+<p>Vidimo da svaki od ovih sigurnosnih prijetnji krši neke od zahtjeva koje smo postavili. Očit primjer je da neautoriziranim korisnicima mora biti zabranjen pristup podacima. Stoga koristimo autentifikaciju i slično. Budući da se u ovom radu primarno bavimo skladištenjem podataka, nećemo u detalje analizirati sigurnosne aspekte pristupanja podacima, već samu razinu podataka.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:40, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Enkripcija_diska">Enkripcija diska</span></h3>
+<p>Enkripcija diska može se realizirati na razini očvrsja računala, kao i programskom podrškom. Primarni cilj enkripcije diska je tako enkriptirati svaki pojedini bit podatka koji je sprema na disk računala.
+</p><p>Osim enkripcije diska poznajemo i enkripciju na razini datotečnog sustava, s njom se srećemo gotovo svaki dan. Vrlo je važno shvatiti da su te dvije enkripcije sve samo ne međusobno isključive. Naime, enkripcija diska podrazumijeva (u pravilu) korištenje jednog tajnog ključa za cijeli disk. Tako bi napadač, ukoliko dobije pristup računalu prilikom rada, imao otvorena vrata cijelom disku. Ovdje je preporučljivo koristiti alate koji koriste drugačije ključeve za različite particije ili druge logičke cjeline. Također, nije loša ideja povrh toga koristiti i enkripciju na razini datotečnog sustava. 
+</p><p>Neke od prednosti enkripcije diska su:
+</p>
+<ol><li>Korisnik se ne mora brinuti je li kriptirao pojedinu datoteku, odnosno korisnik je zaštićen ukoliko zaboravi kriptirati pojedine datoteke.
+</li><li>Uništavanje tajnog ključa uništava sve podatke, što osigurava tajnost u budućnosti
+</li><li>Praktički cijeli disk je enkriptiran, što osigurava vrlo malo prostora za napade.
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 17:19, 6. siječnja 2012. (CET)
+</p>
+<h3> <span class="mw-headline" id="Backup">Backup</span></h3>
+<p>Backup je operacija koja je zamišljena da spriječi gubitak podataka redudantim kopiranjem podataka. Cilj backupa je stvoriti kopije podataka koji su nam važni kako bi ih u slučaju gubitka mogli povratiti u orginalno stanje. Jedan od najosnovnijih principa backupa je ručno kopiranje s lokacije na lokaciju. Naravno, takav pristup je zahtjevan i vremenski i prostorno. Stoga najčešće koristimo neki oblik programske podrške za izvođenje backup operacije. 
+Definiramo četiri različita načina backup-a.
+</p>
+<ol><li>Potpuni backup – predstavlja ishodišnu točku svih ostalih tipova backupa. Funkcionira na način da se odabrane datoteke i direktoriji kopiraju na sigurnu lokaciju. Idejno bi bilo idealno uvijek raditi potpune backupe. Razlog koji stoji iza toga je da se takav backup najlakše povrati u prvotno stanje. No, naravno, postoji i problem. Naime, prilikom korištenja potpunog backupa gubimo mnogo vremenena da svaki put kopiramo sve podatke na sigurnu lokaciju. To nije toliko izražen problem ukoliko se radi o svega nekoliko MB ili stotina MB podataka, ali u slučaju mnogo GB već imamo problem. Osim toga, zadržavanje svake potpune kopije podataka raste s vremenom, tako da je svaki put kopija znatno veća. 
+</li><li>Inkrementalni backup – Inkrementalni backup započinje sa jednim potpunim backupom. Ova prva promjena snima trenutno stanje podataka. No, za razliku od potpunog backupa, idući put kada se backup izvršava dohvaćaju se samo podaci koji su noviji od posljednjeg backupa. Tako je svaki idući backup inkrement prijašnjeg. Za razliko od ostalih tipova backupa, inkrementalni ima vrlo brz proces backupa i čuva prostor. S druge strane, relativno je sporo za povrat podataka, te je relativno teško pronači točan podatak (odnosno njegovu verziju u vremenu). 
+</li><li>Diferencijalni backup – je u osnovi vrlo sličan inkrementalnom. Razlika je što diferencijalni skladišti sve podatke koji su različiti od prijašnjeg backupa. Tako stvara „verzije“ podataka u vremenu koje možemo koristiti. Ovakav backup koristi i Apple-ov TimeMachine kako bi dostavio dojam pregleda datoteka kroz vrijeme. Jedan od nedostataka ovog principa je što backup podaci mogu doseći i orginalnu veličinu potpunog backupa – tako nepotrebno trošeći prostor. 
+</li><li>Backup zrcaljenjem – u osnovi identičan potpunom backupu. Razlika je da se zrcaljenje ne sažima kao što je često slučaj kod potpunog backupa. Ovakva realizacija se primarno nalazi u RAID poljima i služi trenutnom povraćanju podataka u slučaju problema.
+</li></ol>
+<p>Na sljedećoj slici vidimo usporedbu karakteristika backupa: 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Usporedba_backupa.jpg" class="image"><img alt="Usporedba backupa.jpg" src="../images/2/24/Usporedba_backupa.jpg" width="579" height="252" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 17:20, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Cijena_skladi.C5.A1tenja_podataka">Cijena skladištenja podataka</span></h2>
+<p>Prilikom odabira medija i načina skladištenja naših podataka od izuzetne važnosti je uzeti u obzir mnogo faktora. No ipak, očito je kako najveći dio odluke pada upravo na cijenu pojedine implementacije. Ono što je pogrešno vjerovati je da je najvažniji faktor u cijeni trenutna investicija, odnosno cijena same opreme i slično. Vrlo je važno ocijeniti koji su faktori u dugoročnom poslovanju. Zato uvodimo pojam TCO (Total Cost of Ownership over time). TCO predstavlja sumu svih direktinih i indirektnih troškova u životnom vijeku poslovanja neke ekonomske jedinice. Osim početnih troškova tako ćemo u TCO uključiti i sljedeće (naborajni su neki od najvažnijih) faktore&#160;:
+</p>
+<ul><li>Prilagodba opreme
+</li><li>Troškovi osposobljavanja osoblja
+</li><li>Troškovi održavanja opreme
+</li><li>Troškovi energije za opremu
+</li><li>Troškovi prostora za opremu
+</li><li>Konačni troškovi odlaganja opreme
+</li></ul>
+<p>Tijekom 2006. godine The Enterprise Strategy Group (ESG) provodi istraživanje koje je trebalo utvrditi kolika je cijena pojedine tehnologije za skladištenje podataka. Zadani su parametri bili:
+</p>
+<ol><li>Veličina – 12TB
+</li><li>Mogući porast dnevnog prometa – 8GB
+</li><li>Broj upita po danu – 2500
+</li></ol>
+<p>Rezultati su analizirani tijekom tri godine, uzevši u obzir sve moguće troškove koje smo naveli i gore. Rezultat je sljedeći graf  koji prikazuje cijene nekoliko tehnologija, s obzirom na različite aspekte troškova pojedine tehnologije. Tako vidimo cijene za optičke medije (DVD, UDO), vrpce (LTO3) te čvrste diskove (Centera).
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cijene_skladi%C5%A1tenja_po_pojedinoj_tehnologiji.jpg" class="image"><img alt="Cijene skladištenja po pojedinoj tehnologiji.jpg" src="../images/b/bf/Cijene_skladištenja_po_pojedinoj_tehnologiji.jpg" width="687" height="338" /></a></div></div>
+<p>Rezultati grafa su zapravo prilično jednostavni. Očito je kako Optički mediji uvjerljivo prethode kolonu. Osobito je zanimljivo da imaju jednako niske inicijalne troškove kao i one latentne. Vrpca (LTO3) je u sličnom cjenovnom rangu. Međutim, moramo primjetiti kako je inicijalan trošak kupnje opreme zapravo duplo veći od Blu-Ray tehnologije. Također, vidimo i jednu zanimljivost kod rješenja s čvrstim diskovima. Naime, rješenje sa zrcaljenjem ima dvostruku veću inicijalnu investiciju u opremi. 
+</p><p>Pitanje je naravno, kako to da danas ipak vidimo čvrste diskove kao rješenje u večini poduzeća. Stvar je tome da je u posljednjih pet godina otkada je provedeno to istraživanje, broj kompanija koje posluju većim dijelom preko interneta naglo porastao. Takve kompanije zahtjevaju visoku propusnost podataka prema korisniku, kao i visoku brzinu zapisivanja podataka. Očit je problem s korištenjem ostalih medija u ovom slučaju.
+</p><p>Tako je zapravo vidljivo da je najisplativija opcija korištenje optičkih medija, ali to naravno uvelike ovisi o samoj prirodi poduzeća. Budući da je istraživanje provedeno u financijskom sektoru, koji ne pretpostavlja nužnu brzinu transakcija, vidimo da to i je najoptimatlnije rješenje u tom slučaju.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 05:45, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Projektni_rad">Projektni rad</span></h2>
+<p>Kao praktični dio ovog projekta napraviti ćemo jedan NAS server koji će posluživati datoteke Windows i Linux računalima. Budući da se nadamo ostvariti i neke multimedijalne funkcionalnosti, ali i VPN mrežu koristiti ćemo Ubuntu Server. Za realizaciju ovog projekta koristimo&#160;: 
+</p>
+<ol><li>Ubuntu server 11.10
+</li><li>Hamachi Linux 0.9.9.9-20
+</li><li>Hamachi Windows 2.1.0.1234
+</li><li>OpenSSH Server
+</li><li>Putty v0.60
+</li></ol>
+<p>Za početak stvaramo računalo koje posjeduje sljedeće karakteristike:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Karakteristike_ra%C4%8Dunala.jpg" class="image"><img alt="Karakteristike računala.jpg" src="../images/4/48/Karakteristike_računala.jpg" width="605" height="452" /></a></div></div>
+<p>Dodali smo pet diskova na SCSI kontroler kako bi mogli kasnije konfigurirati RAID polje. Disk za OS ima preporučenu veličinu 8GB, dok su ostali diskovi redom veliki 40GB što će po pretpostavci biti dobovoljno za primjer. Možemo započeti s instalacijom. Početni koraci su jednostavni, kao odabiranje jezika i lokacije. 
+</p><p>Prilikom upita o automatskom particioniranju izabiremo ručno podešavanje. Vidimo sljedeći zaslon:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Particioniranje_diskova.jpg" class="image"><img alt="Particioniranje diskova.jpg" src="../images/2/2c/Particioniranje_diskova.jpg" width="605" height="431" /></a></div></div>
+<p>Ovdje definiramo željene diskove kao RAID fizički prostor. Potom koristimo opciju konfiguriraj RAID i sljedimo korake:
+</p>
+<ol><li>Stvori novi MD pogon
+</li><li>Odaberemo RAID5 
+</li><li>Broj uređaja za RAID5 – 3
+</li><li>Hot Spare uređaja 2
+</li><li>Odaberemo particije koje želimo koristiti
+</li><li>Kliknemo na završi.
+</li></ol>
+<p>Ubuntu automatski formatira daljnje particije. 
+</p><p>Instalacija se nastavlja dalje i definiramo osnovni korisnički račun. Potom smo upitani želimo li unijeti proxy. U ovom slučaju nam to nije bilo potrebno, ali je svakako poželjno ukoliko ga stvarno i koristite. 
+</p><p>Instalacija potom dalje slijedi uobičajan slijed, dovoljno je samo pratiti recommended opcije. Jednom kada je dovršena, sustav nas moli da ukonimo instalacijski pogon i izvršava reboot računala. Konačno, vidimo sljedeći zaslon:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zaslon_pri_instalaciji.jpg" class="image"><img alt="Zaslon pri instalaciji.jpg" src="../images/5/5f/Zaslon_pri_instalaciji.jpg" width="605" height="454" /></a></div></div>
+<p>Potrebno je logirati se sa korisničkim računom kojega smo definirali prilikom instalacije. Nakon Logina smješteni smo u vlastitu korijensku mapu, koja je montirana za trenutnog korisnika. 
+</p><p>Za početak koristimo ifconfig da provjerimo status mrežnih adaptera.
+</p>
+<pre><i>ifconfig</i>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ifconfig.jpg" class="image"><img alt="Ifconfig.jpg" src="../images/5/52/Ifconfig.jpg" width="605" height="304" /></a></div></div>
+<p>Budući da će nam trebati direktan pristup routeru, odnosno IP formata 192.168.1.xxx potrebno je u postavkama virtualnog stroja promijeniti tip veze. Ona je trenutno postavljena na NAT. Zato postavljamo sljedeće postavke: 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Network_postavke.jpg" class="image"><img alt="Network postavke.jpg" src="../images/c/c4/Network_postavke.jpg" width="605" height="451" /></a></div></div>
+<p>Potrebno je virtualni stroj ponovno pokrenuti:
+</p>
+<pre><i>sudo reboot</i>
+</pre>
+<p>VAŽNO! Prilikom rada na UbuntuServeru, gotovo sve što radimo mora biti s prefiksom SUDO, kako bi osigurali ovlasti za izvršenje radnji. Ponovno koristimo naredbu za pregled NIC sučelja.
+</p>
+<pre><i>ifconfig</i>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ifconfig2.jpg" class="image"><img alt="Ifconfig2.jpg" src="../images/a/a0/Ifconfig2.jpg" width="605" height="461" /></a></div></div>
+<p>Vidimo da je sada eth0 adapter s IP adresom tpa 192.168.1.xxx.
+</p><p>Idući korak je instalirati SSH server kako bi mogli raditi sa serverom iz ugodnije okoline. 
+Koraci su:
+</p>
+<pre><i>sudo apt-get install openssh-server</i>
+</pre>
+<p>Jednom kada je SSHServer instalrian, moguće je koristiti neki SSH klijent za remote access na računalo. Sada virtualni stroj možemo minimizirati.
+</p><p>Odabiremo SSH klijent po želji. U ovom slučaju koristimo PuTTY klijent jer je lagan za korištenje i besplatan. Konfiguracija je jednostavna, potrebno je samo unijeti IP koji ste pročitali u ifconfig naredbi. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Putty_konfiguracija.jpg" class="image"><img alt="Putty konfiguracija.jpg" src="../images/2/21/Putty_konfiguracija.jpg" width="464" height="445" /></a></div></div>
+<p>Kliknemo na Open i unesemo korisničke podatke, kao i kod prijavljivanja na server. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Putty.jpg" class="image"><img alt="Putty.jpg" src="../images/6/6e/Putty.jpg" width="605" height="380" /></a></div></div>
+<p>Za početak potreban nam je način za komuniciranje sa Windows računalima. Za to koristimo SAMBA servise. Sambu smo mogli unaprijed instalirati tijekom instalacije, ali ovako pokazujemo kako to učiniti unutar OS-a. Koristimo:
+</p>
+<pre><i>sudo apt-get install samba</i>
+</pre>
+<p>Ukoliko želimo editirati samba konfiguraciju, to možemo učiniti naredbom:
+</p>
+<pre><i>sudo nano /etc/samba/smb.conf</i>
+</pre>
+<p>Sada ćemo nadograditi i ažurirati sve pakete na računalo naredbama&#160;: 
+</p>
+<pre><i>sudo apt-get update</i>
+<i>sudo apt-get upgrade</i>
+</pre>
+<p>Također, kako bi osigurali da virtualni stroj ima uvijek isti IP u lokalnoj mreži ćemo napraviti statični IP za računalo. Za početak kopiramo konfiguracijsku datoteku za sučelja:
+</p>
+<pre><i>$ sudo cp /etc/network/interfaces /etc/network/interfaces.orig</i>
+</pre>
+<p>... a zatim i editiramo konfiguracijsku datoteku:
+</p>
+<pre><i>$ sudo nano /etc/network/interfaces</i>
+</pre>
+<p>Ovo je orginalna konfiguracija:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Originalna_konfiguracija.jpg" class="image"><img alt="Originalna konfiguracija.jpg" src="../images/b/b0/Originalna_konfiguracija.jpg" width="605" height="364" /></a></div></div>
+<p>A mi želimo napraviti sljedeće:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Originalna_konfiguracija.jpg" class="image"><img alt="Originalna konfiguracija.jpg" src="../images/b/b0/Originalna_konfiguracija.jpg" width="605" height="364" /></a></div></div>
+<p>Definirali smo statično IP sučelje, koje nije prepušteno DHCP-u. Podaci su isti za sve, osim IP adrese naravno.
+</p><p>Kada smo završili s editiranjem, pospremimo promjene i ponovno pokrenemo mrežu.
+</p><p><br />
+</p>
+<pre><i>$ sudo /etc/init.d/networking restart</i>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ponovno_pokretanje.jpg" class="image"><img alt="Ponovno pokretanje.jpg" src="../images/8/8d/Ponovno_pokretanje.jpg" width="605" height="362" /></a></div></div>
+<p><br />
+Sada smo posložili mrežne postavke. Idući korak je konfigurirati Samba servis. Kao što smo rekli, sve što trebamo konfigurirati tamo nalazi se u smb.conf datoteci. Prvo napravimo kopiju.
+</p>
+<pre><i>$ sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.orig</i>
+</pre>
+<p>Stvorit ćemo dva direktorija koja dijelimo:
+</p>
+<pre><i>$ sudo mkdir /home/javno</i>
+<i>$ sudo chmod 777 /home/javno/</i>
+<i>$ sudo mkdir /home/zajednicka</i>
+<i>$ sudo chmod 777 /home/zajednicka/</i>
+</pre>
+<p>Vidimo sljedeću strukturu:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Struktura_direktorija.jpg" class="image"><img alt="Struktura direktorija.jpg" src="../images/6/6f/Struktura_direktorija.jpg" width="605" height="148" /></a></div></div>
+<p>Konfiguriramo Sambu:
+</p>
+<pre><i>$ sudo nano /etc/samba/smb.conf</i>
+</pre>
+<p>Zamijenimo cijelu conf datoteku sa sljedećim tekstom: 
+</p>
+<pre><b>[global]</b>
+ workgroup = VAŠA RADNA GRUPA
+ server string = VAŠE IME SERVERA
+ encrypt passwords = yes
+ wins support = yes
+ local master = yes
+ domain master = no
+ guest account = nobody
+ disable spoolss = yes
+ security = share
+ guest ok = yes
+ guest only = yes
+ force user = nobody
+ force group = nogroup
+ create mask = 0777
+ directory mask = 0777
+</pre>
+<pre><b>[common]</b>
+ comment = Common Folder
+ path = /home/zajednicka
+ public = yes
+ writable = yes
+</pre>
+<pre><b>[public]</b>
+ comment = Public Folder
+ path = /home/javna
+ public = yes
+ writable = yes
+</pre>
+<p><br />
+Spremimo promjene i ponovno pokrenemo samba servis:
+</p>
+<pre><i>$ sudo /etc/init.d/samba restart</i>
+</pre>
+<p>I to je to. Iz Windowsa vidimo UbuntuServer kao mrežno računalo:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Network.jpg" class="image"><img alt="Network.jpg" src="../images/4/4c/Network.jpg" width="532" height="115" /></a></div></div>
+<p>Koje ima naše zadane direktorije: 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Direktoriji_na_mre%C5%BEi.jpg" class="image"><img alt="Direktoriji na mreži.jpg" src="../images/0/07/Direktoriji_na_mreži.jpg" width="555" height="102" /></a></div></div>
+<p>To zaključuje prvi dio posla. Sada ćemo omogućiti dostupnost ovog NAS Servera preko interneta, koristeći VPN. VPN je sigurna virtualna privatna mreža koja će spajati računala u prividni LAN. Tako će se svim sudionicima u mreži činiti kao da je Ubuntu server zapravo lokalno računalo koja pruža usluge NAS računala. Za uspostavljanje VPN mreže koristimo Hamachi. Hamachi je jednostavan software koji nudi Zero-Configuration VPN. 
+</p><p>Hamachi funkcionira tako da medijacijski server pohranjuje nadimke računala zajedno sa njihovim IP adresama. IP adrese su statički alocirane u formatu 5.x.x.x/8. Svako od računala dobije svoju IP adresu tog tipa te tako mogu uspješno komunicirati. 
+</p><p>Za početak preuzmemo hamachi sa servera, <a href="http://files.hamachi.cc/linux/" class="external text" rel="nofollow">link</a>
+</p>
+<pre><i>$ wget files.hamachi.cc/hamachi-0.9.9.9-20-lnx.tar.gz</i>
+</pre>
+<p>Nakon što je preuzimanje završeno, potreban nam je paket za manipulaciju takvima datotekama.
+</p>
+<pre><i>$ sudo apt-get install make binutils</i>
+</pre>
+<p>Budući da je Hamachi za Linux sustave 32 bit aplikacija, treba obratiti pažnju na verziju Ubuntu servera koju koristimo. Ukoliko je to:
+</p>
+<ol><li>32 bit verzija – nema problema i samo nastavljamo
+</li><li>64 bit verzija – potrebno je instalirati run-time library-e koji omogućavaju pokretanje 32 bit aplikacija na OS-u to radimo naredbom:
+</li></ol>
+<pre><i>$ sudo apt-get install ia32-libs</i>
+</pre>
+<p>Kada smo sigurno da smo spremni za pokretanje hamachi-a, mozemo ga kompaljirati i instalirati:
+</p>
+<pre><i>$ tar –zxvf hamachi-0.9.9.9-20-lnx.tar.gz</i>
+<i>$ cd hamachi-0.9.9.9-20-lnx</i>
+<i>$ sudo make install</i>
+</pre>
+<p>Očekujemo sljedeći output:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hamachi_output.jpg" class="image"><img alt="Hamachi output.jpg" src="../images/9/9a/Hamachi_output.jpg" width="605" height="360" /></a></div></div>
+<p>Sada je Hamachi instaliran na UbuntuServeru. Idući korak je stvoriti mrežu. Mreža služi konstruiranju međusobno poznatih računala koja su u virtualnom LAN-u. Hamachi sam po sebi zahtjeva TUN/TAP jezgrene upravljačke programe kako bi stvorio i upravljao virtualnim mrežnim sučeljima. TAP simulira Ethernet sučelje i funkcionira na drugom sloju ISO OSI modela, dok TUN simulira mrežni sloj. Instalacija sama po sebi stvara te modele, ali ih je potrebno pokrenuti. Sljedećom naredbom rješavamo taj problem:
+</p>
+<pre><i>$ sudo tuncfg</i>
+</pre>
+<p>Sljedeći korak je stvoriti kriptografski par ključeva koji će se pohranjivati u Hamachi direktoriju. 
+</p>
+<pre><i>$ hamachi –init</i>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kriptografski_par_kljuceva.jpg" class="image"><img alt="Kriptografski par kljuceva.jpg" src="../images/0/04/Kriptografski_par_kljuceva.jpg" width="605" height="238" /></a></div></div>
+<p>Sada moežmo pokrenuti i konfigurirati Hamachi
+</p>
+<pre><i>$ hamachi start (pokreće Hamachi)</i>
+<i>$ hamachi login (uspostavlja vezu s medijacijskim serverom)</i>
+<i>$hamachi set-nick „VAŠ NADIMAK“ (Daje ime računalu na medijacijskom serveru)</i>
+<i>$ hamachi create „IME MREŽE“ „LOZINKA MREŽE“ (stvara mrežu u koju ćemo uključiti ostala računala)</i>
+</pre>
+<p>Hamachi go-online „IME MREŽE“ (postavlja mrežu on-line, tako da je mogu pretraživati ostala računala).
+</p><p>Ovako treba izgledati konačni output:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Konacni_output.jpg" class="image"><img alt="Konacni output.jpg" src="../images/7/71/Konacni_output.jpg" width="605" height="211" /></a></div></div>
+<p>I to je to što se tiće konfiguracije servera. Premjestimo se sada u Win okolinu da vidimo što se dogodilo. Za početak nam treba Hamachi unmannaged klijent. Može ga se preuzeti sa&#160;: 
+</p><p><a href="https://secure.logmein.com/products/hamachi/download.aspx" class="external text" rel="nofollow">Hamachi unmannaged klijent</a>
+</p><p>Kada smo ga instalirali i pokrenuli vidimo sljedeće sučelje. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sucelje_hamachi.jpg" class="image"><img alt="Sucelje hamachi.jpg" src="../images/3/3e/Sucelje_hamachi.jpg" width="262" height="411" /></a></div></div>
+<p>Slijedimo korake:
+</p>
+<pre><i>Network -&gt; Join an Existing network</i>
+</pre>
+<p>Upišemo podatke i kliknemo na JOIN
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Join_network.jpg" class="image"><img alt="Join network.jpg" src="../images/f/f6/Join_network.jpg" width="429" height="209" /></a></div></div>
+<p>Rezultat je virtualna mreža u kojoj se nalazimo mi i server. To vidimo na sljedećoj slici:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sucelje_hamachi2.jpg" class="image"><img alt="Sucelje hamachi2.jpg" src="../images/c/cc/Sucelje_hamachi2.jpg" width="261" height="414" /></a></div></div>
+<p>Kao što je rečeno i prije. Oba računala su dobila IP adrese tipa 5.x.x.x. Vidimo da su to u ovom slučaju računala
+</p>
+<ol><li>MONIKA  IP: 5.6.23.1
+</li><li>UbuntuServer IP: 5.27.176.44
+</li></ol>
+<p>Testirajmo svjesnost ta dva računala preko mreže 5.x.x.x:
+</p><p>Međusobni Ping pokazuje:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Od_racunala_prema_serveru.jpg" class="image"><img alt="Od racunala prema serveru.jpg" src="../images/f/f9/Od_racunala_prema_serveru.jpg" width="605" height="303" /></a></div></div>
+<p>Od računala prema serveru i....
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Od_servera_prema_racunalu.jpg" class="image"><img alt="Od servera prema racunalu.jpg" src="../images/9/90/Od_servera_prema_racunalu.jpg" width="605" height="366" /></a></div></div>
+<p>Od servera prema računalu. 
+</p><p><br />
+Sada smo zamolili jedno drugo računalo koje se ne nalazi u ovom „kućnoj“ mreži da se priključi Hamachi VPN-u. To na sučelju izgleda ovako: 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sucelje_hamachi3.jpg" class="image"><img alt="Sucelje hamachi3.jpg" src="../images/c/cc/Sucelje_hamachi3.jpg" width="264" height="412" /></a></div></div>
+<p>To računalo se nalazi nekoliko kilometara dalje, i čak iza PROXY servera i FireWalla. Komunikacija je sigurna, budući da se koristi Hamachi protokol kripitranja. Iz perspektive drugog računala mreža izgleda ovako:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sucelje_hamachi_drugog_racunala.jpg" class="image"><img alt="Sucelje hamachi drugog racunala.jpg" src="../images/4/47/Sucelje_hamachi_drugog_racunala.jpg" width="262" height="412" /></a></div></div>
+<p>Vidimo da je to računalo svjesno UbuntuServera:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ping.jpg" class="image"><img alt="Ping.jpg" src="../images/2/27/Ping.jpg" width="605" height="306" /></a></div></div>
+<p>Te može pristupiti zajedničkim mapama: 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pristupanje_zajednickim_mapama.jpg" class="image"><img alt="Pristupanje zajednickim mapama.jpg" src="../images/1/1e/Pristupanje_zajednickim_mapama.jpg" width="605" height="405" /></a></div></div>
+<p>Isto tako na slici ispod možemo vidjeti dodavanje jedne datoteke u direktorij <i>common</i>
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dodavanje_datoteke.jpg" class="image"><img alt="Dodavanje datoteke.jpg" src="../images/5/56/Dodavanje_datoteke.jpg" width="777" height="522" /></a></div></div>
+<p>Vidimo da je dosadašnja konfiguracija protekla uspješno. Sada su na redu sitni prepravci i prilagodbe. Za početak, pitamo se što se dogodi kada se linux server ugasi i ponovno upali. Hoće li se Hamachi sam podignuti i uspostaviti konekciju? Odgovor je da ne. Dakle, tom problemu treba doskočiti. Tako ćemo koristiti skriptu koja to radi za nas. Samu skriptu je dizajnirao IceFlatLine, a vidimo je na sljedećem <a href="http://pastebin.com/xBrPQTL8" class="external text" rel="nofollow">linku</a>.
+</p><p>Kako bi iskoristili skriptu, moramo je editirati u NANO editoru (promijeniti user-a) te spremiti u:
+</p>
+<pre><i>$ /etc/init.d hamachi</i>
+<i>$ chmod +x hamachi</i>
+</pre>
+<pre><i>$ sudo update-rc.d hamachi defaults</i>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nano_editor.jpg" class="image"><img alt="Nano editor.jpg" src="../images/c/cf/Nano_editor.jpg" width="605" height="131" /></a></div></div>
+<p>Posljednjim retkom smo je omogućili prilikom svakog pokretanja računala.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 18:36, 6. siječnja 2012. (CET)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ikudeljnj&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ikudeljnj (stranica ne postoji)">Ikudeljnj</a> 18:36, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>U radu smo obradili mnoge medije, tehnologije i načine skladištenja podataka, kao i njihovu zaštitu. Praktični dio rada je bio osobito zanimljiv jer smo učinili nešto relativno nekonvenvionalno. Naime, upornim pretraživanjem interneta uočili smo kako NAS skladištenje podataka uz potporu VPN-a nije osobito eksponirano rješenje.
+</p><p>Prednosti takvog rješenja su svakako očite, podaci su dostupni preko cijelog svijeta, ali ipak iz „sigurnosti“ LAN mreže vlastitog doma. Činjenica je da je Hamachi sigurnosni protokol pouzdan i čvrst, tako da ne postoji prevelika briga oko prijenosa podataka.
+</p><p>S druge strane, moguće je argumentirati da ovo rješenje nije idealno, osobito uzevši u obzir prenošenje velikih paketa. Naravno, taj slučaj možemo podržati i priznati, ali uzevši u obzir da je rješenje lako implementirati čak i u kraćem vremenskom roku (pod uvjetom da znate što radite), vidljivo je zašto je dobar izbor.
+</p><p>Što se tiče izbora OS-a. Premda danas mnogi daju prednost FreeNAS-u, StarWindu ili sličnim rješenjima specijaliziranim za NAS, odlučili smo se za Ubuntu. Razlog je bio jednostavan, FreeNAS nije uspio ponuditi podršku za implementaciju VPN-a bez većih modifikacija. Ubuntu pak tu zadaću obavlja vrlo lako i pouzdano, a jedini potencijalni nedostatak je implementacija ZFS datotečnog sustava. 
+</p><p>Sve u svemu, osobito je privlačna konačna nota rada, a to je da je rješenje izuzetno proširivo, moguće je implementirati i media servere koji bi opsluživala računala multimedijalnim podacima, pa čak i video streaming-om. Osim toga, potpuno je neosjetljivo na platformu izbora korisnika, jer može funkcionirati preko svih OS-ova uz vrlo male prilagodbe.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dkostelac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dkostelac (stranica ne postoji)">Dkostelac</a> 18:37, 6. siječnja 2012. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<h2> <span class="mw-headline" id="Reference">Reference</span></h2>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 143/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8-0!*!0!!hr!2!edit=0 and timestamp 20190203203958 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html">http://security.foi.hr/wiki/index.php/Sigurnosno_spremanje_podataka_-_NAS_storage</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnosno_spremanje_podataka_-_NAS_storage" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnosno_spremanje_podataka_-_NAS_storage&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosno_spremanje_podataka_-_NAS_storage&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosno_spremanje_podataka_-_NAS_storage&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnosno_spremanje_podataka_-_NAS_storage.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnosno_spremanje_podataka_-_NAS_storage" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnosno_spremanje_podataka_-_NAS_storage" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosno_spremanje_podataka_-_NAS_storage&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosno_spremanje_podataka_-_NAS_storage&amp;oldid=9315" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:51, 6. travnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 36.356 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnosno_spremanje_podataka_-_NAS_storage", "wgTitle": "Sigurnosno spremanje podataka - NAS storage", "wgAction": "view", "wgArticleId": 8, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 9315, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.745 secs. -->			</body>
+</html>

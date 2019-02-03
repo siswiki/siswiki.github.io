@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Zaštita od DoS-a u Apacheu s mod cband - prednosti i mane - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Zaštita od DoS-a u Apacheu s mod cband - prednosti i mane</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#mw-head">orijentacija</a>,
+					<a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Monika Cerjak i Martina Granić
+</p>
+<hr />
+<p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#DoS_napad"><span class="tocnumber">2</span> <span class="toctext">DoS napad</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Za.C5.A1tita_od_DoS_napada"><span class="tocnumber">2.1</span> <span class="toctext">Zaštita od DoS napada</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Apache_Web_Server"><span class="tocnumber">3</span> <span class="toctext">Apache Web Server</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#mod_cband"><span class="tocnumber">4</span> <span class="toctext">mod_cband</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Prakti.C4.8Dni_dio"><span class="tocnumber">5</span> <span class="toctext">Praktični dio</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#CloudFlare"><span class="tocnumber">5.1</span> <span class="toctext">CloudFlare</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#O_CloudFlare-u"><span class="tocnumber">5.1.1</span> <span class="toctext">O CloudFlare-u</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Kreiranje_CloudFlare_ra.C4.8Duna"><span class="tocnumber">5.1.2</span> <span class="toctext">Kreiranje CloudFlare računa</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Prednosti_i_nedostatci"><span class="tocnumber">5.1.3</span> <span class="toctext">Prednosti i nedostatci</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Zaklju.C4.8Dak"><span class="tocnumber">6</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#Podjela_posla"><span class="tocnumber">8</span> <span class="toctext">Podjela posla</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Razvojem i dostupnošću tehnologija, mnogi su svoja poslovanja odlučili raditi koristeći Internet, ali i "obični korisnici" sve više koriste Internet kako bi doznali različite informacije, kupili proizvode i sl. Svi ljudi nemaju dobre namjere pa tako postoje i oni koji iz nekog razloga (profit, ego i sl.) napadaju stranice kako bi ukrali tuđe osodbne podatke, tajne podatke, onemogućili drugima da dođu do informacija ili naprosto onemogućili rad online uslugama.
+</p><p>Svaki napad na neku uslugu ne mora nužno biti DoS/DDoS napad jer onemogućavanje rada neke usluge ili sustava moguće ostvariti i na druge načine. Međutim, DoS napad može biti dio, odnosno jedan od nekoliko načina kojim se napadači koriste kako bi postigli svoj cilj. To je vrsta napada odnosno eksplicitni pokušaj napadača, kojim pokušava običnim, normalnim korisnicima sustava onemogućiti korištenje usluge.
+</p>
+<h1> <span class="mw-headline" id="DoS_napad"> DoS napad </span></h1>
+<p>DoS (Denial of service) napadima se računalne mreže preopterećuju s velikim brojem zahtjeva što uzrokuje usporavanje ili potpuno prekidanje normalne komunikacije između servisa i regularnih korisnika. To se radi na nekoliko načina. Jedan od njih je flood mreže čime se preoptereti mrežni promet, drugi je ometanje veze između dva računala, treći je onemogućavanje točno određenom pojedincu pristup stranici (usluzi), četvrti je ometanje rada usluge osobi ili na sustavu i posljednji uključuje zatrpavanje procesora na serveru sa SQL upitima koji uzimaju puno procesorskog vremena, odnosno namjerno zauzimaju resurse kako bi se server srušio. To se ne mora odnositi samo na CPU, resursi na koje napadači ciljaju mogu biti i mrežna propusnost, RAM, način  obrade iznimaka, tvrdi disk, popunjavanje baze podataka, buffer overflow, mijenjanje podataka kako bi došlo do neočekivanih iznimki, SQL injection, upload jako velikih datoteka, modificiranje načina na koji se dretve natječu za procesorsko vrijeme u višedretvenim sustavima i preopterećivanje pool-a za konekciju na bazu/baze. 
+</p><p>(Ne)zgodna stvar kod DoS napada je da napadač sa puno slabijom vezom i računalom može onesposobiti puno veće i jače računalo i mreže na kojima se vrte aplikacije i servisi (asimetrični napad). Za razliku od crva i trojanaca koji uzrokuju otkrivanje, štetu i slanje informacija o sustavu napadaču, DoS napad može ometati mrežnu uslugu kroz duži vremenski period. Primjer ove vrste napada su tzv. "Ping of Death" i "Teardrop" napadi koji koriste ograničenost TCP/IP protokola. Napad je relativno lako implementirati, pa zbog toga postoji mnogo vrsta i ovakvo ometanje web servera je jako često. Razlog tome je način uspostave komunikacije između klijenta i servera koji se u normalnom slučaju odvija na način da korisnik najprije pošalje poruku koju server mora autenticirati i korisniku poslati odgovor o odobravanju. Kada korisnik primi poruku o odobravanju, može početi komunikacija. Programi koji iskorištavaju nedostatak ove vrste uspostave komunikacije rade sljedeće: korisnik (napadač) šalje nekoliko zahtijeva za uspostavom komunikacije, ali umjesto vlastitog IP-a šalje lažnu adresu na koju server odgovara, zbog čega server odlazi u timeout, odnosno odluči neko vrijeme pričekati na odgovor (koji nikada neće stići), a napadač u međuvremenu šalje još lažnih zahtijeva. Primjer prethodno navedenog bi bio "Ping napad" kojim se koristi naredba ping, tj. šalje se ogroman broj ping paketa, a budući da je napadač lažirao adresu na koju dolazi ping odgovor, server će čekati na TCP/SYN-ACK paket zbog čega će na serveru ostati otvorena veza. Povećavanjem otvorenih veza se zauzimaju računalni resursi na serveru i smanjuje se mogućnost spajanja legitimnih korisnika. 
+</p><p>Najčešće žrtve ovih napada su pružatelji raznih internet usluga te online poslovi tvrtki što uzrokuje direktne i indirektne štete za tvrtke. Direktna šteta su troškovi koji se očituju kroz gubitak novca i/ili potrebu za ulaganjem u računalnu mrežu, a indirektna šteta je gubitak ugleda, vjerodostojnosti, sposobnosti i povećani operativni troškovi. Ovom vrstom napada se osim onemogućavanja normalnog rada servera i nanošenja štete vlasniku servera i aplikacija, može i zaraditi novac. Tako je primjećeno kako napadači jednom kada uspješno flood-aju server koriste ucjenu kako bi zaradili ili će u protivnom jednostavno nastaviti s onemogućavanjem rada. Osim ucjene koristi se i sabotaža ukoliko su napadače unajmili konkurenti tvrtke čiji je server napadnut. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:DoS_mc.jpg" class="image"><img alt="DoS mc.jpg" src="../images/e/ec/DoS_mc.jpg" width="514" height="800" /></a></center>
+<center> Slika 1: DoS napad </center>
+<p>Razlika između DoS i DdoS (peer-to-peer) napada je ta što DDoS napade vrši više računala zaraženih trojancima ili virusima koje nazivamo zombijima (svi djeluju po istoj naredbi i imaju jedan cilj), dok DoS napad izvršava samo jedno računalo. Tri osnovna tipa DoS napada su iskorištavanje i preopterećivanje ograničenih resursa, uništavanje ili promjena konfiguracijskih podataka i fizičko uništavanje ili promjena postavki mrežnih uređaja. 
+</p>
+<h2> <span class="mw-headline" id="Za.C5.A1tita_od_DoS_napada"> Zaštita od DoS napada </span></h2>
+<p>Zaštita od ove vrste napada se ostvaruje pomoću alata za prepoznavanje DoS-a koji mogu preusmjeravati dolazne zahtjeve za uslugom na neki drugi mrežni resurs koji je manje opterećen, filtriranjem paketa i uočavanjem uzoraka (ponavljanja sumnjivih zahtjeva) - "sniffer", koji sve navedeno obavi prije nego zahtjevi dođu do web servera. Problem s kojim se ovi alati suočavaju je kako pravilno filtrirati, jer ukoliko odsijeku krivu komunikaciju prekinuti će komunikaciju legitimnog korisnika i servera. Zbog toga je potrebno klasificirati komunikaciju i detektirati anomalije, a istovremeno ne ometati normalnu komunikaciju. Jedna od mogućih podjela komunikacije može biti na normalni promet, napadački promet i sumnjivi promet, zbog pojavljivanja uzoraka. (Sumnjivi promet se ne blokira odmah jer ga slučajno ili zbog problema u vezi može prouzročiti legitimni korisnik.
+</p><p>Osim navedene vrste alata potrebno je i implementirati filtere na ruterima kako bi se spriječio TCP_SYN flood-ing, također instalirati zakrpe za OS ukoliko već nema zaštitu od TCP_SYN flood-inga, isključiti sve nepotrebne mrežne servise čime se smanjuje raspon mogućnosti na koji napadači mogu upasti na server, redovito pratiti ponašanje računala odnosno zauzeće memorije, diskova, procesora i mreže, obavljati rutinske provjere fizičke sigurnosti mrežnih uređaja, koristiti alate koji će alarmirati i dojaviti promjene u konfiguracijskim datotekama, uložiti u rezervnu mrežnu opremu koja se može brzo instalirati i zamijeniti ukoliko dođe do kvara na postojećoj opremi, postaviti redundantnu mrežnu konfiguraciju, uspostaviti i održavati redoviti backup i backup politike, te politike lozinki, pristupa i ovlaštenja računa.
+</p>
+<h1> <span class="mw-headline" id="Apache_Web_Server"> Apache Web Server </span></h1>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apache_mc.png" class="image"><img alt="Apache mc.png" src="../images/4/44/Apache_mc.png" width="318" height="260" /></a></center>
+<center> Slika 2: Logo Apache Web Servera </center>
+<p>Apache Web Server je Web Server otvorenog koda kojeg se često zove skraćeno samo Apache. Razvijen je 1995. godine, a temeljio se na NCSA httpd Web server. Iako  je razvijen od grupe programera nazvanih Apache Group, programski kod je otvorenog tipa što znači da svako može prilagoditi server svojim potrebama, a također postoji i ogromni javni library za Apache dodatke (add-ons). Originalna verzija Apache-a rađena je za UNIX, ali danas ga se može pokrenuti na OS/2, Windowsima te ostalim platformama. Apache web server bio je prva alternativa Netscape Communications Corporation web serveru, trenutno poznatom kao Oracle iPlanet Web Server te je otada dominantan u odnosu na ostale web servere po funkcionalnosti i performansama. Od 1996. godine Apache je bio najpopularniji HTTP server softver u upotrebi, a od jeseni 2012. godine, procijenjeno je da poslužuje 54,98% svih aktivnih web stranica.
+</p><p>Samo ime Apache dobio je prema indijanskom plemenu Apache koji su bili poznati po izdržljivosti i vještini ratovanja. Kako je razvijen od postojećeg NCSA koda, s dodatnim zakrpama odnoso patchevima, često se misli da je ime dobio od patchy server.
+</p>
+<h1> <span class="mw-headline" id="mod_cband"> mod_cband </span></h1>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mod_cband_mc.png" class="image"><img alt="Mod cband mc.png" src="../images/d/d9/Mod_cband_mc.png" width="160" height="160" /></a></center>
+<center> Slika 3: Logo mod_cband-a </center>
+<p>Kako bi se Apache prilagodio našim potrebama, postoje razni moduli kojima omogućujemo ili onemogućujemo određene „aktivnosti“ koje na ovaj ili onaj način utječu na rad servera. Što se tiče problema propusnosti, postoji modul za Apache 2 koji se zove mod_cband (ne radi s Apache 1.3.X). Mod_cband je modul koji rješava problem ograničavanja propusnosti uporabe za korisnike, virtual host-ove i destinacije. Radi na način da preusmjerava sve daljnje zahtjeve na lokaciju navedenu u konfiguracijskoj datoteci u slučaju da konfguracijski prijenos prijeđe granicu. Ovaj modul mogu koristiti tvrtke koje se bave hostingom budući da pomoću ovog modula se može ograničiti brzina skidanja (preuzimanja) datoteka za njihove korisnike (npr. 10 GB prometa na mjesec). Autor  članka o kontroliranju propusnosti preporuča instaliranje modula mod_cband ako vaš server pruža uslugu skidanja ili „streamanja“. Navodi kako je pogodnost korištenja ovog modula <i>pravda za sve</i>:  vlasnik servera može kontrolirati propusnost uporabe i ograničiti brzinu skidanja korisnika te imati kontrolu nad uporabom memorije na serveru, a za korisnika to znači visoku dostupnost poslužitelja te niti jedan korisnik ne dominira sam nad propusnošću.
+</p><p>Prema korisnicima Apache servera, instalacija modula mod_cband je vrlo jednostavna. Potrebano je najprije istalirati mod_cband za korisnikovu platformu te kreirati konfiguraciju za Apache kako bi se mod_cband mogao učitati. Zatim je potrebno kreirati /etc/apache2/cband-limit.conf kako bi definirali granične stope za vhosts (virtual hosting) te nakon toga dodati cband-ograničenje za svakog vhosta. Nakon toga, potrebno je ponovno pokrenuti server.
+</p><p>Primjer nedostupnosti stranice zbog velikog broja korisnika:
+</p>
+<center> <a href="http://security.foi.hr/wiki/index.php/Datoteka:Goodreads.png" class="image"><img alt="Goodreads.png" src="../images/1/1b/Goodreads.png" width="500" height="375" /></a> </center>
+<center> Slika 4: Primjer nedostupnosti stranice </center>
+<p><br />
+Kako bismo zaštitili Apache server od DoS napda, uz mod_cband koji, kako je već ranije navedeno služi tome da ograničava propusnost korištenja servera, preporuča se korištenje još jednog modula, a to je mod_evasive koji otkriva napade koristeći različite metode za otkrivanje.
+</p>
+<h1> <span class="mw-headline" id="Prakti.C4.8Dni_dio"> Praktični dio </span></h1>
+<h2> <span class="mw-headline" id="CloudFlare"> CloudFlare </span></h2>
+<h3> <span class="mw-headline" id="O_CloudFlare-u">O CloudFlare-u</span></h3>
+<p>Najjednostavnije rečeno, CloudFlare je usluga koja radi jednu stvar, a to je da čini web stranice boljima. Nudi zaštitu od napada i ubrzanje web stranica usmjeravanjem zahtjeva kroz njihovu mrežu.
+</p><p>CloudFlare može koristiti svatko tko posjeduje web stranicu i vlastitu domenu, bez obzira na platformu. Dodavanje web stranice zahtjeva samo promjenu vaših DNS postavki. Nije potrebna instalacija hardvera ni softvera, kao ni mijenjanje postojećeg koda. 
+</p><p>CloudFlare sprema sadržaj vaših web stranica na lokacijama diljem svijeta. Koristi DNS (domain name system) da usmjeri vaše zahtjeve na jednu od tih lokacija, ovisno o raznim faktorima. Kako bi podržavali ovu tehnologiju unutar DNS ograničenja, najbolje je koristiti ime hosta (npr. www.example.com) umjesto svoje domene apex (npr. example.com). 
+</p><p>CloudFlare je izgradio novu generaciju CDN-a (content delivery network). Njihova tehnologija ima prednost u odnosu na nedavne promjene u hardveru, web server tehnologiji i mrežnom preusmjeravanju. Osim toga, smanjuje se broj skokava i latencija.U prosjeku,zahtjevu treba manje od 10 skokova i potrebno mu je 30 ms. Rezultat je lakše postavljanje, bolja pristupačnosti i performanse.
+</p><p>CloudFlare djeluje u 23 podatkovna centra diljem svijeta. Njihovi CDN –ovi automatski spremaju vaše statičke datoteke  na rubne čvorove tako da su ove datoteke spremljene bliže posjetiteljima dok isporučuju vaš dinamički sadržaj direktno sa vašeg web  servera. Rezultat toga je, u prosjeku, dvostruko brže učitavanje web stranice, bez obzira gdje se nalaze. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:CDN_cloudflare.PNG" class="image"><img alt="CDN cloudflare.PNG" src="../images/a/ac/CDN_cloudflare.PNG" width="915" height="355" /></a></center>
+<center> Slika 5: CloudFlare-ovi podatkovni centri </center>
+<h3> <span class="mw-headline" id="Kreiranje_CloudFlare_ra.C4.8Duna">Kreiranje CloudFlare računa</span></h3>
+<p>Kako bismo koristili CloudFlare, potrebno je otići na njihovu stranicu <a href="https://www.cloudflare.com//" class="external text" rel="nofollow">CloudFlare-a</a> te u gornjem desnom uglu potražiti <i>Sign up</i>. Nakon što kliknemo na Sign up, otvara nam se stranica za kreiranje računa. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:1_mc.PNG" class="image"><img alt="1 mc.PNG" src="../images/a/ab/1_mc.PNG" width="500" height="246" /></a></center>
+<center>Slika 6: Create an account</center>
+<p>Prvi korak kreiranja traži nas da na označena polja unesemo svoju email adresu, ponovno je unesemo zbog potvrde te zatim na isti način moramo unjeti lozinku te na kraju označiti da se slažemo s pravilima korištenja i kliknemo na <i>Create account now</i>.
+Nakon što se kreirao račun, sljedeći korak je unošenje web stranice koju želimo zaštiti pomoću CloudFlare-a. Nakon unosa stranice u predviđeno polje, potrebno je kliknuti na <i>+Add website</i> kako bismo prešli na sljedeći korak.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:2_mc.PNG" class="image"><img alt="2 mc.PNG" src="../images/9/9a/2_mc.PNG" width="500" height="269" /></a></center>
+<center>Slika 7: Select a website</center>
+<p>U sljedećem koraku, CloudFlare skenira podatke te nakon što je gotov označavenjem ili odznačavanjem  oblačića u tablici sa skeniranim podacima aktiviramo ono što želimo da Cloudflare zaštiti. Također, u slučaju da prilikom skeniranja nije pronađeno sve što želimo, možemo ručno dodati unosom podataka i klikom na <i>Add</i>. Za kraj, kliknemo na <i>I'm done entering my DNS records</i>.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns_mc.PNG" class="image"><img alt="Dns mc.PNG" src="../images/d/d3/Dns_mc.PNG" width="500" height="326" /></a></center>
+<center>Slika 8: Entering DNS records</center>
+<p>U četvrtom koraku kofiguriramo određene postavke poput želimo li koristiti besplatnu verziju CloudFlare zaštite ili verziju koja se plaća. Drugi odabir odnosi se na performanse (CDN only (safest), CDN + basic optimizations (faster), CDN + full optimizations (bleeding edge speed)). Treća postavka odnosi se na sigurnost, a može se odabrati niska, srednja i visoka sigurnost.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:4_mc.PNG" class="image"><img alt="4 mc.PNG" src="../images/0/08/4_mc.PNG" width="500" height="230" /></a></center>
+<center>Slika 9: Chose initial settings</center> 
+<p>U zadnjem koraku potrebno je ažuritari vaš DNS server u CloudFlare DNS. Kada je račun kreiran u potpunosti, klikom na kotačić s desne strane, odabirom CloudFlare settings možemo prilagodtiti postavke svojim potrebama. Također je moguće promjeniti DNS settings ili ukloniti stranicu.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cf.PNG" class="image"><img alt="Cf.PNG" src="../images/3/38/Cf.PNG" width="500" height="261" /></a></center>
+<center>Slika 10: Updating DNS settings</center> 
+<p>CloudFlare settings nudi postavljanje opcija kroz tri kategorije (Settings overview, Security settings te Performance settings) te tako odabrati opcije koje smatrate najboljima za zaštitu svoje stranice. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cfsett.PNG" class="image"><img alt="Cfsett.PNG" src="../images/0/0e/Cfsett.PNG" width="500" height="272" /></a></center>
+<center>Slika 11: CloudFlare settings</center> 
+<p>Korake kreiranja također je moguće pronaći i u obliku video tutorijala na YouTube-u poput <a href="http://www.youtube.com/watch?v=fwmMdi_-rus/" class="external text" rel="nofollow">ovog</a>.
+</p>
+<h3> <span class="mw-headline" id="Prednosti_i_nedostatci">Prednosti i nedostatci</span></h3>
+<p><i>Neke od prednosti CloudFlare-a su:</i> 
+</p><p><b>1. Unaprijeđenje poslovnja web stranice:</b> CloudFlare-ovi proxy poslužitelji nalaze se u cijelom svijetu. Smješteni su bliže svojim posjetiteljima, što znači da će učitavanje stranica biti brže. Mnoga su istraživanja pokazala da, ukoliko se stranica brže učitava, posjetitelj duže ostaje na njoj. 
+</p><p><b>2. Zaštita od prijetnji:</b> CloudFlare koristi podatke iz Project Honey Pot i drugih neovisnih izvora, kao i podatke iz svoje zajednice, kako bi se identificirale zlonamjerne online prijetnje i zaustavili napadi prije nego dođu do stranice. 
+</p><p><b>3.Zaštita od spam komentara:</b> CloudFlare koristi podatke iz trećih izvora kako bi se smanjio broj neželjenih komentara na stranici. 
+</p><p><b>4. Upozoravanje posjetitelja na zaražena računala:</b> CloudFlare upozorava posjetitelje koji imaju zaraženo računalo da je potrebno poduzeti mjere kako bi očistili neželjeni sadržaj koji imaju na svom računalu. 
+</p><p><b>5. Izvanmrežni način pregledavanja:</b> U slučaju da je server nedostupan, posjetitelj bi uvijek trebao biti u mogućnosti pristupti stranici jer CloudFlare serveri prikazuju web stranice iz svoje privremene memorije. 
+</p><p><b>6. Nisko korištenje CPU</b> – što manje zahtjeva dođe na naš server, to je manje CPU korištenje vašeg računa. 
+</p><p><b>7. Nove statistike o stranici</b> – Osim što CloudFlare može procijeniti dolazeći promet od strane ljudi na vašu stranicu,  pomoću njega možete imati i uvid u pretraživače (crawlers) i prijetnje.
+</p><p><br />
+<i>Nedostaci odnosno ograničenja u CloudFlare-u su:</i>
+</p><p><b>1.</b> Zahtjevi moraju biti usmjerni na www.domena umjesto na $domena što znači da treba napraviti određene promjene konfiguracije.
+</p><p><b>2.</b> Cloudflare može utjecati na interne statističke programe koji čitaju izravno iz Apache dnevnika. 
+</p><p><b>3.</b> Budući da Cloudflare zbog smanjenja opterečenja poslužitelja sprema statički sadržaj web lokacije, postoji kašnjenje prije promjene izgleda ukoliko se napravi promjena postojeće statičke datoteke.
+</p><p><b>4.</b> Osnovni način rada Cloufdflare-a ne može baratati SSL certifikatima te ukoliko morate koristiti taj certifikat, dio stranice treba biti na poddomeni koja nije zaštićena.
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h1>
+<p>Kako bi neka stranica bila dostupna na internetu, potrebno ju je smjestiti na neki web server, odnosno web poslužitelj. Budući da se na web poslužiteljima nalaze različiti podaci, često važni i povjerljivi, jako je bitna razina sigurnosti koju taj web poslužitelj pruža korisnicima. Odgovarajućim mehanizmima zaštite potrebno je reagirati na veliki broj različitih oblika napada. 
+</p><p>Napad koji smo mi obradili u radu je DoS napad, odnosno denial of service attack. To je napad u kojem se računalne mreže preopterećuju s velikim brojem zahtjeva što uzrokuje usporavanje ili potpuno prekidanje normalne komunikacije između servisa i regularnih korisnika. Najčešće žrtve ovih napada su pružatelji raznih internet usluga te online poslovi tvrtki. 
+</p><p>Jedan od najpoznatijih web poslužitelja koji se danas u praksi koriste je Apache. Programski kod je otvorenog tipa što znači da svako može prilagoditi server svojim potrebama. Kako bi se Apache prilagodio našim potrebama, postoje razni moduli kojima omogućujemo ili onemogućujemo određene „aktivnosti“ koje utječu na rad servera. Što se tiče problema propusnosti, modul mod_cband rješava problem ograničavanja propusnosti uporabe za korisnike, virtual host-ove i destinacije. 
+</p><p>U praktičnom dijelu rada koristili smo CloudFlare, odnosno uslugu koja čini web stranice boljim i to na način da nudi zaštitu od napada i ubrzanje web stranica usmjeravanjem zahtjeva kroz njihovu mrežu. Prikazali smo na koji način kreirati račun i zaštititi web stranicu, te smo naveli neke od prednosi i nedostataka ove usluge. Slika 11. prikazuje na koji način funkcionira CloudFlare. 
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Slika11.png" class="image"><img alt="Slika11.png" src="../images/1/1e/Slika11.png" width="412" height="518" /></a></center>
+<center> Slika 12: CloudFlare </center>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>Web izvori: 
+</p><p>1. <a href="http://www.applicure.com/solutions/prevent-denial-of-service-attacks" class="external free" rel="nofollow">http://www.applicure.com/solutions/prevent-denial-of-service-attacks</a>
+</p><p>2. <a href="https://www.owasp.org/index.php/Application_Denial_of_Service" class="external free" rel="nofollow">https://www.owasp.org/index.php/Application_Denial_of_Service</a>
+</p><p>3. <a href="http://www.petefreitag.com/item/505.cfm" class="external free" rel="nofollow">http://www.petefreitag.com/item/505.cfm</a>
+</p><p>4. <a href="http://www.pentics.net/denial-of-service/white-papers/smurf.cgi" class="external free" rel="nofollow">http://www.pentics.net/denial-of-service/white-papers/smurf.cgi</a>
+</p><p>5. <a href="http://www.f5.com/glossary/denial-of-service.html" class="external free" rel="nofollow">http://www.f5.com/glossary/denial-of-service.html</a>
+</p><p>6. <a href="http://www.cert.org/tech_tips/denial_of_service.html" class="external free" rel="nofollow">http://www.cert.org/tech_tips/denial_of_service.html</a>
+</p><p>7. <a href="http://news.cnet.com/2100-1017-236728.html" class="external free" rel="nofollow">http://news.cnet.com/2100-1017-236728.html</a>
+</p><p>8. <a href="http://www.radware.com/Solutions/Enterprise/Security/DoSProtection.aspx" class="external free" rel="nofollow">http://www.radware.com/Solutions/Enterprise/Security/DoSProtection.aspx</a>
+</p><p>9. <a href="http://www.webopedia.com/TERM/A/Apache_Web_server.html" class="external free" rel="nofollow">http://www.webopedia.com/TERM/A/Apache_Web_server.html</a>
+</p><p>10. <a href="http://dembol.org/blog/mod_cband/" class="external free" rel="nofollow">http://dembol.org/blog/mod_cband/</a>
+</p><p>11. <a href="http://tiki.org/HowToApacheModCbandRateLimiting" class="external free" rel="nofollow">http://tiki.org/HowToApacheModCbandRateLimiting</a>
+</p><p>12. <a href="http://en.wikipedia.org/wiki/Apache_HTTP_Server" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Apache_HTTP_Server</a>
+</p><p>13. <a href="http://www.novell.com/coolsolutions/feature/19958.html" class="external free" rel="nofollow">http://www.novell.com/coolsolutions/feature/19958.html</a>
+</p><p>14. <a href="http://toolbar.netcraft.com/site_report?url=http://www.goodreads.com/" class="external free" rel="nofollow">http://toolbar.netcraft.com/site_report?url=http://www.goodreads.com/</a>
+</p><p>15. <a href="http://untame.net/2012/06/go-fast-speed-up-your-website-with-cloudflare-cdn/" class="external free" rel="nofollow">http://untame.net/2012/06/go-fast-speed-up-your-website-with-cloudflare-cdn/</a>
+</p><p>16. <a href="http://support.hostgator.com/articles/specialized-help/technical/cloudflare/what-is-cloudflare-how-do-i-enable" class="external free" rel="nofollow">http://support.hostgator.com/articles/specialized-help/technical/cloudflare/what-is-cloudflare-how-do-i-enable</a>
+</p><p>17. <a href="http://www.cloudflare.com/features-cdn" class="external free" rel="nofollow">http://www.cloudflare.com/features-cdn</a> 
+</p><p>18. <a href="http://en.wikipedia.org/wiki/CloudFlare" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/CloudFlare</a> 
+</p><p><br />
+</p><p>Izvori slika:
+</p><p>1. <a href="http://kaleidos.net/weapons/apache-webserver/" class="external free" rel="nofollow">http://kaleidos.net/weapons/apache-webserver/</a>
+</p><p>2. <a href="http://dhstudio.bg/mod_cband.html" class="external free" rel="nofollow">http://dhstudio.bg/mod_cband.html</a>
+</p><p>3. <a href="http://www.pc1news.com/news/0221/botnets-fight-back-with-denial-of-service-attacks-.html" class="external free" rel="nofollow">http://www.pc1news.com/news/0221/botnets-fight-back-with-denial-of-service-attacks-.html</a>
+</p>
+<h1> <span class="mw-headline" id="Podjela_posla"> Podjela posla </span></h1>
+<p><b>Monika Cerjak</b> - Uvod, Apache Web Server, mod_cband, Kreiranje CloudFlare računa, Nedostatci CloudFlare-a. 
+</p><p><b>Martina Granić</b> - DoS napad, Zaštita od DoS napada, O CloudFlare-u, Prednosti CloudFlare-a, Zaključak.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 51/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4404-0!*!0!!hr!2!edit=0 and timestamp 20190203204002 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html">http://security.foi.hr/wiki/index.php/Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Za%C5%A1tita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane&amp;oldid=16879" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:52, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 8.370 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Zaštita_od_DoS-a_u_Apacheu_s_mod_cband_-_prednosti_i_mane", "wgTitle": "Zaštita od DoS-a u Apacheu s mod cband - prednosti i mane", "wgAction": "view", "wgArticleId": 4404, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 16879, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.390 secs. -->			</body>
+</html>

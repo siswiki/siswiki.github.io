@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Analiza sigurnosti RFID/NFC kartica - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Analiza_sigurnosti_RFID/NFC_kartica&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Analiza_sigurnosti_RFID_NFC_kartica skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Analiza sigurnosti RFID/NFC kartica</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="NFC_kartica.html#mw-head">orijentacija</a>,
+					<a href="NFC_kartica.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi:
+</p><p>- Tomislav Turek
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.turek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.turek (stranica ne postoji)">Tomislav.turek</a> 14:06, 5. studenog 2015. (CET)
+</p><p>- Mislav Jurinić
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mjurinic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mjurinic (stranica ne postoji)">Mjurinic</a> 14:50, 5. studenog 2015. (CET)
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="NFC_kartica.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="NFC_kartica.html#Touchatag_.C4.8Dita.C4.8D_NFC_.C4.8Dipova"><span class="tocnumber">1.1</span> <span class="toctext">Touchatag čitač NFC čipova</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="NFC_kartica.html#MiFare_Tag_byte_layout"><span class="tocnumber">1.2</span> <span class="toctext">MiFare Tag byte layout</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="NFC_kartica.html#Mifare_Ultralight_Type_2_Tag"><span class="tocnumber">1.2.1</span> <span class="toctext">Mifare Ultralight Type 2 Tag</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="NFC_kartica.html#Mifare_Classic_tag"><span class="tocnumber">1.2.2</span> <span class="toctext">Mifare Classic tag</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="NFC_kartica.html#Poku.C5.A1aj_otklju.C4.8Davanja_MiFare_Ultralight_taga"><span class="tocnumber">2</span> <span class="toctext">Pokušaj otključavanja MiFare Ultralight taga</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="NFC_kartica.html#.22Otklju.C4.8Davanje.22_taga_kloniranjem"><span class="tocnumber">3</span> <span class="toctext">"Otključavanje" taga kloniranjem</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="NFC_kartica.html#Mifare_Offline_Cracker"><span class="tocnumber">4</span> <span class="toctext">Mifare Offline Cracker</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="NFC_kartica.html#Kloniranje_tagova"><span class="tocnumber">5</span> <span class="toctext">Kloniranje tagova</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="NFC_kartica.html#ChameleonMini_-_Mifare_Ultralight"><span class="tocnumber">5.1</span> <span class="toctext">ChameleonMini - Mifare Ultralight</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="NFC_kartica.html#ChameleonMini_-_Mifare_Classic"><span class="tocnumber">5.2</span> <span class="toctext">ChameleonMini - Mifare Classic</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="NFC_kartica.html#BusPirate_.3D_PN532_BoB"><span class="tocnumber">6</span> <span class="toctext">BusPirate = PN532 BoB</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="NFC_kartica.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<h3> <span class="mw-headline" id="Touchatag_.C4.8Dita.C4.8D_NFC_.C4.8Dipova"> Touchatag čitač NFC čipova </span></h3>
+<p>Prilikom izrade ovog projekta koristili smo Touchatag čitač NFC čipova tip ACR122U sa Mifare Ultralight Type 2 tagovima. Prije bilo kakvog rada bilo je potrebno ga postaviti za Linux. Budući da se radi o vrlo starom čitaču koji više nema support, a nema niti stranice s koje bi se skinuli driveri ili aplikacije, morali smo koristiti alternativne izvore kako bismo s njim mogli komunicirati.
+</p><p>Kako bi čitač mogao ispravno raditi potrebno je imati postavljene specifične biblioteke i driver. Dubljim istraživanjem, uspjeli smo doći do drivera za čitače tipa ACR122U te nakon instalacije bilo je moguće vidjeti uređaj ispisom naredbe lsusb.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122driveri.png" class="image"><img alt="Alt text" src="../../images/thumb/9/97/Acr122driveri.png/720px-Acr122driveri.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122driveri.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Dagle te jzma</div></div></div>
+<p>Nakon instalacije drivera, mogli smo započeti sa konkretnom komunikacijom. Za komunikaciju sa čitačem korištena je open source biblioteka libnfc te biblioteke koje su nužne da bi libnfc mogao raditi: pcscd, libusb te libccid. Uz libnfc korištena je i dodatna biblioteka libfreefare koja se koristi za operacije koje su specifične za Mifare Ultralight te Mifare Classic tagove.
+</p><p>Navedene biblioteke omogućavaju nam rad sa različitim funkcijama Touchatag čitača koje su objašnjene u nastavku ove stranice.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.turek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.turek (stranica ne postoji)">Tomislav.turek</a> 17:41, 7. siječnja 2016. (CET)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mjurinic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mjurinic (stranica ne postoji)">Mjurinic</a> 21:46, 8. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="MiFare_Tag_byte_layout"> MiFare Tag byte layout </span></h3>
+<h4> <span class="mw-headline" id="Mifare_Ultralight_Type_2_Tag"> Mifare Ultralight Type 2 Tag </span></h4>
+<p>NFC čipovi imaju određeni smještaj bajtova gdje svaki od njih ima određenu funkciju. Byte layout Mifare Ultralight čipova dan je u nastavku.
+</p>
+<table>
+  <tr>
+      <td style="border: 1px solid black;">0</td>
+      <td style="border: 1px solid black;">1</td>
+      <td style="border: 1px solid black;">2</td>
+      <td style="border: 1px solid black;">3</td>
+      <td>Page</td></tr>
+  <tr>
+      <td style="border: 1px solid black;">UID0</td>
+      <td style="border: 1px solid black;">UID1</td>
+      <td style="border: 1px solid black;">UID2</td>
+      <td style="border: 1px solid black;">Internal0</td>
+      <td>0</td>
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;">UID3</td>
+      <td style="border: 1px solid black;">UID4</td>
+      <td style="border: 1px solid black;">UID5</td>
+      <td style="border: 1px solid black;">UID6</td>
+      <td>1</td>
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;">Internal1</td>
+      <td style="border: 1px solid black;">Internal2</td>
+      <td style="border: 1px solid black;">Lock0</td>
+      <td style="border: 1px solid black;">Lock1</td>
+      <td>2</td>
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;">OTP0-CC0</td>
+      <td style="border: 1px solid black;">OTP1-CC1</td>
+      <td style="border: 1px solid black;">OTP2-CC2</td>
+      <td style="border: 1px solid black;">OTP3-CC3</td>
+      <td>3</td>
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;">Data0</td>
+      <td style="border: 1px solid black;">Data1</td>
+      <td style="border: 1px solid black;">Data2</td>
+      <td style="border: 1px solid black;">Data3</td>
+      <td>4</td>
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;">...</td>
+      <td style="border: 1px solid black;">...</td>
+      <td style="border: 1px solid black;">...</td>
+      <td style="border: 1px solid black;">...</td>
+      <td>...</td>
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;">...</td>
+      <td style="border: 1px solid black;">...</td>
+      <td style="border: 1px solid black;">...</td>
+      <td style="border: 1px solid black;">...</td>
+      <td>15</td></tr>
+</table>
+<p>Možemo uočiti da je čip sastavljen od stranica (page) kojih na slici ima 16, ali ih može biti i više. Prve tri stranice sadržavaju informacije o samom tagu. Prva i druga stranica jesu UID koja identificira tag, a zatim slijede Internal i Lock bajtovi dok na četvrtoj stranici imamo OTP (one time programmable) bajtove.
+</p><p>Uobičajeno je da je nakon četvrte stranice moguće upisivati konkretne podatke (data pages).
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.turek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.turek (stranica ne postoji)">Tomislav.turek</a> 18:13, 7. siječnja 2016. (CET)
+</p>
+<h4> <span class="mw-headline" id="Mifare_Classic_tag"> Mifare Classic tag </span></h4>
+<p>S druge strane Mifare Classic tagovi imaju malo drukčiju organizaciju koja ovisi do samog taga (postoje različite vrste kao što su Classic 1K ili Classic 4K). Konkretno, Mifare Classic 1K tag sastoji se od 16 sektora gdje svaki sektor sadrži 4 bloka (od 0 do 3). U bloku 3 svakog sektora u Mifare Classic tagu nalaze se tajni ključevi A i B zajedno sa access bitovima koji definiraju autenticiranje tog sektora sa ključevima ovisno o operaciji (pisanje ili čitanje) te GPB (General Purpose Byte). Blok 3 naziva se <i>sector trailer</i>.
+</p>
+<table>
+   <tr>
+       <td style="border: 1px solid black">Sector</td>
+       <td style="border: 1px solid black">Block</td>
+       <td style="border: 1px solid black">6 bytes</td>
+       <td style="border: 1px solid black">3 bytes</td>
+       <td style="border: 1px solid black">1 byte</td>
+       <td style="border: 1px solid black">6 bytes</td>
+   </tr>
+   <tr>
+       <td rowspan="4" style="border: 1px solid black">0</td>
+       <td style="border: 1px solid black">3</td>
+       <td style="border: 1px solid black">Key A</td>
+       <td style="border: 1px solid black">Access bits</td>
+       <td style="border: 1px solid black">GPB</td>
+       <td style="border: 1px solid black">Key B</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">2</td>
+       <td colspan="5" align="center" style="border: 1px solid black">Data</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">1</td>
+       <td colspan="5" align="center" style="border: 1px solid black">Data</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">0</td>
+       <td colspan="5" align="center" style="border: 1px solid black">Data</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">Sector</td>
+       <td style="border: 1px solid black">Block</td>
+       <td style="border: 1px solid black">6 bytes</td>
+       <td style="border: 1px solid black">3 bytes</td>
+       <td style="border: 1px solid black">1 byte</td>
+       <td style="border: 1px solid black">6 bytes</td>
+   </tr>
+   <tr>
+       <td rowspan="4" style="border: 1px solid black">1</td>
+       <td style="border: 1px solid black">3</td>
+       <td style="border: 1px solid black">Key A</td>
+       <td style="border: 1px solid black">Access bits</td>
+       <td style="border: 1px solid black">GPB</td>
+       <td style="border: 1px solid black">Key B</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">2</td>
+       <td colspan="5" align="center" style="border: 1px solid black">Data</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">1</td>
+       <td colspan="5" align="center" style="border: 1px solid black">Data</td>
+   </tr>
+   <tr>
+       <td style="border: 1px solid black">0</td>
+       <td colspan="5" align="center" style="border: 1px solid black">Data</td>
+   </tr>
+   <tr>
+       <td colspan="6" align="center" style="border: 1px solid black">...</td>
+   </tr>
+</table>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.turek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.turek (stranica ne postoji)">Tomislav.turek</a> 14:15, 9. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Poku.C5.A1aj_otklju.C4.8Davanja_MiFare_Ultralight_taga"> Pokušaj otključavanja MiFare Ultralight taga </span></h2>
+<p>Prema byte layoutu, uočili smo da svaki Mifare Ultralight tag na stranici 2 ima lock bajtove, konkretno 11. i 12. bajt. Lock bajtovi omogućavaju da se sadržaj zadanog taga više ne može izmjeniti nakon što ga zaključamo. Zaključavanje radi tako da određeni bit u lock bajtu zaključava određenu stranicu unutar taga. 
+Uz pomoć Touchatag čitača možemo isčitati tag i spremiti kompletne njegove podatke na računalo u datoteku.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122readtag.png" class="image"><img alt="Alt text" src="../../images/thumb/e/ec/Acr122readtag.png/720px-Acr122readtag.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122readtag.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Spremanje sadrzaja taga u dump datoteku</div></div></div>
+<p>Prva naredba čita 16 stranica taga te sprema bajtove u datoteku kdr. Sadržaj datoteke je sljedeći:
+</p>
+<pre>�DO\87Q\96&quot;\80eH\FF\E1��\00��\D1��U�ttag.be/m/04444F51962280\FD	\85I\B1M\F6\AA;ڗy\96\00\00\00\00</pre>
+<p>Pomoću programskog koda, pokušali smo izmjeniti bajtove očitanog taga kako bi ga mogli otključati. Naime, zaključani tagovi imaju zapisan 0xFF u Lock0 bajtu te 0xF7 u Lock1 bajtu dok otključani tagovi sadrže 0x00 bajtove u oba lock bajta. Ideja otključavanja leži u izmjeni datoteke koja sadrži učitane bajtove te pisanjem kompletne datoteke ponovno na tag. U tu svrhu izrađen je programski kod.
+</p><p><br />
+<i>Programski kod za otključavanje</i>
+</p>
+<pre>
+package hr.foi.sis.nfc;
+
+import hr.foi.sis.nfc.tags.Tag;
+import hr.foi.sis.nfc.utilities.MfdManager;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Tomislav Turek
+ */
+public class App {
+    
+    private static final String FILE_CREATE_NAME = &quot;op&quot;;
+    private static final String FILE_READ_NAME = &quot;kdr&quot;;
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        MfdManager manager = new MfdManager();
+        try {
+            Tag tag = new Tag(manager.readDump(FILE_READ_NAME));
+            tag.unlock();
+            manager.saveDump(tag.getContent(), FILE_CREATE_NAME);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+}
+</pre>
+<p>MfdManager je klasa koja radi sa Mifare dump datotekama, dok je Tag klasa koja definira tag, njena metoda unlock samo postavlja 11. i 12. bajt u 0x00.
+</p><p><br />
+<i>Tag klasa</i>
+</p>
+<pre>
+package hr.foi.sis.nfc.tags;
+
+import static hr.foi.sis.nfc.tags.TagValue.LOCK_0;
+import static hr.foi.sis.nfc.tags.TagValue.LOCK_1;
+import static hr.foi.sis.nfc.tags.TagValue.TAGINFO_MEMORY_SIZE;
+import java.util.Arrays;
+
+/**
+ * tag class
+ * @author Tomislav Turek
+ */
+public class Tag {
+    
+    private final int length;
+    private byte[] taginfo;
+    private byte[] data;
+    
+    public Tag(int length) {
+        this.length = length;
+    }
+    
+    public Tag(byte[] content) {
+        this.length = content.length;
+        this.taginfo = Arrays.copyOfRange(content, 0,  TAGINFO_MEMORY_SIZE);
+        this.data = Arrays.copyOfRange(content, TAGINFO_MEMORY_SIZE, content.length);
+    }
+
+    public Tag(byte[] taginfo, byte[] data) {
+        this.length = taginfo.length + data.length;
+        this.taginfo = taginfo;
+        this.data = data;
+    }
+    
+    public void lock() {
+        this.taginfo[LOCK_0] = (byte)0xFF;
+        this.taginfo[LOCK_1] = (byte)0xF7;
+    }
+    
+    public void unlock() {
+        this.taginfo[LOCK_0] = (byte)0x00;
+        this.taginfo[LOCK_1] = (byte)0x00;
+    }
+    
+    public byte[] getContent() {
+        byte[] content = new byte[this.length];
+        System.arraycopy(this.taginfo, 0, content, 0, this.taginfo.length);
+        System.arraycopy(this.data, this.taginfo.length, content, this.taginfo.length, content.length);
+        return content;
+    }
+
+    public byte[] getTagInfo() {
+        return taginfo;
+    }
+
+    public void setTagInfo(byte[] taginfo) {
+        if(this.data&#160;!= null &amp;&amp; getContent().length&#160;!= this.length)
+            throw new RuntimeException(&quot;Unable to set tag prefix, tag is of size &quot; + this.length);
+        this.taginfo = taginfo;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        if(this.taginfo&#160;!= null &amp;&amp; getContent().length&#160;!= this.length)
+            throw new RuntimeException(&quot;Unable to set tag message, tag is of size &quot; + this.length);
+        this.data = data;
+    }
+    
+}
+</pre>
+<p>Pokretanjem kompajliranog koda sa java -cp . hr.foi.sis.nfc.App dobivamo datoteku "kdr" koja u sebi sadrži jednake bajtove kao i datoteka "op", no lock bajtovi su postavljeni kao otključani. Sljedeći korak je zapisivanje datoteke na isti tag.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122unlock.png" class="image"><img alt="Alt text" src="../../images/thumb/b/bf/Acr122unlock.png/720px-Acr122unlock.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122unlock.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pisanje sadržaja datoteke na tag</div></div></div>
+<p>Iz ispisa možemo vidjeti da niti jedna stranica nije uspješno zapisana. Provjerom taga vidimo da se lock bajtovi ipak nisu izmjenili.
+</p><p>Usprkos našem trudu da otključamo tag, detaljnom analizom dokumentacije Mifare Ultralight Type 2 Tag došli smo do spoznaje da su čipovi izrađeni na način da kada se u lock bajtove neki od bitova postavi u 1, on se više ni na koji način ne može natrag postaviti u 0. Prema tome, nije moguće otključati tag direktnom izmjenom lock bajtova.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.turek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.turek (stranica ne postoji)">Tomislav.turek</a> 18:59, 7. siječnja 2016. (CET)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mjurinic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mjurinic (stranica ne postoji)">Mjurinic</a> 21:57, 8. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id=".22Otklju.C4.8Davanje.22_taga_kloniranjem"> "Otključavanje" taga kloniranjem </span></h2>
+<p>Budući da tag nije moguće otključati direktnom izmjenom lock bajtova, možda ga možemo prekopirati na otključani tag te time dobivamo isti ishod koji bismo imali da smo tag uspješno otključali.
+</p><p>Prethodni postupak ponovimo te učitamo zaključani tag u datoteku "op". Sa programskim kodom učitamo datoteku, "otključamo" tag te spremimo sadržaj taga u datoteku "kdr". Sada istim postupkom upišemo sadržaj datoteke "op" na tag, ali ovaj puta to napravimo na otključanom tagu.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122clonetag.png" class="image"><img alt="Alt text" src="../../images/thumb/8/82/Acr122clonetag.png/720px-Acr122clonetag.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Acr122clonetag.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pisanje sadrzaja na otkljucani tag</div></div></div>
+<p>Iz prethodnog ispisa vidimo da su se bajtovi upisali na tag. Ukoliko tag učitamo, on će se ponašati kao i zaključani tag (sadržavati će njegove podatke), ali će lock bajtovi biti postavljeni u 0x00.
+</p><p>Moglo bi se reći da smo uspjeli "otključati" tag, ali ne direktno. Ovakvim postupkom možemo zaključiti da zaključavanje ne predstavlja nikakav mehanizam zaštite podataka, jer se tag može zaključati no on može biti prekopiran na otključani tag u kojem se sadržaj može izmjeniti. Daljnjim ispitivanjem taga došli smo do zaključka da tag sadrži jednake stranice kao i prethodni zaključani tag, no serijski broj i uid se i dalje razlikuju.
+</p><p>Pretpostavimo scenarij u kojem neki tagovi omogućuju ulazak u određeni prostor. Ukoliko je sustav implementiran da provjerava podatkovne bajtove unutar taga, sigurnost takvog taga je vrlo malena jer zaključavanje samog taga ne predstavlja nikakav sigurnosni mehanizam, no ukoliko je sustav implementiran da se provjeravaju data bajtovi kao i uid i serijski broj taga, tada ova metoda neće nositi rezultate.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Mifare_Offline_Cracker"> Mifare Offline Cracker </span></h2>
+<p>Mifare Ultralight tagove prezentirani su kao tagovi niske sigurnosti te im je primjena u verifikaciji, plaćanju ili kontroli vrlo malena. Za dodanu razinu sigurnosti koriste se Mifare Classic tagovi. Tagovi takvog tipa omogućuju pisanje, odnosno čitanje podataka izmjenom access bitova sa ključevima A i B. Promotrimo sljedeći prikaz access bitova:
+</p>
+<table>
+    <tr>
+       <td align="center">Byte/Bit</td>
+       <td align="center">7</td>
+       <td align="center">6</td>
+       <td align="center">5</td>
+       <td align="center">4</td>
+       <td align="center">3</td>
+       <td align="center">2</td>
+       <td align="center">1</td>
+       <td align="center">0</td>
+    </tr>
+    <tr>
+       <td align="center">6</td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C2<sub>3</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C2<sub>2</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C2<sub>1</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C2<sub>0</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C1<sub>3</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C1<sub>2</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C1<sub>1</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C1<sub>0</sub></span></td>
+    </tr>
+    <tr>
+       <td align="center">7</td>
+       <td style="border: 1px solid black">C1<sub>3</sub></td>
+       <td style="border: 1px solid black">C1<sub>2</sub></td>
+       <td style="border: 1px solid black">C1<sub>1</sub></td>
+       <td style="border: 1px solid black">C1<sub>0</sub></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C3<sub>3</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C3<sub>2</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C3<sub>1</sub></span></td>
+       <td style="border: 1px solid black"><span style="text-decoration: overline">C3<sub>0</sub></span></td>
+    </tr>
+    <tr>
+       <td align="center">8</td>
+       <td style="border: 1px solid black">C3<sub>3</sub></td>
+       <td style="border: 1px solid black">C3<sub>2</sub></td>
+       <td style="border: 1px solid black">C3<sub>1</sub></td>
+       <td style="border: 1px solid black">C3<sub>0</sub></td>
+       <td style="border: 1px solid black">C2<sub>3</sub></td>
+       <td style="border: 1px solid black">C2<sub>2</sub></td>
+       <td style="border: 1px solid black">C2<sub>1</sub></td>
+       <td style="border: 1px solid black">C2<sub>0</sub></td>
+    </tr>
+</table>
+<p><br />
+Mifare Classic tagovi imaju access bitove smještene unutar bajtova 6, 7 i 8 te svaka kombinacija bitova unutar tih bajtova označava koje će operacije biti dozvoljene za blok unutar tog sektora (CM<sub>n</sub>, gdje je 0 &lt; M &lt; 4, definira pristup n-tom bloku za taj sektor). Primjerice za čitanje NDEF sadržaja unutar NFC sektora kombinacija bitova C1<sub>0</sub> C2<sub>0</sub> C3<sub>0</sub> bi značila da u 0-blok unutar sektora se može zapisati ili pročitati vrijednost koristeći ključem A ili ključem B. Detaljnije informacije o NDEF i MAD (Mifare Application Directory) sektorima, access bitovima te postupku čitanja i pisanja na tag mogu se pronaći u dokumentaciji (link dostupan u literaturi).
+</p><p>Budući da je za operacije čitanja i pisanja potrebno znati ključeve A i B unutar svakog sektora Mifare Classic taga, ne može se učiniti puno sa libnfc paketom jer je potrebno paketu prosljediti ključ A, odnosno ključ B prilikom čitanja ili zapisivanja. Na prvi pogled, čini se da nije moguće napraviti mnogo u probijanju takvih tagova, no u Kali Linux operacijskom sustavu postoji program <i> Mifare Classic Offline Cracker </i> (mfoc) dizajniran za probijanje autentikacijskih ključeva na Mifare Classic karticama. Za ovaj projekt posjedujemo dvije prazne Mifare Classic kartice koje smo testirali sa programom mfoc. Navedeni program omogućuje svojevrsni bruteforce ključeva ispitujući svaki sektor sa tipičnim autentikacijskim ključevima (primjerice ffffffff, 00000000, a0b0c0d0e0, itd.), a kasnije i ostalim kombinacijama. Dodatne funkcije ovog programa su dodavanje novih autentikacijskih ključeva te spremanje ključeva u datoteka nakon što su tagovi probijeni.
+</p><p><span style="color: red"><strong>TODO</strong></span>
+</p><p>Dobivenu Mifare Classic karticu smo krekali sa alatom mfoc na Kali Linux, dump file&gt;
+</p>
+<pre>
+Found Mifare Classic 1k tag
+ISO/IEC 14443A (106 kbps) target:
+    ATQA (SENS_RES): 00  04  
+* UID size: single
+* bit frame anticollision supported
+       UID (NFCID1): fc  02  ff  b7  
+      SAK (SEL_RES): 08  
+* Not compliant with ISO/IEC 14443-4
+* Not compliant with ISO/IEC 18092
+
+Fingerprinting based on MIFARE type Identification Procedure:
+* MIFARE Classic 1K
+* MIFARE Plus (4 Byte UID or 4 Byte RID) 2K, Security level 1
+* SmartMX with MIFARE 1K emulation
+Other possible matches based on ATQA &amp; SAK values:
+
+Try to authenticate to all sectors with default keys...
+Symbols: '.' no key found, '/' A key found, '\' B key found, 'x' both keys found
+[Key: ffffffffffff] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: a0a1a2a3a4a5] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: d3f7d3f7d3f7] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 000000000000] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: b0b1b2b3b4b5] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 4d3a99c351dd] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 1a982c7e459a] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: aabbccddeeff] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 714c5c886e97] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 587ee5f9350f] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: a0478cc39091] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 533cb6c723f6] -&gt; [xxxxxxxxxxxxxxxx]
+[Key: 8fd0a4f256e9] -&gt; [xxxxxxxxxxxxxxxx]
+
+Sector 00 -  FOUND_KEY   [A]  Sector 00 -  FOUND_KEY   [B]  
+Sector 01 -  FOUND_KEY   [A]  Sector 01 -  FOUND_KEY   [B]  
+Sector 02 -  FOUND_KEY   [A]  Sector 02 -  FOUND_KEY   [B]  
+Sector 03 -  FOUND_KEY   [A]  Sector 03 -  FOUND_KEY   [B]  
+Sector 04 -  FOUND_KEY   [A]  Sector 04 -  FOUND_KEY   [B]  
+Sector 05 -  FOUND_KEY   [A]  Sector 05 -  FOUND_KEY   [B]  
+Sector 06 -  FOUND_KEY   [A]  Sector 06 -  FOUND_KEY   [B]  
+Sector 07 -  FOUND_KEY   [A]  Sector 07 -  FOUND_KEY   [B]  
+Sector 08 -  FOUND_KEY   [A]  Sector 08 -  FOUND_KEY   [B]  
+Sector 09 -  FOUND_KEY   [A]  Sector 09 -  FOUND_KEY   [B]  
+Sector 10 -  FOUND_KEY   [A]  Sector 10 -  FOUND_KEY   [B]  
+Sector 11 -  FOUND_KEY   [A]  Sector 11 -  FOUND_KEY   [B]  
+Sector 12 -  FOUND_KEY   [A]  Sector 12 -  FOUND_KEY   [B]  
+Sector 13 -  FOUND_KEY   [A]  Sector 13 -  FOUND_KEY   [B]  
+Sector 14 -  FOUND_KEY   [A]  Sector 14 -  FOUND_KEY   [B]  
+Sector 15 -  FOUND_KEY   [A]  Sector 15 -  FOUND_KEY   [B]  
+
+We have all sectors encrypted with the default keys..
+
+Auth with all sectors succeeded, dumping keys to a file!
+Block 63, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 62, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 61, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 60, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 59, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 58, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 57, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 56, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 55, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 54, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 53, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 52, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 51, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 50, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 49, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 48, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 47, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 46, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 45, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 44, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 43, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 42, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 41, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 40, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 39, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 38, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 37, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 36, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 35, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 34, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 33, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 32, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 31, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 30, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 29, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 28, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 27, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 26, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 25, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 24, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 23, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 22, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 21, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 20, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 19, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 18, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 17, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 16, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 15, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 14, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 13, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 12, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 11, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 10, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 09, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 08, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 07, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 06, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 05, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 04, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 03, type A, key ffffffffffff&#160;:00  00  00  00  00  00  ff  07  80  69  ff  ff  ff  ff  ff  ff  
+Block 02, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 01, type A, key ffffffffffff&#160;:00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  
+Block 00, type A, key ffffffffffff&#160;:fc  02  ff  b7  b6  08  04  00  62  63  64  65  66  67  68  69  
+</pre>
+<h2> <span class="mw-headline" id="Kloniranje_tagova"> Kloniranje tagova </span></h2>
+<h3> <span class="mw-headline" id="ChameleonMini_-_Mifare_Ultralight"> ChameleonMini - Mifare Ultralight </span></h3>
+<p>Kako bismo mogli ići korak dalje u analizi sigurnosti tagova, pokušali smo u potpunosti klonirati čip uz pomoć ChameleonMini uređaja. Zamisao kloniranja je da se ciljani tag očita na računalo u datoteku (primjerice o.bin) te se njegov sadržaj nasnimi na ChameleonMini. Čitanje taga odvija se na isti način kao što je to rađeno i ranije (naredba nfc-mfultralight).
+</p><p>Nakon kreiranja datoteke možemo pokušati zapisati datoteku naredbom UPLOAD kroz njegovo standardno sučelje kojem se pristupa naredbom <i> socat </i>
+</p><p><strong>TU IDE SLIKA ZA UPLOAD MFU SADRŽAJA NA CHAMELEON</strong>
+</p><p><br />
+ChameleonMini (ukoliko nije drugačije programiran) raspolaže setom zadanih naredbi uz pomoć kojih se mogu odraditi neke osnovne radnje. Ispis svih naredbi moguće je naći na GitHub repozitoriju koji je naveden u literaturi ovog projekta. Tako se na slici može vidjeti uporaba naredbe UPLOAD koja omogućava prijenos podataka uz pomoć XMODEM-a. Iz slike se može vidjeti da u lijevom terminalu pozivamo XMODEM prijenos podataka naredbom sx sa parametrom -v (verbose) te definiramo datoteku i sučelje. U desnom terminalu može se vidjeti komunikacija sa sučeljem te uspješan prijenos podataka.
+</p><p>Ukoliko sada očitamo ChameleonMini uz pomoć Touchatag čitača te usporedimo sadržaj tih dviju datoteka naredbom diff, vidjeti ćemo da ChameleonMini savršeno klonira tag (zajedno sa uid-om, serijskim brojem, otp-ovima, itd.). U isto se možemo uvjeriti ukoliko tag očitamo nekim pristupačnijim uređajem kao što je pametni telefon.
+</p><p><strong>TU IDE SLIKA SA ČITANJEM CHAMELEONMINI-a I NAREDBOM DIFF</strong>
+</p><p><strong>TU IDE SLIKA SA SCREENOVIMA OD PAMETNOG HTC-a</strong>
+</p><p><br />
+U ovom scenariju možemo vidjeti savršeno oponašanje Mifare Ultralight taga koji je na razini više od prethodnog pokušaja kloniranja kopiranjem taga.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="ChameleonMini_-_Mifare_Classic"> ChameleonMini - Mifare Classic </span></h3>
+<p>S druge strane, ChameleonMini ima sposobnost savršenog kloniranja i MifareClassic tagova. Kombinacijom čitača, mfoc alata te ChameleonMini uređaja možemo izraditi savršeni klon taga tipa Classic slično kao i za prethodni tag.
+</p><p><span style="color: red"><strong>TODO &amp; CHECK</strong></span>
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chameleonclassicclone.png" class="image"><img alt="Alt text" src="../../images/thumb/7/77/Chameleonclassicclone.png/720px-Chameleonclassicclone.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chameleonclassicclone.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Pisanje sadrzaja taga iz datoteke na Chameleon</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chameleonclassicread.png" class="image"><img alt="Alt text" src="../../images/thumb/0/00/Chameleonclassicread.png/720px-Chameleonclassicread.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chameleonclassicread.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Citanje sadrzaja Chameleona u zasebnu datoteku</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:722px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chameleonclassicdiff.png" class="image"><img alt="Alt text" src="../../images/thumb/8/8e/Chameleonclassicdiff.png/720px-Chameleonclassicdiff.png" width="720" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Chameleonclassicdiff.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Usporedba sadrzaja Classic taga i Chameleona (jednaki su)</div></div></div>
+<p>opet ista prica sa uploadom
+</p><p>GZ - CHAMELEON SAD EMULATEA MIFARE CLASSIC TAG
+</p>
+<h2> <span class="mw-headline" id="BusPirate_.3D_PN532_BoB"> BusPirate = PN532 BoB </span></h2>
+<p>Spojili smo bus pirate i pn532, instructions&gt;
+</p><p>spoji se buspirate na usb i probeovi sa sljedecim sparivanjima (UART mode):
+</p><p>5.0V na 5.0V (narancasti)
+</p><p>GND na GND (smedi)
+</p><p>RX na MISO (crni)
+</p><p>TX na MOSI (sivi)
+</p><p>po uputsvima na BoB-u spoje se SEL0 i SEL1 medusobno (u off state)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> Adafruit dokumentacija, dostupno 8.1.2015 na <a href="https://learn.adafruit.com/downloads/pdf/adafruit-pn532-rfid-nfc.pdf" class="external free" rel="nofollow">https://learn.adafruit.com/downloads/pdf/adafruit-pn532-rfid-nfc.pdf</a>
+</li><li> Adafruit specifikacija, dostupno 8.1.2015 na <a href="https://learn.adafruit.com/adafruit-pn532-rfid-nfc/breakout-wiring" class="external free" rel="nofollow">https://learn.adafruit.com/adafruit-pn532-rfid-nfc/breakout-wiring</a>
+</li><li> Bus Pirate, dostupno 8.1.2015 na <a href="http://dangerousprototypes.com/docs/Bus_Pirate#Introduction" class="external free" rel="nofollow">http://dangerousprototypes.com/docs/Bus_Pirate#Introduction</a>
+</li><li> Bus Pirate specifikacija, dostupno 8.1.2015 na <a href="http://dangerousprototypes.com/docs/Bus_Pirate_I/O_Pin_Descriptions" class="external free" rel="nofollow">http://dangerousprototypes.com/docs/Bus_Pirate_I/O_Pin_Descriptions</a>
+</li><li> Bus Pirate Ubuntu, dostupno 8.1.2015 na <a href="http://jumptuck.com/2010/01/20/using-the-bus-pirate-with-ubuntu/" class="external free" rel="nofollow">http://jumptuck.com/2010/01/20/using-the-bus-pirate-with-ubuntu/</a>
+</li><li> Bus Pirate dokumentacija, dostupno 8.1.2015 na <a href="http://dangerousprototypes.com/docs/Bus_Pirate" class="external free" rel="nofollow">http://dangerousprototypes.com/docs/Bus_Pirate</a>
+</li><li> RFID Cooking, Backtrack Linux, dostupno 8.1.2015 na <a href="http://www.backtrack-linux.org/wiki/index.php/RFID_Cooking_with_Mifare_Classic" class="external free" rel="nofollow">http://www.backtrack-linux.org/wiki/index.php/RFID_Cooking_with_Mifare_Classic</a>
+</li><li> Minicom uputstva za Bus Pirate, dostupno 8.1.2015 na <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=42936&amp;p=346554" class="external free" rel="nofollow">https://www.raspberrypi.org/forums/viewtopic.php?t=42936&amp;p=346554</a>
+</li><li> ChameleonMini specifikacija komandi, dostupno 8.1.2015 na <a href="https://github.com/emsec/ChameleonMini/blob/master/Firmware/Chameleon-Mini/Terminal/Commands.h" class="external free" rel="nofollow">https://github.com/emsec/ChameleonMini/blob/master/Firmware/Chameleon-Mini/Terminal/Commands.h</a>
+</li><li> ChameleonMini, dostupno 8.1.2015 na <a href="http://store.ryscc.com/blogs/news/54097857-getting-started-with-the-chameleonmini" class="external free" rel="nofollow">http://store.ryscc.com/blogs/news/54097857-getting-started-with-the-chameleonmini</a>
+</li><li> ChameleonMini readme, dostupno 8.1.2015 na <a href="https://github.com/emsec/ChameleonMini/blob/master/Doc/DoxygenPages/CommandLine.txt" class="external free" rel="nofollow">https://github.com/emsec/ChameleonMini/blob/master/Doc/DoxygenPages/CommandLine.txt</a>
+</li><li> How to Crack, dostupno 15.1.2016 na <a href="https://www.firefart.at/post/how-to-crack-mifare-classic-cards/" class="external free" rel="nofollow">https://www.firefart.at/post/how-to-crack-mifare-classic-cards/</a>
+</li><li> RFIDIOt dokumentacija, dostupno 15.1.2015 na <a href="https://github.com/AdamLaurie/RFIDIOt" class="external free" rel="nofollow">https://github.com/AdamLaurie/RFIDIOt</a>
+</li><li> Protokol za nxp citac (onaj s rupom, buspirate), dostupno 15.1.2016 na <a href="http://neophob.com/files/rfid/PROTOCOL-821-880%20_2_.pdf" class="external free" rel="nofollow">http://neophob.com/files/rfid/PROTOCOL-821-880%20_2_.pdf</a>
+</li><li> Bus pirate fun, dostupno 15.1.2016 na <a href="http://neophob.com/2010/03/bus-pirate-fun-rdm880-rfid-module/" class="external free" rel="nofollow">http://neophob.com/2010/03/bus-pirate-fun-rdm880-rfid-module/</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 206/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8685-0!*!0!!hr!2!edit=0 and timestamp 20190203204216 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="NFC_kartica.html">http://security.foi.hr/wiki/index.php/Analiza_sigurnosti_RFID/NFC_kartica</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Analiza_sigurnosti_RFID/NFC_kartica" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="NFC_kartica.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Analiza_sigurnosti_RFID/NFC_kartica&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="NFC_kartica.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="NFC_kartica.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_sigurnosti_RFID/NFC_kartica&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_sigurnosti_RFID/NFC_kartica&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="NFC_kartica.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../../images/osslogo.png);" href="../../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="../Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="../Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="../Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Analiza_sigurnosti_RFID/NFC_kartica" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Analiza_sigurnosti_RFID/NFC_kartica" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="../Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_sigurnosti_RFID/NFC_kartica&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_sigurnosti_RFID/NFC_kartica&amp;oldid=38068" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:15, 26. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 847 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="../SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Analiza_sigurnosti_RFID/NFC_kartica", "wgTitle": "Analiza sigurnosti RFID/NFC kartica", "wgAction": "view", "wgArticleId": 8685, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 38068, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.566 secs. -->			</body>
+</html>

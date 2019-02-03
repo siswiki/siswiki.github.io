@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>OAuth autorizacija - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=OAuth_autorizacija&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-OAuth_autorizacija skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">OAuth autorizacija</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="OAuth_autorizacija.html#mw-head">orijentacija</a>,
+					<a href="OAuth_autorizacija.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu prijavio: Pavao Vlahović
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="OAuth_autorizacija.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="OAuth_autorizacija.html#OAuth_1.0"><span class="tocnumber">2</span> <span class="toctext">OAuth 1.0</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="OAuth_autorizacija.html#Tijek_komunikacije"><span class="tocnumber">2.1</span> <span class="toctext">Tijek komunikacije</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="OAuth_autorizacija.html#Prednosti_i_nedostaci"><span class="tocnumber">2.2</span> <span class="toctext">Prednosti i nedostaci</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="OAuth_autorizacija.html#OAuth_2.0"><span class="tocnumber">3</span> <span class="toctext">OAuth 2.0</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="OAuth_autorizacija.html#Tijek_komunikacije_2"><span class="tocnumber">3.1</span> <span class="toctext">Tijek komunikacije</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="OAuth_autorizacija.html#Prednosti_i_nedostaci_2"><span class="tocnumber">3.2</span> <span class="toctext">Prednosti i nedostaci</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="OAuth_autorizacija.html#Aplikacija_.28Autorizacijski_server_i_server_resursa.29"><span class="tocnumber">3.3</span> <span class="toctext">Aplikacija (Autorizacijski server i server resursa)</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="OAuth_autorizacija.html#Aplikacija_.28Implementacija_prijave_preko_Facebooka.29"><span class="tocnumber">3.4</span> <span class="toctext">Aplikacija (Implementacija prijave preko Facebooka)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="OAuth_autorizacija.html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="OAuth_autorizacija.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="OAuth_autorizacija.html#Klju.C4.8Dni_pojmovi"><span class="tocnumber">6</span> <span class="toctext">Ključni pojmovi</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Cilj ovog projekta je objašnjenje rada autentifikacijskih protokola OAuth 1.0 i OAuth 2.0. Osim toga, prikazat ću aplikaciju koja predstavlja implementaciju OAuth 2.0 razvojnog okvira. OAuth protokol relativno je novi protokol te se njegovo korištenje sve više povećava. U tradicionalnoj klijent-server arhitekturi, korisnik koristi svoje korisničko ime i lozinku za pristup resursima koji se nalaze na serveru. Razlog zbog kojeg je potrebna nova vrsta protokola je ta što razvojem web i Cloud servisa pojavila se potreba za pristupom treće strane prema korisničkim resursima. OAuth 1.0 i OAuth 2.0 omogućuju siguran pristup više aplikacija prema korisničkim resursima.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="OAuth_1.0"> OAuth 1.0 </span></h2>
+<p>Razvoj OAuth protokola započela je grupa web developera za Internet servise koji su željeli riješiti uobičajeni problem delegiranja i pristupanja zaštićenim resursima. Prva stabilna verzija OAuth protokola pojavila se 2007. godine, a 2009. godine bila je revizija te se koristi verzija OAuth 1.0a. OAuth je u tradicionalnu klijent-server arhitekturu dodao novu rolu: vlasnik resursa. Kako bi u potpunosti razumjeli protokol, moramo razumjeti njegove učesnike:
+</p>
+<ul><li>Klijent (client) - HTTP klijent koji ima mogućnost kreiranja OAuth autentificiranih zahtjeva.
+</li><li>Server (server) – HTTP server koji ima mogućnost prihvaćanja OAuth autentificiranih zahtjeva.
+</li><li>Zaštićeni resurs (protected resource) – resurs koji može biti dohvaćen sa server.
+</li><li>Vlasnik resursa (resource owner) – entitet koji ima mogućnost pristupanja i kontroliranja zaštićenih resursa.
+</li><li>Korisnički podaci (Credentials) – Uobičajeno korisničko ime i lozinka vlasnika resursa.
+</li><li>Token – jedinstveni identifikator koji izdaje server, a koristi klijent kako bi autentificirao vlasnika resursa prema serveru. 
+</li></ul>
+<p>Ove pojmove lakše možemo objasniti uz poslovni slučaj. Na primjer, osoba se prijavila na servis za pohranu fotografija koristeći svoje korisničko ime i lozinku. Također, osoba želi koristiti servis za ispis fotografija za ispis tih fotografija, ali ne želi dijeliti svoje korisničko ime i lozinku sa servisom za ispi. OAuth omogućuje autentificiranu komunikaciju između servisa za ispis i servisa za pohranu fotografija. Slika prikazuje poslovni slučaj te povezuje fizičke pojmove s pojmovima u OAuth 1.0 komunikaciji.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Oauth10PrikazPojmova.png" class="image"><img alt="Oauth10PrikazPojmova.png" src="../images/thumb/3/32/Oauth10PrikazPojmova.png/800px-Oauth10PrikazPojmova.png" width="800" height="216" /></a></div></div>
+<p>U daljnjem tekstu objasniti ćemo komunikaciju između dva servisa koja su na slici prikazana kao OAuth 1.0. Dakle, postoji korisnik koji je prijavljen na servisu za pohranu fotografija i želi koristiti servis za ispis bez otkrivanja svojeg korisničkog imena i lozinke. Kako bi takva komunikacija bila moguća, servis za ispis mora biti poznat servisu za pohranu fotografija, odnosno servis za ispis mora se registriran kao klijent kod servisa za pohranu fotografija. Pretpostavimo da je servis za ispis već prije registriran kao klijenti i ima svoj identifikator (dpf43f3p2l4k3l03) i dijeljenom tajnom (kd94hf93k423kf44). 
+</p><p>Osim toga, servis za pohranu fotografija mora imati mapirane sljedeće url-ove:
+</p><p>/initiate – služi za dobivanje privremenih podataka za autentifikaciju (credentials) za komunikaciju s servisom za pohranu fotografija
+</p><p>/authorize – služi za autorizaciju korisnika na servisu za pohranu fotografija. 
+</p><p>/token – služi za dodjeljivanje tokena koji je potreban u daljnjoj komunikaciji.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Tijek_komunikacije"> Tijek komunikacije </span></h3>
+<p>1.	Prije nego servis za ispis može pitati korisnika za pristup fotografijama, servis mora dohvatiti privremene podatke za autentifikaciju  (credentials) od servisa za pohranu fotografija. To radi na način da šalje HTTPS POST zahtjev prema servisu za pohranu fotografija na url /initiate. U zaglavlju zahtjeva šalje svoj identifikator (dpf43f3p2l4k3l03) i dijeljenu tajnu (kd94hf93k423kf44). 
+</p><p><br />
+2.	Servis za pohranu fotografija prima zahtjev te provjerava ispravnost primljenih podataka. Ako su podaci ispravni, servis za pohranu fotografija dodjeljuje privremene podatke za autentifikaciju  (credentials). Privremeni podaci za autentifikaciju  (credentials) šalju se kao HTTP odgovor u zaglavlju {oauth_token: hh5s93j4hdidpola}. 
+</p><p><br />
+3.	Korisnik se preusmjerava na servis za pohranu fotografija na url: /authorize?oauth_token= hh5s93j4hdidpola. Korisnik se  u ovome trenutku mora autorizirati svojim korisničkim imenom i lozinkom (ili nekim drugim autorizacijskim podacima). 
+</p><p><br />
+4.	Nakon uspješne autorizacije, korisnik, servisu za ispis, dopušta pristup fotografijama na servisu za pohranu fotografija. Kako bi se servis za ispis obavijestio o dodijeli prava, šalje se HTTP zahtjev prema servisu za ispis na url: /ready?oauth_token=hh5s93j4hdidpola&amp;oauth_verifier=hfdp7dh39dks9884. „oauth_verifier“ predstavlja identifikator pod kojim je servisu za ispis dozvoljen pristup korisničkim fotografijama.
+</p><p><br />
+5.	Korisnika se preusmjerava na servis za ispis te mu se prikazuje aplikacija za ispis fotografija.
+</p><p><br />
+6.	U ovome trenutku servis za ispis ima potvrdu za pristup korisničkim fotografijama. Međutim, kako bi mogao pristupiti fotografijama, servis za ispis mora zatražiti token od servisa za pohranu fotografija. Taj token će se koristiti za svu dalju komunikaciju sa servisom za pohranu fotografija. Kako bi dohvatio token, servis za ispis, šalje HTTPS POST zahtjev prema servisu za pohranu fotografija na url: /token. Unutar  zaglavlja šalje privremene podatke za autentifikaciju  (credentials) i „oauth_verifier“ identifikator. 
+</p><p><br />
+7.	Servis za pohranu fotografija provjerava primljene podatke te ako su podaci ispravni odgovara s podacima o tokenu: oauth_token=nnch734d00sl2jdk&amp;oauth_token_secret=pfkkdhi9sl3r4s00
+</p><p><br />
+8.	Sada, servis za ispis fotografija može dohvatiti korisničke fotografije, uz uvjet da se prilikom slanja zahtjeva u zaglavlju nalazi dobiveni token. Ovakva  vrsta komunikacija između ova dva servisa moguća je sve do trenutka kada token ne istekne ili korisnik odluči izbrisati pristup servisa za ispis do njegovih fotografija na servisu za pohranu fotografija.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:OAuth1.0Komunikacija.png" class="image"><img alt="OAuth1.0Komunikacija.png" src="../images/thumb/f/f6/OAuth1.0Komunikacija.png/600px-OAuth1.0Komunikacija.png" width="600" height="590" /></a></div></div>
+<p>Sljedeća slika prikazuje komunikaciju između klijenta i servera u OAuth 1.0 komunikaciji. Izvor slike: <a href="https://docs.spring.io/spring-social/docs/1.1.0.RELEASE/reference/htmlsingle/#section_oauth1ServiceProviders" class="external autonumber" rel="nofollow">[1]</a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Prednosti_i_nedostaci"> Prednosti i nedostaci </span></h3>
+<p>OAuth protokol je protokol koji omogućuje komunikaciju između dva servisa na način koji je opisan ranije u tekstu. Zbog toga samo njegovo postojana je prednost u komunikaciji. Problemi ovog protokola su ti što je protokol previše orijentiran na web te se njegovi nedostaci vide kod ostalih platformi. Na primjer kod mobilnih aplikacija, kako bi se korisnik autentificirao, aplikacija mora  pokrenuti web preglednik te se korisnik unutar njega mora prijavljivati. Upravo iz takvih razloga, kreiran je OAuth 2.0 protokol/razvojni okvir. Ploča prikazuje stanje prednosti i nedostataka OAuth 1.0 protokola.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Oauth1.0proscons.jpg" class="image"><img alt="Oauth1.0proscons.jpg" src="../images/thumb/f/f6/Oauth1.0proscons.jpg/600px-Oauth1.0proscons.jpg" width="600" height="398" /></a></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="OAuth_2.0"> OAuth 2.0 </span></h2>
+<p>AOuth 2.0 je, za razliku od AOuth 1.0, razvojni okvir. Razlog tome je nestandardiziranost određenih postupaka u AOuth 2.0 autentifikaciji. Međutim, novi razvojni okvir kreirao je novu arhitekturu i nove pristupe prilikom autentifikacije korisnika. U samoj dokumentaciji AOuth 2.0 razvojnog okvira stoji:
+</p><p>The OAuth 1.0 protocol ([RFC5849]), published as an informational document, was the result of a small ad hoc community effort.  This Standards Track specification builds on the OAuth 1.0 deployment experience, as well as additional use cases and extensibility requirements gathered from the wider IETF community.
+</p><p>AOuth 2.0 nije kompatibilan s verzijom 1.0 jer su promjene u samoj arhitekturi rješenja prevelike za kreiranje kompatibilnosti. AOuth 2.0 posjeduje sljedeće role:
+</p>
+<ul><li>Vlasnik resursa (resource owner) – ne razlikuje se od vlasnika resursa kod verzije 1.0.  Dakle, entitet koji ima mogućnost pristupanja i kontroliranja zaštićenih resursa.
+</li><li>Server resursa (resource server) – server s resursima zadužen je za čuvanje resursa korisnika. Klijent želi doći do resursa korisnika koji se nalaze na ovome serveru. Specifikacija OAuth 2.0 ne sprječava mogućnost da su server resursa i autorizacijski server isto računalo.
+</li><li>Klijent (client) – klijentska aplikacija koja želi pristupiti resursima svojih korisnika. Razlika između aplikacija klijenata OAuth 1.0 i OAuth 2.0 je ta što kod OAuth 2.0 aplikacija klijenta ne mora biti web preglednik nego može biti bilo kakva aplikacija.
+</li><li>Autorizacijski server (authorization server) – Server koji izdaje tokene klijentima nakon što uspješno autentificiraju vlasnika resursa.
+</li></ul>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Tijek_komunikacije_2"> Tijek komunikacije </span></h3>
+<p>Pošto je AOuth 2.0 razvojni okvir ne postoji jedinstveni tijek komunikacije već tijek ovisi o implementaciji. Apstraktni prikaz tijeka komunikacije vidljiv je na slici ispod.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Outh2.0flow.png" class="image"><img alt="Outh2.0flow.png" src="../images/c/c4/Outh2.0flow.png" width="561" height="372" /></a></div></div>
+<p>Slika prikazuje 6. koraka koji se događaju u OAuth 2.0 komunikaciji:
+</p><p>1.	Klijent zahtjeva autorizaciju korisnika kako bi mogao pristupiti zaštićenim resursima.
+</p><p>2.	Korisnik se autorizira na nekoliko načina (ovisno o klijentskom zahtjevu). Time klijent dohvaća autorizacijske dozvole od korisnika.
+</p><p>3.	Klijent zahtjeva pristupni token od autorizacijskog servera s autorizacijskim dozvolama klijenta.
+</p><p>4.	Autorizacijski server provjerava podatke o klijentu s kojeg zahtjev dolazi i podatke o autorizacijskim dozvolama korisnika. Ako su podaci validni, autorizacijski server klijentu dodjeljuje token s kojim može pristupiti resursima tog korisnika
+</p><p>5.	Klijent šalje zahtjev za korisničkim resursima te u zahtjevu navodi token koji mu je dodijelio autorizacijski token. Server s resursa provjerava ispravnost tokena te klijentu vraća tražene podatke.
+</p><p><br />
+</p><p>Gore navedena  komunikacija predstavlja apstraktni prikaz OAuth 2.0 komunikacije. Međutim, postoji nekolicina implementacije komunikacije, a svi ovise o načinu dodjele autorizacijske dozvole. Odnosno zbog koraka 1 i 2 u gornjem primjeru. Postoje sljedeće implementacije dodjele autorizacijskih dozvola:
+</p>
+<ul><li>Autorizacijski kod – koristi se kod klijentskih web orijentiranih aplikacija.
+</li><li>Implicitni – koristi se kod mobilnih ili web aplikacija.
+</li><li>Korištenjem korisničkih podataka za autentifikaciju (credentials) – korisnik upisuje svoje korisničko ime i lozinku.
+</li><li>Korištenjem klijentskih podataka za autentifikaciju (credentials) -  koriste se kod aplikacija s API pristupom.
+</li></ul>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Prednosti_i_nedostaci_2"> Prednosti i nedostaci </span></h3>
+<p>OAuth 2.0 novi je razvojni okvir OAuth protokola. Unatoč tome što developeri razvojnog okvira tvrde da je OAuth 2.0 nastao iz iskustva s OAuth 1.0, postoji krug korisnika koji nisu zadovoljni razvojnim okvirom. Članak <a href="https://hueniverse.com/oauth-2-0-and-the-road-to-hell-8eec45921529" class="external autonumber" rel="nofollow">[2]</a> ukazuju na neke nedostatke koji se nalaze u OAuth 2.0 razvojnom okviru. Korisnicima koji su implementirali  OAuth 1.0, savjetuje se da ostanu koristiti taj protokol. Razlog tome je taj što za migraciju s OAuth 1.0 na OAuth 2.0 najveće promjene događaju se kod klijentskih aplikacija koje uglavnom nisu pod našom kontrolom.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Oauth2.0proscons.jpg" class="image"><img alt="Oauth2.0proscons.jpg" src="../images/thumb/4/48/Oauth2.0proscons.jpg/600px-Oauth2.0proscons.jpg" width="600" height="398" /></a></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Aplikacija_.28Autorizacijski_server_i_server_resursa.29"> Aplikacija (Autorizacijski server i server resursa) </span></h3>
+<p>GitHub: <a href="https://github.com/pvlahovic1/sis_oauth2" class="external free" rel="nofollow">https://github.com/pvlahovic1/sis_oauth2</a>
+</p><p>U sklopu ovog projekta kreirana je aplikacija koja koristi OAuth 2.0 razvojni okvir za autentikaciju. Autorizacijski server i Server resursa predstavljaju jednu aplikaciju, ali njihove putanje su strogo odvojene. Za razvoj aplikacije korišten je Spring Boot razvojni okvir. Spring Boot unutar sebe posjeduje „spring security oauth2“ dodatak kojim se unutar Spring Boota omogućuje konfiguracija OAuth 2.0.
+</p><p>Resursi koje korisnik posjeduje na Serveru resursa su bilješke i literatura. Klijentskim aplikacijama potrebno je omogućiti pristup korisničkim resursima. Međutim, neki klijenti ne moraju imati pravo vidjeti sve korisničke resurse ili ne moraju imati pravo izvršavati sve CRUD operacije. Ovisno o klijentu, autorizacijski server dodjeljuje prava pristupa resursima pojedinih korisnika. 
+ERA model aplikacije vidljiv je na sljedećoj slici.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:OAuth2.0ERAmodel.png" class="image"><img alt="OAuth2.0ERAmodel.png" src="../images/thumb/c/c2/OAuth2.0ERAmodel.png/900px-OAuth2.0ERAmodel.png" width="900" height="423" /></a></div></div>
+<p>Kao što se može vidjeti, korisnik može imati više resursa, a svaki resurs ima svoj tip resursa. Klijentima je omogućen pristup samo određenim tipovima resursa. Samim time, klijentske aplikacije mogu pristupiti samo zadanim tipovima resursa svojih korisnika. Svaki klijent ima svoj opseg koji opisuje koje operacije smije vršiti nad resursima. Dakle, neki klijenti smiju kreirati i brisati resurse, a neki ih smiju samo čitati.
+</p><p>Dalje u tekstu prikazat ću slike komunikacije aplikacije s aplikacijom.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:OAuth2.0DohvacanjeTokena.PNG" class="image"><img alt="OAuth2.0DohvacanjeTokena.PNG" src="../images/2/24/OAuth2.0DohvacanjeTokena.PNG" width="996" height="842" /></a></div></div>
+<p><br />
+Kako bismo mogli pristupiti resursima korisnika, moramo dohvatiti token kojim ćemo autentificirati korisnika kod autorizacijskog servera. Token dohvaćamo na način da šaljemo POST zahtjev prema aplikaciji s putanjom /oauth/token, a kao varijable šaljemo grant_type koji predstavlja način će se dodijeliti autorizacijske dozvole. Vrijednost varijable postavljena je na password. Odnosno, korisnik unosi svoje korisničko ime i lozinku. Također, osim korisnika, klijent mora poslati svoje podatke. Klijent šalje svoj id (fakultet_organizacije_i_informatike) i svoju tajnu. Slanjem zahtjeva, aplikacija provjerava unesene podatke te kreira token kojim možemo dohvatiti korisničke resurse. Vrijeme trajanja tokena iznosi 86400000 milisekundi, odnosno jedan dan. Opseg koji klijent ima je truest, što označava da klijent smije vršiti sve CRUD operacije nad korisničkim resursima.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:OAuth2.0DohvacanjeResursa.PNG" class="image"><img alt="OAuth2.0DohvacanjeResursa.PNG" src="../images/9/97/OAuth2.0DohvacanjeResursa.PNG" width="996" height="842" /></a></div></div>
+<p><br />
+Slanjem GET zahtjeva s putanjom /rest-api/dana, možemo dohvatiti sve podatke korisnika. Unutar urla, moramo navesti access_token. Token nam predstavlja podatke o korisniku i klijentu koji su se autentificirali. Pošto klijent s kojim želimo dohvatiti podatke ima opseg postavljen na truest, možemo dohvatiti podatke.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:OAuth2.0DodavanjeResursa.PNG" class="image"><img alt="OAuth2.0DodavanjeResursa.PNG" src="../images/b/be/OAuth2.0DodavanjeResursa.PNG" width="996" height="842" /></a></div></div>
+<p><br />
+Dodavanje novog resursa mogu napraviti klijenti koji imaju opseg truest ili write. Za dodavanje resursa, moramo poslati PUT zahtjev s putanjom /rest-api/data. Također, ponovo moramo navesti access_token. Unutar tijela zahtjeva šaljemo JSON objekt s podacima  od tipu resursa i sam resurs. 
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:OAuth2.0BrisanjeResursa.PNG" class="image"><img alt="OAuth2.0BrisanjeResursa.PNG" src="../images/a/aa/OAuth2.0BrisanjeResursa.PNG" width="996" height="842" /></a></div></div>
+<p><br />
+Brisanje resursa mogu napraviti klijenti koji imaju opseng truest ili delete. Kako bi obrisali postojeći resurs, šaljemo DELETE zahtjev s putanjom /rest-api/data. Kao i svaki put do sada, unutar urla moramo navesti access_token. Unutar tijela zahtjeva, šaljemo JSON objekt koji unutar sebe ima identifikacijsku oznaku resursa koji želimo obrisati. Ukoliko identifikacijska oznaka nije točna, aplikacija vraća grešku. Također, aplikacija vraća grešku ako klijent nema pravo pristupa tom tipu resursa ili korisnik nije vlasnik tog resursa.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Aplikacija_.28Implementacija_prijave_preko_Facebooka.29"> Aplikacija (Implementacija prijave preko Facebooka) </span></h3>
+<p>GitHub: <a href="https://github.com/pvlahovic1/sis_oauth2_facebook" class="external free" rel="nofollow">https://github.com/pvlahovic1/sis_oauth2_facebook</a>
+</p><p>Aplikacija za prijavu preko Facebooka implementirana je u Spring Boot razvojnom okviru. Prije samog razvoja potrebno je registrirati novu aplikaciju na Facebooku. U OAuth jeziku to bi značilo da se klijent (moja aplikacija) mora registrirati kod servera (Facebook). Nakon registracije aplikacije, unutar dokumentacije možemo pronaći potrebne parametre za uspješnu komunikaciju.
+</p><p>Prednost ovakvog pristupa je u tome što naša baza ne mora sadržavati podatke o korisniku već sve podatke možemo preuzeti preko Facebooka. Zbog toga unutar ERA dijagrama ne moramo imati tablicu koja predstavlja role korisnika i tablice s posebnim podacima o korisniku. 
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PvlahovicSISERA.PNG" class="image"><img alt="PvlahovicSISERA.PNG" src="../images/2/25/PvlahovicSISERA.PNG" width="468" height="180" /></a></div></div>
+<p><br />
+Unutar tablice user nalaze se Facebook id i ime korisnika. Navedeni podaci dohvaćaju se prilikom prve prijave korisnika u aplikaciju. Data tablica predstavlja bilješke korisnika koje korisnik može kreirati i brisati.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PvlahovicSISlogin.PNG" class="image"><img alt="PvlahovicSISlogin.PNG" src="../images/thumb/e/e8/PvlahovicSISlogin.PNG/1024px-PvlahovicSISlogin.PNG" width="1024" height="555" /></a></div></div>
+<p><br />
+Slika prikazuje ekran aplikacije na kojoj se potrebno prijaviti. Na slici je vidljivo da je jedini način prijave putem Facebooka. Nakon pritiska na gumb za prijavu, aplikacija nas preusmjerava na Facebook stranicu za prijavu.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PvlahovicSISloginFace.PNG" class="image"><img alt="PvlahovicSISloginFace.PNG" src="../images/thumb/6/67/PvlahovicSISloginFace.PNG/1024px-PvlahovicSISloginFace.PNG" width="1024" height="555" /></a></div></div>
+<p><br />
+Slika predstavlja Facebook stranicu za prijavu. Prilikom prijave Facebook od korisnika traži prihvaćanje svih dozvola koje aplikacija traži. Nakon uspješne prijave, Facebook korisnika preusmjerava natrag na početnu aplikaciju.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PvlahovicSISuserLogin.PNG" class="image"><img alt="PvlahovicSISuserLogin.PNG" src="../images/thumb/2/2f/PvlahovicSISuserLogin.PNG/1024px-PvlahovicSISuserLogin.PNG" width="1024" height="555" /></a></div></div>
+<p><br />
+</p><p>Slika prikazuje korisničko sučelje aplikacije. Unutar aplikacije svaki korisnik vidi samo svoje bilješke. Iste može brisati te po potrebi dodavati nove.
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>OAuth 1.0 i OAuth 2.0 su autentifikacijski protokoli kojima je cilj omogućiti novi način komunikacije. Protokoli omogućuju dohvaćanje resursa nekog korisnika bez potrebe da korisnik dijeli korisničke podatke sa serverom. OAuth 2.0 još nije standard, ali u praksi se sve više koristi. Postoje Internet skupine koje se protive standardizacije OAuth 2.0 razvojnog okvira. Daljnjim razvojem tehnologija, nastajat će novi sigurnosni zahtjevi koji će se morati detaljno analizirati i riješiti.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. <a href="https://tools.ietf.org/html/rfc5849" class="external text" rel="nofollow">RFC-5849 oAuth 1.0 protokol</a>
+</p><p>2. <a href="https://tools.ietf.org/html/rfc6749" class="external text" rel="nofollow">RFC-6749 oAuth 2.0 razvojni okvir</a>
+</p><p>3. <a href="https://hueniverse.com/oauth-2-0-and-the-road-to-hell-8eec45921529" class="external text" rel="nofollow">OAuth 2.0 and the Road to Hell</a>
+</p><p>4. <a href="https://spring.io/guides/tutorials/spring-boot-oauth2/" class="external text" rel="nofollow">Spring Boot oAuth 2.0 specifikacija</a>
+</p><p>5. <a href="https://docs.spring.io/spring-social/docs/1.1.0.RELEASE/reference/htmlsingle/" class="external text" rel="nofollow">Spring Security oAuth 2.0 dokumnetacija</a>
+</p><p>6. <a href="https://developers.facebook.com/docs/facebook-login/access-tokens" class="external text" rel="nofollow">Facebook oAuth 2.0 tokeni</a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Klju.C4.8Dni_pojmovi"> Ključni pojmovi </span></h2>
+<ul><li>OAuth 1.0
+</li><li>OAuth 2.0
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 47/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9893-0!*!0!!hr!2!edit=0 and timestamp 20190203204137 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="OAuth_autorizacija.html">http://security.foi.hr/wiki/index.php/OAuth_autorizacija</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=OAuth_autorizacija" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="OAuth_autorizacija.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:OAuth_autorizacija&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="OAuth_autorizacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="OAuth_autorizacija.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=OAuth_autorizacija&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=OAuth_autorizacija&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="OAuth_autorizacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/OAuth_autorizacija" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/OAuth_autorizacija" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=OAuth_autorizacija&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=OAuth_autorizacija&amp;oldid=42224" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 19:54, 22. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 341 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "OAuth_autorizacija", "wgTitle": "OAuth autorizacija", "wgAction": "view", "wgArticleId": 9893, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42224, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.360 secs. -->			</body>
+</html>

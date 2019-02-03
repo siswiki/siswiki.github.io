@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Spring Security - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Spring_Security&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Spring_Security skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Spring Security</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Spring_Security.html#mw-head">orijentacija</a>,
+					<a href="Spring_Security.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi: 
+Leon Palaić
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Lpalaic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Lpalaic (stranica ne postoji)">Lpalaic</a> 23:08, 12. studenog 2015. (CET) Leon Palaić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Spring_Security.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Spring_Security.html#Tehnologije"><span class="tocnumber">2</span> <span class="toctext">Tehnologije</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Spring_Security.html#ERA_model"><span class="tocnumber">3</span> <span class="toctext">ERA model</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Spring_Security.html#Spring_Security"><span class="tocnumber">4</span> <span class="toctext">Spring Security</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Spring_Security.html#Moduli_Spring_Security-a"><span class="tocnumber">5</span> <span class="toctext">Moduli Spring Security-a</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Spring_Security.html#Autentifikacija"><span class="tocnumber">6</span> <span class="toctext">Autentifikacija</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Spring_Security.html#Autorizacija"><span class="tocnumber">7</span> <span class="toctext">Autorizacija</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Spring_Security.html#CSRF"><span class="tocnumber">8</span> <span class="toctext">CSRF</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Spring_Security.html#SSL"><span class="tocnumber">9</span> <span class="toctext">SSL</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Spring_Security.html#OAuth2"><span class="tocnumber">10</span> <span class="toctext">OAuth2</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Spring_Security.html#Zaklju.C4.8Dak"><span class="tocnumber">11</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Spring_Security.html#Literatura"><span class="tocnumber">12</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Uvod">Uvod</span></h2>
+<p>Razvoj sigurnih web aplikacija nije jednostavan posao stoga se razvila potreba za razvojnim okvirima koji će olakšati taj posao. Jedan takav razvojni okvir je Spring Security. Spring Security je razvojni okvir koji pruža mogućnosti autentifikacije, autorizacije te sprječavanje određenih napada kao što su session fixation i cross site request forgery unutar aplikacija baziranih na JVM-u (Java, Groovy, Scala). Važno je napomenuti da ovaj razvojni okvir ne rješava sve probleme iz OWASP top 10 problema. Unutar ovog projekta razvit ćemo jednostavnu aplikaciju kako bi pokazali funkcionalnosti Spring Security-a. Cilj ovog projekta je pružiti niz primjera korištenja i konfiguriranja Spring Security-a kako čitatelji ne bi sami morali trošiti vrijeme na istraživanje i razumijevanje ovog razvojnog okvira.
+</p>
+<h2> <span class="mw-headline" id="Tehnologije">Tehnologije</span></h2>
+<p>Za potrebe razvoja primjera koji koriste Spring Security okvir, koristit ćemo Java programski jezik sa Spring Frameworkom kako bi ubrzali implementaciju, Hibernate kao ORM za manipuliranje s bazom podataka te MySQL kao bazu podataka.
+</p>
+<h2> <span class="mw-headline" id="ERA_model">ERA model</span></h2>
+<div class="thumb tleft"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SecurityEra.png" class="image"><img alt="" src="../images/thumb/e/e1/SecurityEra.png/200px-SecurityEra.png" width="200" height="151" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SecurityEra.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Era model</div></div></div>
+<p>Kako bi implementirali primjere napravljen je ERA model kao u prilogu. Model je jednostavan te će se sastojati od tablice role, person i test_data. Tablica role služi kao šifarnik za korisničke ovlasti u sustavu, tablica person za podatke o korisniku te tablica test_data za podatke koje će korisnici unositi.
+</p>
+<h2> <span class="mw-headline" id="Spring_Security">Spring Security</span></h2>
+<p>Spring Security ima dva glavna područja na koje je usmjeren, a to su: autentifikacija i autorizacija. Spring je sam po sebi aplikacijski kontejner za razvoj aplikacija. Spring dolazi u formi jednog ili više aplikacijskih konteksta. Aplikacijski kontekst služi za konfiguraciju objekata koji izvršavaju logiku, dohvaćaju podatke, odgovaraju na HTTP zahtjeve, konfiguriranje komunikacije između objekata te mnoge druge stvari. Zapravo možemo reći da je aplikacijski kontekst opisnik aplikacije koji sadrži sve potrebno kako bi aplikacija radila. S obzirom da je Spring Security razvojni okvir za sigurnost on koristi svoj sigurnosni aplikacijski kontekst. Glavni objekt s kojim Spring Security radi je SecurityContextHolder koji pohranjuje podatke sigurnosnog aplikacijskog konteksta. Sigurnosni aplikacijski kontekst sadrži objekte za autentifikaciju, autorizaciju te ostale objekte s aspekta sigurnosti aplikacije. Više o objektima sigurnosnog aplikacijskog konteksta u poglavljima o autentifikaciji i autorizaciji. Uz sigurnosni kontekst važno je znati što su filteri u Java svijetu i kako oni rade. Filteri služe za presretanje i preusmjeravanje zahtjeva i odgovora prema određenim resursima. Također filteri mogu modificirati, odbijati, preusmjeravati ili prosljeđivati zahtjeve i odgovore. Spring Security se sastoji od niza sigurnosnih filtera koji obrađuju zahtjeve i odgovore prema resursima aplikacije.
+</p>
+<h2> <span class="mw-headline" id="Moduli_Spring_Security-a">Moduli Spring Security-a</span></h2>
+<p>Spring Security se sastoji od niza modula različitih funkcionalnosti. Moduli Spring Security-a su:
+</p>
+<ol><li> Core modul - služi za autentifikaciju te sadrži klase i sučelja za autorizaciju i prava pristupa objektima.
+</li><li> Crypto modul - pruža mogućnosti simetrične enkripcije, generiranje ključeva te kodiranje znakova
+</li><li> Security Remoting modul - služi za intefraciju Spring Security-a s Spring Remoting modulom
+</li><li> Web modul - sadrži sve Serverlet ovisnosti, filtere i ostalu infrastrukturu kako bi usluge autentifikacije i kontrole pristupa bile moguće
+</li><li> Config modul - sadrži prostor funkcijskih imena kako bi mogli konfigurirati Spring Security putem XML-a.
+</li><li> LDAP - sadrži potrebnu infrastrukturu za korištenje LDAP protokola.
+</li><li> ACL (access control list) modul - služi za primjenjivanje sigurnosnih konfiguracija resursima unutar aplikacije
+</li><li> CAS modul - omogućava CAS single sign on protokol
+</li><li> OpenID modul - omogućava autentifikaciju putem OpenID protokola
+</li></ol>
+<h2> <span class="mw-headline" id="Autentifikacija">Autentifikacija</span></h2>
+<p>Za početak prikazat ćemo postupak rada unutar Spring Security razvojnog okruženja. Sam postupak se sastoji od niza koraka:
+</p>
+<ol><li> Korisnik unosi korisničko ime i lozinku
+</li><li> Sustav verificira korisničko ime i lozinku
+</li><li> Dohvaćaju se korisnikove informacije (prava pristupa itd.) i pohranjuju u sigurnosni kontekst
+</li><li> Korisnik obavlja akcije u sustavu te AC (acess control) mehanizam provjerava dozvole korisnika za određene operacije
+</li></ol>
+<p>Sama autentifikacija korisnika odvija se unutar prva tri koraka prethodnog postupka. 
+Kako bi se korisnik autentificirao unutar sustava Spring Security mora pokupiti same informacije o korisniku. Za potrebe dohvaćanja podataka o korisnicima Spring Security ima definirano sučelje UserDetails koje služi kao poveznica između baze podataka korisnika i sigurnosnog konteksta. Kako bi se sigurnosnom kontekstu pružili podatci o korisniku moramo definirati način kako povezati UserDetails objekt i sigurnosni kontekst. Spring Security za tu potrebu ima definirano sučelje UserDetailsService. UserDetailsSerivce će koristiti UserDetails za instanciranje objekta s korisničkim podatcima te će se na temelju tih podataka konstruirati Authentication objekt koji će se spremiti u sigurnosni kontekst. Prilikom unosa korisničkog imena i lozinke Spring Security gradi Authentication objekt te ga predaje AuthenticationManageru koji taj objekt prosljeđuje AuthenticationProvideru koji obavlja samu autentifikaciju. Nakon što AuthenticationProvider obavi autentifikaciju vraća AuthenticationToken AutjenticationManageru ukoliko je korisnik uspješno autentificiran ili podiže iznimku koju obrađuje AuthenticationManager. U slučaju da je korisnik uspješno autentificiran podatci o korisniku se pohranjuju unutar sigurnosnog konteksta putem Authentication objekta. Sada kada znamo nešto više o samom procesu možemo krenuti konstruirati kostur našeg programa. Za početak ćemo unutar application.properties-a definirati podatke za spajanje na bazu podataka, port na kojem ćemo pokrenuti server.
+</p>
+<pre>
+server.port=8080 
+spring.datasource.url: jdbc:mysql://localhost:3306/dtp 
+spring.datasource.username: username
+spring.datasource.password: pasword
+spring.datasource.driverClassName: com.mysql.jdbc.Driver 
+</pre>
+<p>Kako bi dodali Spring Security u projekt potrebno je u pom.xml dodati sljedeću ovisnost.
+</p>
+<pre>
+&lt;dependency&gt;
+           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+           &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</pre>
+<p>Spring Security unutar svog Crypto modula sadrži simetrične načine kriptiranja korisnikovih lozinki. S obzirom da Crypto modul ne sadrži implementacije određenih hash funckija osim BCrypt-a dodat ćemo implementaciju PBKDF2  unutar našeg projekta. Unutar klase implementirati ćemo funkcije authenthicate koja će unesenu lozinku hashirati zajedno sa saltom spremljene lozinke te ju zatim usporediti sa spremljenom lozinkom, getEncryptedPassword koja vraća generiranu lozinku u heksadecimalnom zapisu, generateSalt funkciju koja će generirati salt te funkcije. Važno je napomenuti da je preporuka da se svake dvije godine broj iteracija PBKDF2 algoritma povećava za duplo. Treba napomenuti da SecretKeyFactory vraća lozinku u byte-ovima, a mi smo naveli da u bazi spremamo lozinke u formatu varchar stoga ćemo ju pretvoriti u heksadecimalni format.
+</p>
+<pre>
+public final class PBKDF2 {
+    
+    public static boolean authenticate(String attemptedPassword, String encryptedPassword, String salt)
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+     byte [] encryptedPasswordArray = fromHex(encryptedPassword);
+    
+     String encryptedAttemptedPassword = getEncryptedPassword(attemptedPassword, salt);
+
+     byte [] attemptedEncryptedPasswordArray = fromHex(encryptedAttemptedPassword);
+     
+     return Arrays.equals(encryptedPasswordArray, attemptedEncryptedPasswordArray);
+ }
+
+    public static String getEncryptedPassword(String password, String salt)
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+     byte [] saltArray = fromHex(salt);   
+        
+     String algorithm = &quot;PBKDF2WithHmacSHA256&quot;;
+
+     int derivedKeyLength = 256;
+
+     int iterations = 100000;
+
+     KeySpec spec = new PBEKeySpec(password.toCharArray(), saltArray, iterations, derivedKeyLength);
+
+     SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
+
+     return toHex(f.generateSecret(spec).getEncoded());
+
+    }
+
+    public static String generateSalt() throws NoSuchAlgorithmException {
+
+     SecureRandom random = new SecureRandom();
+     byte[] salt = new byte[32];
+     random.nextBytes(salt);
+
+     return toHex(salt);
+
+    }
+    
+    
+}
+</pre>
+<p>S obzirom da ćemo koristiti nasumični salt za svakog korisnika prilikom autentifikacije napravit ćemo svoje sučelje koje će naslijediti UserDetails i dodati funkciju koja će vraćati salt korisnika.
+</p>
+<pre>
+public interface UserSaltDetails extends UserDetails {
+    
+    public String getUserSalt();
+    
+}
+</pre>
+<p>Kako bi dohvaćali podatke kreirat ćemo PersonRepository koji će nam služiti kao DAO za tablicu person iz naše baze.
+</p>
+<pre>
+@Repository
+@Table(name=&quot;person&quot;)
+public interface PersonRepository extends JpaRepository&lt;Person, String&gt; {
+    
+   
+    public Person findByIdPerson(long id);
+    
+    public Person findByCredentialsUsername(String username);
+    
+}
+</pre>
+<p>Sada kada smo postavili repozitorij korisnika te definirali svoj UserDetails koji smo nazvali UserSaltDetails vrijeme je da napravimo UserDetailsService. Naš UserDetailsService nazvat ćemo PersonDetailsService koji će naslijediti UserDetailsService te ćemo preopteretiti funkciju loadUserByUsername koja će nam vratiti podatke o korisniku na temelju korisnikovog korisničkog imena. Nadalje ćemo definirati da nam Spring dodijeli instancu PersonRepositorya unutar PersonDetailsService-a. Također preostaje nam definirati klasu koja će implementirati naše metode iz UserSaltDetails za te potrebe ćemo napraviti unutarnju klasu PersonRepositoryUserDetails koja će naslijediti klasu Person te implementirati metode iz sučelja. 
+</p>
+<pre>
+@Service
+public class PersonDetailsService implements UserDetailsService {
+    
+    private PersonRepository personRepository;
+
+    @Autowired
+    public PersonDetailsService(PersonRepository personRepository) {
+            this.personRepository = personRepository;
+    }
+
+    @Override
+    public UserSaltDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            Person user = personRepository.findByCredentialsUsername(username);
+            if (user == null) {
+                    throw new UsernameNotFoundException(String.format(&quot;User&#160;%s does not exist!&quot;, username));
+            }
+            
+            return new PersonRepositoryUserDetails(user);
+    }
+
+    private final  class PersonRepositoryUserDetails extends Person implements UserSaltDetails {
+
+            
+           
+            private PersonRepositoryUserDetails(Person user) {
+
+                    super(user);
+      
+            }
+
+            @Override
+            public String getUsername() {
+                    return getCredentials().getUsername();
+                            
+            }
+
+            @Override
+            public boolean isAccountNonExpired() {
+                    return true;
+            }
+
+            @Override
+            public boolean isAccountNonLocked() {
+                    return true;
+            }
+
+            @Override
+            public boolean isCredentialsNonExpired() {
+                    return true;
+            }
+
+            @Override
+            public boolean isEnabled() {
+                    return true;
+            }
+
+            @Override
+        public String getPassword() {
+            return getCredentials().getPassword();
+        }
+        
+        @Override
+        public String getUserSalt(){
+            return getSalt();
+        }
+
+        @Override
+        public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+            
+            HashSet authorities= new HashSet&lt;GrantedAuthority&gt;();
+            authorities.add(new SimpleGrantedAuthority(getRole().getName()));
+            return authorities;
+            
+        }
+
+    }
+    
+}
+
+</pre>
+<p>Preostaje nam još definirati AuthenticationProvider-a koji će obavljati autentifikaciju korisnika. Ranije smo naveli da AuthenticationManager prosljeđuje Authentication objekt Provideru. Stoga ćemo definirati Providera koji će koristiti PersonDetailsService za dohvaćanje podataka o korisniku te PBKDF2 za provjeravanje unesene lozinke i lozinke korisnika. Ukoliko je lozinka točna Provider će vratiti Token sa objektom UserSaltDetails, korisničkom lozinkom te ovlastima koje korisnik ima u sustavu. O korisničkim ovlastima bit će govora unutar odjeljka o autorizaciji. 
+</p>
+<pre>
+@Component
+public class PBKDF2AuthProvider implements AuthenticationProvider{
+    
+     @Autowired
+     private PersonDetailsService userService;
+
+    @Override
+    public Authentication authenticate(Authentication a) throws AuthenticationException {
+        
+         
+             String username = a.getName();
+              
+           
+             
+             if( username == null)
+                 throw new BadCredentialsException(&quot;Username not found.&quot;);
+             
+             String password = (String) a.getCredentials();
+            
+             
+             
+             if( password == null )
+                 throw new BadCredentialsException(&quot;Password not found.&quot;);
+             
+          
+             
+             UserSaltDetails user = userService.loadUserByUsername(username);
+             
+ 
+
+             boolean isAuthenticated = false; 
+             
+            try {
+                
+                isAuthenticated = PBKDF2.authenticate(password, user.getPassword(),user.getUserSalt());
+
+     
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(PBKDF2AuthProvider.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
+                Logger.getLogger(PBKDF2AuthProvider.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
+          if(!isAuthenticated)
+                 throw new BadCredentialsException(&quot;Wrong password.&quot;);
+          else
+                 Logger.getLogger(&quot;Auth&quot;).log(Level.INFO,
+                         &quot;Authenticated&quot;);
+
+         return new UsernamePasswordAuthenticationToken(user,user.getPassword(),user.getAuthorities());
+       
+    }
+
+    @Override
+    public boolean supports(Class&lt;? extends Object&gt; authentication) {
+         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+    }
+    
+}
+</pre>
+<p>Nakon što smo izradili infrastrukturu za autentifikaciju potrebno je omogućiti Spring Security unutar projekta. Kako bi omogućili Spring Security unutar projekta potrebno je izraditi klasu za konfiguraciju koja nasljeđuje WebSecurityConfigurerAdapter te pomoću anotacije @EnableWebSecurity omogućiti Spring Security. Kreirat ćemo klasu ConfSecurity koja će imati metode configureGlobal i configure. Unutar metode configureGlobal definirat ćemo AuthenticationManagera koji će koristiti AuthenticationProvidera kojeg smo ranije napravili. Te unutar metode configure definirat ćemo autorizacijske postavke naše aplikacije. Ovu metodu ćemo nadopuniti kasnije kada bude govora o autorizaciji.
+</p>
+<pre>
+@Component
+@EnableWebSecurity
+public class ConfSecurity extends WebSecurityConfigurerAdapter{
+
+    @Autowired
+    PBKDF2AuthProvider authenticationProvider;
+   
+    @Autowired
+          public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+               auth.authenticationProvider(authenticationProvider);
+
+          }	
+          
+  
+
+      @Override
+      protected void configure(HttpSecurity http) throws Exception {
+
+
+  }
+}
+</pre>
+<p>Spring Security pruža nekoliko mogućnosti definiranja UserDetailsService-a ukoliko ne želimo raditi samostalnu implementaciju. Jedan takav način je da okvir koristi JDBC kao izvor podataka. Ovaj način zaobilazi korištenje ORM-a te se direktno upitima na bazu dohvaćaju korisnički podatci bez dodatnog sloja ORM-a. Ukoliko Vaša aplikacija ne koristi ORM ovo je način za vas. U nastavku slijedi primjer koji koristi izvor podataka definiran unutar application.properties-a. Te na temelju UsernameQuerya-a dohvaća podatke o korisniku te zatim putem authoritiesByUsernameQuery dohvaća ovlasti korisnika.
+</p>
+<pre>
+@Autowired
+private DataSource dataSource;
+
+@Autowired
+public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	auth
+		.jdbcAuthentication()
+			.dataSource(dataSource)
+			.withDefaultSchema()
+                        .usersByUsernameQuery(getUserQuery())
+                        .authoritiesByUsernameQuery(getAuthoritiesQuery());;
+			
+}
+private String getUserQuery() {
+
+        return &quot;SELECT  username,  password &quot;
+                + &quot;FROM person &quot;
+                + &quot;WHERE username =&#160;?&quot;;
+
+}
+    
+   private String getAuthoritiesQuery(){
+         return &quot;SELECT  p.username, r.name &quot;
+                + &quot;FROM person p join role r  ON p.role_id = r.id_role&quot;
+                + &quot;WHERE p.username =&#160;?&quot;;
+}
+</pre>
+<p>Ukoliko imamo slučaj da prototipiramo aplikaciju te želimo izbjeći kompleksnost ranije navedenih načina, ovaj okvir omogućava In-Memory autentifikaciju. Koja je pogodna ukoliko moramo izdati brzo prototip same aplikacije. Primjer je dan u nastavku: 
+</p>
+<pre>
+@Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) {
+    auth
+      .inMemoryAuthentication()
+        .withUser(&quot;user&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;);
+  }
+
+
+  
+</pre>
+<p>Ukoliko ne želimo definirati vlastite resurse za kodiranje i dekodiranje lozinki možemo koristiti Crypto modul. Crypto modul pruža kodiranje lozinki putem hash algoritama kao što su MD5,SHA-1,SHA-256 te BCrypt algoritma. U nastavku je dan primjer korištenja BCrypt algoritma: 
+</p>
+<pre>
+@Autowired
+public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+	auth
+		.jdbcAuthentication()
+			.dataSource(dataSource)
+			.withDefaultSchema()
+			.withUser(&quot;user&quot;).password(&quot;//HASHLOZINKE&quot;).roles(&quot;USER&quot;).and()
+			.withUser(&quot;admin&quot;).password(&quot;//HASHLOZINKE&quot;).roles(&quot;USER&quot;, &quot;ADMIN&quot;)
+                        .and().passwordEncoder(encoder);
+
+}
+</pre>
+<h2> <span class="mw-headline" id="Autorizacija">Autorizacija</span></h2>
+<p>Unutar razvojnog okvira sve operacije vezane uz prava pristupa zaduženo je sučelje AccessDecisionManager. AccessDecisionManager unutar svoje metode decide koja prima Authentication objekt te na temelju njegovih prava dozvoljava pristup ili zabranjuje. Ranije smo definirali da prilikom uspješne autentifikacije se kreira Authentication objekt s podatcima o korisniku. Jedan takav podatak su i prava pristupa samog korisnika. Prava pristupa korisnika dobivena su ranije definiranom metodom unutar UserDetails sučelja. Referencirat ćemo se na klasu koju smo ranije napravili te prikazati metodu u navedenom primjeru:
+</p>
+<pre>
+        @Override
+        public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+            
+            HashSet authorities= new HashSet&lt;GrantedAuthority&gt;();
+            authorities.add(new SimpleGrantedAuthority(getRole().getName()));
+            return authorities;
+            
+        }
+</pre>
+<p>Kako bismo objasnili kako autorizacija radi unutar razvojnog okvira moramo znati što su interceptori. Interceptori su klase čije se metode pozivaju u konjukciji sa metodama klasa kojima je interceptor pridružen. Unutar Spring Security-a svi objekti koji su zaštićeni pravima pristupa dobivaju svoju interceptorsku klasu koja je podklasa AbstractSecurityInterceptor-a. Stoga ukoliko se poziva metoda zaštićenog objekta pozvat će se i pripadna metoda iz interceptora te klase. Unutar razvojnog okvira interceptori pozivaju AccessDecisionManager-a da donese odluku o konačnoj odluci je li korisnik ima pravo pristupa navedenom resursu. Naravno ovo se odvija na navedeni način ukoliko nismo implementirali svoju proceduru. Kako bi konfigurirali prava pristupa u našem projektu unutar metode configure definirat ćemo resurse te prava pristupa tim resursima. Spring Security konfiguracija postavlja se putem HttpSecurity objekta. Primjer konfiguracije za našu aplikaciju:
+</p>
+<pre>
+@Override
+      protected void configure(HttpSecurity http) throws Exception {
+
+          http
+                  .sessionManagement()
+                  .maximumSessions(1);
+          
+          http
+                  .csrf().disable()
+                  .authorizeRequests()
+                  .antMatchers(&quot;/admin-page.html&quot;).access(&quot;hasRole('ROLE_ADMIN')&quot;)
+                  .antMatchers(&quot;/user-page.html&quot;).access(&quot;isAuthenticated()&quot;)
+                  .antMatchers(&quot;/index.html&quot;,&quot;/register.html&quot;,&quot;spring-security.css&quot;).permitAll()
+                  .antMatchers(&quot;/register.html&quot;).permitAll()
+                  .and()
+                  .formLogin().loginPage(&quot;/login.html&quot;)
+                  .usernameParameter(&quot;username&quot;)
+                  .passwordParameter(&quot;password&quot;)
+                  .failureUrl(&quot;/login-error.html&quot;)
+                  .defaultSuccessUrl(&quot;/user-page.html&quot;)
+                  .and()
+                  .logout().logoutUrl(&quot;/logout&quot;)
+                  .logoutSuccessUrl(&quot;/index.html&quot;)
+                  .and().exceptionHandling().accessDeniedPage(&quot;/acces-denied-page.html&quot;);
+                  
+                  
+           
+
+  }
+</pre>
+<p>Unutar primjera definirali smo putanje te zaštitu samih tih putanja. Definirali smo da pravo pristupa administratorskoj stranici imaju samo administratori, korisničkoj stranici mogu pristupiti svi autentificirani korisnici te da pravo pristupa početnoj, registracijskoj, css dokumetnu i login stranici imaju svi korisnici pa i oni ne autentificirani. Ukoliko se ne definira vlastita login stranica Spring Security će koristiti svoju defaultnu stranicu za login. Stoga smo u ovom primjeru definirali svoju login stranicu sa parametrima koje korisnik šalje, stranicom u slučaju neuspjeha pri loginu, stranicu na koju se preusmjerava prilikom uspješnog login-a. Također definirali smo logout putanju, stranicu na koju se preusmjerava prilikom uspješnog logouta te stranicu koja će se prikazati prilikom pristupa zabranjenih resursa. Za sad smo zabranili Cross Site Request Forgery zaštitu nju ćemo obraditi u posebnom ulomku. Kao što vidimo putem antMatchers-a štitimo putanje do pojedinih resursa aplikacije. Spring Securiy uz ovaj način pruža i način štićenja resursa putem anotacija. Tako možemo štiti klase, sučelja te njihove metode. Kako bi uključili ovaj način moramo dodati anotaciju @EnableGlobalMethodSecurity (prePostEnabled = true) iznad naše ConfSecurity klase. U nastavku prikazat će se nekoliko primjera štićenja reusursa na ovaj način. Postoji nekoliko načina štićenja na ovaj način, a to su @PreAuthorize i @PostAuthorize odnosno prije i nakon autorizacije. U nastavku zaštitit ćemo metodu kontrolera koja vraća podatke o pojedinom korisniku te metodu DAO sučelja koja vraća podatke o osobi putem id-a osobe. Možemo vidjeti iznad same metode anotaciju @PreAuthorize te unutar nje izraz koji se mora zadovoljiti kako bi se metoda pozvala. Dozvoljeni izrazi unutar anotacija su izrazi pisani putem EL (Expression Language) jezika. Navedeni izraz dozvolit će pristup metodi ukoliko je korisnik autentificiran te ukoliko je njegov id jednak traženom id-u. Na ovaj način dozvolili smo pristup samo vlastitim podatcima.
+</p>
+<pre>
+ /**
+     * gets user with specified id
+     * @param id id of user
+     * @return person info with HTTP 200 on success or HTTP 404 on fail
+     */
+    @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
+    @PreAuthorize(&quot;isAuthenticated() and principal.idPerson == #id&quot;)
+    public ResponseEntity&lt;Person&gt; retrieveById(@PathVariable(&quot;id&quot;) long id) {
+        
+        Logger.getLogger(&quot;PersonController.java&quot;).log(Level.INFO,
+                &quot;GET on /person/&quot; + id + &quot; -- &quot;);
+        
+        Person found = this.personRepository.findByIdPerson(id);
+        if(found&#160;!= null) {
+            Logger.getLogger(&quot;PersonController.java&quot;).log(Level.INFO,
+                    &quot;User found for id &quot; + id + &quot;, returning &quot; + found.toString());
+            return new ResponseEntity(found, HttpStatus.OK);
+        } else {
+            Logger.getLogger(&quot;PersonController.java&quot;).log(Level.WARN,
+                    &quot;No user found for id &quot; + id);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+    }
+</pre>
+<p>Osim štićenja metoda klasa možemo štiti i metode sučelja. Primjer je dan u nastavku:
+</p>
+<pre>
+@Repository
+@Table(name=&quot;person&quot;)
+public interface PersonRepository extends JpaRepository&lt;Person, String&gt; {
+    
+    @PreAuthorize(&quot;isAuthenticated() and principal.IdPerson = #id&quot;)
+    public Person findByIdPerson(long id);
+    
+    public Person findByCredentialsUsername(String username);
+    
+}
+</pre>
+<h2> <span class="mw-headline" id="CSRF">CSRF</span></h2>
+<p>Cross site request forgery zaštita je automatski dodana unutar razvojnog okvira ukoliko se ne isključi kao što smo napravili u prošlom ulomku. Kako bismo uključili CSRF zaštitu eliminirat ćemo linije iz configure metode. Te će nam metoda sada izgledati kao u nastavku:
+</p>
+<pre>
+      @Override
+      protected void configure(HttpSecurity http) throws Exception {
+
+          http
+                  .sessionManagement()
+                  .maximumSessions(1);
+          
+          http
+                  .authorizeRequests()
+                  .antMatchers(&quot;/admin-page.html&quot;).access(&quot;hasRole('ROLE_ADMIN')&quot;)
+                  .antMatchers(&quot;/user-page.html&quot;).access(&quot;isAuthenticated()&quot;)
+                  .antMatchers(&quot;/index.html&quot;,&quot;/register.html&quot;,&quot;spring-security.css&quot;).permitAll()
+                  .antMatchers(&quot;/register.html&quot;).permitAll()
+                  .and()
+                  .formLogin().loginPage(&quot;/login.html&quot;)
+                  .usernameParameter(&quot;username&quot;)
+                  .passwordParameter(&quot;password&quot;)
+                  .failureUrl(&quot;/login-error.html&quot;)
+                  .defaultSuccessUrl(&quot;/user-page.html&quot;)
+                  .and()
+                  .logout().logoutUrl(&quot;/logout&quot;)
+                  .logoutSuccessUrl(&quot;/index.html&quot;)
+                  .and().exceptionHandling().accessDeniedPage(&quot;/acces-denied-page.html&quot;)
+                  .and().headers()
+                  .xssProtection();
+                  
+         
+
+  }
+</pre>
+<p>pring Security pretpostavlja da se stranice generiraju na poslužiteljskoj strani kao što je slučaj kod JSP-a, stoga ovo nije dovoljno jer naše stranice se ne generiraju na poslužiteljskoj strani. Ukoliko se razvija SPA, REST servis ili arhitektura koja nije vezana uz standardne Java EE aplikacije potrebno je definirati filter koji će prilikom zahtjeva korisnika vraćati CSRF token u HTTP zaglavlju. S obzirom da unutar Maven repozitorija postoji implementacija takvog filtera samo ćemo dodati ovisnost unutar našeg pom.xml-a kako bismo ga mogli koristiti. Da bismo dodali navedeni filter moramo dodati sljedeću ovisnost:
+</p>
+<pre>
+&lt;dependency&gt;
+    &lt;groupId&gt;com.allanditzel&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-security-csrf-token-filter&lt;/artifactId&gt;
+    &lt;version&gt;1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+<p>Zatim ćemo dodati sljedeće linije koda kako bismo registrirali filter u našoj aplikaciji.
+</p>
+<pre>
+           CsrfTokenResponseHeaderBindingFilter csrfTokenFilter = new CsrfTokenResponseHeaderBindingFilter();    
+           http.addFilterAfter(csrfTokenFilter, CsrfFilter.class);
+</pre>
+<p>Nakon što smo dodali filter u našu aplikaciju HTTP zaglavlja će izgledati kao na slici CSRF zaglavlje.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrftoken.png" class="image"><img alt="" src="../images/thumb/b/b6/Csrftoken.png/400px-Csrftoken.png" width="400" height="189" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrftoken.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>CSRF zaglavlje</div></div></div> 
+<p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+Kako bismo slali zahtjeve moramo uključiti CSRF token unutar istih. Da bismo dohvatili CSRF token moramo ga dohvatiti iz HTTP zaglavalja odgovora servera. U nastavku je primjer uključivanja tokena unutar login forme:
+</p>
+<pre>
+$.ajax({
+                type: 'GET',
+                url: '/index.html'
+ 
+            }).done(function (data, textStatus, jqXHR) {
+            var csrfToken = jqXHR.getResponseHeader('X-CSRF-TOKEN');
+            if (csrfToken) {
+                $('[name=&quot;_csrf&quot;]').val(csrfToken);
+            }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            });
+  
+</pre>
+<p>Unutar funkcije hvatamo CSRF token te njegovu vrijednost dodajemo inputu forme pod imenom _csrf.
+</p>
+<h2> <span class="mw-headline" id="SSL">SSL</span></h2>
+<p>Spring Security omogućava komunikaciju između poslužitelja i klijenata putem SSL protokola. Kako bismo postavili SSL protokol unutar našeg projekta potrebno je postaviti Tomcat, izgenerirati certifikat za poslužitelja i SSL je spreman za korištenje. Za početak ćemo kreirati keystore sa certifikatom za našeg poslužitelja. Key store pohranit ćemo unutar našeg projekta.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslkeygen.png" class="image"><img alt="" src="../images/thumb/8/84/Sslkeygen.png/800px-Sslkeygen.png" width="800" height="267" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sslkeygen.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Generiranje key store-a</div></div></div>
+<p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p><p><br />
+Nakon što smo izgenerirali key store potrebno je unutar application.properties-a dodati isti te promijeniti port na kojem se pokreće Tomcat. I postupak za navedeno ćemo učiniti kao u nastavku:
+</p>
+<pre>
+server.port=8443
+server.ssl.key-store=classpath:paz.keystore
+server.ssl.key-store-password= // 
+server.ssl.key-password= //
+</pre>
+<h2> <span class="mw-headline" id="OAuth2">OAuth2</span></h2>
+<p>Kako bi implementirali OAuth2 unutar Spring Security-a moramo znati osnove o samom protokolu. Kako bi znali kako sam protokol radi moramo znati koje sve uloge postoje unutar samog protokola. OAuth definira 4 uloge, a to su:
+</p>
+<ol><li> Resource Owner (Vlasnik resursa) - strana koja želi podijeliti resurse. Na primjer osoba želi podijeliti svoje fotografije ili aplikacija koja poslužuje određene podatke
+</li><li> Resource Server (Poslužitelj resursa) - kao što samo ime govori ova uloga se odnosi na poslužitelja koji poslužuje resurse Resource Owner-a
+</li><li> Client (Klijent) - aplikacija koja zahtjeva pristup resursima koji se poslužuju na Resource Server-u
+</li><li> Authorization Server (Autorizacijski poslužitelj) - služi za autorizaciju klijentskih aplikacija koje žele pristupiti određenom resursu.
+</li></ol>
+<p>Tok protokola je definiran na slici u nastavku.<br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Oauth2.png" class="image"><img alt="Oauth2.png" src="../images/b/bb/Oauth2.png" width="481" height="271" /></a>
+</p><p>Sada kada znamo uloge i sam tok protokola znamo što sve trebamo implementirati. Kao primjer implementacije OAuth protokola poslužiti ću se projektom napravljenim na Ready Steady Code natjecanju. Sada kada znamo kako autentifikacija radi unutar Spring Security-a za potrebe autentifikacije korisnika koristit ćemo zadanog AuthenticationProvidera Spring Security-a te vlastiti UserDetailsService kojeg smo ranije definirali. Vrijeme je da definiramo komponente potrebne za OAuth2 protokol. Kreirat ćemo OAuthServerConfiguration klasu u kojoj ćemo definirati poslužitelj resursa, autorizacijski poslužitelj, repozitorij tokena te definirati koje klijentske aplikacije mogu pristupiti našem server-u. U ovom primjeru resursi koji su zaštićeni bit će putanje do kontrolera REST servisa. Kako bi definirali resurse unutar Spring Secuirty-a moramo definirati njihov jedinstveni identifikator te unutar poslužitelja resursa registrirati resurs putem identifikatora te konfigurirati postavke autorizacije za registrirani resurs. Važno je napomenuti da na ovaj način možemo definirati više štićenih resursa. Kako bi omogućili poslužitelja resursa moramo kreirati klasu te ju anotirati sa anotacijom @EnableResourceServer te unutar nje navesti ranije navedene postavke. Primjer konfiguriranja dan je u nastavku.
+</p>
+<pre>
+
+    private static final String RESOURCE_ID = &quot;rsc-rest&quot;;
+    @Configuration
+    @EnableResourceServer
+    protected static class ResourceServerConfiguration extends
+                    ResourceServerConfigurerAdapter {
+
+            @Override
+            public void configure(ResourceServerSecurityConfigurer resources) {
+                    resources
+                            .resourceId(RESOURCE_ID);
+            }
+
+            @Override
+            public void configure(HttpSecurity http) throws Exception {
+                    http
+                            .authorizeRequests()
+                                    .antMatchers(&quot;/person/signup&quot;).anonymous()
+                                    .antMatchers(&quot;/game/*&quot;).authenticated()
+                                    .antMatchers(&quot;/team/*&quot;).authenticated()
+                                    .antMatchers(&quot;/maps/*&quot;).authenticated()
+                                    .antMatchers(&quot;/notification/*&quot;).authenticated()
+                                    .antMatchers(&quot;/mapsobstacles/*&quot;).authenticated()
+                                    .antMatchers(&quot;/person/*&quot;).authenticated();
+            }
+</pre>
+<p>Nadalje potrebno je definirati autorizacijskog poslužitelja. Unutar autorizacijskog poslužitelja moramo definirati upravljanje i spremanje tokena, dodijeliti AuthenticationManagera koji će obavljati autentifikaciju, definirati pristupne točke za dohvaćanje tokena te definirati klijentske aplikacije koje će koristiti autorizacijskog poslužitelja. Za početak ćemo kreirati klasu AuthorizationServerConfiguration te ju anotirati sa anotacijom @EnableAuthorizationServer kako bi registrirali autorizacijskog poslužitelja. S obzirom da je aplikaciju bilo potrebno implementirati unutar 24 sata koristio sam InMemoryTokenStore za spremanje tokena kako bi razvoj bio što brži.
+</p>
+<pre>
+@Configuration
+    @EnableAuthorizationServer
+    protected static class AuthorizationServerConfiguration extends
+                    AuthorizationServerConfigurerAdapter {
+
+            private TokenStore tokenStore = new InMemoryTokenStore();
+
+            
+}
+</pre>
+<p>Nadalje potrebno je postaviti upravljanje tokena. Kako bi postavili upravljanje tokenima unutar razvojnog okvira koristit ćemo zadani servis Spring Security-a pod imenom DefaultTokenService. Ovaj servis se brine o kreiranju pristupnih tokena, spremanjem tokena i svih ostalih operacija vezanih uz tokene. Servisu ćemo dodijeliti ranije kreirani TokenStore te ćemo metodu iz primjera dodati u ranije spomenutu klasu.
+</p>
+<pre>
+            @Bean
+            @Primary
+            public DefaultTokenServices tokenServices() {
+                    DefaultTokenServices tokenServices = new DefaultTokenServices();
+                    tokenServices.setSupportRefreshToken(true);
+                    tokenServices.setTokenStore(this.tokenStore);
+                    return tokenServices;
+            }
+
+</pre>
+<p>Sada kada smo definirali način za upravljanje tokenima i spremanje potrebno je registrirati pristupne točke za autorizaciju korisnika te dohvaćanje tokena. Za te potrebe koristit ćemo zadanu putanju Spring Security-a:
+</p>
+<ol><li> /oauth/token - putanja za dohvaćanje pristupnih tokena 
+</li></ol>
+<p>Također za zadanu putanju definirat ćemo da koristi zadanog AuthenticationProvidera Spring Security-a te vlastiti UserDetailsService kojeg smo ranije definirali. Primjer implementacije::
+</p>
+<pre>
+            @Autowired
+            @Qualifier(&quot;authenticationManagerBean&quot;)
+            private AuthenticationManager authenticationManager;
+
+            @Autowired
+            private PersonDetailsService personDetailsService;
+
+            @Override
+            public void configure(AuthorizationServerEndpointsConfigurer endpoints)
+                            throws Exception {
+                    endpoints
+                            .tokenStore(this.tokenStore)
+                            .authenticationManager(this.authenticationManager)
+                            .userDetailsService(personDetailsService);
+            }
+</pre>
+<p>ZZa kraj nam preostaje definirati klijenta koji će autorizirati klijentske aplikacije. To ćemo napraviti unutar metode configure u kojoj ćemo definirati klijentsku aplikaciju, kojem resursu aplikacija ima pristup, kojim načinom korisnici dobivaju pristupne tokene te koje ovlasti ima nad resursom.
+</p>
+<pre>
+@Override
+            public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+                    clients
+                            .inMemory()
+                                    .withClient(&quot;angular&quot;)
+                                            .authorizedGrantTypes(&quot;password&quot;)
+                                            .authorities(&quot;ROLE_USER&quot;,&quot;ROLE_ADMIN&quot;)
+                                            .scopes(&quot;read&quot;, &quot;write&quot;)
+                                            .resourceIds(RESOURCE_ID);
+                                            
+            }
+</pre>
+<p>O Auth2 podržava nekoliko načina razmijene pristupnih tokena. Iz primjera možemo vidjeti da smo definirali klijenta pod imenom angular sa metodom authorizedGrantTypes ("password") definirali smo da pristupne tokene dobiva putem lozinke i korisničkog imena korisnika. Zatim smo definirali da role klijenta mogu biti USER i ADMIN te prava pristupa klijenta su read i write. Nakon ove konfiguracije postavili smo poslužiteljsku stranu za ovaj protokol. Te sada klijentske aplikacije mogu putem putanje /oauth/token dobiti svoj pristupni token. Primjer POST zahtjeva klijentske aplikacije za pristupnim tokenom:
+</p>
+<pre>
+https://localhost:8443/oauth/token?grant_type=password&amp;username=USERNAME&amp;password=PASSWORD&amp;client_id=CLIENT_ID
+</pre>
+<p>Nakon što server vrati pristupni token klijentske aplikacije moraju uključiti token unutar Authorization zaglavlja. Primjer jednog takvog zahtjeva:
+</p>
+<pre>
+curl -X POST -H &quot;Authorization: Bearer PRISTUPNI_TOKEN&quot;&quot;https://localhost:8443/person/1&quot; 
+</pre>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>Spring Security kao razvojni okvir najveću primjenu ima kao autorizacijski i autentifikacijski alat. Kao okvir uspješno rješava sljedeće OWASP TOP 10 problem:
+</p>
+<ol><li> A2 - Broken Authentication and Session Management - pružajući niz mehanizama za autentifikaciju i upravljanje sesijama
+</li><li> A4 - Insecure Direct Object References - pružajući mehanizme za autorizaciju unutar aplikacija
+</li><li> A6 - Sensitive Data Exposure - Crypto modul pruža niz kriptografskih mogućnosti kako bi zaštiti osjetljive podatke
+</li><li> A7 - Missing Function Level Access Control - pomoću autorizacijskih mehanizama unutar aplikacije
+</li><li> A8 - Cross-Site Request Forgery (CSRF) - pružajući podršku za generiranje i validaciju CSRF tokena
+</li></ol>
+<p>Također Spring Security ukoliko se koristi JDBC način rješava i problem SQL injection-a. No međutim ukoliko koristimo neki ORM moramo se pobrinuti da se na toj razini osiguramo od SQL injection vrste napada. Kada govorimo o SQL injectionu u Java svijetu najviše se grešaka događa prilikom korištenja HQL (Hibernate Query Language). Većinom ljudi misle da će se Hibernate u tom slučaju pobrinuti za sve. No HQL je samo upitni jezik te također moramo primijeniti najbolje prakse za izbjegavanje SQL injection napada. Spring razvojni okvir prilikom svojih implementacija JPA repozitorija rješava problem SQL injection, no međutim ukoliko sami odlučimo pisati HQL upite ili SQL upite moramo obavezno paziti. Vidimo da ostalih 5 OWASP problema Spring Security ne rješava, no sama svrha Spring Security-a nije rješavanje svih sigurnosnih probleme nego da služi kao glavna komponenta za izgradnju autorizacijskih i autentifikacijskih sustava. Što se tiče same autorizacije i autentifikacije ovaj okvir pruža niz mogućnosti te gotovo postao standard u Java EE svijetu.
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<ol><li><a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/" class="external text" rel="nofollow">Spring Security Reference</a>
+</li><li><a href="https://docs.spring.io/spring-security/site/docs/3.0.x/reference/springsecurity.html" class="external text" rel="nofollow">Spring Security </a>
+</li><li><a href="https://tools.ietf.org/html/rfc6749" class="external text" rel="nofollow">OAuth2  </a>
+</li><li><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2" class="external text" rel="nofollow">An Introduction to OAuth 2 </a>
+</li><li><a href="http://projects.spring.io/spring-security-oauth/docs/oauth2.html" class="external text" rel="nofollow">OAuth 2 Developers Guide</a>
+</li><li><a href="https://dzone.com/articles/securing-your-tomcat-app-ssl" class="external text" rel="nofollow">Securing Your Tomcat App with SSL and Spring Security</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 290/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8713-0!*!0!!hr!2!edit=0 and timestamp 20190203204228 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Spring_Security.html">http://security.foi.hr/wiki/index.php/Spring_Security</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Spring_Security" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Spring_Security.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Spring_Security&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Spring_Security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Spring_Security.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Spring_Security&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Spring_Security&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Spring_Security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Spring_Security" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Spring_Security" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Spring_Security&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Spring_Security&amp;oldid=37393" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 12:51, 18. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 12.409 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Spring_Security", "wgTitle": "Spring Security", "wgAction": "view", "wgArticleId": 8713, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37393, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.500 secs. -->			</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnost Django frameworka - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnost_Django_frameworka&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnost_Django_frameworka skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnost Django frameworka</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnost_Django_frameworka.html#mw-head">orijentacija</a>,
+					<a href="Sigurnost_Django_frameworka.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi: <br />
+Igor Čoklo <br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Icoklo&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Icoklo (stranica ne postoji)">Igor Čoklo</a> 20:41, 9. studenog 2015. (CET)
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnost_Django_frameworka.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Sigurnost_Django_frameworka.html#Hello_World_program"><span class="tocnumber">2</span> <span class="toctext">Hello World program</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Sigurnost_Django_frameworka.html#Injection"><span class="tocnumber">3</span> <span class="toctext">Injection</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Sigurnost_Django_frameworka.html#Broken_Authentication_and_Session_Management"><span class="tocnumber">4</span> <span class="toctext">Broken Authentication and Session Management</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Sigurnost_Django_frameworka.html#Cross-Site_Scripting_.28XSS.29"><span class="tocnumber">5</span> <span class="toctext">Cross-Site Scripting (XSS)</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Sigurnost_Django_frameworka.html#Cross_Site_Request_Forgery_.28CSRF.29"><span class="tocnumber">6</span> <span class="toctext">Cross Site Request Forgery (CSRF)</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Sigurnost_Django_frameworka.html#Za.C5.A1tita_podataka_kori.C5.A1tenjem_HTTPS_protokola"><span class="tocnumber">7</span> <span class="toctext">Zaštita podataka korištenjem HTTPS protokola</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Sigurnost_Django_frameworka.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Django je jedan od mnogih web programskih okvira za Python programski jezik. Django je besplatan i open source programski okvir koji olakšava izradu web aplikaciju i on se brine oko raznih gnjavaža vezanih uz web razvoj tako da se programer može fokusirati samo na izradu aplikacije, a Django će se pobrinuti za ostale low level detalje kao što su protokoli, soketi ili upravljanje procesima/dretvama. Django podržava mnoge baze podataka kao što su PostgreSQL, MySQL, Sqlite, Oracle, IBM DB2, Microsoft SQL Server, Firebird i mnoge druge. Django dolazi s bazom SQLite koja je ujedno i najjednostavnija za rad i oni koji se baš ne razumiju u baze i samo žele isprobati Django se nebi trebali zamarati drugim bazama jer im je ova sasvim dovoljna za testiranje Djanga. Django je web programski okvir koji slijedi  Model-View-Controller (MVC) dizajn koji se kod njega zove Model-View-Templates i označava sljedeće: model je zapravo entitet o kojem aplikacija prikuplja podatke, pogled (eng. view) je funkcija koja dohvaća te podatke iz baze i prikazuje ih na
+predlošku (eng. template). <br /> [1]
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Hello_World_program"> Hello World program </span></h2>
+<p>S obzirom da se Django okvir koristi za razvoj velikih web aplikacija, kad se stvori Django aplikacija tada nam se automatski kreiraju i određeni direktoriji: <br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Direktoriji.PNG" class="image"><img alt="Direktoriji.PNG" src="../images/0/0f/Direktoriji.PNG" width="356" height="492" /></a> 
+</p>
+<ul>
+<li> početna mapa se zove app i to je mapa u koju će se spremati sve datoteke i mape aplikacije </li>
+<li> nakon toga slijedi manage.py, to je alat naredbenog retka (komandne linije) koji omogućuje interakciju s Django projektom na razne načine </li>
+<li> unutrašnja mapa app je stvarni Python paket za moj projekt. </li>
+<li> app/__init__.py je prazna datoteka koja govori Pythonu da se ova mapa treba smatrati Python paketom </li>
+<li> app/settings.py - postavke trenutnog Django projekta </li>
+<li> app/urls.py - tu je zapravo popis svih url-a koji će se koristiti u Django aplikaciji.</li>
+<li> app/wsgi.py - polazna točka ako želimo postaviti svoju aplikaciju na neki web server kako bi ju ostali korisnici interneta mogli koristiti </li>
+</ul>
+<p>Unutar mape projektSis se zapravo nalazi moja aplikacija u kojoj ću pisati svoj kod, sad se možda zapravo pitate ćemu to kad se to sve moglo napraviti i u mapi app, to je zapravo zato jer je Django namijenjen izradi velikih
+projekata koji će se sastojati od više aplikacija. Ovdje ću reći razliku između projekta i aplikacije, naime aplikacija je web aplikacija koja radi određenu akciju, a projekt se sastoji od više aplikacija. Ostale stavke neću pojašnjavati zato jer zasad to nije potrebno. <br />
+Da bi se moglo kreirati jednostavnu Hello World aplikaciju potrebno je napraviti sljedeće stvari:
+</p>
+<ol>
+<li> trebamo reci serveru da kad se u adresnoj traci preglednika pojavi rijec <b>pocetna</b> da nas on preusmjeri na pogled '<b>projektSis.views.pocetna'</b>, a to ćemo napraviti sljedećom linijom koda u datoteci urls.py: 
+<pre> url(r'pocetna/', 'projektSis.views.pocetna',name='pocetna'), </pre> </li>
+<li> nakon toga trebamo definirati svoj pogled u datoteci views.py:
+<pre> 
+def pocetna(request):
+    return HttpResponse(&quot;Hello World!&quot;)
+</pre> </li> 
+<li> pokrenuti aplikaciju </li>
+</ol>
+<p>Nakon što to napravimo uspjeli smo napraviti Django Hello World program koji se prema zadanim postavkama može vidjeti na adresi <a href="http://localhost:8000/pocetna/" class="external free" rel="nofollow">http://localhost:8000/pocetna/</a>. <br /> [1]
+</p>
+<h2> <span class="mw-headline" id="Injection"> Injection </span></h2>
+<p>SQL injection je vrsta napada u kojem zlonamjerni korisnik može izvršavati proizvoljni SQL kod nad bazom podataka, ovo bi značilo da ako u aplikaciji postoji ranjivost na SQL injection tada zlonamjerni korisnik može raditi neke nedopuštene stvari nad bazom podataka: može saznati podatke o korisnicima aplikacije, može brisati te podatke, može ih objaviti negdje tako da su svima dostupni, itd. <br />
+Korištenjem Django querysets, rezultirajući SQL će biti siguran od napada kao što je SQL injection, ali Django također pruža programerima pisanje neobrađenih (eng. raw) upita. Kod korištenja takvih neobrađenih upita treba biti jako oprezan i izbjegavati korištenje parametara koje korisnik može kontrolirati jer ako programeri nisu oprezni mogli bi korištenjem neobrađenih upita napraviti aplikaciju koja je ranjiva na SQL injection. <br />
+Pošto Django koristi ORM (eng. Object-relational mapping) što je programska tehnika koja omogućuje programerima da koriste podatke iz baze kao objekte, tj. da im pristupaju kao objektima. Django Queryset predstavlja kolekciju objekata iz baze podataka koji se mogu filtrirati po raznim filterima. U SQL terminima QuerySet odgovara SELECT naredbi, a filtar je zapravo naredba WHERE ili LIMIT. <br />
+Primjer Django Queryset-a: <br />
+Ako u našoj bazi podataka postoji tablica korisnika(kod Djanga se korisnici dohvaćaju preko klase User) onda je veoma lagano dohvatiti sve korisnike iz baze podataka preko jednostavnog Queryset-a (bez da se koristi ikakav SQL upit):
+</p>
+<pre> korisnici=User.objects.all() </pre>
+<p>Isto tako se može veoma jednostavno dohvatiti bilo kojeg korisnika po njegovom IDu:
+</p>
+<pre> korisnik=User.objects.get(id=korisnikovID) </pre>
+<p>Django ima jako puno mogućnosti za dohvaćanje i filtriranje podataka iz baze. Ako programer želi napraviti aplikaciju koja je zaštićena od SQL injectiona tada treba koristiti već spremljene funkcije kod Djanga kojih zbilja ima mnogo, kao na primjer kod autentifikacije korisnika:
+</p>
+<pre>
+def prijava(request):
+    rijecnik={}
+    rijecnik.update(csrf(request))
+    return render(request,'prijava.html',rijecnik)
+
+def provjera_korisnika(request):
+    korisnicko_ime=request.POST['kime']
+    lozinka=request.POST['lozinka']
+    korisnik=auth.authenticate(username=korisnicko_ime,password=lozinka)
+
+    if korisnik is not None:
+        auth.login(request, korisnik)
+        return HttpResponse('Uspjesno ste se prijavili u aplikaciju')
+    else:
+        return HttpResponse('Neuspjesna prijava, provjerite jeste li unijeli dobre podatke!')
+</pre>
+<p>Kod pogleda prijava se samo prikazuje predložak prijava koji služi za prijavu u aplikaciju, a pogled provjera_korisnika koristi funkciju auth.authenticate za autentifikaciju korisnika, ako ova funkcija vrati None znači da korisnik ne postoji u bazi ili da su uneseni krivi podaci i tada će ovaj pogled ispisati u pregledniku tekst 'Neuspjesna prijava, provjerite jeste li unijeli dobre podatke!', a ako ne vrati None znači da korisnik postoji u bazi i sa funkcijom auth.login se korisnik prijavljuje u aplikaciju i ispisuje se tekst 'Uspjesno ste se prijavili u aplikaciju' . <br /> 
+Korištenjem neobrađenih upita riskira se da aplikacija bude ranjiva na SQL injection, ali ipak možda je u nekim situacijama potrebno koristiti taj način. Primjer korištenja neobrađenih upita nad tablicom korisnika:
+</p>
+<pre> 
+korisnici=User.objects.raw('SELECT * FROM auth_user')
+for k in korisnici:
+        print(k)
+</pre>
+<p>Ovo je primjer jednostavnog upita koji će nam vratiti sve korisnike iz tablice auth_user (tablica koju nam Django stvara i u nju se spremaju svi korisnici) <br />
+<br />
+[2],[3],[4]
+</p>
+<h2> <span class="mw-headline" id="Broken_Authentication_and_Session_Management"> Broken Authentication and Session Management </span></h2>
+<p>Broken Authentication and Session Management iliti problemi sa autentifikacijom i upravljanje sesijama je problem koji je povezan s krađom korisničkih podataka kao što su username ili password prilikom logina na neku stranicu. <br />
+Načini na koje web aplikacija može zakazati pri zaštiti korisničkog imena, lozinke i sessionIDa:
+</p>
+<ol>
+<li> nekriptirana konekcija (bez https) – svatko može vidjeti podatke koji se šalju preko nekriptirane veze, rješenje je omogućavanje enkripcije na zahtjevima koji sadrže osjetljive podatke</li>
+<li> predvidljivi podaci za prijavu u web aplikaciju: primjer korisničkog imena: 123456, qwerty, lozinka: 12345678, abc123 (jako loše kombinacije) , rješenje je tjeranje korisnika da koriste bolje lozinke pomoću regularnih izraza </li>
+<li> nema isteka sesije/sesija nije poništena kod logouta (problem je krađa sesije), rješenje je postavljanje isteka sesije nakon određenog vremena neaktivnosti i poništavanje sesije kod logouta </li>
+<li> sesion id se koristi u url-u, problem je krađa sesije, ako se nekom pošalje link sa id-om sesije u sebi tada se neki drugi korisnik može koristiti aplikacijom kao da je prijavljen kao neki drugi korisnik (ja se prijavim u app, pošaljem link kolegi koji u sebi ima sesion id i on koristi app i prijavljen je kao ja u toj aplikaciji), rješenje je: ne slati sesion id u url-u, nego ga slati u tijelu POST zahtjeva, to bi trebalo vrijediti za sve, ne slati osjetljive podatke u url-u nego u tijelu POST zahtjeva. </li>
+</ol>
+<p>Kod <b>Djanga</b> može nastati sljedeći problem: Na primjer napadač se može prijaviti na stranicu good.example.com i dobiti valjanu sesiju za svoj račun. Ako napadač ima kontrolu nad stranicom bad.example.com, on može iskoristiti tu stranicu kako bi poslao svoj ključ sesije nekom običnom korisniku zato jer poddomena dopušta postavljanje kolačića na sve stranice *.example.com. Dok obični korisnik posjeti stranicu good.example.com on će biti prijavljen kao napadač i mogao bi nehotice unijeti svoje osjetljive podatke (broj kreditne kartice) u napadačev račun. <br />
+Drugi napad koji bi se mogao desiti kod <b>Djanga</b> je ako bi stranica good.example.com postavila varijablu SESSION_COOKIE_DOMAIN (domena za spremanje sesijskih kolačića) na ".example.com" što bi prouzročilo da se sesijski kolačići od stranice good.example.com šalju stranici bad.example.com.
+<br />
+[5],[6]
+</p>
+<h2> <span class="mw-headline" id="Cross-Site_Scripting_.28XSS.29"> Cross-Site Scripting (XSS) </span></h2>
+<p>Cross-Site Scripting je tehnika napada kod koje napadač može ubaciti (injectati) nesigurne isječke javascript koda u našu aplikaciju bez validacije. Taj Javascript kod će se onda izvršiti kad neka žrtva posjeti zaraženu aplikaciju/stranicu. Postoji više vrsta XSS napada:
+</p>
+<ul>
+<li> Reflected XSS – napadač žrtvi šalje link do zaražene stranice/aplikacije pomoću email-a, društvenih mreža, itd. Taj link sadrži skriptu koja je ugrađena u stranicu/app i ta skripta se izvršava kad žrtva posjeti tu stranicu </li>
+<li> Stored XSS – napadač može trajno postaviti skriptu na određenu web stranicu koja će se izvršiti kad bilo tko posjeti tu stranicu </li>
+</ul>
+<p>Rizici koji se mogu desiti prilikom XSS napada:
+</p>
+<ul>
+<li> Kompromitiranje (razotkrivanje) podataka nekog korisnika web aplikacije ili preuzimanje korisničkog računa nekog korisnika </li>
+<li> Razotkrivanje podataka određene web aplikacije (podaci korisnika: lozinke, username, itd.) </li>
+<li> Modifikacija sadržaja na određenoj stranici </li>
+<li> Redirekcija žrtava na neke druge maliciozne stranice </li>
+<li> Web stranica postaje platforma za instalaciju svakakvih malware-a na žrtvina računala </li>
+</ul>
+<p>Zaštita od XSS napada:
+</p>
+<ul>
+<li> Korištenjem frameworka </li>
+<li> Postaviti sve cookije da koriste samo HttpOnly atribut – to će zaštiti cookie da ne bude dostupan malicioznim skriptama na klijentskoj strani </li>
+<li> Validacija korisničkog unosa (sav vanjski unos se treba smatrati malicioznim) </li>
+</ul>
+<p><b>Naputci vezani uz Django:</b> 
+korištenje Django predložaka nas štiti od većine XSS napada. Django predlošci <b>ispuštaju</b> (eng. escape) posebne znakove koji su posebno opasni kod HTML-a. Iako ovaj način štiti korisnike od većine malicioznih unosa, taj način nije potpuno siguran. Na primjer, ovaj način nas neće zaštiti od sljedećeg:
+</p>
+<pre>
+&lt;style class={{ var }}&gt;...&lt;/style&gt;
+</pre>
+<p>Ako je varijabla var postavljena na sljedeću vrijednost '<b>class1 onmouseover=javascript:func()'</b> to može rezultirati neovlaštenim izvršavanjem Javascript-a, ovisno o tome kako preglednik prikazuje nesavršen HTML. (citiranjem vrijednosti atributa class bi se riješio ovaj problem) <br />
+Također programeri Django aplikacija trebaju biti veoma oprezni kod spremanja HTML-a u bazu, osobito kad se taj HTML treba dohvatiti i prikazati.
+<br /> 
+[2] i [5]
+</p>
+<h2> <span class="mw-headline" id="Cross_Site_Request_Forgery_.28CSRF.29"> Cross Site Request Forgery (CSRF) </span></h2>
+<p>Ovo je tip ranjivosti koji omogućuje napadačima da natjeraju obične korisnike da izvode neke aktivnosti nesvjesno, kod csrf-a korisnici su obično nesvjesni da se maliciozne akcije izvode u pozadini. Na primjer: korisnik Igor se logira u aplikaciju svoje banke i on želi poslati Hrvoju 200kn za instrukcije iz programiranja, a u isto vrijeme dok je logiran na stranicu svoje banke ujedno je i na nekoj drugoj stranici koju kontrolira Ivan (zločesti haker) i sad Igor klikne da uplati novac s svojeg računa na Hrvojev, a Ivan u isto vrijeme presretne taj POST zahtjev i napravi sljedeću modifikaciju u formi i pošalje sebi novac:
+</p>
+<pre>
+&lt;form action=&quot;http://bank.com/transfer.do&quot; method=&quot;POST&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;account&quot; value=&quot;Ivan&quot;/&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;amount&quot; value=&quot;10000&quot;/&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Izvrši uplatu&quot;/&gt;
+&lt;/form&gt;
+</pre> 
+<p>Nakon toga na Ivanov račun dođe 10000 kuna, a Igor ostane bez svojih novaca bez da to prvotno nije znao, ali kad Igor pogleda sva svoja plačanja vidit će da je poslao novac Ivanu, a da Hrvoju nije poslao ni lipe.
+<br />
+<b>Django i CSRF:</b> Django ima ugrađenu zaštitu protiv većine vrsta csrf napada, pod uvjetom da su programeri omogućili tu zaštitu i koristili je tamo gdje je potrebno. Međutim ovdje se može desiti problem tako da na primjer programeri isključe csrf modul globalno ili ga samo isključe na određenim pogledima ==&gt; programeri bi to trebali raditi samo ako razumiju što rade. <br />
+CSRF zaštita radi tako da se provjeri postoji li nonce (number used only once) u svakom POST zahtjevu. Time je osigurano da zlonamjerni korisnik ne može ponoviti POST zahtjev na određenu stranicu kako bi na primjer prenio novac na svoj račun, da bi to napravio zlonamjerni korisnik bi trebao znati nonce, koji je specifičan za svakog korisnika. <br />
+Programeri trebaju biti veoma oprezni kada obilježavaju poglede sa <b>csrf_exempt</b> anotacijom (ona isključuje csrf modul) i tu anotaciju ne treba koristiti osim ako je apsolutno neophodno.
+<br />
+[2], [5]
+</p>
+<h2> <span class="mw-headline" id="Za.C5.A1tita_podataka_kori.C5.A1tenjem_HTTPS_protokola"> Zaštita podataka korištenjem HTTPS protokola </span></h2>
+<p>Uvijek je bolje za sigurnost implementirati web aplikaciju korištenjem HTTPS protokola. Bez ovog protokola, zlonamjerni korisnici mogu vidjeti sve podatke koji se šalju između klijentskog računala i servera te mogu te podatke iskoristiti kako bi se prijavili kao neki drugi korisnik i napravili neku štetu ili mogu čak mijenjati te podatke. Kad se koristi HTTPS protokol veza je kriptirana i zlonamjerni korisnik tada ne može raditi štetu korisnicima.
+<br /> 
+Ako <b>Django</b> programeri žele koristiti zaštitu koju HTTPS pruža u svojim web aplikacijama i ako server podržava HTTPS postoje neki dodatni koraci koji bi im mogli zatrebati:
+</p>
+<ul>
+<li> postavite varijablu SECURE_SSL_REDIRECT u postavkama projekta na True kako bi svi zahtjevi koji koriste HTTP bili preusmjereni na HTTPS. </li>
+<li> korištenje sigurnih kolačića - ako se preglednik na početku povezuje preko HTTP protokola što je zadana vrijednost za većinu preglednika moguće je vidjeti informacije koje postoje u već postojećim kolačićima, baš zbog toga je potrebno postaviti varijable SESSION_COOKIE_SECURE i CSRF_COOKIE_SECURE u postavkama projekta na True. Ove dvije postavke govore pregledniku da šalje već postojeće kolačiće samo preko HTTPS veze. Ovdje treba imati na umu da ako se te dvije varijable postave na True to označava da sesija neće raditi preko HTTP-a i da će CSRF zaštita spriječiti primanje POST podataka preko HTTP-a (sve će biti u najboljem redu ako se cijeli HTTP promet preusmjerava na HTTPS)  </li>
+<li> koristite HTTP Strict Transport Security (HSTS) - HSTS je tip HTTP zaglavlja koji obavještava preglednik da sve buduće veze prema određenoj stranici trebaju uvijek koristiti HTTPS. U kombinaciji s preusmjeravanjem zahtjeva sa HTTP-a na HTTPS, ova mogućnost će osigurati da sve veze koriste HTTPS. HSTS se može podesiti pomoću varijabli SECURE_HSTS_SECONDS i SECURE_HSTS_INCLUDE_SUBDOMAINS ili na web poslužitelju. </li>
+</ul>
+<p>[2]
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol>
+<li> Igor Čoklo (2015), Razvoj web aplikacija u Python-u, dostupno 10.01.2016 na <a href="http://services.foi.hr/thesis/web/tema/2437/file" class="external free" rel="nofollow">http://services.foi.hr/thesis/web/tema/2437/file</a> </li>
+<li> Security in Django, <a href="https://docs.djangoproject.com/en/1.9/topics/security/" class="external free" rel="nofollow">https://docs.djangoproject.com/en/1.9/topics/security/</a> </li>
+<li> Making queries, <a href="https://docs.djangoproject.com/en/1.9/topics/db/queries/" class="external free" rel="nofollow">https://docs.djangoproject.com/en/1.9/topics/db/queries/</a> </li>
+<li> Performing raw SQL queries, <a href="https://docs.djangoproject.com/en/1.9/topics/db/sql/" class="external free" rel="nofollow">https://docs.djangoproject.com/en/1.9/topics/db/sql/</a> </li>
+<li> Owasp top 10, <a href="https://www.youtube.com/watch?v=02mLrFVzIYU&amp;list=PLoyY7ZjHtUUVLs2fy-ctzZDSPpawuQ28d" class="external free" rel="nofollow">https://www.youtube.com/watch?v=02mLrFVzIYU&amp;list=PLoyY7ZjHtUUVLs2fy-ctzZDSPpawuQ28d</a> </li>
+<li> Session Security, <a href="https://docs.djangoproject.com/en/1.9/topics/http/sessions/#topics-session-security" class="external free" rel="nofollow">https://docs.djangoproject.com/en/1.9/topics/http/sessions/#topics-session-security</a> </li>
+</ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 103/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8700-0!*!0!!hr!2!edit=0 and timestamp 20190203204225 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnost_Django_frameworka.html">http://security.foi.hr/wiki/index.php/Sigurnost_Django_frameworka</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnost_Django_frameworka" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnost_Django_frameworka.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnost_Django_frameworka&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnost_Django_frameworka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnost_Django_frameworka.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_Django_frameworka&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_Django_frameworka&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnost_Django_frameworka.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnost_Django_frameworka" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnost_Django_frameworka" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_Django_frameworka&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_Django_frameworka&amp;oldid=36842" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 19:26, 17. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.832 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnost_Django_frameworka", "wgTitle": "Sigurnost Django frameworka", "wgAction": "view", "wgArticleId": 8700, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 36842, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.380 secs. -->			</body>
+</html>

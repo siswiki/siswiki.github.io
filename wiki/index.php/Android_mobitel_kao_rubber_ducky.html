@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Android mobitel kao rubber ducky - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Android_mobitel_kao_rubber_ducky&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Android_mobitel_kao_rubber_ducky skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Android mobitel kao rubber ducky</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Android_mobitel_kao_rubber_ducky.html#mw-head">orijentacija</a>,
+					<a href="Android_mobitel_kao_rubber_ducky.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Tomislav Pertinač
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Android_mobitel_kao_rubber_ducky.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Android_mobitel_kao_rubber_ducky.html#DroidDucky"><span class="tocnumber">2</span> <span class="toctext">DroidDucky</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Android_mobitel_kao_rubber_ducky.html#Kali_Linux_NetHunter"><span class="tocnumber">3</span> <span class="toctext">Kali Linux NetHunter</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Android_mobitel_kao_rubber_ducky.html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Android_mobitel_kao_rubber_ducky.html#Izvori"><span class="tocnumber">5</span> <span class="toctext">Izvori</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Tipkovnica i miš su jedan od najglavnijih načina komunikacije između korisnika i kompjutora. U današnje vrijeme možemo ukopčati bilo koji miš ili tipkovnicu u kompjutor i istog trena ih koristiti. Oni se prepoznaju kao HID(Human Interface Device), odnosno uređaji koje kontrolira korisnik ako se radi o nečemu što treba davat neki <i>Ulaz</i> kompjuteru ili da se radi o nekom <i>Izlazu</i> koji kompjuter daje korisniku preko takvog uređaja. 
+Kompjuter kao takav automatski <i>„vjeruje“</i> takvom uređaju. Međutim  postoje uređaji kao što je <a href="http://usbrubberducky.com/#!index.md" class="external text" rel="nofollow">USB Rubber Ducky</a> koji se predstavljaju kao HID tipkovnica ali to zapravo nisu. Pomoću takvog uređaja i njegovog skriptnog jezika <a href="https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript" class="external text" rel="nofollow">duckyscript</a> je moguće napraviti Keystroke injection. Pošto takav uređaj košta oko 45 USD, u ovom članku će biti objašnjeno na koji način je moguće koristiti vlastiti android uređaj kao Rubber ducky, odnosno kako koristiti android uređaj da ga prilikom ukopčavanja u kompjuter običnim USB kablom, sami kompjuter prepozna kao HID tipkovnicu. 
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="DroidDucky"> DroidDucky </span></h2>
+<p>Open-source driver <a href="https://github.com/pelya/android-keyboard-gadget" class="external text" rel="nofollow">android-keyboard-gadget</a> omogućuje pretvaranje android uređaja u tipkovnicu. Driver dodaje 2 nova uređaja, a jedan od njih je tipkovnica. Pošto driver emulira HID, driveri ni instalacija nisu potrebno na kompjuteru, već se može odmah koristiti. Međutim, pošto je riječ o custom driveru, mora bit ugrađen u kernel i dosta android uređaja nije još podržano. Svi vodiči o kompajliranju, ugrađivanju i korištenju custom kernela su dostupni u gore danom linku.<br />
+Gore navedeni driver dolazi sa alatom hid-gadget-test koji omogućuje skriptiranje, te je pomoću toga i softver inžinjer Andrej napravio DroidDucky kao jednostavnu bash skriptu. 
+</p><p>Kako bi se mogao koristiti za DroidDucky potrebno je imati instaliran neki od Android terminal emulatora koji se mogu lagano pronaći na <a href="https://play.google.com/store/search?q=android%20terminal&amp;hl=en" class="external text" rel="nofollow">Google PlayStore-u</a>. Samu skriptu je moguće vidjeti i skinuti na otvorenom <a href="https://github.com/anbud/DroidDucky" class="external text" rel="nofollow">github repozitoriju</a> autora skripte.
+</p><p>Bash skriptu nakon toga treba prebaciti na android uređaj skupa sa keyboard injection skriptom koju želimo da se izvrši na kompjuteru. Keyboard injection skriptu pišemo pomoću duckyscript skriptnog jezika, a ovdje je naveden jedan takav primjer skripte:
+</p><p><code>
+</p><p>REM Primjer skripte!<br />
+DELAY 2000<br />
+GUI r<br />
+DELAY 200<br />
+STRING notepad<br />
+ENTER<br />
+DELAY 200<br />
+STRING Jel ovo radi??<br />
+ENTER<br />
+</p><p></code>
+</p><p>Ovaj primjer skripte otvara run komandu u windowsima i upisuje u nju <i>„notepad“</i> i otvara ga, te u samom notepadu upisuje „Jel ovo radi??“.
+Skriptu spremimo pod bilo kojim imenom sa .dd ekstenzijom na isto mjesto gdje smo spremili i droidducky skriptu na android uređaju.
+Nakon što smo pokrenuli terminal na android uređaju, te pomoću klasičnih linux komanda pronašli gdje se naše skripte nalaze, upišemo ovaj kod:
+</p><p>bash droidducky.sh &lt;ime-skripte&gt;.dd
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Primjer_pokretanja_skripte.png" class="image"><img alt="" src="../images/thumb/2/2b/Primjer_pokretanja_skripte.png/600px-Primjer_pokretanja_skripte.png" width="600" height="338" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Primjer_pokretanja_skripte.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Primjer pokretanja skripte</div></div></div></div>
+<p>Prije nego pritisnemo enter i pokrenemo skriptu, ukopčamo android uređaj na kompjutor i nakon što ga je kompjutor prepoznao kao HID tipkovnicu, stisnemo enter i pokrenemo skriptu.
+Jedina stvar na koju treba pripazit je da droiducky skripta ima dopuštenje za pokretanje.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Notepad.png" class="image"><img alt="" src="../images/thumb/2/2a/Notepad.png/600px-Notepad.png" width="600" height="399" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Notepad.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Rezultat izvedene skripte na kompjuteru</div></div></div></div>
+<h2> <span class="mw-headline" id="Kali_Linux_NetHunter"> Kali Linux NetHunter </span></h2>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kali-nethunter-n10-2.png" class="image"><img alt="" src="../images/thumb/4/48/Kali-nethunter-n10-2.png/300px-Kali-nethunter-n10-2.png" width="300" height="200" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kali-nethunter-n10-2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Kali Linux NetHunter</div></div></div>
+<p><br />Kali NetHunter je android ROM koji omogućuje da android uređaj postane mobilna penetracijska testna platforma.<br />
+Trenutno je NetHunter moguće instalirati na uređajima Nexus 4, Nexus 5, Nexus 6, Nexus 7, Nexus 9, Nexus 10 i One plus one.<br /> 
+Na ostalim uređajima je možda moguča instalacija uz navedene upute <a href="https://github.com/offensive-security/kali-nethunter/wiki/Porting-Nethunter" class="external text" rel="nofollow">ovdje</a>.<br /> 
+Neke od zanimljivih stvari koje NetHunter podržava su Wireless 802.11 frame injection, one-click MANA Evil Access Point setups, HID tipkovnica, BadUSB MITM napadi itd.<br />
+Cjelu listu uređaja na kojim je NetHunter testiran i radi, te listu aplikacija za penetracijske testove možete vidjeti <a href="https://github.com/offensive-security/kali-nethunter/wiki#10-supported-devices-and-roms" class="external text" rel="nofollow">ovdje</a>.
+<br />NetHunterov program DuckHunter HID tako omogućuje upisivanje istih skripta kao što se upisuju u duckyscript-u. Prednost gore navedenog programa je da ne treba encoder niti kompjuter jer će mobitel sam izvesti te stvari. Program također ima mogućnosti pregledavanja skripte na način da vidi je li ima kakvih problema ili se će se ispravno izvest. Isto tako moguće je skripte napisati na kompjutoru te ih prebaciti na SD karticu i učitati u programu, ali je moguće i spremati skripte na SD karticu u slučaju da želimo koristiti tu skriptu na drugom uređaju.<br />
+</p><p><br />Kada je skripta otvorena i mobitel ukopčan u kompjutor, u gornjem desnom kutu imamo ikonu „Attack“ na čiji pritisak se pokreće skripta na kompjutoru. Isto tako dobra mogućnost je da u svakom trenu možemo promjeniti skriptu i ponovno je pokrenuti bez potrebe za kompajliranjem.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DuckhunterHID.jpg" class="image"><img alt="" src="../images/thumb/1/14/DuckhunterHID.jpg/600px-DuckhunterHID.jpg" width="600" height="338" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DuckhunterHID.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Program DuckHunter HID</div></div></div></div>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Koristiti android kao rubber ducky je zanimljivo i jeftinije rješenje za one koji nemaju toliko novaca za kupovinu spomenutog. Međutim, potrebno je uložiti dosta vremena i truda kako bi se proučio i složio android koji će se ponašat kao HID tipkovnica. Jedina dva rješenja da bi se to izvelo je DroidDucky ili NetHuntera.<br /> 
+NetHunter se trenutačno čini jednostavnija i bolja solucija jer se kod njegovog programa DuckHunter HID mogu brže i jednostavnije učitavat i pokretat skripte. Osim toga ukoliko posjedujete neki od Nexus mobitela, instaliranje NetHuntera će biti mnogo jednostavnije. Iako su oba rješenja zanimljiva, za običnog korisnika će te stvari i dalje izgledati podosta komplicirane za složiti.<br /> 
+Iako još ne postoji, nadamo se u skoro vrijeme i na samoj aplikaciji koja će simulirat android mobitel kao HID tipkovnicu bez potrebe mjenjanja kernela ili ROM-a.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Izvori"> Izvori </span></h2>
+<ol><li> <a href="http://zx.rs/6/DroidDucky---Can-an-Android-quack-like-a-duck/" class="external free" rel="nofollow">http://zx.rs/6/DroidDucky---Can-an-Android-quack-like-a-duck/</a> - dostupno 15.1.2017. u 22:00
+</li><li> <a href="http://usbrubberducky.com/#!index.md" class="external free" rel="nofollow">http://usbrubberducky.com/#!index.md</a> - dostupno 15.1.2017. u 22:00
+</li><li> <a href="https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript" class="external free" rel="nofollow">https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript</a> - dostupno 15.1.2017. u 22:00
+</li><li> <a href="https://github.com/pelya/android-keyboard-gadget" class="external free" rel="nofollow">https://github.com/pelya/android-keyboard-gadget</a> - dostupno 15.1.2017. u 22:00
+</li><li> <a href="https://en.wikipedia.org/wiki/NetHunter" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/NetHunter</a> - dostupno 15.1.2017. u 22:00
+</li><li> <a href="https://www.offensive-security.com/kali-linux-nethunter-download/" class="external free" rel="nofollow">https://www.offensive-security.com/kali-linux-nethunter-download/</a> - dostupno 15.1.2017. u 22:00
+</li><li> <a href="https://www.youtube.com/watch?v=vOsaBk_B-hM" class="external free" rel="nofollow">https://www.youtube.com/watch?v=vOsaBk_B-hM</a> - dostupno 15.1.2017. u 22:00
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 19/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9230-0!*!0!!hr!2!edit=0 and timestamp 20190203204200 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Android_mobitel_kao_rubber_ducky.html">http://security.foi.hr/wiki/index.php/Android_mobitel_kao_rubber_ducky</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Android_mobitel_kao_rubber_ducky" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Android_mobitel_kao_rubber_ducky.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Android_mobitel_kao_rubber_ducky&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Android_mobitel_kao_rubber_ducky.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Android_mobitel_kao_rubber_ducky.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Android_mobitel_kao_rubber_ducky&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Android_mobitel_kao_rubber_ducky&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Android_mobitel_kao_rubber_ducky.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Android_mobitel_kao_rubber_ducky" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Android_mobitel_kao_rubber_ducky" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Android_mobitel_kao_rubber_ducky&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Android_mobitel_kao_rubber_ducky&amp;oldid=40292" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:25, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 564 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Android_mobitel_kao_rubber_ducky", "wgTitle": "Android mobitel kao rubber ducky", "wgAction": "view", "wgArticleId": 9230, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40292, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.304 secs. -->			</body>
+</html>

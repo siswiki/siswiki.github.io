@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>PCI-DSS norma - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=PCI-DSS_norma&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-PCI-DSS_norma skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">PCI-DSS norma</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="PCI-DSS_norma.html#mw-head">orijentacija</a>,
+					<a href="PCI-DSS_norma.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Turina Zvonimir, Ljubenkov Davor, Maslić Dunja
+</p>
+<hr />
+<p><b>1. Uvod</b>
+</p><p>Kartično poslovanje je sveprisutno danas u svakodnevnom životu. Gotovo svaki građanin posjeduje čak nekoliko kartica kojima obavlja svoje platne aktivnosti. Velikim razvojem tehnologije i elektroničkog poslovanja dolazi u pitanje sigurnost. Ljudi žele biti sigurni obzirom da su u pitanju njihovi novci. Banke zato puno ulažu u svoj sustav elektronskog plaćanja. 
+Najprije su kreditne organizacije raspravljale kako se zaštititi, kako zaštititi podatke s kreditnih kartica. Svaka organizacija imala je svoju politiku i primjenjivala svoje sigurnosne tehnike. Kako bi se uspostavila homogenost, vodeće kreditne organizacije  (Visa, MasterCard, American Express) odlučile su se u prosincu 2004. usuglasile u kreiranju jedinstvenog industrijskog sigurnosnog standarda koji je poznatiji kao Payment Card Industry (PCI) Data Security Standard.
+U radu su najprije opisane kartične prijevare. Detaljnije se opisuju krađe kartičnih podataka od korisnika i krađe kartičnih  podataka od organizacija ili posrednika. Zatim slijedi nešto o PCI DSS normi u koju spada pojašnjenje o  podacima o vlasniku kartice i osjetljivim podacima za autorizaciju te opis procesa provođenja PCI DSS norme. Nakon toga pojašnjava se kako odabrati godišnji upitnik samoprocjene za određenu organizaciju te upute za ispunjavanje SAQ upitnika. 12 PCI DSS zahtjeva su detaljno opisani i objašnjeni.
+</p><p><b>2. Kartične prijevare</b>
+</p><p><br />
+Prvi slučaj tzv. napada na bankomat otkriven je u Austriji 1997., a u Hrvatskoj sedam godina kasnije. Na meti ovakvih napada nisu samo velike kompanije, već i manji trgovci i njihovi podaci. Zapravo, manja elektronička poslovanja su pod većom prijetnjom hakera jer su lakša meta iz razloga što često imaju nedovoljne sigurnosne mehanizme ili imaju povjerenja u sustav koji ne pruža najbolju zaštitu.
+Nedavno je ukradeno 47 milijuna dolara s 30 tisuća bankovnih računa, a napad je koristio inačicu Zeusa ZITMO (eng. Zeus in the mobile) kako bi uspješno prošao dvorazinsku autentikaciju korisnika SMS-om. Najprije bi korisnicima zarazili računalo, a prilikom sljedeće prijave bankarstvo bankarstvo bi poslalo "nadograđenu" inačicu Internet bankarstva za mobilne uređaje koja je sadržavala virus koji je omogućio uvid i provođenje transakcija s računa žrtve.
+</p><p>Kriminalci u Hrvatskoj kartičnim prijevarama oštete banke za 37 milijuna kuna godišnje. Ljudi u Hrvatskoj imaju poprilična očekivanja glede jednostavnosti pristupa bankarskim proizvodima i uslugama. Korištenje internetskog bankarstva ispunilo je ta očekivanja, ali od banaka se traži visoka zaštita i dobar protokol obzirom da se mnogi korisnici ne razumiju u IT i sigurnosne standarde.
+Dakle, tvrke koje u svome poslovanju koriste kreditne kartice moraju podići razinu računalne sigurnosti. To je izuzetno bitno jer u suprotnom može doći do krađe kartica i štete koja se očituje u lošem ugledu i smanjenju broja klijenata.
+<a href="../images/8/8c/Tablica1.jpg" class="external autonumber" rel="nofollow">[1]</a>
+</p><p><b>2.1. Krađa kartičnih podataka od korisnika</b>
+</p><p>Kada se govori o krađi kartičnih podataka od korisnika misli se na krađu kartice ili krađu podataka s kartice.
+U prvom slučaju se prijavljuje nestanak kartice kada se primjeti da kartice nema, a posljedice su materijalne štete koje su u međuvremenu nastale (od kada je kartica ukradena dok nije prijavljen njen nestanak i nije onesposobljena). Ovaj prvi tip je sve manje moguć obzirom na autorizaciju kartičnih transakcija na prodajnim mjestima.
+</p><p>U drugom slučaju krađe podataka s kartice, radi se zapravo o ozbiljnijoj materijalnoj šteti. Tome je razlog što može proći veći vremenski period od same krađe do dolaska računa gdje se uviđaju neregularni troškovi. Taj vremenski period je uglavnom mjesec dana obzirom da se računi dostavljaju svaki mjesec.
+</p><p>Krađa samih podataka se može obaviti na više načina, a u nastavku su izdvojene najbitnije:
+</p><p>• provlačenjem kartice kroz lažni uređaj (skimming), 
+</p><p>• neovlaštenim uvidom u podatke nezaštićene kartice, 
+</p><p>• krađa kartičnih podataka u elektroničkom obliku, 
+</p><p>• krađa obmanom (phishing)
+</p><p><b>2.1.1. Krađe provlačenjem kartice kroz lažni uređaj<a href="../images/d/d8/Tablica2.jpg" class="external autonumber" rel="nofollow">[2]</a></b>
+</p><p><br /> 
+Skimming je protuzakonito kopiranje podataka s magnetske trake kreditne ili bankomat kartice. Podrazumijeva krađu kartičnih podataka provlačenjem kartice kroz lažni uređaj za naplatu. Radi se o izravnijom prijevari od phishing-a. Informacija se kopira na drugu praznu kartice magnetne trake i lopov koristi identitet vlasnika kartice kako bi kupio ili podigao gotovinu na ime stvarnog vlasnika računa.
+</p><p>Kradu se tuđi podaci tako da bi se moglo pristupiti tuđim računima. Nakon što uređaj prekopira karticu, stvara se lažna ili 'klonirana' kartica s tuđim osobnim podacima. Varalica je zatim u mogućnosti koristiti karticu i nabijati troškove na tuđi račun. Ovakva krađa događa se na prodajnim mjestima gdje korisnik daje svoju karticu trgovcu prilikom plaćanja, a ovaj to zlorabi tako da karticu provlači i kroz lažni uređaj. Osim na prodajnim mjestima, događa se i na bankomatima gdje je instaliran lažni uređaj za  čitanje kartica ispred otvora za karticu na bankomatu. Kartica prilikom ubacivanja u bankomat prolazi i kroz lažni uređaj koji uzima podatke. Korištenjem minijaturnih video kamera se detektira jedinstveni PIN.
+</p><p>Pojavom pametnih kartica koje uz magnetski zapis imaju i mikročip kao dodatni sigurnosni mehanizam broj krađa ovakvog tipa se smanjio.
+</p><p><b>2.1.2. Neovlašteni uvid u podatke nezaštićene kartice</b> 
+</p><p>Karticu je potrebno čuvati i paziti gdje se ostavlja kako drugi ne bi imali uvid u podatke koji su na njoj napisani. Podaci s prednje strane kartice, ali i oni s poleđine poput kontrolnog broja mogu biti dovoljni za prevaru.
+</p><p><b>2.1.3. Krađa kartičnih podataka u elektroničkom obliku</b> 
+</p><p>Elektroničko poslovanje donijelo je svojim razvojem i krađu kartičnih podatka u elektroničkom obliku.
+</p><p>Postoji više vrsta krađa kartičnih podataka u elektroničkom obliku, a u nastavku su neke nabrojane:
+</p><p>• krađa praćenjem mrežnog prometa, 
+</p><p>• krađa web kolačića, 
+</p><p>• krađa upadom na korisnikovo računalo itd. 
+</p><p><b>Krađa praćenjem mrežnog prometa</b>
+</p><p><br />
+Računalni kriminal zabilježava poboljšanje zlonamjernog softverskog programa koji može biti instaliran na bankomatima te bilježiti osjetljive detalje kartice. Prisluškuje se promet koji obično uključuje puno kanala i korisnika tako da je količina prometa koja se razmjenjuje komunikacijskim kanalima velika i samim time proces razlaganja ukupnog prometa na pojedine korisnike praktički nemoguć.
+</p><p>Krađa praćenjem mrežnog prometa ostvaruje se „sniffing“ procesom. Taj proces podrazumijeva prisluškivanje prometa na određenom komunikacijskom kanalu. Malver bilježi informacije s magnetne trake na poleđini kartice kao i PIN (osobni identifikacijski broj) koji potencijalno omogućuje kriminalcima kloniranje kartice kako bi podizali gotovinu i financijski oštetili žrtvu.
+</p><p>Dakle, iako su ovakvi napadi rijetki, postoji zaštita u obliku zaštićenih kanala ( npr. SSL).
+</p><p><b>Krađa web kolačića<a href="../images/d/d8/Tablica2.jpg" class="external autonumber" rel="nofollow">[3]</a></b>
+</p><p><br />
+"Web kolačić" je mala datoteka koja sadrži niz znakova koja je poslana u računalo kada se posjeti web lokacija. Služe za pohranjivanje i prijenos korisničkih podataka od korisnika do web poslužitelja. Mogu između ostalih podataka sadržavati i kartične podatke. Napadačima krađu korisničkih računa olakšava ranjivost Hotmail-a i Outlook-a. U tim servisima se autentikacija provodi kolačićem u web pregledniku. Poprilično je jednostavno unijeti ukradene „kolačiće“ u vlastiti web preglednik ili ukrasti sa tuđeg računala ako mu je omogućen pristup. Autentikacija je uspješna čak i ako se žrtva prije krađe „kolačića“ odlogira sa svog računa.
+</p><p>Postoje načini krađe „kolačića“ bez pristupa uređaju ili mreži u kojoj se nalazi, a najpoznatiji je XSS (cross site scripting). To je izvršavanje malicioznih skripti unutar korisnikovog web preglednika ili unutar samog web poslužitelja koje omogućavaju sigurnosni propusti korisnikovog web preglednika ili web poslužitelja za koji su kolačići predviđeni. Kako bi se izbjegao ovaj tip napada, potrebno je podesiti sigurnosne postavke tako da se onemogući izvršavanje skripti, a na strani web poslužitelja ograničiti potrebu skripti i obavljati validaciju unosa podataka i skripti koje se moraju koristiti. 
+</p><p><b>Krađa upadom na korisnikovo računalo</b> čest je način krađe kartičnih podataka koji se obavlja ciljanim hakerskim napadom. Ovdje se zapravo radi o  sigurnosnim propustima u konfiguraciji korisnikovog računala. 
+</p><p>Korisnik se može od takvoga napada zaštititi vatrozidom te održavati sigurnost lokalnih aplikcija koje se spajaju na Internet. 
+</p><p><b>2.1.4. Krađa obmanom</b>
+</p><p><br />
+Neovlašteno traženje informacija (phishing) uključuje kontaktiranje žrtve putem elektroničke pošte, soba za razgovor (chat rooms) ili usluga  trenutnih poruka (instant messaging). Šalje se neka obavijest kako je potrebno unijeti određene osobne podatke sa svrhom potvrde ili ažuriranja korisničkog računa, pozivi na doniranje novca u dobrotvorne svrhe, obavijesti o nekom novčanom dobitku, lažne obavijesti od administratora i slično. 
+</p><p>1. Loš pravopis i gramatika - Računalni kriminal obilježava loša gramatika i pravopis. Stručne tvrtke ili organizacije imaju urednike koji neće dopustiti da se ovakva pošta šalje korisnicima. Dakle, greške u elektroničkoj pošti ukazuju na muljažu.
+</p><p>2. Linkovi u elektroničkoj pošti – Linkove (poveznice) u sumnjivim e-mail porukama treba izbjegavati i ne smije se na njih kliknuti. Potrebno je provjeriti na linku da li adresa odgovara linku koji je upisan u poruci. U primjeru na slici link otkriva pravu web adresu.
+</p><p>3. Prijetnje – Na slici je prikazan primjer poruke kako će Hotmail račun biti zatvoren ako se ne odgovori na poruku elektroničke pošte. U računalnom kriminalu česte su prijetnje ugrožavanja sigurnosti.
+</p><p>4. Popularne web stranice ili tvrtke - Korištenjem grafike ili pop-up prozora u poruci e-pošte koji izgledaju kao da su spojeni sa legitimnim web stranicama.
+</p><p>Mnogi korisnici nasjednu na takve prijevare zbog toga što se naizgled radi o  legitimnim tvrtkama ili uslugama kao što su banke,  pružatelji Internet usluga (ISP), tvrtke za Internet trgovinu tipa PayPal, eBay ili Best Buy. Putem poveznice (linka) na neko web odredište otvara se lažna stranica i nakon unošenja potrebnih podataka poput osobnih podaci, lozinke, brojeva kreditnih kartica, brojeva bankovnih računa i drugo. 
+Zaštititi od phishing napada se mogu sami tako da pažljivo čitaju i provjeravaju dobivenih poruke i elektroničku poštu. 
+</p><p><b>2.2. Krađa kartičnih podataka od kartičnih  organizacija ili posrednika</b> 
+</p><p>Za razliku od prošlog načina krađe, kod krađe podataka od kartičnih  organizacija radi se o velikom broju žrtava i time su i posljedice puno gore. Takvi napadi očituju se probojem u računalni sustav velikih organizacija iskorištavanjem sigurnosnog propusta. Prijetnja iskorištava ranjivost i zato je izuzetno bitno da kartične  organizacije inzistiraju na provođenju striktnih sigurnosnih procedura unutar svojih podružnica i posrednika. Danas su takvi napadi poprilično česti zbog toga što sigurnost nikad ne može biti potpuna, tj. sigurnosni uvjeti se ne mogu potpuno kontrolirati.
+Standard o sigurnosti podataka u kartičnom poslovanju (Payment Card Industry Data Security Standard) i njegova primjena najbolji su način uspostave sigurnosti i usklađenosti sigurnosnih uvjeta u elektroničkom poslovanju.
+</p><p><b>3. PCI DSS norma</b>
+</p><p>Vodeće tvrtke za kartično poslovanje (VISA, MasterCard, American Express, Discover, Diners Club i JCB) osnovale su standard zaštite podataka. Tvrtke vrše znatan pritisak na svoje banke-članice od kojih zahtijevaju da one osiguraju da se svi trgovci koji prihvaćaju kreditne kartice strogo pridržavaju standarda "Industrija kartičnog plaćanja - standard zaštite podataka" (PCI-DSS).
+</p><p>Payment Card Industry Data Security Standard odnosi se na kartično poslovanje i obradu podataka na karticama. Norma sadrži zahtjeve koje bi trebale ispunjavati tvrtke koje se bave kartičnim poslovanjem, tj. omogućuju kartično plaćanje.
+</p><p>PCI DSS predstavlja usklađenost bez sigurnosnih kompromisa. Postizanje i održavanje usklađenosti sa sigurnosnim pravilima zahtijeva financijske resurse i detaljno praćenje obzirom na promjene. Pravila se mijenjaju i ne predstavljaju jedini uvjet za zaštitu osjetljivih podataka. Praćenjem PCI DSS norme kroz više godina zamijećene su promjene i pomaci kod hrvatskih banaka i drugih subjekata koji se bave kartičnim plaćanjem. Prije su sve kartične sheme nezavisno razvijale zasebne standarde, ali su odlučile oformiti nezavisno tijelo PCI SSC (Payment Card Industry Security Standard Council). Savjet PCI Sigurnosnog Standarda (SSC) posjeduje, razvija, održava i distribuira PCI DSS. SSC isto tako nadzire Approved Scanning Vendor (ASV) program koji certificira kompanije za automatsko skeniranje ranjivosti sustava. PCI DSS obuhvaća zahtjeve za sigurnosni menadžment, police, procedure, mrežnu arhiktekturu, dizajn aplikacija i ostale kritične sigurnosne mjere. Kada je standard predan PCI SSC-u istovremeno su se hrvatske banke počele usklađivati s standardom.
+</p><p>Rezultat navedenog procesa je velik broj certificiranih banaka i procesora te trgovaca koji su svoje kartično poslovanje uskladili s standardom. PCI DSS dokaz je velike redundancije između različitih zakonskih okvira u bankarskom sektoru obzirom da mnoga pravila koje on propisuje od prije propisuju već neki drugi zakoni pa se zapravo postavlja pitanje bi li bilo bolje rješenje te zakone pretvoriti u smjernice uz pojačane kontrole. U međuvremenu pojavio se dosta stroži standard PA DSS o kojemu se manje govori. Banke definitivno trebaju planirati usklađivanje trgovaca, a koliko su oni upućeni u temu i spremni ući u ovakve projekte veliko je pitanje. Pitanje je da li je dosadašnji napor pomogao u smanjenju broja kompromitacija kartičnih podataka.
+</p><p>Dakle, The Payment Card Industry  (PCI) Data Security Standard (DSS) se sastoji od PCI principa i zahtjeva s ciljem osiguranja podataka o kreditnim karticama korisnika u fizičkom i elektronskom obliku. PCI DSS je usvojen kao globalni standard za zaštitu korisničkih podataka, a Savjet PCI Sigurnosnog Standarda (SSC) posjeduje, razvija, održava i distribuira PCI DSS. Razvijen je za poticanje i poboljšanje sigurnosti podataka vlasnika kartice. Cilj razvoja bio je olakšavanje širokog usvajanja sigurnosnih mjera podataka na globalnoj razini. PCI DSS pruža osnovne tehničke i operativne zahtjeve dizajnirane kako bi zaštitili podatke na kartici. PCI DSS vrijedi za sve subjekte koji sudjeluju u procesu plaćanja karticom - uključujući trgovce, izdavatelje, pružatelje usluga, kao i sve druge osobe koje spremaju, procesiraju ili prenose kartične podatke. Osigurava trgovcima, kartičnim kućama i bankama te ostalim poslovnim subjektima koji se bave kartičnim poslovanjem zaštitu podataka vlasnika kartica. Prva verzija standarda PCI DSS izdana je 2004. Godine dok je verzija 2.0 izdana je u listopadu 2010. godine. PCI DSS obuhvaća minimalni skup zahtjeva za zaštitu podataka kartice, a može se poboljšati dodatnim kontrolama i praksama za daljnje ublažavanje rizika. Postoji 12 PCI DSS zahtjeva koji će biti opisani kasnije. Osim tih zahtjeva, sadrži i a i oko 270 podzahtjeva. PCI odbor je utvrdio 12 detaljiziranih kontrolnih ciljeva koji su svrstani u 6 širih kategorija.
+</p><p>Te kategorije su:
+</p><p>1. Izgraditi i zadržati sigurnu mrežu
+</p><p>2. Zaštiti podatke vlasnika kartica
+</p><p>3. Zadržati ugrožen program menadžmenta
+</p><p>4. Implementirati strogi pristup kontrolnim mjerama
+</p><p>5. Redovito provjeravati i testirati mreže
+</p><p>6. Držati politiku sigurnosti informacija
+</p><p><b>3.1. Podaci o vlasniku kartice i osjetljivi podatke za autorizaciju</b>
+</p><p><br />
+PCI DSS vrijedi kada se podaci pohranjuju, obrađuju ili prenose. Podaci se sastoji od podataka o vlasniku kartice i osjetljivih podataka za autorizaciju. Podaci o vlasniku kartice sadrže osnovni broj računa (Primary account number), ime vlasnika, datum isteka valjanosti te servisni kod. Osjetljivi podaci za autorizaciju su podaci s magnetske trake ili čipa, CAV2/CVC2/CVV2/CID tj. identificirajući brojevi čipa te osobni jedinstveni broj PIN.
+Osnovni ili primarni broj računa je glavni faktor u primjeni PCI DSS zahtjeva. Oni se primjenjuju ako je PAN pohranjen, obrađen ili prenesen. Ukoliko PAN nije pohranjujen, obrađen ili prenesen, PCI DSS zahtjevi ne primjenjuju.
+</p><p>PCI DSS predstavlja minimalni set kontrolnih ciljeva koji mogu biti poboljšani lokalnim, regionalnim i sektorskim zakonima i propisima. Osim toga, zakonodavstvo ili regulatorni zahtjevi mogu zahtijevati posebnu zaštitu osobnih podataka ili drugih podataka elemenata (npr. ime vlasnika) ili definirati objavljivanje prakse subjekta vezane uz informacije o potrošaču. Primjeri uključuju zakonodavstvo vezano za zaštitu podataka potrošača, privatnost, krađu identiteta ili sigurnost podataka. PCI DSS ne zamjenjuje lokalne ili regionalne zakone, vladine propise ili druge pravne
+zahtjevi.
+</p><p><b>3.2. Kako se provodi PCI DSS?</b>
+(prema: Payment Card Industry (PCI) Data Security Standard; Requirements and Security Assessment Procedures, Version 2.0, October 2010)
+</p><p>PCI DSS mjere sigurnosti provode se kako bi se osigurala usklađenost sa standardom. Provode ih financijske institucije, ali i bilo koja tvrtka koja nudi usluge kartičnog plaćanja. Brokeri, banke, osiguravajuće kuće itd. Prodajni centri, restorani, trgovine na malo, transportni operatori i bilo koji POS koji procesira kreditne kartice. Pod procesnim centrima podrazumijeva se procesiranje transakcija, platni gateway te info pozivni centri itd. 
+</p><p>PCI DSS globalni standard  usvojile su VISA, MasterCard, American Express, Discover Network i mnogi drugi. Navedene tvrtke zahtijevaju od svojih poslovnih banaka da rade PCI revizije i izvještaje kako bi zadovoljili nivo platne usluge. Naravno, svaka od tvrtki ima svoj program kako provodi standarde. Lanac odgovornosti štiti podatke o kreditnim karticama vlasnika i brani od napada na podatke, a svaka poslovna banka treba dokazati da svi u lancu ispunjavaju zahtijeve PCI standarda.
+</p><p>Primjer: VISA
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tablica1.jpg" class="image"><img alt="Tablica1.jpg" src="../images/8/8c/Tablica1.jpg" width="460" height="494" /></a>
+</p><p><br />
+<b>4. Odabir godišnjeg upitnika samoprocjene (SAQ-a) za određenu organizaciju</b>
+</p><p><br />
+Prema pravilima plaćanja svi trgovci i pružatelji usluga plaćanja moraju u cijelosti biti u skladu s PCI Data Security Standard. Postoji pet SAQ validacijskih kategorija koje su prikazane i detaljnije opisane u nastavku. Kad se radi procjena za određenu organizaciju, najprije se u tablici pronađe koji SAQ se odnosi na određenu organizaciju, a zatim se pregledaju detaljni opisi kako bi se osiguralo da organizacija može zadovoljiti sve zahtjeve za odabranim SAQ-om.
+</p><p>Dakle, svaki pužetalj usluga plaćanja primoran je uskladiti svoje poslovanje s normom. U tablicu su smješteni pružatelji usluge u 5 općih tipovs prema zajedničkim karakteristikama. Svakom tipu pružatelja usluge dodijeljen je poseban SAQ (Self Assessment Questionnaire) upitnik (A, B, C ili D) kojeg pripadajući trgovci moraju zadovoljiti da bi se utvrdilo kako poštuju PCI DSS normu, tj. imaju usklađeno poslovanje s navedenom normom. Opisane su vrste trgovaca s obzirom na razinu čuvanja kartičnih podataka.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tablica2.jpg" class="image"><img alt="Tablica2.jpg" src="../images/d/d8/Tablica2.jpg" width="562" height="480" /></a>
+</p><p><b>1. tip trgovca:</b>
+</p><p>Ovaj tip podrazumijeva trgovce koji u poslovanju ne koriste fizičku karticu. Oni ne obrađuju, ne pohranjuju niti distribuiraju svoje kartične podatke. Oni svoje kartične podatke čuvaju u obliku računa ili izvještaja, u papirnatom obliku.
+</p><p>Ovaj tip trgovca ispunjava sljedeće zahtjeve:
+</p><p>	u poslovanju ne koristi fizičku karticu
+</p><p>	u poslovanju ne pohranjuje, obrađuje niti distribuira kartične podatke, oslanja se na treću stranu koja obavlja te aktivnosti
+</p><p>	treća strana pohranjuje, obrađuje ili distribuira kartične podataka u skladu s PCI DSS normom
+</p><p>	u poslovanju se koriste papirnati izvještaji i računi sa kartičnim podacima
+</p><p>	u poslovanju nema elektroničke pohrane kartičnih podataka
+</p><p><b>2. tip trgovaca:</b>
+</p><p>Ovaj tip trgovca podrazumijeva trgovce koji kartične podatke prikupljaju uređajima za tiskanje i stand-alone dial-up uređajima i terminalima (telefon, fax i sl). Ovi trgovci obrađuju podatke samo preko uređaja za tiskanje te moraju potvrditi sukladnost SAQ upitniku B. 
+</p><p>Ovaj tip trgovca ispunjava sljedeće zahtjeve:
+</p><p>	u poslovanju koriste samo jednostavne POS uređaje za preuzimanje kartičnih podataka
+</p><p>	u poslovanju ne prenosi kartične podatke putem telefonske linije ili Interneta
+</p><p>	u poslovanju spremaju papirnate izvještaje i račune
+</p><p>	u poslovanju ne pohranjuju kartične podatake u elektroničkom formatu
+</p><p><b>3. tip trgovaca:</b>
+</p><p>SAQ B je razvijen za zahtjeve trgovaca koji obrađuju kartične podatke preko stand-alone dial-up uređaje. Treći tip trgovaca sličan je drugom tipu tako i on mora potvrditi sukladnost sa SAQ B. Razlika je u tome što treći tip trgovca ima mogućnost obrade kartičnih podataka isključivo sa ili bez kartice.
+</p><p>Ovaj tip trgovca ispunjava sljedeće zahtjeve:
+</p><p>	u poslovanju se koriste stand-alone dial-up uređaji
+</p><p>	koriste stand-alone dial-up uređaji nisu povezani s ostalim sustavima niti s Internetom
+</p><p>	u poslovanju spremaju samo papirnate izvještaje i račune
+</p><p>	u poslovanju se ne pohranjuju kartični podaci u elektroničkom obliku
+</p><p><b>4.tip trgovaca:</b>
+</p><p>Ovaj tip trgovaca odnosi se na trgovce čiji su sustavi za plaćanje online, tj. povezani su sa Internetom. Ili imaju sustav za plaćanje na osobnom računalu koje ima Internetsku vezu ili imaju sustav za online plaćanje radi prijenosa kartičnih podataka.
+Mogu poslovati uz prisutnost kartice ili bez prisutnosti kartice. Četvrti tip trgovca mora potvrditi svoju sukladnost riješavanjem SAQ C upitnika.
+</p><p>Ovaj tip trgovca ispunjava sljedeće zahtjeve:
+</p><p>	u poslovanju koriste sustav online plaćanja
+</p><p>	sustav za plaćanje nije povezan sa ostalim sustavima u svom okruženju
+</p><p>	u poslovanju spremaju papirnate kopije računa i izvještaja
+</p><p>	u poslovanju ne pohranjuje kartične podatake u elektroničkom obliku
+</p><p>	isporučitelj sustava za plaćanje koristi sigurnosne tehnike koje smanjuju rizik od krađe
+</p><p><b>5.tip trgovaca:</b>
+</p><p>Ovaj tip trgovaca obuhvaća sve pružatelje usluga koji ne spadaju u niti jedan od prijašnjih tipova, a sukladan je PCI DSS normi. Peti tip trgovca mora potvrditi sukladnost potrđuju ispunjavanjem SAQ D upitnika.
+</p><p>Upute za ispunjavanje SAQ-a
+</p><p>1. Koristiti smjernice kako bi utvrdili koji SAQ je prikladan za tvrtku
+</p><p>2. Koristiti PCI DSS: Razumijevanje namjera zahtjeva (potrebno razumjeti kako i zašto su zahtjevi relevantni za organizaciju)
+</p><p>3. Koristiti odgovarajući upitnik samoprocjene kao alat za provjeru usklađenosti s PCI DSS
+</p><p>4. Slijediti upute u odgovarajućem upitniku te osigurati svu potrebnu dokumentaciju
+</p><p><br />
+<b>Praktični rad:</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prakticni_rad.png" class="image"><img alt="Prakticni rad.png" src="../images/6/64/Prakticni_rad.png" width="1366" height="768" /></a>
+</p><p>Izradila: Dunja Maslić
+</p>
+<hr />
+<p>Dvanaest PCI/DSS zahtjeva
+</p><p>Zahtjev prvi:
+</p><p><b>1.	Instaliraj i održavaj vatrozid kako bi se zaštitili podaci vlasnika kartice</b>
+</p><p>Intranet je mreža koja služi za povezivanje informacijskih sustava unutar organizacije. Intranet koriste tvrtke koje se bave kartičnim poslovanjem. Ukoliko se intranet na nekom svojem dijelu povezuje s internetom, potrebno je zaštiti ga. Za zaštitu je potrebno imati vatrozid. Vatrozid je mehanizam koji će se pobrinuti i osigurati da karticama imaju pristup samo njihovi vlasnici. Način na koji će se pobrinuti oko zaštite je taj da će on kontrolirati mrežni promet prema povjerljivim podacima. Ukoliko podaci ne ispunjavaju određene uvjete bit će zablokirani i zabilježen uz pomoć vatrozida.  
+PCI - DSS norma prikazuje zahtjeve koji su vezani uz postavljanje i održavanje vatrozida te proceduru pomoću koje se može provjeriti jesu li ti zahtjevi zadovoljeni. 
+</p><p>1.1.	Uspostavi vatrozid(engl. firewall) i usmjernik(engl. router) poštujući:
+</p><p>a)	Formalni proces za odobravanje i testiranje svih vanjskih veza na internu mrežu kao i promjena na vatrozidu i usmjerniku. 
+	Uzroci sigurnosnih problema su loša konfiguracija mreže, vatrozida ili usmjernika.
+Politika i procesi koji se koriste za odobravanje i testiranje svih vanjskih veza će pomoći kako bi se spriječili prethodno navedeni uzroci sigurnosnih problema.  
+</p><p>KORAK PROVJERE:
+</p><p>	Postoji li formalni proces koji služi za testiranje i održavanje svih mrežnih veza, kao i promjena konfiguracije na vatrozidu i usmjerniku. 
+</p><p>b)	Trenutni mrežni dijagram sa svim vezama na kartične podatke(podatke pojedinih vlasnika), uključujući bežične mreže veze
+	Uloga mrežnog dijagrama je da locira sve uređaje prisutne unutar mreže. Pored uloge lociranja, ova vrsta dijagrama služi i za prikaz tokova kartičnih podataka. 
+</p><p>KORAK PROVJERE:
+</p><p>	Postoji li trenutni mrežni dijagram i dokumentira li sve veze prema vlasnicima kartica, uključujući i bežične veze? Provjeriti jeli se ažurirao dijagram?
+</p><p>c)	Zahtjev za vatrozidom na svakoj vezi prema internetu i između demilitarizirane zone i vanjske internet zone
+	Prethodno navedeno je potrebno kako bi se kontrolirala veza prema i od Internet, kao i ulazi i izlazi vezni uz demilitaziranu zonu. 
+</p><p>KORAK PROVJERE:
+</p><p>	Sadrže li konfiguracijski standardi vatrozida potrebne zahtjeve kako bi se zaštitili dijelovi mreže koji se njime osiguravaju? Provjeri konfiguraciju vatrozida na relaciji Internet: demitalizirana zona , Internet: interna mreža? Provjeri postojeći mrežni dijagram jeli konzistentan sa standardima konfiguriranja vatrozida?
+</p><p>d)	Opis grupa, uloga i odgovornosti za logičko upravljanje mrežnim komponentama
+	Ova točka nam govori da su definirane odgovornosti kako bi se utjecalo na sigurnost pojedinih mrežnih komponenti. Važno je da svatko bude odgovoran za njemu dodijeljenu odgovornost koja je vezana uz upravljanje mrežnim komponentama.
+</p><p>KORAK PROVJERE:
+</p><p>	Sadrži li konfiguracija vatrozida i usmjernika dodijeljene odgovornosti, uloge i opis grupa vezanih uz upravljanje mrežom?
+</p><p>e)	Dokumentacija i poslovna opravdanja za korištenje svih servisa, protokola, dopuštenih portova, uključujući dokumentaciju sigurnosnih značajki implementiranih za protokole, koji su smatrani nesigurnima
+	Potrebno je uvidjeti što je nužno posjedovati, a što nije potrebno, kako to nepotrebno ne bi donijelo priliku nekome zlonamjernom, a u biti je nepotrebno. 
+</p><p>KORAK PROVJERE:
+</p><p>	Provjeri jesu li sve komponente koje se koriste doista potrebne?
+</p><p>f)	Zahtjev za pregled postavljenih pravila vezanih za vatrozid i usmjernik najmanje u roku od svakih 6 mjeseci
+</p><p>KORAK PROVJERE: 
+</p><p>	Jeste li potvrdili da je potrebno zahtijevati pregled pravila vezanih za vatrozid i usmjernik svakih 6 mjeseci? Jeste li pregledali dokumentaciju kojom bi se potvrdilo da su pravila pregledavana svakih šest mjeseci?
+</p><p>1.2.	Izgradi vatrozid i usmjernik na način da ograničiš vezu između nesigurnih mreža i svih komponenti u okolini u kojoj su podaci pojedinih vlasnika kartica:
+	Pojačava sigurnosti od zlonamjernih osoba dodatnim pravilima i kontrolama koje ograničavaju promet.
+</p><p>KORAK PROVJERE:
+</p><p>	Jesu li zabranjene veze između nepovjerljivih mreža i drugih nepovjerljivih komponenata u okružju kartičnih podataka?
+</p><p>a)	Ograniči ulazni i izlazni promet što je više moguće
+	Odnosi se na namještanje vatrozida da ne dopusti nepotrebni mreži promet. 
+</p><p>KORAK PROVJERE:
+</p><p>	Jeli promet ograničen na minimum za okruženje kartičnih podataka i jesu li ograničenja dokumentirana?
+</p><p>b)	Osiguraj i uskladi konfiguracijske dokumente usmjernika
+	Odnosi se na uklapanje novih dokumenata zajedno sa prethodnima u jednu novu cjelinu
+</p><p>KORAK PROVJERE:
+</p><p>	Provjeri jesu li osigurani i usklađeni konfiguracijski dokumenti usmjernika s prethodnima?
+</p><p>c)	Instaliraj vatrozid između bežičnih mreža i okoline kartičnih podataka. Konfiguriraj vatrozid da odbije sav prometi ili ako je baš potreban za poslovne svrhe da ga kontrolira.
+	Odnosi se na postavljanje vatrozida da spriječi pristup neautoriziranim korisnicima kako oni ne bi iskoristili bežičnu tehnologiju te se dokopali podataka o karticama
+</p><p>KORAK PROVJERE:
+</p><p>	Provjeri postoji li vatrozid između svake bežične mreže i okružja kartičnih podataka? Provjeri odbijaju li ili kontroliraju svaki promet?
+</p><p>1.3.	Zabraniti izravni javni pristup između interneta i svake sustavske komponente u okolini gdje su podaci o karticama: 
+</p><p>a)	Implementiraj demilitariziranu zonu koja će imati ulogu da ograniči promet prema i od protokola koji su potrebni za okruženje kartičnih podataka
+	Ograničava neuatorizirani pristup mreži pomoći IP adresa. Također, ograničava neautorizirano korištenje servisa, protokola i portova.
+</p><p>KORAK PROVJERE:
+</p><p>	Jeli implementirana demilitarizirana zona? Ograničava li promet komponentama koje koriste javno dostupne servise, protokole, portove?
+</p><p>b)	Ograniči promet prema IP adresama unutar demilitarizirane zone
+	Ograničava neutorizirani promet unutar same zone prema prema IP adresama.
+</p><p>KORAK PROVJERE:
+</p><p>	Je li ograničen ulazni Internet promet prema IP adresama unutar zone?
+</p><p>c)	Zabrani izravnu ulaznu i izlaznu rutu za promet između interneta i okruženja kartičnih podataka
+	Odnosi se na odvajanje nužno potrebnog od nepotrebnog prometa
+</p><p>KORAK PROVJERE:
+</p><p>	Postoji li direktna ulazna i izlazna ruta za promet između interneta i okruženja kartičnih podataka?
+</p><p>d)	Ne dopusti unutarnjim adresama da iskoriste Internet i uđu u demilitariziranu zone
+	Odnosi se na to da se ne dopušta modificiranim paketima ulazak u mrežu
+</p><p>KORAK PROVJERE:
+</p><p>	Mogu li unutrašnje adrese prijeći iz interneta u DMZ zonu?
+</p><p>e)	Ograniči odlazni promet tako da on ima pristup samo IP adresama unutar demilitarizirane zone
+</p><p>KORAK PROVJERE:
+</p><p>	Jeli cjelokupni promet iz okoline s podacima o karticama prema internetu autoriziran?
+</p><p>f)	Implementiraj dinamičko filtriranje paketa
+</p><p>KORAK PROVJERE:
+</p><p>Ima li vatrozid funkcionalno dinamičko filtriranje podataka?
+</p><p>g)	Komponente koje pohranjuju podatke o karticama smjesti u unutarnju internu mrežu. Interna mreža mora biti odvojena od DMZ i drugih mreža
+</p><p>KORAK PROVJERE:
+</p><p>Potvrdi da je opisano u naslovu izvršeno?
+</p><p>h)	Ne izlaži privatne IP adrese i informacije o usmjeravanju neautoriziranim strankama
+</p><p>KORAK PROVJERE:
+</p><p>Postoje li metode koje skrivaju privatne IP adrese i informacije o usmjeravaju iz interne mreže prema internetu? 
+</p><p>1.4.	Instaliraj osobni softver za vatrozid na bilo koji mobitel ili računalo koje ima mogućnost direktnog spajanja na Internet te koji se koristi za pristup organizacijskoj mreži:
+</p><p>KORAK PROVJERE:
+</p><p>Provjeri sve uređaje zaposlenika s kojima bi se moglo pristupiti internetu imaju li instaliranu odgovarajuću zaštitu. Svi zaposlenici moraju imati zaštitu prema točno određenim kriterijima. 
+</p><p><br />
+Zahtjev drugi:
+</p><p><b>2.	Ne koristi unaprijed definirane(zadane) sustavske lozinke i druge sigurnosne parametre</b>
+Unaprijed definirane lozinke i sigurnosni parametri su poznati s velikom vjerojatnošću hakerima. Pored toga problem su i lozinke koje je lako moguće pogoditi. Zahtjev koji govori kako ispravno definirati lozinku objašnjen je nastavku:
+</p><p>2.1.	 Uvijek promijeni zadane sustavske lozinke prije instaliranja sustava na mrežu:
+Bežičnim sustavima koji služe za prijenos kartičnih podataka promijeni postavke od proizvođača kao što su bežični ključevi, kriptiranja, lozinke i sl.
+</p><p>KORAK PROVJERE:
+</p><p>Ukoliko je netko napusti tvrtku ili je bila prva instalacija provjeri jeli sve izmijenjeno, poput kriptografskih ključeva, SNMP stringova na bežičnom uređaju, lozinki na pristupnoj točki? Provjeri jeli ugrađeni softver ažuran, kao i jesu li svi sigurnosni parametri izmijenjeni?
+</p><p>2.2.	 Razvij konfiguracijske standarde za sve sustavske komponente. Uvjeri se da oni pokrivaju sve sustavske ranjivosti i da su usklađeni s standardima(ISO, CIS, SANS, NIST)
+</p><p>KORAK PROVJERE:
+</p><p>Jeste li ispitali organizacijske standarde konfiguriranja komponenti?
+Jesu li usklađeni s standardima i normama?
+Jesu li standardi konfiguriranja ažurni?
+Primjenjuju li se odmah nakon instalacije novih sustava?
+</p><p>a)	Razvij samo jednu primarnu funkciju kako se ne bi dogodilo da na jednom serveru imamo funkcije koje zahtijevaju različite mjere sigurnosti
+</p><p>KORAK PROVJERE:
+</p><p>	Jeli na svakom serveru implementirana samo jedna funkcija?
+</p><p>b)	Omogući korištenje samo potrebnih sigurnosnih servisa i procedura koje su potrebni za rad sustava. 
+</p><p>KORAK PROVJERE:
+</p><p>Jesi li istražio omogućene sustavske servise i protokole za određeni uzorak sustavskih komponenti? Jesu li nesigurni servisi i protokoli onemogućeni? Jesu li uključeni samo nužni servisi i protokoli? Ukoliko je nužan rad pojedinih nesigurnih servisa jeli on maksimalno prilagođen te jesu li njihove sigurnosne značajke dokumentirane? 
+</p><p>c)	Konfiguriraj sustavske sigurnosne parametre koji su nužni kako bi se spriječila zlouporaba
+</p><p>KORAK PROVJERE:
+</p><p>Jesi li intervjuirao administratore sustava i osoblje koje upravlja sigurnošću kako bi bio siguran da posjeduje znanje vezano uz postavljanje sigurnosnih postavki? 
+Jesu li česti sigurnosni parametri uključeni u standarde sustava konfiguranja?
+</p><p>d)	Ukloni sve nepotrebne funkcionalnosti. Pr. nepotrebnih funkcionalnosti su driveri, skripte, web serveri i sl.
+</p><p>KORAK PROVJERE:
+</p><p>Jesi li razmislio koje su funkcionalnosti nepotrebne i uklonio ih?
+Jesi li provjerio da su uključene funkcije dokumentirane i da podupiru sigurnu konfiguraciju? 
+</p><p>2.3.	 Kriptiraj sve administrativne pristupe koji nisu s konzole. Pri tome koristi jaku kriptogrfiju. Za sve ne-konzolne administrativne poslove koristi tehnologije kao  što su SSH, VPN, SSL ili TLS.
+</p><p>KORAK PROVJERE:
+</p><p>	Za određeni uzorak provjeri jesu li administrativni pristupi koji nisu s konzole kriptirani?
+	Prije nego je zatražena lozinka od administratora, jeste li utvrdilili da je implementirana jaka metoda kripcije?
+	Jeste li prilikom pregledavanja  servisa i datoteka s parametrima na sustavu utvrdili ste da Telnet ili drugi način rada na daljinu nije dostupan za rad unutar sustava?
+	Jeste li utvrdili da je administratorski pristup upravljačim sučeljima baziranima na webu kriptiran jakom kriptografijom?
+</p><p>2.4.	 Osobe koje smještaju web servise na server(engl. hosting) trebaju zaštiti svako računalo ili server povezan u računalnu mrežu(engl. host) kao i podatke o vlasnicima kartica. Takvi pružatelji usluga moraju ispuniti posebne zahtjeve koji su predviđeni za njih.
+</p><p>KORAK PROVJERE:
+</p><p>	Provesti procedure testiranja koje se nalaze u dokumentu Additional PCI DSS Requirements for Shared Host Providers.
+</p><p><br />
+Zahtjev treći:
+</p><p><b>3.	Zaštiti pohranjene podatke vlasnika kartica</b>
+</p><p>Ovo poglavlje razmatra zaštitne metode poput kriptografije, maskiranja, hashiranja. Potrebno je voditi računa i o smanjenju rizika, vanjskih oblika prijetnji i sl. Također, ovo poglavlje obuhvaća i dio vezan uz osnovnog broja računa te osobnog identifikacijskog broja.  
+</p><p>3.1.	 Potrebno je održavati spremišta u kojima se čuvaju podaci o vlasnicima kartica na minimumu.  Kako bi se spremišta čuvala na minimumu, potrebno je razviti politiku koja će odrediti pravilo arhiviranja i brisanja podataka, procedura i točaka prema sljedećim točkama:
+</p><p>3.1.1.	Razvijaj politiku čuvanja i brisanja podataka koja uključuje sljedeće korake:
+	Uskladi i ograniči veličinu spremišta podataka, kao i vrijeme pohrane podataka tako da bude u skladu s zakonskim, poslovnim i legalnim potrebama.
+	Procese za sigurno brisanje podataka kada više nisu potrebni
+	Posebne zahtjeve za pohranu kartičnih podataka
+	Automatske kvartalne ili ručne procese za identifikaciju i sigurno brisanje pohranjenih kartičnih podataka koji nisu u skladu s definiranim zahtjevima pohrane
+</p><p>KORACI PROVJERE:
+</p><p>	Jesu li politike i procedure koje su provedene usklađene s pravnim, regulatornim i poslovnim uvjetima vezanim uz pohranjivanje podataka, uključujući specifične zahtjeve za pohranu podataka o vlasnicima kartica?
+	Uključuju li politike i procedure odredbe za sigurno uništenje podataka kada isti više nisu potrebni za pravno i regularno poslovanje?
+	Provjerite da politike i procedure uključuju pokrivenost za sve vrste pohrane podataka kartice?
+</p><p>	Provjerite da politike i procedure uključuju barem jedno od sljedećeg:
+</p><p>a)	Ustaljeni proces(automatski ili ručni) za kvartalno uklanjanje kartica koje ne zadovoljavaju zahtjeve definirane prema politici njihovoga čuvanja.
+</p><p>b)	Zahtjeve za preispitivanje, provedene najmanje u kvartalno, kako bi se potvrdilo da pohranjeni podaci imaoca ne prekoračuju zahtjeve definirane politikom čuvanja podataka.
+	Za odabrani uzorak komponenti sustava koje čuvaju podatke o vlasnicima kartica, provjerite da pohranjeni podaci ne prelaze zahtjeve koji su definirani politikom čuvanja podataka.
+</p><p>3.2.	 Nemojte pohranjivati osjetljive podatke za autorizaciju nakon odobrenja (čak i ako su kriptirani)
+</p><p>KORAK PROVJERE:
+</p><p>	Ukoliko neke tvrtke čuvaju neke autorizacijske podatke, potvrdite ima li poslovno opravdanje za čuvanje tih podataka?
+	Za sve ostale tvrtke koje se služe podacima od autorizacije, provjeriti jeli ih nakon autorizacije ispravno i nepovratno brišu?
+</p><p>3.2.1 Ne pohranjuj cijeli sadržaj niti jedne trake  od neke kartice(magnetska kartica na pozadini).
+</p><p>	KORAK PROVJERE:
+</p><p>Za odabrani uzorak sustavskih komponenti provjeri izvore podataka i potvrdi da sadržaj magnetske trake na poleđini ili ekvivalenti sadržaj čipa ne sadrži ni u kojem slučaju sljedeće elemente:
+a)	Dolazne transakcijske podatke
+b)	Stabla koja prikazuju npr. povijest, ispravljene pogreške, transakcije i sl.
+c)	Povijesne datoteke
+d)	Datoteke za praćenje
+e)	Sheme baze podataka
+f)	Sadržaj baze podataka
+</p><p>3.2.2. Ne pohranjuj verifikacijski kod kartice(to je troznamenkasti i četveroznamenkasti broj na kartici). Taj kod se koristi za potvrdu transakcije kada kartica nije prisutna. 
+</p><p>KORAK PROVJERE:
+</p><p>Za odabrani uzorak sustavskih komponenti provjeri izvore podataka i potvrdi da verifikacijski kod kartice ne sadrži ni u kome slučaju sljedeće elemente:
+a)	Dolazni transakcijski podaci
+b)	Sva stabla(npr. , transakcije, povijest, ispravljanje pogrešaka, pogreške)
+c)	Povijest datoteke
+d)	Datoteke za praćenje
+e)	Sheme baze podataka
+f)	Sadržaj baze podataka
+</p><p>3.2.3. Ne pohranjuj PIN (osobni identifikacijski broj) ili kriptirani PIN BLOK
+</p><p>	KORAK PROVJERE:
+</p><p>Za odabrani uzorak sustavskih komponenti provjeri izvore podataka i potvrdi da PIN i PIN BLOKVI ni u kome slučaju ne sadrže sljedeće elemente:
+a)	Dolazni transakcijski podaci
+b)	Sva stabla(npr. , transakcije, povijest, ispravljanje pogrešaka, pogreške)
+c)	Povijest datoteke
+d)	Datoteke za praćenje
+e)	Sheme baze podataka
+f)	Sadržaj baze podataka
+</p><p>3.3.	 Kada se prikazuje zamaskiraj PAN(Primary  account number). Prve 6 i zadnje 4 znamenke predstavljaju maksimalni broj znamenaka koji smije biti prikazan
+</p><p>KORAK PROVJERE:
+</p><p>Nabavite i ispitajte pisane politike i ispitajte kako izgleda prikazivanje PAN-a (na primjer, na ekranu, na papiru primitaka) kako bi provjerili da primarni brojevi računa su maskirani prilikom prikaza podataka kartice, osim u slučaju kada se PAN mora vidjeti(pr. zaposlenici koji legalno posluju i moraju znati PAN).
+</p><p>3.4. Učinite PAN nevidljivim bez obzira gdje je spremljen(uključujući prijenosne medije, backupe medije i zapise), koristeći neki od sljedećih pristupa:
+a) jednosmjerno hashiranje temeljeno na jakoj kriptografiji 
+b) skraćivanje
+c) indeksirani tokeni i blokovi
+d) Jaka kriptografija koja uključuje procese i procedure potrebne za upravljanje ključevima
+</p><p>	KORAK PROVJERE:
+</p><p>Nužno je pronaći i ispitati dokumentaciju vezanu uz zaštitu PAN-a. Potrebno je i provjeriti jeli pan zaštićen nekom od sljedećih metoda:
+a) jednosmjerno hashiranje temeljeno na jakoj kriptografiji 
+b) skraćivanje
+c) indeksirani tokeni i blokovi
+d) Jaka kriptografija koja uključuje procese i procedure potrebne za upravljanje ključevima
+</p><p>3.4.1. Ukoliko se koristi kriptiranje diska, kontrola pristupa logičkom dijelu mora biti odvojena od kontrole pristupa u operacijskom sustavu. Također, ključevi dekriptiranja ne smiju biti vezani za korisnički račun.
+</p><p>	KORAK PROVJERE:
+</p><p>a)	Ukoliko koristite kriptiranje diska, provjerite jeli za logični pristup datotekama implementiran mehanizam koji je odvojen od mehanizma za pristup operacijskom sustavu.
+b)	Jesu li kriptografski ključevi pohranjeni sigurnom mjestu(pr. na prijenosnim mediju koji je zaštićen jakom kontrolom pristupa)
+c)	Kriptiraju li se podaci o vlasniku kartice prilikom pohrane na uklonjive medije?
+</p><p><br />
+3.5.	  Zaštitite sve ključeve korištene kako bi osigurali zaštitu podataka vlasnika kartice da ne bi došlo do otkrivanja i zlouporabe
+</p><p>3.5.1.	Ograniči pristup kriptografskim ključevima na što je moguće manji broj osoba kako bi pristup kriptografskim ključevima imale samo one osobe kojima je taj pristup potreban
+</p><p>KORAK PROVJERE:
+Prouči listu korisnika s pravom pristupa. Jeli pristup ograničen samo na osobe kojima je potreban?
+</p><p>3.5.2.	Spremite kriptografske ključeve na sigurno u što je moguće manjem broju lokacija i oblika
+</p><p>KORAK PROVJERE:
+</p><p>Prouči konfiguraciju sustava(sustavske konfiguracijske datoteke)! Jesu li ključevi pohranjeni u kriptiranom obliku? Jesu li sustavi za kriptiranje ključeva pohranjeni odvojeno od ključeva za kriptiranje podataka? Identificiraj spremišta i provjeri jesu li ključevi pohranjeni u što je moguće manji broj lokacija?
+</p><p>3.6.	 U potpunosti dokumentiraj i implementiraj sve procese i postupke za upravljanje ključevima  koji se koriste za zaštitu kartičnih podataka uključujući elemente navedene u nastavku:
+</p><p>3.6.1.	Generiranje jakih kriptografskih ključeva
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li procedure za upravljanje ključevima implementirane tako da zahtijevaju generiranje jakih ključeva?
+</p><p>3.6.2.	Osiguraj distribuciju kriptografskih ključeva
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li procedure za upravljanje ključevima implementirane tako da zahtijevaju sigurnu distribuciju ključeva?
+</p><p>3.63. Osiguraj sigurnu pohranu kriptografskih ključeva
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li procedure za upravljanje ključevima implementirane tako da zahtijevaju sigurnu pohranu ključeva?
+</p><p>3.64. Promijenite kriptirani ključ nakon što mu istekne rok valjanosti(rok mu istječe nakon prethodno definiranog perioda ili nakon određene količine stvaranja kriptiranog teksta), prema načinu koji je definiran od proizvođača aplikacije ili vlasnika ključa, a bazirano je na najboljoj praksi.
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li procedure za upravljanje ključevima implementirane tako da zahtijevaju periodičke promjene.
+</p><p>3.6.5.  Ukoliko je integritet ključa narušen, zamijeni ga ili odbaci(pr. odlazak zaposlenika koji zna ključ)
+</p><p>KORAK PROVJERE:
+</p><p>a)	Jesu li procedure za upravljanje ključevima implementirane na način da zahtijevaju arhiviranje ili uništavanje ključeva narušenog integriteta?
+</p><p>b)	Jesu li procedure za upravljanje ključevima implementirane tako da zahtijevaju zamjenu poznatih ili sumnjivih ključeva?
+</p><p>c)	Mogu li se ključevi koji su promijenjeni ili arhivirani koristiti za kriptiranje?
+</p><p>3.6.6. Prema priručniku za upravljanje ključevima, upravljanjem ključeva mora upravljati više osoba koje pri tome provode podijeljeno znanje i duple kontrole(pr. dvije do tri osobe znaju vlastitu komponentu ključa, a zajednički oblikuju kompletni ključ)
+</p><p>	KORAK PROVJERE:
+</p><p>Zahtijevaju li pravila za upravljanje ključevima podjelu znanja kao i kontrolu ključeva od strane više osoba?
+</p><p>3.6.7. Sprječavanje neautoriziranje zamjene kriptografskih ključeva
+</p><p>	KORAK PROVJERE:
+</p><p>Jesu li procedure za upravljanje ključevima implementirane na način da zabranjuju neautoriziranu zamjenu ključeva?
+</p><p>3.6.8. Tražiti da čuvari kriptografskih ključeva formalno potvrde da razumiju i prihvaćaju svoje odgovornosti
+</p><p>	KORAK PROVJERE:
+</p><p>Jesu li procedure za upravljanje ključevima implementirane tako da zahtijevaju da čuvari kriptografskih ključeva potpišu da razumiju i prihvaćaju svoje odgovornosti.
+ 
+Zahtjev četvrti:
+</p><p><b>4.	Kriptiraj prijenos kartičnih podatka kroz otvorenu, javnu mrežu</b>
+</p><p>Osjetljive informacije moraju biti kriptirane za vrijeme prijenosa kroz mrežu kojoj lako mogu pristupiti zlonamjerne osobe. Loše konfigurirane bežične mreže  i ranjivosti u kriptografskom i autentifikacijskom protokolu mete su zlonamjernih osoba koje iskorištavaju ranjivosti mreže kako bi se domogli privilegiranog pristupa okruženju kartičnih podataka.
+</p><p>4.1.	 Koristi jaku kriptografiju i sigurnosne protokole(kao npr. SSL/TLS, IPSEC, SSH, itd.) za osiguravanje osjetljivih kartičnih podataka za vrijeme prijenosa kroz otvorene, javne mreže.
+</p><p>KORAK PROVJERE:
+</p><p>a)	Potvrdi da se koriste sigurnosni protokoli kad god se prenose podaci o vlasniku kartice preko javne mreže. Prema točkama koje slijede provjeri koristi li se jaka kriptografija:
+</p><p>-&gt; Odaberite uzorak transakcija nakon primanja. Pratite transakcije tijekom provjere kako biste utvrdili jesu li podaci o vlasniku kartice kriptirani tijekom prijenosa?
+</p><p>-&gt; Jesu li korišteni samo povjerljivi ključevi i/ili prihvatljivi certifikati?
+</p><p>-&gt; Jeli protokol konfiguriran na način da koristi samo sigurne konfiguracije, a ne podržava nesigurne verzije konfiguracija?
+</p><p>-&gt; U skladu s metodom enkripcije, jeli korištena jaka enkripcija?
+</p><p>-&gt; Vezano uz SSL ili TLS implementacije provjeri pojavljuje li se https kao dio URL-a u pregledniku. Ukoliko nema https-a u URL-u potvrdi da se ne traže nikakvi podaci o vlasniku kartice.
+</p><p>4.1.1.  Osiguraj da bežične mreže preko kojih se prenose kartični podaci, koriste tzv. najbolju praksu(kao npr. IEEE 802.11i) za implementaciju jake kriptografije za autentificiranje i prijenos.
+</p><p>PROVJERA:
+</p><p>Koriste li bežične mreže koje prenose kartične podatke najbolju praksu za implementaciju jake kriptografije za autentificiranje i prijenos?
+</p><p>4.2.	 Nikada nemojte slati ne zaštičene PAN informacije preko tehnologija za komunikaciju koje koriste krajnji korisnici, kao što su npr. e-mail, chat,  instant messaging, itd.
+</p><p>KORAK PROVJERE:
+</p><p>a)	Provjeri jesu li PAN informacije nečitke ili osigurane jakim kriptografskim tehnikama kada se šalju preko tehnologija za komunikaciju koju koriste krajnji korisnici?
+</p><p>b)	Postoji li politika koja nalaže da se nekriptirani PAN ključevi ne šalju preko tehnologija koje se koriste za razmjenu poruka.
+</p><p><br />
+Zahtjev peti:
+</p><p><b>5.	Koristite i redovito ažurirajte antivirusne programe  </b>
+</p><p>Zlonamjerni softver, poznatiji kao „malware“ uključuje viruse, crve, trojance i ulazi u mrežu poduzeća tijekom mnogih poslovnih aktivnosti koje uključuju korištenje e-maila, interneta, mobilnih uređaja te raznih uređaja za pohranu određenih podataka. Način na koji djeluje malware je taj da on koristi sustavske ranjivosti. Svaki sustav za koji postoji mogućnost da se zarazi potrebno je zaštiti na način da se instalira antivirusni program. 
+</p><p>5.1.	 Instaliraj antivirusni program na svako mjesto kojem prijeti maliciozni kod(posebno na osobna računala i poslužitelje)
+</p><p>KORAK PROVJERE:
+</p><p>Za određeni uzorak sustavskih komponenti koji uključuje sve tipove operacijskih sustava koji bi mogli biti zaraženi malicioznim softverom, potvrdi da je instaliran antivirusni program.
+</p><p>5.1.1.	Osiguraj da su svi antivirusni programi sposobni za otkrivanje, uklanjanje i zaštitu sustava od svih mogućih oblika malicioznih programa
+</p><p>KORAK PROVJERE:
+</p><p>Za uzorak sustavskih komponenti provjeri rade li antivirusi jako dobro, a to podrazumijeva da mogu otkriti, ukloniti i zaštititi sustav od svih vrsta malicioznog softvera(kao npr., virusa, trojanaca, crva, spywarea, adwarea i rootkitsa)
+</p><p>5.2.	 Osiguraj da su svi antivirusni mehanizmi nadograđeni, aktivno rade i da su sposobni generirati radne izvještaje
+</p><p>KORAK PROVJERE:
+</p><p>Rade li svi antivirusni programi, jesu li ažurirani i jesu li sposobni generirati zapise prema koracima provjere u nastavku:
+a)	Pribavite i ispitajte politiku te potvrdite da zahtjeva ažuriranje antivirusnog programa.
+b)	Potvrdite da je prilikom instalacije omogućeno automatsko ažuriranje i skeniranje za točno određeno vremensko razdoblje
+c)	Za određeni uzorak sustavskih komponenti na koje može utjecati maliciozni kod, potvrdite da je omogućeno automatsko ažuriranje i periodičko skeniranje
+d)	Za određeni uzorak sustavskih komponenti potvrdi da antivirusni softver generira zapise i da se ti zapis čuvaju u skladu s PCI DSS zahtjevom 10.7.
+</p><p><br />
+Zahtjev šesti:
+</p><p><b>6.	Razvijaj i održavaj sigurnosne sustave i aplikacije</b>
+</p><p>Zlonamjerne osobe koriste sigurnosne propuste kako bi dobili pravo za privilegirani pristup sustavima. Mnogi od tih propusta se mogu ukloniti ukoliko koristite sigurnosne zakrpe od strane entiteta koji upravljaju sustavima. Kako bi se zaštitili od zlouporabe, svi kartični sustavi moraju imati najnovije izdanu sigurnosnu zakrpu. Nužno je da zakrpe ne budu u konfliktu sa dosadašnjim sigurnosnim postavkama. 
+</p><p>6.1.	 Uvjerite se da su sve sustavske komponente i softver imaju instalirane zadnje zakrpe kako bi se zaštitili od poznatih ranjivosti
+</p><p>KORAK PROVJERE:
+</p><p>a)	Za određeni uzorak sustavskih komponenti pregledaj sadrži li najnovije zakrpe za određeni software. Jesu li instalirane najnovije zakrpe?
+b)	Provjerite politiku vezanu uz instalaciju sigurnosnih zakrpa. Zahtjeva li politika instalaciju zakrpi najmanje jedan put na mjesec?
+</p><p>6.2.	  Uspostavi proces koji će služiti za identifikaciju rizika i izradu rang liste rizika kako bi se utvrdilo koji je od novih rizika koliko opasan
+</p><p>KORAK PROVJERE:
+</p><p>a)	Intervjuirajte odgovorno osoblje kako biste provjerili provode li se procesi vezani za otkrivanje novih ranjivosti
+b)	Uključuju li procesi za otkrivanje novih ranjivosti vanjske izvore s informacijama o ranjivostima?
+</p><p>6.3.	 Razvijaj sustavske aplikacije(interne i eksterne, uključujući one kojima se pristupa preko weba) u skladu s PCI DSS normom i koristeći primjere najbolje prakse.
+</p><p>KORAK PROVJERE:
+</p><p>a)	Jeli proces razvoja aplikacije temeljen na industrijskim standardima i na primjeru najbolje prakse
+b)	Ispitaj proces razvoja aplikacije kako bi bio siguran da je informacijska sigurnost od početka uključena u taj razvoj
+c)	Ispitaj proces razvoja aplikacije kako bi se potvrdio da je u skladu s PCI DSS normom
+</p><p>6.3.1.	Uklonite korisničke račune i lozinke prije nego što aplikacija postane aktivna i dostupna korisnicima
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li korisnički računi i lozinke izbrisani prije nego što je aplikacija ponuđena korisnicima za uporabu?
+</p><p>6.3.2.	Pregledaj kod prije davanja u uporabu kako bi identificirale potencijalne ranjivosti u kodu
+</p><p>KORAK PROVJERE:
+</p><p>Uzmi dio postojećih aplikacijskih promjena i pregledaj ih prema sljedećim točka:
+Pregledaj politike kako bi potvrdio da su promjene u kodu odrađene na sljedeći način:
+a)	Jeli kod pregledala neka osoba koja se razumije u kod, a nije ga pisala ili neki drugi stručnjak, primjerice programer?
+</p><p>b)	Jeli kod pregledan? Je li izrađen u skladu sa smjernicama sigurnoga programiranja?
+</p><p>c)	Ispravci koda prije nego što je izdan su urađeni u skladu sa sigurnosnim načinom programiranja?
+</p><p>d)	Prije nego je puštena aplikacija u uporabu jeli menadžer  odobrio pregled njezinoga koda?
+</p><p>6.4.	 Za sve promjene komponenti sustava, prati procese i procedure promjena
+</p><p>KORAK PROVJERE:
+</p><p>Kreiraj test za procese i procedure promjena, intervjue s sistem i mrežnim administratorima da biste ispunili kriterije po točkama navedenima u nastavku
+</p><p>6.4.1.	Razdvoji razvojnu/testnu i proizvodnu okolinu
+</p><p>KORAK PROVJERE:
+</p><p>Jeli razdvojena razvojna/testna i proizvodna okolina na način da svaka ima vlastitu kontrolu pristupa?
+</p><p>6.4.2.	Razdvoji odgovornosti između razvjne/testne i proizvodne okoline
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li razdvojene dužnosti osoblja u razvojnoj/testnoj i proizvodnoj okolini?
+</p><p>6.4.3.	Produkcijski podaci(pravi PAN-ovi) ne koriste se za testiranje ili razvoj
+</p><p>KORAK PROVJERE:
+</p><p>Provjerite da se produkcijski podaci(pravi PAN-ovi) ni u kojem slučaju ne koriste za testiranje ili razvoj!
+</p><p>6.4.4.	Prije nego što sustav postane aktivan potrebno je ukloniti testne podatke i račune
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li podaci za testiranje i računi su uklonjeni prije nego je sustav postao aktivan?
+</p><p>6.4.5.	Promjenite kontrolne procedure za implementaciju sigurnosnih zakrpa i promjenu softvera prema koracima navedenim u nastavku:
+</p><p>6.4.5.1.	 Dokumentacija utjecaja
+</p><p>KORAK PROVJERE:
+</p><p>Jeli dokumentacija utjecaja uključena u dokumentaciju o promjenama za svaku novu  promjenu uzorka?
+</p><p>6.4.5.2.	 Dokumentiraj dozvolu promjene od strane ovlaštenih osoba
+</p><p>KORAK PROVJERE:
+</p><p>Jeli dokumentirana dozovola od ovlaštenih osoba za svaku promjenu?
+</p><p>6.4.5.3.	 Testirajte funkcionalnost da bi se potvrdilo da promjene ne utječu na sigurnost sustava
+</p><p>KORAK PROVJERE:
+</p><p>Testiranjem funkcionalnosti, za svaku promjenu potvrdi da promjene ne utječu na sigurnost sustava!
+Za svaku promjenu koda potvrdi da su sva ažuriranja testirana i u skladu s zahtjevom 6.5. PCI/DSS norme!
+</p><p>6.4.5.4.	 Procedure povlačenja
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li procedure za povlačenje spremne za svaku promjenu?
+</p><p>6.5.	 Razvijaj aplikacije koje se temelje na smjernicama za sigurno programiranje.  Razvojem programa spriječi česte ranjivosti u kodu
+</p><p>KORAK PROVJERE:
+</p><p>a)	Provjeri proces razvoja softvera. Zahtjeva li treniranje developera za tehnike sigurnog programiranja kao što su tehnike programiranja sigurnih aplikacija?
+</p><p>b)	Pomoću intervju istraži znaju li programeri što su tehnike sigurnog programiranja?
+</p><p>c)	 Prema koracima koji slijede u nastavku provjeri jesu li koraci u redu te jesu li aplikacije osjetljive na prijetnje koje se navode.
+</p><p>6.5.1.	Nedostaci koji su vezani uz injection, posebice u SQL injection, OS injection kao i sve druge vrste injectiona
+</p><p>KORAK PROVJERE:
+</p><p>Korak provjere se odnosi na sve vrste upada, a najviše na SQL injection. Provjeri da korisnik ne može podatke koji mogu biti naredbe ili upiti
+</p><p>6.5.2.	Prekoračenje spremnika
+</p><p>KORAK PROVJERE:
+</p><p>Provjeri kapacitet međuspremnika. Prema potrebi ograničite unos.
+</p><p>6.5.3.	Nesigurna kriptografska pohrana
+</p><p>KORAK PROVJERE:
+</p><p>Jeste li spriječili sve kriptografske propuste?
+</p><p>6.5.4.	Nesigurno komuniciranje
+</p><p>Jesu li ispravno kriptirane sve autentificirane i osjetljive komunikacije?
+</p><p>6.5.5.	Nepravilno rukovanje greškama
+</p><p>KORAK PROVJERE:
+</p><p>Nemojte odavati informacije putem poruka o greškama!
+</p><p>6.5.6.	Sve ostale ranjivosti klasificiraj kao „visoke“ u zahtjevu 6.2.
+</p><p>KORAK PROVJERE:
+</p><p>Jesu li ostale ranjivosti svrstane u kategoriju visokih ranjivosti?
+</p><p>6.5.7.	Cross – site scripting (XSS)
+</p><p>KORAK PROVJERE:
+</p><p>Jesi li provjerio sve parametre prije uključivanja?
+</p><p>6.5.8.	Neispravna kontrola pristupa, kao npr. nesigurno referenciranje na objekte, neuspješno otvaranje ograničenih URL-ova
+</p><p>KORAK PROVJERE:
+</p><p>Jeli prisutan neki od oblika neispravne kontrole pristupa, kao npr. nesigurno referenciranje na objekte, neuspješno otvaranje ograničenih URL-ova?
+</p><p>6.5.9.	Cross-site request forgery(CRF)
+</p><p>KORAK PROVJERE:
+</p><p>Nikako ne upisujte autorizacijske podatke i tokene u otvorene prozore od strane preglednika, nemajte povjerenja u bilo čije preglednike!
+</p><p>6.6.	 Za javno dostupne web aplikacije, odredite nove prijetnje i ranjivosti i provjerite jesu li te aplikacije javno zaštičene od poznatih napada prema jednoj od metoda:
+</p><p>a)	Pregledajte javne aplikacije koje koriste web ručno ili uz pomoć alata za automatsko otkrivanje ranjivosti. Pregledavanje vršite najmanje jednom godišnje ili nakon svake promjene!
+</p><p>b)	Instalirajte vatrozid za web aplikacije!
+</p><p>KORAK PROVJERE:
+</p><p>Za javno dostupne web aplikacije, koristite li barem jednu od navedene dvije metode, a metode su:
+a)	Jesu li aplikacije pregledane(alatom ili ručno) barem jednom godišnje, nakon svake promjene, od stručnog osoblja(pr. organizacije koje se bave sigurnošću aplikacija), jesu li ranjivosti na njoj popravljene, jeli nakon popravka još jednom potvrđena njezina sigurnost!
+</p><p>b)	Jeli vatrozid web aplikacije postavljen na način da pronalazi i zaustavlja napade s weba!
+[Turina]
+</p><p><br />
+</p><p><br />
+</p>
+<hr />
+<p><br />
+<b>Zahtjev 7: Ograniči pristup kartičnim podacima – samo stvari koje je potrebno znati</b>
+</p><p><br />
+<i>Kako bi osigurali da su ključni podaci dostupni samo ovlaštenom osoblju, sistem i procesi moraju imati ograničenja koja se odnose na pristup podacima prema odgovornosti posla i podacima koje treba znati. Podaci koje je potrebno znati – kada su pristupna prava odobrena samo na minimalnu količinu podataka i privilegija koja je potrebna kako bi se posao obavio.</i>
+</p><p>7.1 Ograniči pristup sistemskim komponentama i kartičnim podacima samo onima kojima je zbog zahtjeva posla takav pristup potreban. Ograničeni pristup mora sadržavati sljedeće:
+KORAK PROVJERE: Potrebno je imati i provjeriti pisanu politiku za kontrolu podataka, i potvrditi da politika sadrži sljedeće
+</p><p>7.1.1 Ograničavanje pristupnih prava privilegiranih korisnika na najmanja prava potrebna za izvršenje posla
+KORAK PROVJERE: Potvrdi da su pristupna prava za privilegirane korisnike ograničena na najmanja prava potrebna za izvršenje posla
+</p><p>7.1.2 Dodjeljivanje prava je bazirano na klasifikaciji posla ili funkcije pojedinca
+KORAK PROVJERE: Potvrdi da su prava dodijeljena bazirano na klasifikaciji posla ili funkcije pojedinca
+</p><p>7.1.3 Zahtjevi za odobrenje prava dolaze od ovlaštenih strana i specificiraju tražena prava
+KORAK PROVJERE: Potvrdi da jeza sve pristupe  potreban zahtjev od ovlaštenih strana i da mora sadržavati tražena prava pristupa
+</p><p>7.1.4 Implementacija automatskog sustava za kontrolu pristupa
+KORAK PROVJERE: Potvrdi da su pristupna prava implementirana kroz automatski sustav za kontrolu pristupa
+</p><p>7.2 Uspostavi sustav kontrole pristupa za sistemske komponente sa više korisnika koji imaju pristup po principu samo stvari koje je potrebno znati I postavi „zabrani sve“ osim ako nije posebno navedeno. 
+KORAK PROVJERE: Provjeri postavke sistema i dokumentaciju proizvođača kako bi potvrdio da su prava dodijeljena 
+</p><p>7.2.1 Pokriće svih sistemskih komponenti
+KORAK PROVJERE: Potvrdi da je sustav kontrole pristupa postavljen na sve komponente sustava
+</p><p>7.2.2 Dodjeljivanje prava pojedincima je temeljeno na klasifikaciji posla i funkciji
+KORAK PROVJERE: Potvrdi da je kontrola pristuopa konfigurirana da traži prava za pristup temeljena na klasifikaciji posla i funkciji
+</p><p>7.2.3 Početna „Zabrani svima“ postavka. Napomena: Neki sustavi kontrole pristupa imaju poletnu postavku „Dopusti svima“, tako da je ima dopušten pristup sve dok se ne donese pravilo koje ga izričito zabranjuje.
+KORAK PROVJERE:  Potvrdi da sustav kontrole pristupa ima početnu „Zabrani svima“ postavku
+</p><p><br />
+</p><p><b>Zahtjev 8: Dodijeli jedinstvenu identifikaciju (ID) svakoj osobi sa pristupom računalu</b>
+</p><p><br />
+<i>Dodjeljivajne jedinstvenog ID-a svakoj osobi sa pristupom računalu osigurava da je svaki pojedinac jedinstveno odgovoran za postupke. Kada je dodijeljena takva odgovornost, svaki postupak koji se provodi nad ključnim podacima može biti poznat autoriziranim osobama.</i> 
+<b>Napomena:</b><i> takvi zahtjevi su primjenjivi na sve korisničke račune, uključujući i „point-of-sale“ račune sa administrativnim ovlastima, kao i sve ostale korisničke račune. Koji se koriste kako bi se pregledali ili koristili kartični podaci ili pak pristupilo sistemu sa kartičnim podacima.</i> 
+</p><p>8.1 ZAHTIJEV: 	Dodijeli svim korisnicima jedinstveni ID koji im dozvoljava pristup komponentama sustava ili kartičnim podacima
+KORAK PROVJERE: Potvrdi da je svim korisnicima dodijeljen jedinstveni ID koji im dozvoljava pristup komponentama sustava ili kartičnim podacima
+</p><p>8.2 Dodatno, uključi još najmanje jedan način autentifikacije svih korisnika
+•	Nešto što znaš, primjerice lozinka ili pass-fraza
+•	Nešto što imaš, poput tokena ili smart kartice
+•	Nešto  što jesi, poput biometrije
+KORAK PROVJERE:  za potvrditi korisnika i za dodatnu provjeru pristupa kartičnim podacima, primjeni sljedeće:
+•	Provjeri dokumentaciju koja opisuje način autentifikacije
+•	Za svaku vrstu autentifikacijske metode korištene, kao i za svaku vrstu sistemskih komponenti, provjeri autentifikaciju kako bi potvrdioda ona funkcionira u skladu s dokumentacijom.
+</p><p>8.3 Uvedi autentifikaciju temeljena na dva koraka za udaljeni pristup (pristup na mrežnoj razini koji dolazi izvana) zaposlenicima, administratorima i trećim stranama.
+Napomena: Autentifikacija u dva koraka zahtijeva da dvije od tri metode budu korištene za autentifikaciju. 
+KORAK PROVJERE: Za provjeru da je autentifikaciju temeljena na dva koraka za udaljeni pristup implementirana, promatraj zaposlenike (primjerice administratora) kako se spajaju izvana na mrežu i potvrdi da su korištene dvije od  tri metode. 
+</p><p>8.4 Sve lozinke učini nečitkima tijekom slanja i spremanja na svim sistemskim komponentama koristeći jaku kriptografiju
+KORAK PROVJERE:
+1.	Za uzorak sistemske komponente, provjeri lozinke kako bi potvrdio da su one nečitljive tijekom slanja i spremanja
+2.	Samo za pružatelje usluge, pregledaj lozinke kako bi potvrdio da su lozinke korisnika kriptirane
+</p><p>8.5 Osiguraj odgovarajuću identifikaciju korisnika i menadžment autentifikacije za ne-potrošačke korisnike i administratore na svim komponentama sustava kako slijedi.
+KORAK PROVJERE: Pregledaj procedure i intervjuiraj osoblje kako bi potvrdio da su procedure implementirane za korisničku identifikaciju i menadžment autentifikacije , izvodeći sljedeće korake.
+</p><p>8.5.1 Dodatak kontroli, brisanje i modifikacija ID-a korisnika, odobrenja i ostalih identifikacijskih objekata
+KORAK PROVJERE: Odaberi uzorak korisničkog ID-a, uključujući i administratore i opće korisnike.  Potvrdi da je svaki korisnik ovlašten za korištenje sustava prema politici i to izvodeći sljedeće:
+•	Pregledaj autorizacijski obrazac za svaki ID
+•	Potvrdi da je korisnički ID implementiran u skladu sa autorizacijskim obrascem (uključujući privilegije kao što je definirano i da su svi potpisi sakupljeni) na način da se slijede informacije od obrasca na sustav
+</p><p>8.5.2 potvrdi korisnika prije resetiranja lozinke
+KORAK PROVJERE: Provjeri lozinku/autentifikacijske postupke i pregledaj sigurnosno osoblje kako bi potvrdio da je, ako korisnik zahtjeva resetiranje preko telefona, e-maila, weba ili neke druge metode koja nije face-to-face, identitet korisnika potvrđen prije resetiranja lozinke. 
+</p><p>8.5.3 Postavi lozinku za korištenje po prvi puta i resetiraj na jedinstvenu vrijednost za svakog korisnike, te promijeni odmah poslije prvog korištenja
+KORAK PROVJERE: Provjeri procedure za lozinku i promotri sigurnosno osoblje kako bi potvrdio da je lozinka za nove korisnike postavljena na lozinku za korištenje po prvi puta i resetirana lozinka postojećih korisnika postavljena na jedinstvenu vrijednost za svakog korisnika i promijenjena nakon prvog korištenja. 
+</p><p>8.5.4 Trenutno ukinite pristup za sve izbrisane korisnike
+KORAK PROVJERE: Odaberite uzorak korisnika izbrisanih u proteklih 6 mjeseci i pregledajte trenutačnu listu korisnika kako bi potvrdili da su njihovi ID-ovi deaktivirani ili uklonjeni.
+</p><p>8.5.5 Uklonite/onemogućite neaktivne korisničke račune najmanje svakih 90 dana
+KORAK PROVJERE: Potvrdite da su neaktivni korisnički računi stariji od 90 dana ili uklonjeni ili obrisani
+</p><p>8.5.6 Omogućite račune koje koriste proizvođači za udaljeni pristup samo tijekom potrebnog vremenskog razdoblja. Pratite udaljeni pristup računima kada su u upotrebi
+KORAK PROVJERE:
+1. Potvrdi da su računi koje koristi proizvođač za podršku ili održavanje sistemskih komponenti onemogućeni, a omogućeni su samo kada ih proizvođač treba
+2.   Potvrdi da su korisnički računi koje koristi proizvođač pod nadzorom kada se koriste
+</p><p>8.5.7 Upoznati sve korisnike koji imaju pristup kartičnim podacima o autentifikacijskim postupcima i politici
+KORAK PROVJERE: Intervjuirajte korisnike iz uzorka ID-a kako bi potvrdili da su upoznati sa autentifikacijskim postupcima i politikom 
+</p><p>8.5.8 Ne koristite grupne, dijeljene ili generičke račune i lozinke ili druge metode autentifikacije 
+KORAK PROVJERE: 
+1. Za uzorak sistemskih komponenti, provjerite ID listu korisnika kako bi potvrdili sljedeće:
+•	Generički korisnički ID i računi su onesposobljeni ili uklonjeni
+•	Dijeljeni korisnički ID za administraciju i ostale kritične funkcije ne postoje
+•	Dijeljeni i generički korisnički ID-ovi se ne koriste za administraciju bilo kojeg dijela sustava
+2.  Provjerite autentifikacijsku politiku/postupke kako bi potvrdili da su zajedničke i dijeljene lozinke ili druge metode striktno zabranjene
+3.  Intervjuirajte sistemske administratore kako bi potvrdili da se grupne i dijeljene lozinke ili drugi načini autentifikacije ne dodjeljuju, čak i ako su zatražene
+</p><p>8.5.9 Mijenjajte lozinke najmanje svakih 90 dana
+KORAK PROVJERE: 
+1. Za uzorak uzmite i provjerite sistemske postavke koje potvrđuju da su parametri lozinke postavljeni tako da traže od korisnika da mijenja lozinku svakuh 90 dana
+2. Samo za pružatelje usluge, pregledajte unutarnje procese i klijentovu/korisničku dokumentaciju kako bi potvrdili da su oni dužni periodično mijenjati lozinke, te pod kojim uvjetima
+</p><p>8.5.10 Tražite duljinu lozinke od minimalno sedam znakova 
+KORAK PROVJERE: 
+1. Za uzorak uzmite i provjerite sistemske postavke koje potvrđuju da su parametri lozinke postavljeni tako da traže od korisnika da koristi lozinku duljine najmanje sedam znakova
+2. Samo za pružatelje usluge, pregledajte unutarnje procese i klijentovu/korisničku dokumentaciju kako bi potvrdili da su oni dužni  koristiti lozinke duljine najmanje sedam znakova
+</p><p><br />
+8.5.11 Koristite lozinke koje koriste i slova i brojeve
+KORAK PROVJERE:  
+1. Za uzorak uzmite i provjerite sistemske postavke koje potvrđuju da su parametri lozinke postavljeni tako da traže od korisnika da koristi lozinku koja ima i slovne i brojevne znakove
+2. Samo za pružatelje usluge, pregledajte unutarnje procese i klijentovu/korisničku dokumentaciju kako bi potvrdili da su oni dužni  koristiti lozinke koje sadrže slovne i brojevne znakove
+</p><p>8.5.12 Ne dopuštajte da pojedinci koriste lozinke koje su jednake jednoj od zadnjih četiriju lozinka koje je pojedinac koristio
+KORAK PROVJERE: 
+1. Za uzorak uzmite i provjerite sistemske postavke koje potvrđuju da su parametri lozinke postavljeni tako da traže od korisnika da nova lozinka bude različita od posljednjih četiriju korištenih lozinki
+2.  Samo za pružatelje usluge, pregledajte unutarnje procese i klijentovu/korisničku dokumentaciju kako bi potvrdili da su oni ne mogu koristiti lozinke jednake nekoj od prethodne četiri lozinke 
+</p><p>8.5.13 Ograničite ponovljeni pristup tako da zaključate korisnički ID nakon ne više od šest pokušaja
+KORAK PROVJERE:
+1. Uzmite uzorak i provjerite sistemske postavke koje potvrđuju da su autentifikacijski parametri podešeni tako da se traži da će korisnički račun biti zaključan nakon ne više od šest neuspješnih pokušaja
+2.  Samo za pružatelje usluge, pregledajte unutarnje procese i klijentovu/korisničku dokumentaciju kako bi potvrdili da su njihovi korisnički računi privremeno zaključani nakon ne  više od šest neuspješnih pokušaja
+</p><p>8.5.14 Postavite vrijeme otključavanja na najmanje 30 minuta ili dok administrator ponovno ne odobri korisnikov ID
+KORAK PROVJERE: Za uzorak uzmite i provjerite sistemske postavke koje potvrđuju da su parametri lozinke postavljeni tako da  traže da će korisnički račun biti zaključan na najmanje 30 minuta ili dok administrator ponovno ne odobri korisnikov korisnički račun
+</p><p>8.5.15 Ako je trajanje korisničke sesije u mirovanju duže od 15 minuta, traži od korisnika da ponovno reaktivira sesiju 
+KORAK PROVJERE: Uzmite uzorak i provjerite sistemske postavke koje potvrđuju da je time-out vrijeme postavljeno na 15 minuta ili manje
+</p><p>8.5.16 Dokaži autentičnost svima koji imaju pristup bilo kojoj bazi koja sadrži kartične podatke. To uključuje pristup od strane aplikacija, administratora ili drugih korisnika. Ograniči izravan pristup korisnika bazama podataka  
+KORAK PROVJERE: 
+1. Provjeri postavke aplikacija i baza podataka i potvrdi da su svi korisnici autentificirani prije omogućavanja pristupa
+2.  Provjeri postavke aplikacija i baza podataka i osiguraj da su svi korisnički pristupi, upiti i postupci u bazi podataka isključivo  kroz programske metode 
+3.  Potvrdi da postavke aplikacija i baza podataka i ograničavaju korisnika od direktnog pristupa bazi podataka
+4.  Pregledaj programsku potporu baze podataka i zatim programski ID kako bi utvrdio da se aplikacijska ID može koristiti samo od strane aplikacije (a ne pojedinca ili procesa)
+</p><p><br />
+</p><p><b>ZAHTJEV 9: Ograniči fizički pristup kartičnim podacima</b>
+</p><p><br />
+<i>Svaki fizički pristup kartičnim podacima ili sustavu koji sadržava kartične podatke, pruža mogućnost pojedincima da pristupe podacima te manipuliraju s njima. Za svrhu ispunjenja Zahtjeva 9 – osoblje (pri tome se misli na osoblje s punim radnim vremenom, privremeno zaposlenima, ugovaratelje i konzultante) koje je fizički prisutno na posjedu. Gosti – gosti bilo kojeg od osoblja na posjedu, radnici, serviseri ili bilo tko koji treba ući u zgradu na kraće vrijeme, obično ne duže od jednog dana. Medij – odnosi se na sve papirnate ili elektroničke zapise koji sadrže kartične podatke.</i> 
+</p><p>9.1 Koristite pogodne načine kontrole ulaska u zgradu za ograničavanje i promatranje fizičkog pristupa sustavu
+KORAK PROVJERE: Potvrdite postojanje fizičke kontrole ulaska u svaku prostoriju s računalima, podatkovni centar i ostale fizičke prostore koji sadržavaju elemente sustava 
+•	Potvrdi da je  pristup kontroliran sa čitačima kodova ili drugim uređajima koji uključuju kodove i bravu 
+•	Promotri pokušaje sistemskog administratora da se logira na konzolu nasumično odabranog sustava i da potvrdi da je taj sustav zaključan
+</p><p>9.1.1 Koristi video nadzor i /ili pristupni kontrolni mehanizam za promatranje individualnog fizičkog pristupa pojedinim osjetljivim područjima. Spremajte tri mjesece osim ako nema drugačijih zakonskih regulativa 
+KORAK PROVJERE:
+1. Potvrdi da su video nadzor i /ili pristupni kontrolni mehanizam pozicionirani za promatranje ulaza/izlaza u pojedina osjetljiva područja 
+2. Potvrdi da su video nadzor i /ili pristupni kontrolni mehanizam zaštićeni od modificiranja ili onemogućavanja 
+3. Potvrdi da su video nadzor i /ili pristupni kontrolni mehanizam provjeravani i da su podaci sa kamera ili drugih mehanizama spremljeni najmanje tri mjeseca 
+</p><p>9.1.2 Ograniči fizički pristup javno dostupnim mrežnim utorima. Primjerice, područja dostupna posjetiteljima ne bi trebala sadržavati mrežne dijelove
+KORAK PROVJERE: Potvrdi intervjuirajući mrežnog administratora i provjerom da su mrežni utori omogućeni samo autoriziranom osoblju. Također, potvrdi da su posjetitelji pod pratnjom cijelo vrijeme i u svim prostorima koji sadrže aktivne mrežne utore
+</p><p>9.1.3 Ograniči fizički pristup bežičnim pristupnim točkama, ručnim uređajima, mrežnom/komunikacijskom hardveru i telekomunikacijskim linijama
+KORAK PROVJERE: Potvrdi da su ograničeni pristupi bežičnim pristupnim točkama, ručnim uređajima, mrežnom/komunikacijskom hardveru i telekomunikacijskim linijama 
+</p><p>9.2 Razvij procedure za lako razlikovanje osoblja od posjetitelja, posebno u područjima gdje su kartični podaci dostupni
+KORAK PROVJERE: 
+1. Pregledaj procedure za dodjeljivanje kodova osoblju i gostima te potvrdi da ove procedure sadrže sljedeće elemente: 
+•	Odobravanje novih kodova
+•	Promjena pristupnog zahtjeva
+•	Oduzimanje kodova od osoblja i posjetitelja 
+2. Potvrdi da je pristup sustavu kodova limitiran samo na autorizirano osoblje
+3. Provjeri kodove kako bi potvrdio da jasno identificiraju posjetitelje i jasno ih razlikuju od osoblja
+</p><p>9.3 Pobrini se da se posjetiteljima barata na sljedeći način
+</p><p>9.3.1 Autorizacija prije ulaska u zaštićena područja
+KORAK PROVJERE: Promotri posjetiteljev ID kod kako bi potvrdio da on ne omogućuje ulazak u zaštićena područja (područja gdje se nalaze kartični podaci)
+</p><p>9.3.2 Dodijeljen fizički token koji ističe i koji identificira posjetitelja kao ne-osoblje 
+KORAK PROVJERE: 
+1. Promotri ljude unutar tvrtke kako bi potvrdio da  ID kod jasno razlikuje posjetitelja od osoblja
+2. Potvrdi da posjetiteljev kod ističe
+</p><p>9.3.3 Traži povratak fizičkog tokena prije napuštanja postrojenja ili na datum isteka
+KORAK PROVJERE: Promotri posjetitelje koji napuštaju postrojenje da potvrdiš jesu li predali tokene prije napuštanja postrojenja ili na datum isteka 
+</p><p>9.4 Koristi zapis posjetitelja za održavanje fizičkog traga. Dokumentiraj ime, tvrtku koju zastupa i osoblje zaduženo za fizički pristup zapisu. Čuvaj log najmanje tri mjeseca ili prema zakonskoj odredbi
+KORAK PROVJERE: 
+1. Potvrdi da zapis posjetitelja  prati  i zapisuje fizički pristup postrojenju kao i prostorima s računalima i podatkovnim centrima 
+2. Potvrdi da zapis sadrži posjetiteljevo ime, tvrtku koju zastupa i osoblje zaduženo za fizički pristup zapisu. Čuvaj log najmanje tri mjeseca ili prema zakonskoj odredbi
+</p><p>9.5 Spremaj backup na sigurnu lokaciju, po mogućnosti izvan postrojenja. Provjeravaj sigurnost lokacije najmanje jednom godišnje
+KORAK PROVJERE: 
+1. Promotri osiguranje lokacije kako bi potvrdio da je backup na sigurnom
+2. Potvrdi da se sigurnost lokacije provjerava najmanje jednom godišnje
+</p><p>9.6 Fizički zaštiti sve medije
+KORAK PROVJERE: Potvrdi da se svi postupci za zaštitu odnose na sve medije (papir, računala, elektroničke medije poput CD-a itd.) 
+</p><p>9.7 Održavaj striktnu kontrolu nad unutarnjom i vanjskom distribucijom medija
+KORAK PROVJERE: Potvrdi da postoji politika kontrole distribucije medija i da pokriva sve tipove medija koji se distribuiraju
+</p><p>9.7.1 Klasificiraj medije kako bi se  utvrdila osjetljivost podataka 
+KORAK PROVJERE: Potvrdi da su svi mediji klasificirani kako bi se  utvrdila osjetljivost podataka 
+</p><p>9.7.2 Šalji medije preko provjerenog kurira ili drugom metodom koja se može točno pratiti
+KORAK PROVJERE: Potvrdi da su svi mediji koji se šalju izvan tvrtke logirani i odobreni od menadžmenta i poslani preko provjerenih kurira ili drugih metoda koje se mogu točno pratiti
+</p><p>9.8 Osiguraj da menadžment odobrava svaki medij koji se miče iz sigurnog prostora (pogotovo kod distribucije)
+KORAK PROVJERE: Uzmi uzorak loga u trajanju od nekoliko dana praćenja za sve medije i potvrdi postojanje detalja praćenja i odgovarajuće dozvole menadžmenta 
+</p><p>9.9 Održavaj striktnu kontrolu nad spremanjem i dostupnosti medija
+KORAK PROVJERE: Provjeri politiku kontrole spremanja i dostupnosti medija te potvrdi da politika sadržava inventuru medija
+</p><p>9.9.1 Održavaj inventurne liste svih medija i održavaj inventuru najmanje jednom godišnje
+KORAK PROVJERE: Provjeri logove i potvrdi da se inventura  održava najmanje jednom godišnje
+</p><p>9.10 Uništi sve medije koji nisi više potrebni za posao ili postoji zakonska odredba za to
+KORAK PROVJERE: Provjeri politiku uništavanja medija
+</p><p>9.10.1 Samelji, spali ili preradi materijale koji sadržavaju kartične podatke kako se oni ne bi mogli rekonstruirati
+KORAK PROVJERE: 
+1. Potvrdi da su kopije samljevene, spaljene ili uništene i da postoji razumno uvjerenje da se podaci ne mogu rekonstruirati
+2. Provjeri sigurnost kontejnera za skladištenje koji su se koristili za skladištenje informacija namijenjenih za uništavanje – primjerice jesu li zaključani
+</p><p>9.10.2 uništi podatke na elektroničkim medijima kako se oni više ne bi mogli rekonstruirati
+KORAK PROVJERE: Potvrdi da su podaci na elektroničkim medijima uništeni sa programima namijenjenim za vraćanje izgubljenog sadržaja, prema industrijskim standardima ili fizički uništi medij
+</p><p><br />
+<b>Redovito prati i testiraj mreže</b>
+</p><p><b>Zahtjev 10: prati i bilježi svaki pristup mrežnim resursima i kartičnim podacima</b>
+</p><p><br />
+<i>Mehanizmi za logiranje  i sposobnost praćenja aktivnosti korisnika su ključni u sprječavanju, detektiranju ili minimalizaciji kompromitiranja podataka. Prisutnost podataka u svim uvjetima dozvoljava izravno praćenje, alarmiranje i analizu kada nešto pođe po krivu. Utvrđivanje uzroka kompromitacije je vrlo teško, često i nemoguće bez loga aktivnosti.</i>
+</p><p>10.1 Uspostavi proces za povezivanje svih pristupa komponentama sustava (posebno sa administrativnih računa poput root) na svakog pojedinog 
+KORAK PROVJERE: Potvrdi kroz promatranje i intervjuiranje sistemskih administratora, da je praćenje uključeno i aktivno za sve komponente sustava
+</p><p>10.2 Implementiraj automatizirano praćenje za sve komponente sustava kako bi se sljedeći događaji mogli rekonstruirati
+</p><p>10.2.1 Svi pojedini pristupi kartičnim podacima
+KORAK PROVJERE: Potvrdi da su svi pojedini pristupi kartičnim podacima logirani
+</p><p>10.2.2 Sve akcije poduzete od strane pojedinaca sa root ili administrativnim ovlastima 
+KORAK PROVJERE: Potvrdi  da su sve akcije poduzete od strane pojedinaca sa root ili administrativnim ovlastima logirane
+</p><p>10.2.3 Pristup svim knjiženim postupcima
+KORAK PROVJERE: Potvrdi da je pristup svim knjiženim postupcima logiran
+</p><p>10.2.4 Neuspješni pokušaji logiranja 
+KORAK PROVJERE: Potvrdi da su neuspješni pokušaji logiranja logirani
+</p><p>10.2 5 Korištenje identifikacijskih i autentifikacijskih mehanizama
+KORAK PROVJERE: Potvrdi da je korištenje identifikacijskih i autentifikacijskih mehanizama logirano 
+</p><p>10.2.6 Inicijaliziraj logove
+KORAK PROVJERE: Potvrdi da su logovi inicijalizirani
+</p><p>10.2.7 Kreiranje i brisanje objekata sistemske razine 
+KORAK PROVJERE: Potvrdi da su kreiranje i brisanje objekata sistemske razine logirani 
+</p><p>10.3 Zabilježi najmanje sljedeće događaje za sve komponente sustava
+</p><p>10.3.1 Identifikacija korisnika
+KORAK PROVJERE: Potvrdi da je identifikacija korisnika  uključena u log
+</p><p>10.3.2 Vrsta događaja
+KORAK PROVJERE: Potvrdi da je vrsta događaja  uključena u log
+</p><p>10.3.3 Datum i vrijeme
+KORAK PROVJERE: Potvrdi da su datum i vrijeme uključeni u log
+</p><p>10.3.4 Indikacija uspješnosti ili neuspjeha
+KORAK PROVJERE: Potvrdi da je indikacija uspješnosti ili neuspjeha uključena u log
+</p><p>10.3.5 Porijeklo događaja
+KORAK PROVJERE: Potvrdi da je porijeklo događaja uključeno u log
+</p><p>10.3.6 Identitet ili ime podatka, komponente sustava ili resursa na koje je događaj imao utjecaj 
+KORAK PROVJERE: Potvrdi da je identitet ili ime podatka, komponente sustava ili resursa na koje je događaj imao utjecaj uključeno u log
+</p><p>10.4 korištenje vremenske sinhronizacije, sinhroniziranje svih ključnih satova u sustavu. Primjerice NTP -Network Time Protocol 
+KORAK PROVJERE: 
+1. Potvrdi da je tehnologija za sinhronizaciju vremena u implementirana i u skladu sa PCI DSS zahtijevima 6.1 i 6.2
+2. Provjeri procese za pribavu, distribuciju i spremanje točnog vremena u organizaciji, te provjeri sistemske parametre vezane uz vrijeme.
+</p><p>10.4.1 Ključni sustavi imaju točno i konzistentno vrijeme 
+KORAK PROVJERE: 
+1. Potvrdi da samo centralni servis dobiva signal o vremenu izvana i to od izvorabaziranih na organizaciji International Atomic Time ili UTC
+2.  Potvrrdi da interni serveri dobivaju točno vrijeme samo od centralnog servera
+</p><p>10.4.2 Podaci o vremenu su zaštićeni
+KORAK PROVJERE: 
+1. Provjeri postavke sustava i sinhronizacije vremena kako bi potvrdio da je dostupnost podataka o vremenu ograničena samo na osoblje koji trebaju te podatke
+2.  Provjeri postavke sustava i sinhronizacije vremena kako bi potvrdio da se svaka promjena postavki vremena na ključnim sistemima logira, prati i pregledava
+</p><p>10.4.3 Vremenske postavke su primljene od strane industrijski priznatih izvora
+KORAK PROVJERE: Potvrdi da server prihvaća vrijeme samo sa točno naznačenog, industrijski priznatog vanjskog izvora
+</p><p>10.5 Osiguraj zabilješke kako se ne bi mogle mijenjati
+KORAK PROVJERE: Provjeri dozvole za verifikaciju da su te zabilješke osigurane te da ih se ne može mijenjati
+</p><p>10.5.1 Ograniči pregled zabilješki samo prema onima koji imaju potrebu koristiti iste zbog prirode posla
+KORAK PROVJERE: Potvrdi da samo pojedinci kojima posao tako zahtijeva mogu pregledavati zabilješke
+</p><p>10.5.2 Zaštiti zabilješke od neovlaštenog modificiranja
+KORAK PROVJERE: Potvrdi da su zabilješke zaštićene  od neovlaštenog modificiranja  preko mehanizma za kontrolu pristupa ili zabranom fizičkog i/ili mrežnog pristupa
+</p><p>10.5.3 Odmah kreiraj backup zabilješki
+KORAK PROVJERE: Potvrdi da su trenutne zabilješke spremljene na server ili medij na kojem ih je teško modificirati 
+</p><p>10.5.4 zabilježi vanjske tehnologije na server na unutarnjem LAN-u
+KORAK PROVJERE: Potvrdi da su logovi za vanjske tehnologije (wireless, DNS, mail…) kopirani na sigurni centralizirani log-server ili medij
+</p><p>10.5.5 Koristi softver za praćenje integriteta datoteka ili softver za detekciju promjena datoteka
+KORAK PROVJERE: Potvrdi korištenje softvera za praćenje integriteta datoteka ili softvera za detekciju promjena datoteka za logove provjerom postavki i praćenjem datoteka i rezultata svih aktivnosti
+</p><p>10.6 Pregledaj logove za sve komponente sustava najmanje jednom dnevno. Pregled loga mora biti obavljen za one servere koji obavljaju sigurnosne funkcijeReview logs for all system 
+KORAK PROVJERE: 
+1. Pregledaj sigurnosnu politiku i postupke za potvrdu da sadržavaju postupke za pregled sigurnosnih logova najmanje jednom dnevno
+2. Kroz pregled potvrdi da se obavljaju redovni pregledi logova za sve komponente sustava
+</p><p>10.7 Zadrži povijest zapisa najmanje jednu godina, a unutar najmanje 3 mjeseca moraju biti dostupni za pregled
+KORAK PROVJERE: 
+1. Provjeri sigurnosnu politiku i postipke za provjeru postoji li politika i postupak za zadržavanje loga najmanje jednu godinu
+2.  Potvrdi da su logovi dostupni najmanje jednu godinu
+</p><p><br />
+</p><p><b>Zahtijev 11: redovno testiraj sigurnosne sustave i procese</b>
+</p><p><br />
+<i>Ranjivosti se kontinuirano otkrivaju od strane pojedinaca i istražitelja. Komponente sustava procese, kao i softver treba često testirati kako bi se sigurnosna razina prilagodila novonastaloj situaciji.</i>
+</p><p>11.1 Testiraj prisutnost bežične mreže i detektiraj neovlaštene pristupne točke svaki kvartal.
+KORAK PROVJERE: 
+1. Potvrdi da postoji dokumentirani proces testiranja i identificiranja bežične mreže i  neovlaštene pristupne točke svaki kvartal 
+2.  Potvrdi da je metoda adekvatna za detekciju i identifikaciju bežične mreže i  neovlaštene pristupne točke, a sadrži najmanje:
+•	WLAN	 kartice ubačene u komponente sustava
+•	Portable wireless uređaje spojene na komponente sustava
+•	Wireless uređaje spojene na mrežni priključak ili uređaj
+3.  Potvrdi da je dokumentiran proces identifikacije bežične mreže i  neovlaštene pristupne točke 
+4. Ako se koristi automatsko praćenje, potvrdi da će, prema konfiguraciji, sustav automatski obavijestiti osoblje 
+5. Potvrdi da incident response plan tvrtke sadrži događaj detekcije neovlaštenog wireless uređaja
+</p><p>11.2 Skeniraj ranjivosti na unutarnjoj i vanjskoj mreži najmanje kvartalno i nakon svake značajnije promjene unutar mreže
+</p><p>11.2.1 Izvodi kvartalno skeniranje ranjivosti na unutarnjem dijelu sustava
+KORAK PROVJERE: 
+1. Pregledaj izvještaje i potvrdi da se izvodilo kvartalno skeniranje ranjivosti na unutarnjem dijelu sustava u posljednjem godišnjem razdoblju
+2. Pregledaj izvještaje skeniranja i potvrdi da proces skeniranja sadrži ponovo skeniranje sve dok se ne dobe prolazni rezultati
+3. Ocijeni je li skeniranje provedeno od strane kvalificiranog osoblja ili kvalificirane treće strane
+</p><p>11.2.2 Izvodi kvartalno skeniranje preko ovlaštenog pružatelja te usluge, ovlaštenog od strane  Payment Card Industry Security Standards Council (PCI SSC).  
+KORAK PROVJERE: 
+1. Pregledaj rezultate posljednja četiri skeniranja i potvrdi da su se odvila unutar posljednjeg 12-mjesečnog razdoblja
+2.  Pregledaj rezultate svakog skeniranja zasebno kako bi zadovoljio zahtjeve ASV Program Guide 
+3. Pregledaj rezultate skeniranja kako bi potvrdio da su skeniranja bila izvedena od strane Approved Scanning Vendor (ASV),odobrenog od strane PCI SSC.
+</p><p>11.2.3 provedi unutarnje ili vanjsko skeniranje nakon svake značajnije promjene
+KORAK PROVJERE: 
+1. Provjeri dokumentaciju promjena i rezultate skeniranja kako bi potvrdio da su skenirane značajne promjene
+2. Pregledaj rezultate skeniranja i potvrdi da proces sadržava ponovno skeniranje sve dok:
+•	Za vanjsko skeniranje,  postoje  ranjivosti ocijenjene sa 4.0 od strane CVSS-a
+•	Za unutarnje skeniranje, sve dok ranjivosti koje su definirane sa PCI DSS 6.2 nisu rješene
+3. Ocijeni je li skeniranje bilo izvedeno od strane kvalificiranog unutarnjeg resursa ili kvalificirane treće strane
+</p><p>11.3 Izvedi vanjsko i unutarnje penetracijsko testiranje najmanje jednom godišnje i nakon značajnijih infrastrukturnih ili softverskih promjena ili nadogradnji. Ti testovi moraju sadržavati sljedeće:
+KORAK PROVJERE: 
+1. Provjeri rezultate posljednjeg penetracijskog testiranja i potvrdi da se test provodi najmanje jednom godišnje i nakon značajnijih promjena
+2.  Potvrdi da su ranjivosti uklonjene i ponovi testiranje
+3. Potvrdi je li skeniranje bilo izvedeno od strane kvalificiranog unutarnjeg resursa ili kvalificirane treće strane 11.3.1 Network-layer penetration tests
+</p><p>11.3.1 Potvrdi da penetracijsko testiranje uključuje testiranje na mrežnom sloju. Ova testiranja bi trebala sadržavati komponente koje podržavaju mrežne funkcije kao i operativni sustav
+</p><p>11.3.2 Penetracijsko testiranje aplikacijskog sloja
+KORAK PROVJERE: Potvrdi da test sadrži testiranje aplikacijskog sloja i najmanje ranjivosti navedene u točki 6.5 
+</p><p>11.4 Koristi sustav detekcije upada i/ili sustav prevencije upada za praćenje svog prometa na perimetru kartičnih podataka kao i kritičnih točaka unutar, te javi osoblju sumnjive događaje 
+KORAK PROVJERE: 
+1. Potvrdi korištenje sustava detekcije upada i/ili sustava prevencije upada za praćenje svog prometa na perimetru korištenja kartičnih podataka
+2. Potvrdi da su IDS i/ili IPS konfigurirani da alarmiraju osoblje o sumnjivim događajima 
+3. Provjeri IDS/IPS konfiguraciju i potvrdi da su konfigurirani, održavani i nadograđivani prema uputama proizvođača kako bi se osigurala optimalna zaštita
+</p><p>11.5 Postavi alate za praćenje integriteta datoteka i alarmiranje osoblja na neautorizirano modificiranje ključnih sistemskih datoteka. Konfiguriraj softver tako da izvodi usporedbu kritičnih datoteka najmanje jednom tjedno.  
+KORAK PROVJERE: 
+1. Potvrdi korištenje alata za praćenje integriteta datoteka i alarmiranje osoblja na neautorizirano modificiranje ključnih sistemskih datoteka promatranjem postavki sustava, kao i rezultata praćenja 
+2. Potvrdi da su alati konfigurirani da alarmiraju osoblje te da izvode usporedbu najmanje jednom tjedno
+</p><p><br />
+</p><p><b>Održavanje sigurnosne politike</b>
+</p><p><b>Zahtijev 12: održavanje sigurnosne politike koja se tiče svog osoblja</b>
+</p><p><br />
+<i>Dobra sigurnosna politika postavlja uvjete za cijeli entitet i informira osoblje što se od njega očekuje. Svo osoblje bi trebalo biti svjesno osjetljivosti podataka te njihove odgovornosti pri čuvanju istih.</i>
+</p><p>12.1 Postavi, objavi, održavaj i širi sigurnosnu politiku koja postiže sljedeće
+12.1.1 Sadržava sve PCI DSS zahtjeve 
+KORAK PROVJERE:  Potvrdi da se politika odnosi na sve PCI DSS zahtjeve
+</p><p>12.1.2 Uključuje provođenje godišnjeg procesa koji identificira prijetnje i ranjivosti te rezultira procjenom rizika. 
+KORAK PROVJERE: 
+1. Potvrdi je proces koji identificira prijetnje i ranjivosti te rezultira procjenom rizika dokumentiran 
+2. Pregledaj dokumentaciju procjene rizika kako bi potvrdio da je procjena provedena najmanje jednom godišnje
+</p><p>12.1.3 Uključuje pregled najmanje jednom godišnje i nadogradnju kada se promijene okolnosti 
+KORAK PROVJERE: Potvrdi da je politika sigurnosti pregledana najmanje jednom godišnje i nadograđivana prema potrebi
+</p><p>12.2 Razvij dnevne sigurnosne procedure koje su konzistentne sa zahtjevima u ovoj specifikaciji 
+KORAK PROVJERE: Provjeri dnevne sigurnosne procedure. Potvrdi da su konzistentne sa zahtjevima u ovoj specifikaciji i uključuju administrativne i tehničke postupke za svaki pojedini zahtjev
+12.3 Razvij korisničku politiku za ključne tehnologije i definiraj njihovo pravilno korištenje. Osiguraj da provođenje politike prati sljedeće
+12.3.1 Eksplicitno odobravanje od strane autoriziranih osoba 
+KORAK PROVJERE: Potvrdi da je odobrenje za korištenje tehnologije došlo od strane autoriziranih osoba
+</p><p>12.3.2 Provjera vjerodostojnosti za korištenje tehnologije
+KORAK PROVJERE: Potvrdi da  korisnička politika zahtijeva da se  korisnici verificiraju sa ID-om, lozinkom ili nekim drugim načinom (primjerice token)
+</p><p>12.3.3 Lista svih uređaja i osoblja s pristupom
+KORAK PROVJERE: Potvrdi da  korisnička politika zahtijeva listu svih uređaja i osoba s pristupom
+</p><p>12.3.4 Označavanje uređaja kako bi se utvrdio vlasnik, kontakt informacije i namjena
+KORAK PROVJERE: Potvrdi da  korisnička politika zahtijeva označavanje uređaja kako bi se utvrdio vlasnik, kontakt informacije i namjena 
+</p><p>12.3.5 Prihvatljivo korištenje tehnologije 
+KORAK PROVJERE: Potvrdi da  korisnička politika zahtijeva  prihvatljivo korištenje tehnologije
+</p><p>12.3.6 Prihvatljiva mrežna mjesta za tehnologije
+12.3.7 Popis proizvoda odobren od strane tvrtke 
+12.3.8 Automatsko odvajanje os sesije za  tehnologije s udaljenim pristupom nakon određenog perioda neaktivnosti 
+12.3.9 Aktivacija tehnologija s udaljenim pristupom za proizvođače i poslovne partnere samo kada im je to potrebno i trenutna deaktivacija nakon korištenja 
+12.3.10 Za osoblje koje pristupa kartičnim podacima preko udaljenog pristupa, zabrani kopiranje, micanje i pohranu podataka na lokalni disk ili medij osim ako nije eksplicitno dozvoljeno od strane ovlaštene osobe za određeni posao
+</p><p>12.4 Osiguraj da sigurnosna politika i postupci jasno definiraju sigurnosne odgovornosti za svo osoblje 
+KORAK PROVJERE: Potvrdi da da sigurnosna politika i postupci jasno definiraju sigurnosne odgovornosti za svo osoblje
+12.5 Dodijeli sljedeće odgovornosti u vođenju sigurnosne politike:
+12.5.1 Potvrdi, dokumentiraj i distribuiraj sigurnosnu politiku i procedure
+12.5.2 Nadgledaj i analiziraj sigurnosne alarme i informacije, te ih distribuiraj odgovarajućem osoblju
+12.5.3 Utvrdi, dokumentiraj i distribuiraj postupke u slučaju sigurnosnog incidenta i eskalacije kako bi osigurao efektivnu reakciju u svim situacijama
+12.5.4 Administriraj korisničke račune, uključujući dodavanja, brisanja i modificiranja
+12.5.5 Nadgledaj i kontroliraj sve pristupe podacima
+</p><p>12.6 Implementiraj program svjesnosti sigurnosti za svo osoblje
+KORAK PROVJERE: 
+1. Potvrdi da je program svjesnosti sigurnosti za svo osoblje  uveden
+2. Pregledaj i provjeri program svjesnosti sigurnosti i učini sljedeće: 
+3. Educiraj osoblje nakon zapošljavanja najmanje jednom godišnje
+12.6.2 Zahtijevaj od osoblja da najmanje jednom godišnje pročitaju i razumiju politiku sigurnosti i postupke 
+</p><p>12.7 Informiraj se o potencijalnom novom osoblju kako bi smanjio rizik napada iznutra. 
+KORAK PROVJERE: Provjeri sa Ljudskim resursima i potvrdi da su provedena istraživanja o novom potencijalnom osoblju koje će imati pristup kartičnim podacima.
+</p><p>12.8 Ako se kartični podaci razmjenjuju sa pružateljem usluge, implementiraj i održavaj politiku i procedure za vođenje pružatelja servisa na sljedeći način
+12.8.1 Održavaj listu pružatelja usluge
+KORAK PROVJERE: Održavaj pisani ugovor koji uključuje stavku da je pružatelj servisa svjestan odgovornosti posjedovanja kartičnih podataka
+12.8.3 Osiguraj da je davatelj usluge upoznat sa procesom prije uključenja
+12.8.4 Održavaj proces nadzora nad pružateljem usluga najmanje jednom godišnje – je li on usklađen sa PCI DSS 
+</p><p>12.9 Implementiraj incident response plan. Budi spreman trenutno reagirati na proboj sistema 
+KORAK PROVJERE: Pregledaj incident response plan i procedure prema sljedećim stavkama:
+12.9.1 Kreiraj incident response plan koji će biti ukomponiran u događaj proboja sistema. Osiguraj da plan ima minimalno:
+Uloge, odgovornosti i komunikacijske strategije u slučaju kompromitacije, uključujući i obavještavanje  
+•	Specifične korake u odgovoru na incident
+•	Povratak poslovanja i kontinuiranost postupaka
+•	Proces povratka izgubljenih podataka
+•	Analiza zahtjeva za prijavu nadležnim vlastima
+•	Pokrivanje i reakcija na sve kritične komponente sustava
+•	Referenciranje ili uključivanje u proces odgovora za payment brandove
+</p><p>12.9.2 Testiraj plan najmanje jednom godišnje
+KORAK PROVJERE: Potvrdi da je plan testiran najmanje jednom godišnje
+</p><p>12.9.3 Obveži specifično osoblje da bude u mogućnosti reagirati na sigurnosni alarm 0-24h
+KORAK PROVJERE: Potvrdi kroz promatranje i sigurnosnu politiku da je osoblje u mogućnosti reagirati na sigurnosni alarm 0-24h, da su odgovorni za nadzor i za svaki dokaz o neautoriziranoj aktivnosti, detekciji bežičnih pristupnih točaka, kritičnih IDS alarma i/ili izvještaja o promjeni sadržaja datoteka ključnih sustava
+</p><p>12.9.4 Pruži prikladnu obuku osoblju koje radi na odgovorima sigurnosnih prodora u sustav
+KORAK PROVJERE: Potvrdi kroz promatranje i sigurnosnu politiku da osoblje prolazi kroz periodičnu obuku
+</p><p>12.9.5 Uključi alarme iz sustava za detekciju upada, prevenciju upada i integriteta datoteka
+KORAK PROVJERE: Potvrdi kroz promatranje i pregled procesa da su alarmi iz sustava za detekciju upada, prevenciju upada i integriteta datotekauključeni u plan kao i  detekcija neautoriziranih pristupnih točaka.
+</p><p>12.9.6 Razvij proces za modifikaciju i razvoj incidentnog plana prema naučenim lekcijama i unutarnjem industrijskom razvoju
+KORAK PROVJERE: Potvrdi kroz promatranje i pregled politika da postoji proces za modificiranje i razvoj incidentnog plana prema naučenim lekcijama i prema unutarnjem industrijskom razvoju
+[Ljubenkov]
+</p><p><br />
+</p><p>''<i><b>Literatura''</b></i>
+Payment Card Industry (PCI) Data Security Standard, October 2010, učitano: 10.1.2013.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Literatura.png" class="image"><img alt="Literatura.png" src="../images/c/c5/Literatura.png" width="470" height="282" /></a>
+</p><p><b>Podjela posla</b>
+Zvonimir Turina: Prvih 6 zahtjeva PCI/DSS norme
+Davor Ljubenkov: Od 7. do 12. zahtjeva PCI/DSS norme
+Dunja Masić: sve ostalo
+</p><p><br />
+</p>
+<hr />
+<hr />
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 1/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4407-0!*!0!!*!2!edit=0 and timestamp 20190203203947 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="PCI-DSS_norma.html">http://security.foi.hr/wiki/index.php/PCI-DSS_norma</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=PCI-DSS_norma" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="PCI-DSS_norma.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:PCI-DSS_norma&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="PCI-DSS_norma.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="PCI-DSS_norma.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=PCI-DSS_norma&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=PCI-DSS_norma&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="PCI-DSS_norma.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/PCI-DSS_norma" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/PCI-DSS_norma" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=PCI-DSS_norma&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=PCI-DSS_norma&amp;oldid=17281" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 23:06, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 7.107 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "PCI-DSS_norma", "wgTitle": "PCI-DSS norma", "wgAction": "view", "wgArticleId": 4407, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17281, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.490 secs. -->			</body>
+</html>

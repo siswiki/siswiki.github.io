@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Obijanje bluetooth brave sa bluetooth snifferom - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Obijanje_bluetooth_brave_sa_bluetooth_snifferom&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Obijanje_bluetooth_brave_sa_bluetooth_snifferom skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Obijanje bluetooth brave sa bluetooth snifferom</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#mw-head">orijentacija</a>,
+					<a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Domagoj Draženović
+</p><p><br />
+Bluetooth uređaji su danas posvuda, i ne ograničavaju se samo na mobitele, smartphonove, i sl., nego Bluetooth postoji i npr. u uređajima koji otvaraju garažna vrata, te sigurnosnim sustavima sa Blutetooth modulima. Bluetooth lockovi su elektromehanički lock-ovi, koji su napravljeni da se otključaju ili zaključaju nakon šta dobiju naredbu, preko wireless protokola, od odgovarajućeg uređaja za to. Ta naredba je zapravo kriptirani ključ i on vrši postupak autorizacije kod otključavanja/zaključavanja brave. Za komunikaciju ključa i brave se koristi Bluetooth SMART(Bluetooth LE) i SSL, a za enkripciju te komunikacije 128/256-bitni AES<a href="http://hackaday.com/2016/08/08/the-terrible-security-of-bluetooth-locks/" class="external autonumber" rel="nofollow">[8]</a>.
+</p>
+<hr />
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Master_Lock_Bluetooth"><span class="tocnumber">1</span> <span class="toctext">Master Lock Bluetooth</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Ubertooth_One"><span class="tocnumber">2</span> <span class="toctext">Ubertooth One</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#libbtbb"><span class="tocnumber">2.1</span> <span class="toctext">libbtbb</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Spektralna_analiza"><span class="tocnumber">2.2</span> <span class="toctext">Spektralna analiza</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Spektralna_analiza_u_Kismetu"><span class="tocnumber">2.2.1</span> <span class="toctext">Spektralna analiza u Kismetu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#LAP_Sniffing"><span class="tocnumber">2.3</span> <span class="toctext">LAP Sniffing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Bluefruit_LE_Sniffer"><span class="tocnumber">3</span> <span class="toctext">Bluefruit LE Sniffer</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Noridc.27s_nRF_Sniffer_Utility"><span class="tocnumber">3.1</span> <span class="toctext">Noridc's nRF Sniffer Utility</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Python_API"><span class="tocnumber">3.2</span> <span class="toctext">Python API</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#Literatura"><span class="tocnumber">4</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Master_Lock_Bluetooth"> Master Lock Bluetooth </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Padlock-blue.png" class="image"><img alt="" src="../images/thumb/5/55/Padlock-blue.png/200px-Padlock-blue.png" width="200" height="242" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Padlock-blue.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 1.</b> Master Lock BLuetooth (Izvor: <a href="http://www.masterlock.com/bluetooth" class="external autonumber" rel="nofollow">[1]</a>)</div></div></div>  
+<p>Brava prikazana na slici ima sljedeće karakteristike:
+</p>
+<ol><li> Otporno na vremenske uvjete
+</li><li> Baterija: 9V
+</li><li> Baterija (zamjenjiva): CR2
+</li><li> Outdoor  
+</li></ol>
+<p><br />
+Pomoću aplikacije na slici 2, se ta brava može zaključati ili otključati.    
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ELocks.png" class="image"><img alt="ELocks.png" src="../images/thumb/3/3b/ELocks.png/170px-ELocks.png" width="170" height="329" /></a>  
+</p><p><i>Slika 2.</i> Master Lock Vault eLocks (Izvor: <a href="http://www.masterlock.com/bluetooth" class="external autonumber" rel="nofollow">[9]</a>)  
+</p><p><br />
+Lako se može npr. na građevinskim poslovima bolje voditi evidencija kada je tko došao na određeni prostor, jer aplikacija bilježi tko je otključao lokot i u koje vrijeme. Zaposlenici se ne moraju više zamarati sa evidencijom dolazaka i odlaska, bilježeći na papir. Isto tako u slučaju pokušaja otvaranja lokota na silu, lokot šalje aplikaciji upozorenje da treća strana želi otključati lokot i nanijeti štetu. Ukoliko vlasnik lokota želi nekome dati dopuštenje da otključava/zaključava lokot, jednim klikom u aplikaciji da toj osobi cjelodnevnu kontrolu nad lokotom. Uvelike je olakšano korištenje lokotom, samo se stisne gumb, ako je mobitel vlasnika u blizini i bluetooth je uključen skupa sa aplikacijom, lokot će se odmah otključati, nisu potrebne šifre ili ključevi, samo jedan klik gumba<a href="http://www.masterlock.com/bluetooth" class="external autonumber" rel="nofollow">[10]</a>.
+</p>
+<h2> <span class="mw-headline" id="Ubertooth_One"> Ubertooth One </span></h2>
+<p>Ubertooth One je nova generacija hardware Projekta Ubertooth, znatno nadamšuje svoju preteču, Ubertooth Zero.  
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubertooth-one.jpeg" class="image"><img alt="" src="../images/thumb/c/ce/Ubertooth-one.jpeg/200px-Ubertooth-one.jpeg" width="200" height="150" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubertooth-one.jpeg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 3.</b> Ubertooth One i komponente (Izvor: <a href="https://www.adafruit.com/product/2269" class="external autonumber" rel="nofollow">[2]</a>)</div></div></div>  
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubertooth_one_led.png" class="image"><img alt="" src="../images/thumb/7/78/Ubertooth_one_led.png/200px-Ubertooth_one_led.png" width="200" height="145" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubertooth_one_led.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 4.</b> LED svjetla na Ubertooth One (Izvor: <a href="http://ubertooth.sourceforge.net/hardware/one/" class="external autonumber" rel="nofollow">[3]</a>)</div></div></div>
+<p>Sastoji se od (prikazano na slici):
+</p>
+<ol><li> RP-SMA - RF konektor koji se spaja na testnu opremu, antenu i sl.
+</li><li> CC2591 - RF front end
+</li><li> CC2400 - bežićni primopredajnik
+</li><li> LPC175x - ARM mikrokontroler sa Full-Speed USB 2.0
+</li><li> USB priključak  
+</li></ol>
+<p><br />
+Postoje 3 važne komponente kod korištenja Ubertootha:
+</p>
+<ol><li> Hardware - izgradnja Ubertooth One-a je vrlo jednostavna i svako može napraviti svoj
+</li><li> Firmware - software koji pokreće ARM procesor na Ubertooth One-u. Pri pokretanju se treba imati USB bootloader sa bluetooth_rxtx firmware-om
+</li><li> Host code - programski kod koji se nalazi na računalu sa kojeg se pokreće Ubertooth One  
+</li></ol>
+<p><br />
+Ubertooth One je razvojna platforma i na njoj se može pisati kod po potrebi, odnosno za bilo koju svrhu koja mu je namijenjna. Glavna razlika između Ubertooth i Bluetooth razvojne platforme je ta što Ubertooth, osim slanja i primanja 2.4GHz signala, može i raditi stanje nadziranja, odnosno nadzire promet Bluetooth paketa u stvarnom vremenu.  Jedna of funkcionalnosti Ubertooth One-a je spektralna analiza, koja se bavi analizom frekvencija. Zatim postoji i opcija LAP sniffing-a, koja služi za nadgledanje LAP-a adrese Bluetooth uređaja (BD_ADDR) i po tom identificira o kojem se Bluetooth uređaju radi. Naprednija verzija sniffing-a se implementirala u pluginu za Kismet. Takva verzija ne pronalazi samo LAP Bluetooth uređaja, nego i UAP, koji se dobiva analiziranjem vremena i drugih karakteristika poslanih paketa kod Bluetooth prijenosa. Prednost je da se mogu ti paketi dump-ati u pcapbtbb datoteku, koja se onda može pokrenuti pomoću Wireshark-a. Učitavanje takve datoteke u Wireshark-u se može samo kada se odredi UAP Bluetooth uređaja<a href="http://ubertooth.sourceforge.net/hardware/one/" class="external autonumber" rel="nofollow">[11]</a>.  
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="libbtbb"> libbtbb </span></h3>
+<p>libbtbb je biblioteka za Bluetooth baseband funkcije. Bez nje se nemogu pokrenuti svi alati koji se mogu koristiti sa Ubertooth One. Instalacija je dosta jednostavna, iako zasad je jedino testirana na Linuxu, smatra se da bi trebala raditi na drugim platformama. Instalacija se vrši na sljedeći način, prvo se sa [<a href="https://github.com/greatscottgadgets/libbtbb" class="external text" rel="nofollow">gita</a>] skine projekt, zatim se upisuju iduće naredbe<a href="https://github.com/greatscottgadgets/ubertooth/wiki/Building-from-git" class="external autonumber" rel="nofollow">[12]</a>:
+</p>
+<pre>
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ sudo make install
+</pre>
+<p>Te naredbe će instalirati biblioteku u folder pod putanjom /usr/local/lib i headere u folder pod putanjom /usr/local/include. Nakon šta je instalacija uspješno završena se mogu koristiti funkcionalnosti na Ubertooth One-u.
+</p>
+<h3> <span class="mw-headline" id="Spektralna_analiza"> Spektralna analiza </span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:352px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Specan_ui.png" class="image"><img alt="" src="../images/thumb/6/64/Specan_ui.png/350px-Specan_ui.png" width="350" height="88" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Specan_ui.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 5.</b> Spektralna analiza (Izvor: <a href="https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started" class="external autonumber" rel="nofollow">[4]</a>)</div></div></div> 
+<p><br />
+</p><p><br />
+Kod pokretanja spektralne analize na Ubertooth One, nikada se ne smije ključivati hardware, bez priključene antene. Nakon priključivanja Ubertooth One, RST i 1v8 LED-ice će zasvijetliti, što označava da se pokrenuo LPC175x mikrokontroler, i da struja dolazi u bežini primopredajnik CC2400 IC (1V8). Sljedeći korak je ili izrada vlastitog koda ili preuzimanje nečijeg drugog, zato da alat zna šta treba raditi. Na linku <a href="https://github.com/greatscottgadgets/ubertooth/releases" class="external text" rel="nofollow">file release</a> se mogu naći svi potrebni zahtjevi da bi spektralna analiza radila. Da bi sve funckionalnosti kod Ubertooth One radili, mora se na računalu imati libbtbb-2015-10-R1 ili novija verzija. To je biblioteka koja omogućava rad Ubertooth One. Može se ili skinuti file release ili cijeli projekt za <a href="https://github.com/greatscottgadgets/ubertooth" class="external text" rel="nofollow">gita</a>, kada se to napravi, navigira se do direktorija<a href="https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started" class="external autonumber" rel="nofollow">[13]</a>: 
+</p>
+<pre>
+host/python/specan_ui
+</pre>
+<p>Kada se nađemo u tom direktoriju, izvrši se naredba:
+</p>
+<pre>
+ubertooth-specan-ui
+</pre>  
+<p>koja onda pokreće spektralnu analizu. Prilikom rada operacije ubertooth-specan-ui, RX-LED će se osvjetliti, a USR LED će biti prigušen.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Spektralna_analiza_u_Kismetu"> Spektralna analiza u Kismetu </span></h4>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Spec_an.png" class="image"><img alt="Spec an.png" src="../images/thumb/8/88/Spec_an.png/350px-Spec_an.png" width="350" height="219" /></a>   
+</p><p><i>Slika 6.</i> Primjer spektralne analize na Kismet-u (Izvor: <a href="https://www.security-sleuth.com/sleuth-blog/2015/9/6/now-i-wanna-sniff-some-bluetooth-sniffing-and-cracking-bluetooth-with-the-ubertoothone" class="external autonumber" rel="nofollow">[14]</a>)
+</p><p><br />
+Postupak instaliravanja Ubertooth One alata je isti, ali potrebno je još na računalo instalirati Kismet, jedan od načina je idući<a href="https://www.security-sleuth.com/sleuth-blog/2015/9/6/now-i-wanna-sniff-some-bluetooth-sniffing-and-cracking-bluetooth-with-the-ubertoothone" class="external autonumber" rel="nofollow">[15]</a>:
+</p>
+<pre>
+root@kali:~# git clone https://www.kismetwireless.net/spectools.git
+Cloning into 'spectools'...
+root@kali:~# cd spectools
+root@kali:~/spectools# ./configure
+root@kali:~/spectools# make
+root@kali:~/spectools# make install
+</pre>      
+<p>Sa Kismetom su se još i instalirali Spectools. Nakon instalacije se pokreće Spectools sa:
+</p>
+<pre>
+root@kali:~/spectools# /usr/local/bin/spectool_gtk
+</pre>
+<p><br />
+Jednom kada je sve pravilno instalirano, sad postoji više opcija skeniranja, kao što su:  
+</p><p>1. skeniranje i prikazivanje MAC adrese i naziv svakog Bluetooth uređaja u blizini:
+</p>
+<pre>
+root@kali:~# hcitool scan
+</pre>
+<p>2. pasivno nadgledanje Bluetooth prometa:
+</p>
+<pre>
+root@kali:~# ubertooth-scan –s
+</pre>
+<p>3. prikazivanje prometa između BLE kompatibilnih uređaja i spremanja rezulata u pcap file: 
+</p>
+<pre>
+root@kali:~# ubertooth-btle –p –f -c capture.pcap
+</pre>
+<p>Primjer skeniranog paketa sa uberooth-btle:
+</p>
+<pre>
+systime=1441512979 freq=2440 addr=8d651b4d delta_t=3.599 ms
+86 9e d1 00 65 92 86 01 5d 3e 0e 5e 65 e0 61 9a 7d f7 04 c8 9f f5 45 00 ce f5 cc c8 8f 67 02 f5 4f a7 f5
+Data / AA 8d651b4d (valid) / 30 bytes
+    Channel Index: 17
+    LLID: 2 / LL Data PDU / L2CAP start
+    NESN: 1  SN: 0  MD: 0
+
+    Data:  d1 00 65 92 86 01 5d 3e 0e 5e 65 e0 61 9a 7d f7 04 c8 9f f5 45 00 ce f5 cc c8 8f 67 02 f5
+    CRC:   4f a7 f5
+
+systime=1441512979 freq=2440 addr=72f844df delta_t=146.421 ms
+01 00 9b 72 68
+Data / AA 72f844df (valid) /  0 bytes
+    Channel Index: 17
+    LLID: 1 / LL Data PDU / empty or L2CAP continuation
+    NESN: 0  SN: 0  MD: 0
+
+    Data:
+    CRC:   9b 72 68
+</pre>
+<h3> <span class="mw-headline" id="LAP_Sniffing"> LAP Sniffing </span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:352px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubertooth-lap.png" class="image"><img alt="" src="../images/thumb/9/9f/Ubertooth-lap.png/350px-Ubertooth-lap.png" width="350" height="127" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ubertooth-lap.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 7.</b> LAP Sniffing (Izvor: <a href="https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started" class="external autonumber" rel="nofollow">[5]</a>)</div></div></div>   
+<p><br />
+</p><p>Zašto kažemo da je Bluetooth MAC adresa? Zato jer je BD_ADDR 48-bitni broj (kao i MAC adresa), koja je jedinstvena svakom Bluetooth uređaju, sastoji se od 3 dijela:
+</p>
+<ol><li> NAP - 16-bitni beznačajni dio adrese (Non-Significant Address Part)
+</li><li> UAP - 8-bitni gornji dio adrese (Upper Address Part)
+</li><li> LAP - 24-bitni donji dio adrese (Lower Address Part)
+</li></ol>
+<p>Primjer:
+<i>Za bluetooth adresu 01:02:03:04:05:06</i> potrebno je znati samo 00:00:00:04:05:06 da bi se spojili na uređaj.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bd_addr.jpg" class="image"><img alt="Bd addr.jpg" src="../images/thumb/8/88/Bd_addr.jpg/200px-Bd_addr.jpg" width="200" height="150" /></a>  
+</p><p><i>Slika 8.</i> Prikaz BD_ADDR (Izvor: <a href="http://ubertooth.blogspot.hr/2014/06/discovering-bluetooth-uap.html" class="external autonumber" rel="nofollow">[16]</a>)
+</p><p>Napadaču je potreban sam UAP i LAP, dok kod LAP Sniffing-a samo LAP. Prije se LAP Sniffing radio s USRP za 1000$, sada sa Ubertooth One za samo 100$. Razlog zašto je samo LAP dovoljan da se odredi kojem bluetooth uređaju pripada, zato jer, kao što je prije rečeno, svaki bluetooth uređaj ima jedinstveni LAP, u prometu tog uređaja, svaki paket sadrži njegov LAP i preko toga se može analizirati što se sve prenosi u tom prometu paketa. LAP Sniffingom se mogu pronaći svi bluetooth uređaji u blizini i od svakoga se može odrediti njihov LAP. Da bi se koristio LAP Sniffing, isto kao i za spektralnu analizu, mora se prvo instalirati libbtbb biblioteka, koja sadrži se funckionalnosti Ubertooth One. Nakon instalacije biblioteke, navigira se do foldera koji sadrži trenutnu funkcionalnost<a href="https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started" class="external autonumber" rel="nofollow">[17]</a>:
+</p>
+<pre>
+host/bluetooth_rxtx
+</pre>
+<p>Kada dođemo u traženi folder, upišemo u CMD:
+</p>
+<pre>
+$ ubertooth-rx
+</pre>
+<p>Naredba koja pokreće LAP Sniffing i koja će nam pokazati LAP dijelove adrese bluetooth uređaja. Prilikom skeniranja prometa, pojavljuje se veliki broj lažnih LAP-ova, pomiješanih sa pravim, da bi se utvrdilo koji su pravi, a koji lažni, pomoću svog bluetooth uređaja možemo obaviti npr. radnju <i>Scan for new devices</i>, koja će u velikom broju slučajeva dati paket sa LAP-om 0x9e8b33. Kada to napravim više puta, onda možemo sa sigurnošću utvrditi koji je LAP stvaran, a koji su lažni<a href="https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started" class="external autonumber" rel="nofollow">[18]</a>.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Bluefruit_LE_Sniffer"> Bluefruit LE Sniffer </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bluefruit_le_sniffer.jpg" class="image"><img alt="" src="../images/thumb/5/54/Bluefruit_le_sniffer.jpg/200px-Bluefruit_le_sniffer.jpg" width="200" height="150" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bluefruit_le_sniffer.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 9.</b> Bluefruit LE Sniffer (Izvor: <a href="http://ubertooth.sourceforge.net/hardware/one/" class="external autonumber" rel="nofollow">[6]</a>)</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bluefruit-comp.jpg" class="image"><img alt="" src="../images/thumb/9/98/Bluefruit-comp.jpg/200px-Bluefruit-comp.jpg" width="200" height="150" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Bluefruit-comp.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 10.</b> Veličina Bluefruit LE Sniffer-a u usporedbi sa 25 centa (Izvor: <a href="https://www.adafruit.com/product/2269" class="external autonumber" rel="nofollow">[7]</a>)</div></div></div>
+<p>Bluefruit LE Sniffer, je nisko-budžetni Bluetooth Low Energy sniffer, koji traži pakete poslane u prijenosu između dva BLE uređaja. Bluefruit LE Sniffer je nRF-Sniffer, koji se bavi pasivnim skeniranjem paketa, ali postoji i opcija za krađu paketa tokom skeniranja istih. Bluefruit LE Sniffer je odličan alat za naučiti kako funkcionira i kako izgleda promet paketa između 2 BLE uređaja, na razini paketa. Ta analiza se vrši u alatu Wireshark, gdje se najbolje može vizualno predočiti svaki paket, promet paketa i sadržaj svakog paketa. Bluefruit LE Sniffer radi samo na BLE uređajima, ali ne i na klasičnim Bluetooth uređajima<a href="https://www.adafruit.com/product/2269" class="external autonumber" rel="nofollow">[19]</a>.  
+</p><p><br />
+Postoje 2 načina korištenja ovog sniffera<a href="https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer?view=all" class="external autonumber" rel="nofollow">[20]</a>:
+</p>
+<ol><li> Nordic's nRF Sniffer Utility
+</li></ol>
+<p>Za ljubitelje Windowsa, ovo je bolja opcija korištenja Bluefruit LE Sniffera, uređaj se koristi pomoću službene aplikacije Nordic nRFSniffer, koja se skida sa stranice Nordic Semiconductors, nakon šta se napravi 'My Pages' acc. Da bi Sniffer radio, mora se koristiti Wireshark, jer sav promet koji se skenira se odmah šalje u Wireshark na analizu. Mana je, što se može nadgledati samo jedan uređaj istovremeno, ako želimo drugi uređaj nadgledati, mora se odbrati port tog uređaja preko UART COM porta. Kada se počne sa nadgledanjem, otvara se Wireshark i prikazuje promet paketa od nadgledanog uređaja.
+</p>
+<ol><li> Python API
+</li></ol>
+<p>Ovaj način korištenja se može koristiti na više platformi, a ne samo Windowsima kao Nordic's nRFSniffer, zasad su to: OS X 10.10, Windows 7 x64, Ubuntu 14.04. Ostali koraci postupka skeniranja, su slični kao i kod Nordic-a.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Noridc.27s_nRF_Sniffer_Utility"> Noridc's nRF Sniffer Utility </span></h3>
+<p>Da bi se osposobio Bluefruit LE Sniffer, treba se prvo skinuti sa Nordic službene web stranice paket nRF-Sniffer, koji skuplja podatke na Windowsima i prosljeđuje te podatke na Wireshark radi analize. Iz priloženoga se može zaključiti i da korisnik treba imati Wireshark da bi mogao upotpunosti razumjeti pakete u prometu između dva bluetooth uređaja. Kada se instalira sav potreban software, može se uključiti hardware i pokrenuti <i>sniffanje</i>. nRF-Sniffer je ograničen na skeniranje prometa samo jednog uređaja, pa se prvo treba odabrati uređaj kojeg će se skenirati.    
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:NRF-Sniffer.png" class="image"><img alt="NRF-Sniffer.png" src="../images/thumb/6/61/NRF-Sniffer.png/200px-NRF-Sniffer.png" width="200" height="119" /></a>  
+</p><p><i>Slika 11.</i> CMD od Bluefruit LE Sniffer-a (Izvor: <a href="https://www.adafruit.com/product/2269" class="external autonumber" rel="nofollow">[21]</a>)   
+</p><p><br />
+Nakon šta se ponude uređaji koje možemo skenirati, odaberemo jedan, prema rednom broju i stisnemo 'w', ta naredba će pokrenuti Wireshark i sav skenirani promet slati u taj program. Prednost korištenja alata Wireshark je ta da, Wireshark može interpretirati paket na najosnovnijoj razini i u čitljivom formatu ga prezentirati korisniku. Svi podaci o paketu su prikazani pod opcijom <i>Bluetooth Low Energy Layer</i>. Ako korisnik želi, može skenirati i promet između 2 BLE uređaja, no pošto Bluefruit LE Sniffer pasivni uređaj, on može samo skenirati promet, ne može se i spojiti na jedan od uređaja. Sami postupak spajanja dva BLE uređaja se može isto prikazati u Wireshark-u. Ako jedan od dva BLE uređaja odabere opciju <i>Scan for new devices</i>, u Wireshark-u će se pojaviti paket sa nazivom 'SCAN_REQ' ili 'SCAN_RSP'. Kada korisnik odobri spajanje, javlja se novi paket sa nazivom 'CONNECT_REQ', te kada se spajanje izvrši, počinje proces Write Requesta, odnosno slanje prometa, što rezultira novim paketom u Wireshark-u preko handle-a 0x001E<a href="https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer?view=all" class="external autonumber" rel="nofollow">[22]</a>.
+</p><p>Ako korisnik ima OS X, može koristiti nRF-Snifer pomoću paketa<a href="https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer?view=all" class="external autonumber" rel="nofollow">[23]</a>:
+</p>
+<pre>
+nrf-ble-sniffer-osx
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Python_API"> Python API </span></h3>
+<p>Ako korisnik ima već instaliran Python 2.7.x, onda je idući korak skidanja API-a pomoću kojeg će koristiti nRF-Sniffer, na [<a href="https://github.com/adafruit/Adafruit_BLESniffer_Python" class="external text" rel="nofollow">gitu</a>] se nalazi sav potreban kod. Za početak se mora napraviti kod za sniffer.py Wrapper, u koji će se spremati port BLE uređaja. Primjer koda sa nalazi ispod<a href="https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer?view=all" class="external autonumber" rel="nofollow">[24]</a>:
+</p>
+<pre>
+$ sudo python sniffer.py -h
+usage: sniffer.py [-h] [-v] serialport
+
+Interacts with the Bluefruit LE Friend Sniffer firmware
+
+positional arguments:
+  serialport     serial port location ('COM14', '/dev/tty.usbserial-DN009WNO',
+                 etc.)
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --verbose  verbose mode (all serial traffic is displayed)
+</pre>
+<p>Ovisno na kojoj platformi korisnik radi, jedini dio koda koji se mijenja je port:
+</p>
+<pre>
+''Za Windowse:''
+COM15
+''za Linux:''
+/dev/ttyACM*
+''Za OS X:''
+/dev/tty.usbserial*
+</pre>
+<p>Kada se wrapper spoji na Bluefruit LE Sniffer, vršit će skenirnanje od 5 sekundi i ponuditi će odabir uređaja koje želimo skenirati. 
+</p>
+<pre>
+$ sudo python sniffer.py /dev/ttyACM0
+[sudo] password for ktown: 
+Logging data to logs/capture.pcap
+Connecting to sniffer on /dev/ttyACM0
+Scanning for BLE devices (5s) ...
+Found 2 BLE devices:
+
+  [1] &quot;&quot; (E7:0C:E1:BE:87:66, RSSI = -52)
+  [2] &quot;&quot; (14:99:E2:05:29:CF, RSSI = -94)
+
+Select a device to sniff, or '0' to scan again
+&gt; 
+</pre>
+<p>Kada odaberemo uređaj, započet će skeniranje i ažurirat će se podaci svake sekunde, '.' će označavati svaki dohvačeni paket:
+</p>
+<pre>
+Select a device to sniff, or '0' to scan again
+&gt; 1
+Attempting to follow device E7:0C:E1:BE:87:66
+.................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+............................
+..............................
+...........................
+..............................
+</pre>
+<p><br />
+Kada smo skenirali količinu podataka za koju smatramo da je dovoljna, sa 'CTRL+C' zaustavljamo skeniranje i u Wiresharku otvaramo log datoteku formata .pcap, te dalje analiziramo skenirani promet.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<div style="column-count:2;-moz-column-count:2;-webkit-column-count:2">
+<ol><li> <a href="http://www.masterlock.com/bluetooth" class="external free" rel="nofollow">http://www.masterlock.com/bluetooth</a>
+</li><li> <a href="https://www.adafruit.com/product/2269" class="external free" rel="nofollow">https://www.adafruit.com/product/2269</a>
+</li><li> <a href="https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer/introduction" class="external free" rel="nofollow">https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer/introduction</a>
+</li><li> <a href="https://cdn-learn.adafruit.com/downloads/pdf/introducing-the-adafruit-bluefruit-le-sniffer.pdf" class="external free" rel="nofollow">https://cdn-learn.adafruit.com/downloads/pdf/introducing-the-adafruit-bluefruit-le-sniffer.pdf</a>
+</li><li> <a href="http://ubertooth.sourceforge.net/hardware/one/" class="external free" rel="nofollow">http://ubertooth.sourceforge.net/hardware/one/</a>
+</li><li> <a href="https://greatscottgadgets.com/ubertoothone/" class="external free" rel="nofollow">https://greatscottgadgets.com/ubertoothone/</a>
+</li><li> <a href="http://hackaday.com/2016/08/08/the-terrible-security-of-bluetooth-locks/" class="external free" rel="nofollow">http://hackaday.com/2016/08/08/the-terrible-security-of-bluetooth-locks/</a>
+</li><li> <a href="https://www.security-sleuth.com/sleuth-blog/2015/9/6/now-i-wanna-sniff-some-bluetooth-sniffing-and-cracking-bluetooth-with-the-ubertoothone" class="external free" rel="nofollow">https://www.security-sleuth.com/sleuth-blog/2015/9/6/now-i-wanna-sniff-some-bluetooth-sniffing-and-cracking-bluetooth-with-the-ubertoothone</a>
+</li><li> <a href="http://ubertooth.blogspot.hr/2014/06/discovering-bluetooth-uap.html" class="external free" rel="nofollow">http://ubertooth.blogspot.hr/2014/06/discovering-bluetooth-uap.html</a>
+</li><li> <a href="https://penturalabs.wordpress.com/2013/09/04/bluetooth-sniffing-why-bother/" class="external free" rel="nofollow">https://penturalabs.wordpress.com/2013/09/04/bluetooth-sniffing-why-bother/</a>
+</li><li> <a href="https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer?view=all" class="external free" rel="nofollow">https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-sniffer?view=all</a>
+</li><li> <a href="https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started" class="external free" rel="nofollow">https://github.com/greatscottgadgets/ubertooth/wiki/Getting-Started</a>
+</li><li> <a href="https://github.com/greatscottgadgets/ubertooth/wiki/Building-from-git" class="external free" rel="nofollow">https://github.com/greatscottgadgets/ubertooth/wiki/Building-from-git</a>
+</li><li> <a href="https://en.wikipedia.org/wiki/Bluetooth_low_energy" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Bluetooth_low_energy</a>
+</li><li> <a href="https://en.wikipedia.org/wiki/ARM_architecture" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/ARM_architecture</a>
+</li><li> <a href="https://en.wikipedia.org/wiki/MAC_address" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/MAC_address</a>
+</li></ol>
+</div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 184/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9239-0!*!0!!hr!2!edit=0 and timestamp 20190203204204 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html">http://security.foi.hr/wiki/index.php/Obijanje_bluetooth_brave_sa_bluetooth_snifferom</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Obijanje_bluetooth_brave_sa_bluetooth_snifferom" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Obijanje_bluetooth_brave_sa_bluetooth_snifferom&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Obijanje_bluetooth_brave_sa_bluetooth_snifferom&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Obijanje_bluetooth_brave_sa_bluetooth_snifferom&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Obijanje_bluetooth_brave_sa_bluetooth_snifferom.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Obijanje_bluetooth_brave_sa_bluetooth_snifferom" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Obijanje_bluetooth_brave_sa_bluetooth_snifferom" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Obijanje_bluetooth_brave_sa_bluetooth_snifferom&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Obijanje_bluetooth_brave_sa_bluetooth_snifferom&amp;oldid=40432" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:11, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 9.430 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Obijanje_bluetooth_brave_sa_bluetooth_snifferom", "wgTitle": "Obijanje bluetooth brave sa bluetooth snifferom", "wgAction": "view", "wgArticleId": 9239, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40432, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.463 secs. -->			</body>
+</html>

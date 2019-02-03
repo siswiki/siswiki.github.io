@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Primjena TensorFlow-a u sigurnosti - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Primjena_TensorFlow-a_u_sigurnosti&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Primjena_TensorFlow-a_u_sigurnosti skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Primjena TensorFlow-a u sigurnosti</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Primjena_TensorFlow-a_u_sigurnosti.html#mw-head">orijentacija</a>,
+					<a href="Primjena_TensorFlow-a_u_sigurnosti.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu prijavila: Marija Lalić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Primjena_TensorFlow-a_u_sigurnosti.html#TensorFlow"><span class="tocnumber">1</span> <span class="toctext">TensorFlow</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Primjena_TensorFlow-a_u_sigurnosti.html#Primjeri"><span class="tocnumber">2</span> <span class="toctext">Primjeri</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Primjena_TensorFlow-a_u_sigurnosti.html#Antivirus_skripta_u_Pythonu"><span class="tocnumber">3</span> <span class="toctext">Antivirus skripta u Pythonu</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Primjena_TensorFlow-a_u_sigurnosti.html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Primjena_TensorFlow-a_u_sigurnosti.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="TensorFlow"> TensorFlow </span></h1>
+<p>TensorFlow je open source software library za numeričke operacije koji koristi data flow grafove. Čvorovi u grafu predstavljaju matematičke operacije (ops), a rubovi grafa predstavljaju multidimenzionalna podatkovna polja (tenzori). TensorFlow su razvijen od strane tima Google Brain u Googleovoj istraživačkoj organizaciji Machine Intelligence u svrhu provođenja machine learninga i istraživanja dubokih neuronskih mreža. Graf u TensorFlowu je opis operacija, odnosno izračuna. Da bi se nešto izračunalo, grafikon mora biti pokrenut u sesiji (eng. Session). Sesija postavlja operacije grafa na uređaje (CPU, GPU) i pruža metode za njihovo izvršavanje. Te metode kao rezultat vraćaju tenzore u obliku NumPy objekata u Pythonu ili kao TensorFlow instance u C i C++. To je simbolička matematička biblioteka koja se koristi u machine learning aplikacijama poput neuronskih mreža.
+</p><p>TensorFlow koriste razna poduzeća iz različitih gospodarskih grana poput Uber, Nvidia, Dropbox, Ebay, Snapchat, CocaCola, Lenovo, Musical.ly. To upravo pokazuje raznovrsnost korištenja. Njega također koristi svaki Google proizvod - za image search, image captioning, prevođenje, preporuke proizvoda itd. Google treba machine learning kako bi iskoristio svoje velike data setove na način tako da korisnima pruži što bolje iskustvo.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tensorflowenv.png" class="image"><img alt="Tensorflowenv.png" src="../images/thumb/2/2a/Tensorflowenv.png/750px-Tensorflowenv.png" width="750" height="329" /></a>
+</p><p>Na slici se može vidjeti programska okolina TensorFlowa. Sastoji se od tri razine APIja i kernela. Na najvišoj razini se nalaze tkzv. 'Estimators' koji predstavljaju cijelokupni model. Estimator API pruža metode za treniranje modela, određivanja njegove točnosti i za generiranje predviđanja. Na srednjoj razini imamo slojeve, metrike i data setove. Dataset API ima metoda za loadanje i manipuliranje podacima i njihovo feedanje u model. Dakle, korištenje Estimators API i Dataset API je osnovno potrebno znanje za korištenje TensorFlowa te ćemo upravo njihovo korištenje i vidjeti u primjerima istraživanja i python skripti. U low level API se može vidjeti da se nalaze Python, C++, Java i GO.
+</p><p>Glavni use caseovi za TensorFlow, osim u sigurnosti su:
+</p>
+<pre> <i>1. Voice/sound recognition</i>
+</pre>
+<p>Jedna od najpoznatijih koristi TensorFlowa je njegovo korištenje za aplikacije bazirane na zvuku/glasu. Sa pravilnim feedom podataka, neuronske mreže su sposobne razumjeti audio signale. To može biti: prepoznavanje glasa, glasovno 
+pretraživanje (speech to speech aplikacije), otkrivanje nedostataka (buka motora) u automobilskoj i zrakoplovnoj industriji.
+</p>
+<pre> <i>2. Aplikacije bazirane na tekstu</i>
+</pre>
+<p>Korištenje TensorFlowa za apliakcije poput sentimentalna analiza (CRM, socijalni mediji), otkrivanje prijetnji (društvene mreže, vlada) i otkrivanje prijevara (osiguranje, financije). Otkrivanje jezika je jedno od najpopularnijih 
+korištenja kod aplikacija baziranih na tekstu, npr. Google Translate je svima poznat, on nudi potporu za prevođenje preko 100 jezika iz jednog u drugi. Uz to Google ga još koristi za sažetke tekstova (na temelju određenog teksta se 
+dobije naslov ili sažetak) i za SmartReply koji automatski generira e-mail odgovore.
+</p>
+<pre> <i>3. Prepoznavanje slika</i>
+</pre>
+<p>Tkzv. image recognition je najčešće korišten od strane društvenih mreža, telekoma. Osim njih se prepoznavanje lica, pretraživanje preko slika, detekcija pokreta i clustering slika koristi i u automobilskoj, zrakoplovnoj i medicinskoj industriji.
+</p>
+<pre> <i>4. Time series</i>
+</pre>
+<p>TensorFlow Time Series algoritmi se koristi za analiziranje vremenskih serija u podacima kako bi se na temelju toga izvukla smislena statistika. Najčešća upotreba ovoga je za preporuke na različitim stranicama poput Amazona,  Google, Facebooka ili Netflixa. Oni analiziraju aktivnost korisnika i uspoređuju ih sa ostalima kako bi na temelju toga odredili što bi korisnik htio gledati ili kupiti. 
+</p>
+<pre> <i>5. Detekcija videa</i>
+</pre>
+<p>Korištenje TensorFlow neuronskih mreža se može koristiti i za detekciju pokreta i otkrivanje prijetnji u stvarnom vremenu u zračnim lukama i sigurnosti. 
+</p><p><i>Bonus</i>
+</p><p>NASA radi na sustavu s TensorFlow koji će klasificirati i grupirati asteroide. Kao rezultat toga će moći klasificirati i predviđati objekte blizu zemlji (eng. <i>Near earth objects</i>).
+</p>
+<h1> <span class="mw-headline" id="Primjeri"> Primjeri </span></h1>
+<p><i><b>A machine learning approach to anomaly-based detection on android platforms</b></i>
+</p><p>Ovo istraživanje koristi pristup strojnog učenja čije je učenje posebno nadzirano za otkrivanje anomalija. Model za strojno učenje se trenira koristeći podatke dobivene od razumijevanja ponašanja aplikacija. Taj istrenirani classifier se tada koristi da se predvide budući rezultati vektora. Korištenje machine learning based classifiera ima dva izazova: treba izdvojiti neku značajnost aplikacije koja će bit reprezentacija i potreba za data setom koji je dobroćudan (mora biti dobroćudan kako bi se classifier pravilno istrenirao). Classifier se trenira pomoću K-NN algoritma tako da on zna što je normalno ponašanje te baš zbog toga može detektirati ponašanja aplikacija koja odstupaju od definiranih normalnih ponašanja aplikacija. K-NN algoritam je tkzv. „K Nearest Neighbors“ algoritam koji sprema u sebe sve moguće slučajeve i klasificira nove slučajeve na temelju mjerenja sličnosti.
+HOSBAD je Host-Based Anomaly Detection System koji cilja Android Malware širen preko poruka i poziva. HOSBAS integrira dana mining i nadzirano strojno učenje u svojoj implementaciji. Dizajniran je da nadgleda i izvadi podatke o Android aplikacijama na aplikacijskoj razini te da koristeći te podatke detektira malware tako da pomoću strojnog učenja razlikuje normalna ponašanja od malicioznih ponašanja aplikacija. Model za strojno učenje se može gledati kao crna kutija čiji su inputovi setovi ponašanja formatirani u setove vektora, a outputovi flag koji kaže „Normal“ ili „Malicious“. Nadzirani model strojnog učenja koji je u ovom slučaju K-NN classifier je treniran pomoću modela normaliteta. Treniranje classifiera je najkritičnija faza jer točnost classifiera ovisi o ovoj fazi. Vektore koje su gledali su SMS tekstovi, pozivi, statusi uređaja te trenutno pokrenuti procesi i aplikacije. Za treniranje nisu uzeli samo „dobre“ podatke koji predstavljaju sigurne aplikacije, već su uključili i vektore koji predstavljaju maliciozna ponašanja koja se jako razlikuju od „dobrih“. Rezultati ovog istraživanja su pokazali da K-NN model ima točnost od 93.75% i error rate od 6.25% što su obećavajući rezultati. Uz to, pojava false positive rezultata je bila minimalna (0.000 za maliciozne i 0.154 za normalne).
+</p><p><a href="https://arxiv.org/ftp/arxiv/papers/1512/1512.04122.pdf" class="external text" rel="nofollow">Više detalja o istraživanju</a>
+</p><p><br />
+<i><b>A Behavioral Analysis Framework Augmented with Machine Learning to Identify mobile botnet applications</b></i>
+</p><p>SMARTbot je dinamički framework za analizu koji se sastoji od tri komponente: dinamička analiza, feature mining i učenje. Na počektu se Android aplikacije stave u komponentu dinamičke analize koristeći platformu na analizu malwarea zvanu Andrubis. Rezultati te analize su trace i log files u XML i PCAP formatima; ti podaci se dalje šalju u feature mining komponentu gdje se svojstva i značajke ponašanja koja su specifična za botnet napade promatraju i extractaju. Na kraju se koristi ANN <a href="http://neuralnetworksanddeeplearning.com/chap2.html" class="external text" rel="nofollow">backpropagation</a> model na dobiveni dana set kako bi se botnet classifier istrenirao. Koristi se šest različitih classifiera te se od njih odabire optimalni. (ANN - artificial neural network) Na slici je prikazan SMARTbot framework.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SMARTbot_Framework.jpg" class="image"><img alt="SMARTbot Framework.jpg" src="../images/f/f1/SMARTbot_Framework.jpg" width="748" height="245" /></a>
+</p><p>Na sljedećoj slici je prikazan korišteni data set.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dataset.jpg" class="image"><img alt="Dataset.jpg" src="../images/f/f8/Dataset.jpg" width="838" height="670" /></a>
+</p><p>Svih šest classifiera je imalo točnost veću od 90%, ali jedan koji koristi jednostavnu logističku regresiju je imao točnost od 99.49%. Rezultati ostalih su 91% za Naive Bayes, 96% za SVM, 97% za MLP, 98% za J48 i 99% za RF. Jedan od zaključaka istraživanja je da dinamička analiza proširena sa strojnim učenjem je odlična opcija za identificiranje botnet ponašanja u Android aplikacijama.
+</p><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4792466/" class="external text" rel="nofollow">Više detalja o istraživanju</a>
+</p><p><br />
+<i><b>Splunk and Tensorflow for Security: Catching the Fraudster with Behavior Biometrics</b></i>
+</p><p>Ono šta su napravili je sljedeće; svaki pokret miša generira X i Y koordinate pointera miša i timestamp – te podatke su skupili i poslali Splunku kako bi poboljšali tradicionalne, stare data setove koje su imali. Na ovaj način će podaci o korisnicima imati i informacije o mogućim jedinstvenim uzorcima u ponašanju. Svaka aktivnost miša generira događaj svakih 5-10 milisekundi tako da neke interakcije sa mišem mogu imati 5,000 – 10,000 događaja od strane korisnika po jednoj stranici, što je jako puno podataka za analizirati. Zbog toga su odlučili agregirati i pretvoriti te podatke u slike u boji. Uostalom, miš se uvijek miče po ravnoj 2D površini tako da je ova pretvorba i prirodna. Jedna slika može predstavljati tisuće aktivnosti miša. Specijalizirali su high conrast encoding algorithm koji će reprezentirati smjer, brzinu i ubrzanje miša na uvjerljiv i dosljedan način. Zbog toga su mogli uočiti razlike u ponašanju između dešnjaka i ljevaka. Klikovi miša su reprezentirani kao obojani krug, a click and drag movement su prikazani kao debele linije. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Splunk.png" class="image"><img alt="Splunk.png" src="../images/3/31/Splunk.png" width="405" height="269" /></a>
+</p><p>Sada kada su imali slike, pomoću Deep Learninga su procesirali slike sa specijaliziranim algoritmima koji su dizajnirani da otkriju bilo kakav mogući uzorak unutar slike, odnosno slika. Pomoću TensorFlowa i high level deep learning abstraction library Keras su izgradili custom nerual network arhitekturu koja će klasificirati pokrete miša. Zahvaljujući Kerasu su mogli implementirati potreban kod u samo 50-100 linija Python koda. Nakon treniranja modela samo tri minute su uspjeli postići uspješnost od 78%.
+</p><p><a href="https://www.splunk.com/blog/2017/04/18/deep-learning-with-splunk-and-tensorflow-for-security-catching-the-fraudster-in-neural-networks-with-behavioral-biometrics.html" class="external text" rel="nofollow">Više detalja</a>
+</p>
+<h1> <span class="mw-headline" id="Antivirus_skripta_u_Pythonu"> Antivirus skripta u Pythonu </span></h1>
+<p>Ovaj program trenira classifier tako da može detektirati Portable Executable datoteke (PE datoteke) kao 'maliciozne' ili 'legitimne'. Isprobava se šest različitih klasifikacijskih algoritama te se zatim uzme najbolji uspoređujući njihove rezultate.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kod1.png" class="image"><img alt="Kod1.png" src="../images/thumb/9/93/Kod1.png/750px-Kod1.png" width="750" height="471" /></a>
+</p><p>Prvo importamo module koje nam trebaju. Pandas je python data analysis library, dakle on će nam trebati za analizu podataka. Numpy je tu za matematičke operacije, on nudi funkcije za velike, multidimenzionalne matrice i nizove. Pickle služi za pretvaranje python objekata (liste, rječnici itd.) u character stream ili u našem slučaju u byte stream. Sklearn.ensemble nam omogućava da buildamo, treniramo i testiramo machine learning model. Zatim se treba loadati data source. U liniji koda 11 se može vidjeti da datoteka data.csv. Ona u sebi ima označene data setove PE datoteka koji su označeni kao 'maliciozni' ili 'legitimni'. Nakon toga u liniji koda 15 se pinta ukupan broj svojstva po redu. Sada se trebaju identificirati bitna svojstva iz našeg data seta koji će nam biti potrebni classifieru. Za to se koristi ExtraTreesClassifier (linije koda 18-21). Sada kad su bitna svojstva nađena ih treba printati i sortirati.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kod2.png" class="image"><img alt="Kod2.png" src="../images/thumb/3/32/Kod2.png/750px-Kod2.png" width="750" height="465" /></a>
+</p><p>Napravi se niz modela. Svaki model ćemo testirati na našem data koristeći extractana svojstva kao input te ćemo usporediti rezultate njihovih predviđanja. Onaj s najboljim rezultatom ćemo koristiti na kraju za detekciju malwarea. U liniji koda 48 se koristi for loop, upravo pomoću njega se testira svaki algoritam. Linija koda 50 je fitanje algoritma na set stvojstva, 51 je bilježenje njegovog rezultata, odnosno uspješnosti njegovog predviđanja. Svaki rezultat se printa i u liniji koda 55 se uzima pobjednik tj. najbolji. Pobjednik se zatim printa i njegova svojstva se spremaju u folder od classifiera kao seriju Pickle datoteka. Ovaj dio koda je bilo samo treniranje classifiera, a sada ćemo vidjeti što nam još treba za glavnu skriptu.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kod3.png" class="image"><img alt="Kod3.png" src="../images/thumb/5/59/Kod3.png/750px-Kod3.png" width="750" height="489" /></a>
+</p><p>Main metoda inicijalizira command line parse tako da kad napišemo ime naše datoteke koju želimo testirati, argument će biti baš ona jer ju želimo klasificirati kao 'malicioznu' ili 'legitimnu'. Nakon toga se treba loadati naš izabrani classifier zajedno sa njegovim svojstvima iz classifier foldera (linije koda 6-14). U liniji koda 16 se extracta byte stream iz naše input datoteke, a zatim u liniji koda 18 se iz toga extracta set svojstva. Njih zatim damo našem treniramo modelu (linija koda 20) te se output klasifikacije printa u command line. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rez1.png" class="image"><img alt="Rez1.png" src="../images/thumb/8/84/Rez1.png/750px-Rez1.png" width="750" height="94" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rez2.png" class="image"><img alt="Rez2.png" src="../images/thumb/1/1f/Rez2.png/750px-Rez2.png" width="750" height="93" /></a>
+</p><p>Na slikama iznad se nalazi prikaz korištenja u oba slučaja (maliciozna datoteka i legitimna datoteka).
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h1>
+<p>Kako virusi postaju pametniji, tako i sigurnosni sustavi i aplikacije moraju biti pametnije. Npr. polimorfni virusi enkriptiraju sami sebe na drukčiji način svaki puta kada infectaju host mašinu zbog čega ih je teže otkriti, crv replicira sam sebe kako bi se raširio na druge mašine. Detekcija virusa je u stvari problem klasifikacije, a kod tog problema nam može od velike pomoći biti program koji ima mogućnost prepoznavanja da li je dio softwarea malware ili ne. Upravo tu nam pomaže strojno učenje i deep learning. Kao što se moglo vidjeti na spomenutim primjerima, strojno učenje se sastoji od 3 bitna koraka: kreiranje trening seta koji će biti uzorak, korištenje trening seta za treniranje classifiera, korištenje classifiera za predviđanje. Bitno je samu klasifikaciju primijeniti na dijelove malwarea gdje se očekuje da će se sličnost najviše očitovati. Druga bitna stvar za napomenuti su sami trening, odnosno data setovi koji se koriste za treniranje. Teško ih je razviti na temelju malware zbog nedostatka informacija o source kodu. Zbog toga se kao data set uzima open-source software tako da se sam classifier trenira na što realističnijem data setu. Machine learning može uvelike pomoći pri zaštiti sustava, aplikacija i samih korisnika.
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<ul><li><a href="http://neuralnetworksanddeeplearning.com/chap2.html" class="external free" rel="nofollow">http://neuralnetworksanddeeplearning.com/chap2.html</a>
+</li></ul>
+<ul><li><a href="https://arxiv.org/ftp/arxiv/papers/1512/1512.04122.pdf" class="external free" rel="nofollow">https://arxiv.org/ftp/arxiv/papers/1512/1512.04122.pdf</a> 
+</li></ul>
+<ul><li><a href="https://github.com/llSourcell/antivirus_demo" class="external free" rel="nofollow">https://github.com/llSourcell/antivirus_demo</a>
+</li></ul>
+<ul><li><a href="https://insights.sei.cmu.edu/sei_blog/2011/09/using-machine-learning-to-detect-malware-similarity.html" class="external free" rel="nofollow">https://insights.sei.cmu.edu/sei_blog/2011/09/using-machine-learning-to-detect-malware-similarity.html</a>
+</li></ul>
+<ul><li><a href="https://medium.com/slalom-engineering/detecting-malicious-requests-with-keras-tensorflow-5d5db06b4f28" class="external free" rel="nofollow">https://medium.com/slalom-engineering/detecting-malicious-requests-with-keras-tensorflow-5d5db06b4f28</a>
+</li></ul>
+<ul><li><a href="https://www.exastax.com/deep-learning/top-five-use-cases-of-tensorflow/" class="external free" rel="nofollow">https://www.exastax.com/deep-learning/top-five-use-cases-of-tensorflow/</a>
+</li></ul>
+<ul><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4792466/" class="external free" rel="nofollow">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4792466/</a>
+</li></ul>
+<ul><li><a href="https://www.splunk.com/blog/2017/04/18/deep-learning-with-splunk-and-tensorflow-for-security-catching-the-fraudster-in-neural-networks-with-behavioral-biometrics.html" class="external free" rel="nofollow">https://www.splunk.com/blog/2017/04/18/deep-learning-with-splunk-and-tensorflow-for-security-catching-the-fraudster-in-neural-networks-with-behavioral-biometrics.html</a>
+</li></ul>
+<ul><li><a href="https://www.tensorflow.org/" class="external free" rel="nofollow">https://www.tensorflow.org/</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 19/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9889-0!*!0!!hr!2!edit=0 and timestamp 20190203204134 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Primjena_TensorFlow-a_u_sigurnosti.html">http://security.foi.hr/wiki/index.php/Primjena_TensorFlow-a_u_sigurnosti</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Primjena_TensorFlow-a_u_sigurnosti" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Primjena_TensorFlow-a_u_sigurnosti.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Primjena_TensorFlow-a_u_sigurnosti&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Primjena_TensorFlow-a_u_sigurnosti.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Primjena_TensorFlow-a_u_sigurnosti.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Primjena_TensorFlow-a_u_sigurnosti&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Primjena_TensorFlow-a_u_sigurnosti&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Primjena_TensorFlow-a_u_sigurnosti.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Primjena_TensorFlow-a_u_sigurnosti" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Primjena_TensorFlow-a_u_sigurnosti" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Primjena_TensorFlow-a_u_sigurnosti&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Primjena_TensorFlow-a_u_sigurnosti&amp;oldid=43097" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 08:09, 2. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 635 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Primjena_TensorFlow-a_u_sigurnosti", "wgTitle": "Primjena TensorFlow-a u sigurnosti", "wgAction": "view", "wgArticleId": 9889, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43097, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.311 secs. -->			</body>
+</html>

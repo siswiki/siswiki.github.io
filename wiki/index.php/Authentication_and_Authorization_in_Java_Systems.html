@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Authentication and Authorization in Java Systems - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Authentication_and_Authorization_in_Java_Systems&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Authentication_and_Authorization_in_Java_Systems skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Authentication and Authorization in Java Systems</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Authentication_and_Authorization_in_Java_Systems.html#mw-head">orijentacija</a>,
+					<a href="Authentication_and_Authorization_in_Java_Systems.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Authentication_and_Authorization_in_Java_Systems.html#Authentication_and_Authorization_in_Java_Systems"><span class="tocnumber">1</span> <span class="toctext">Authentication and Authorization in Java Systems</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Authentication_and_Authorization_in_Java_Systems.html#Autentikacija"><span class="tocnumber">2</span> <span class="toctext">Autentikacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Authentication_and_Authorization_in_Java_Systems.html#Elementi_autentikacije"><span class="tocnumber">2.1</span> <span class="toctext">Elementi autentikacije</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Authentication_and_Authorization_in_Java_Systems.html#Jednofaktorska_autentikacija_.28Autentikacija_putem_lozinke.29"><span class="tocnumber">2.2</span> <span class="toctext">Jednofaktorska autentikacija (Autentikacija putem lozinke)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Authentication_and_Authorization_in_Java_Systems.html#Dvofaktorska_autentikacija"><span class="tocnumber">2.3</span> <span class="toctext">Dvofaktorska autentikacija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Authentication_and_Authorization_in_Java_Systems.html#JAAS_.28Java_Authentication_and_Authorization_Service.29"><span class="tocnumber">3</span> <span class="toctext">JAAS (Java Authentication and Authorization Service)</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Authentication_and_Authorization_in_Java_Systems.html#Autorizacija"><span class="tocnumber">4</span> <span class="toctext">Autorizacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Authentication_and_Authorization_in_Java_Systems.html#OAuth"><span class="tocnumber">4.1</span> <span class="toctext">OAuth</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Authentication_and_Authorization_in_Java_Systems.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Authentication_and_Authorization_in_Java_Systems">	Authentication and Authorization in Java Systems </span></h2>
+<p>U ovoj temi obraditi će općenito što je to autentikacija (eng. authentication) i autorizacija (eng. authorization), te na primjeru Java sustava demonstrirati kako se to izvodi kroz sami java kod. Autentikacija je zapravo proces u kojem korisnik, koji bi trebao biti čovjek, verificira svoj identitet, dok je autorizacija proces kojim se programskom podrškom ostvaruje kontrola pristupa do određenih dijelova aplikacija, naravno nakon što se zna identitet korisnika koji šalje zahtjev za pristup do sadržaja. Kada se gleda cjelina ova dva koncepta idu ruku pod ruku, jer bez autorizacije i nema neke potrebe za autentikacijom, dok bez autentikacije ne postoji mogućnost kojom bi se mogla uvidjeti razlika između korisnika kojima se vjeruje, i onima kojima se ne vjeruje. Ponekad se javlja potreba da se individualno autenticira svaki korisnik, zbog posebnih prava te zbog same sigurnosti sustava, a ponekad je dovoljno autenticirati po grupi, tj. dodijeliti određena prava grupi, naravno pritom treba voditi brigu da se ne ugrozi sigurnost sustava. Još jedan zanimljiv aspekt autentikacije i autorizacije je da jedan entitet može imati nekoliko uloga u sustavu, tako na primjer jedna osoba može biti u isto vrijeme zaposlenik tvrtke, te i tajnik koji bi imao neka dodatna prava u odnosu na običnog zaposlenika. Kada se promatraju ova dva pojma važno je napomenuti da iako se čini da se oni odvijaju kombinirano autentikacija uvijek prethodi autorizaciji.
+</p>
+<h2> <span class="mw-headline" id="Autentikacija">	Autentikacija </span></h2>
+<p>Autentikacija je u užem smislu zapravo proces u kojem se podaci koje korisnik unosi (pruža) uspoređuju s onima unutar baze podataka, ili unutar nekog sustava u kojem se spremaju podaci za korisnika najčešće je te autentikacisjki server, a to je zapravo aplikacija koja olakšava autentikaciju entiteta koji pokušava pristupiti mreži ili u ovom slučaju određenom sustavu. Ukoliko podaci koji su poslani od strane korisnika odgovaraju proces se smatra završenim te se korisniku provjerava pravo pristupa unutar sustava. Rezultat ovog dijela rada sustava je pravo pristupa do određenih datoteka te područja sustava s kojima korisnik koji se prijavi može komunicirati. Postavke svih definiranih ograničenja te prava koja se dodjeljuju najčešće određuje administrator, koji ima krovnu ulogu u samom sustavu.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Elementi_autentikacije">	Elementi autentikacije </span></h3>
+<p>Autentikacija se praktički bazira na nekoliko elemenata:
+</p><p>•	Što znamo. (eng. What you know.) – Ova kategorija uključuje informacije koje pojedinac zna, a ostatak korisnika ne zna, neki primjeri bi bili razni pinovi, lozinke i osobne informacije koje ne želimo da budu javne.
+</p><p>•	Što posjedujemo. (eng. What you have.) – Ova kategorija uključuje fizičke elemente koji omogućuju pojedincu da dobije pristup pojedinim resursima, neki primjeri bi bili kreditne kartice te različite bankovne kartice.
+</p><p>•	Tko smo. (eng. Who you are.) – Ova kategorija uključuje različite biometrije poput otiska prsta fotografija i slično.
+</p><p>Većinom je potrebno više od jedne kategorije za autorizaciju, primjer bi bio korištenje kreditne kartice na bankomatu, koja zahtjeva pin uz fizički element koji je u ovom slučaju kartica. Ovime se dodatno može osigurati sigurnost da iako se izgubi kartica, sigurnost kartice nije kompromitirana u velikoj razini, no naravno nije ni potpuno sigurnost zajamčena.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Jednofaktorska_autentikacija_.28Autentikacija_putem_lozinke.29">	Jednofaktorska autentikacija (Autentikacija putem lozinke) </span></h3>
+<p>U početku izrade sustava potreba za zaštitom određenih resursa unutar sustava bila je puno jednostavnija, mnogo sustavi su bili sigurni, tj. bili su dovoljno sigurni za mogućnosti tadašnjih računala, no razvojem sve jačih računala i pojačavanjem računalne opreme pojavila se mogućnost vrlo brzog probijanja lozinke koju posjeduje određeni korisnik. Nakon toga uvodila su se pravila razne veće dužine lozinka te čak i uvođenje fraza za lozinke kako bi se otežalo probijanje lozinke. No kako uvijek postoji mogućnost da kada se uloži određeni trud lozinka bude probijena, to je primarno zato što svaki ovakav pristup koji zahtjeva bazu da se korisnik autenticira, ta baza naravno može imati kriptirane lozinke, no ukoliko postoji i najmanja slabost spremanja lozinke, napadač može brzinom koja je ograničena samo njegovom hardverskom opremom pogađati lozinku te nakon određenog vremena otkriti te kompromitirati sigurnost resursa određenog korisnika unutar sustava.
+Od ovakvih napada korisnik se može zaštititi tako da koristi razne lozinke koje se teže probijaju, koje mogu biti razne kombinacije ili fraze koje i nemaju pretjeranog smisla, a sustav se može zaštiti korištenjem najnovijih verzija svih alata koje posjeduje te naravno krpanjem svih sigurnosnih propusta koji mogu postojati unutar samog sustavu. U nastavku je prikazan pristup do resursa kada se koristi jednofaktorska autentikacija, zbog jednostavnosti nije prikazano korištenje certifikata kako bi se provjerilo dali je pristup do sustava siguran tj. dali je sustav kojem korisnik pristupa označen sustav kojemu se vjeruje.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Prva_Bebek.png" class="image"><img alt="Prva Bebek.png" src="../images/5/5b/Prva_Bebek.png" width="1140" height="490" /></a>
+</p><p>Slika 1. Jednofaktorska autentikacija vlastita izrada
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Dvofaktorska_autentikacija">	Dvofaktorska autentikacija </span></h3>
+<p>Dvofaktorska autentikacija ili kako se često zove verifikacija u dva koraka, je sigurnosni proces u kojem korisnik sustavu pruža dva faktora (elementa) autentikacije koja su ranije navedena, kako bi potvrdio tko je on zapravo. Dvofaktorska autentikacija pruža dodatni sloj sigurnosti i otežava napadaču da dobije pristup do korisnikovih podataka, ili nekih zaštićenih resursa, jer sad nije dovoljno samo poznavati npr. korisnikovu šifru kako bi se autentikacija smatrala uspješnom, nego je dodatno potrebno znati još jedan faktor. 
+Ovakva vrsta autentikacije je uvedena primarno kako bi se korisnici dodatno zaštitili kada se dogodi krađa baze podataka, ili kako je korisnikova lozinka otkrivena putem „phishing“ napada. Važno je napomenuti da korištenje dva faktora iz iste kategorije se i dalje smatra jednofaktorskom autentikacijom primjer bi bio korištenje lozinke, te neke tajne riječi, jer oboje spadaju u autentikacijski faktor znanja, tj. onoga što korisnik zna. Kada se želi implementirati dvofaktorska autentikacija važno je spomenuti da postoji više uređaja te servisa s kojima se ta implementacija može izvesti, a neki od tih su tokeni, razne kartice te čak i različite aplikacije. S implementacijske strane ovo se rješava tako da se implementira generator tokena koji se generira prilikom prijave te kreiranjem infrastrukture za provjeru i prihvaćanje generiranog tokena te nakon toga autenticira korisnika koji ima ispravan token. 
+Prvi dio procesa tj. generiranje tokena može biti i fizički uređaj kao što je „Yubikey“, ili kartica koju korisnik posjeduje, te može postojati unutar software-a kao mobilna, web ili desktop aplikacija koja generira PIN kod za autentikaciju. Drugi dio procesa se rješava tako da postoji sustav koji će prihvatiti procesirati te dopustiti ili odbiti pristup korisniku koji se autenticira s tokenom. 
+Pojavljuje se pitanje dali je dvofaktorska autentikacija sigurna, to se može odgovoriti jednostavno a to je da je onoliko sigurna koliko je sigurna najslabija komponenta sustava, za primjer se može uzeti zaobilaženje dvofaktorske autentikacije, a najpoznatiji slučaj je hakiranje Gmail računa izvršnog direktora „Cloudflare“ i to na način da su putem oporavka računa uspjeli resetirati sve podatke za prijavu te tako zaobići dvofaktorsku autentikaciju. 
+Dugo je najpoznatiji način dvofaktorske autentikacije bilo slanje dodatnog PIN-a putem SMS poruke jer je jeftin, lako se implementira se i smatra se da je lak za korištenje korisniku, no treba uzeti u obzir da je ovaj način autentikacije ranjiv na brojne napade, te je upravo iz tog razloga obustavljen (eng. deprecated) od strane NIST-a u „Special Publication 800-63-3: Digital Authentication Guidelines“, a napad koji se može izvesti je hakiranje mobilne mreže „Signaling System 7“, a malware koji postoji je „Eurograbber“ koji može presresti ili preusmjeriti SMS poruke. Primjer rada dvofaktorske autentikacije može se vidjeti na sljedećoj slici, prikazana je dvofaktorska autentikacija koja se koristi za sustav Facebook te koji kako se može vidjeti koristi nesiguran način dvofaktorske autentikacije tj. koristi slanje PIN-a tj. šesteroznamenkastog broja korisniku putem SMS poruke. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Druga_Bebek.png" class="image"><img alt="Druga Bebek.png" src="../images/2/2d/Druga_Bebek.png" width="1320" height="698" /></a>
+</p><p>Slika 2. Dvofaktorska autentikacija vlastita izrada
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="JAAS_.28Java_Authentication_and_Authorization_Service.29">	JAAS (Java Authentication and Authorization Service) </span></h2>
+<p>JAAS je implementacija standardnog programskog okvira „Pluggable Authenication Module“ (PAM) od strane Jave, predstavljen je kao ekstenzija unutar biblioteka u standardnoj verziji Java platforme 1.3 te je integriran u verziji 1.4. Glavna uloga je odvajanje briga korisničke autentikacije, te uvodi dodatni mehanizam zaštite. To se najbolje vidi po tome da su prethodni mehanizmi autentikacije sadržavali informacije o podrijetlu koda i tko je potpisao kod JAAS dodaje i marker o onome tko pokreće kod. Login moduli primarno vode brigu o autentikaciji, a od njega se očekuje da implementira „javax.security.auth.spi.LoginModule“ sučelje koje specificira sljedeće metode:
+</p><p><b>Initialize</b> – Kod za inicijalizaciju login modula najčešće tako da spremi parametre koji su proslijeđeni u za to namijenjene atribute klase
+</p><p><b>Login</b>- Provjerava podatke koji su proslijeđeni putem objekta koji implementira „javax.security.auth.Callback“ sučelje. Ova metoda može obavijestiti korisnika da treba unijeti svoje podatke ili može koristiti prethodno dobivene detalje. Važno za napomenuti je da ukoliko se unesu pogrešni podaci potrebno je baciti grešku „javax.security.auth.login.FailedLoginException“
+</p><p><b>Commit</b> – Kada se verificira korisnikov identitet, kod u metodama može postaviti uloge 
+</p><p><b>Abort</b> – Poziva se ukoliko je proces autentikacije zakazao, ukoliko ova metoda vrati false tada se Login modul ignorira
+</p><p><b>Logout</b> – Kod koji se izvšava kod odjave korisnika
+</p><p><br />
+Na sljedećoj slici može se vidjeti arhitektura JAAS-a tj. primjer kako JAAS ostvaruje uključivost (eng. pluggability):
+</p><p><br /> 
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:JAAS.gif" class="image"><img alt="JAAS.gif" src="../images/f/fa/JAAS.gif" width="573" height="396" /></a>
+</p><p>Slika 3. JAAS arhitektura preuzeto s  "https: //www.javaworld.com/article/2074873/java-web-development/all-that-jaas.html" 06.02.2018.
+</p><p>Na sljedećoj slici može se vidjeti kako JAAS zapravo izgleda sa svim svojim elementima:
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:JAASElements.gif" class="image"><img alt="JAASElements.gif" src="../images/a/a2/JAASElements.gif" width="369" height="277" /></a>
+</p><p>Slika 4. Elementi JAAS-a preuzeto s "https&#160;://docs.oracle.com/cd/E19798-01/821-1794/gepfq/index.html" 06.02.2018.
+</p>
+<h2> <span class="mw-headline" id="Autorizacija">	Autorizacija </span></h2>
+<p>Autorizacija se praktički bazira na dva osnovna načina kontrole pristupa do osjetljivog koda:
+</p><p>•	Deklarativna (eng. Declarative) autorizacija može biti izvedena od strane administratora sustava, koji konfigurirati pristup sustavu, tj. definira tko može pristupiti kojim aplikacijama unutar sustava. Kod ovog načina autorizacije privilegije pristupa korisnika se mogu dodavati, mijenjati ili obnavljati po potrebi i to bez utjecaja na kod same aplikacije.
+</p><p>•	Programska (eng. Programmatic) autorizacija koristi java kod aplikacije za ostvarenje autorizacijskih odluka. Ona je potrebna kada odluke kod autorizacije zahtijevaju složeniju logiku i odluke koje su iznad mogućnosti prethodno navedene autorizacije. Kako je ovaj način autorizacije ugrađen unutar koda aplikacije, razne promjene koje se izvode zahtijevaju istovremenu promjenu koda same aplikacije.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="OAuth">	OAuth </span></h3>
+<p>OAuth je otvoreni protokol koji omogućava web stranicama ili aplikacijama (eng. Consumers) da pristupe zaštićenim resursima web servisa putem API-ja, bez zahtijevanja korisnika da otkrije podatke davatelja usluga (eng. Service Provider) aplikacijama (eng. Consumer). Primjer tj. slučaj korištenja je dopuštanje servisu za ispisivanje (Consumer) da pristupi privatnim fotografijama spremljenim na pružatelju usluga (eng. Service Provider) bez zahtijevanja korisnika da unose svoje korisničke podatke koje su spremljene kod pružatelja usluga, samom Cosumer-u tj. u ovom slučaju servisu za ispisivanje. Kada se gleda kroz povijest OAuth Core 1.0 verzija je krenula s radom 2007. godine no već 2009. godine prestaje potpora te se kreće s novom verzijom a to je OAuth Core 1.0 Revision A, kako bi se popravio „session fixation attack“. 
+Primarna razlika između OAuth 1.0a te OAuth 2.0 je ta da OAuth 2.0 zahtjeva HTTPS. Proces autentikacije u vezriji 1.0a prikazan je na sljedećoj slici:
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:5peta.png" class="image"><img alt="5peta.png" src="../images/c/ce/5peta.png" width="807" height="537" /></a>
+</p><p>Slika 5. Proces autentikacije OAuth 1.0a preuzeto s "https&#160;://www.cubrid.org/blog/dancing-with-oauth-understanding-how-authorization-works", 05.02.2018.
+</p><p><br />
+Terminologija koja se koristi unutar OAuth protokola i koju je važno razumjeti prije početka rada:
+</p><p><b>Potpisano/ Potpis (eng. Signed/Signature)</b> – String koji se sastoji od nekoliko elemenata HTTP zahtjeva, ovo uključuje Metoda zahtjeva (eng. Request Method), URL i Parametre koji su kriptirani putem ključa koji se sastoji od „consumer_secret“ i „token_secret“, kada se koristi RSA kriptiranje najčešće se koristi samo „consumer_secret“.
+</p><p><b>Ključ potrošača (eng. Consumer Key)</b> – String identifikator generiran od strane API-ja koji se koristi za OAuth rukovanje (eng. Handshake). Ekvivalent korisničkom imenu.
+</p><p><b>Tajna potrošača (eng. Consumer Secret)</b> – Jedinstveni token generiran za korištenje kod OAuth rukovanja, i ona služi kao element za kreiranje potpisa (eng. signature)
+</p><p><b>Nonce/UID</b> – Jedinstveno generiran ID zadane duljine, po standardu duljina je 32 znaka
+</p><p><b>OAuth Token</b> – Token koji generira server kod potpisanog zahtjeva, može biti ili „request_token“ ili „access_token“ zavisno o tome u kojem koraku toka se nalazimo
+</p><p><b>OAuth Token Secret</b> -  Ovo je tajna koja se uobičajeno šalje s zahtjevom za određenim tokenom. Koristi se i za razmjenu, generiranje potpisa ili osvježavanje „access_token“-a
+</p><p><b>Query</b> – Dio URL-a koji sadrži ključ-vrijednost (eng. key-value) podatke koji se pozovu sa simbolom „?“ ključ i vrijednosti su odvojeni s znakom „=“, dok je potpis i svaki podatak odvojen znakom „&amp;“, primjer 
+http&#160;: //httpbin.org /?query=looks&amp;like=this
+</p><p><b>Parametar/Argument</b> – Ovo su zapravo djelići informacije koji su oblika „oauth_token = 'helloWorld' “gdje je prvi dio tj. dio prije znaka „=“ parametar ili argument a drugi dio je vrijednost
+</p><p><b>Plaintext</b> – Kao što samo ime kaže potpuno čitljivi tekst
+</p><p><b>HMAC-SHA1</b> – Kombinacija hash algoritma i autentikacijskog koda poruke baziranog na hashu, ova kombinacija daje bolju sigurnost, jer je SHA1 nesiguran sam po sebi od napada kolizijom
+</p><p><b>RSA-SHA1</b> – Kombinacija hash algoritma i privatnog i javnog ključa
+</p><p><b>Service</b> – Pružatelj informacija, izvora podataka, Twitter je primjer jednog servisa
+</p><p><b>Signature Method</b> – Prihvaćene metode kriptiranja, mogu biti neke od sljedećih: „PLAINTEXT“, „HMAC-SHA1“, „RSA-SHA1“
+</p><p><b>Value</b> – Informacija u relaciji s parametrom
+</p><p><b>URL/URI</b> – Lokacija na internetu ili u resursima
+</p><p><br />
+OAuth 1.0a je također zapostavljena, tj. označena je kao „deprecated“, jer je od 2012. godine predstavljen OAuth 2.0 koji nije kompatibilan s ranijim verzijama (eng. backward compatible). OAuth2 je puno jednostavniji od OAuth1 jer ne zahtjeva digitalne potpise, i umjesto toga sva komunikacije ide kroz SSL protokol. OAuth2.0 standard definira četiri uloge:
+</p><p><b>Resource owner</b> – Korisnik koji autorizira aplikaciju kako bi mogla pristupiti njegovom računu
+</p><p><b>Client</b> – Aplikacija (web, mobile, itd.) koja želi korisnikove resurse
+</p><p><b>Resource Server</b> – Web server s kojega se pokušavaju dohvatiti resursi
+</p><p><b>Authorization server</b> – Server koji posjeduje korisnikove podatke i on verificira identitet korisnika
+</p><p><br />
+Na sljedećoj slici može se vidjeti tijek rada autorizacije koristeći OAuth2.0:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Tijek.png" class="image"><img alt="Tijek.png" src="../images/a/ae/Tijek.png" width="715" height="414" /></a>
+</p><p>Slika 6. Authorization Code tip autorizacijskih odobrenja preuzeto s "https&#160;://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2" 06.02.2018.
+</p>
+<h2> <span class="mw-headline" id="Literatura">  Literatura </span></h2>
+<p>[1] www.github.com, GitHub, "https&#160;://github.com/scribejava/scribejava/blob/master/scribejava-apis/src/test/java/com/github/scribejava/apis/examples/TwitterExample.java" preuzeto 05.02.2018.
+</p><p>[2] Implementing Twitter Sign-In for Web Apps, Akoskm, "http: //akoskm.com/2015/07/31/twitter-sign-in-for-web-apps.html" preuzeto 06.02.2018.
+</p><p>[3] TechTarget, Margaret Rouse, preuzeto s "http&#160;://searchsecurity.techtarget.com/definition/authentication" na dan 05.02.2018.
+</p><p>[4] DigitalOcean, preuzeto s "https&#160;://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2" na dan 06.02.2018.
+</p><p>[5] Emil Kleszcz, Java web application based on OAuth2, preuzeto s "https&#160;://db-blog.web.cern.ch/blog/emil-kleszcz/2016-08-java-web-application-based-oauth2" na dan 05.02.2018.
+</p><p>[6] OAuth, preuzeto s "https&#160;://oauth.net/1/" na dan 05.02.2018.
+</p><p>[7] Changhun Oh, Dancing with OAuth: Understanding how Authorization Works, preuzeto s "https&#160;://www.cubrid.org/blog/dancing-with-oauth-understanding-how-authorization-works" na dan 05.02.2018.
+</p><p>[8] Nijiko Yonskai, The OAuth Bible pruezeto s "http&#160;://oauthbible.com/" na dan 05.02.2018.
+</p><p>[9] IETF, The OAuth 2.0 Authorization Framework, preuzeto s "https&#160;://tools.ietf.org/html/rfc6749" na dan 05.02.2018.
+</p><p>[10] Alex Zhitnitsky, OverOps, Tutorial: How to Implement Java OAuth 2.0 to Sign-In with GitHub and Google, preuzeto s "https&#160;://blog.takipi.com/tutorial-how-to-implement-java-oauth-2-0-to-sign-in-with-github-and-google/" na dan 05.02.2018.
+</p><p>[11] Varun Ojha, IBM, Client credentials grant preuzeto s  "https&#160;://www.ibm.com/developerworks/library/se-oauthjavapt2/index.html" na dan 06.02.2018.
+</p><p>[12] ORACLE, JAAS Authentication Tutorial, preuzeto s "https&#160;://docs.oracle.com/javase/7/docs/technotes/guides/security/jaas/tutorials/GeneralAcnOnly.html" na dan 05.02.2018.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 34/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9855-0!*!0!!hr!2!edit=0 and timestamp 20190203204123 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Authentication_and_Authorization_in_Java_Systems.html">http://security.foi.hr/wiki/index.php/Authentication_and_Authorization_in_Java_Systems</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Authentication_and_Authorization_in_Java_Systems" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Authentication_and_Authorization_in_Java_Systems.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Authentication_and_Authorization_in_Java_Systems&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Authentication_and_Authorization_in_Java_Systems.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Authentication_and_Authorization_in_Java_Systems.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Authentication_and_Authorization_in_Java_Systems&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Authentication_and_Authorization_in_Java_Systems&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Authentication_and_Authorization_in_Java_Systems.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Authentication_and_Authorization_in_Java_Systems" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Authentication_and_Authorization_in_Java_Systems" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Authentication_and_Authorization_in_Java_Systems&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Authentication_and_Authorization_in_Java_Systems&amp;oldid=43814" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 06:22, 7. veljače 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 276 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Authentication_and_Authorization_in_Java_Systems", "wgTitle": "Authentication and Authorization in Java Systems", "wgAction": "view", "wgArticleId": 9855, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 43814, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.307 secs. -->			</body>
+</html>

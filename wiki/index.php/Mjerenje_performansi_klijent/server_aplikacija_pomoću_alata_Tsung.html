@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Mjerenje performansi klijent/server aplikacija pomoću alata Tsung - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Mjerenje_performansi_klijent_server_aplikacija_pomoću_alata_Tsung skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Mjerenje performansi klijent/server aplikacija pomoću alata Tsung</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="server_aplikacija_pomoću_alata_Tsung.html#mw-head">orijentacija</a>,
+					<a href="server_aplikacija_pomoću_alata_Tsung.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Josip Januš
+</p><p>Promjenom načina poslovanja I općenito funkcioniranja sve većeg broja poduzeća potrebno je značajnu pažnju posvetiti optimiziranju performansi web aplikacija. Mjerenja performansi su od izuzetnog značaja za poslovni aspekt svake organizacije koja dio svoje dobiti ili akvizicije potencijalnih klijenata ostvaruje putem interneta jer upravo mogućnost odnosno nemogućnost procesuiranja velikog broja zahtjeva poslanih od strane klijenata  negativno utječe na “User experience”, a time I potencijalno ugrožava mogućnost za ostvarivanje dobiti putem dotičnog kanala.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[1]</a>
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="server_aplikacija_pomoću_alata_Tsung.html#Performance_Testing"><span class="tocnumber">1</span> <span class="toctext">Performance Testing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="server_aplikacija_pomoću_alata_Tsung.html#Vrste_Testova"><span class="tocnumber">1.1</span> <span class="toctext">Vrste Testova</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="server_aplikacija_pomoću_alata_Tsung.html#Tsung"><span class="tocnumber">2</span> <span class="toctext">Tsung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="server_aplikacija_pomoću_alata_Tsung.html#Svojstva_Tsung-a"><span class="tocnumber">2.1</span> <span class="toctext">Svojstva Tsung-a</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="server_aplikacija_pomoću_alata_Tsung.html#Svojstva_vezana_uz_HTTP_protokol"><span class="tocnumber">2.2</span> <span class="toctext">Svojstva vezana uz HTTP protokol</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="server_aplikacija_pomoću_alata_Tsung.html#Primjena_Tsung-a"><span class="tocnumber">3</span> <span class="toctext">Primjena Tsung-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="server_aplikacija_pomoću_alata_Tsung.html#Proxy-recorder"><span class="tocnumber">3.1</span> <span class="toctext">Proxy-recorder</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="server_aplikacija_pomoću_alata_Tsung.html#Postavljanje_konfiguracijske_datoteke"><span class="tocnumber">3.2</span> <span class="toctext">Postavljanje konfiguracijske datoteke</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="server_aplikacija_pomoću_alata_Tsung.html#Izvr.C5.A1avanje_scenarija"><span class="tocnumber">3.3</span> <span class="toctext">Izvršavanje scenarija</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="server_aplikacija_pomoću_alata_Tsung.html#Izvje.C5.A1tavanje"><span class="tocnumber">3.4</span> <span class="toctext">Izvještavanje</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="server_aplikacija_pomoću_alata_Tsung.html#Tsplot"><span class="tocnumber">3.4.1</span> <span class="toctext">Tsplot</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="server_aplikacija_pomoću_alata_Tsung.html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Performance_Testing">Performance Testing</span></h2>
+<p>Mjerenje performansi se najčešće koristi kako bi se izbjegla “uska grla” unutar web aplikacije, kako bi se na temelju dobivenih rezultata moglo optimizirati određeno web mjesto, u svrhu validacije korisničkih nefunkcionalnih zahtjeva također na temelju dobivenih rezultata se određuju I hardverski zahtjevi potrebni za realizaciju projekta. Mjerenje performansi se najčešće temelje na sedam osnovnih aktivnosti objašnjenih u nastavku:
+Mjerenje performansi se najčešće koristi kako bi se izbjegla “uska grla” unutar web aplikacije, kako bi se na temelju dobivenih rezultata moglo optimizirati određeno web mjesto, u svrhu validacije korisničkih nefunkcionalnih zahtjeva također na temelju dobivenih rezultata se određuju I hardverski zahtjevi potrebni za realizaciju projekta. Mjerenje performansi se najčešće temelje na sedam osnovnih aktivnosti objašnjenih u nastavku:
+</p>
+<ol><li> Prepoznavanje testnog okružja – U ovoj fazi se podrazumijeva prepoznavanje softverskih, hardverskih I mrežnih zahtjeva koji će biti potrebni za provođenje testiranja. Preciznom identifikacijom ovih zahtjeva realizira se veća preciznost izlaznih rezultata testova.
+</li><li> Prepoznavanje kriterija prihvatljivosti – Prilikom izvršavanja ove aktivnosti potrebno je odrediti vrijeme odgovora, propusnost I iskorištenost serverskih resursa, a u svrhu stvaranja okvira koji će služiti kao kriterij na temelju kojeg će se odlučiti da li trenutno stanje sustava daje zadovoljavajuće rezultate te da li se može pustiti u daljnju produkciju ili u opticaj.
+</li><li> Planiranje testova – U ovoj aktivnosti potrebno je prepoznati korisničke priče, odnosno na koji način klijenti koriste određene resurse u sustavu. Uz to potrebno je prepoznati I razlike u korištenju sustava kod različitih profila klijenata. Uz sve to u ovoj fazi je potrebno odrediti koje će se metrike koristi prilikom ocjene sustava I ulazni podatci koji će se poslati prema poslužitelju.
+</li><li> Konfiguracija testnog okruženja – Nakon definiranih ciljeva, određenih metrika I podataka koji će se koristiti prilikom procjene sustava potrebno je prilagoditi alat testnom scenariju koji će se izvršiti.
+</li><li> Implementacija testova – Na temelju svih prethodnih aktivnosti implementiraju se testovi.
+</li><li> Izvršavanje testova – U ovom se korako kako I samo ime govori izvršavaju testove I nadzire se njihovo odvijanje.
+</li><li> Analiza rezultata, ponovno testiranje I izvještavanja – U ovoj, posljednjoj fazi testiranja performansi analiziraju se rezultati te se dijele sa svima članovima tima kako bi se odredilo da li je potrebno odraditi ponovo testiranje određene funkcionalnosti ili cjeline ukoliko nisu zadovoljeni definirani ciljevi iz prijašnjih faza testiranja. Ukoliko sve vrijednosti metrika budu u dozvoljenom područje testiranje završava te se proizvod ili dio proizvoda može pustiti dalje u proizvodnju ili u opticaj. <a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[2]</a>
+</li></ol>
+<h3> <span class="mw-headline" id="Vrste_Testova">Vrste Testova</span></h3>
+<p>Sljedećom tablicom dane su svrhe i razlike osnovnih i najpoznatijih vrsta mjerenja performansi web aplikacija.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[3]</a>
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Naziv
+</th>
+<th> Svrha
+</th>
+<th> Opis
+</th></tr>
+<tr>
+<td> Test performansi
+</td>
+<td> Određivanje stablinosti, skalabilnosti  I validacija brzine
+</td>
+<td> Ovim testom se utvrđuje da li su zadovoljeni zahtjevi s tehničkog aspekta koji su definirani definirani svrhom provođenja ovog testa
+</td></tr>
+<tr>
+<td> Test opterećenja
+</td>
+<td> Odrediti ponašanje sustava uslijed normalnog I maksimalnog opterećenja
+</td>
+<td> Test opterećenja se provodi kako bi es utvrdilo da li sustav zadovoljava zahtjeve za performansama koje su najčešće definirane u SLA (“Service Level Agreement”)
+<p>Ovaj test omogućava da se izmjeri vrijeme odzivam iskorištavanje resursa te kako bi se odredila kritična točka sustava odnosno razina kod koje će aplikacija prestati normalno raditi, naravno ukoliko se radi o razini opterećenja koja se nalazi ispod maksimalne vrijednosti
+U ovu skupinu testova još spada I testiranje izdržljivosti sustava. Ovom vrstom testa se utvrđuju performanse rada uslijed opterećenja kroz duži vremenski period.
+</p>
+</td></tr>
+<tr>
+<td>Stres test
+</td>
+<td>Određivanje ponašanja sustava uslijed opterećenja koje je veće od maksimalnog
+</td>
+<td>Ovi testovi služe kako bi se otkrili propusti u dizajnu I implementaciji sustava, a koji dolaze do izraža jedino kada je prisutno veliko opterećenje.
+</td></tr></table>
+<h2> <span class="mw-headline" id="Tsung">Tsung</span></h2>
+<p><a href="http://tsung.erlang-projects.org" class="external text" rel="nofollow">Tsung</a>  (bivši IDX-Tsunami) je alat otvorenog koda korišten za distribuirano testiranje nekoliko protokola. Može se koristiti za testiranje HTTP, WebDAV, SOAP, PosgresSQL, MySQL, LDAP I Jabber/XMPP servera. Svrha Tsung-a je simulacija korisnika kako bi se odredila skalabilnost I performanse klijent/poslužitelj aplikacija. Tsung je razvijen u Erlangu što je I jedan od razloga što je tako moćan alat. (Erlang je programski jezik koji se bazira na konceptu istovremenog izvršavanja naredbi).
+</p>
+<h3> <span class="mw-headline" id="Svojstva_Tsung-a">Svojstva Tsung-a</span></h3>
+<ul><li>Visoke performanse - Tsung je u stanju simulirati velik broj istovremenih korisnika po jednom fizičkom računalu. (Na jednom CPU je u stanju simulirate nekoliko tisuća korisnika). Potrebno je spomenuti da svi aktivirani korisnici nisu aktivni cijelo vrijeme, za vrijeme “thinktime” perioda mogu biti u stanju mirovanja. <a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Distribuiran – teret se može podijelit na skup klijentskih računala<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Podrška više protokola – HTTP, WebDAV, Jabber/XMPP, PostgreSQL, LDAP, MySQL. Moguće je izraditi proširenje za neki drugi protokol.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Sistem konfiguriranja pomoću XML-a – složeni slučajevi korištenja određene web aplikacije se mogu zapisati u XML formatu. Također moguće je isti XML zapis snimiti sa uključenim tsung-recorder-om.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Simulacija različitih ponašanja korisnika – pomoću nekoliko različitih sesija označenih sa <pre>&lt;sessions&gt; &lt;/sessions&gt;</pre> moguće je simulirati nekoliko vrsta korisnika znači oblikovati nekoliko vrsta ponašanja.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a> 
+</li><li>Stohastički procesi – moguće je realno simuliranje kretanje broja korisnika korištenjem slučajnog rasporeda dolaska<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li></ul>
+<h3> <span class="mw-headline" id="Svojstva_vezana_uz_HTTP_protokol">Svojstva vezana uz HTTP protokol</span></h3>
+<ul><li>Podržava HTTP/1.0 I HTTP/1.1. <a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Podržava GET, POST, PUT, DELETE, HEAD, OPTIONS I PATCH zahtjeve<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Podržava “kolačiće”<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Proxy način rada za snimanje scenarija pomoću web preglednika<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Testiranje HTTP ili proxy servera<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Podržan “GET If-modified since” tip zahtjeva<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Moguće dodavanje različitih HTTP zaglavlja<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Primjena_Tsung-a">Primjena Tsung-a</span></h2>
+Tsung se pokreće iz naredbenog retka jednostavnom naredbom: <pre>tsung</pre>
+<p>Što kao rezultat izvršavanja otvara početni zaslon na kojem su prikazane osnovne naredbe korištene kod primjene tsung-a, ovo je iliustrirano sljedećom slikom:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_po%C4%8Detno.png" class="image"><img alt="" src="../../images/thumb/3/38/Tsung_početno.png/700px-Tsung_početno.png" width="700" height="306" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_po%C4%8Detno.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 1.Izgled početnog zaslona tsung</div></div></div></div>
+<p>No prije nego što bi mogli početi koristiti alat tsung i iskoristiti sve njegove mogućnosti, potrebno je postaviti postavke kojima ćeo odrediti kako i što će tsung raditi prilikom pokretanja samog alata. Taj dio posla nam olakšava "tsung-recorder" koji trenutno pruža podršku za snimanje http, WebDAV i PostgreSQL sesija. U ovom projektu korištena je podrška za snimanje HTTP sesija.
+</p>
+<h3> <span class="mw-headline" id="Proxy-recorder">Proxy-recorder</span></h3>
+<p>Kao i kod samog Tsung-a i proxy recorder se pokreće istoimenom naredbom "tsung-recorder" nakon čijeg unosa dobivamo zaslon sa informacijama kako se isti koristi
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung-recorder.png" class="image"><img alt="" src="../../images/thumb/2/20/Tsung-recorder.png/500px-Tsung-recorder.png" width="500" height="213" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung-recorder.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2.Izgled početnog zaslona tsung-recordera</div></div></div>
+<p>Sintaksa za korištenje "tsung-recordera" je sljedeća:
+</p>
+<pre>tsung-recorder &lt;Options&gt; start</pre> 
+<p>važno je napomenuti da je potrebno namjestiti željeni protokol koji će se korisitit prilikom snimanja sesije, tada naredba izgleda:
+</p>
+<pre>tsung-recorder -p &lt;PLUGIN&gt; start</pre>
+<p>gdje "PLUGIN" može biti HTTP, WebDav ili PostgreSQL. Ukoliko se ne navede protkol za koji se želi snimiti sesija pretpostavlja se da se radi o HTTP protokolu.
+No prije nego što se počne sa snimanjem sesija potrebno je postaviti proxy u željenom web pregledniku kako bi on mogao zabilježiti sesiju.
+Po defaultu tsung-recorder osluškuje port 8090 za snimanje sesije ali je i to također moguće odrediti željeni port.
+Na sljedećoj slici prikazano je namještanje porta u web pregledniku "Mozilla Firefox"
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na%C5%A1timani_proxy_firefox.png" class="image"><img alt="" src="../../images/thumb/7/77/Naštimani_proxy_firefox.png/400px-Naštimani_proxy_firefox.png" width="400" height="223" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na%C5%A1timani_proxy_firefox.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 3.Namještanje proxy-a u firefoxu</div></div></div>
+Nakon što se namjeste postavke unutar web preglednika potrebno je pokrenuti recorder sa <pre>tsung-recorder start</pre> nakon unosa naredba korisnik se vraća u web preglednik te snima scenarija koje kasnije želi reporoducirati odnosno simulirati putem alata tsung. Pošto se prilikom ovog testiranja koristio HTTP protokol sve postavke je moguće ostaviti na "tvorničkim postavkama". Kao rezultat tsung-recorder vraća datoteku sa ".xml" ekstenzijom. Dvije verzije ".xml" datoteka su prikazane na donjim slikama. Na slici 4 je prikazan scenarij kod kojeg je recorderom snimljeno samo učitavanje stranice, dok je na slici 5 snimljen scenarij kada korisnici pretražuju druge stranice unutar web mjesta. Tako da možemo viidjeti fleksibilnosti koju nam Tsung daje kod snimanja scenarija za simuliranje ponašanje kasnije u alatu. Nakon što smo odradili željene korake koje želimo kasnije simulirati naredbom
+<pre>tsung-recorder stop</pre>
+<p>zaustavljamo snimanje te nam tsung-recorder .xml datoteku sprema u
+</p>
+<pre>/home/&lt;userName&gt;/.tsung/tsung_recorderYYYMMDD-HH:MM.xml</pre>
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung-recorder-small.png" class="image"><img alt="" src="../../images/thumb/c/c0/Tsung-recorder-small.png/400px-Tsung-recorder-small.png" width="400" height="135" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung-recorder-small.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 4.Prikaz jednostavnog scenarija</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung-recorder-big.png" class="image"><img alt="" src="../../images/thumb/7/7b/Tsung-recorder-big.png/400px-Tsung-recorder-big.png" width="400" height="205" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung-recorder-big.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 5.Prikaz kompleksnijeg scenarija</div></div></div></div>
+<p>Iako nam korištenje tsung-recordera znatno olakšava upravljanjem scenarija i snimanjem istog nije neophodan za korištenje i simuliranje korisnika na određenom web mjestu. Neko drugo željeno ponašanje je također moguće simulirati pisanjem vlastite skripte u nekom od skriptnih jezika, no to je nešto kompleksniji način pisanja scenarija te je za korisnike početnike nešto  naporniji od korištenja samog tsung-recordera.
+</p>
+<h3> <span class="mw-headline" id="Postavljanje_konfiguracijske_datoteke">Postavljanje konfiguracijske datoteke</span></h3>
+<p>Prije nego bi mogli pokrenuti simulaciju i optereti određeni werver potrebno je tsungu priložiti konfiguracijsku .xml datoteku kojom će se odrediti IP adresa servera na koji se spaja, ili više njih te broj klijentskih računala koji će simulirati korisnike. 
+Čitavi scenarij jedne simulacije stavlja se između<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</p>
+<pre>&lt;tsung&gt;
+
+&lt;/tsung&gt;</pre>
+<p>oznaka.
+Unutar kojih se zatim definiraju klijent/i<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</p>
+<pre>
+&lt;clients&gt;
+  &lt;client host=&quot;localhost&quot;/&gt;
+&lt;/clients&gt;
+</pre>
+<p>Ovdje je moguće navesti imena jjednog ili više računala koja će se koristiti prilikom simulacija. Nakon klijenta potrebno je definirati server<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</p>
+<pre>
+&lt;servers&gt;
+&lt;server host=&quot;server1&quot; port=&quot;80&quot; type=&quot;tcp&quot; weight=&quot;4&quot;/&gt;
+&lt;server host=&quot;server2&quot; port=&quot;80&quot; type=&quot;tcp&quot; weight=&quot;1&quot;/&gt;
+&lt;/servers&gt;
+</pre>
+<p>Kao što je to slučaj kod klijenata i kod servera možemo dodati nekoliko virtualnih uređaja, koji će, po tvorničkim postavkama svi imati težinu jedan. Težina se definira sa svrhom kako bi se prilikom pokretanja svake nove sesije na temelju nekog algoritma odabrao server koji će se pokrenuti sljedeći.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</p><p>Kod definiranja opterećenja sintaksa je sljedeća
+</p>
+<pre>
+&lt;load&gt;
+  &lt;arrivalphase phase=&quot;1&quot; duration=&quot;10&quot; unit=&quot;minute&quot;&gt;
+    &lt;users interarrival=&quot;2&quot; unit=&quot;second&quot;&gt;&lt;/users&gt;
+  &lt;/arrivalphase&gt;
+
+  &lt;arrivalphase phase=&quot;2&quot; duration=&quot;10&quot; unit=&quot;minute&quot;&gt;
+    &lt;users interarrival=&quot;1&quot; unit=&quot;second&quot;&gt;&lt;/users&gt;
+  &lt;/arrivalphase&gt;
+
+  &lt;arrivalphase phase=&quot;3&quot; duration=&quot;10&quot; unit=&quot;minute&quot;&gt;
+    &lt;users interarrival=&quot;0.1&quot; unit=&quot;second&quot;&gt;&lt;/users&gt;
+  &lt;/arrivalphase&gt;
+&lt;/load&gt;
+</pre>
+<p>Opterećenja servera se može definiratii po fazama. Tako će primjerice u ovom slučaju u prvoj fazi koja traje deset minuta novi korisnik će biti stvoren svake dvije sekunde. Nakon što ona završi nastupa druga faza u kojoj će se za njezina trajanja od 10 minuta pojaviti novi korisnik svake sekunde. Naposlijetku u trećoj fazi za isto vrijeme trajanja kao i prethodne dvije novi korisnik će se stvoriti svakih 100 milisekundi što znači da se u svakoj sekundi stvori deset novih korisnika.<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+Za razliku od prethodnog načina dolazak korisnika možemo definirati i na sljedeći način
+</p>
+<pre>
+&lt;arrivalphase phase=&quot;1&quot; duration=&quot;10&quot; unit=&quot;minute&quot;&gt;
+  &lt;users arrivalrate=&quot;10&quot; unit=&quot;second&quot;&gt;&lt;/users&gt;
+&lt;/arrivalphase&gt;
+</pre>
+<p>U ovom slučaju zamijenjeni su atributi interarrival sa arrival rate tako da će sada treća faza dolazaka biti identična sa ovdje navedenom fazom - u obje će se stvoriti 10 novih korisnika svake sekunde.
+</p><p>Nakon definiranja opterećenja dolazimo do definiranja same srži svakog scenarija - definiranja ponašanja simuliranih korisnika na određenom web mjestu. 
+Ono se definira između oznaka
+</p>
+<pre>&lt;sessions&gt;
+
+&lt;/sessions&gt;
+</pre>
+<p>Unutar kojih dolazi sam sadržaj scenarija to može biti nešto jednostavno i banalno, kao primjer u sljedećem okviru gdje je snimljen scenarij koji se odnosi samo na otvaranje IP adrese servera.
+</p>
+<pre>
+&lt;session name='rec20170114-1645' probability='100'  type='ts_http'&gt;
+&lt;request&gt;&lt;http url='http://192.168.1.6/' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:14:10 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/style.css' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:41 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/mobile.css' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:41 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/js/mobile.js' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:52 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/logo.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/satellite.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image1.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image2.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image3.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image4.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/mars-rover.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/finding-planet.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/new-satellitedish.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-home.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-transparent1.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/icons.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/fonts/audiowide-regular-webfont.woff' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:45 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/favicon.ico' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;/session&gt;
+</pre>
+<p>Ili nešto složeniji primjer prikazan u sljedećem okviru gdje je korisnik nešto više istraživao unutar web mjesta te osim GET-a koristio i POST naredbu
+</p>
+<pre>
+&lt;session name='rec20170112-1816' probability='100'  type='ts_http'&gt;
+&lt;request&gt;&lt;http url='http://192.168.1.6/' version='1.1' if_modified_since='Wed, 11 Jan 2017 17:37:28 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/style.css' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/mobile.css' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/js/mobile.js' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/mars-rover.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/finding-planet.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/logo.png' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/new-satellitedish.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/satellite.png' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image1.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image2.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image3.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image4.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-home.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-transparent1.png' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/icons.png' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/fonts/audiowide-regular-webfont.woff' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/favicon.ico' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='8'/&gt;
+
+&lt;request&gt;&lt;http url='/about.html' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/earth-satellite.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/space-shuttle.png' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-about.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='9'/&gt;
+
+&lt;request&gt;&lt;http url='/projects.html' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/curious-rover.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/space-station.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='1'/&gt;
+
+&lt;request&gt;&lt;http url='/proj1.html' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/style.css' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:41 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/mobile.css' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:41 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/js/mobile.js' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:52 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/moon-landing.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/logo.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-home.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-transparent1.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/icons.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='3'/&gt;
+
+&lt;request&gt;&lt;http url='/singlepost.html' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/martianrover-journey.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/moon-satellite.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/alien-life.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/galaxy.jpg' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='4'/&gt;
+
+&lt;request&gt;&lt;http url='/contact.html' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='13'/&gt;
+
+&lt;request&gt;&lt;http url='/index.html?Name=blabla&amp;Email+Address=asdasdas%40fdsfsd.gfsdf&amp;Subject=ovoono&amp;message=kaj+imaMessage' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/satellite.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image1.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image2.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image3.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/project-image4.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/mars-rover.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/finding-planet.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/new-satellitedish.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='2'/&gt;
+
+&lt;request&gt;&lt;http url='/index.html' version='1.1' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/style.css' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:41 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/css/mobile.css' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:41 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/js/mobile.js' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:52 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/logo.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-home.jpg' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/bg-transparent1.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/images/icons.png' version='1.1' if_modified_since='Thu, 12 Jan 2017 17:13:48 GMT' method='GET'&gt;&lt;/http&gt;&lt;/request&gt;
+
+&lt;thinktime random='true' value='5'/&gt;
+
+&lt;request&gt;&lt;http url='http://ocsp.digicert.com/' version='1.1'  contents='0Q0O0M0K0I0+&amp;apos;8,' content_type='application/ocsp-request' method='POST'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;request&gt;&lt;http url='/' version='1.1'  contents='0Q0O0M0K0+&amp;apos;,h/\' content_type='application/ocsp-request' method='POST'&gt;&lt;/http&gt;&lt;/request&gt;
+&lt;/session&gt;
+</pre>
+<h3> <span class="mw-headline" id="Izvr.C5.A1avanje_scenarija">Izvršavanje scenarija</span></h3>
+<p>Nakon što smo izvršili svu potrebnu konfiguraciju određenog scenarija možemo ga pokrenut pomoću
+</p>
+<pre> tsung -f imeScenarija.xml start </pre>
+<p>Nakon kojeg će nam tsung vratiti informaciju o mjestu zapisivanja dnevnika o konkretnom scenariju te to izgleda kao na slici 7.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_start.png" class="image"><img alt="" src="../../images/thumb/9/9f/Tsung_start.png/400px-Tsung_start.png" width="400" height="240" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_start.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 7. Izgled pokrenutog scenarija</div></div></div>
+<p>Također za vrijeme izvođenja scenarija moguće je saznati informacije o:
+</p>
+<ul><li>Broju trenutnih zahtjeva
+</li><li>Broju trenutnih korisnika
+</li><li>Broju spojenih korisnika
+</li><li>Te trenutnu fazu u scenariju
+</li></ul>
+<p>A do svih ovih podataka dolazi se putem naredbe
+</p>
+<pre>tsung status</pre>
+<p>Koja nakon izvršavanje izgleda kao na slici 8.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_status.png" class="image"><img alt="" src="../../images/thumb/b/bf/Tsung_status.png/400px-Tsung_status.png" width="400" height="96" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_status.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 8. tsung status</div></div></div>
+<h3> <span class="mw-headline" id="Izvje.C5.A1tavanje">Izvještavanje</span></h3>
+<p>Tsung nam daje mogućnost izvještavanja za 
+</p>
+<ul><li>Vrijeme odziva na zahtjev (request)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Vrijeme potrebno da određenea stranica odgovori na zahtjev (page)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Vrijeme trajanja konekcije (connect)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Broj ponovnih spajanja (reconnect)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Veličina odgovora u bajtima  (size_rcv)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Veličina zahtjeva u bajtima (size_sent)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Vrijeme trajanja korisničke sesije (session)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Broj istovremenih korisnika (users)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li><li>Broj korisnika sa otvorenom TCP/UDP konekcijom (connected)<a href="server_aplikacija_pomoću_alata_Tsung.html#Literatura">[4]</a>
+</li></ul>
+<p>Nakon što završi izvršavanje scenarija tsung pohranjuje dnevnik izvršavanja scenarija u
+</p>
+<pre>/home/&lt;userName&gt;/.tsung/log/YYYYMMDD-HHMM</pre>
+<p>Ukoliko želimo generirati report u .html formatu potrebno je kopirati perl skriptu "tsung.stats.pl" iz 
+</p>
+<pre>/usr/lib/tsung/bin/</pre>
+<p>na lokacije gdje nam se nalaze dnevnici izvršenog scenarija.
+Nakon toga jedino što preostaje za učniti je pokrenuti tu skriptu iz naredbenog retka te će se generirati izvještaju u .html obliku. Generirani izvještaj prikazan je na slici 9. gdje se vidi pregledne vrijednosti za gore navedene stavke izvještaja
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss_report_tsung.png" class="image"><img alt="" src="../../images/thumb/9/97/Ss_report_tsung.png/500px-Ss_report_tsung.png" width="500" height="628" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ss_report_tsung.png" class="internal" title="Povećaj"><img src="../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 9. Izvještaj</div></div></div>
+<p>Osim izvještaja u .html formatu moguće je i na temelju dnevnika koje tsung kreira prilikom izvršavanja stvoriti i grafičku reprezentaciju tih podataka. Izvedbu grafova moguće je realizirati na dva načina, pomoću gore spomenut tsung_stats.pl koji se pokreće na sljedeći način
+</p>
+<pre>./tsung_stats.pl --gnuplot &lt;put_do_gnuplot_binary-a&gt;</pre>
+<p>U mojem slučaju bilo je potrebno i odrediti put do binary datoteke gnuplot-a inače je skripta generirala samo izvještaj te je izostavila grafove.
+</p>
+<h4> <span class="mw-headline" id="Tsplot">Tsplot</span></h4>
+<p>Drugi način koji presotaje je pomoću "tsung-plottera" koji se također pokreće iz naredbenog retka pomoću naredbe te je pogodan za ispis više rezultata na jedan graf što je vrlo pogodno za usporedbu više rezulatata testova.
+</p>
+<pre>tsplot</pre>
+<p>sintaksa za korištenje ovog programa je sljedeća
+</p>
+<pre>
+tsplot &lt;naziv_testa&gt; &lt;put_do_tsung.log&gt; -d &lt;mjesto_za_spremanje_grafova&gt;
+</pre>
+<p>Preporuča se eksplicitno određivanje mjesta za spremanje kreiranih grafova jer u protivnome tsplot grafove sprema na neko "nepoznato" mjesto.
+U sljedećoj galeriji prikazane su slike generirane pomoću programa tsplot.
+</p>
+<ul class="gallery">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Connected.png" class="image"><img alt="" src="../../images/thumb/0/07/Tsung_Connected.png/120px-Tsung_Connected.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 10. Broj spojenih korisnika
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Finish.png" class="image"><img alt="" src="../../images/thumb/f/f0/Tsung_Finish.png/120px-Tsung_Finish.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 11. Broj gotovih korisnika/sec
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Http.png" class="image"><img alt="" src="../../images/thumb/e/eb/Tsung_Http.png/120px-Tsung_Http.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 12. Broj HTTP zahtjeva/sec
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Page_count.png" class="image"><img alt="" src="../../images/thumb/a/af/Tsung_Page_count.png/120px-Tsung_Page_count.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 13. Broj stranica/sec
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Page_mean.png" class="image"><img alt="" src="../../images/thumb/e/ec/Tsung_Page_mean.png/120px-Tsung_Page_mean.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 14. Prosječno trajanje stranice
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Request_count.png" class="image"><img alt="" src="../../images/thumb/a/a7/Tsung_Request_count.png/120px-Tsung_Request_count.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 15. Broj zahtjeva/sec
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Request_mean.png" class="image"><img alt="" src="../../images/thumb/c/cf/Tsung_Request_mean.png/120px-Tsung_Request_mean.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 16. Prosječno vrijeme zahtjeva
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Size_rcv.png" class="image"><img alt="" src="../../images/thumb/0/05/Tsung_Size_rcv.png/120px-Tsung_Size_rcv.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 17. Količina primljenog prometa
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Size_sent.png" class="image"><img alt="" src="../../images/thumb/a/a5/Tsung_Size_sent.png/120px-Tsung_Size_sent.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 18. Količina poslanog prometa
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:30px auto;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tsung_Users.png" class="image"><img alt="" src="../../images/thumb/6/6c/Tsung_Users.png/120px-Tsung_Users.png" width="120" height="90" /></a></div></div>
+			<div class="gallerytext">
+<p>Slika 19. Broj istovremenih korisnika
+</p>
+			</div>
+		</div></li>
+</ul>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>U ovom radu obrađen je osnovni pristup testiranju opterećenja servera. Prilikom izrade ovog projekta upoznao sam alat "Tsung" koji je vrlo moćan, ali kako je koristan za testiranje i uklanjanje uskih grla i ostalih restrikcija koje čine web aplikacije sporim, također može biti korišten kao i alat za DDoS napade. Ali s obzirom da je alat vrlo koristan i u većini slučajeva se legitimno i legalno koristi možemo reći da njegove potencijalne loše strane su prevladane od pozitivne strane odnosno one same s kojom je i alat razvijen. Osobno je projekt bio vrlo zanimljiv te zainteresirao za područje za koje nisam znao da je prilikom razvoja web aplikacija potrebno posvetiti toliko pažnje. I iako je u projektu odrađen jednostavniji scenarija korištenja vjerujem da ću u budućnosti alat koristiti prilikom testiranja vlastitih web proizvoda.
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<ol><li>Why Performance Testing is Necessary, dostupno 10.1.2017. na: <a href="http://www.abstracta.us/2015/10/12/why-performance-testing-is-necessary/" class="external text" rel="nofollow">http://www.abstracta.us/2015/10/12/why-performance-testing-is-necessary/ </a>
+</li><li>Fundamentals of Web Application Performance Testing, dostupno 10.1.2017. na: <a href="https://msdn.microsoft.com/en-us/library/bb924356.aspx" class="external free" rel="nofollow">https://msdn.microsoft.com/en-us/library/bb924356.aspx</a>
+</li><li>Types of Performance Testing, dostupno 10.1.2017. na: <a href="https://msdn.microsoft.com/en-us/library/bb924357.aspx" class="external free" rel="nofollow">https://msdn.microsoft.com/en-us/library/bb924357.aspx</a> 
+</li><li>Welcome to Tsung documentation!, dostupno 16.1.2017. na: <a href="http://tsung.erlang-projects.org/user_manual/index.html" class="external free" rel="nofollow">http://tsung.erlang-projects.org/user_manual/index.html</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 268/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9503-0!*!0!!hr!2!edit=0 and timestamp 20190203204205 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="server_aplikacija_pomoću_alata_Tsung.html">http://security.foi.hr/wiki/index.php/Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="server_aplikacija_pomoću_alata_Tsung.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="server_aplikacija_pomoću_alata_Tsung.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="server_aplikacija_pomoću_alata_Tsung.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="server_aplikacija_pomoću_alata_Tsung.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../../images/osslogo.png);" href="../../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="../Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="../Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="../Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="../Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Mjerenje_performansi_klijent/server_aplikacija_pomo%C4%87u_alata_Tsung&amp;oldid=40516" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 13:36, 18. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 575 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="../SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Mjerenje_performansi_klijent/server_aplikacija_pomoću_alata_Tsung", "wgTitle": "Mjerenje performansi klijent/server aplikacija pomoću alata Tsung", "wgAction": "view", "wgArticleId": 9503, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40516, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.617 secs. -->			</body>
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Spring security u spring bootu - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Spring_security_u_spring_bootu&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Spring_security_u_spring_bootu skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Spring security u spring bootu</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Spring_security_u_spring_bootu.html#mw-head">orijentacija</a>,
+					<a href="Spring_security_u_spring_bootu.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Marijan Hranj
+<a href="https://github.com/marhranj/sisproject" class="external free" rel="nofollow">https://github.com/marhranj/sisproject</a>
+</p>
+<h2> <span class="mw-headline" id=".C5.A0to_je_Spring_security"> Što je Spring security </span></h2>
+<p>Spring security predstavlja zaseban Java framework koji služi osiguravanje aplikacije. Mogućnosti koje pruža "Spring security" su prvenstveno dodavanje autentifikacije te autorizacije vašoj aplikaciji, no i dosta drugih sigurnosnih značajki.
+Spring security kao takav kakvim ga danas poznajemo je prvi puta pušten u korištenje 2008. godine. Postojale su i ranije verzije koje su izlazile, no ne pod nazivom Spring security. Prva verzija izašla je 2004. godine te je imala Apache licencu.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Kori.C5.A1tenje_Spring_security-a">Korištenje Spring security-a</span></h2>
+<p>Prvi korak je dodavanje Spring security-a u aplikaciju odnosno projekt.
+Na službenim Spring stranicama preporuča se korištenje Maven-a kao build tool-a u aplikacijama.  
+Za dodavanje Spring security-a pomoću mavena u sekciju &lt;dependencies&gt;&lt;/dependencies&gt; dodaje se sljedeći isječak.
+</p>
+<pre>
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</pre>
+<p>Samim dodavanjem Spring security-a u projekt, automatski se dodaju neke sigurnosne značajke same po sebi, npr. želimo li pristupiti sadržaju automatski se traže defaultni Spring security username i password za pristup sadržaju.
+Defaultni username je "user", dok se password svakim pokretanjem aplikacije ponovno izgenerira te ispisuje u konzoli prilikom builda aplikacije.
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Defaultni_username_i_password_za_spring_security.png" class="image"><img alt="Defaultni username i password za spring security.png" src="../images/9/9d/Defaultni_username_i_password_za_spring_security.png" width="800" height="500" /></a>
+</p><p><br />
+</p><p>Pristupamo spring boot aplikaciji na defaultnom portu 8080 te vidimo kako Spring security obavlja svoj dio te traži username i password.
+</p><p><br />
+U sljedećim sekcijama modificirat ću aplikaciju kako bi se prikazala prava moć spring security-a. Aplikacija će sadržavati autentifikaciju te autorizaciju pomoću Spring security-a.
+</p><p><br />
+<b>Controlleri u aplikaciji</b>
+</p>
+<pre>
+package com.sis.project.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class WebController {
+
+    @GetMapping(&quot;/&quot;)
+    public String indexPage(Model model)
+    {
+        return &quot;home&quot;;
+    }
+
+    @GetMapping(&quot;/hello&quot;)
+    public String helloPage(Model model)
+    {
+        return &quot;hello&quot;;
+    }
+
+    @GetMapping(&quot;/login&quot;)
+    public String loginPage(Model model)
+    {
+        return &quot;login&quot;;
+    }
+
+    @GetMapping(&quot;/403&quot;)
+    public String forbiddenPage(Model model)
+    {
+        return &quot;403&quot;;
+    }
+
+}
+</pre>
+<p>Controlleri služe da se za određenu putanju koju se zahtjeva prikaže određeni html predložak, odnosno .jsp u ovom slučaju.
+Kada se ode na putanju "/" prikazati će se home.jsp, na putanju "/hello" prikazati će se hello.jsp, na putanju "/login" prikazati će se "login.jsp", na putanju "403" prikazati će se "403.jsp"
+</p><p><br />
+<b>Templates</b>
+Templates predstavljaju obični markup (.jsp stranice).
+U ovoj aplikaciji koristiti će se 4 templatea: 
+</p>
+<pre>    -Login - login stranica
+    -Hello - stranica kojoj će moći pristupiti samo korisnici s određenim ovlastima 
+    -Home - stranica na koju se dolazi prilikom logina
+    -403 - stranica koja će se prikazivati u slučaju da neovlašteni korisnik želi pristupiti sadržaju
+</pre>
+<p><br />
+<i><b>Login</b></i>
+</p>
+<pre>
+&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+	pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;%@ taglib prefix=&quot;spring&quot; uri=&quot;http://www.springframework.org/tags&quot;%&gt;
+&lt;%@taglib uri=&quot;http://www.springframework.org/tags/form&quot; prefix=&quot;form&quot;%&gt;
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link href=&quot;&lt;c:url value=&quot;css/app.css&quot; /&gt;&quot; rel=&quot;stylesheet&quot;
+	type=&quot;text/css&quot;&gt;
+&lt;title&gt;SIS spring security&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;security-app&quot;&gt;
+	&lt;div class=&quot;details&quot;&gt;
+		&lt;h2&gt;SIS spring security&lt;/h2&gt;
+	&lt;/div&gt;
+
+	&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;
+
+		&lt;div class=&quot;lc-block&quot;&gt;
+			&lt;div&gt;
+				&lt;input type=&quot;text&quot; class=&quot;style-4&quot; name=&quot;username&quot;
+					placeholder=&quot;Korisnicko ime&quot; /&gt;
+			&lt;/div&gt;
+			&lt;div&gt;
+				&lt;input type=&quot;password&quot; class=&quot;style-4&quot; name=&quot;password&quot;
+					placeholder=&quot;Lozinka&quot; /&gt;
+			&lt;/div&gt;
+			&lt;div&gt;
+				&lt;input type=&quot;submit&quot; value=&quot;Login&quot; class=&quot;button red small&quot; /&gt;
+			&lt;/div&gt;
+			&lt;c:if test=&quot;${param.error ne null}&quot;&gt;
+				&lt;div class=&quot;alert-danger&quot;&gt;Netocno korisnicko ime ili lozinka.&lt;/div&gt;
+			&lt;/c:if&gt;
+			&lt;c:if test=&quot;${param.logout ne null}&quot;&gt;
+				&lt;div class=&quot;alert-normal&quot;&gt;Uspjesno ste se odjavili.&lt;/div&gt;
+			&lt;/c:if&gt;
+		&lt;/div&gt;
+		&lt;input type=&quot;hidden&quot; name=&quot;${_csrf.parameterName}&quot;
+			value=&quot;${_csrf.token}&quot; /&gt;
+	&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p><br />
+<i><b>Hello</b></i>
+</p>
+<pre>
+&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+	pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;%@ taglib prefix=&quot;spring&quot; uri=&quot;http://www.springframework.org/tags&quot;%&gt;
+&lt;%@taglib uri=&quot;http://www.springframework.org/tags/form&quot; prefix=&quot;form&quot;%&gt;
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link href=&quot;&lt;c:url value=&quot;css/app.css&quot; /&gt;&quot; rel=&quot;stylesheet&quot;
+	type=&quot;text/css&quot;&gt;
+&lt;title&gt;SIS spring security&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;security-app&quot;&gt;
+	&lt;div class=&quot;details&quot;&gt;
+
+		&lt;h2&gt;SIS spring security&lt;/h2&gt;
+	&lt;/div&gt;
+
+	&lt;div class=&quot;lc-block&quot;&gt;
+		&lt;h1&gt;
+			Pozdrav &lt;b&gt;&lt;c:out value=&quot;${pageContext.request.remoteUser}&quot;&gt;&lt;/c:out&gt;&lt;/b&gt;
+		&lt;/h1&gt;
+		&lt;form action=&quot;/logout&quot; method=&quot;post&quot;&gt;
+			&lt;input type=&quot;submit&quot; class=&quot;button red big&quot; value=&quot;Odjava&quot; /&gt; &lt;input
+				type=&quot;hidden&quot; name=&quot;${_csrf.parameterName}&quot; value=&quot;${_csrf.token}&quot; /&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p><br />
+<i><b>Home</b></i>
+</p>
+<pre>
+&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+	pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;%@ taglib prefix=&quot;spring&quot; uri=&quot;http://www.springframework.org/tags&quot;%&gt;
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link href=&quot;&lt;spring:url value=&quot;css/app.css&quot; /&gt;&quot; rel=&quot;stylesheet&quot;
+	type=&quot;text/css&quot;&gt;
+&lt;title&gt;SIS spring security&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;security-app&quot;&gt;
+	&lt;div class=&quot;details&quot;&gt;
+		&lt;h2&gt;SIS spring security&lt;/h2&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;lc-block&quot;&gt;
+		&lt;h1&gt;Welcome!&lt;/h1&gt;
+		&lt;div class=&quot;alert-normal&quot;&gt;
+			Pritisnite &lt;a href=&quot;&lt;spring:url value='/hello' /&gt;&quot;&gt;ovdje&lt;/a&gt; da biste pristupili sadržaju
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p><br />
+<i><b>403</b></i>
+</p>
+<pre>
+&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+	pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link href=&quot;css/app.css&quot;rel=&quot;stylesheet&quot;
+	type=&quot;text/css&quot;&gt;&lt;/link&gt;
+&lt;title&gt;SIS spring security&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;security-app&quot;&gt;
+	&lt;div class=&quot;details&quot;&gt;
+	&lt;h2&gt;SIS spring security&lt;/h2&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;lc-block&quot;&gt;		
+		&lt;div class=&quot;alert-danger&quot;&gt;
+			&lt;h3&gt;Nemate prava za pristup ovoj stranici!&lt;/h3&gt;
+		&lt;/div&gt;
+		&lt;form action=&quot;/logout&quot; method=&quot;post&quot;&gt;
+			&lt;input type=&quot;submit&quot; class=&quot;button red big&quot; value=&quot;Odjava&quot; /&gt; &lt;input
+				type=&quot;hidden&quot; name=&quot;${_csrf.parameterName}&quot; value=&quot;${_csrf.token}&quot; /&gt;
+		&lt;/form&gt;		
+	&lt;/div&gt;	
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p><br />
+</p><p><b>Baza podataka</b>
+</p><p><br />
+U bazi podataka koj se koristi za ovu aplikaciju postoje tablice "user" koja prestavlja korisnika, "role" koja predstavlja korisnikove uloge te "user_roles" koja povezuje te dvije tablice.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Tablice_u_bazi.png" class="image"><img alt="Tablice u bazi.png" src="../images/f/f5/Tablice_u_bazi.png" width="800" height="68" /></a>
+</p><p><br />
+<b>user</b>
+</p><p>U "user" tablici postoje već 2 zapisa: user i admin. Lozinke su kripitrane pomoću Springovog bCryptPasswordEncodera.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:User_tablica.png" class="image"><img alt="User tablica.png" src="../images/e/ed/User_tablica.png" width="800" height="51" /></a>
+</p><p><br />
+<b>role</b>
+</p><p>U "role" tablici postoje također 2 zapisa, tj. dvije uloge: admin i user.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Role_tablica.png" class="image"><img alt="Role tablica.png" src="../images/3/3f/Role_tablica.png" width="320" height="204" /></a>
+</p><p><br />
+<b>user_roles</b>
+</p><p>U "user_roles" tablici definirano je da admin ima uloge admin i korisnik a korisnik samo ulogu korisnik.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:User_roles_tablica.png" class="image"><img alt="User roles tablica.png" src="../images/0/0d/User_roles_tablica.png" width="314" height="240" /></a>
+</p><p><br />
+<b>Modeli</b>
+</p><p>Modeli predstavljaju entitete koje se preslikavaju na entitete, odnosno tablice u bazi podataka (princip ORM).
+U projektu nalaze se dvije klase modela. Model User i model Role.
+</p><p><br />
+<i><b>User</b></i>
+</p>
+<pre>
+package com.sis.project.model;
+
+import com.sis.project.utils.GenderEnum;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = &quot;user&quot;, catalog = &quot;employees&quot;)
+public class User
+{
+
+    private Integer userId;
+    @NotEmpty
+    private String firstName;
+    @NotEmpty
+    private String lastName;
+    @NotEmpty
+    @Size(min = 11, max = 11)
+    private String oib;
+    @NotNull
+    private GenderEnum gender;
+    @DateTimeFormat(pattern = &quot;dd.MM.yyyy&quot;)
+    @NotNull
+    private Date dateOfBirth;
+    @NotEmpty
+    private String birthPlace;
+    @NotEmpty
+    private String citizenship;
+    private String username;
+    private String password;
+    @NotEmpty
+    private String email;
+    private byte[] avatar;
+    private Byte active;
+    private List&lt;Role&gt; roles = new ArrayList&lt;&gt;();
+
+    public User()
+    {
+    }
+
+    @Column(name = &quot;active&quot;)
+    public Byte getActive()
+    {
+        return active;
+    }
+
+    @Column(name = &quot;avatar&quot;)
+    public byte[] getAvatar()
+    {
+        return avatar;
+    }
+
+    @Column(name = &quot;birth_place&quot;, length = 45)
+    public String getBirthPlace()
+    {
+        return birthPlace;
+    }
+
+    @Column(name = &quot;citizenship&quot;, length = 45)
+    public String getCitizenship()
+    {
+        return citizenship;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = &quot;date_of_birth&quot;, length = 10)
+    public Date getDateOfBirth()
+    {
+        return dateOfBirth;
+    }
+
+    @Column(name = &quot;email&quot;, length = 45)
+    public String getEmail()
+    {
+        return email;
+    }
+
+    @Column(name = &quot;first_name&quot;, length = 45)
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    @Column(name = &quot;gender&quot;)
+    public GenderEnum getGender()
+    {
+        return gender;
+    }
+
+    @Column(name = &quot;last_name&quot;, length = 45)
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    @Column(name = &quot;oib&quot;, length = 45)
+    public String getOib()
+    {
+        return oib;
+    }
+
+    @Column(name = &quot;password&quot;)
+    public String getPassword()
+    {
+        return password;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = &quot;user_roles&quot;, catalog = &quot;employees&quot;, joinColumns = { @JoinColumn(name = &quot;user_id&quot;, nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = &quot;role_id&quot;, nullable = false, updatable = false) })
+    public List&lt;Role&gt; getRoles()
+    {
+        return roles;
+    }
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = &quot;user_id&quot;, unique = true, nullable = false)
+    public Integer getUserId()
+    {
+        return userId;
+    }
+
+    @Column(name = &quot;username&quot;, length = 45)
+    public String getUsername()
+    {
+        return username;
+    }
+}
+</pre>
+<p><br />
+<i><b>Role</b></i>
+</p>
+<pre>
+package com.sis.project.model;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = &quot;role&quot;, catalog = &quot;employees&quot;)
+public class Role
+{
+
+    private Integer roleId;
+    private String name;
+    private Byte active;
+    private List&lt;User&gt; users = new ArrayList&lt;&gt;();
+
+    public Role()
+    {
+    }
+
+    public Role(String name, Byte active, List&lt;User&gt; users)
+    {
+        this.name = name;
+        this.active = active;
+        this.users = users;
+    }
+
+    @Column(name = &quot;active&quot;)
+    public Byte getActive()
+    {
+        return active;
+    }
+
+    @Column(name = &quot;name&quot;, length = 45)
+    public String getName()
+    {
+        return name;
+    }
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+
+    @Column(name = &quot;role_id&quot;, unique = true, nullable = false)
+    public Integer getRoleId()
+    {
+        return roleId;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = &quot;roles&quot;)
+    public List&lt;User&gt; getUsers()
+    {
+        return users;
+    }
+}
+</pre>
+<p><br />
+<b>Repository</b>
+</p><p><br />
+Repozitorije čine sučelja koja su vezani za modele. Svaki model bi trebao imati svoj repozitorije. Repozitorij ima metode za CRUD operacije nad entitetom u bazi.
+</p><p>U ovoj aplikaciji postoje 2 repository sučelja, za usera i za role.
+</p><p><br />
+<i><b>User repository</b></i>
+</p>
+<pre>
+package com.sis.project.repository;
+
+import com.sis.project.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository&lt;User, Integer&gt;
+{
+
+    User findByUsernameOrEmail(String username, String email);
+
+}
+</pre>
+<p><br />
+<i><b>Role repository</b></i>
+</p>
+<pre>
+package com.sis.project.repository;
+
+import com.sis.project.model.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository&lt;Role, Integer&gt;
+{
+    Role findByRoleId(Integer roleId);
+}
+</pre>
+<p><br />
+<b>User details service</b>
+</p><p>Kako bi spring security znao kako da obradi korisnika (koji može biti različit za svaki projekt) prilikom logiranja mora se implementirati UserDetailsService sučelje, točnije metoda "loadUserByUsername". To je sučelje koje dolazi od Spring security-a.
+</p><p><br />
+</p>
+<pre>
+package com.sis.project.security;
+
+
+import com.sis.project.model.Role;
+import com.sis.project.model.User;
+import com.sis.project.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService
+{
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException
+    {
+        final User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+        if (user == null)
+        {
+            return new org.springframework.security.core.userdetails.User(&quot; &quot;, &quot; &quot;, new HashSet&lt;&gt;());
+        }
+        final Set&lt;GrantedAuthority&gt; grantedAuthorities = new HashSet&lt;&gt;();
+        for (final Role r&#160;: user.getRoles())
+        {
+            grantedAuthorities.add(new SimpleGrantedAuthority(r.getName().toUpperCase()));
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+    }
+
+}
+</pre>
+<p>U ovoj metodi se pomoću korisničkog imena zadanog kao parametra metode doznaje o kojem se korisniku u bazi radi. Ukoliko korisnik u bazi ne postoji, vraća se nepostojeći korisnik.
+Ukoliko postoji, za korisnika se pronađu sve njegove ovlasti na temelju uloga (roles) te dodaju u set ovlasti (java.util.Set).
+</p><p>Metoda mora vratiti UserDetails objekt koji također dolazi od Spring Security-a.
+</p><p><br />
+<b>Web security config</b>
+</p><p>Ovo je najvažnija klasa za dodavanje značajki Spring security-a u ovom projektu.
+U toj se klasi definiraju sigurnosne značajke aplikacije. 
+</p><p>Ime klase nije bitno, bitno je samo da ona ima anotacije @Configuration te @EnableWebSecurity te da extenda klasu "WebSecurityConfigurerAdapter" koja dolazi od Spring security-a.
+</p>
+<pre>
+package com.sis.project.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
+    }
+
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers(&quot;/hello&quot;).hasAuthority(&quot;ADMIN&quot;)
+                .anyRequest().permitAll()
+                .and()
+                .formLogin().loginPage(&quot;/login&quot;).defaultSuccessUrl(&quot;/hello&quot;)
+                .usernameParameter(&quot;username&quot;).passwordParameter(&quot;password&quot;)
+                .and()
+                .logout().logoutSuccessUrl(&quot;/login?logout&quot;)
+                .and()
+                .exceptionHandling().accessDeniedPage(&quot;/403&quot;)
+                .and()
+                .csrf();
+    }
+
+    @Bean(name = &quot;passwordEncoder&quot;)
+    public PasswordEncoder passwordencoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+</pre>
+<p>U klasi se referencira na ranije implementirani UserDetailsService.
+</p><p>U metodi configAuthentication se daje do znanja Spring securityu-a da prilikom provjeravanja autentifikacije i autorizacije korisnika koristi UserDetailsService ranije implementiran te da su lozinke u bazi kripitirane pomoću BCryptPasswordEncoder-a.
+</p><p>U metodi configure se definiraju sljedeće stvari:
+</p>
+<pre>    -za pristup pathu "/hello" korisnik mora imati ovlast admin
+    -definira se koja je login stranica ("/login)
+    -definira se na koju će se stranici otići prilikom uspjšnog login-a
+    -definira se da se username i password čita iz jsp-a sa inputima imena "username" i "password" 
+     (to nije trebalo definirati jer su username i password defaultno zadani, trebalo je jedino ukoliko name inputa u markupu nije username i password)
+    -definira se path na koji će se otići prilikom odjave
+    -definira se putanja na koju će se otići ukoliko dođe do neovlaštenog pristupa stranici
+</pre>
+<p><br />
+Slijede primjeri kako to sve zapravo izgleda:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pocetna_stranica_spring.png" class="image"><img alt="Pocetna stranica spring.png" src="../images/5/50/Pocetna_stranica_spring.png" width="800" height="500" /></a>
+</p><p><br />
+Prilikom odlaska na putanju "/" prikazuje se stranica "home.jsp".
+Zatim kliknemo na poveznicu koja je navedena na stranici "ovdje".
+Da poveznica vodi na putanju "/hello". Klikom na poveznicu očekujemo da ćemo nam se prikazati stranica "hello.jsp".
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Login_spring.png" class="image"><img alt="Login spring.png" src="../images/1/1f/Login_spring.png" width="800" height="500" /></a>
+</p><p>Međutim u klasi WebSecurityConfig se definiralo da se za putanju "/hello" mora imati ovlasti admin a još niti jedan korisnik nije autentificiran te se prvo mora obaviti login te Spring security prvo preusmjerava na login stranicu.
+</p><p>Unosimo username: user i password: user te gledamo što će se dalje dogoditi.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:403_spring.png" class="image"><img alt="403 spring.png" src="../images/a/a1/403_spring.png" width="800" height="500" /></a>
+</p><p><br />
+Kako vidimo putanja je "hello" no umjesto "hello.jsp" Spring security preusmjerava na "403.jsp". To je onaj .jsp koji je definiran da se prikaže kada neovlašteni korisnik pristupi stranici.
+</p><p>Slijedi prijava sa username: admin i password: admin
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Spring_hello_jsp.png" class="image"><img alt="Spring hello jsp.png" src="../images/9/93/Spring_hello_jsp.png" width="800" height="500" /></a>
+</p><p><br />
+Pošto admin ima ovlasti da pristupi putanji "/hello" prikazuje se "hello.jsp" kako je i definirano u controlleru.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 43/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9931-0!*!0!!*!2!edit=0 and timestamp 20190203204128 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Spring_security_u_spring_bootu.html">http://security.foi.hr/wiki/index.php/Spring_security_u_spring_bootu</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Spring_security_u_spring_bootu" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Spring_security_u_spring_bootu.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Spring_security_u_spring_bootu&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Spring_security_u_spring_bootu.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Spring_security_u_spring_bootu.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Spring_security_u_spring_bootu&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Spring_security_u_spring_bootu&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Spring_security_u_spring_bootu.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Spring_security_u_spring_bootu" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Spring_security_u_spring_bootu" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Spring_security_u_spring_bootu&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Spring_security_u_spring_bootu&amp;oldid=42564" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 17:22, 29. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 187 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Spring_security_u_spring_bootu", "wgTitle": "Spring security u spring bootu", "wgAction": "view", "wgArticleId": 9931, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42564, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.358 secs. -->			</body>
+</html>

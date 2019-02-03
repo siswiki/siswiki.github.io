@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Korištenje ESP8266 u kriptografiji - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_ESP8266_u_kriptografiji&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Korištenje_ESP8266_u_kriptografiji skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Korištenje ESP8266 u kriptografiji</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Korištenje_ESP8266_u_kriptografiji.html#mw-head">orijentacija</a>,
+					<a href="Korištenje_ESP8266_u_kriptografiji.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Temu rezervirali: Dorian Krajinović i Goran Čehulić</b>
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Korištenje_ESP8266_u_kriptografiji.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Korištenje_ESP8266_u_kriptografiji.html#Op.C4.87enito_o_NodeMCU_ESP8266"><span class="tocnumber">2</span> <span class="toctext">Općenito o NodeMCU ESP8266</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Korištenje_ESP8266_u_kriptografiji.html#ESP8266_modul"><span class="tocnumber">3</span> <span class="toctext">ESP8266 modul</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Korištenje_ESP8266_u_kriptografiji.html#CPU"><span class="tocnumber">3.1</span> <span class="toctext">CPU</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Korištenje_ESP8266_u_kriptografiji.html#Memorija"><span class="tocnumber">3.2</span> <span class="toctext">Memorija</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Korištenje_ESP8266_u_kriptografiji.html#WiFi"><span class="tocnumber">3.3</span> <span class="toctext">WiFi</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Korištenje_ESP8266_u_kriptografiji.html#Upravljanje_napajanjem"><span class="tocnumber">3.4</span> <span class="toctext">Upravljanje napajanjem</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Korištenje_ESP8266_u_kriptografiji.html#Razvojno_okru.C5.BEenje"><span class="tocnumber">4</span> <span class="toctext">Razvojno okruženje</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="Korištenje_ESP8266_u_kriptografiji.html#Built-in_primjeri"><span class="tocnumber">4.1</span> <span class="toctext">Built-in primjeri</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Korištenje_ESP8266_u_kriptografiji.html#Upload_programskog_koda"><span class="tocnumber">4.2</span> <span class="toctext">Upload programskog koda</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Korištenje_ESP8266_u_kriptografiji.html#Kriptiranje_na_Arduinu"><span class="tocnumber">5</span> <span class="toctext">Kriptiranje na Arduinu</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Korištenje_ESP8266_u_kriptografiji.html#RSA_kriptiranje"><span class="tocnumber">6</span> <span class="toctext">RSA kriptiranje</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Korištenje_ESP8266_u_kriptografiji.html#Zaklju.C4.8Dak"><span class="tocnumber">7</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="Korištenje_ESP8266_u_kriptografiji.html#GitHub_link"><span class="tocnumber">8</span> <span class="toctext">GitHub link</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Korištenje_ESP8266_u_kriptografiji.html#Vanjske_poveznice"><span class="tocnumber">9</span> <span class="toctext">Vanjske poveznice</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Korištenje_ESP8266_u_kriptografiji.html#Literatura"><span class="tocnumber">10</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Pametni satovi, pametne narukvice, pametni hladnjaci, pametne perilice rublja – gotovo smo sigurni da ste u zadnje vrijeme čuli bar za neki od ovih pojmova. Svi navedeni uređaji, ali i mnogi ostali dio su jedne nove grane tehnologije pod nazivom Internet of Things (IoT) koja je rapidnom brzinom počela zauzimati sve veći i veći udio tržišta. 
+</p><p>Ukratko IoT označava povezivanje raznih vrsta svakodnevnih uređaja/stvari putem interneta ili povezivanja sa nekim drugim uređajima. Kako IoT  materijalizira sve oko sebe, svakim danom sve je lakše i jeftinije bežično povezati proizvoljne uređaje na Internet i obavljati uz pomoć njih određene vrste zadataka, ali također i imati mogućnost kontrole, praćenja rada pa čak i interakcije. Jedna od najuzbudljivijih, a i ujedno najjeftinijih tehnologija za IoT povezanost je NodeMCU ESP8266 wireless mikrokontroler kojeg ćemo u nastavku detaljnije objasniti.
+</p>
+<h1> <span class="mw-headline" id="Op.C4.87enito_o_NodeMCU_ESP8266"> Općenito o NodeMCU ESP8266 </span></h1>
+<p>Ukratko rečeno, NodeMCU ESP8266 je vrsta single-board mikrokontrolera koji je open-source IoT platforma koja dolazi sa unaprijed pohranjenim pogonskim programom (eng. firmware). Za početak objasnimo što je to single-board mikrokontroler.
+Single-board mikrokontroler označava vrstu mikrokontrolera koja je ugrađena na tiskanoj pločici (eng. printed circuit board) pružajući tako sve potrebne sklopove poput mikroprocesora, ulazno/izlaznih jedinica, generatora takta, RAM memorije te flash memorije koji zajedno omogućuju uspješno interakciju i kontrolu nad mnogih sustavima. [7]
+</p><p><br />
+NodeMCU ESP8266 predstavlja cjenovno vrlo prihvatljiv mikrokontroler kojeg odlikuje mogućnost povezivanja putem bežične WiFi mreže zahvaljujući posjedovanju modula za bežičnu komunikaciju 802.11 koji se nalazi na čipu ESP8266 kojeg ćemo u nastavku malo detaljnije opisati i objasniti. Dolazi sa Lua skriptnim jezikom koji je dio pogonskoga programa, ali također postoji i mogućnost korištenja drugih skriptnih jezika poput MicroPython-a. [7]
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rsz_20170111_134652.jpg" class="image"><img alt="Rsz 20170111 134652.jpg" src="../images/f/f6/Rsz_20170111_134652.jpg" width="600" height="450" /></a>   
+</p><p><b>Slika 1. NodeMCU ESP8266 mikrokontroler</b>  
+</p><p><br />
+ESP8266 zapravo predstavlja 32-bitni Tensilica Xtensa LX106 procesor koji radi na 80 MHz sa punim WiFi stogom. 
+</p><p><b>Osnovne karakteristike NodeMCU mikrokontrolera</b> [7]&#160;:
+</p>
+<ul><li> <b>Razvoj</b>: ESP8266 Opensource zajednica 
+</li><li> <b>Vrsta</b>: single-board mikrokontroler 
+</li><li> <b>Operacijski sustav</b>: XTOS 
+</li><li> <b>Memorija</b>: 128 kB
+</li><li> <b>Prostor za pohranu</b>: 4 MB
+</li><li> <b>Napajanje</b>: USB
+</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prikaz_veli%C4%8Dine.jpg" class="image"><img alt="" src="../images/1/14/Prikaz_veličine.jpg" width="600" height="400" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prikaz_veli%C4%8Dine.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 2.</b>  Prikaz veličine mikorkontrolera</div></div></div></div>
+<p>Na slici iznad možemo vidjeti kako je zapravo NodeMCU ESP8266 vrlo praktičan i malen mikrokontroler.
+</p><p>Dorian Krajinović
+</p>
+<h1> <span class="mw-headline" id="ESP8266_modul">ESP8266 modul</span></h1>
+<p>ESP8266 je WiFi čip nižeg cjenovnog razreda sa potpunim TCP/IP stogom i mikrokontrolerskom jedinicom (MCU) proizveden od strane kineskog proizvođača Espressif Systems. 
+</p><p>Ova vrsta modula ima dovoljno snažnu sposobnost obrade i procesiranja podataka tako da se može integrirati sa raznim senzorima i drugim specifičnim aplikacijskim putem svojih generičkih pinova (GPIO). 
+</p><p>Vanjska površina modula je 16 mm * 24 mm * 3 mm. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cip.jpg" class="image"><img alt="Cip.jpg" src="../images/2/2a/Cip.jpg" width="237" height="162" /></a>
+</p><p><b>Slika 3. ESP8266 čip</b>
+</p><p><br />
+U nastavku ćemo opisati većinu komponenti prethodno navedenog čipa.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Screenshot_21.png" class="image"><img alt="Screenshot 21.png" src="../images/d/dd/Screenshot_21.png" width="742" height="358" /></a>
+</p><p><b>Slika 4: Funkcijski blok dijagram ESP8266EX. Preuzeto sa [8]</b>
+</p><p>Na ovom funkcijskom dijagramu prikazanom na slici iznad možete vidjeti detaljnije elemente od kojih se čip sastoji. Svakako bi valjalo istaknuti dio koji se odnosi na komunikaciju putem WiFi-a, odnosno omogućuju da čip prima i šalje podatke pomoću analognog signala.
+</p><p>Goran Čehulić
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="CPU">CPU</span></h2>
+<p>ESP8266EX sastoji se od  32-bitnog Tensilica Xtensa LX106 procesora koji radi na 80 MHz sa punim WiFi stogom. Također može postignuti maksimalnu vrijednost od 160 Mhz. Kako ova vrsta čipa sadrži WiFi, bitno je naglasiti kako WiFi troši oko 20% procesorske snage, a ostatak je iskoristiv za aktivnosti poput programiranja i razvoja.  [8]
+</p><p><b>Procesor se sastoji od sljedećih sučelja</b> [8]: 
+</p>
+<ul><li>programibilni RAM/ROM koji mogu biti povezani s memorijskim kontrolerom 
+</li><li>Data RAM sučelje koji se može povezati s memorijskim kontrolerom 
+</li><li>Napredna sabirnica visokih performansi (eng. AHB)
+</li></ul>
+<p><br />
+Dorian Krajinović
+</p>
+<h2> <span class="mw-headline" id="Memorija">Memorija</span></h2>
+<p>ESP8266EX Wi-Fi SoC integrira memoriju kontrolera te SRAM i ROM memoriju. MCU može memoriji pristupati kroz iBus i dBus sabirnice te AHB sučelje. Svim memorijskim jedinicama moguće je pristupati na zahtjev. 
+</p><p>Upravljačka jedinica dodjeljuje procesor prema vremenima kada je pristigao zahtjev.
+</p><p>Veličina ram memorije manja je od 50kB. Kada modul radi u „Station mode“ načinu rada i povezuje se na usmjernik tada prostor za program na hrpi (eng. Heap)  i prostor za podatke iznose zajedno oko 50kB. [8]
+</p><p><br />
+Goran Čehulić
+</p>
+<h2> <span class="mw-headline" id="WiFi">WiFi</span></h2>
+<p>Ono što ESP8266 razlikuje od ostalih modula je prije svega zbog posjedovanje WiFi tehnologije. ESP8266 WiFi modul je samostani SoC (system on a chip) s integriranim stogom protokola TCP/IP koji mogu dati bilo kojem mikrokontroleru  pristup WiFi mreži. 
+</p><p>Osim osnovnog seta usluga operacija „Podržani poslovni sustavi“ (eng. Business support systems), podržava i P2P grupne operacije sukladne s najnovijim WiFi i P2P protokolima. Funkcije protokola niskih razina automatski su obrađene od strane ESP8266. [8]
+</p><p><b>Karakteristike</b> [8]: 
+</p>
+<ul><li>	802.11 b/g/n
+</li><li>	Wi-Fi Direct (P2P)
+</li><li>	SoftAP  (softverska pristupna točka) 
+</li><li>	Integrirani TCP/IP protokol stog
+</li><li>	+19.5dBm izlazna snaga u 802.11b modu 
+</li><li>	raspon frekvencije: 2.4 G ~ 2.5 G
+</li></ul>
+<p><br />
+Dorian Krajinović
+</p>
+<h2> <span class="mw-headline" id="Upravljanje_napajanjem">Upravljanje napajanjem</span></h2>
+<p>NodeMCU ESP8266 radi na napon od 5V-10V. ESP8266EX sadrži napredne tehnologije za upravljanje napajanjem. Razlog tome je štednja energije kako bi mogao biti korišten u mobilnim uređajima i IoT aplikacijama. 
+</p><p>Postoje 5 načina rada, a to su [8]: 
+</p>
+<ul><li>   isključen,
+</li><li>   duboko spavanje, 
+</li><li>   spavanje, 
+</li><li>   buđenje, 
+</li><li>   uključen. 
+</li></ul>
+<p>U nastavku je prikazan model upravljanja napajanjem.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Schema.png" class="image"><img alt="Schema.png" src="../images/c/cc/Schema.png" width="343" height="421" /></a>
+</p><p><b>Slika 5: Shema sustava napajanja, Preuzeto sa</b> [8]
+</p><p>Ponašanje pojedinih bitnih dijelova ESP8266EX u svakom od stanja [8]:
+</p>
+<ul><li>  ISKLJUČEN: Nožice procesorskih jedinica nisu pod naponom, registri su prazni, a generator vremena ne radi
+</li><li>  DUBOKO SPAVANJE: Generator vremena je uključen, ostalo nije
+</li><li>  SPAVANJE: Generator vremena radi, omogućeni su događaji za buđenje (tajmer, poslužitelj, vanjski prekidi...)
+</li><li>  BUĐENJE: Ovo je prijelazna faza između spavanja i stanja uključen. Oscilator počinje s radom i stvara se PLL signal.
+</li><li>  UKLJUČEN: Svi elementi su uključeni.
+</li></ul>
+<p>Goran Čehulić
+</p>
+<h1> <span class="mw-headline" id="Razvojno_okru.C5.BEenje">Razvojno okruženje</span></h1>
+<p>Arduino IDE ( The Arduino Integrated Development Environment ) predstavlja razvojno okruženje za rad i komunikaciju nad Arduino pločicama ili ostalim vrstama mikrokontrolera koji podržavaju navedeno razvojno okruženje. Integrirano razvojno okruženje zasnovano je na Processingu. [11]
+</p><p>Program je dostupan za preuzimanje na sljedećem linku: <a href="https://www.arduino.cc/en/main/software" class="external text" rel="nofollow">Arduino IDE</a>
+</p><p>Sastoji se od tekst editora za pisanje koda, prostora za poruke, tekstualne konzole, alatne trake s gumbima za česte funkcije i niza izbornika. Pločicu je potrebno povezati uz pomoć usb kabla na računalo kako bi se mogla uspostaviti komunikacija između računala i mikrokontrolera te za prijenos programa na isti.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Ide_1.png" class="image"><img alt="Ide 1.png" src="../images/3/3b/Ide_1.png" width="1128" height="565" /></a>
+</p><p><b>Slika 6: Arduino IDE</b>
+</p><p><br />
+</p><p>Programi pisani uz pomoć Arduino IDE nazivaju se skice (eng. sketches). Skice se pišu u <b>tekst editor</b> te se spremaju kao datoteka s ekstenzijom .ino (na slici označeno broje 1). 
+</p><p><b>Prostor za poruke</b> vraća povratne informacije dok sprema ili prosljeđuje skicu na Arduino pločicu te prikazuje pogreške u kodu, naravno ako do istih uopće dođe (na slici označeno  broje 2). 
+</p><p><b>Alatna traka s gumbima</b> nudi nekoliko mogućnosti (na slici označeno brojem 3). 
+</p>
+<ul><li> Verify – Prevodi izvorni kod (kompajlira) i provjerava da li ima grešaka. 
+</li><li> Upload – Prevodi izvorni kod te ga „uploada“ na Arduino pločicu. 
+</li><li> New – kreiranje nove skice 
+</li><li> Open – nudi mogućnost otvaranja neke od prethodnih skica
+</li><li> Save – spremanje nove skice 
+</li></ul>
+<p><b>Serial Monitor</b> – otvaranje Serial Monitora (na slici označeno brojem 5).
+</p><p><b>Niz izbornika</b> - na slici označeno brojem 4
+[11]
+</p><p>Minimalna Arduino skica (eng. sketch) u Arduino IDE (razvojnom okruženju) sastoji se od samo dvije funkcije [12]: 
+</p>
+<ul><li>	setup() – ova funkcija poziva se jednom kada se skica pokreće, a koristi se za inicijalizaciju varijabli, ulazne i  izlazne pin modove i za ostale biblioteke koje su potrebne kako bi program ispravno radio. 
+</li><li>	loop() – nakon što je setup funkcija pozvana, petlja (eng. loop) se više puta izvršava dozvoljavajući programu da se mijenja i odgovara na zahtjeve. Ova petlja se koristi za aktivno upravljanje Arduino (ili ostalih mikrokontroler) pločica. Funkcija se u petlji izvršava sve dok se isključi pločica.
+</li></ul>
+<p>Dorian Krajinović
+</p>
+<h2> <span class="mw-headline" id="Built-in_primjeri">Built-in primjeri</span></h2>
+<p>Arduino IDE dolazi sa unaprijed ugrađenim (eng. Built-In) programima kako bi programer se mogao bolje upoznati sa sintaksom i nekim od mogućnosti Arduino pločice.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ide_3.png" class="image"><img alt="Ide 3.png" src="../images/e/ec/Ide_3.png" width="631" height="738" /></a>
+</p><p><b>Slika 7: Arduino IDE built-in primjeri</b>
+</p><p><br />
+Goran Čehulić
+</p>
+<h2> <span class="mw-headline" id="Upload_programskog_koda">Upload programskog koda</span></h2>
+<p>Prije samog „uplodanja“ skice na Arduino pločicu potrebno je podesiti nekoliko stvari. Prije svega potrebno je u u izborniku (Tools --&gt; Board) odabrati Arduino (ili neku drugu podržanu) pločicu koju koristimo. U našem slučaju je to NodeMCU ESP8266. [11]
+</p><p>Nakon toga bitno je da odaberemo ispravni port (Tools --&gt; Port). U našem slučaju to je port COM3. 
+</p><p>Kada kliknemo na izbornik Tools možemo vidjeti osnovne informacije o Arduino pločici i njezinom načinu rada.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Ide_2.png" class="image"><img alt="Ide 2.png" src="../images/7/7b/Ide_2.png" width="688" height="567" /></a>
+</p><p><b>Slika 8: Arduino IDE Tools meni</b>
+</p><p>Dorian Krajinović
+</p>
+<h1> <span class="mw-headline" id="Kriptiranje_na_Arduinu">Kriptiranje na Arduinu</span></h1>
+<p>Na web stranici ArduinoLibs dostupnoj na linku navedenom u dijelu "Vanjske poveznice" možete pronaći velik broj biblioteka koje se mogu koristiti između ostalog i na ESP8266. 
+</p><p>U nastavku možete vidjeti koje algoritme kriptiranja možete koristiti unutar Crypto biblioteke dostupne na toj web stranici [9]:
+</p>
+<pre>   •	Block ciphers: AES128, AES192, AES256, Speck 
+   •	Block cipher modes: CTR, CFB, CBC, OFB, EAX, GCM, XTS 
+   •	Stream ciphers: ChaCha 
+   •	Authenticated encryption with associated data (AEAD): ChaChaPoly, EAX, GCM 
+   •	Hash algorithms: SHA256, SHA512, SHA3_256, SHA3_512, BLAKE2s, BLAKE2b (regular and HMAC modes) 
+   •	Extendable output functions (XOF's): SHAKE128, SHAKE256 
+   •	Message authenticators: Poly1305, GHASH, OMAC 
+   •	Public key algorithms: Curve25519, Ed25519, P521 
+   •	Post-quantum algorithms: NewHope 
+   •	Random number generation: RNG, TransistorNoiseSource, RingOscillatorNoiseSource
+</pre>
+<p>Samu biblioteku možete pronaći na GitHub linku također navedenom u dijelu "Vanjske poveznice". 
+</p><p>Performanse kriptiranja pomoću navedene Crypto biblioteke možete vidjeti u nastavku. Algoritmi su izvršavani na Arduino Uno na 16MHz.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arduinounoperformace.png" class="image"><img alt="Arduinounoperformace.png" src="../images/2/23/Arduinounoperformace.png" width="656" height="622" /></a> 
+</p><p><b>Slika 9: Performanse kriptiranja na Arduino UNO</b>, preuzeto sa [9]
+</p><p><br />
+Dorian Krajinović
+</p>
+<h1> <span class="mw-headline" id="RSA_kriptiranje">RSA kriptiranje</span></h1>
+<p>RSA algoritam jedan je od najpoznatijih asimetričnih algoritama za kriptiranje. Kriptiranje je znanstvena disciplina koja se bavi logičkom promjenom podataka, kako bi oni bili upotrebljivi samo onome kome su namjenjeni. Autori ovog algoritma su Ron Rivest, Adi Shamir i Len Adleman.
+</p><p>Asimetrični algoritmi rade koristeći jednostavne funkcije. Te funkcije lako je računati, no njezine inverze teško ili gotovo nemoguće u nekom razumnom vremenu. To računanje inverza kod RSA algoritma bazira se na problemu nepoznavanja faktorizacije velikih brojeva. [10]
+</p><p>RSA algoritam zahtjeva određivanje određenih parametara. Najčešće se označuju sa n, p, q, d, e. Vrijednosti parametara n i e u javne, dok su vreijednosti p, q i d tajne. Par (n, e) predstavlja javni ključ dok par (n, d) predstavlja tajni ključ. Kriptiranje i dekriptiranje su inverzne operacije. Prema tome mora vrijediti:  (x^d)^e = x (mod n). 
+O izboru parametara ovisi jačina kriptiranja. Postoji nekoliko uputa kako izabrati pojedini parametar:
+</p>
+<pre>  1. Izabiremo tajno dva velika prosta broja p i q. Ti brojevi bi trebali biti od barem po sto znamenaka i q bi trebao imati nekoliko znamenaka više. 
+  2. Nakon toga možemo računati n i φ(n)= (p - 1)(q - 1)
+  3. Potom izaberemo e.  Taj broj e mora biti manji od φ(n) i relativno prost s njim.
+  4. Nakon toga možemo izračunati tajni ključ d. Njega računamo koristeći Euklidov algoritam prema formuli: de=  1 (mod φ(n)) [10]
+</pre>
+<p>Programski primjer implementiran za NodeMCU ESP8266 možete pronaći na dolje navedenom GitHub repozitoriju.
+</p><p>Performanse našeg primjera RSA kriptiranja testirali smo na NodeMCU ESP8266 i na računalu sa Intelovim dvojezgrenim procesorom 2 x 2.40 GHz.
+</p><p>Mjerili smo ukupno vrijeme potrebno za izvršavanje cijelog programa. Program uzma zadani string "Dorian i Goran kriptografija" šifrira ga prema zadanim parametrima, ispisuje šifrirani string i potom taj šifrat uzima i dekriptira ga. 
+</p><p>Potrebno vrijeme na NodeMCU ESP8266 iznosilo je <b>67 ms</b>, dok je ono na računalu iznosilo <b>22 ms</b>.
+</p><p><br />
+Goran Čehulić
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h1>
+<p>Kao što je već bilo napomenuto na početku ovog rada, razvoj IoT grane tehnologije tek je u svojim počecima. Kroz nekoliko godina očekuje se da će upravo to grana postati jedna od najbrže rastućih vezanih uz IT sektor, pa će tako i razvoj mikokontrolerskih pločica poput korištenog NodeMCU ESP8266 zasigurno još više se unaprijediti. NodeMCU ESP8266 predstavlja praktičan i jeftin mikrokontroler kojeg je dovoljno samo putem USB povezati s računalom kako bismo mogli obavljati manje složene programske zadatke kao i sa većim i skupljim računalima.
+</p>
+<h1> <span class="mw-headline" id="GitHub_link">GitHub link</span></h1>
+<p><a href="https://github.com/gcehulic/sisCrypto" class="external autonumber" rel="nofollow">[1]</a> Repozitorij sa riješenim primjerom RSA kriptiranja
+</p>
+<h1> <span class="mw-headline" id="Vanjske_poveznice">Vanjske poveznice</span></h1>
+<p><a href="https://github.com/esp8266/Arduino" class="external autonumber" rel="nofollow">[2]</a> ESP8266 core for Arduino
+</p><p><a href="https://github.com/rweather/arduinolibs" class="external autonumber" rel="nofollow">[3]</a> Repozitorij s bibliotekama za arduino s implementiranim primjerima
+</p><p><a href="https://rweather.github.io/arduinolibs/index.html" class="external autonumber" rel="nofollow">[4]</a> Dokumentacija navedenih biblioteka
+</p><p><a href="https://www.arduino.cc/en/main/software" class="external autonumber" rel="nofollow">[5]</a> Arduino IDE razvojno okruženje
+</p><p><a href="http://www.nodemcu.com/index_en.html" class="external autonumber" rel="nofollow">[6]</a> NodeMcu, upute mogućnosti i primjeri
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<p><a href="https://en.wikipedia.org/wiki/NodeMCU" class="external autonumber" rel="nofollow">[7]</a> NodeMCU
+</p><p><a href="http://espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf" class="external autonumber" rel="nofollow">[8]</a> ESP8266EX Datasheet
+</p><p><a href="https://rweather.github.io/arduinolibs/crypto.html" class="external autonumber" rel="nofollow">[9]</a> ArduinoLibs Cryptographic Library
+</p><p><a href="https://elf.foi.hr/pluginfile.php/961/mod_page/content/24/RSA-DSTG-2016.pdf" class="external autonumber" rel="nofollow">[10]</a> RSA kriptosustav, DSTG 2016
+</p><p><a href="https://www.arduino.cc/en/Guide/Environment#toc12" class="external autonumber" rel="nofollow">[11]</a> Arduino Software (IDE)
+</p><p><a href="https://en.wikipedia.org/wiki/Arduino" class="external autonumber" rel="nofollow">[12]</a> Arduino
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 63/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9250-0!*!0!!hr!2!edit=0 and timestamp 20190203204209 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Korištenje_ESP8266_u_kriptografiji.html">http://security.foi.hr/wiki/index.php/Kori%C5%A1tenje_ESP8266_u_kriptografiji</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Kori%C5%A1tenje_ESP8266_u_kriptografiji" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Korištenje_ESP8266_u_kriptografiji.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Kori%C5%A1tenje_ESP8266_u_kriptografiji&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Korištenje_ESP8266_u_kriptografiji.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Korištenje_ESP8266_u_kriptografiji.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_ESP8266_u_kriptografiji&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_ESP8266_u_kriptografiji&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Korištenje_ESP8266_u_kriptografiji.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Kori%C5%A1tenje_ESP8266_u_kriptografiji" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Kori%C5%A1tenje_ESP8266_u_kriptografiji" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_ESP8266_u_kriptografiji&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_ESP8266_u_kriptografiji&amp;oldid=40835" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:15, 19. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 4.387 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Korištenje_ESP8266_u_kriptografiji", "wgTitle": "Korištenje ESP8266 u kriptografiji", "wgAction": "view", "wgArticleId": 9250, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40835, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.342 secs. -->			</body>
+</html>

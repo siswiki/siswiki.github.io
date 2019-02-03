@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>ELK - Elasticsearch, Logstash, Kibana - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=ELK_-_Elasticsearch,_Logstash,_Kibana&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-ELK_-_Elasticsearch_Logstash_Kibana skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">ELK - Elasticsearch, Logstash, Kibana</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#mw-head">orijentacija</a>,
+					<a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Tim: Tina Mehanović, 
+Nikolina Leskovar
+</p><p>ELK (Elasticsearch, Logstash, Kibana) je skup alata za lakše pretraživanje i analizu podataka. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tmehanov1.jpeg" class="image"><img alt="" src="../images/thumb/e/e1/Tmehanov1.jpeg/800px-Tmehanov1.jpeg" width="800" height="486" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tmehanov1.jpeg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>ELK [3]</div></div></div></div>
+<p>Na slici je prikazana interakcija između Elasticsearch-a, Logstash-a i Kibana-e. Log datoteke za analizu nalaze se na drugom serveru te se zbog sigurnosnih razloga kopiraju na ELK poslužitelj. U našem primjeru log datoteke se nalaze na lokalnom računalu radi jednostavnijeg prikaza korištenja. Logstash osluškuje kopirane datoteke kako bi utvrdio promjenu. Kada se dogodi promjena u log datoteci, Logstash parsira i formatira podatke te ih šalje Elasticsearch-u. Elasticsearch ima ulogu pohrane parsiranih podataka. Kibana šalje upite Elasticsearch-u i prikazuje dobivene rezultate u obliku grafova. 
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Instalacija"><span class="tocnumber">1</span> <span class="toctext">Instalacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Java_7"><span class="tocnumber">1.1</span> <span class="toctext">Java 7</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Elasticsearch"><span class="tocnumber">1.2</span> <span class="toctext">Elasticsearch</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Kibana"><span class="tocnumber">1.3</span> <span class="toctext">Kibana</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Nginx"><span class="tocnumber">1.4</span> <span class="toctext">Nginx</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Logstash"><span class="tocnumber">1.5</span> <span class="toctext">Logstash</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Generiranje_SSL_certifikata"><span class="tocnumber">1.5.1</span> <span class="toctext">Generiranje SSL certifikata</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Konfiguracija"><span class="tocnumber">1.5.2</span> <span class="toctext">Konfiguracija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Logstash_Forwarder"><span class="tocnumber">1.6</span> <span class="toctext">Logstash Forwarder</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Konfiguracija_2"><span class="tocnumber">1.6.1</span> <span class="toctext">Konfiguracija</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Logstash_2"><span class="tocnumber">2</span> <span class="toctext">Logstash</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Elasticsearch_2"><span class="tocnumber">3</span> <span class="toctext">Elasticsearch</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Kibana_2"><span class="tocnumber">4</span> <span class="toctext">Kibana</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Instalacija">Instalacija</span></h2>
+<p>U nastavku će biti prikazana instalacija ELK stoga prema uputama <a href="https://www.digitalocean.com/community/tutorials/how-to-use-logstash-and-kibana-to-centralize-and-visualize-logs-on-ubuntu-14-04" class="external autonumber" rel="nofollow">[1]</a>. Alati su instalirani na operacijskom sustavu Ubuntu 14.04.
+</p><p><br /> 
+</p>
+<h3> <span class="mw-headline" id="Java_7"><i>Java 7</i></span></h3>
+<p>Najprije treba instalirati Java 7 jer je potrebno za korištenje Elasticsearch-a i Logstash-a. Od strane Elasticsearch-a se preporuča instalacija Oracle Java 7.
+</p>
+<pre>   add-apt-repository -y ppa:webupd8team/java
+   apt-get update 
+   apt-get -y install oracle-java7-installer
+</pre>
+<h3> <span class="mw-headline" id="Elasticsearch"><i>Elasticsearch</i></span></h3>
+<p>Kada instaliramo Java 7, može se instalirati Elasticsearch sa sljedećim naredbama:
+</p>
+<pre>   wget -O - <a href="http://packages.elasticsearch.org/GPG-KEY-elasticsearch" class="external free" rel="nofollow">http://packages.elasticsearch.org/GPG-KEY-elasticsearch</a> | sudo apt-key add -
+   echo 'deb <a href="http://packages.elasticsearch.org/elasticsearch/1.1/debian" class="external free" rel="nofollow">http://packages.elasticsearch.org/elasticsearch/1.1/debian</a> stable main' | sudo tee /etc/apt/sources.list.d/elasticsearch.list
+   apt-get update 
+   apt-get -y install elasticsearch=1.1.1
+</pre>
+<p>Nakon instalacije pokrenemo Elasticsearch:
+</p>
+<pre>   sudo service elasticsearch restart
+   sudo update-rc.d elasticsearch defaults 95 10
+</pre>
+<h3> <span class="mw-headline" id="Kibana"><i>Kibana</i></span></h3>
+<p>Kada pokrenemo Elasticsearch možemo instalirati Kibana.
+</p>
+<pre>   cd ~; wget <a href="https://download.elasticsearch.org/kibana/kibana/kibana-3.0.1.tar.gz" class="external free" rel="nofollow">https://download.elasticsearch.org/kibana/kibana/kibana-3.0.1.tar.gz</a>
+   tar xvf kibana-3.0.1.tar.gz
+   vi ~/kibana-3.0.1/config.js
+</pre>
+<p>U konfiguracijskoj datoteci potrebno je promijeniti broj porta(9200) u 80. To je potrebno jer ćemo pristupati Kibani sa porta 80. Također, potrebno je kreirati mapu te kopirati Kibana datoteke jer ćemo koristiti Nginx kojeg ćemo u nastavku instalirati. 
+</p>
+<pre>   elasticsearch: "http://"+window.location.hostname+":80",
+   mkdir -p /var/www/kibana3
+   cp -R ~/kibana-3.0.1/* /var/www/kibana3/
+</pre>
+<h3> <span class="mw-headline" id="Nginx"><i>Nginx</i></span></h3>
+<p>Nginx je HTTP i reverse proxy server. Korisnik mora biti u mogućnosti direktno pristupiti Elasticsearch-u te je zbog toga potrebno i konfigurirati Nginx.
+</p>
+<pre>   apt-get install nginx
+   cd ~; wget <a href="https://gist.githubusercontent.com/thisismitch/2205786838a6a5d61f55/raw/f91e06198a7c455925f6e3099e3ea7c186d0b263/nginx.conf" class="external free" rel="nofollow">https://gist.githubusercontent.com/thisismitch/2205786838a6a5d61f55/raw/f91e06198a7c455925f6e3099e3ea7c186d0b263/nginx.conf</a>
+   vi nginx.conf
+</pre>
+<p>U konfiguracijskoj datoteci je potrebno izmjeniti: 
+</p>
+<pre>   server_name 127.0.0.1;
+   root /var/www/kibana3;
+</pre>
+<p>Nakon što pokrenemo Nxinx možemo pristupiti Kibani preko IP adrese na kojoj se nalazi Logstash server.
+</p>
+<pre>   cp nginx.conf /etc/nginx/sites-available/default
+   service nginx restart
+</pre>
+<h3> <span class="mw-headline" id="Logstash"><i>Logstash</i></span></h3>
+<p>Potrebno je kreirati "Logstash source list" te zatim instalirati Logstash.
+</p>
+<pre>   echo 'deb <a href="http://packages.elasticsearch.org/logstash/1.4/debian" class="external free" rel="nofollow">http://packages.elasticsearch.org/logstash/1.4/debian</a> stable main' | sudo tee /etc/apt/sources.list.d/logstash.list
+   apt-get update 
+   apt-get install logstash=1.4.2-1-2c0f5a1
+</pre>
+<h4> <span class="mw-headline" id="Generiranje_SSL_certifikata"><i>Generiranje SSL certifikata</i></span></h4>
+<p>Budući da ćemo koristiti Logstash Forwarder za slanje logova sa servera na naš Logstash server, potrebno je kreirati SSL certifikat i par ključeva. Logstash Forwarder koristi taj certifikat za provjeru identiteta Logstash servera. Sljedećim naredbama kreiramo direktorij u kojem će biti pohranjeni certifikat i privatni ključ te ih nakon toga generiramo:
+</p>
+<pre>   mkdir -p /etc/pki/tls/certs
+   mkdir /etc/pki/tls/private
+   cd /etc/pki/tls; sudo openssl req -x509 -batch -nodes -days 3650 -newkey rsa:2048 -keyout private/logstash-forwarder.key -out certs/logstash-forwarder.crt
+</pre>
+<h4> <span class="mw-headline" id="Konfiguracija"><i>Konfiguracija</i></span></h4>
+<pre>   vi /etc/logstash/conf.d/01-lumberjack-input.conf
+</pre>
+<p>Potrebno je konfigurirati Logstash. "lumberjack" je protokol kojeg će koristiti Longstash Forwarder. Osluškivati će na tcp portu 5000 te će koristiti SSL certifikat i privatni ključ koji je prethodno kreiran. 
+</p>
+<pre>             input {
+             lumberjack {
+             port =&gt; 5000
+             type =&gt; "logs"
+             ssl_certificate =&gt; "/etc/pki/tls/certs/logstash-forwarder.crt"
+             ssl_key =&gt; "/etc/pki/tls/private/logstash-forwarder.key"
+              }
+              }
+</pre>
+<p>Zatim je potrebno kreirati konfiguracijsku datoteku u koju ćemo dodati filter za syslog poruku. Taj filter traži logove koji su označeni kao "syslog" (po Logstash Forwarder-u) te će pokušati strukturirati sve nadolazeće logove i omogućiti postavljanje upita nad istima. 
+</p>
+<pre>   vi /etc/logstash/conf.d/10-syslog.conf
+</pre>
+<pre>           filter {
+           if [type] == "syslog" {
+           grok {
+           match =&gt; { "message" =&gt; "%{SYSLOGTIMESTAMP:syslog_timestamp}&#160;%{SYSLOGHOST:syslog_hostname}&#160;%{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?:&#160;%{GREEDYDATA:syslog_message}" }
+           add_field =&gt; [ "received_at", "%{@timestamp}" ]
+           add_field =&gt; [ "received_from", "%{host}" ]
+            }
+          syslog_pri { }
+          date {
+          match =&gt; [ "syslog_timestamp", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]
+          }
+           }
+        }
+</pre>
+<p>Potrebno je kreirati još jednu konfiguracijsku datoteku za pohranjivanje logova u Elasticsearch. S tom će konfiguracijom Logstash prihvatiti i logove kojih nema prema filteru, ali ti podaci neće biti strukturirani.  
+</p>
+<pre>   vi /etc/logstash/conf.d/30-lumberjack-output.conf
+</pre>
+<pre>          output {
+          elasticsearch { host =&gt; localhost }
+          stdout { codec =&gt; rubydebug }
+          }
+   
+</pre>
+<pre>   service logstash restart
+</pre>
+<h3> <span class="mw-headline" id="Logstash_Forwarder"><i>Logstash Forwarder</i></span></h3>
+<p>Za svaki server s kojeg želimo poslati podatke na Logstash server potrebno je ponavljati iduće korake.
+S Logstash servera je potrebno kopirati SSL certifikat na server. Nakon toga potrebno je kreirati "Logstash Forwarder source list" na serveru koji koristi isti javni ključ kao i Elasticsearch. Nakon toga potrebno je instalirati Logstash Forwarder paket.
+</p>
+<pre>   cp /etc/pki/tls/certs/logstash-forwarder.crt /tmp
+   echo 'deb <a href="http://packages.elasticsearch.org/logstashforwarder/debian" class="external free" rel="nofollow">http://packages.elasticsearch.org/logstashforwarder/debian</a> stable main' | sudo tee /etc/apt/sources.list.d/logstashforwarder.list
+   apt-get update
+   apt-get install logstash-forwarder
+</pre>
+<p>Potrebno je instalirati "Logstash Forwarder init script" da se pokreće kod podizanja i nakon toga kopirati SSL certifikat na određenu lokaciju
+</p>
+<pre>   cd /etc/init.d/; sudo wget <a href="https://raw.github.com/elasticsearch/logstash-forwarder/master/logstash-forwarder.init" class="external free" rel="nofollow">https://raw.github.com/elasticsearch/logstash-forwarder/master/logstash-forwarder.init</a> -O logstash-forwarder
+   chmod +x logstash-forwarder
+   update-rc.d logstash-forwarder defaults
+</pre>
+<pre>   mkdir -p /etc/pki/tls/certs
+   cp /tmp/logstash-forwarder.crt /etc/pki/tls/certs/
+</pre>
+<h4> <span class="mw-headline" id="Konfiguracija_2"><i>Konfiguracija</i></span></h4>
+<p>Na serveru je potrebno kreirati i izmijeniti konfiguracijsku datoteku koja je JSON formata. Potrebno je izmijeniti liniju "logstash_server_private_IP" te upisati adresu servera sa kojeg se šalju logovi. U našem primjeru to je isti server na kojem se nalazi i Logstash server.
+</p>
+<pre>  vi /etc/logstash-forwarder
+</pre>
+<pre>     {
+      "network": {
+      "servers": [ "logstash_server_private_IP:5000" ],
+      "timeout": 15,
+      "ssl ca": "/etc/pki/tls/certs/logstash-forwarder.crt"
+      },
+      "files": [
+        {
+      "paths": [
+       "/var/log/syslog",
+       "/var/log/auth.log"
+      ],
+     "fields": { "type": "syslog" }
+      }
+     ]
+    } 
+</pre>
+<p><br />
+</p>
+<pre>  service logstash-forwarder restart
+</pre>
+<h2> <span class="mw-headline" id="Logstash_2"> Logstash </span></h2>
+<p>Logstash je alat koji prima log datoteke sa servera, centralizira dobivene logove, obrađuje ih i šalje Elasticsearchu na pohranu. Jedini uvjet koji zahtjeva ovaj alat je da na serveru na kojemu se izvršava bude instalirani Java runtime. Sljedećom naredbom pokreće se Logstash. U primjeru ispod unesen je tekst sadržaja "good night" te alat vraća istu tu poruku zapisanu u zadanom strukturiranom zapisu.
+</p>
+<pre>  bin/logstash -e 'input { stdin { } } output { stdout { codec =&gt; rubydebug } }'
+</pre>
+<pre>  good night
+  {
+     "message" =&gt; "good night",
+     "@timestamp" =&gt; "2014-12-18T23:48:05.335Z",
+     "@version" =&gt; "1",
+     "host" =&gt; "laptop"
+  }
+</pre>
+<p>Prethodni primjer dobar je samo za testiranje alata, ali kad bi sve logove morali unositi naredbenim retkom nebi bilo praktično za korištenje. Zbog toga je potrebno instalirati <b>Logstash Forwarder</b> na svaki server s kojega želimo preuzimati log datoteke. U postavkama Logstash Forwardera definira se veza prema Logstash serveru i odrede se datoteke koje će se slati. Osnovna svojstva koja se definiraju u konfiguraciji Logstasha su ulazi (eng. inputs), izlazi (eng. outputs), kodeksi (eng. codecs) i filteri (eng. filters).<br />
+</p><p><b>Ulazi</b><br />
+Ulazi su mehanizmi koji služe za prosljeđivanje podataka Logstashu. Najpoznatiji mehanizmi za prijenos podataka su sljedeći: <br />
+- file - čitanje iz datoteke u datotečnom sustavu, <br />
+- syslog - osluškivanje na portu 514 za syslog poruke, <br />
+- redis - čitanje sa redis poslužitelja, <br />
+- lumberjack - događaji koji su poslani lumberjack protokolom, logstash forwarder.<br />
+<b>Izlazi</b><br />
+Izlazi su zadnja faza u Logstash cjevovodu. Najčešće korišteni izlazi su sljedeći: <br />
+- elasticsearch - alat koji sprema parsirane podatke, <br />
+- file - zapis podataka u datoteku na disku, <br />
+- graphite - šalje podatke o događajima graphitu, open source alat za spremanje i prikaz podataka u obliku grafova, alat je dostupan na:  <a href="http://graphite.wikidot.com/" class="external free" rel="nofollow">http://graphite.wikidot.com/</a>. <br />
+<b>Kodeksi</b><br />
+Kodeksi služe za strukturiranje zapisa. Neki od primjera su: json, msgpack...<br />
+- json - strukturiranje podataka u json formatu, <br />
+- multiline - spajanje više događaja u jedan<br />
+<b>Filteri</b><br />
+Filteri se koriste za obradu podataka s ciljem obavljanja određene radnje. Često se koriste u kombinaciji s uvjetima, te se radnje obavljaju samo ako su zadovoljeni postavljeni uvjeti. Neki korisni filteri: <br />
+- grok - parsira nestrukturirane log datoteke nad kojima se onda mogu postavljati upiti, <br />
+- mutate - omogućuje "mutacije" nad poljima (preimenovanje, uklanjanje ili mijenjanje polja), <br />
+- drop - brisanje događaja, <br />
+- clone - kopira događaj, moguće je dodavati ili oduzimati polja, <br />
+- geoip - daje informacije o geografskoj lokaciji IP adrese.<br />
+</p>
+<h2> <span class="mw-headline" id="Elasticsearch_2"> Elasticsearch </span></h2>
+<p>Elasticsearch služi za brzo pretraživanje i spremanje podataka dobivenih iz Logstasha. Za pohranu podataka koristi JSON format. Osnovni koncepti Elasticsearcha su indeksiranje, pretraživanje i agregacija.<br />
+<b>Indeksiranje (eng. indexing)</b><br />
+Indeksiranje u Elasticsearchu odnosi se na sami čin pohrane podataka. Svaki spremljeni dokument pripada nekom tipu a svaki tip pripada indexu. Elasticsearch klaster može sadržavati više indexa, indexi se sastoje od više tipova, svaki tip može imati više dokumenata te svaki dokument se može sastojati od više polja. Taj odnos se može usporediti sa relacijskim bazama podataka: <br />
+</p><p>Relacijske BP  ⇒   BP    ⇒ Tablice ⇒  Redovi   ⇒ Stupci <br />
+Elasticsearch  ⇒ Indexi  ⇒ Tipovi  ⇒ Dokumenti ⇒ Polja .<br />
+</p><p>Na primjer,index može biti naziv neke organizacije, tip zaposlenici, tipu zaposlenici pripada više dokumenata, u svakom dokumentu nalaze se podaci o pojedinom zaposleniku. <br />
+</p><p><b>Pretraživanje (eng. search)</b><br />
+Nakon pohrane podataka slijedi pretraživanje. Za prikaz cjelog JSON dokumenta koristi se GET naredba nakon koje se navodi index, tip i identifikator jsona ako tražimo podatke o točno određenom dokumentu (npr.: GET /naziv_organizacije/zaposlenici/1). Ako želimo prikazati sve dokumente iz nekog tipa umjesto json identifikatora koristimo _search (GET /naziv_organizacije/zaposlenici/_search). Za složenija pretraživanja koristi se "query DSL (Domain Specific Language)". Sljedećim upitom prikazat će se podaci o zaposlenicima koji u polju ime imaju vrijednost Ana.
+</p>
+<pre>   GET /naziv_organizacije/zaposlenici/_search
+   {
+      "query"&#160;: {
+         "match"&#160;: {
+             "ime"&#160;: "Ana"
+           }
+       }
+    }  
+ 
+</pre>
+<p><b>Agregacija (eng. aggregation)</b><br /> 
+Ova funkcionalnost Elasticsearcha omogućava generiranje analitičkih rezultata nad podacima. Sljedeći primjer prikazuje korištenje agregacije, rezultat će vratiti broj zaposlenika prema kategoriji interesa (slično kao GROUP BY u SQLu).
+</p>
+<pre>   GET /naziv_organizacije/zaposlenici/_search
+   {
+     "aggs": {
+       "interesi zaposlenika": {
+         "terms": { "field": "interesi" }
+       }
+     }
+   }
+</pre>
+<h2> <span class="mw-headline" id="Kibana_2">Kibana</span></h2>
+<p>Kibana je web grafičko sučelje za Logstash i Elasticsearch. Sastoji se od redova u kojim su grafički prikazani podaci iz logova. U redove se dodaju paneli koji prikazuju prethodne filtere i upite. Filterima se odredi što želimo vidjeti na dijagramima u panelima. Jedan od filtera je i odabir vremenskog raspona za koji želimo vidjeti logove. Moguće je filtrirati prema bilo kojem polju. Upiti se sastoje od jedne ili više riječi.
+Na slici je prikazan primjer korištenja Kibana. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tmehanov2.jpg" class="image"><img alt="" src="../images/thumb/5/5d/Tmehanov2.jpg/700px-Tmehanov2.jpg" width="700" height="394" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tmehanov2.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Kibana</div></div></div></div>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<pre>       [1] <a href="http://www.elasticsearch.org/" class="external free" rel="nofollow">http://www.elasticsearch.org/</a>
+       [2] <a href="https://www.digitalocean.com/community/tutorials/how-to-use-logstash-and-kibana-to-centralize-and-visualize-logs-on-ubuntu-14-04" class="external free" rel="nofollow">https://www.digitalocean.com/community/tutorials/how-to-use-logstash-and-kibana-to-centralize-and-visualize-logs-on-ubuntu-14-04</a>
+       [3] <a href="https://www.enalean.com/en/Elasticsearch-Logstash-Kibana-ELK-for-Tuleap-downloads" class="external free" rel="nofollow">https://www.enalean.com/en/Elasticsearch-Logstash-Kibana-ELK-for-Tuleap-downloads</a>
+       [4] <a href="http://logstash.net/docs/1.4.2/tutorials/getting-started-with-logstash" class="external free" rel="nofollow">http://logstash.net/docs/1.4.2/tutorials/getting-started-with-logstash</a>
+       [5] <a href="http://packetbeat.com/docs/kibana-filtering-vs-queries.html" class="external free" rel="nofollow">http://packetbeat.com/docs/kibana-filtering-vs-queries.html</a>
+</pre>
+<!-- 
+NewPP limit report
+Preprocessor node count: 55/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7928-0!*!0!!hr!2!edit=0 and timestamp 20190203204247 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html">http://security.foi.hr/wiki/index.php/ELK_-_Elasticsearch,_Logstash,_Kibana</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=ELK_-_Elasticsearch,_Logstash,_Kibana" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:ELK_-_Elasticsearch,_Logstash,_Kibana&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=ELK_-_Elasticsearch,_Logstash,_Kibana&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=ELK_-_Elasticsearch,_Logstash,_Kibana&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="ELK_-_Elasticsearch,_Logstash,_Kibana.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/ELK_-_Elasticsearch,_Logstash,_Kibana" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/ELK_-_Elasticsearch,_Logstash,_Kibana" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=ELK_-_Elasticsearch,_Logstash,_Kibana&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=ELK_-_Elasticsearch,_Logstash,_Kibana&amp;oldid=32609" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:36, 19. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.696 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "ELK_-_Elasticsearch,_Logstash,_Kibana", "wgTitle": "ELK - Elasticsearch, Logstash, Kibana", "wgAction": "view", "wgArticleId": 7928, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 32609, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.310 secs. -->			</body>
+</html>

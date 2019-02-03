@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Izrada mrežnih spremišta sa softwareskim raidom / Sambom - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Izrada_mrežnih_spremišta_sa_softwareskim_raidom_Sambom skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Izrada mrežnih spremišta sa softwareskim raidom / Sambom</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="_Sambom.html#mw-head">orijentacija</a>,
+					<a href="_Sambom.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<pre>Tim: Anđelko Spevec, Mario Šoštarić
+Ispod svakog poglavlja je naznačeno koji član tima ga je radio</pre>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1"><a href="_Sambom.html#Mre.C5.BEna_spremi.C5.A1ta_podataka"><span class="tocnumber">1</span> <span class="toctext">Mrežna spremišta podataka</span></a>
+<ul>
+<li class="toclevel-2"><a href="_Sambom.html#DAS"><span class="tocnumber">1.1</span> <span class="toctext">DAS</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#NAS"><span class="tocnumber">1.2</span> <span class="toctext">NAS</span></a>
+<ul>
+<li class="toclevel-3"><a href="_Sambom.html#Protokoli_za_komunikaciju"><span class="tocnumber">1.2.1</span> <span class="toctext">Protokoli za komunikaciju</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="_Sambom.html#SAN"><span class="tocnumber">1.3</span> <span class="toctext">SAN</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="_Sambom.html#RAID"><span class="tocnumber">2</span> <span class="toctext">RAID</span></a>
+<ul>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_0"><span class="tocnumber">2.1</span> <span class="toctext">RAID 0</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_1"><span class="tocnumber">2.2</span> <span class="toctext">RAID 1</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_2"><span class="tocnumber">2.3</span> <span class="toctext">RAID 2</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_3"><span class="tocnumber">2.4</span> <span class="toctext">RAID 3</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_4"><span class="tocnumber">2.5</span> <span class="toctext">RAID 4</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_5"><span class="tocnumber">2.6</span> <span class="toctext">RAID 5</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#RAID_6"><span class="tocnumber">2.7</span> <span class="toctext">RAID 6</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#Vi.C5.A1erazinski_RAID_sustavi"><span class="tocnumber">2.8</span> <span class="toctext">Višerazinski RAID sustavi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="_Sambom.html#Implementacija"><span class="tocnumber">3</span> <span class="toctext">Implementacija</span></a>
+<ul>
+<li class="toclevel-2"><a href="_Sambom.html#Instalacija_Ubuntu_Servera"><span class="tocnumber">3.1</span> <span class="toctext">Instalacija Ubuntu Servera</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#Postavljanje_RAID-a"><span class="tocnumber">3.2</span> <span class="toctext">Postavljanje RAID-a</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#Postavljanje_Sambe"><span class="tocnumber">3.3</span> <span class="toctext">Postavljanje Sambe</span></a></li>
+<li class="toclevel-2"><a href="_Sambom.html#Spajanje_na_server"><span class="tocnumber">3.4</span> <span class="toctext">Spajanje na server</span></a>
+<ul>
+<li class="toclevel-3"><a href="_Sambom.html#Linux"><span class="tocnumber">3.4.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3"><a href="_Sambom.html#Windows"><span class="tocnumber">3.4.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="_Sambom.html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1"><a href="_Sambom.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Mre.C5.BEna_spremi.C5.A1ta_podataka">Mrežna spremišta podataka</span></h1>
+<h2> <span class="mw-headline" id="DAS">DAS</span></h2>
+<p>Direct attached storage (DAS) je način mrežne pohrane podataka u kojem je uređaj za pohranu podataka direktno povezan s serverom ili klijentom. Uređaj za pohranu može sadržavati jedan ili više diskova koji su povezani na server te uz odgovarajući adapter može se konfigurirati u RAID (Redundant Array of Independent Disks) polje.  Prednost ovog načina pohrane podataka je mali početni trošak. Početna investicija u server s eksternom pohranom podataka zadovoljava potrebe manje organizacije za određeno vrijeme. Kako bi se povećao prostor za pohranu u DAS sustavu potreban je IT profesionalac koji ima znanja za obavljanje ovakvog posla što bi značilo da bi organizacija morala zaposliti novog zaposlenika s takvim sposobnostima ili angažirati konzultanta. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Das.gif" class="image"><img alt="Das.gif" src="../../images/b/b3/Das.gif" width="382" height="262" /></a></div></div>
+<p>Najveći nedostatak DAS pohrane je ograničena skalabilnost. Također adapter koji koristimo za povezivanje uređaja za pohranu i servera ima ograničen broj utora za diskove. Zato ovaj sustav nije pogodan za okoline gdje se potreba za količinom prostora za pohranu brzo povećava. Korisnici koji koriste DAS arhitekturu moraju se spojiti direktno na server koji je spojen s uređajem za pohranu s potrebnim podacima.  Ako bi server bio isključen ili zbog nekog drugog razloga ne bi radio korisnici ne bi mogli pristupiti podacima. 
+Uz pohranu podataka serveri se koriste za aplikacije kao što su e-mail servisi ili aplikacije za baza podataka.  DAS arhitektura je vrlo pogodna za ove aplikacije jer operacijski sustav servera podržava block-level pristup za administratore kao i file-level pristup za klijente. Performanse se mogu smanjiti ako server simultano izvodi više aplikacija te služi za posluživanje datoteka. 
+</p>
+<h2> <span class="mw-headline" id="NAS">NAS</span></h2>
+<p>Network Attached Storage (NAS) je sustav mrežnog spremanja podataka koji koristi specijalizirane  uređaje za pohranu koji služe serviranju datoteka na mreži. Uobičajeno NAS je samostalan uređaj koji sadrži svoj operacijski sustav,prostorom za pohranu i sučeljem za upravljanje. Za razliku od DAS sustava koji se na server spaja preko posebnog adaptera, NAS se spaja na server preko postojećeg mrežnog (Ethetnet) priključka. Većina NAS proizvoda usmjerena je na male i srednje organizacije koji imaju jedan ili više Gigabitnih mrežnih priključaka koji osiguravaju visoke performanse. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nas.gif" class="image"><img alt="Nas.gif" src="../../images/9/95/Nas.gif" width="456" height="264" /></a></div></div>
+<p>Jedna od najvećih prednosti NAS mrežnog  spremišta podataka je jednostavnost postavljanja sustava. Mnogi NAS proizvodi dolaze s ugrađenim diskovima koji omogućuju zaposlenicima koji ne rade u IT odjelu da konfiguriraju sustav preko čarobnjaka za pomoć, te na brz način dodaju spremište podataka na mrežu. S obzirom da se NAS priključuje na mrežu a ne na server, kao što je slučaj kod DAS sustava, na njega ne utječe ispad servera. NAS često dolazi s Linux operativnim sustavom što eliminira troškove licenciranja kao kod Windows ili Unix servera. Operativni sustav je sačuvan u flash memoriji uređaja te se rijetko mora ažurirati i manje je osjetljiv na viruse.  S obzirom na to, eliminirani su prekidi rada zbog ažuriranja softvera ili ažuriranja antivirusnog programa koji su česti na serverima s uobičajenim operativnim sustavima. Također, NAS proizvodi podržavaju SMB/CIFS (Server Messege Block / Common Internet File System) i NFS (Network File System) datotečne sustave te su potpuno kompatibilni s Windows, Mac, Linux i UNIX klijentima.  Za povezivanje ovih sustava nije potrebno posebno IT znanje ili sposobnosti. Kao što je već spomenuto NAS arhitektura je privlačna malim i srednjim organizacijama zbog svoje cjenovne isplativosti naspram skupljim SAN sustavima koji se koriste u većim kompanijama. 
+</p><p>SATA diskovi sa svojom velikom isplativošću koriste se u mnogim NAS proizvodima te je uobičajena veličina pohrane 2, 4 ili 8TB. Kako su jednostavni za postavljanje NAS proizvodi se lako uklapaju u radne okoline malih i srednjih organizacija te im nude veliku dostupnost potrebnih podataka.  Neke od mogućnosti koje nude su:
+</p>
+<ul><li> Podrška Active Directory-ju: NAS se jednostavno prilagođava organizacijama koje koriste Active Directory
+</li><li> Mnogostruki gigabitni mrežni priključci: Gigabitni mrežni priključci osiguravaju da mreža ne bude usko grlo. Također ostali gigabitni priključci mogu se koristiti za povećanja mrežnog kapaciteta i se mogu koristiti kao pomoćni priključci ako glavni priključak prestane raditi. 
+</li><li> RAID podrška:  RAID tehnologija se koristi za povećanja tolerancije grešaka zapisivanjem podataka na više diskova.  Ova tehnologija omogućava čuvanja važnih podataka koji mogu nestati zbog kvara diskova.
+</li><li> Hot Swap tvrdi diskovi: ako tvrdi disk ima Hot Swap mogućnost taj disk se može odstraniti i zamijeniti s novim diskom bez da se sustav gasi. Pomoću RAID tehnologije mogu se obnoviti podaci nakon zamijene pokvarenog diska. 
+</li><li> Replikacija podataka:  Neki NAS proizvodi podržavaju „share-level“ replikaciju sa drugim kompatibilnim NAS uređajima. Preko ovog pristupa podaci koji se nalaze na jednom NAS uređaju mogu se automatski i trenutačno pohraniti na drugi NAS uređaj u mreži te tako osigurati još jednu razinu redundancije koja štiti od gubitka podataka. 
+</li><li> iSCSI: Danas mnogi NAS uređaji podržavaju iSCSI, IP protokol za povezivanje uređaja za pohranu.  Server može u tom slučaju može preko mrežnog sučelja komunicirati sa određenim iSCSI uređajem za pohranu. Tako iSCSI NAS omogućuje block-level pristup serveru na udaljenoj fizičkoj lokaciji.  iSCSI koristi postojeću mrežnu infrastrukturu pa nije potrebna specijalna mrežna infrastruktura kao što je slučaj kod SAN sustava koji koriste Fiber Channel tehnologiju. Postojeća iSCSI NAS tehnologija omogućava da se više servera spoji i poslužuje jedno iSCSI NAS spremište podataka. 
+</li></ul>
+<p><br />
+Prednosti NAS tehnologije
+</p>
+<ul><li>Korisnici koji koriste različite tipove računala (PC, Apple MAC) te koji koriste različite operacijske sustave mogu međusobno razmjenjivati datoteke
+</li><li> NAS uređaji su „plug-and-play“ što znači da se lako konfiguriraju nakon što se spoje na mrežu
+</li><li> Potrebno je manje administratorskog nadzora što je često za UNIX i Windows server
+</li><li> Centralizirana pohrana što ga čini jednostavnijim i jeftinijim za održavanje, pravljenje kopija i administriranje
+</li><li> Kupnja spremišta podataka je neovisna o kupnji aplikacijskih servera
+</li><li> Brz odaziv s obzirom da je NAS spojen na LAN te je vrlo blizu korisniku s obzirom na udaljene SAN sustave te marginalno brži od DAS sustava, ali sporiji od lokalnog diska
+</li></ul>
+<p>Nedostaci NAS tehnologije
+</p>
+<ul><li> Česta uporaba NAS uređaja može zakrčiti promet u LANu i negativno se odraziti na korisnike LANa
+</li><li> Nije pogodan za aplikacije s intenzivnim prijenosom podataka
+</li><li> Neefikasan jer koristi TCP/IP protocol za prijenos podataka dok SAN koristi specijalne protokole za prijenos podataka
+</li><li> Ne može garantirati usluge pohrane za kritične operacije jer NAS radi u dijeljenom okružju. Samo SAN sustavi i lokalni diskovi mogu garantirati to.
+</li><li> NAS je dijeljeno spremište. Administratori moraju postaviti kvote bez kojih bi nekoliko korisnika moglo zauzeti sav prostor za pohranu 
+</li></ul>
+<h3> <span class="mw-headline" id="Protokoli_za_komunikaciju">Protokoli za komunikaciju</span></h3>
+<p>S obzirom da su NAS uređaji neovisni o operacijskom sustavu i tipu računala koji se spaja na njih u mogućnosti su povezati mnogo različitih sustava te tako omogućiti jednostavnu razmjenu podataka između korisnika.  S obzirom da većina NAS uređaja ima Linux/UNIX operacijski sustav, potrebno je omogućiti pristup i korisnicima s drugih operacijskih sustava. Da bi omogućili ovakav pristup koriste se protokoli za dijeljenje podataka. Protokoli koji se koriste su:
+</p>
+<ul><li> NFS
+</li><li> SMB/CIFS
+</li><li> AFP
+</li><li> Rsync
+</li></ul>
+<p>Network file system (NFS) omogućuje sustavima koji se spajaju na taj sustav da postave datotečni sustav preko mreže i komuniciraju s tim datotečnim sustavom kao da je on postavljen lokalno. Na ovaj način moguće je prebacivati podatke na centralizirane servere u mreži kao što je slučaj s NAS sustavima.  NFS koristi TCP protokol za prebacivanje podataka preko IP mreže. Starije verzije ovog protokola koriste UDP protokol za prijenos podataka.  Prednosti NFS protokola su:
+</p>
+<ul><li> Lokalne radne jedinice koriste manje mjesta za pohranu jer se zajednički podaci mogu pohraniti na jedan uređaj te postaju dostupni svima na mreži
+</li><li> Nije potrebno da korisnici kreiraju zasebne direktorije na svakom lokalnom računalu. Direktoriji se mogu postaviti na server te će biti dostupni preko mreže
+</li><li> Uređaji za pohranu podataka kao što su DVD ROM i slični uređaji mogu koristiti i druga računala na mreži što smanjuje broj uređaja za pohranu podataka u mreži što smanjuje troškove
+</li></ul>
+<p>Server message block (SMB) protokol je protokol za mrežno dijeljenje datoteka koji dopušta aplikacijama na računalima da čitaju i pišu datoteke te da zahtijevaju usluge od serverskih programa u mreži. SMB protokol često koristi TCP/IP protokol ili neki drugi mrežni protokol. Koristeći ovaj protokol aplikacija ili korisnik koji koristi aplikaciju može pristupati datotekama ili drugim resursima na udaljenom serveru. Na taj način aplikacije čitaju, stvaraju ili ažuriraju datoteke na udaljenom serveru. Također je moguća komunikacija sa programima na serveru  ako je postavljano da mogu primati  korisničke SMB zahtjeve.  Iako je glavna namjena ovog protokola razmjena podataka on omogućuje i druge usluge preko mreže kao što su dijeljenje printera ili čak dijeljenje portova.  
+Common Internet File System (CIFS) je protokol koji je vrlo sličan SMB protokolu te su im namjene iste – dijeljenje datoteka preko intraneta i Interneta. Ovaj protokol je i glavni protokol koji se koristi za dijeljenje datoteka u Windowsima.  Ova dva protokola se nekada koriste kao sinonimi. Protokol omogućuje  klijentu da manipulira udaljenim datotekama kao da se nalaze na lokalnom računalu.  Protokol djeluje tako da šalje pakete od klijenta k serveru. Svaki paket sadrži neki zahtjev, otvaranje, zatvaranje ili čitanje datoteke.  Server koji primi paket provjerava da li je zahtjev valjan, provjerava da li klijent ima potrebno dopuštenja za traženu datoteku, te na kraju izvršava zahtjev i šalje povratni paket klijentu.  Klijent provjerava primljeni paket  te određuje dali je početni zahtjev odobren. Microsoft operacijski sustavi koriste ovaj protokol za udaljeno pristupanje datotekama (mapiranjem mrežnih diskova), pregledavanje (preko Network opcije), autentifikaciju i uslugu dijeljenja printera. 
+</p><p>Apple Filling Protocol (AFP) je mrežni portokol koji omogućava uporabu datotečnih usluga za Mac OS. Uz AFP Mac OS podržava i druge protokole dijeljenja datoteka kao što su SMB, NFS, FTP i WebDAV. 
+</p><p>rSync je alat za sigurnosno pohranjivanje podataka preko mreže te se koristi kod NAS uređaja. Prvi korak kod ovog algoritma je napraviti kopiju pune slike (full backup) iz izvorišnog NAS uređaja na odredišni NAS uređaj. Svaka slijedeća kopija će biti inkrementalna kopija promijenjenih podataka. Uvijek se gleda razlika u promijenjenim podacima s obzirom na zadnju kopiju. rSync je efikasna i praktična metoda za osiguravanje da dvije lokacije imaju iste podatke. 
+</p>
+<h2> <span class="mw-headline" id="SAN">SAN</span></h2>
+<p>Storage Area Network (SAN) je specijalizirana mreža velike brzine koja preko koje se spajaju serveri i spremišta podataka.  Ovaj tip mreže se nekada naziva i „mreža iza servera“ jer pristup uređajima za pohranu  nije dopušten iz LAN mreže.  U SAN sustavu jedan ili više servera može biti povezano na jedno spremište podataka u kojem može biti više uređaja za pohranu podataka uključujući diskove, vrpce ili optičke uređaje. Spremište podataka može biti na različitoj lokaciji od lokacije na kojoj se nalazi server. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:San.jpg" class="image"><img alt="San.jpg" src="../../images/3/3f/San.jpg" width="594" height="342" /></a></div></div>
+<p>SAN koristi nove metode za priključivanje spremišta podataka na servere. Ove nove metode pridonose poboljšanju raspoloživosti i performansama.  Danas se SAN sustavi koriste za povezivanje polja spremišta podataka i biblioteka magnetskih vrpci na višestruke servere. Ova arhitektura se koristi za zaobilaženje tradicionalnih mrežnih uskih grla. Podržava direktan, vrlo brz prijenos podataka između servera i uređaja za pohranu i to na tri načina:
+</p>
+<ul><li> Server – spremište podataka: tradicionalni model interakcije s uređajima za pohranu. Prednost ovog načina je da jednom spremištu podataka može istovremeno pristupati više servera.
+</li><li> Server – server: SAN se može koristiti i za vrlo brzu komunikaciju između servera
+</li><li> Spremište podataka – spremište podataka: Ovaj način omogućuje prijenosa podataka bez posredovanja servera te se tako smanjuje opterećenja serverskog procesora i tako se dani resursi mogu iskoristiti za aktivnosti izvedbe aplikacija na serveru.  
+</li></ul>
+<p>SAN omogućuje aplikacijama koje koriste prijenos podataka bolje performanse jer posredovanje servera minimalno i podaci se šalju direktno s izvorišnog uređaja na odredišni uređaj. SAN sustav omogućuje višestrukim klijentima da pristupaju višestrukim spremištima podataka koji su povezani u istu mrežu.  Prednosti koje su prepoznate kod SAN sustava su:
+</p>
+<ul><li> Poboljšanja u raspoloživosti aplikacija: spremište podataka je neovisno o aplikaciji i moguće mu je pristupati preko više podatkovnih putova što povećava pouzdanost, raspoloživost i servisabilnost.
+</li><li> Veće performanse aplikacija: Procesiranje spremišta podataka je maknuto sa servera i premješteno u zasebnu mrežu
+</li><li> Centralizirana i objedinjena spremišta:  Jednostavnije upravljanje, skalabilnost, fleksibilnost i raspoloživost
+</li><li> Prijenos podataka i sigurnosno pohranjivanje na udaljena mjesta: Udaljene kopije podataka koriste se za zaštitu od katastrofa i zloćudnih napada
+</li><li> Pojednostavljeno centralizirano upravljanje: jedna kopija spremišta podataka pojednostavljuje upravljanje
+</li></ul>
+<p>Tehnologija koju koristi SAN kombinira viske brzine mrežnog kanala i povezivosti (daljina) mreža. Također koristeći arhitekturu virtualnih sučelja povezuje LAN i WAN mreže te se često ovakva arhitektura upotrebljava za klastering i aplikacije zrcaljenja/replikacije. Mogućnost povezivanja postojećih SCSI uređaja na SAN mrežu koristeći posebne adaptere omogućuje očuvanje investicija koje su uložene u te uređaje za pohranu. SAN je neovisna mreža pa su početni troškovi veći jer je potrebno potrebnu arhitekturu. Nakon postavljanja arhitekture troškovi ovakve mreže mnogostruko opadaju te se inicijalni troškovi vrlo brzo isplaćuju.  S obzirom na razinu usavršenosti, kompleksnosti i cijene troškova SAN se često koristi za aplikacije koje su kritične za izvođenje u korporativnom okružju. 
+U SAN infrastrukturi spremišta podataka kao što su NAS, DAS i RAID polja su povezana s serverima Fiber Channel tehnologijom. Fiber Channel je jako pouzdana gigabitna tehnologija koja omogućuje simultanu komunikaciju između radnih stanica, servera, sustava pohrane podataka i drugih krajnjih uređaja.  Ova tehnologija je idealna za prijenos velikih količina podataka preko velikih udaljenosti brzo i pouzdano te nama ograničenja kao što ih ima SCSI. S obzirom na DAS i NAS koji su optimizirani za dijeljene podataka na razini datoteka, SAN omogućuje prijenos velikih blokova podataka. Ovo je posebno bitno za aplikacije koje intenzivno izmjenjuju podatke kao što su baze podataka, sigurnosno pohranjivanje i obrada transakcija.  Još jedna prednost je što više korisnika može istovremeno pristupati podacima bez stvaranja uskih grla na LAN mrežama i serverima.
+</p><p>SAN je najbolji način da se postignu željene predviđene performanse i stalna dostupnost podataka i pouzdanost. Ovo je važno za kompanije koje svoj posao obavljaju na internetu i potrebnan im je taj visok stupanj obrade transakcija. SAN sustavi koriste mnoge mogućnosti otklanjanja problema i tolerancija na greške koje osiguravaju maksimalno vrijeme rada. Za razliku od DAS sustava može se spojiti više spremišta podataka te na taj način osigurati veliku količinu resursa za korištenje.  
+Neki od nedostataka SAN sustava su cijena, kompleksnost upravljanja i manjak standardizacije. Okosnica SAN sustava je upravljački softver.  Potrebna je velika investicija kako bi dizajnirali, razvili i postavili  SAN sustav čije je tržište ograničeno na velike kompanije. Većina troškova otpada na trošak softvera uzimajući u obzir kompleksnost upravljanja tako velikog broja uređaja. Manjak standardizacije je doveo do problema interoperabilnosti jer softver i hardver različitih proizvođača nekada nije kompatibilan. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Msostaric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Msostaric (stranica ne postoji)">Msostaric</a> 20:30, 18. siječnja 2013. (CET)
+</p>
+<h1> <span class="mw-headline" id="RAID">RAID</span></h1>
+<p>RAID (<i>engl. redundant array of independent disks</i>) je polje diskova s ugrađenom zalihošću. Ideja iza RAID-a je da se podatci skladište na više jeftinijih diskova koji rade kao jedan, umjesto na jedan veći i skuplji disk. Prvobitni naziv je glasio <i>Redundant Array of Inexpensive Disks</i>, ali je to odbačeno iz komercijalnih razloga. Podatci su distribuirani na diskovima na jedan od načina, tj. RAID organizacija. Postoji sedam osnovnih organizacija višediskovnih sustava. Ali prije toga definicija nekih pojmova koji će se spomenuti.
+</p>
+<ul><li>striping - proces djeljenja datoteka u dijelove i zapisivanje preko više diskova <a href="http://searchstorage.techtarget.com/definition/disk-striping" class="external autonumber" rel="nofollow">[1]</a>. Veličina dijelova određena je veličinom bloka na disku. Najčešće se zapisuje koristeći <i>Round-robin</i> algoritam gdje se kružnim dodjeljivanjem zapisuju podatci kroz diskove.
+</li></ul>
+<ul><li>paritet- je rezultat XOR operacije nad podatcima prisutnim na drugim diskovima u istom polju <a href="http://en.wikipedia.org/wiki/Parity_bit" class="external autonumber" rel="nofollow">[2]</a>. Ako jedan od diskova otkaže, on se može rekonstruirati pomoću preostalih.
+</li></ul>
+<pre>    (Disk 1) 10111001
+XOR (Disk 2) 01101101
+---------------------
+    (Disk 3) 11010100</pre>
+<p>Ako nam otkaže Disk 2, možemo ga rekonstruirati pomoću Diska 1 i paritetnog Diska 3.
+</p>
+<pre>    (Disk 1) 10111001
+XOR (Disk 3) 11010100
+---------------------
+    (Disk 2) 01101101</pre>
+<p><br />
+</p>
+<ul><li>zrcaljenje - je kopiranje sadržaja diska na drugi odvojeni disk kako bi se osiguralo da ako disk otkaže možemo povratiti podatke.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_0">RAID 0</span></h2>
+<p>Organizacija RAID 0 nema zalihosti, ali zato iskorištava puni kapacitet korištenih diskova. Ako jedan od diskova otkaže, ti podatci se ne mogu povratiti. Za takvu organizaciju potrebna su minimalno dva diska. Povećane su performanse čitanja i pisanja. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid0.png" class="image"><img alt="Anspevec raid0.png" src="../../images/9/95/Anspevec_raid0.png" width="163" height="250" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_1">RAID 1</span></h2>
+<p>Organizacija RAID 1 je još poznata kao zrcaljenje diskova, jer svaki disk ima svoj disk na kojega se kopiraju isti podatci. Također su potrebna točno dva diska za ovu organizaciju. Jedan disk može otkazati, ali smanjene su performanse upisivanja jer se mora pisati na dva mjesta. Brzina čitanja je povećanja jer podatke može čitati s dva mjesta.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid1.png" class="image"><img alt="Anspevec raid1.png" src="../../images/1/10/Anspevec_raid1.png" width="163" height="250" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_2">RAID 2</span></h2>
+<p>Organizacija RAID 2 ne koristi paritet, stripanje datoteka ni zrcaljenje. Koristi Hammingov kod za korekciju jednostrukih grešaka. Zbog njegove komplicirane izvedbe on se danas ne kristi u praksi. Inače zahtjeva minimalno tri diska.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid2.png" class="image"><img alt="Anspevec raid2.png" src="../../images/5/53/Anspevec_raid2.png" width="400" height="200" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_3">RAID 3</span></h2>
+<p>Organizacija RAID 3 koristi minimalno tri diska s tim da je jedan disk paritetni. Iskoristivost diskova je 1-1/n, gdje je n broj diskova. Striping datoteke je na razini sektora te se zbog toga još naziva i <i>paritetna organizacija sitne zrnatosti</i>. Ako želimo zapisati datoteku u pojas, potrebna su četiri pristupa do diskova:
+</p>
+<ul><li>čitanje starih podataka
+</li><li>čitanje iz paritetnog pojasa
+</li><li>pisanje novih podataka
+</li><li>pisanje u paritetni pojas
+</li></ul>
+<p>Zato ovoj organizaciji paritetni disk predstavlja usko grlo. Jedan disk disk može otkazati, a da podatke ne izgubimo.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid3.png" class="image"><img alt="Anspevec raid3.png" src="../../images/c/c9/Anspevec_raid3.png" width="311" height="229" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_4">RAID 4</span></h2>
+<p>Organizacija RAID 4 kao i RAID 3 koristi minimalno tri diska s tim da je jedan paritetni. Razlika je da je striping datoteka na razini bloka te se zbog toga još naziva <i>paritetna organizacija krupne zrnatosti</i>. Iskoristivost je također 1-1/n, gdje je n broj diskova. Jedan disk može otkazati i paritetni disk predstavlja usko grlo zbog 4 pristupa diskovima kod zapisavanja podataka.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid4.png" class="image"><img alt="Anspevec raid4.png" src="../../images/2/27/Anspevec_raid4.png" width="329" height="245" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_5">RAID 5</span></h2>
+<p>Organizacija RAID 5 koristi stripanje datoteka na razini bloka te jedan paritetni disk. Razlika od RAID 4 je ta što su paritetni pojasevi raspoređeni preko svih diskova. Potrebna su minimalno 3 diska i iskoristivost je također 1-1/n diskova. Otkazati može jedan disk, a podatci se mogu povratiti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid5.png" class="image"><img alt="Anspevec raid5.png" src="../../images/a/a6/Anspevec_raid5.png" width="338" height="250" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="RAID_6">RAID 6</span></h2>
+<p>Organizacija RAID 6 se sastoji od minimalno četiri diska, gdje su dva diska paritetna. Paritetni pojasevi su također raspoređeni kroz sve diskove. Iskoristivost diskova je 1-2/n, gdje je n broj diskova. Otkazati mogu dva diska, a da se podatci mogu povratiti. RAID 6 se bazira na <i>Reed-Solomonovim</i> kodovima te kako oni rade se može pročitati na sljedećoj poveznici <a href="http://web.eecs.utk.edu/~plank/plank/papers/CS-96-332.pdf" class="external autonumber" rel="nofollow">[3]</a>.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid6.png" class="image"><img alt="Anspevec raid6.png" src="../../images/1/11/Anspevec_raid6.png" width="300" height="177" /></a>
+</p><p>Ukratko podatci o RAID organizacijama su prikazani u sljedećoj tablici.
+</p>
+<table border="1">
+<tr align="center">
+ <th>RAID level</th>
+ <th>Striping</th>
+ <th>Paritet</th>
+ <th>Zrcaljenje</th>
+ <th>Min. diskova</th>
+ <th>Iskoristivost</th>
+ <th>Tolerancija ispada</th>
+</tr>
+<tr align="center">
+ <td>RAID 0</td>
+ <td>blok</td>
+ <td>no</td>
+ <td>no</td>
+ <td>2</td>
+ <td>1</td>
+ <td>0</td>
+</tr>
+<tr align="center">
+ <td>RAID 1</td>
+ <td>no</td>
+ <td>no</td>
+ <td>yes</td>
+ <td>točno 2</td>
+ <td>1/n</td>
+ <td>1</td>
+</tr>
+<tr align="center">
+ <td>RAID 3</td>
+ <td>bajt</td>
+ <td>yes - u jednom disku</td>
+ <td>no</td>
+ <td>3</td>
+ <td>1-1/n</td>
+ <td>1</td>
+</tr>
+<tr align="center">
+ <td>RAID 4</td>
+ <td>blok</td>
+ <td>yes - u jednom disku</td>
+ <td>no</td>
+ <td>3</td>
+ <td>1-1/n</td>
+ <td>1</td>
+</tr>
+<tr align="center">
+ <td>RAID 5</td>
+ <td>blok</td>
+ <td>yes - raspoređen po svim diskovima</td>
+ <td>no</td>
+ <td>3</td>
+ <td>1-1/n</td>
+ <td>1</td>
+</tr>
+<tr align="center">
+ <td>RAID 6</td>
+ <td>blok</td>
+ <td>yes - raspoređen po svim diskovima</td>
+ <td>no</td>
+ <td>4</td>
+ <td>1-2/n</td>
+ <td>2</td>
+</tr>
+</table>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Vi.C5.A1erazinski_RAID_sustavi">Višerazinski RAID sustavi</span></h2>
+<p>Gore navedeni RAID sustavi se mogu kombinirati u složene RAID sustave. Tako RAID 0 i RAID 1 možemo kombinirati na dva načina tako da tvore RAID 01 (RAID 0 + 1) i RAID 10. Za RAID 01 s četiri diska prvo na polovici diskova organiziramo RAID 0. Jer RAID 1 koristi točno dva diska tu polovicu spajamo kao jedan disk u RAID 1,a na drugu polovicu kopiramo te iste podatke. Primjećujemo da broj diskova u ovoj organizaciji mora biti minimalno četiri i da broj diskova mora biti paran.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid01.png" class="image"><img alt="Anspevec raid01.png" src="../../images/b/b1/Anspevec_raid01.png" width="269" height="288" /></a>
+</p><p>Za RAID 10 implementiramo obrnuto tako da je najniža RAID 1 organizacija, a iznad nje RAID 0 koja spaja 2/n RAID 1 organizacija. Jer se RAID 1 sastoji od točno dva diska. Minimalno su potrebna četiri diska i broj diskova mora biti paran.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_raid10.png" class="image"><img alt="Anspevec raid10.png" src="../../images/6/60/Anspevec_raid10.png" width="268" height="288" /></a>
+</p><p>Na isti se način mogu kombinirati gore navedene RAID organizacije, ovisno o zahtjevima za performansama, sigurnošću i slično.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Implementacija">Implementacija</span></h1>
+<h2> <span class="mw-headline" id="Instalacija_Ubuntu_Servera">Instalacija Ubuntu Servera</span></h2>
+<p>Za izradu mrežnog spremišta prvo moramo kreirati vritualni stroj na kojem ćemo instalirati server. Koristi ćemo VirtualBox na kojem ćemo prije instalacije Ubuntu Servera, podesiti mrežni adapter na Bridged Adapter iz razloga što virtualni stroj i host tada komuniciraju kao da su spojeni mrežnim kablom.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika1.PNG" class="image"><img alt="Anspevec slika1.PNG" src="../../images/b/b4/Anspevec_slika1.PNG" width="302" height="123" /></a>
+</p><p>Sljedeće dodajemo tri nova diska veličine 3 GB. Implementirat ćemo RAID 5 organizaciju diskova, a kako je gore navedeno on se sastoji od minimalno 3 diska. Zbog paritetnog diska koji je raspoređen preko svih triju, iskoristivi kapacitet je (N - 1) * S. N je broj diskova, a S je veličina diska te dobivamo (3 - 1) * 3GB = 6 GB iskoristivog kapaciteta. Ako nam ispadne jedan disk, naši podatci su i dalje sigurni i možemo ih povratiti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika2.PNG" class="image"><img alt="Anspevec slika2.PNG" src="../../images/c/c0/Anspevec_slika2.PNG" width="532" height="250" /></a>
+</p><p>Ukljucimo i instalacijski .iso za Ubuntu server te pokrećemo virtualni stroj kako bi započeli instalaciju. Odabiremo Install Ubuntu Server te odabiremo željeni instalacijski jezik. Nakon nekog vremena zatražit će vas da upišete ime servera.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika3.PNG" class="image"><img alt="Anspevec slika3.PNG" src="../../images/0/09/Anspevec_slika3.PNG" width="750" height="245" /></a>
+</p><p>Ime servera služi kako bi ga mogli identificirati na mreži. Nakon toga traži upis punog imena te upis korisnickog imena.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika5.PNG" class="image"><img alt="Anspevec slika5.PNG" src="../../images/9/9d/Anspevec_slika5.PNG" width="753" height="215" /></a>
+</p><p>Za to korisničko ime zatim moramo upisati lozinku od 8 znakova te ju potvrditi. Odabir enkripcije je opcionalan, ja sam odabrao <i>No</i>. Provjera vremenske zone (Yes/No). Nakon tog odabiremo <i>Guided - use entire disk and set up LVM</i> kao na slici. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika6.PNG" class="image"><img alt="Anspevec slika6.PNG" src="../../images/c/c6/Anspevec_slika6.PNG" width="770" height="312" /></a>
+</p><p>Nakon toga dolazi odabir na koji disk želimo instalirati operacijski sustav. Pri tome pazimo ne odaberemo jedan od tri diska po 3 GB koje smo namjenili za RAID.  
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika7.PNG" class="image"><img alt="Anspevec slika7.PNG" src="../../images/f/fe/Anspevec_slika7.PNG" width="741" height="245" /></a>
+</p><p>Na sljedeće pitanje odgovaramo s <i>Yes</i> te u prozoru nakon toga ostaviti default vrijednost. Također odabiremo Yes kako bi se primjenile promjene. Ako ne koristimo proxy, sljedeći prozor ostavljamo prazan.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika8.PNG" class="image"><img alt="Anspevec slika8.PNG" src="../../images/0/08/Anspevec_slika8.PNG" width="749" height="244" /></a>
+</p><p>Prozor o sigurnosnim zakrpama odgovorite kako vam odgovara, ali je preporučeno automatski skidati zakrpe. Nakon toga odabiremo što želimo instalirati zajedno sa serverom. Ako zaboravite nešto, to nije problem jer se može naknadno instalirati. Ovdje ćemo instalirati Sambu i SSH. Preko SSH možemo pristupati serveru ako nam je server primjerice samo kučište bez monitora.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika9.PNG" class="image"><img alt="Anspevec slika9.PNG" src="../../images/9/99/Anspevec_slika9.PNG" width="247" height="216" /></a>
+</p><p>Na pitanje <i>Install the GRUB boot loader to the master boot record?</i> odgovaramo sa Yes. Zatim zavrsimo s instalacijom i server se ponovno pokreće. Logiramo se sa korisničkim imenom i lozinkom koje smo definirali tokom instalacije i dobijemo sljedeći prozor.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika10.PNG" class="image"><img alt="Anspevec slika10.PNG" src="../../images/3/3e/Anspevec_slika10.PNG" width="639" height="481" /></a>
+</p><p>Sada imamo funkcionalni server. Nakon ovoga još sam i izvršio <i>sudo apt-get update</i>. Na server se možemo spojiti i preko SSH koristeći ime servera, korisnicko ime i lozinku koju smo tokom instalacije definirali. Sada nam jos preostaje još definirati RAID 5 i Sambu.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Postavljanje_RAID-a">Postavljanje RAID-a</span></h2>
+<p>Za postavljanje RAID-a koristit ćemo Linux alat mdadm koji se koristi za softwersko upravljanje RAID uređajima. Prvo ga je potrebno instalirati.
+</p>
+<pre>sudo apt-get install mdadm</pre>
+<p>Zatim upišemo lozinku te traži potvrdu tokom instalacije. Obratiti pažnju na [Y/n] jer baš zahtjeva veliko Y. Kod instalacije dođe i prozor s upitom za mail server te treba odgovoriti <i>No configuration</i> osim ako nemate želju imati i mail server. Ali taj dio ne ulazi u ovaj projekt. Kada je mdadm instaliran možemo kreirati RAID. Možemo provjeriti da li je instaliran na sljedeći način.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika11.PNG" class="image"><img alt="Anspevec slika11.PNG" src="../../images/7/79/Anspevec_slika11.PNG" width="310" height="62" /></a>
+</p><p>Sintaksa za kreiranje RAID-a je:
+</p>
+<pre>sudo mdadm --create /dev/md0 --name=spremnik --level=5 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd</pre> <a href="http://en.wikipedia.org/wiki/Mdadm" class="external autonumber" rel="nofollow">[4]</a>
+<ul><li>--create /dev/md0 kreira RAID uređaj
+</li></ul>
+<ul><li>--name=spremnik ime RAID uređaja
+</li></ul>
+<ul><li>--level=5 označava da se radi o RAID 5 organizaciji
+</li></ul>
+<ul><li>--raid-devices=3 koristi 3 diska
+</li></ul>
+<ul><li>/dev/sdb /dev/sdc /dev/sdd su diskovi koje RAID koristi
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika12.PNG" class="image"><img alt="Anspevec slika12.PNG" src="../../images/b/bd/Anspevec_slika12.PNG" width="649" height="65" /></a>
+</p><p>Nakon kreiranja možemo provjeriti da li je kreiran na sljedeći način.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika13.PNG" class="image"><img alt="Anspevec slika13.PNG" src="../../images/6/69/Anspevec_slika13.PNG" width="642" height="128" /></a>
+</p><p>Vidimo da od početnih 9 GB, imamo slobodnih 6 GB te da može otkazati jedan disk.
+</p><p>Za RAID uređaj md0 trebamo dodati tip podataka i to radimo pomoću fdisk <a href="http://linux.die.net/man/8/fdisk" class="external autonumber" rel="nofollow">[5]</a>. VIše diskova se može skupiti u jednu logičku jedinicu te zato kreiramo novu particiju u nultom sektoru. 
+</p>
+<ul><li>n - kreiranje nove particije
+</li><li>p - primarna particija
+</li><li>1 - broj particija
+</li><li>t - definiranje tipa particije
+</li><li>8e - Linux LVM
+</li><li>p - potvrda kreiranja
+</li><li>w - izlaz
+</li></ul>
+<p>LVM - metoda alociranja prostora u uređajima za masovnu pohranu koji je fleksibilniji nego uobičajene metode particioniranja. LVM može spajati particije u virtualne, tako da im administrator može promijeniti veličinu ili ih micati, bez prekidanja rada sustava <a href="../SIS_Baza_znanja.html" class="external autonumber" rel="nofollow">[6]</a>. Više detalja se može naći na <a href="http://www.howtoforge.com/linux_lvm" class="external autonumber" rel="nofollow">[7]</a>.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika14.PNG" class="image"><img alt="Anspevec slika14.PNG" src="../../images/f/fd/Anspevec_slika14.PNG" width="644" height="254" /></a>
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_slika15.PNG" class="image"><img alt="Anspevec slika15.PNG" src="../../images/d/da/Anspevec_slika15.PNG" width="646" height="296" /></a>
+</p><p>Sada vidimo ime koje je <b>md0p1</b> te sada za tu particiju trebamo inicijalizirati fizički volumen kako bi je LVM mogao kasnije koristiti <a href="http://linux.die.net/man/8/pvcreate" class="external autonumber" rel="nofollow">[8]</a>.
+</p>
+<pre>sudo pvcreate /dev/md0p1</pre>
+<p>Nakon toga definiramo novi logički volumen pod imenom, ali mu moramo dati putanju do fizičkog volumena <a href="http://linux.die.net/man/8/pvcreate" class="external autonumber" rel="nofollow">[9]</a>.
+</p>
+<pre>sudo vgcreate vspremiste /dev/md0p1</pre>
+<p>Sada želimo kreirati dva logička volumena unutar postojećeg volumena. Jedan će biti za korisnike u kojem će svaki korisnik imati svoj folder u koji može pristupati, a drugi će biti javni u koji će pristup imati svi korisnici sa svojim podatcima i gosti sa korisnickim imenom <i>public</i> i lozinkom <i>public</i> <a href="http://linux.die.net/man/8/lvcreate" class="external autonumber" rel="nofollow">[10]</a>.
+</p>
+<pre>sudo lvcreate -L 4G -n korisnici vspremiste
+sudo lvcreate -L 1800M -n javno vspremiste </pre>
+<p>Kada su uspješno kreirani, trebamo svakom volumenu dodati tip, gdje razlike između tipova možete pogledati na <a href="http://www.thegeekstuff.com/2011/05/ext2-ext3-ext4/" class="external autonumber" rel="nofollow">[11]</a>. Tip volumena dodajemo naredbom mkfs <a href="http://linux.die.net/man/8/mkfs" class="external autonumber" rel="nofollow">[12]</a>.
+</p>
+<pre>sudo mkfs -t ext4 /dev/vspremiste/korisnici
+sudo mkfs -t ext4 /dev/vspremiste/javno</pre>
+<p>Trebamo kreirati foldere preko kojih ćemo pristupati logičkim volumenima.
+</p>
+<pre>sudo mkdir /spremnik/
+sudo mkdir /spremnik/korisnici
+sudo mkdir /spremnik/javno</pre>
+<p>Sada pomoću naredbe mount <a href="http://linux.die.net/man/8/mount" class="external autonumber" rel="nofollow">[13]</a> spajamo logički volumen koje nekog tipa s direktorijem koji smo kreirali u prethodnom koraku.
+</p>
+<pre>sudo mount -t ext4 /dev/vspremiste/korisnici /spremnik/korisnici
+sudo mount -t ext4 /dev/vspremiste/javno /spremnik/javno</pre>
+<p>Naredbom <i>df -h</i> možemo provjeriti da li je sve uspješno kreirano <a href="http://linux.die.net/man/1/df" class="external autonumber" rel="nofollow">[14]</a>.
+</p><p>Zbog toga jer ove postavke neće biti sačuvane do sljedećeg pokretanja moramo urediti /etc/fstab dokument. Sada trebamo dobiti trenutno definirane mountove.
+</p>
+<pre>cat /etc/mtab | grep vspremiste</pre>
+<p>Dio koji ste dobili na izlazu trebate upisati u /etc/fstab (sudo) i to bi trebalo izgledati ovako:
+</p>
+<pre>/dev/mapper/vspremiste-korisnici /spremnik/korisnici ext4 rw 0 0
+/dev/mapper/vspremiste-javno /spremnik/javno ext4 rw 0 0</pre>
+<p>Sada imamo definaranu RAID 5 organizaciju nad tri diska po 3 GB. Dva logička volumena su definirana nad iskoristivih 6 GB i to na način da je 4 GB predviđeno za korisnike i njihove podatke dok je ostatak predviđen za javni pristup.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Postavljanje_Sambe">Postavljanje Sambe</span></h2>
+<p>Kako smo Sambu instalirali tokom instalacije Ubuntu Servera sada nam slijedi kreiranje korisnika. Prvo kreiramo grupu u koju ćemo upisivati korisnike <a href="http://linux.die.net/man/8/groupadd" class="external autonumber" rel="nofollow">[15]</a>.
+</p>
+<pre>sudo groupadd --gid 1234 korisnici</pre>
+<p>U tu grupu trebamo dodati sljedeće korisnike i to radimo preko ID-a grupe koji je <i>1234</i>. --home definira koji je početni direktorij za novog korisnika <a href="http://linux.die.net/man/8/adduser" class="external autonumber" rel="nofollow">[16]</a>.
+</p>
+<pre>sudo adduser --home /spremnik/korisnici/mario --gid 1234 mario
+sudo adduser --home /spremnik/korisnici/katarina --gid 1234 katarina</pre>
+<p>Za svakog korisnika treba definirati i lozinku. Na kraj /etc/samba/smb.conf <a href="http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html" class="external autonumber" rel="nofollow">[17]</a> <b>za svakog</b> korisnika dodajemo sljedeće redove, te riječ <i>USERNAME</i> treba zamjeniti sa korisničkim imenom.
+</p>
+<pre>[USERNAME]
+     path = /spremnik/korisnici/USERNAME
+     valid users = USERNAME
+     read only = No
+     create mask = 0700
+     directory mask = 0700</pre>
+<p>Za javni dio trebamo definirati grupu i njoj pripadajućeg korisnika, tj. default podatke za pristup javno dostupnom djelu servera.
+</p>
+<pre>sudo addgroup public</pre>
+<p>Kreirana je grupa public s identifikacijskom oznakom 1001. Sada kreiramo korisnika u toj grupi i definiramo mu lozinku <a href="http://www.samba.org/samba/docs/man/manpages-3/smbpasswd.8.html" class="external autonumber" rel="nofollow">[18]</a>.
+</p>
+<pre>sudo adduser --system --shell /bin/bash --disabled-pasword --home /spremnik/javno --gid 1001 public
+sudo smbpasswd -a public</pre>
+<p>Trebamo korisnicima dati dopuštenje za pisanje u taj direktorij <a href="http://linux.die.net/man/1/chmod" class="external autonumber" rel="nofollow">[19]</a>.
+</p>
+<pre>sudo chmod g+w /spremnik/javno</pre>
+<p>Vlasnik tog direktorija je grupa korisnici i korisnik public <a href="http://linux.die.net/man/1/chown" class="external autonumber" rel="nofollow">[20]</a>.
+</p>
+<pre>sudo chown public:korisnici /spremnik/javno</pre>
+<p>U /etc/samba/smb.conf treba dodati sljedeće
+</p>
+<pre>[Public]
+     path = /spremnik/javno
+     valid users = public, @korisnici
+     read only = No
+     create mask = 0777
+     directory mask = 0777</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 16:28, 17. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Spajanje_na_server">Spajanje na server</span></h2>
+<h3> <span class="mw-headline" id="Linux">Linux</span></h3>
+<p>U Linuxu se spajamo preko naredbe smbclient <a href="http://www.computerhope.com/unix/smbclien.htm" class="external autonumber" rel="nofollow">[21]</a>. Za provjeru svih foldera na tom serveru upisujemo 
+</p>
+<pre>smbclient -NL //classic</pre> 
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_l2.PNG" class="image"><img alt="Anspevec l2.PNG" src="../../images/f/fe/Anspevec_l2.PNG" width="725" height="432" /></a>
+</p><p>A kao korisnik se spajamo sljedećom naredbom.
+</p>
+<pre>smbclient //classic/mario -U mario</pre>
+<p>nakon toga nas zatraži lozinku i ulazimo u folder koji pripada mariu.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_l1.PNG" class="image"><img alt="Anspevec l1.PNG" src="../../images/6/60/Anspevec_l1.PNG" width="724" height="287" /></a>
+</p>
+<h3> <span class="mw-headline" id="Windows">Windows</span></h3>
+<p>S Windowsa se na server spaja na način da u Start-&gt;Run upišete \\ime_servera ,tj. \\classic. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w1.PNG" class="image"><img alt="Anspevec w1.PNG" src="../../images/6/61/Anspevec_w1.PNG" width="414" height="214" /></a>
+</p><p>Za pristup folderu traži korisničko ime i lozinku. Username: <i>mario</i> i password: <i>123456789</i>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w2.PNG" class="image"><img alt="Anspevec w2.PNG" src="../../images/f/f6/Anspevec_w2.PNG" width="780" height="472" /></a>
+</p><p>Home folder korisnika <i>mario</i>.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w3.PNG" class="image"><img alt="Anspevec w3.PNG" src="../../images/6/63/Anspevec_w3.PNG" width="304" height="211" /></a>
+</p><p>Ako nakon toga pokušamo uću u folder <i>katarina</i> tražit će nas lozinku. Ali stvar kod Windowsa je ako se ulogirate kao mario, nemožete se ulogirati kao katarina jer dozvoljava samo jedno spajanje po serveru. I dobivamo sljedeći prozor.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w4.PNG" class="image"><img alt="Anspevec w4.PNG" src="../../images/6/66/Anspevec_w4.PNG" width="573" height="215" /></a>
+</p><p>Zato se može u /etc/samba/smb.conf pod [global] dodati još jedno ime servera <a href="http://superuser.com/questions/70095/disconnect-from-samba-share" class="external autonumber" rel="nofollow">[22]</a>. Jer Windows dopušta više spajanja prema serverima za različitim imenom, makar to bio i isti server.
+</p>
+<pre>netbios aliases = drugi</pre>
+<p>Nakon resetiranja servera možemo pokrenuti isti server s \\drugi.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w5.PNG" class="image"><img alt="Anspevec w5.PNG" src="../../images/5/54/Anspevec_w5.PNG" width="411" height="211" /></a>
+</p><p>Te se sada ulogirati kao katarina. Username: <i>katarina</i> i password: <i>12345678</i>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w6.PNG" class="image"><img alt="Anspevec w6.PNG" src="../../images/7/7b/Anspevec_w6.PNG" width="778" height="480" /></a>
+</p><p>Home folder korisnika <i>katarina</i>.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Anspevec_w7.PNG" class="image"><img alt="Anspevec w7.PNG" src="../../images/3/3a/Anspevec_w7.PNG" width="326" height="255" /></a>
+</p><p>Sada imamo prijavljenog maria na server //classic i katarinu na server //drugi. Server je isti samo mu je alias drugi. U javni folder možemo pristupati čim smo se prijavili kao jedan od korisnika jer smo dali svim članovima te grupa pristup u taj folder. Ako nemamo korisnički račun, možemo se u njega prijaviti s username: <i>public</i> i password: <i>public</i>.
+</p><p>Download link za OVA Ubuntu Server-a: <a href="https://dl.dropbox.com/u/69913642/NAS_anspevec.ova" class="external autonumber" rel="nofollow">[23]</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andelko.spevec&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andelko.spevec (stranica ne postoji)">Andelko.spevec</a> 14:32, 17. siječnja 2013. (CET)
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h1>
+<p>Mrežna spremišta su od velike koristi ako korisnici mreže koriste iste podatke, te se tako smanjuje stvaranje zalihosti na svakom računalu. Uz to svaki korisnik može raditi backup svojih podataka na to spremište kako bi smanjio rizik od njihovog gubitka. Korištenjem RAID-a moguće je vratiti podatke i nakon ispadanje jednog diska iz funkcije. Uz to izvedba takvog spremišta ne predstavlja veliki trošak a pruža mnoge mogućnosti. Koristeći softverski umjesto hardverskog RAID-a dodatno se smanjuju troškovi izvedbe. Sve u svemu korisnost je velika te su cijena i performanse prihvatljive za srednja poduzeća.
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<ul><li><a href="http://en.wikipedia.org/wiki/RAID" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/RAID</a>, dostupno 17.01.2013.
+</li><li>Operacijski sustavi, L. Budin, M.Golub, D. Jakobović, L. Jelenković, Zagreb 2010
+</li><li><a href="http://amirshk.com/blog/linux-home-server/" class="external free" rel="nofollow">http://amirshk.com/blog/linux-home-server/</a>, dostupno 14.01.2013.
+</li><li><a href="http://askubuntu.com/questions/1266/how-to-set-up-ubuntu-server-as-a-nas" class="external free" rel="nofollow">http://askubuntu.com/questions/1266/how-to-set-up-ubuntu-server-as-a-nas</a>, dostupno 14.01.2013.
+</li><li><a href="http://linux.die.net/" class="external free" rel="nofollow">http://linux.die.net/</a> - za više naredbi, dostupno 16.01.2013.
+</li><li><a href="http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)</a>, dostupno 17.01.2013.
+</li><li><a href="../SIS_Baza_znanja.html" class="external free" rel="nofollow">http://security.foi.hr/wiki/index.php/SIS_Baza_znanja</a>, dostupno 17.01.2013.
+</li><li><a href="http://www.silicon-press.com/briefs/brief.nas/index.html" class="external free" rel="nofollow">http://www.silicon-press.com/briefs/brief.nas/index.html</a>, dostupno 16.01.2013.
+</li><li><a href="http://www.storagesearch.com/xtore-art1.html" class="external free" rel="nofollow">http://www.storagesearch.com/xtore-art1.html</a> dostupno 16.01.2013.
+</li><li><a href="http://www.redbooks.ibm.com/redbooks/pdfs/sg245470.pdf" class="external free" rel="nofollow">http://www.redbooks.ibm.com/redbooks/pdfs/sg245470.pdf</a> dostupno 16.01.2013.
+</li><li><a href="http://www.imexresearch.com/pdfs/sasnassan.pdf" class="external free" rel="nofollow">http://www.imexresearch.com/pdfs/sasnassan.pdf</a> dostupno 17.01.2013.
+</li><li><a href="http://www.readynas.com/download/documentation/support/rsync_howto_nastonas.pdf" class="external free" rel="nofollow">http://www.readynas.com/download/documentation/support/rsync_howto_nastonas.pdf</a> dostupno 16.01.2013.
+</li><li><a href="http://high-rely.com/HR3/includes/HighRely/NAS%20VS%20DAS.pdf" class="external free" rel="nofollow">http://high-rely.com/HR3/includes/HighRely/NAS%20VS%20DAS.pdf</a> dostupno 17.01.2013.
+</li><li><a href="http://www.buffalotech.com/content/files/solutions_articles/DAS_vs_NAS.pdf" class="external free" rel="nofollow">http://www.buffalotech.com/content/files/solutions_articles/DAS_vs_NAS.pdf</a> dostupno 17.01.2013.
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 225/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4410-0!*!0!!hr!2!edit=0 and timestamp 20190203204056 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="_Sambom.html">http://security.foi.hr/wiki/index.php/Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="_Sambom.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="_Sambom.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="_Sambom.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="_Sambom.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../../images/osslogo.png);" href="../../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="../Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="../Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="../Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="../Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Izrada_mre%C5%BEnih_spremi%C5%A1ta_sa_softwareskim_raidom_/_Sambom&amp;oldid=17290" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 09:17, 21. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 6.634 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="../SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Izrada_mrežnih_spremišta_sa_softwareskim_raidom_/_Sambom", "wgTitle": "Izrada mrežnih spremišta sa softwareskim raidom / Sambom", "wgAction": "view", "wgArticleId": 4410, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17290, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.544 secs. -->			</body>
+</html>

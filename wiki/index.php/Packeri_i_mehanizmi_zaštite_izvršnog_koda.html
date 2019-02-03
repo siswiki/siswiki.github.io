@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Packeri i mehanizmi zaštite izvršnog koda - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Packeri_i_mehanizmi_zaštite_izvršnog_koda skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Packeri i mehanizmi zaštite izvršnog koda</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#mw-head">orijentacija</a>,
+					<a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Sveučilište u Zagrebu
+</p><p>Fakultet organizacije i informatike Varaždin
+</p><p><br />
+</p><p><b>Tema:</b> <i>Packeri</i> i mehanizmi zaštite izvršnog koda
+</p><p>Projektni zadatak
+</p><p><br />
+</p><p><b>Članovi tima:</b>
+</p><p>Grudiček Tomislav,
+</p><p>Ivanović Nebojša, 
+</p><p>Kresonja Dario, 
+</p><p>Kučina Dario;
+</p><p><br />
+<b>Studij:</b> Diplomski
+</p><p><b>Kolegij:</b> Sigurnost informacijskih sustava
+</p><p><b>Akademska godina:</b> 2012./2013.
+</p><p><br />
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Svrha_kori.C5.A1tenja_mehanizama_za.C5.A1tite_programa"><span class="tocnumber">1</span> <span class="toctext">Svrha korištenja mehanizama zaštite programa</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Zakonski_okvir_za.C5.A1tite_programa"><span class="tocnumber">2</span> <span class="toctext">Zakonski okvir zaštite programa</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Metode_za.C5.A1tite_softvera"><span class="tocnumber">3</span> <span class="toctext">Metode zaštite softvera</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Packaging_vs_packing"><span class="tocnumber">4</span> <span class="toctext">Packaging vs packing</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Packing_mehanizam"><span class="tocnumber">5</span> <span class="toctext">Packing mehanizam</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Primjena_packing-a"><span class="tocnumber">6</span> <span class="toctext">Primjena packing-a</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Primjeri_packing_alata"><span class="tocnumber">7</span> <span class="toctext">Primjeri packing alata</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Mehanizmi_za.C5.A1tite_izvr.C5.A1nog_koda_-_Obfuskacija"><span class="tocnumber">8</span> <span class="toctext">Mehanizmi zaštite izvršnog koda - Obfuskacija</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Softveri_za_obfuskaciju"><span class="tocnumber">9</span> <span class="toctext">Softveri za obfuskaciju</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Sigurnost_aplikacija_i_reverzno_in.C5.BEenjerstvo"><span class="tocnumber">10</span> <span class="toctext">Sigurnost aplikacija i reverzno inženjerstvo</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#.C5.A0to_je_reverzno_in.C5.BEenjerstvo.3F"><span class="tocnumber">10.1</span> <span class="toctext">Što je reverzno inženjerstvo?</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Povijest_reverznog_in.C5.BEenjerstva"><span class="tocnumber">10.2</span> <span class="toctext">Povijest reverznog inženjerstva</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Sheme_za.C5.A1tite"><span class="tocnumber">10.3</span> <span class="toctext">Sheme zaštite</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Alati_za_reverzno_in.C5.BEenjerstvo"><span class="tocnumber">10.4</span> <span class="toctext">Alati za reverzno inženjerstvo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Alati_za_za.C5.A1titu_izvr.C5.A1nog_koda"><span class="tocnumber">11</span> <span class="toctext">Alati za zaštitu izvršnog koda</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Programi_za_automatsku_za.C5.A1titu"><span class="tocnumber">11.1</span> <span class="toctext">Programi za automatsku zaštitu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Programsko_rje.C5.A1enje"><span class="tocnumber">12</span> <span class="toctext">Programsko rješenje</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Zaklju.C4.8Dak"><span class="tocnumber">13</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#Literatura"><span class="tocnumber">14</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Svrha_kori.C5.A1tenja_mehanizama_za.C5.A1tite_programa"> <i>Svrha korištenja mehanizama zaštite programa</i> </span></h2>
+<p>Iz dana u dan, računarstvo i informacijske tehnologije sve više se razvijaju. Računalna industrija jedna je od najvećih i također jedna od profitabilnijih industrija u svijetu. Dostignuća koje dovode do gotovo revolucionarnih promjena, pomažu u gotovo svakom aspektu života i rješavaju neki problem osobne ili profesionalne naravi. U isto vrijeme informacijska dostignuća koja su svakim danom sve izraženija, zloupotrebljavaju se na različite načine. Razlog zloupotrebe je najčešće prihodovne prirode, to jest, pokušavanje ostvarenja zarade na neovlaštenim kopijama različitih vrsta programskih proizvoda. Računalna industrija, naročito industrija softvera je industrija u kojoj se kreću velike svote novca. Razvojem kroz povijest, proizvodnja softvera postajala je sve naprednija, ali također je iziskivala sve veće svote novca. Iz tog razloga javljali su se ljudi koji su pokušali zaraditi na novim vrstama softvera tako da su ilegalno kopirali i distribuirali softverske proizvode na tržište, u svoju korist. Da bi mogli neki softver ilegalno prodati, bilo je potrebno probiti sigurnosne postavke ciljanog softvera, da bi ga kasnije na lakši način mogli distribuirati dalje po tržištu. Iz tog razloga smišljeni su različiti načini zaštite računalnih programa, to jest softvera, da bi se postupak njihovog ilegalnog otvaranja što duže povećao i čim više otežao. Postoji sve više ljudi koji se bave probijanjem programske zaštite, te svoje probijene izvršne datoteke vrlo često postavljaju na internet stranice, da bi bile dostupne široj javnosti. Na takvim internet stranicama osim probijenih izvršnih datoteka često možemo susresti različite vrste ilegalnih programa, datoteke za automatsko probijanje zaštite, registracijske ključeve, kao i generatore ključeva, te mnoge druge programske alate koji nama običnim korisnicima, na lak način omogućavaju da i sami možemo otključati neki program i započeti s njegovim korištenjem. Danas je gotovo normalno, da kad nakon što izađe neki novi programski paket, vrlo ubrzo možemo pronaći i njegovu nelegalnu inačicu, koja je zapravo ilegalna kopija izvornog programskog paketa. Do uklanjanja zaštite, sigurno će proći neko određeno vrijeme, no u krajnjem slučaju, do probijanja zaštitnih mehanizama doći će prije ili kasnije, što ovisi o resursima, strpljenju i vremenu, kada će netko uspjeti probiti i naizgled vrlo štićenu inačicu nekog programskog koda. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 3]
+</p><p><br />
+Kučina D.
+</p>
+<h2> <span class="mw-headline" id="Zakonski_okvir_za.C5.A1tite_programa"> <i>Zakonski okvir zaštite programa</i> </span></h2>
+<p>Razvojem softvera sve više dolazi do značaja i njegova zaštita. Jedna vrsta zaštite softvera je zakonodavstvo, to jest donošenje različitih zakona koji pomažu u procesu štićenja softvera. Zakoni bi trebali regulirati prava autora, kao i prava korisnika softvera. Softver možemo promatrati kao autorsko djelo i kao patent. Softver kao autorsko djelo jest izvorni kod koji se može pomoću pravilne sintakse unijeti u brojne programske jezike, te ga se tako promatra kao literalno djelo, te ga je kao takvog moguće zaštititi pomoću autorskog prava. Patent bi trebao po definiciji obaviti neku vrstu korisnog posla za njegova korisnika, te iz tog razloga možemo softver zaštititi patentom, ako će obavljati posao koji korisnik zahtjeva. Danas je sve više aktualno kako pravilno zaštititi softver, te koja je razina zaštite dovoljna. S jedne strane autori softvera, programeri, žele svoj softver što bolje zaštititi da bi mogli ostvariti čim veću novčanu dobit, dok korisnici s druge strane žele pristupačan softver, bez velikih financijskih ulaganja. Često je u praksi teško zadovoljiti obje strane, te je potrebno pronaći svojevrsnu ravnotežu između odgovarajuće razine zaštite koja bi programerima pružila određenu sigurnost, te tako stimulirala njihov daljnji rad, kao i korisnika, koji bi željeli upotrebljavati željeni softver iz razloga što je jednostavan za rad, te pristupačan za dobavu. [Zaštita softvera, 2004., str 5] 
+</p><p><br />
+</p><p><br />
+<b>Autorsko pravo</b>
+</p><p><br />
+Autorsko pravo predstavlja najrašireniji oblik zaštite softvera bilo kojeg intelektualnog vlasništva. Autorskim pravom djelo se štiti od nelegalnog korištenja. Definirana su sljedeća prava kada se softver štiti na ovaj način [Zaštita softvera, 2004. str 5]:
+</p><p>•	pravo umnažanja djela,
+</p><p>•	pravo distribucije djela,
+</p><p>•	pravo na dopune i izmjene djela,
+</p><p>•	pravo javnog izvođenja i prikazivanja djela,
+</p><p>•	pravo autora da spriječi iskrivljavanje ili uništavanje svog djela.
+</p><p>Načelno, autorsko pravo štiti originalnu implementaciju i način prikaza ideje, a ne ideju kao zasebno djelo. Ovo znači da je autorskim pravom moguće zaštititi izvorni i izvršni kod programa, organizaciju i strukturu programa, kao i korisničko sučelje, te sve priručnike, upute i svu ostalu dokumentaciju, bila ona u pismenom ili digitalnom obliku. No autorskim pravom ne možemo zaštititi različite matematičke postupke ili programske algoritme ili metode ako smo ih koristili pri stvaranju softvera. Autorskim pravom softver bi trebao biti zaštićen od neovlaštenog kopiranja ili oponašanja koda, ali autorsko pravo ne štiti softver tako da konkurencija razvije svoju inačicu, a da ne imaju uvid u kod štićenog softvera. Vrlo često autorsko pravo koristi ako želimo zaštititi ovim načinom bilo kakav oblik softvera. Autorsko pravo za softver moguće je brzo i relativno jeftino dobiti. Softver koji je zaštićen autorskim pravom treba imati valjanu oznaku, a treba biti i označena godina i autor ili naziv tvrtke koja ga plasira na tržište. [Zaštita softvera, 2004. str 5]   
+</p><p>Autorsko pravna zaštita regulirana je Zakonom o autorskom pravu i srodnim pravima. Ovaj zakon donesen je 1. listopada 2003. godine, te je po njegovu donošenju prestao važiti Zakon o autorskom pravu. U narednom tekstu biti će prikazani značajna prava i obveze koje se odnose na zaštitu računalnih programa. [Narodne novine, Zakon o autorskom pravu i srodnim pravima, 2003., članak 5, 9, 13, 15, 18, 41, 44, 75, 107, 108, 112, 189] 
+</p><p><br />
+<i>Članak 5.</i>
+</p><p>Autorsko djelo je originalna intelektualna tvorevina iz književnoga, znanstvenog i umjetničkog područja koja ima individualni karakter, bez obzira na način i oblik izražavanja, vrstu, vrijednost ili namjenu ako ovim Zakonom nije drukčije određeno. Autorska djela jesu osobito: jezična djela (pisana djela, govorna djela, računalni programi).    
+</p><p><br />
+<i>Članak 9.</i>
+</p><p>Autor djela je fizička osoba koja je autorsko djelo stvorila. Autoru pripada autorsko pravo na njegovu autorskom djelu činom samog stvaranja autorskog djela. 
+</p><p><br />
+<i>Članak 13.</i>
+</p><p>Autorsko pravo sadržava moralna prava autora, imovinska prava autora i druga prava autora. Autorskim pravom štite se osobne i duhovne veze autora s njegovim autorskim djelom (moralna prava autora), imovinski interesi autora u pogledu njegovoga autorskog djela (imovinska prava autora) i ostali interesi autora u pogledu njegovoga autorskog djela (druga prava autora). Za svako korištenje autorskog djela autoru pripada naknada, ako ovim Zakonom ili ugovorom nije drukčije određeno.
+</p><p><br />
+<i>Članak 15.</i>
+</p><p>Osoba koja javno koristi autorsko djelo dužna je pri svakom korištenju naznačiti autora, osim ako autor u pisanom obliku izjavi da ne želi biti naveden ili ako način pojedinoga javnog korištenja autorskog djela onemogućava navođenje autora.
+</p><p><br />
+<i>Članak 18.</i>
+</p><p>Autor ima isključivo pravo sa svojim autorskim djelom i koristima od njega činiti što ga je volja, te svakoga drugog od toga isključiti, ako zakonom nije drukčije određeno. To pravo obuhvaća, osobito: pravo reproduciranja, distribucije, priopćavanja autorskog djela javnosti i pravo prerade. 
+</p><p><br />
+<i>Članak 41.</i>
+</p><p>Autorsko pravo je nasljedivo. Nasljednicima autora pripadaju sva prava koja bi pripadala autoru, ako ovim Zakonom nije drukčije određeno. 
+</p><p><br />
+<i>Članak 44.</i>
+</p><p>Autor može za drugoga osnovati pravo iskorištavanja autorskog djela ili mu prepustiti ostvarivanje autorskog prava ugovorom, davanjem odobrenja (dozvole) za korištenje ili drugim pravnim poslom. 
+</p><p><br />
+<i>Članak 75.</i> 
+</p><p>Autorsko djelo stvoreno u radnom odnosu, po ovom Zakonu, označava djelo koje za vrijeme trajanja radnog odnosa kod određenog poslodavca stvori autor - zaposlenik izvršavajući svoje obveze ili po uputama toga poslodavca. Odnosi u pogledu autorskog djela stvorenog u radnom odnosu uređuju se ovim Zakonom, ugovorom o radu ili drugim aktom kojim se uređuje radni odnos. 
+</p><p><br />
+<i>Članak 107.</i>
+</p><p>Računalni program je zaštićen kao jezično djelo po ovom Zakonu ako je izvoran u smislu da predstavlja vlastitu intelektualnu tvorevinu svog autora. Pojam računalni program obuhvaća izražaj računalnog programa u bilo kojem obliku uključujući i pripremni dizajnerski materijal. Ideje i načela na kojima se zasniva bilo koji element računalnog programa, uključujući i ona na kojima se zasnivaju njegova sučelja, nisu zaštićena autorskim pravom. 
+</p><p><br />
+<i>Članak 108.</i>
+</p><p>Ako je računalni program stvorio zaposlenik u izvršavanju svojih obveza ili slijedeći upute poslodavca, poslodavac je isključivo ovlašten izvršavati sva imovinska prava na tako stvorenom programu, ako ugovorom nije drugačije određeno. 
+</p><p><br />
+<i>Članak 112.</i>
+</p><p>Povreda prava na računalnom programu čini se osobito: bilo kojom radnjom distribucije primjerka računalnog programa za koji se zna ili ima razloga vjerovati da je to primjerak kojim je povrijeđeno tuđe pravo; posjedovanjem, u komercijalne svrhe, primjerka računal¬nog programa za koji se zna ili ima razloga vjerovati da je to primjerak kojim je povrijeđeno tuđe pravo; bilo kojom radnjom distribucije ili posjedovanjem u komercijalne svrhe bilo kojeg sredstva čija je jedina namjena olakšati neovlašteno uklanjanje tehničkog uređaja koji služi za zaštitu raču¬nalnog programa ili osujetiti rad toga uređaja. 
+</p><p><br />
+<i>Članak 189.</i>
+</p><p>Novčanom kaznom od 5.000,00 do 50.000,00 kuna kaznit će se za prekršaj pravna osoba ako distribuira ili posjeduje u komercijalne svrhe primjerak računalnog programa za koji zna ili ima razloga vjerovati da je to primjerak kojim je povrijeđeno tuđe pravo, distribuira ili posjeduje u komercijalne svrhe bilo koje sredstvo čija je jedina namjena olakšati neovlašteno uklanjanje tehničkog uređaja koji služi za zaštitu računalnog programa. 
+</p><p><br />
+</p><p><br />
+<b>Patent</b>
+</p><p><br />
+Po definiciji patent je zaštita nekog izuma koju izdaje vlada države u kojoj je napravljen, te ima ulogu sprječavati da druge osobe ili pak organizacije proizvode ili prodaju isti ili slični proizvod. Zaštita patentom se može primijeniti na svaki novi mehanizam ili koristan princip ili pak proizvodni proces, a da je nov i nije sadržan u nijednom do sada objavljenom patentu. Ako uspoređujemo patent s autorskim djelom, razlika je u tome što patent zabranjuje objavu bilo kakvog sličnog rada, bez obzira što je on neovisno razvijen. Patentom štitimo algoritme, ideje i matematičke postupke korištene u programu, a ne sam kod kao što je to bio slučaj kod štićenja autorskim pravom. Nedostatak patenta je njegova dugotrajna procedura za priznavanje i samim time visoka cijena izdavanja. Softverska industrija se svakim danom sve brže razvija, pa je vrlo teško neko softversko rješenje zaštititi patentom, pošto njegova procedura izdavanja može potrajati nekoliko godina. Traženje patenta za softver u većini slučajeva nije isplativo, pa se patentiraju samo neki algoritmi i postupci za koje se smatra da su dovoljno fundamentalni da bi mogli ostati u upotrebi deset godina a i više. Patent je po zakonskoj strani najjači oblik zaštite softvera, jer zabranjuje objavu sličnih programa. To je vrlo delikatno pitanje koje dovodi do mnogih rasprava o patentiranju softvera. U softverskoj industriji zagovaraju patentiranje softvera, jer žele zaštititi originalnost i inovativnost koja je utrošena u razvoj softvera. Patentom se jedino može zaštititi da konkurencija promatranjem funkcionalnosti originalnog rješenja, stvori sličan softver i tako stekne prihod. Danas u Europi softver nije moguće zaštititi patentom, dok je u SAD-u to moguće. [Zaštita softvera, 2004., str 6]  
+</p><p><br />
+</p><p><br />
+</p><p><b>Licenca</b>
+</p><p><br />
+Licenca kao oblik zaštite daje pravo korištenja softvera prema pravilima kako je to navedeno u licencnom ugovoru. Licenca je zapravo proširenje autorskog prava na neki softver. Prodajom licenciranog softvera, korisnik ne postaje vlasnikom samog softvera već on kupuje licencu za njegovo korištenje. Licencom je definirano na koji način korisnik može koristiti traženi softver. Prema njoj je definirano na koliko računala se može pokretati softver, kako dugo je licenca važeća te da li se softver smije koristiti u osobne, komercijalne ili obrazovne svrhe. 
+Svaki licenciran komercijalni softver bi trebao imati licencni ugovor, certifikat autentičnosti, originalni medij, originalni korisnički priručnik, prateću dokumentaciju i potvrdu o kupnji ili račun. Licenciranje autorskih djela moguće je od 14. siječnja 2005. godine i na hrvatskom jeziku. [Požgaj Ž. Normativna zaštita softvera, 2009., str 4]
+</p><p><br />
+</p><p><br />
+<b>Vrste softvera</b>
+</p><p><br />
+Prema zakonskom obliku zaštite softver se može podijeliti u sljedeće kategorije [Zaštita softvera, 2004., str 7]&#160;:
+</p><p>•	komercijalni softver,
+</p><p>•	komercijalni (licencirani) softver,
+</p><p>•	public domain,
+</p><p>•	open source,
+</p><p>•	freeware,
+</p><p>•	shareware.
+</p><p><i>Komercijalni softver</i> je softver koji korisnik treba kupiti, da bi ga mogao (imao dopuštenje) koristiti. Postoje dva tipa komercijalnog softvera, a tu spadaju softver koji korisnik može kupiti i komercijalni softver. Kupnjom kopije softvera, korisnik može istog upotrebljavati na način kako je to zakonom propisano (Zakon o autorskim pravima). Na tržištu danas možemo pronaći gotovo sve vrste softvera a da je i licenciran. Za licencirane softvere, korisnik kupuje licencu za njegovo korištenje i može ga upotrebljavati kako je propisano licencnim sporazumom i zakonom o autorskim pravima. 
+Public domain je pravno najslobodnija verzija softvera, to jest korisnik može s tim softverom raditi što želi. Ovaj softver moguće je koristiti, kopirati, distribuirati, pa i prodavati, bez da se od autora traži dozvola.  
+</p><p><i>Open source</i> je softver je besplatan za korištenje, distribuciju i umnožavanje. Ovu vrstu softvera moguće je mijenjati u izvornom kodu, te ga kao takvog dalje prosljeđivati, uz uvjet da i dalje ostaje open source. Distribucijom ovog softvera, treba također distribuirati i licencu u kojoj su definirana prava i obveze korisnika. 
+</p><p><i>Freeware</i> je besplatan softver koji se može distribuirati i koristiti, no ne smije se kao open source softver mijenjati. Softver se izdaje pod licencom u kojoj je definirano na koje se načine može koristiti. 
+</p><p><i>Shareware</i> softver je kombinacija freeware softvera i komercijalnog softvera. Ova vrsta softvera može se koristiti jedno određeno vrijeme potpuno besplatno, no nakon što taj rok isteče, potrebno je platiti za njegovo daljnje korištenje. Uvjeti oko vremenskog roka u kojem se može besplatno koristiti i nakon kojeg treba platiti za daljnje korištenje, te koju svotu novca treba platiti, opisano je u licencnom sporazumu. [Zaštita softvera, 2004., str 7]
+</p><p><br />
+Kučina D.
+</p>
+<h2> <span class="mw-headline" id="Metode_za.C5.A1tite_softvera"> <i>Metode zaštite softvera</i> </span></h2>
+<p>U prethodnom poglavlju objasnile su se zakonske mjere zaštite softvera. No, zakonske mjere često nailaze na poteškoće primjenom u praksi. Bez obzira što je softver zaštićen, teško je otkriti prekršitelje, a i ukoliko ih se otkrije, nastaje velik problem kod dokazivanja krivnje. Iz ovih razloga, proizvođačima softvera lakše je ugraditi tehnološke mjere zaštite softvera, koje bi barem pokušale spriječiti piratstvo. 
+</p><p>Danas se za zaštitu softvera koriste različite softverske, kao i hardverske metode. Sve metode imaju vrlo sličnu zadaću, a ona je da od korisnika softvera traži određenu vrstu prijave, to jest autentifikacije, da bi se softver dalje mogao koristiti. Metode zaštite zahtijevaju od korisnika da posjeduje posebnu vrstu hardvera koji povezuje s računalom radi autentifikacije ili neku vrstu registracijske datoteke. Jedna od najpoznatijih mjera zaštite softvera je upisivanje jedinstvene šifre pri procesu instalacije softvera. Osim toga, sve metode služe da zakompliciraju izvršni kod programa i na taj način spriječe razbijanje šifre. [Zaštita softvera, 2004., str. 8]
+</p><p><br />
+</p><p><br />
+<b>Zaštita upotrebom registracijskog ključa</b>
+</p><p><br />
+Zaštita putem registracijskog ključa/broja/šifre, odnosno serijskog broja najrašireniji je oblik zaštite. Postoji više vrsta zaštite upotrebom registracijskog ključa, a neki od njih su: zaštita fiksnim registracijskim ključem, promjenjivim registracijskim ključem ovisnim o podacima poput korisničkog imena ili naziva tvrtke, zaštita promjenjivim registracijskim ključem ovisnim o internim podacima i stanju računala, te zaštita registracijskim ključem koji se provjerava putem Interneta. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 5] 
+</p><p><br />
+<i>Zaštita fiksnim registracijskim ključem</i>. Ovaj oblik zaštite je najjednostavniji način zaštite registracijskim ključem, no najčešće se kombinira s nekim drugim oblikom zaštite. Postoji nekoliko prednosti i mana zaštite fiksnim registracijskim ključem. Jedna od prednosti zaštite je što ispravan registracijski broj, ne treba biti čuvan u memoriji računala za usporedbu s unesenim registracijskim brojem, jer je integriran s programskim kodom. Jedna od mana stalnog registracijskog ključa jest što je on jedinstven, a to uvelike olakšava posao probijanja, iz razloga kada se jednom sazna registracijski broj, nije ga više potrebno ponovo probijati da bi se uključile sve funkcionalnosti programa. Zbog toga se ovom metodom ne zaključava program u cjelini već se zaključavaju pojedine funkcije. Ovim načinom se pri procesu otključavanja, prema istom principu otključava pojedini dio programa kada se vrši proces prijave u sustav ili tek kada se pojedina funkcija koristi, recimo funkcija za čuvanje datoteka otključava se kada se zatraži ta funkcionalnost od programa, a ne odmah pri pokretanju programa. Još ako se funkcija dodatno enkodira nakon korištenja, u tom slučaju program neće nikada biti dekodiran u cijelosti, pa izravno dohvaćanje segmenta iz memorije neće pomoći kad se pokuša probiti zaštita. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 5]
+</p><p><br />
+<i>Zaštita registracijskim ključem koji se mijenja ovisno o drugim podacima, poput korisničkog imena ili naziva tvrtke</i>. Zaštitom softvera na ovaj način, osim unosa registracijskog ključa, unose se i druge informacije, primjerice imena, prezimena, naziv tvrtke ili slično. Kao što je bio slučaj u prethodnoj metodi, ovdje nema jedinstvenog registracijskog ključa, već programer pomoću različitih matematičkih algoritama određuje u softveru da pri svakom prijavljivanju se treba unijeti različiti ključ zavisan od informacija koje je korisnik prethodno unio, a algoritam izračunava iz tih podataka registracijski ključ, koji se onda u memoriji uspoređuje s registracijskim ključem koji je korisnik upisao na upit. Znači, pri ovom postupku jedinstven je matematički algoritam koji računa registracijski ključ, dok je ključ promjenjiv. Snaga zaštite ovisi o znanju programera i kompleksnosti algoritma. Ipak ovu metodu moguće je probiti praćenjem aktivnosti memorije (novo izračunati registracijski ključ sprema se u memoriju radi usporedbe), praćenjem izvođenja programa liniju po liniju koda, praćenjem izvođenja programa liniju po liniju koda, kao i praćenjem stanja memorijskih resursa, registara i stanja stoga. Postoje različite inačice koje poboljšavaju sigurnost kod ovog načina štićenja. Primjerice, može se algoritam isprogramirati tako da korisničko ime i registracijski ključ trebaju davati određeni rezultat. No, opet bez provjere registracijskog ključa, postoji velik broj kombinacija koje daju odgovarajuće rješenje, te se to može iskoristiti pri postupku probijanja zaštite i stvaranja vlastitog proizvoljnog registracijskog ključa. Moguće rješenje ove vrste problema jest da se u program implementira skriveni dodatni algoritam koji će naknadno provjeriti točnost registracijskog ključa. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 6] 
+</p><p><br />
+<i>Zaštita registracijskim ključem koji se mijenja ovisno o internim podacima i stanju računala</i>. Ova metoda je vrlo zahtjevna za probijanje, jer registracijski ključ ovisi o računalu na kojem je softver instaliran. Kada se i uspije s probijanjem zaštite i napravi se nelegalna verzija programa, ta verzija neće raditi na drugom računalu osim na onom na kojeg je program prvotno instaliran. Princip ove metode je da se pri registraciji programa dohvaća neki dodatni podatak koji je jedinstven za baš to računalo, recimo serijski broj tvrdog diska ili serijski broj matične ploče, te se taj broj kombinira s korisničkim imenom  ili nazivom tvrtke i izračunava se registracijski broj pomoću posebnog algoritma, pa se uspoređuje s upisanim registracijskim brojem. Za ovu vrstu zaštite izvršnog koda, bitno je da se sakrije dio koda u kojem se dohvaćaju informacije iz sistema, kao i dio gdje se provjerava da li je registracijski broj ispravan. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 6] 
+</p><p><br />
+<i>Zaštita registracijskim ključem koji se provjerava putem interneta</i>. Ovo je još jedan način kako se može provjeravati ispravnost registracijskog ključa. Radi na principu da program prikuplja registracijske informacije od korisnika, pa ih šalje na poslužitelja posredstvom interneta, te ih poslužitelj provjerava s podacima koje ima pohranjene u bazi podataka i šalje izvještaj da li su podaci ispravni ili ne, natrag do klijenta. Naprednija verzija ovog načina zaštite izvršnog koda je konstantna slučajna provjera registracije. Ako program uoči da je ilegalno registriran, šalje podatke o korisniku autoru programa putem interneta. No, nije baš preporučljivo koristiti ovaj tip zaštite za bilo koji program. Jer je potrebna stalna veza prema internetu, ovakva zaštita trebala bi se koristiti s programima koji u svom radu zahtijevaju internet vezu, a ne u onima koji mogu raditi bez posredstva interneta. Postoji ključan problem s ovom vrstom zaštite, a on je da osoba koja pokuša probiti zaštitu presretne komunikaciju između programa i poslužitelja i programu daje informacije koje nisu odgovarajuće s obzirom na ove koje bi poslužitelj poslao. Tako bi se probila zaštita i program bi mogao funkcionirati a da nije pravilno registriran. Jedan od način poboljšanja jest da poslužitelj uz potvrdu o uspješnoj registraciji šalje ključ za dekodiranje određenih zaključanih funkcija. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 7]
+</p><p><br />
+</p><p><br />
+<b>Zaštita pomoću instalacijskog medija</b>
+</p><p><br />
+Zaštita pomoću instalacijskog medija ostvaruje se tako da je aplikaciju potrebno distribuirati na mediju na koji je moguće pisati podatke (tvrdi disk, meki disk, izbrisivi optički medij). Na instalacijskom mediju u jednu posebnu datoteku zapisuje se broj instalacija programa (brojač koliko puta se instalira program). Nakon što svaki proces instalacije završi, brojač se povećava za jedan i zapisuje trenutni broj instalacija u tu posebnu datoteku. Kada se postigne određen broj instalacija, program više nije moguće instalirati s tog medija. No, da bi ova vrsta zaštite pravilno funkcionirala, datoteka u kojoj se nalazi brojač treba biti kriptirana, tako da joj je što teže promijeniti sadržaj i tako spriječiti više od dozvoljenog broja instalacija. Ova vrsta zaštite koristi se samo u rijetkim slučajevima, iz razloga jer je dosta nepraktična. Naime, vezana je za određenu vrstu instalacijskog medija, nije ju moguće distribuirati na internetu (otpada mogućnost preuzimanja s interneta), te je najčešće visoke cijene. [Zaštita softvera, 2004., str. 9]             
+</p><p><br />
+</p><p><br />
+<b>Zaštita pomoću sklopovskog ključa</b>
+</p><p><br />
+Zaštita pomoću sklopovskog ključa skuplja je inačica zaštite od softverskog načina štićenja, pa se i rjeđe koristi. Ako neki program štitimo ovom vrstom zaštite, pri prodaji istog, uz kopiju programa pakira se i uređaj koji se treba priključiti na neki ulazno/izlazni port na računalu (najčešće je to USB), kako bi se program mogao pokrenuti. Princip rada je jednostavan. Kada korisnik zahtijeva od programa da započinje s radom, program šalje signal do ulaza na računalu na kojem bi trebao biti sklopovski ključ i ako se ne dobije odgovor s ulaza, program se ne pokreće. Korisno je kriptirati poruke koje šalje program i sklopovski ključ međusobno razmjenjuju. Sklopovski ključ može se poboljšati EPROM memorijom, u kojoj je upisan dio koda neophodan za pravilan rad programa. Funkcije u EPROM-u su enkriptirane i dekriptiraju se direktno u radnu memoriju kod izvršenja programa, što je posljedica da pokušaj probijanja zaštite postaje gotovo nemoguć. [Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009., str. 10] 
+</p><p><br />
+Kučina D.
+</p>
+<h2> <span class="mw-headline" id="Packaging_vs_packing"><i>Packaging vs packing</i> </span></h2>
+<p>Pojmovi <i>packing</i> i <i>packaging</i> nisu sinonimi iako se možda tako čini na početku. U nastavku će biti opisani ovi pojmovi i navest će se razlika među njima. Ukoliko gledamo općenito, <i>packaging</i> je širi pojam od <i>packing</i>-a. 
+</p><p><br />
+Pod pojmom <i>packaging</i> podrazumijeva se znanost i tehnologija koja se koristi za zaštitu proizvoda u procesu prodaje, distribucije te korištenja od strane korisnika. Za nas je interesantno područje zaštite programskih proizvoda, tj. <i>software</i>-a.
+</p><p><br />
+<i>Packaging</i> predstavlja i proces dizajniranja, razvoja i izrade paketa. Može se opisati kao sustav za pripremu proizvoda za transport, skladištenje, logistiku, prodaju te krajnju upotrebu.
+</p><p><br />
+Tu treba istaknuti i pojam labeliranja (<i>Labeling</i>). Labeliranje paketa je svaka napisana, elektronička ili grafička komunikacija na upakiranoj, odvojenoj ili pridruženoj labeli. 
+</p><p><br />
+U području sigurnosti, <i>packaging</i> je važan mehanizam smanjivanja rizika dostave. Njihovom uporabom se može smanjiti rizik od krađe. <i>Packaging</i> je u većini slučajeva mjera prevencije. 
+</p><p><br />
+<i>Packaging</i> i labeliranje paketa se koriste u praksi u raznim područjima: 
+</p><p>•	kod fizičke zaštite proizvoda ili podataka, 
+</p><p>•	kod prijevoza proizvoda ili prijenosa podataka,
+</p><p>•	u marketinške svrhe,
+</p><p>•	u području sigurnosti proizvoda ili podataka itd.  [<i>Wikipedia</i>, 2011., <i>Packaging and labeling</i>]
+</p><p><br />
+</p><p><i>Packing</i> je tehnologija „za obmanjivanje“ koja se koristi za zloćudne programe. Ponekad se koristi u svrhu smanjivanja veličine zloćudnog koda, kako bi se kod lakše prenio preko interneta, međutim, ima i efekt da zloćudni program učini otpornijim za analizu. [Sun, Ebringer, Boztas, 2008.] 
+</p><p><br />
+<i>Packing</i> predstavlja kompresiranje podataka u području računalne i informacijske znanosti. Detaljnije će biti opisan u nastavku.
+</p><p><br />
+Grudiček T.
+</p>
+<h2> <span class="mw-headline" id="Packing_mehanizam"><i>Packing</i> mehanizam </span></h2>
+<p><i>Packing</i> je općenito program koji neku <i>.exe</i> datoteku kompresira i/ ili šifrira njezin sadržaj. Zatim ju pakira u novu <i>.exe</i> datoteku.
+</p><p><br />
+U računalnoj i informacijskoj znanosti kompresiranje podataka, kodiranje izvora ili redukcija bitova uključuje enkodiranje informacija pri čemu se koristi manje bitova u odnosu na originalnu, tj. cjelokupnu datoteku. Korisna strana kompresije je ušteda na memorijskom prostor tvrdog diska na kojem se nalaze datoteke, omogućuje brži prijenos podataka zbog manje veličine datoteke itd. Kako bi se datoteke mogle koristiti, prvo je potrebno napraviti dekompresiranje.
+</p><p><br />
+Kod pokretanja, tj. izvođenja izvršnog koda, zamjenski programski element prvo raspakira originalnu <i>.exe</i> datoteku, a zatim prenosi upravljanje na originalnu datoteku. Izvođenje originalne datoteke je u većini slučajeva nepromijenjeno.
+</p><p><br />
+Kad prevoditelj prevodi linije koda, generira jedanu objektnu datoteku koja je povezana s programom. Te datoteke imaju poseban format. U okruženju zasnovanom na <i>Windows</i> platformi, prevoditelj stvara tzv. <i>COFF</i> datoteke. Na <i>Linux</i> platformi su to <i>ELF</i> ili neke druge datoteke. <i>COFF</i> skraćenica dolazi od engleskog naziva <i>Common Object File Format</i>. <i>ELF</i> je engleska skraćenica za <i>Executable and Linking Format</i>. Na <i>Windows</i> platformi se koriste i <i>PE</i> datoteke.
+</p><p><br />
+<i>ELF</i> datoteka sadrži  <i>ELF</i> zaglavlje koje sadrži podatke o datoteci. Zaglavlje datoteke sadrži: 
+</p><p>•	tablicu zaglavlja segmenata, 
+</p><p>•	tablicu zaglavlja sekcija, 
+</p><p>•	sadržaj samih tablica itd. [<i>Wikipedia</i>, 2011., <i>Executable and Linkable Format</i>] 
+</p><p><br />
+</p><p>Segmenti sadrže podatke koji su potrebni za vrijeme izvođenja programa. Sekcije sadrže bitne podatke uz povezivanje i premještanje. 
+</p><p><br />
+<i>PE</i> format predstavlja strukturu podataka koja enkapsulira podatke potrebne za izvođenje <i>.exe</i> datoteke na <i>Windows</i> sustavu. <i>PE</i> je skraćenica za engleski izraz <i>Portable Executable</i>.
+</p><p><br />
+Izvršna kompresija (<i>Executable Compression</i>) koristi i kombinira kompresirane podatke s dekompresiranim kodom. Dekompresirani kod omogućuje pretvorbu kompresiranog koda u originalni kod. 
+Izvršna kompresija predstavlja arhivu koja se sama raščlanjuje, a kompresirani podaci su pakirani s pripadnim dekompresiranim kodom u istoj <i>.exe</i> datoteci.
+</p><p><br />
+Izvršna je kompresija stvorena radi kompresiranja <i>.exe</i> datoteka. No, ta kompresija često postiže bolji rezultat kompresije u odnosu na standardne podatkovne kompresije, npr. u odnosu na <i>.zip</i>. To omogućava distributerima da ostanu unutar ograničenja svojih odabranih distribucijskih medija za pohranu, poput <i>CD</i>, <i>DVD</i> medija ili da smanje vrijeme i zahtjeve korisnika koji preuzimaju <i>software</i> preko interneta.
+</p><p><br />
+Kompresija izvršnih datoteka se u većini slučajeva koristi za:
+</p><p>•	sprečavanje promjena u programskom kodu te
+</p><p>•	prikrivanje izvođenja programa na nekom sustavu.
+</p><p><br />
+Kompresija se može koristiti za sprečavanje direktnog rastavljanja i izmjene potpisa. Iako ona ne eliminira mogućnost inverznog inženjeringa, može ga učiniti kompliciranijim. 
+Kao što je već spomenuto, kompresirane datoteke zauzimaju manje prostora u memoriji. Zbog toga je potrebno manje vremena da se podaci premjeste na drugu lokaciju. S druge strane, potrebno je i dosta vremena za dekompresiranje prije nego što se započne s izvođenjem. Kompresija izvršnih datoteka je bila popularna kada su računala imala mali kapacitet pohrane. Danas postoje memorije i diskovi velikog kapaciteta, a pristupačni su i cijenom.
+</p><p><br />
+Nedostatak je i manje učinkovita kompresija izvršnih datoteka prilikom čitanja <i>.exe</i> slike kada operacijski sustav dobije zahtjev diska. Dekompresijski programski element alocira blok memorije dekompresiranih podataka. To ostaje alocirano tako dugo dok se program izvodi, bez obzira da li se taj blok memorije koristi ili ne.
+</p><p><br />
+Kako raste broj različitih programa koji se koriste za <i>packing</i>, raste i broj lažnih alata za tu namjenu. Mnogi <i>packing</i> alati implementiraju mehanizme zaštite softvera kao što su prekid i kontrola iznimkama, <i>anti– debugging</i>, <i>anti– Vmware</i>. Cilj im je ometanje analize zaštićenog programa. Neki <i>packing</i> alati sadrže vlastiti modificirani kod kako bi rutina <i>unpacking</i>-a bila dešifrirana prije izvođenja te kako bi bila ponovno šifrirana odmah nakon izvođenja. To se zove višestruko raspakiravanje ili engleski <i>Multistage Unpacking</i>. Novi <i>packing</i> alati koriste tehnologiju zaštite preko virtualnih strojeva. Postoje <i>packing</i> alati koji imaju implementiran svoj virtualni stroj koji prenosi dijelove originalnog koda. Na ovaj je način teško analizirati zaštićeni program. [Sun, Ebringer, Boztas, 2008.] 
+</p><p><i>Anti- debugging</i> tehnike koriste različite forme za skrivanje koda, kako bi se on zaštitio od inverznog inženjeringa. Na ovaj se način programi automatski analiziraju u virtualnim okruženjima. Koncept <i>anti-debugging</i>-a je bio razvijen od strane isporučitelja softverskih proizvoda koji su željeli zaštititi svoj izvorni kod. Drugim riječima, oni su htjeli zaštititi kod svojih aplikacija od izmjena. Neke tehnike <i>anti-debugging</i>-a uključuju detekciju kontrola <i>debugger</i>-a ili izvođenje koda unutar virtualnog okruženja. [Sriram, 2010.] 
+</p><p><br />
+Kod se štiti tako što se izvodi u virtualnom okruženju na nestandardnoj arhitekturi koja ga čini iznimno složenim za analiziranje. Osim toga, na taj se način izvorni kod štiti kako bi se spriječio <i>crack</i> programa. Neki <i>packing</i> alati generiraju i verificiraju serijske brojeve te na taj način onemogućavaju nadogradnju i druge važne funkcionalnosti nekog alata. 
+</p><p><br />
+Na problem <i>packing</i>-a niza blokova se također može gledati kao na poseban slučaj podjele zaliha. Kada je broj blokova ograničen na jedan i svaka stavka je kategorizirana opsegom i vrijednošću, tada se javlja problem kako prilagoditi vrijednost stavki unutar bloka, a to je poznato pod nazivom problem naprtnjače. [<i>Wikipedia</i>, 2011., <i>Bin packing problem</i>] 
+</p><p><br />
+U teoriji računalne složenosti, problem <i>packing</i>-a niza blokova je kombinatorički <i>NP-hard</i> (<i>Non- Deterministic Polynomial- Time Hard</i>). To je tip problema kod kojih je najslabiji problem po jačini jednak najjačem problemu. Objekti koji su različitih opsega, moraju biti upakirani u konačan broj blokova koji su veličine <i>ν</i> na način da se minimizira broj blokova koji se koriste. 
+</p><p>Postoji mnogo različitih tipova navedenog problema. Najpoznatiji su <i>2D packing</i>, <i>linear packing</i>, <i>packing</i> prema težini, packing s obzirom na troškove itd.
+</p><p><br />
+Grudiček T.
+</p>
+<h2> <span class="mw-headline" id="Primjena_packing-a"> Primjena <i>packing</i>-a </span></h2>
+<p>Distributeri softvera primarno koriste izvršnu kompresiju za kompresiranje <i>.exe</i> datoteka, ali i za smanjenja zahtjeva pohrane svog <i>software</i>-a. Tako se dolazi do uštede memorijskog prostora tvrdog diska na kojem se nalaze podaci i omogućuje brži prijenos podataka zbog manje veličine datoteke itd. 
+</p><p><br />
+<i>Packing</i> bez gubitaka je tehnika za kompresiranje bez gubitaka sadržaja. Koristi se za kompresiranje <i>PCM</i> (<i>Pulse- Code Modulation</i>) audio podataka. Kod ove tehnike se bit-po-bit savršeno slažu s originalom kada su podaci dekompresirani. Osim toga, ova tehnika predstavlja standardnu metodu kompresije bez gubitaka koja se koristi za <i>DVD- audio</i> sadržaje i u prosjeku postiže oko 1.5:1 sažimanja za većinu glazbenih materijala. Današnji <i>DVD player</i>-i su opremljeni ovom tehnikom dekompresije. [<i>Wikipedia</i>, 2011., <i>Meridian Lossless Packing</i>] 
+</p><p>Postoje kompresori koji smanjuju zalihost uklanjajući prazan prostor, komentare i skraćuju imena. Dostupni su i samodekompresirajući kompresori koji kompresiraju originalnu skriptu i izlaz nove skripte.
+</p><p><br />
+Grudiček T.
+</p>
+<h2> <span class="mw-headline" id="Primjeri_packing_alata">Primjeri <i>packing</i> alata </span></h2>
+<p><b><i>Packing</i> alati za <i>PE</i> datoteke:</b>
+</p><p>- <i>UniKey Enveloper</i>, 
+</p><p>- <i>Armadillo Packer</i>, 
+</p><p>- <i>Enigma Protector</i>, 
+</p><p>- <i>Themida</i>,
+</p><p>- <i>ASPack</i>, 
+</p><p>- <i>Cexe</i> itd. 
+</p><p><br />
+<b><i>Packing</i> alati za <i>ELF</i> datoteke:</b> 
+</p><p>- <i>HASP Envelope</i>,
+</p><p>- <i>Gzexe</i>, 
+</p><p>- <i>UPX</i> itd. 
+</p><p><br />
+Grudiček T., Kučina D.
+</p>
+<h2> <span class="mw-headline" id="Mehanizmi_za.C5.A1tite_izvr.C5.A1nog_koda_-_Obfuskacija"> Mehanizmi zaštite izvršnog koda - Obfuskacija </span></h2>
+<p><b>Obfuskacija kao metoda zaštite koda</b>
+</p><p><br />
+Ukoliko želimo da naš izvršni kod bude zaštićen, dobar način da to postignemo je da provedemo tzv. obfuskaciju koda (eng. code obfuscation). Obfuskacija koda je metoda zaštite izvršnog koda čiji cilj je „zakomplicirati“  kod odnosno učiniti ga nečitljivim za one koji ga pokušaju zloupotrijebiti. To je proces kojim se mijenja kod, ali ne i njegova semantika. Općenito govoreći obfuskacija je metoda zaštite kojom se nastoji sakriti određene informacije, a da se one pritom ne oštete. Proces obfuskacije može se provesti na dvije razine. Na razini binarnog koda, gdje se modificiraju instrukcije ili kontrola toka, i na razini izvornog koda gdje možemo mijenjati samo strukturu koda kako bi bio teži za čitanje [Ďurfina L.; Kolář D., Kybernetika, 2012. str. 494.]. Također mogli bismo reći kako se obfuskacijom nastoji ostvariti dva različita cilja:
+</p><p>A.	Zaštita novih algoritama (kao zaštita intelektualnog vlasništva)
+</p><p>B.	Zašita provjerenih algoritama (kao zaštita od neželjenog otkrivanja)
+</p><p><br />
+Dakle obfuskacijom koda nastojimo proces njegova dekompiliranja učiniti težim, otežavamo posao onima koji se bave obrnutim inženjerstvom. Kako ne bi došlo do zablude odmah napominjemo kako ova metoda zaštite koda nije rješenje koje nam garantira da je naš kod siguran. Nažalost, koliko god se potrudili i pokušali proces obfuskacije provesti što kvalitetnije, uvijek će se naći netko tko će ipak uspjeti doći do našeg originalnog koda i sav naš trud baciti u vodu. Vratimo se na podjelu obfuskacije. Napomenuli smo kako se proces obfuskacije može provesti na dvije razine, na razini binarnog i izvornog koda. Na razini izvornog koda obfuskacija se dijeli na dva tipa [Ďurfina L.; Kolář D., Kybernetika, 2012. str. 497.]:
+</p><p>a)	obfuskacija izvornog koda kako bi se teže čitao i razumio
+</p><p>b)	obfuskacija izvršnog koda u svrhu težeg razumijevanja 
+</p><p><br />
+</p><p><br />
+<b>Obfuskator program</b>
+</p><p><br />
+Dakle ukoliko imamo neki program (kod) koji želimo zaštititi, možemo to napraviti pomoću tzv. obfuskatora programa koji naš program pretvara u obfuscirani program. Za obfuskator programa možemo reći kako je to u jednu ruku vrsta kompajlera zbog načina na koji funkcionira. Obfuskator prvo pripremi program za obfuskaciju, zatim napravi jednu transformaciju i ponavlja drugi korak sve dok ne dođe do kraja ili zadovolji ograničenja. Dakle prvo se radi analiza input programa. Tu se stvara lista kandidata za obfuskaciju. To mogu biti klase, varijable, metode. Nakon ovog koraka stvara se interna reprezentacija programa, kao što je kontrola toka, a zatim se dodjeljuju prikladni prijedlozi obfuskacije. Kad je analiza input programa gotova, obfuskator izvršava while petlju. Prema prioritetu se dabire sljedeći element programa koji će biti obfusciran, nad njim se radi prikladna transformacija koja se nalazi u riječniku obfuskatora, zatim se originalni kod ažurira i prelazi se na sljedeći element po prioritetu za obfuskaciju. Tri najviše upotrebljavane metode koje se u obfuskaciji kodova koriste su preimenovanje, brisanje komentara i umetanje tzv. „dead code-a“ [Lifshits Y., Industrial Approach: Obfuscating Transformations, 2006. str. 13.]. Preimenovati odnosno mijenjati nazive možemo varijablama, klasama, metodama i procedurama. Brisanje komentara odnosi se na mijenjanje izgleda, također možemo brisati i razmake. Ovo zbunjuje potencijalnog hakera, a ukoliko je u komentarima informacija bez koje je nemoguće pravilno izvođenje koda tada smo ovim postupkom znatno unaprijedili sigurnost našeg originalnog programa. Umetanje „dead code-a“ nije ništa više već dodavanje dijelova koda u originalni kod čija zadaća je zbunjivanje onog koji pokuša doći do istog. Dijelovi koda koji se dodaju nemaju nikakav utjecaj na funkcionalnost našeg originalnog programa jer on i dalje radi ono za što je namijenjen. Jedini nedostatak ove metode je njezin utjecaj na vrijeme izvođenja programa jer se ono proporcionalno povećava povećanjem umetnutog koda. Što se tiče obfuskacije podataka na raspolaganju su nam sljedeće tehnike: razdvajanje varijabli, skalar/objekt pretvorba, pretvorba statičnih podataka u procedure, mijenjanje vijeka trajanja varijabli, promjena dekodiranja, i proširenje skalarnih varijabli. [Lifshits Y., Industrial Approach: Obfuscating Transformations, 2006. str. 13.]. Na sljedećoj slici možemo vidjeti jednostavnu poopćenu shemu načina funkcioniranja procesa obfuskacije.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Obfuskacija_koda.JPG" class="image"><img alt="Obfuskacija koda.JPG" src="../images/5/54/Obfuskacija_koda.JPG" width="544" height="246" /></a>
+</p><p>Slika 1. Obfuskacija koda
+</p><p>[<a href="http://www.cs.arizona.edu/~collberg/Research/Obfuscation/Resources.html" class="external autonumber" rel="nofollow">[1]</a>, 2013.]
+</p><p><br />
+Obfuskator programa obilježavaju snaga, otpornost i opterećenje. Snaga predstavlja razinu do koje bi čovjek koji bi čitao novi kod (obfuscirani) bio zbunjen. Naravno, poželjno je da se potencijalni zloupotrebljivači koda zbune što je više moguće. Otpornost obfuskatora govori o njegovom odolijevanju napadima od strane alata za deobfuskaciju. Njegovo opterećenje pak predstavlja količinu informacija koja je dodana originalnom kodu u tijeku deobfuskacije. Što manje to bolje, ali naravno, što manje proporcionalno utječe na smanjenje prva dva obilježja. Što je obfuscirani kod „manje opterećen“ time su njegova snaga i otpornost manje. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Obfuskacija_koda2.JPG" class="image"><img alt="Obfuskacija koda2.JPG" src="../images/9/94/Obfuskacija_koda2.JPG" width="605" height="193" /></a>
+</p><p>Slika 2. JavaScript kod prije i poslije obfuskacije
+</p><p>[<a href="http://www.semdesigns.com/Products/Obfuscators/" class="external autonumber" rel="nofollow">[2]</a>, 2013.]
+</p><p><br />
+Tri su osnovna uvjeta koja bi svaki obfuskator programa morao zadovoljavati: 
+</p><p>1) <i>Funkcionalnost</i> – Obfuscirani program trebao bi imati jednaku funkcionalnost kao i originalni program (jednako input/output ponašanje).
+</p><p>2) <i>Učinkovitost</i> – Obfuscirani program ne bi smio imati učinkovitost ništa manju od originalnog programa. Mogu postojati razlike u kodu, obfuscirani kod je obično duži jer ima neke nepotrebne dijelove (nepotrebne u smislu funkcioniranja originalnog programa, ali potrebne u smislu obfuskacije), ali to ne bi smjelo znatno utjecati na brzinu njegova izvođenja.
+</p><p>3) <i>Obfuskacija</i> – Ovo je naravno najvažniji uvjet koji bi svaki obfuskator programa trebao zadovoljiti. Koliko god originalni program bio lak za razumijevanje onom tko ga promatra, obfuscirani kod mora biti proporcionalno teži za razumijevanje. Cilj je obfusciranja da potencijalnog hakera tj. osobu koja pokuša razumijeti i zlouporabiti kod zaboli glava kada vidi rezultat obfusciranja.
+</p><p><br />
+Ivanović N.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Softveri_za_obfuskaciju"> <i>Softveri za obfuskaciju</i> </span></h2>
+<p>Postoji niz programa koji se čija je namjena obfuskacija kodova. Od onih koje su znanstvenici kreirali u eksperimentalne svrhe, pa sve do onih koje je netko kreirao jer mu je bilo dosadno. Tu je naravno i komercijalni softwer kreiran od strane profesionalaca, te open-source alati. Za početak ćemo se osvrnuti na neke komercijalne alate i ono što nam oni nude. 
+</p><p>1. <b>Salamander .NET obfuskator</b> – je .NET komercijalni alat za obfuskaciju koda. Programski jezici koje ovaj alat podržava su C#, C++.NET, VB.NET, J#, MSIL i drugi. Ovaj obfuskator radi uz .NET Compact Framework tako da obfuscira kodove .NET aplikacija koji tako obfuscirani rade na WinCE uređajima. U procesu obfuskacije svi mogući simboli bivaju preimenovani tako da njihova nova imena nemaju apsolutno nikakvo značenje. Također, sve nepotrebne informacije iz originalnog koda se brišu, lokalne varijable, imena parametara metoda, neki metapodaci itd. Programi koji bivaju obfuscirani od strane Salamander .NET obfuskatora brže se pokreću i izvode jer su sve nepotrebne informacije iz koda uklonjene, a dugi opisi identifikatora su zamijenjeni manjim imenima generiranim od strane obfuskatora. Ovaj obfuskator nudi i opcije inkrementalnog obfusciranja, uklanjanje ranjivih točaka (tzv. V-spots), dodatnu zaštitu stringova te napredno grafičko sučelje u kojem korisnik sprecificira format ulaznih podataka (.exe, .xml, .dll) a obfuskator ih transformira u novi format. Ovaj alat za obfuskaciju ističu funkcionalnost koja ga razlikuje od ostalih alata iste namjene. Naime,  on ima ugrađenu zaštitu od vlastitog dekompajlera, koja sprječava da vaš program bude dekompajliran od strane istog. [<a href="http://www.remotesoft.com" class="external autonumber" rel="nofollow">[3]</a>, 2013., Salamander .NET Obfuscator]
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Remotesoft.JPG" class="image"><img alt="Remotesoft.JPG" src="../images/b/bb/Remotesoft.JPG" width="605" height="505" /></a>
+</p><p>Slika 3. Remotesoft .NET Explorer grafičko sučelje za Salamander .NET obfuskator
+</p><p>[<a href="http://www.remotesoft.com/dotexplorer/" class="external autonumber" rel="nofollow">[4]</a>, 2013.]
+</p><p><br />
+2. <b>Dotfuscator .NET obfuskator</b> – je još jedan .NET komercijalni alat za provođenje obfuskacije. Od 2003. ovaj obfuskator integriran je unutar Visual Studia. Prošao je kroz mnoge sigurnosne provjere, kontrole koda i certificiran je od strane microsofta. Sadržan je u svakoj verziji windowsa i .NET-a. Mnoge publicirane inovacije te prakse koje ovaj alat koristi čine ga de facto standardom razvoja. Krase ga patentirani algoritam za preimenovanje, kontrola tijeka učinkovita protiv strojnog prevođenja, kriptiranje stringova, detekcija i obrana od napada te obavijest o eventualnom pokušaju neovlaštenog otkrivanja vašeg koda u gotovo realnom vremenu. Dotfuscator vam nudi mogućnost da provede obfuskaciju i nakon što ste kompajlirali vaš kod, dakle možete zaštiti bilo koju aplikaciju koju ste u prošlosti kreirali. Na sljedećem linku(<a href="http://www.preemptive.com/images/stories/dotfuscator_documentation/fifty_reasons_dotfuscator.pdf" class="external autonumber" rel="nofollow">[5]</a>) možete pronaći 50 razloga odnosno činjenica zašto koristiti dotfuscator, a ne neki drugi alat. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dotfuskator.JPG" class="image"><img alt="Dotfuskator.JPG" src="../images/2/29/Dotfuskator.JPG" width="605" height="432" /></a>
+</p><p>Slika 4. Dotfuskator .NET sučelje
+</p><p>[<a href="http://www.codeproject.com/Articles/12119/The-Increasing-Need-to-Protect-your-Applications-f/" class="external autonumber" rel="nofollow">[6]</a>, 2013.]
+</p><p><br />
+3. <b>DeployLX CodeVeil obfuskator</b> – je još jedan u nizu komercijalnih alata za obfusciranje kodova. On izvodi potpunu analizu vaše aplikacije kako bi identificirao sve eksplicitne i implicitne zavisnosti te standardne konvencije nazivlja. Nakon što prikupi ove informacije on eliminira sve nepotrebne meta podatke iz aplikacije i obfuscirane nazive koji se ponavljaju te pritom ne utječe na izvođenje vaše aplikacije. Njezina fukcionalnost ostaje ista. Ovaj alat ne prestaje štititi vašu aplikaciju neposredno nakon isporuke kao što većina ovakvih alata prakticira već ostaje aktivan. Prilikom dekriptiranja CodeVeil dekriptira samo dio koda dovoljan za izvršenje specifične metode, a nakon toga dekriptirani sadržaj se briše iz memorije tako da se originalni kod nikada ne nalazi u memoriji <a href="http://xheo.com," class="external text" rel="nofollow">2013., Code protection – How it works</a>. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:CodeVeil.JPG" class="image"><img alt="CodeVeil.JPG" src="../images/1/17/CodeVeil.JPG" width="605" height="455" /></a>
+</p><p>Slika 5. Kod obfusciran pomoću CodeVeil-a
+</p><p>[<a href="http://xheo.com/products/code-protection/screen-shots#" class="external autonumber" rel="nofollow">[7]</a>, 2013.]
+</p><p><br />
+<b>ZANIMLJIVOST</b>:
+</p><p>Za neke programe svaki će obfuskator u potpunosti postići neuspjeh. Recimo da imamo program koji ispisuje svoj izvorni kod. Obfuskator program u tom slučaju odradi dio posla vezanog uz funkcionalnost i učinkovitost međutim kao rezultat obfusciranog programa u tom slučaju dobivamo izvorni kod originalnog programa. Dakle osoba koja pokuša zlouporabiti naš kod (koji je obfusciran) pokretanjem obfusciranog koda dobiti će ispis originalnog koda, a to je upravo ono što joj treba. Za programe čijim izvršavanjem dobijamo uvid u iste kažemo da su shvatljivi (eng. learnable programs). Svaki takav program nemoguće je dakle zaštititi upotrebom obfuskatora.
+</p><p>S druge strane imamo programe kod kojih je procesom obfuskacije lako postići da postotak njihova otkrivanja obrnutim inženjerstvom nikada ne bude stopostotan. Ovo se postiže programom obfuskatorom čiji je jedini zadatak brisanje svih komentara. Ukoliko u komentarima imamo tajni broj ili znak bez kojeg je onemogućeno funkcioniranje originalnog koda tada osoba koja provede tzv. deobfuskaciju našeg programa koji smo zaštitili i dođe do originalnog koda, neće imati uvid u potpuni kod jer je dio njega koji se nalazio u komentarima sada obrisan. [<a href="http://www.math.ias.edu" class="external autonumber" rel="nofollow">[8]</a>,  2013., Can we obfuscate programs?]
+</p><p><br />
+Ivanović N.
+</p>
+<h2> <span class="mw-headline" id="Sigurnost_aplikacija_i_reverzno_in.C5.BEenjerstvo">Sigurnost aplikacija i reverzno inženjerstvo</span></h2>
+<h4> <span class="mw-headline" id=".C5.A0to_je_reverzno_in.C5.BEenjerstvo.3F">Što je reverzno inženjerstvo?</span></h4>
+<p>Danas je tržište aplikacija pokriveno nevjerojatnim brojem zaštićenih aplikacija, koje ne dopuštaju da koristite sva njihova svojstva ako niste njihov registrirani korisnik. Jednostavno rečeno, reverzno inženjerstvo je umjetnost uklanjanja zaštite iz aplikacije. Za korisnike koji to čine iz razloga kako bi dalje neovlašteno distribuirali aplikacije, takve ih koristili i slično, za reverzno inženjerstvo je poznatiji izraz „cracking“.
+</p><p>Drugim riječima, pojam „cracking“ se može opisati i na sljedeći način. Kada vi kreirate aplikaciju vi ste njezin inženjer, što je činjenica jer vi izgrađujete izvorni kod iz kojeg kompajler kreira izvšni kod. Reverzno inženjerstvo je pak, jednostavno rečeno, obrnuti postupak odnosno umjetnost generiranja izvornog koda iz izvršnog koda. Reverzno inženjerstvo se koristi kako bi se razumjelo kako aplikacija izvodi pojedine operacije, kako bi se zaobišla zaštita i slično. Obično nije potrebno dohvatiti sav asemblerski kod aplikacije (engl. disassemble) već onaj dio koji je korisniku iz nekog razloga zanimljiv te bi volio dobiti uvid u njega. Reverzno inženjerstvo je također korišteno od strane osobe poznatije pod engleskim nazivom „cracker“ koja želi razumjeti zaštitnu šemu aplikacije te je razbiti. Upravo zbog toga je reverzno inženjerstvo veoma važna stvar u svijetu piratstva.
+</p><p>Dakle, možemo zaključiti da se reverzno inženjerstvo odnosi na način koji omogućava modifikaciju aplikacije kako bi se ona ponašala na takav način kako reverzni inženjer želi.
+</p><p>Krekiranje (engl. cracking) je pak metoda kreiranja aplikacijske funkcije koja je drugačija od onog što je originalno zamišljeno te pridruživanje te metode originalnoj aplikaciji (engl. patching – zakrpa).
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Povijest_reverznog_in.C5.BEenjerstva">Povijest reverznog inženjerstva</span></h4>
+<p>Reverzno inženjerstvo je najvjerojatnije započelo sa DOS baziranim računalnim igricama. Tada je najčešći cilj bio da igrač ima svu životnu energiju 100% te da je potpuno naoružan na posljednjem nivou igrice. I što je ovdje učinilo reverzno inženjerstvo? Pomoću njega se u memoriji pronašla lokacija gdje su bili pohranjeni podaci o životu i oružju te su se tada promijenile te vrijednosti. Tada su te osobe koristile neke alate za varanje memorije. Međutim, danas je reverzno inženjerstvo postalo tegobno, zamorno, puno kompleksnije sa mnogo trikova.
+</p><p>Danas programeri kako bi zaštitili aplikacije koriste različite vrste tehnika. Neke od njih su stare, loše tehnike sa ponavljanjem dok su neke nove. U nastavku će biti rečeno nešto o njima.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Sheme_za.C5.A1tite">Sheme zaštite</span></h4>
+<p>Najviše korištene su sljedeće šeme:
+</p><p>1)	Serijski broj
+</p><p>2)	Serijski broj i ime
+</p><p>3)	Nag zaslon
+</p><p>4)	Vremensko ograničenje (engl. time trial)
+</p><p>5)	Dongle (hardverska zaštita)
+</p><p>6)	Komercijalna zaštita
+</p><p>7)	Ostale zaštite (provjera instalacijskog medija, razne ključne datoteke, onemogućavanje funkcija....)
+</p><p><br />
+</p><p>1.	Serijski broj 
+</p><p>Serijski broj je najjednostavnija zaštita u usporedbi sa ostalima. U toj vrsti zaštite potrebno je samo unijeti serijski broj koji je jednak za sve korisnike. Serijski broj koji je unešen se pomoću algoritma uspoređuje sa originalnim serijskim brojem. Ukoliko je korinsik unio ispravan serijski broj tada je aplikacija registrirana.
+</p><p><br />
+2.	Serijski broj i ime
+</p><p>U ovoj vrsti zaštite od korisnika se traži da osim serijskog broja unese i korisničko ime. Tada se unešeni serijski broj uspoređuje sa originalnim serijskim brojem koji je sada izveden iz korisničkog imena korištenjem nekog algoritma. Ova zaštita je ponekad slaba, a ponekad može biti i teška ovisno o algoritmu kojeg je programer koristio.
+</p><p><br />
+3.	Nag zaslon
+</p><p>Ovakva vrsta zaštite prikazuje zaslon svaki puta kada korisnik pokrene aplikaciju kako bi ga taj zaslon podsjetio na to koliko je još dana korištenja aplikacije preostalo, ili pak da li je aplikacija neregistrirana ili prikazuje neku drugu poruku. takvu vrstu zaštite je mlao teže ukloniti. Međutim, ukoliko reverzni inženjer ima dovoljno znanja windows API-ja tada on lako može ukloniti nag zaslon.
+</p><p><br />
+4.	Vremensko ograničenje
+</p><p>Ova vrsta zaštite ima neku od sljedećih zaštita ili kombinaciju sljedećih zaštita:
+</p><p>a)	predefiniranu količinu dana za korištenje, primjerice 30 dana počevši od dana instalacije aplikacije
+</p><p>b)	predefinirani vremenski period (koji završava specificiranim fiksnim datumom) neovisan o datumu početka korištenja aplikacije
+</p><p>c)	predefiniranu količinu minuta i/ili sekunda svaki puta kada se pokrene aplikacija. Primjeri takvih aplikacija su neke vrste igrica i audio/video player-a koji dozvoljavaju neregistriranim korisnicima da igraju primjerice igru određenu količinu vremena, recimo 30 minuta.
+</p><p>d)	predefiniranu količinu „broja“ njihovog korištenja, recimo 20 puta. Striktno govoreći ova zaštita nije ovisna o vremenu već samo o tome koliko ste puta pokrenuli aplikaciju.
+</p><p><br />
+5.	Dongle (hardverska zaštita)
+</p><p>Pretpostavka je da je takva vrsta zaštite najteža za razbijanje. Sastoji se od EPROM-a koji je spojen sa portom na računalu. Aplikacija koja je zaštićena na takav način prvo provjerava prisutnost EPROM-a (dongle uređaj), a potom provjerava da li je registrirana ili ne. Pa ipak, implementacija takve zaštite je teška i nije naširoko rasprostranjena. Takva zaštita se koristi u nekima dobro zaštićenim aplikacijama. Najčešće koristi I/O LPT port u koji dolazi registracijska kartica koja omogućava da aplikacija radi u potpunosti. U protivnome aplikacija će raditi ograničeno vrijeme ili uopće neće raditi. Dongle uređaji kao što su HASP / Sentinel su najčešće korišteni.
+</p><p><br />
+6.	Komercijalna zaštita
+</p><p>Većina programera i softverskih inženjera ne žele trošiti svoje dragocjeno vrijeme u odlučivanju koju vrstu zaštite bi trebali upotrijebiti kako bi zaštitili aplikaciju. Oni razmišljaju kako je bolje i kvalitetnije upotrijebiti vrijeme na unapređenje funkcionalnosti aplikacije nego na trošenje tog istog na dizajniranje sigurnosnog algoritma za zaštitu. I upravo ovdje na snagu stupa koncept komercijalne zaštite. Danas neke softverske kompanije dizajniraju samo sigurnosne algoritme za različite aplikacije. Isto tako oni pružaju aplikacije koje pretvaraju potpuno funkcionalne druge aplikacije u neregistrirane verzije koje je potrebno registrirati kako bi ponovo bile otpuno funkcionalne. Registracija u većini slučajeva znači izdvojiti određenu sumu novaca za aplikaciju.
+</p><p>Dakle, takav softver pretvara neku aplikaciju natrag u potpuno funkcionalnu registriranu aplikaciju nakon što se unesu registracijski detalji. Iako takva vrsta zaštite ima visoku sigurnost zbog toga jer je profesionalno dizajnirana, ona ima i neke nedostatke. Jedan od glavnih nedostataka je taj da ako osoba krekira samo jedan program koji je zaštićen tom zaštitom tada je probijena zaštita svim programima. Primjerice, ako u Adobe-ovom paketu osoba krekira Photoshop tada je u mogućnosti krekirati i ostale Adobe-ove alate budući da su svi oni bazirani na samo jednoj vrsti zaštite.
+</p><p><br />
+7.	Ostale zaštite
+</p><p>Postoje mnoge druge tehnike koje se koriste za zaštitu softvera. One su najčešće korištene u računalnim igricama. Mnogo računalnih korisnika je primjerice vidjelo zaštitu u kojoj se traži da korisnik ima cd određene igrice, jer bez njega nije u mogućnosti igrati igru direktno sa hard diska. To je zbog toga što aplikacija odnosno igrica provjerava da li je u cd rom uređaju cd. Isto tako postoje neke zaštitne šeme koje onemogućavaju pojedine funkcije kao primjerice onemogućavanje funkcije „save“ kako korisnik ne bi mogao pohraniti svoj rad.
+</p><p>Sada kada su objašnjene zaštitne šeme može se pogledati kako funkcionira reverzno inženjerstvo. Prva stvar koju treba imati na umu je da crackeri uvijek rade sa dohvaćanjem asemblerskog koda te da su upoznati sa windows API-jem. 
+</p><p>Poznato je da računala ne razumiju ništa drugo osim binarnog koda. Dakle, prvo se kreira program a potom se kompajlira pomoću kompajlera. Kompajler provjerava sintaksu, greške te ako je sve u redu generira .obj datoteku. Budući da su u višim programskim jezicima neke funkcije prethodno napisane i pohranjene u biblioteku nakon kompajliranja je potrebno upotrijebiti linker koji će povezati program sa odgovarajućim bibliotekama. Nakon tog povezivanja dobiva se exe datoteka koja nije ništa drugo već kolekcija instrukcija u binarnom formatu. Kako bi se sada iz toga pokušalo dobiti razumijevanje funkcionalnosti programa ili pak kako bi se dobio ponovno izvorni kod reverznom inženjeru su na raspolaganju različiti alati.
+</p>
+<h4> <span class="mw-headline" id="Alati_za_reverzno_in.C5.BEenjerstvo">Alati za reverzno inženjerstvo</span></h4>
+<p>Popularnost Windows operacijskog sustava, kao i lakoća kreiranja aplikacija za tu platformu je dovela do razvoja tisuća programa. Osobe koje probijaju softversku zaštitu (crackeri) obično rade sa asemblerskim kodom, provode nad njim reverzno inženjerstvo te odlično poznaju Windows API.
+</p><p>Ne postoji neka određena metoda za krekiranje aplikacije. U ovisnosti o aplikaciji i vrsti zaštite koju ima, osobe za probijanje softverske zaštite upošljavaju različite tehnike kako bi se ubacili u program. Međutim, postoje neki uobičajeni alati koje te osobe koriste kako bi započele sa krekiranjem aplikacija. Potrebno je reći i da su ti alati potpuno legalni. Ti alati su sljedeći:
+</p><p>1)	Debugger
+</p><p>2)	Disassembler
+</p><p>3)	Hex-editor
+</p><p>4)	Unpacker
+</p><p>5)	File Analyzers
+</p><p>6)	Registry monitor
+</p><p>7)	File monitor
+</p><p><br />
+To su alati koje svaka osoba za probijanje softverske zaštite koristi za reverzno inženjerstvo bilo koje aplikacije. U nastavku su podrobnije opisani ti alati.
+</p><p><br />
+1)	Debugger
+</p><p>Svakome je poznato da je debugger alat za debagiranje aplikacije. Programeri koriste debugger-e kako bi pronašli bug-ove odnosno greške u aplikacijama koje kreiraju. Debugger je jedini alat pomoću kojeg se može pratiti/zaustavljati funkcija ili neki drugi programski kod u realnom vremenu. Na tržištu postoje mnogi debugger-i. Svima onima koji su se susreli sa programiranjem je poznato da kako bi se debug-irala bilo koja aplikacija prvo je potrebno postaviti breakpoint-ove na željena mjesta te potom pokrenuti aplikaciju. Kada se naiđe na instrukciju nad kojom je postavljen breakpoint aplikacija zaustavlja svoje izvršavanje te programer može vidjeti trenutne vrijednosti u aplikaciji. Ta stvar je direktno povezana sa krekiranjem odnosno probijanjem softverske zaštite kod aplikacija. Softverski programeri općenito koriste funkcije Windows API-ja kako bi dobili serijski broj ili kreirali nag zaslon ili pak određene dijaloške prozore. Sada, ako debugger podržava breakpoint točke prilikom izvršavanja aplikacije tada cracker lako može postaviti breakpoint na API. Time može nakon praćenja samo nekih linija koda lako pronaći algoritam korišten za generiranje ključeva kao i same ključeve.
+</p><p>Na tržištu postoje mnogi debuggeri, ali jedan od najpopularnijih i najmoćnijih debuggera je SoftICE tvrtke Numega Corporation. Taj debugger je tako moćan da je ranija verzija tog debuggera upotrijebljena kako bi se probila zaštita na kasnijoj verziji. Gotove sve osobe na svijetu koje se bave probijanjem zaštite koriste taj debugger. Nakon što je Numega Corporation uvidjela zlouporabu nad probijanjem softverske zaštite pomoću svoga alata ona je uvela neke restrikcije na prodaju svojeg alata. Tako je kupac morao dokazati da neće koristiti taj debugger za nelegalne radnje. Međutim, krekirana kopija tog debuggera je slobodno dostupna na internetu. To je inače debugger na sistemskoj razini, koji radi direktno između računalnog hardvera i windowsa. Taj debugger se nemože učitati unutar windowsa već ga je potrebno učitati prije nego se windowsi učitaju u memoriju. Pomoću njega se tiho može pratiti svaki proces, dretva u memoriji sve dok se ne pozove pomoću odgovarajućih tipaka. Uz to omogućava pravljenje zakrpa u memoriji u runtime modu (međutim ne trajno, tako da je potrebno koristiti hex editore), pregledavanje sadržaja registara, sadržaja memorije i slično.
+</p><p><br />
+</p><p>2)	Disassembler
+</p><p>Budući da je izvršna datoteka u binarnom formatu običan korisnik ne može razumjeti instrukcije u toj datoteci. Gotovo svaka exe ili izvršna datoteka je u PE formatu (koji je standardan format za exe datoteke, odlučen od strane odbora softverskih kompanija poput Microsofta, IBM-a i AT&amp;T-a). Budući da cracker odnosno osoba za probijanje softverske zaštite prvo koristi program za dohvaćanje assemblerskog koda taj alat pretvara binarnu datoteku u njoj ekvivalentne instrukcije u asemblerskom jeziku. Zbog toga što je velika većina aplikacija napisana u višim programskim jezicima veličina asemblerskog koda doseže milijune ili čak i više linija koda te stoga nije moguće ni za jednog crackera da razumije taj kod. Stoga crackeri u tome assemblerskom kodu traže stringove poput „vaš 30-dnevni probni period je završen“ ili pak „serijski broj koji ste unijeli nije valjan“ i slično. Kada pronađu neki takav string onda prate samo neke linije u tome assemblerskom kodu te skaču natrag na pozivatelja tih linija. Tada promijene skok na način da program više ne skače na poruku „serijski broj koji ste unijeli nije valjan“ već na linije koje će kao rezultat dati nešto poput „hvala na registraciji“.
+</p><p>Dostupni su mnogi disassembleri. Ali dvojica njih, koji su najčešće korišteni su WIN32DASM i IDA. IDA je ujedno moćan debugger. WIN32DASM se najčešće koristi za napredno krekiranje, a i široko je korišten od strane novih i osrednjih crackera, odnosno osoba koje probijaju softverske zaštite. Taj debugger, WIN32DASM, omogućava dohvaćanje assemblerskog koda bilo koje datoteke koja je u PE formatu. On može taj assemblerski kod pohraniti, ukazati na to koja je funkcija ubačena, koja je izvezena, pomoću njega se može izvršiti skok, poziv, pronaći referenca na string podatke i još mnogo toga poput izvođenja exe datoteke sa mogućnostima step into it, step over itd.
+</p><p><br />
+3)	Hex-editor
+</p><p>Kao što je prethodno spomenuto SoftICE može promijeniti vrijednost memorijske lokacije samo rilikom run-time moda. Dakle, to nije korisno i nebi bilo dobro krekiranje kada bi trebalo promijeniti vrijednosti svaki puta kada se aplikacija pokrene. Stoga se koriste hex editori. Hex editor omogućava promjenu sadržaja bilo koje datoteke u hex formatu. Također prikazuje sadržaj datoteke u hex formatu. Shodno tome, potrebno je samo promijeniti vrijednost u memorijskoj lokaciji koja je pronađena primjeric pomoću SoftICE-a.
+</p><p>Programeri su razvili mnogobrojne hex editore, ali najpopularniji među njima je HIEW što je skraćenica od „Hacker's vIEW“. Taj program nudi mnoge mogućnosti kao što je editiranje u hex ili ASCII formatu, kao i pretraživanje bilo kojeg stringa u tim formatima. Još jedna dobra mogućnost koja ga razlikuje od ostalih hex editora je mogućnost pisanja assemblerskog koda i njegovo automatsko pretvaranje u ekvivalentan hex format. To je od velike pomoći crackerima koji ne poznaju ekvivalentne hex vrijednosti asemblerskih instrukcija.
+</p><p><br />
+4)	Unpacker/PE editor
+</p><p>Ponekad programeri koriste alate za kompresiranje datoteka kao što je UPX, ASPACK kako bi minimizirali veličinu programa. To se naziva pakiranje datoteka. Alat za pakiranje koristi neki algoritam pomoću kojeg smanjuje veličinu datoteke, a zatim datoteci doda i odgovarajući kod kako bi se prilikom izvršavanja izvršio prvo kod koji će odkompresirati aplikaciju u memoriju. 
+</p><p><br />
+5)	File Analyzers 
+</p><p>Kako bi osoba za probijanje softverske zaštite identificirala koji je packer korišten za pakiranje datoteke cracker koristi ovu vrstu programa. Ovakvi alati rade odnosno analiziraju bajt potpisa (engl. signature byte). Pomoću bajta potpisa alat može saznati koji je kompajler preveo aplikaciju te u kojem je jeziku ona napisana. Dostupne su mnoge vrste takvih programa kao što je primjerice File Info.
+</p><p><br />
+6)	Registry monitor 
+</p><p>Neke aplikacije koriste registarske ključeve (engl. registry keys) kako bi pohranile svoje registracijske informacije. Registry Monitor je aplikacija koja radi u pozadini i hvata sve pristupe registarskim ključevima od strane svih procesa koji se trenutno izvode.
+</p><p><br />
+7)	File monitor
+</p><p>Neke aplikacije koriste datoteku sa ključem ili pak imaj svoj sigurnosni algoritam u nekoj drugoj datoteci te se stoga koristi alat „file monitor“ pomoću kojega se može vidjeti koja aplikacija koristi koju datoteku.
+</p><p><br />
+</p><p>Dario Kresonja
+</p>
+<h2> <span class="mw-headline" id="Alati_za_za.C5.A1titu_izvr.C5.A1nog_koda">Alati za zaštitu izvršnog koda</span></h2>
+<h4> <span class="mw-headline" id="Programi_za_automatsku_za.C5.A1titu">Programi za automatsku zaštitu</span></h4>
+<p>U današnje vrijeme postoji niz komercijalnih programa koji se koriste za automatsku zaštitu programa uz programersku zaštitu koju postavlja sam programer za program koji zaštićuje. Taj niz komercijalnih programa integriraju svoje funckije s ciljnom aplikacijom i implementiraju generičku zaštitu. 
+</p><p>Te funkcije uključuju:
+</p><p>-	kompresiju ciljnog programa i instalacijskog paketa
+</p><p>-	kontroliranu dekompresiju
+</p><p>-	enkodiranje zasebnih funkcija ili čitavog programa
+</p><p>-	automatsku zaštitu registracijskim ključem
+</p><p>-	kriptiranje ključa
+</p><p>-	vremenka ograničenja
+</p><p>-	sprečavanje praćenja izvođenja programa (eng. antidebugging)
+</p><p>-	sprečavanje dohvaćenja asemblerskog koda iz izvršne datoteke (eng. antidisassembling)
+</p><p>Potražnja za ovom vrstom alata nastaje zbog toga jer postoji velik broj programera kojim nedostaje vlastitog znanja , tj. oni nisu dovoljno vješti u tome da implementiraju vlastite programske zaštite. No, unatoč  tim svim programima i dalje je najbolji način da postoji zaštita, tj. orginalna zaštita koja je isprogramirana od strane samog programera, ali za to programer mora biti dovoljno vješt u tome, tj. u tom području zaštite i da zna što radi. To kažemo zbog toga jer postoji velik broj ljudi koji su iskusni u probijanju zaštite za sve ove programe koji postoje, tj. koriste se za zaštitu. To je zbog toga jer programeri koji probijaju zaštite su uglavnom upoznati s funkcionalnostima  već poznatih i postojećih komercijalnih programa za automatsku zaštitu. Oni su informirani koji program se koristi za koju vrstu zaštite, te onda znaju potražiti slabu točku, a također se može reći da po internetu već kruže i programi koji automatski probijaju te programe zaštite pa je ujedno i to već postao problem
+</p><p>No, unatoč tome svemu još se uvelike koriste ti programi za automatsku zaštitu, a i uz pametno rukovanje i korištenje, oni i dalje pružaju vrhunsku zaštitu koju je teško probiti.
+</p><p><br />
+Slijedi nekoliko primjera.
+</p><p><br />
+</p><p>1.      Armadillo 
+</p><p>Armadilo je alat koji služi za programsku zaštitu. On se nalazi pod licencom tvrtke Silicion Realms Toolworks, puno ime alata je Armadillo Software Protection System. Armadillo zaštićuje programe na taj način da koristi slučajno generirani ključ koji služi za kriptiranje i kompresiju programa. Ovaj komercijalni alat je specifičan poznat po tome što može, tj. omogućuje programerima da unose ključeve koji su dobiveni prijašnjim probijanjima zaštite u jedno bazu podataka s ciljem da se spriječi njihovo ponovno korištenje. Još po čemu je ovaj alat poznat je da pruža zaštitu od praćenja izvođenja programa, npr. SoftICE. Trebamo naglasiti da je SoftICE jedan od najačih programa za praćenje izvođenja programa u današnje vrijeme. 
+</p><p>No, trebamo napomenuti da komercijalni alat Armadillo ima jedan jako veliki nedostatak, a to je da sprema cijeli dekodirani program u memoriju nakon dekodiranja programa. Stoga je dosta jednostavno probiti Armadillovu zaštitu, a to se radi tako da je potrebno spremiti sadržaj radne memorije i napraviti nekoliko modifikacija.
+</p><p>Za kraj neke funkcije Armadilla:
+</p><p>-	zaštita od vraćanja sistemskog vremena
+</p><p>-	zaštita od probijanja vremenske zaštite
+</p><p>-	sklopovsko zaključavanje
+</p><p>-	registracija certifikacijama
+</p><p><br />
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Notepad-zasticen.JPG" class="image"><img alt="Notepad-zasticen.JPG" src="../images/f/fa/Notepad-zasticen.JPG" width="800" height="508" /></a>
+</p><p><br />
+Slika 6. Prikaz instalacijske datoteke za softver Notepad zaštičen alatom SoftwarePassport
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Notepad-nezasticen.JPG" class="image"><img alt="Notepad-nezasticen.JPG" src="../images/4/4c/Notepad-nezasticen.JPG" width="800" height="509" /></a>
+</p><p><br />
+Slika 7. Prikaz instalacijske datoteke za softver Notepad u izvornom obliku bez zaštite
+</p><p><br />
+2.	SVKP 
+</p><p>SVKP punim imenom The Slovak Protector se podosta razlikuje od ostalih programa za automatsku zaštitu. Najveća prednost alata je što je brz i omogućava korištenje nekih specifičnih programskih tehnika zahvaljujući tome što je pisan u asembleru pa stoga podržava i neke stvari koje viši programski jezici ne mogu. SVKP koristi enkripciju funkcija pomoću 2048-bitnog RSA algoritma koju je u današnje vrijeme u smislenom roku nemoguće probiti , stoga je generiranje lažnih registracijskih ključeva nemoguće. Razlikuje se od ostalih programa po tome što ne koristi kompresiju , nego  Rijndael algoritam pomoću kojeg se zaštićeni program kriptira.
+</p><p>Neke funkcije koje SVKP nudi su:
+</p><p>-	API pozivi za komunikaciju s vlastitom zaštitom
+</p><p>-	aktivna zaštita
+</p><p>-	sprečavanje praćenja izvođenja
+</p><p>-	metamorfizam 
+</p><p><br />
+</p><p>3.	ASProtect
+</p><p>ASProtect je u današnje vrijeme jedan od najboljih alata za automatsku zaštitu, ako ne i najbolji. Razvila ga je tvrtka ASPack Software. ASProtect u većini slučajeva služi za rad s manjim programskim rješenjima internetske distribucije. Alat za programsku zaštitu ASProtect koristi ASPack algoritam. ASProtect služi za sprečavanje pojedinih funkcija prije nego što se program registrira. To se postiže tako da programer kriptira funkciju pomoću ASPortect algoritma, a zatim će se ASProtect pobrinuti da se pomoću ključa koji je sadržan u registracijskom ključu otključa ta funkcija, a bez toga ključa se neće moći pristupiti toj funkciji.
+</p><p>Radi na principu kompresije i dekompresije. Dekompresija se koristi za otkrivanje da li je bilo pokušaja da se orginalna datoteka izmjeni, a odmah se i pomoću toga sprječava dohvaćanje asemblerskog koda iz izvršne datoteke.
+</p><p>Poznat je po tome što se vrlo uspješno brani od brtue-force metode, a to sve zahvaljujući snažnoj enkripciji funkcije.
+</p><p><br />
+</p><p>4.	InstallShield
+</p><p>InstalShield spada u skupinu najpoznatijih i najboljih alata pomoću kojeg se kreira instalacijski paket. 
+Za kreiranje instalacijskog paketa InstallShield koristi:
+</p><p>-	API pozive iz eksternih bibilioteka
+</p><p>-	enkripciju podataka
+</p><p>-	provjeru sklopovskog ključa
+</p><p>Potrebno je napomenuti da je InstallShield alat koji koristi svoj vlastiti programski jezik, a struktura tog jezika je sličan strukturi programskog jezika C. Ono što je specifično za InstallShield i što otežava izmjenu datoteka u instalacijskom paketu je to  da se kod InstallShilelda sve potrebne datoteke potrebne za instalaciju ( to se događa prilikom instalacije) dekompresiraju u neki privremeni direktorij, a zatim se instalacija može pokrenuti s tog jednog jedinog mjesta. Ono po čemu je poznat InstallShield i koji je njegov najbolji dio  je taj što zaštita InstallShielda leži u zaštiti koja je uprogramirana u InstallShieldov jezik za skriptiranje. To je napravljeno zbog toga jer je alatu dosta teško pratiti izvođenja koja se događaju po kodu koja su uzrokovana kompleksnim strukturama. Još jedan od razloga je i taj što je ta Script datoteka u kojoj se nalazi zaštita također zaštićena CRC provjerom. Stoga dolazimo do toga da je tu datoteku teško izmijeniti, a InstallShield jedan od najboljih alata.
+</p><p><br />
+</p><p>[Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009]
+</p><p><br />
+Dario Kresonja
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Programsko_rje.C5.A1enje"> Programsko rješenje </span></h2>
+<p>Odlučili smo demonstrirati jednu od metoda zaštite izvršnog koda na primjeru obfuskacije JavaScript datoteke. Pošto je JavaScript jezik koji se interpretira i nema mogućnost kompajliranja (čime bi se barem sakrio izvršni kod), on je u principu "uvijek čitljiv" korisnicima neke web stranice, i stoga je obfuskacija najčešće jedina moguća zaštita (osim pravne zaštite).
+</p><p><br />
+Da bi demonstirali obfuskaciju neke programske datoteke, napravili smo skriptu u Pythonu koja se može postaviti na server i koja prima kao parametar naziv neke JavaScript datoteke te ju obrađuje i ispisuje obfusciran JavaScript a pritom zadržava funkcionalnost. Time se umjesto normalnog uključivanja JavaScript datoteke u HTML-u web stranice (primjer) može uključiti ispis te Python skripte (ovo je obfuscirana verzija).
+</p><p><br />
+Naravno, obfuskacija izvornog koda nekog programa je složena stvar jer nužno uključuje puno leksičko parsiranje tog jezika. Iako je JavaScript relativno jednostavan jezik, za potpunu obfuskaciju bi bilo potrebno napraviti složen stroj stanja koji bi prolazio kroz datoteku i malo po malo ju "čitao", tj. identificirao sve konstrukte jezika poput varijabli i funkcija, te odvajao ih od drugih kao što su stringovi, koji se moraju procesuirati na bitno drukčiji način. Nažalost, takav program bi bio previše složen za realizirati pa naš obfuskator radi samo neke jednostavnije supstitucije i uklanjanja pomoću regularnih izraza (regexa). Unatoč tome, vrlo je vidljivo smanjenje čitljivosti i razumljivosti koda koji je prošao kroz proces obfuskacije, kao što se može vidjeti na našem primjeru (ulazni kod naspram izlaznog).
+</p><p><br />
+HTML koji uključuje "normalni" javascript:
+<a href="http://arka.foi.hr/~nebivanov/obfuskator/normal.html" class="external free" rel="nofollow">http://arka.foi.hr/~nebivanov/obfuskator/normal.html</a>
+</p><p>HTML koji uključuje obfuscirani javascript:
+<a href="http://arka.foi.hr/~nebivanov/obfuskator/obfuscated.html" class="external free" rel="nofollow">http://arka.foi.hr/~nebivanov/obfuskator/obfuscated.html</a>
+</p><p>Same datoteke (obfuscirana i normalna) su:
+<a href="http://arka.foi.hr/~nebivanov/obfuskator/in.js" class="external free" rel="nofollow">http://arka.foi.hr/~nebivanov/obfuskator/in.js</a>
+<a href="http://arka.foi.hr/~nebivanov/obfuskator/jsobf.py?file=in.js" class="external free" rel="nofollow">http://arka.foi.hr/~nebivanov/obfuskator/jsobf.py?file=in.js</a>
+</p><p><br />
+</p><p>Grudiček T., Ivanović N., Kresonja D., Kučina D.
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Zaštita izvršnog koda programa predstavlja velik problem u današnjem društvu. To je proces povezan s različitim interesno utjecajnim skupinama, od zakonodavstva i informatičkih tehnologija, pa do ekonomije koja također ovdje ima vrlo važnu ulogu. 
+</p><p>Postoje mnogi načini kako zaštititi izvršni kod. Primjerice, licenciranje je vrlo raširen način zaštite softvera u današnje doba. Licenca kao oblik zaštite daje pravo korištenja softvera prema pravilima kako je to navedeno u licencnom ugovoru. Prodajom licenciranog softvera, korisnik ne postaje vlasnikom samog softvera već on kupuje licencu za njegovo korištenje. 
+</p><p>Autorsko pravo predstavlja najrašireniji način zaštite bilo kakvog intelektualnog vlasništva, pa tako i izvršnog koda. Autorskim pravom štiti se autora od nelegalnog korištenja njegova djela. Autorsko pravo je oblik zaštite gdje je moguće zaštititi izvršni kod programa, kao i izvorni, te strukturu i organizaciju koda, dijelove ili cijelo korisničko sučelje, pa i dokumentaciju koja ide uz softver. 
+</p><p><br />
+<i>Packing</i> je tehnologija koja se koristi za zloćudne programe. Koristi se u svrhu smanjivanja veličine zloćudnog koda, kako bi se kod lakše prenio preko interneta. Međutim, ima i efekt da zloćudni program učini otpornijim za analizu. <i>Packing</i> je općenito program koji neku <i>.exe</i> datoteku kompresira i/ ili šifrira njezin sadržaj. Zatim ju pakira u novu <i>.exe</i> datoteku. 
+</p><p><br />
+Mnogi <i>packing</i> alati implementiraju mehanizme zaštite softvera kao što su prekid i kontrola iznimkama, <i>anti– debugging</i>, <i>anti– Vmware</i> itd. Cilj im je ometanje analize zaštićenog programa. Neki <i>packing</i> alati sadrže vlastiti modificirani kod kako bi rutina <i>unpacking</i>-a bila dešifrirana prije izvođenja te kako bi bila ponovno šifrirana odmah nakon izvođenja.
+</p><p>Kod se štiti tako što se izvodi i u virtualnom okruženju s nestandardnom arhitekturom koja ga čini iznimno složenim za analiziranje. Osim toga, na taj se način izvorni kod štiti kako bi se spriječio <i>crack</i> programa. Neki <i>packing</i> alati generiraju i verificiraju serijske brojeve te na taj način onemogućavaju nadogradnju i druge važne funkcionalnosti nekog alata.
+</p><p><br />
+Koliko je neka zaštita otporna na razne napade i pokušaje probijanja, ovisi o implementaciji funkcionalnosti nekog programskog rješenja te mehanizmima zaštite koji se pritom koriste. Kad se govori o sprečavanju manipulacije izvršnim kodom, to je područje dovoljno pokriveno već gotovim komercijalnim rješenjima. Koriste se razni trikovi za sprečavanje probijanja programske zaštite. Pravilnim korištenjem i kombiniranjem tih mehanizama, može se napraviti poprilično jaka, gotovo neprobojna zaštita. Unatoč tome, svaka zaštita se, s vremenom, može probiti. To se mora uzeti u obzir prilikom izgradnje sustava zaštite. Pritom programer mora imati predodžbu kolike gubitke očekuje u slučaju probijanja zaštite, te kakva je zaštita zaista potrebna, odnosno koliko dugo je proizvođač odlučan odgoditi probijanje zaštite. U zaštiti ne treba pretjerivati jer ponekad komplicirana rješenja rade probleme u normalnom radu aplikacije, a uz to usporavaju i izvođenje.
+</p><p><br />
+Grudiček T. Kučina D.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p><b><i>Web</i> izvori:</b>
+</p><p><br />
+•	Barak B. Can we obfuscate programs?, 2007. Izvor: <a href="http://www.math.ias.edu/~boaz/Papers/obf_informal.html" class="external free" rel="nofollow">http://www.math.ias.edu/~boaz/Papers/obf_informal.html</a>, učitano 19.01.2013.
+</p><p><br />
+•	Narodne novine, Zakon o autorskom pravu i srodnim pravima, 2003. Izvor: <a href="http://narodne-novine.nn.hr/clanci/sluzbeni/306987.html" class="external free" rel="nofollow">http://narodne-novine.nn.hr/clanci/sluzbeni/306987.html</a>, učitano 19.01.2013. 
+</p><p><br />
+•	Nikić, M. Ostvarenje programske zaštite od neovlaštene upotrebe, 2009. Izvor: <a href="http://bib.irb.hr/datoteka/449874.Diplomski_rad.pdf" class="external free" rel="nofollow">http://bib.irb.hr/datoteka/449874.Diplomski_rad.pdf</a>, učitano 19.01.2013.
+</p><p><br />
+•	Požgaj Ž. Normativna zaštita softvera, 2009. Izvor: <a href="http://web.efzg.hr/dok//inf/pozgaj/pisani%20materijali/T13%20Normativna%20za%C5%A1tita.pdf" class="external free" rel="nofollow">http://web.efzg.hr/dok//inf/pozgaj/pisani%20materijali/T13%20Normativna%20za%C5%A1tita.pdf</a>., 19.01.2013.
+</p><p><br />
+•	Zaštita softvera, 2004. Izvor: <a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-04-71.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-04-71.pdf</a>, učitano 19.01.2013.
+</p><p><br />
+•	<a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-04-71.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-04-71.pdf</a>, učitano 10.01.2013.
+</p><p><br />
+•	<a href="http://bib.irb.hr/datoteka/449874.Diplomski_rad.pdf" class="external free" rel="nofollow">http://bib.irb.hr/datoteka/449874.Diplomski_rad.pdf</a>, učitano 10.01.2013.
+</p><p><br />
+•	<a href="Zaštita_programskih_proizvoda.html" class="external free" rel="nofollow">http://security.foi.hr/wiki/index.php/Za%C5%A1tita_programskih_proizvoda</a>, učitano 10.01.2013.
+</p><p><br />
+•	<a href="Metode_zaštite_softwarea_-_Packing.html" class="external free" rel="nofollow">http://security.foi.hr/wiki/index.php/Metode_za%C5%A1tite_softwarea_-_Packing</a>, učitano 12.01.2013.
+</p><p><br />
+•	<a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2005-09-134.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2005-09-134.pdf</a>, učitano 13.01.2013.
+</p><p><br />
+•	<a href="http://sigurnost.lss.hr/documents/LinkedDocuments/CCERT-PUBDOC-2007-12-212.pdf" class="external free" rel="nofollow">http://sigurnost.lss.hr/documents/LinkedDocuments/CCERT-PUBDOC-2007-12-212.pdf</a>, učitano 13.01.2013.
+</p><p><br />
+•	<a href="http://articles.mplans.com/packaging-and-labeling-your-products/" class="external free" rel="nofollow">http://articles.mplans.com/packaging-and-labeling-your-products/</a>, učitano 13.01.2013.
+</p><p><br />
+•	<a href="http://en.wikipedia.org/wiki/Bin_packing_problem" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Bin_packing_problem</a>, učitano 14.01.2013.
+</p><p><br />
+•	<a href="http://en.wikipedia.org/wiki/Packaging_and_labeling" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Packaging_and_labeling</a>, učitano 14.01.2013.
+</p><p><br />
+•	<a href="http://en.wikipedia.org/wiki/Packing" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Packing</a>, učitano 15.01.2013.
+</p><p><br />
+•	<a href="http://xheo.com/products/code-protection/how-it-works" class="external free" rel="nofollow">http://xheo.com/products/code-protection/how-it-works</a>, učitano 16.01.2013.
+</p><p><br />
+•	<a href="http://www.preemptive.com/images/stories/dotfuscator_documentation/fifty_reasons_dotfuscator.pdf" class="external free" rel="nofollow">http://www.preemptive.com/images/stories/dotfuscator_documentation/fifty_reasons_dotfuscator.pdf</a>, učitano 17.01.2013.
+</p><p><br />
+•	<a href="http://www.codeproject.com/Articles/12119/The-Increasing-Need-to-Protect-your-Applications-f" class="external free" rel="nofollow">http://www.codeproject.com/Articles/12119/The-Increasing-Need-to-Protect-your-Applications-f</a>, učitano 16.01.2013.
+</p><p><br />
+•	<a href="http://syprog.blogspot.com/2012/02/basics-of-executable-code-obfuscation.html" class="external free" rel="nofollow">http://syprog.blogspot.com/2012/02/basics-of-executable-code-obfuscation.html</a>, učitano 14.01.2013. 
+</p><p><br />
+•	<a href="http://wwwusers.di.uniroma1.it/~parisi/Risorse/PrevRevEng.pdf" class="external free" rel="nofollow">http://wwwusers.di.uniroma1.it/~parisi/Risorse/PrevRevEng.pdf</a>, učitano 19.01.2013.
+</p><p><br />
+•	<a href="http://yury.name/obfuscation/" class="external free" rel="nofollow">http://yury.name/obfuscation/</a>, učitano 17.01.2013.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 75/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4376-0!*!0!!hr!2!edit=0 and timestamp 20190203204027 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html">http://security.foi.hr/wiki/index.php/Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Packeri_i_mehanizmi_zaštite_izvršnog_koda.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Packeri_i_mehanizmi_za%C5%A1tite_izvr%C5%A1nog_koda&amp;oldid=17221" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:51, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 13.058 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Packeri_i_mehanizmi_zaštite_izvršnog_koda", "wgTitle": "Packeri i mehanizmi zaštite izvršnog koda", "wgAction": "view", "wgArticleId": 4376, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17221, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.506 secs. -->			</body>
+</html>

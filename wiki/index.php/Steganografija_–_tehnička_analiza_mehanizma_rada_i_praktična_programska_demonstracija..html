@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Steganografija – tehnička analiza mehanizma rada i praktična programska demonstracija. - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Steganografija – tehnička analiza mehanizma rada i praktična programska demonstracija.</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#mw-head">orijentacija</a>,
+					<a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi tima: Romano Kovač
+</p><p><b>Steganografija</b> je znanstvena disciplina koja se bavi prikrivenom razmjenom informacija. Riječ steganografija izvedena je od grčkih riječi <i>steganos</i> (στεγανός) i <i>graphein</i> (γράφειν), što u doslovnom prijevodu znači "skriveno pisanje". [1] Tajna se poruka skriva unutar neke druge bezazlene poruke tako da se postojanje tajne poruke ne može uočiti, a sve ovo omogućuju nam razne steganografske tehnike. Ovakav pristup enkripciji naziva se još i <i>security through obscurity</i> (tj. sigurnost kroz skrivenost). [6]
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Steganografija"><span class="tocnumber">1</span> <span class="toctext">Steganografija</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Povijest_steganografije"><span class="tocnumber">2</span> <span class="toctext">Povijest steganografije</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Tehnike_steganografije"><span class="tocnumber">3</span> <span class="toctext">Tehnike steganografije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Tehni.C4.8Dka_steganografija"><span class="tocnumber">3.1</span> <span class="toctext">Tehnička steganografija</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Lingvisti.C4.8Dka_steganografija"><span class="tocnumber">3.2</span> <span class="toctext">Lingvistička steganografija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Kategorije_steganografskih_tehnika"><span class="tocnumber">4</span> <span class="toctext">Kategorije steganografskih tehnika</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Tehnike_supstitucije"><span class="tocnumber">4.1</span> <span class="toctext">Tehnike supstitucije</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#LSB_supstitucija"><span class="tocnumber">4.1.1</span> <span class="toctext">LSB supstitucija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Tehnike_transformacije_domene"><span class="tocnumber">4.2</span> <span class="toctext">Tehnike transformacije domene</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Steganaliza"><span class="tocnumber">5</span> <span class="toctext">Steganaliza</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Kategorizacija_tehnika_steganalize"><span class="tocnumber">5.1</span> <span class="toctext">Kategorizacija tehnika steganalize</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Oblici_napada"><span class="tocnumber">5.2</span> <span class="toctext">Oblici napada</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Skrivanje_podataka_u_audio"><span class="tocnumber">6</span> <span class="toctext">Skrivanje podataka u audio</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Steganografija"> <span id="steganografija">Steganografija</span> </span></h2>
+<p>Steganografija podrazumijeva prikrivanje tajne poruke, ali ne i činjenice da dvije strane međusobno komuniciraju. Stoga proces steganografije obično uključuje umetanje tajne poruke unutar nekog prijenosnog medija koji se u tom slučaju naziva nositelj i ima ulogu prikrivanja postojanja tajne poruke. Nositelj mora biti takav skup podataka koji je sastavni dio uobičajene svakodnevne komunikacije te kao takav ne privlači posebnu pozornost na sebe, npr. tekst, slika, audio ili video zapis. Cjelina sačinjena od tajne poruke i nositelja unutar kojeg je ta poruka ugniježđena, naziva se steganografski medij ili stego. U svrhu dodatne zaštite, moguća je i uporaba steganografskog ključa kojim se tajna poruka kriptira prije umetanja u nositelj. Steganografski medij se stoga može prikazati u sljedećem obliku: [1]
+</p>
+<pre> steganografski_medij = tajna_poruka + nositelj + steganografski_ključ
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:702px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Stego_1.png" class="image"><img alt="Alt text" src="../images/d/d3/Stego_1.png" width="700" height="205" class="thumbimage" /></a>  <div class="thumbcaption">Steganografski sustav [1]</div></div></div></div>
+<p>Pojašnjenje pojmova s prethodne slike koji čine dio steganografskog sustava: [1]
+</p>
+<ul><li><b>f<sub>E</sub></b> - steganografska funkcija "ugrađivanje"
+</li></ul>
+<ul><li><b>f<sub>E</sub><sup>-1</sup></b> -  steganografska funkcija "izdvajanje" 
+</li></ul>
+<ul><li><b>nositelj</b> -  medij unutar kojeg se sakriva tajna poruka
+</li></ul>
+<ul><li><b>poruka</b> -  tajna poruka koja treba biti sakrivena
+</li></ul>
+<ul><li><b>ključ</b> - steganografski ključ; parametar funkcije f<sub>E</sub>
+</li></ul>
+<ul><li><b>stego</b> - steganografska datoteka
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Rkovac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Rkovac (stranica ne postoji)">Rkovac</a> 00:09, 18. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Povijest_steganografije"> <span id="povijest_steganografije">Povijest steganografije</span> </span></h2>
+<p>Pojam steganografije formiran je tek krajem 15. stoljeća, no različite steganografske tehnike u primjeni su već nekoliko tisućljeća. Slijedi pregled najpoznatijih primjena steganografije kroz povijest: [1]
+</p>
+<ul><li><b>Voštane ploče</b> - U antičkoj Grčkoj najzastupljenije sredstvo pisanja bili su komadi drvenih ploča preliveni voskom. Tajna poruka se napisala na taj komad drvene ploče prije nego se ploča prelila voskom. Nakon što se ploča prelila voskom, tajna poruka je ostala skrivena.
+</li></ul>
+<ul><li><b>Poruke na glasnikovom tijelu</b> - Osim voštane ploče, tajna informacije se skrivala i na tijelima glasnika. Glava glasnika bi se obrijala i na njoj bi se tetovirala tajna poruka. Nakon što bi kosa narasla, tajna poruka bi ostala skrivena, a čitanje poruke bi se vršilo brijanjem glasnikove glave. Ovakve tehnike su korištene u Grčko-Perzijskim ratovima.
+</li></ul>
+<ul><li><b>Voštane kuglice</b> - Drevni Kinezi su na tanki komad svile zapisivali poruku, zatim su taj komad stavljali u voštanu kuglicu koju bi glasnik progutao.
+</li></ul>
+<ul><li><b>Johannes Trithemius</b> - Redovnik Johannes Trithemius je oko 1500. napisao knjigu <i>Steganographia</i> u kojoj je opisao kako sakriti poruku unutar bezazlenog teksta. Knjiga je izdana 1606.
+</li></ul>
+<ul><li><b>Kuhana jaja</b> - Talijanski znanstvenik Giovanni Porta, rođen 1535. godine, je otkrio kako sakriti poruku unutar skuhanog jaja. Kao tintu je koristio mješavinu stipsa i octa. Poruku bi nanio na skuhano jaje, a tinta od stipsa i octa bi prodrla kroz ljusku jaja. Skrivena poruka bi se očitala s bjelanjka nakon što bi se jaje ogulilo.
+</li></ul>
+<ul><li><b>Nevidljiva tinta</b> - Tijekom Drugog svjetskog rata se nevidljiva tinta koristila za prijenos tajne poruke. Dobivanje skrivene poruke zasnivalo se na svojstvu da tinta postaje vidljiva prilikom zagrijavanja, odnosno kontakta s određenom kemijskom supstancom.
+</li></ul>
+<ul><li><b>Morseova abeceda</b> - Također, poruke su se znale prenositi u predivu korištenjem znakova Morseove abecede ili na poleđini poštanskih maraka.
+</li></ul>
+<ul><li><b>Mikrofotografija</b> - Tijekom i nakon Drugog svjetskog rata bila je česta uporaba mikrofotografija (microdots). Mikrofotografije su bile veličine točke pa su se lako mogle smjestiti, tj. nalijepiti, u tekst. Ipak, tako nalijepljene mikrofotografije bi reflektirale svjetlost kada bi se papir okrenuo pod određenim kutom pa su bile primjetne.
+</li></ul>
+<ul><li><b>Nulte šifre</b> - Valja spomenuti i korištenje nulte šifre u špijunaži. Tako je Velvalee Dickinson, japanska špijunka i preprodavačica lutaka, slala pisma narudžbe u Južnu Ameriku u kojima su se nalazile skrivene informacije o kretanjima brodova.
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Rkovac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Rkovac (stranica ne postoji)">Rkovac</a> 14:44, 17. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Tehnike_steganografije"> <span id="tehnike_steganografije">Tehnike steganografije</span> </span></h2>
+<p>Dva su osnovna tipa steganografije: tehnička steganografija <i>(eng. technical steganography)</i> i lingvistička steganografija <i>(eng. linguistic steganography)</i>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:757px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Stego_2.png" class="image"><img alt="Alt text" src="../images/4/47/Stego_2.png" width="755" height="382" class="thumbimage" /></a>  <div class="thumbcaption">Steganografske tehnike</div></div></div></div>
+<h3> <span class="mw-headline" id="Tehni.C4.8Dka_steganografija"> <span id="tehnicka_steganografija">Tehnička steganografija</span> </span></h3>
+<p><b>Tehnička steganografija</b> se ogleda u korištenju posebnih tehničkih sprava, uređaja, instrumenata i metoda u skrivanju poruke. U tehničku steganografiju  tako spada:
+</p>
+<ul><li><b>Nevidljiva tinta</b> - Tinta koja reagira ukoliko dođe u kontakt s toplinom ili nekom kemijskom supstancom.
+</li></ul>
+<ul><li><b>Korištenje skrovitih mjesta</b> - Dobar primjer je tetovaža ispod kose.
+</li></ul>
+<ul><li><b>Mikrofotografije (microdots)</b> - Izrazito sičušće fotografije koje su veličine manje od pola milimetra.
+</li></ul>
+<ul><li><b>Računalom zasnovane metode</b> - metode nastale upotrebom osobnog računala.
+</li></ul>
+<h3> <span class="mw-headline" id="Lingvisti.C4.8Dka_steganografija"> <span id="lingvisticka_steganografija">Lingvistička steganografija</span> </span></h3>
+<p><b>Lingvistička steganografija</b> obuhvaća steganografske metode koje skrivaju tajnu poruku u objekt nositelj nastojeći je prikazati kao bezazlen skup informacija. Uobičajeno je objekt nositelj jezičnog sadržaja. Lingvističku steganografiju  dijelimo na: [1]
+</p>
+<ul><li><b>Semagrami</b> <i>(eng. semagrams)</i>- skrivaju informacije uporabom različitih simbola i znakova.
+<ul><li> <b>Vizualni semagrami</b> <i>(eng. visual semagrams)</i> - baziraju se na principu skrivanja poruke uporabom bezazlenih i svakodnevnih fizičkih objekata, npr. specifičnim razmještajem predmeta na stolu ili objekata na web stranici.
+</li><li> <b>Tekstualni semagrami</b> <i>(eng. textual semagrams)</i> - skrivaju informacije različitim modifikacijama teksta nositelja, npr. suptilna promjena veličine ili tipa fonta, dodavanje suvišnih razmaka ili korištenje različitih ukrasa u rukopisu.
+</li></ul>
+</li></ul>
+<ul><li><b>Otvoreni kodovi</b> <i>(eng. open codes)</i> - uključuju sve tipove prijenosa tajne poruke u kojima se koristi legitimna poruka nositelj koja igra ulogu javne, tj. neskrivene komunikacije. Otvoreni kodovi dijele se na žargonski kod i skrivene šifre.
+<ul><li> <b>Žargonski kod</b> <i>(eng. jargon code)</i> - podrazumijeva korištenje jezika koji razumije ograničena skupina ljudi, npr. specifična terminologija određene grupe ljudi ili simboli za indiciranje postojanja i tipa bežičnog mrežnog signala. Podskup žargonskog koda je i znakovni kod u kojem određene predefinirane fraze predstavljaju točno određene pojmove.
+</li><li> <b>Skrivene šifre</b> <i>(eng. covered ciphers)</i> - predstavljaju steganografsku tehniku kod koje je umetnutu tajnu poruku moguće izdvojiti iz steganografskog medija samo ako je poznata točna metoda korištena za njeno umetanje u nositelj. Skrivene šifre uključuju rešetkaste i nulte šifre.
+<ul><li><b>Rešetkasta šifra</b> (eng. grille ciphers) - temelje se na predlošcima koji se koristi za prikrivanje poruke nositelja. Podaci koji se pojavljuju u otvorima takvih predložaka predstavljaju skrivenu tajnu poruku.
+</li><li><b>Nulta šifra</b> (eng. null cipher) - koristi se za skrivanje informacija tako da se definira neki set pravila, npr. „čitaj svaku petu riječ“ ili „čitaj svaki treći znak u svakoj riječi“. Dotična metoda omogućava skrivanje tajnih poruka u svakodnevnim porukama bez uporabe kompliciranih algoritama ili alata. Primjeri umetanja tajnog teksta unutar datoteka su: ispod slike u PowerPoint datoteci, u Properties dijelu Word datoteke, unutar komentara na web stranicama, unutar bilo kojeg dokumenta tako da boja teksta odgovara boji pozadine. Jedan od najjednostavnijih i najpoznatijih primjera primjene nulte šifre je poruka koju je jedan njemački špijun slao za vrijeme 2. svjetskog rata:
+</li></ul>
+</li></ul>
+</li></ul>
+<pre>"APPARENTLY NEUTRAL'S PROTEST IS THOROUGHLY DISCOUNTED AND IGNORED. 
+ISMAN HARD HIT. BLOCKADE ISSUE AFFECTS PRETEXT FOR EMBARGO ON 
+BYPRODUCTS, EJECTING SUETS AND VEGETABLE OILS.“
+</pre>
+<p>Uzimanjem 2. slova iz svake riječi, dobiva se sljedeća tajna poruka: 
+</p>
+<pre>„PERSHING SAILS FROM N.Y. JUNE 1“
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Rkovac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Rkovac (stranica ne postoji)">Rkovac</a> 00:09, 18. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Kategorije_steganografskih_tehnika"> <span id="kategorije_steganografskih_tehnika">Kategorije steganografskih tehnika</span> </span></h2>
+<p>Steganografske tehnike se mogu podijeliti u sljedećih šest kategorija [2]:
+</p>
+<ul><li><b>Tehnike supstitucije</b> <i>(eng. subtitution systems)</i> - zamjena suvišnih dijelova nositelja sa tajnom porukom. Najčešće korištena tehnika ove kategorije je LSB supstitucija (eng. Least Significant Bit - LSB) koja bitove najmanje važnosti pretvara u nositelje skrivene poruke.
+</li></ul>
+<ul><li><b>Tehnike transformacije domene</b> <i>(eng. transform domain techniques)</i> - ugrađivanje tajnih podataka na transformirani prostor signala. 
+</li></ul>
+<ul><li><b>Tehnike raspršenog slijeda</b> <i>(eng. spread spectrum techniques - SS)</i> - usvaja ideje iz raspršenog spektra komunikacije
+</li></ul>
+<ul><li><b>Statističke metode</b> <i>(eng. statistical methods)</i> - kodiramo podatke promjenom nekoliko statističkih svojstava nositelja i koristimo hipotezu ispitivanja u postupku ekstrakcije.
+</li></ul>
+<ul><li><b>Tehnike izobličavanja</b> <i>(eng. distortion techniques)</i> - pohranjujemo informacije izobličenog signala i mjerimo odstupanje od izvornog nositelja u koraku dekodiranja
+</li></ul>
+<ul><li><b>Tehnike stvaranja nositelja skrivene informacije</b> <i>(eng. cover generation methods)</i> - ovdje ne ugrađujemo podatak u nositelj, već se na temelju podatka stvara nositelj koji će mu odgovarati.
+</li></ul>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Tehnike_supstitucije"> <span id="tehnike_supstitucije">Tehnike supstitucije</span> </span></h3>
+<h4> <span class="mw-headline" id="LSB_supstitucija"> <span id="lsb_supstitucija">LSB supstitucija</span> </span></h4>
+<p>LSB (eng. least significant bit) supstitucija jedna je od najčešćih steganografskih tehnika - najmanje značajni bitovi odabrane prikrivne datoteke zamijene se bitovima tajne poruke. Ova tehnika se lako primjenjuje na slikovne datoteke. Velika količina informacija može se sakriti malim ili potpuno neuočljivim utjecajem na datoteku nositelja skrivene informacije. Na primjer, želimo li sakriti poruku u svaki bajt 24-bitne slike, možemo spremiti 3 bita u svaki piksel (1 bit u kanal svake boje). Slika dimenzija 1024x768 piksela može sakriti 1024 * 768 * 3 = 2359296 bitova informacija. To je 294912 bajta ili 288 kilobajta informacija. To je velika količina, no stegoslika ljudskom oku izgleda identično kao i original. Pretpostavimo da želimo sakriti slovo A. Njegov ASCII ekvivalent iznosi 65<sub>(10)</sub> , što je binarno 01000001<sub>(2)</sub>. Za skrivanje su nam dovoljna 3 piksela. Neka su ti pikseli: [3]
+</p>
+<pre>(00100111, 11101001, 11001000) 
+(00100111, 11001000, 11101001) 
+(11001000, 00100111, 11101001).
+</pre>
+<p>Umetanje binarne vrijednosti slova A u tri piksela rezultira s
+</p>
+<pre>(0010011<b>0</b>, 11101001, 11001000) 
+(0010011<b>0</b>, 11001000, 1110100<b>0</b>) 
+(11001000, 00100111, 11101001).
+</pre>
+<p>Možemo primjetiti da su samo podebljani bitovi promijenili vrijednost. Promatrajući neki prosjek, primjenom ove metode promijeni se samo polovica najmanje značajnih bitova. Piksel koji se najviše promijenio, promijenio se za dvije nijanse boje, pa možemo primjetiti da je u odnosu na 16,7 milijuna nijansi ova promjena zanemarivo za ljudsko oko.
+</p><p>Nadalje, u želji da sakrijemo tajnu poruku unutar neke slikovne datoteke, prvi i osnovni korak jest odabir prikrivne datoteke. Nakon što su prikrivna datoteka i tajna poruka odabrane, bira se podskup najmanje značajnih bitova prikrivne datoteke (skup prikrivnih bitova). Broj bitova u odabranom skupu uvijek odgovara broju bitova tajne poruke. Nakon toga se redoslijednim pristupom svaki prikrivni bit zamjenjuje bitom tajne poruke, tako dugo dok svi bitovi nisu zamijenjeni. U najjednostavnijem slučaju LSB supstitucije tajni se bitovi pohrane u najmanje značajni bit (LSB) svakog piksela po redu.
+</p><p>Ukoliko želi rekonstruirati poruku, primatelj mora znati podskup najmanje značajnih bitova u koje je poruka skrivena. Tehnikom obrnutom od umetanja "izvlači" najmanje značajne bitove, slaže ih pravim slijedom i dobiva poruku.
+Kada bismo tajnu poruku ovom metodom skrivali u 2, 3 ili 4 najmanje značajna bita elemenata prikrivne datoteke, još uvijek bi ljudsko oko teško moglo primijetiti razliku u odnosu na original.
+U sljedećem primjeru tajna poruka je umetnuta na način da su 3 bita crvenog i zelenog kanala te 2 bita plavog kanala zamijenjena bitovima tajne poruke. [3]
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Prikrivna_slika.jpg" class="image"><img alt="Alt text" src="../images/3/32/Prikrivna_slika.jpg" width="500" height="328" class="thumbimage" /></a>  <div class="thumbcaption">Prikrivna slika [3]</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Stegoslika.jpg" class="image"><img alt="Alt text" src="../images/6/6c/Stegoslika.jpg" width="500" height="328" class="thumbimage" /></a>  <div class="thumbcaption">Stegoslika [3]</div></div></div></div>
+<h3> <span class="mw-headline" id="Tehnike_transformacije_domene"> <span id="tehnike_transformacije_domene">Tehnike transformacije domene</span> </span></h3>
+<p>Tehnika transformacije domene oslanja se na matematičke funkcije koje se koriste u algoritmima kompresije kako bi se uspješno sakrio podatak. Umetanje bitova tajne poruke na mjesto koeficijenata najmanje važnosti predstavlja osnovni princip rada ove tehnike.
+Uzmimo za primjer JPEG format slike koji koristi diskretnu kosinusnu transformaciju (eng. discrete cosine transform - DCT). Na taj način slika se dijeli u blokove veličine 8x8 za svaku komponentu RGB sustava i nakon toga se pokušavaju pronaći oni blokovi u kojima je promjene vrijednosti piksela dovoljno niska kako bi se čitavi blok mogao zamijeniti jednim diskretnim koeficijentom kosinusne transformacije. U slučaju da je količina promjene previsoka, blok će se podijeliti u manjih 8x8 blokova tako dugo dok količina promjene nije na zadovoljavajućoj razini (dovoljno niska). Svaki diskretni koeficijent kosinusne transformacije aproksimira luminanciju (svjetlinu, tamnoću i kontrast) i krominanciju (boju) specifičnog dijela slike. JPEG format smatramo kompresijom slike s gubicima obzirom da slika koja je dobivena konverzijom nije u potpunosti identična svojoj originalnoj verziji, ali je svejedno vrlo bliska aproksimacija iste. U situacijama kada se JPEG koristi kao steganografski nositelj, umjesto bitova koji se zamjenjuju tijekom LSB supstitucije, ovdje se zapravo vrše promjene relacije spomenutih koeficijenata. Dobra većina tehnika transformacije domene ne ovisi o formatu slike pa samim time umetnuta tajna poruka ostaje sačuvana i nakon konverzije neovisno da li se radilo o formatima s gubicima ili bez gubitaka podataka. [1]
+</p><p><br />
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Rkovac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Rkovac (stranica ne postoji)">Rkovac</a> 00:10, 18. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Steganaliza"> <span id="steganaliza">Steganaliza</span> </span></h2>
+<p>Steganaliza je proces u kome se detektiraju steganografske datoteke na način da se proučavanju različite varijacije uzoraka bitova i neobično velikih datoteka. Neki od istaknutih ciljeva steganalize su: [1] 
+</p>
+<ul><li> identificiranje sumnjivih skupova podataka (npr. signali ili datoteke) unutar kojih se potencijalno može nalaziti skrivena tajna poruka, 
+</li><li> utvrđivanje da li su umetnuti tajni podaci u steganografsku datoteku prethodno kriptirani,
+</li><li> utvrđivanje postojanja šuma ili nebitnih podataka unutar sumnjivog signala ili datoteke i 
+</li><li> izdvajanje i dekriptiranje umetnute poruke iz steganografske datoteke.
+</li></ul>
+<h3> <span class="mw-headline" id="Kategorizacija_tehnika_steganalize"> <span id="kategorizacija_tehnika_steganalize">Kategorizacija tehnika steganalize</span> </span></h3>
+<p>Tehnike steganalize se mogu podijeliti u sljedeće kategorije: [1]
+</p><p><b>Neobični uzorci</b>
+</p><p>Unutar steganografskih datoteka može se naići na neobični uzorke što nam na neki način sugerira na potencijalno skrivenu poruku unutar istih. Te neobične uzorke najlakše ćemo identificirati upotrebom različitih alata i tehnika. Istaknut ćemo za početak nekoliko mogućnosti. Primjerice, raznim alatima za analizu diska moguće je pronaći skrivene informacije u nekorištenim particijama. Nadalje, različiti filtri mogu nam poslužiti za identificiranje TCP/IP paketa koji opet mogu sadržavati skrivene podatke unutar svog zaglavlja. Pregledom teksta unutar nekog tekstualnog procesora također je moguće pronaći sitne nepravilnosti kod primjerice razmještaja riječi i redaka ili suvišne razmake koji opet sugeriraju na postojanje skrivene poruke. Slikovne datoteke mogu sadržavati izobličenja te varijacije u boji i luminanciji koje, nakon što se identificiraju nekim alatom, također upućuju na prisustvo skrivenih informacija.
+</p><p><b>Vizualna detekcija</b>
+</p><p>Još jedan način na koji je moguće identificirati korišteni steganografski alat ili skrivenu informaciju jest analizom ponavljajućih uzoraka. Ispitivanje tih uzorakaprovodi se na način da se izvorni steganografski nositelj uspoređuje sa steganografskom datotekom koja sadrži skrivenu poruku. Takav napad naziva se napad s poznatim nositeljem.
+Takvim uspoređivanjem različitih steganografskih datoteka moguće je pronaći uzorke koji predstavljaju svojevrsni 'potpis' specifičnog steganografskog alata tj. vrlo je jednostavno identificirati alat. Ako u danom momentu izvorni steganografski nositelj nije dostupan, izvedeni potpisi dovoljni su za implikaciju postojanja skrivene poruke te identifikaciju steganografskog alata koji je korišten za umetanje tajne poruke. Detekciju takvih potpisa može se automatizirati korištenjem specijalnih alata za detekciju steganografije, a takvi alati obično koriste različite uzorke paleta i potpisa kako bi identificirali piksele koji odstupaju od neke standardne vrijednosti za određeni dio slike.
+Dodatni alarm postojanja skrivene informacije unutar slike možemo primjetiti kod njenog nadopunjavanja ili rezanja. Naime, kod nekih steganografskih alata događa se da slika ne odgovara nekoj predefiniranoj fiksnoj veličini pa se mora odrezati ili nadopuniti crnim plohama. Nadalje, razlike u veličini između steganografskog nositelja i steganografske datoteke te neobično velik ili malen broj jedinstvenih boja unutra palete slike također upućuju na mogućnost po stojanja umetnute poruke u slici.
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Rkovac&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Rkovac (stranica ne postoji)">Rkovac</a> 00:10, 18. siječnja 2016. (CET)
+</p>
+<h3> <span class="mw-headline" id="Oblici_napada"> <span id="oblici_napada">Oblici napada</span> </span></h3>
+<p>Steganalitički napadi i analiza skrivenih podataka uključuju različite aktivnosti: detekciju, izdvajanje te onemogućavanje ili uništavanje skrivenih informacija. Vrsta napada ovisi isključivo o informacijama dostupnim steganalitičaru: [1]
+</p>
+<ul><li>Samo steganografska datoteka <i>(eng. Steganography-only attack)</i> - dostupna je samo steganografska datoteka i nad njom će se providiti različite analize.
+</li></ul>
+<ul><li>Poznati nositelj <i>(eng. Known-carrier attack)</i> - raspoloživi su i steganografska datoteka i steganografski nositelj, tj. izvorna datoteka unutar koje je skrivena tajna poruka. 
+</li></ul>
+<ul><li>Poznata poruka <i>(eng. Known-message attack)</i> - dostupna nam je tajna poruka.
+</li></ul>
+<ul><li>Odrabrana steganografska tehnika <i>(eng. Chosen-steganography attack)</i> - poznata je i steganografska datoteka i steganografski alat, odnosno algoritam koji je korišten za umetanje tajne poruke.
+</li></ul>
+<ul><li>Odabrana poruka <i>(eng. Chosen-message attack)</i> - poznati su nam poruka i steganografski alat, odnosno algoritam korišten za kreiranje steganografske datoteke. Svrha ovog napada jest utvrditi odgovarajuće uzorke u steganografskoj datoteci koji nam mogu ukazati na korištenje određenog steganografskog alata i algoritma. 
+</li></ul>
+<ul><li>Poznati nositelj i odabrana steganografska tehnika <i>(eng. Known-steganography attack)</i> - raspoloživa je steganografska datoteka, steganografski nositelj te steganografski alat, odnosno algoritam koji je korišten za umetanje tajne poruke.
+</li></ul>
+<h2> <span class="mw-headline" id="Skrivanje_podataka_u_audio"> <span>Skrivanje podataka u audio</span> </span></h2>
+<p>Skrivanje podataka u audio datoteke sasvim su uobičajena stvar u svijetu steganografije. Primjerice, ako želimo nekome poslati tajnu poruku možemo ju sakriti u sliku, audio i video datoteku i poslati putem e-maila sadržaj. S adekvatnim ključem da dešifriranje poruke stvar je sasvim jednostavna dok će treća strana promatrati taj objekt kao običnu sliku ili audio datoteku.
+</p><p>Zanimljiva je činjenica da špijunske i terorističke organizacije koriste ove tehnike godinama, a postoje i zapisi da je Al Qaeda koristila ove tehnike na vlastitih web stranicama kako bi putem slika slala poruke vlastitim sljedbenicima.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:1112px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound.jpg" class="image"><img alt="Alt text" src="../images/f/f7/Deep_sound.jpg" width="1110" height="537" class="thumbimage" /></a>  <div class="thumbcaption">Službena DeepSound web stranica [5]</div></div></div></div>
+<p>Nakon što smo kompletirali instalaciju prikazat će se sučelje aplikacije. S lijeve strane je prikazani struktura direktorija na korisnikovom računalu i putem ovo djela možemo pristupati datotekama i odabrati nosioca tajne poruke.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:946px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound2.jpg" class="image"><img alt="Alt text" src="../images/5/5d/Deep_sound2.jpg" width="944" height="602" class="thumbimage" /></a>  <div class="thumbcaption">DeepSound sučelje [5]</div></div></div></div>
+<p>Pritisak na gumb Settings gore pri vrhu otvara novi prozor s postavkama. Ovdje možemo podesiti jezik aplikacije, izlazni direktorij gdje će se smjestiti steganogram te format u našem slučaju .wav ili .flac. Važna napomena je ta da ne možemo korisiti .mp3 format, a jedini razlog je taj što .mp3 koristi kompresiju za razliku od prethodno spomenutog dvojca. Isto tamo možemo dodjeliti lozinku našem stegogramu pa i u slučaju da se napadač dočepa stegograma, potrebna mu je lozinka kako bi došao do tajne poruke. Isto tako preporuča se označavanje "Encrypt files" kako bi skriveni podaci bili kriptirani 256-bitnom AES enkripcijom.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:478px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound3.jpg" class="image"><img alt="Alt text" src="../images/a/af/Deep_sound3.jpg" width="476" height="449" class="thumbimage" /></a>  <div class="thumbcaption">DeepSound postavke [5]</div></div></div></div>
+<p>Nadalje iz lijevog izbornika navigiramo do željenog direktorija i odaberemo audio datoteke u koje želimo sakriti naš tajni podatak. Zatim kliknemo na "Add files" da dodamo naš podatak koji će biti tajni.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:935px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound4.jpg" class="image"><img alt="Alt text" src="../images/2/23/Deep_sound4.jpg" width="933" height="623" class="thumbimage" /></a>  <div class="thumbcaption">Skrivanje podataka u audio [5]</div></div></div></div>
+<p>Pritiskom na gumb "Encode" dobit ćemo naš steganogram. Ova datoteka će zvučati isto kao i originalni nositelj i treća strana ne može detektirati da je unutra skriveni podatak. Ukoliko treća strana želi podatak unutra, trebat će ju dekriptirati s lozinkom koju samo mi znamo.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:799px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound5.jpg" class="image"><img alt="Alt text" src="../images/6/6c/Deep_sound5.jpg" width="797" height="527" class="thumbimage" /></a>  <div class="thumbcaption">Skrivanje podataka u audio [5]</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:995px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound6.jpg" class="image"><img alt="Alt text" src="../images/a/a1/Deep_sound6.jpg" width="993" height="629" class="thumbimage" /></a>  <div class="thumbcaption">Skrivanje podataka u audio [5]</div></div></div></div>
+<p>Nakon izvjesnog perioda osoba koja je primila od nas ovaj steganogram trebat će taj tajni podatak pa će ga u skladu s time trebati dekodirati. Uz pretpostavku da osoba koristi DeepSound poput nas, jednostavno uz pritisak na gumb "Extract secret files" otvorit će se novi prozor za unus lozinke te nakon što i daj korak odradi, našoj osobi je u potpunosti na raspolaganju podatak.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:818px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound7.jpg" class="image"><img alt="Alt text" src="../images/6/68/Deep_sound7.jpg" width="816" height="208" class="thumbimage" /></a>  <div class="thumbcaption">Skrivanje podataka u audio [5]</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:943px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Deep_sound8.jpg" class="image"><img alt="Alt text" src="../images/1/11/Deep_sound8.jpg" width="941" height="462" class="thumbimage" /></a>  <div class="thumbcaption">Skrivanje podataka u audio [5]</div></div></div></div>
+<h2> <span class="mw-headline" id="Literatura"> <span>Literatura</span> </span></h2>
+<p>[1] <i>Steganografija</i>, <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-04-154.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-04-154.pdf</a> preuzeto 17.1.2016.
+</p><p>[2] Johnson N. F., Katzenmeisser S. C., <i>A survey of steganographic techniquest</i>, <a href="http://bilder.buecher.de/zusatz/22/22359/22359536_lese_1.pdf" class="external free" rel="nofollow">http://bilder.buecher.de/zusatz/22/22359/22359536_lese_1.pdf</a> preuzeto 17.1.2016.
+</p><p>[3] Zeljković, S., <i>Steganografija</i>, <a href="http://e.math.hr/stegano/index.html" class="external free" rel="nofollow">http://e.math.hr/stegano/index.html</a> preuzeto 17.1.2016.
+</p><p>[4] Radanović, G., <i>Steganografija i steganaliza digitalnih slika</i>, Sveučilište u Zagrebu Fakultet elektronike i računarstva, diplomski rad <a href="http://os2.zemris.fer.hr/ostalo/2010_radanovic/stego_naslovna.html" class="external free" rel="nofollow">http://os2.zemris.fer.hr/ostalo/2010_radanovic/stego_naslovna.html</a> preuzeto 17.1.2016.
+</p><p>[5] WonderHowTo., <i>The Hacks of Mr. Robot: How to Hide Data in Audio Files</i>, <a href="http://null-byte.wonderhowto.com/how-to/hacks-mr-robot-hide-data-audio-files-0164136/" class="external free" rel="nofollow">http://null-byte.wonderhowto.com/how-to/hacks-mr-robot-hide-data-audio-files-0164136/</a> preuzeto 17.1.2016.
+</p><p>[6] Matešin B., Vukosav I., Vuković J., <i>Steganografija metodom raspršenog spektra direktnog slijeda</i>, <a href="https://www.fer.unizg.hr/_download/repository/Steganos.pdf" class="external free" rel="nofollow">https://www.fer.unizg.hr/_download/repository/Steganos.pdf</a> preuzeto 17.1.2016.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 69/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8694-0!*!0!!hr!2!edit=0 and timestamp 20190203204240 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html">http://security.foi.hr/wiki/index.php/Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija." title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija..html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija." title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija." title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Steganografija_%E2%80%93_tehni%C4%8Dka_analiza_mehanizma_rada_i_prakti%C4%8Dna_programska_demonstracija.&amp;oldid=38030" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:05, 25. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 3.083 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Steganografija_–_tehnička_analiza_mehanizma_rada_i_praktična_programska_demonstracija.", "wgTitle": "Steganografija – tehnička analiza mehanizma rada i praktična programska demonstracija.", "wgAction": "view", "wgArticleId": 8694, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 38030, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.394 secs. -->			</body>
+</html>

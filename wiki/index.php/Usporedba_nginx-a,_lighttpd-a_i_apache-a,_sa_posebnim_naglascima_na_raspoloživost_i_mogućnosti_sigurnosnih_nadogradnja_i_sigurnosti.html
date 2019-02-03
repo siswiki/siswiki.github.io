@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Usporedba nginx-a, lighttpd-a i apache-a, sa posebnim naglascima na raspoloživost i mogućnosti sigurnosnih nadogradnja i sigurnosti - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Usporedba_nginx-a_lighttpd-a_i_apache-a_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Usporedba nginx-a, lighttpd-a i apache-a, sa posebnim naglascima na raspoloživost i mogućnosti sigurnosnih nadogradnja i sigurnosti</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#mw-head">orijentacija</a>,
+					<a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<pre>
+PODJELA RADA:
+
+NGINX - Ivan Pušić
+Lighttpd - Mario Peroković
+Apache - Tomislav Priselac
+Cherokee - Alen Pek
+
+Zaključak i testovi - Zajednički rad
+</pre>
+<p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#NGINX"><span class="tocnumber">1</span> <span class="toctext">NGINX</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracija_NGINX-a"><span class="tocnumber">1.1</span> <span class="toctext">Konfiguracija NGINX-a</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Raspolo.C5.BEivost_.28High-avability.29"><span class="tocnumber">1.2</span> <span class="toctext">Raspoloživost (High-avability)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HeartBeat"><span class="tocnumber">1.2.1</span> <span class="toctext">HeartBeat</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HttpUpstreamModule_modul"><span class="tocnumber">1.2.2</span> <span class="toctext">HttpUpstreamModule modul</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HaProxy"><span class="tocnumber">1.2.3</span> <span class="toctext">HaProxy</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Sigurnost_.28Security.29"><span class="tocnumber">1.3</span> <span class="toctext">Sigurnost (Security)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HttpSslModule_modul"><span class="tocnumber">1.3.1</span> <span class="toctext">HttpSslModule modul</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HttpLimitReqModule_modul"><span class="tocnumber">1.3.2</span> <span class="toctext">HttpLimitReqModule modul</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HttpLimitZoneModule_modul"><span class="tocnumber">1.3.3</span> <span class="toctext">HttpLimitZoneModule modul</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HttpAccessModule_modul"><span class="tocnumber">1.3.4</span> <span class="toctext">HttpAccessModule modul</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HttpAuthBasicModule_modul"><span class="tocnumber">1.3.5</span> <span class="toctext">HttpAuthBasicModule modul</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Tips_.26_tricks"><span class="tocnumber">1.3.6</span> <span class="toctext">Tips &amp; tricks</span></a>
+<ul>
+<li class="toclevel-4 tocsection-14"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Koristiti_SE_Linux"><span class="tocnumber">1.3.6.1</span> <span class="toctext">Koristiti SE Linux</span></a></li>
+<li class="toclevel-4 tocsection-15"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Izolirana_okru.C5.BEenja"><span class="tocnumber">1.3.6.2</span> <span class="toctext">Izolirana okruženja</span></a></li>
+<li class="toclevel-4 tocsection-16"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Isklju.C4.8Diti_sve_nekori.C5.A1tene_NGINX_modula"><span class="tocnumber">1.3.6.3</span> <span class="toctext">Isključiti sve nekorištene NGINX modula</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Kontrolirati_dostupne_informacije_o_serveru"><span class="tocnumber">1.3.6.4</span> <span class="toctext">Kontrolirati dostupne informacije o serveru</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Onemogu.C4.87iti_.22Buffer_Overflow.22_napade"><span class="tocnumber">1.3.6.5</span> <span class="toctext">Onemogućiti "Buffer Overflow" napade</span></a></li>
+<li class="toclevel-4 tocsection-19"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Ograni.C4.8Davanje_dostupnih_metoda_.28GET.2C_POST....29"><span class="tocnumber">1.3.6.6</span> <span class="toctext">Ograničavanje dostupnih metoda (GET, POST...)</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Blokiranje_tzv._Referral_Spam-a"><span class="tocnumber">1.3.6.7</span> <span class="toctext">Blokiranje tzv. Referral Spam-a</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Sprije.C4.8Davanje_Hotlinking-a"><span class="tocnumber">1.3.6.8</span> <span class="toctext">Spriječavanje Hotlinking-a</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#3rdPartyModules"><span class="tocnumber">1.4</span> <span class="toctext">3rdPartyModules</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracijski_file-ovi"><span class="tocnumber">1.5</span> <span class="toctext">Konfiguracijski file-ovi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Lighttpd"><span class="tocnumber">2</span> <span class="toctext">Lighttpd</span></a>
+<ul>
+<li class="toclevel-2 tocsection-25"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Instalacija"><span class="tocnumber">2.1</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracija"><span class="tocnumber">2.2</span> <span class="toctext">Konfiguracija</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Raspolo.C5.BEivost"><span class="tocnumber">2.3</span> <span class="toctext">Raspoloživost</span></a>
+<ul>
+<li class="toclevel-3 tocsection-28"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#mod_proxy"><span class="tocnumber">2.3.1</span> <span class="toctext">mod_proxy</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#alat_Monit"><span class="tocnumber">2.3.2</span> <span class="toctext">alat Monit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-30"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Sigurnost"><span class="tocnumber">2.4</span> <span class="toctext">Sigurnost</span></a>
+<ul>
+<li class="toclevel-3 tocsection-31"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#SSL"><span class="tocnumber">2.4.1</span> <span class="toctext">SSL</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#mod_evasive"><span class="tocnumber">2.4.2</span> <span class="toctext">mod_evasive</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#mod_access"><span class="tocnumber">2.4.3</span> <span class="toctext">mod_access</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#mod_auth"><span class="tocnumber">2.4.4</span> <span class="toctext">mod_auth</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Tips_.26_tricks_2"><span class="tocnumber">2.4.5</span> <span class="toctext">Tips &amp; tricks</span></a>
+<ul>
+<li class="toclevel-4 tocsection-36"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Izolirana_okru.C5.BEenja_2"><span class="tocnumber">2.4.5.1</span> <span class="toctext">Izolirana okruženja</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-37"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracijske_datoteke"><span class="tocnumber">2.5</span> <span class="toctext">Konfiguracijske datoteke</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-38"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Apache"><span class="tocnumber">3</span> <span class="toctext">Apache</span></a>
+<ul>
+<li class="toclevel-2 tocsection-39"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Instalacija_Apache-a"><span class="tocnumber">3.1</span> <span class="toctext">Instalacija Apache-a</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracija_2"><span class="tocnumber">3.2</span> <span class="toctext">Konfiguracija</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Kreiranje_virtualnih_hostova"><span class="tocnumber">3.3</span> <span class="toctext">Kreiranje virtualnih hostova</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Availability"><span class="tocnumber">3.4</span> <span class="toctext">Availability</span></a>
+<ul>
+<li class="toclevel-3 tocsection-43"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Load_balancer"><span class="tocnumber">3.4.1</span> <span class="toctext">Load balancer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-44"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Security"><span class="tocnumber">3.5</span> <span class="toctext">Security</span></a>
+<ul>
+<li class="toclevel-3 tocsection-45"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#SSL_2"><span class="tocnumber">3.5.1</span> <span class="toctext">SSL</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Mod_evasive_2"><span class="tocnumber">3.5.2</span> <span class="toctext">Mod_evasive</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Mod_security"><span class="tocnumber">3.5.3</span> <span class="toctext">Mod_security</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Mod_access_2"><span class="tocnumber">3.5.4</span> <span class="toctext">Mod_access</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-49"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracijske_datoteke_2"><span class="tocnumber">3.6</span> <span class="toctext">Konfiguracijske datoteke</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-50"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Cherokee"><span class="tocnumber">4</span> <span class="toctext">Cherokee</span></a>
+<ul>
+<li class="toclevel-2 tocsection-51"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Instalacija_2"><span class="tocnumber">4.1</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-2 tocsection-52"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Konfiguracija_3"><span class="tocnumber">4.2</span> <span class="toctext">Konfiguracija</span></a></li>
+<li class="toclevel-2 tocsection-53"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Virtualni_host"><span class="tocnumber">4.3</span> <span class="toctext">Virtualni host</span></a></li>
+<li class="toclevel-2 tocsection-54"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Raspolo.C5.BEivost_2"><span class="tocnumber">4.4</span> <span class="toctext">Raspoloživost</span></a>
+<ul>
+<li class="toclevel-3 tocsection-55"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Load_Balancing"><span class="tocnumber">4.4.1</span> <span class="toctext">Load Balancing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-56"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Sigurnost_2"><span class="tocnumber">4.5</span> <span class="toctext">Sigurnost</span></a>
+<ul>
+<li class="toclevel-3 tocsection-57"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#SSL_3"><span class="tocnumber">4.5.1</span> <span class="toctext">SSL</span></a></li>
+<li class="toclevel-3 tocsection-58"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#HTTP_-.3E_HTTPS_redirection"><span class="tocnumber">4.5.2</span> <span class="toctext">HTTP -&gt; HTTPS redirection</span></a></li>
+<li class="toclevel-3 tocsection-59"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Restricting_traffic_by_IP"><span class="tocnumber">4.5.3</span> <span class="toctext">Restricting traffic by IP</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-60"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Rezime"><span class="tocnumber">4.6</span> <span class="toctext">Rezime</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-61"><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#Finalna_usporedba_i_zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Finalna usporedba i zaključak</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="NGINX"> NGINX </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Logo_nginx.png" class="image"><img alt="Logo nginx.png" src="../images/thumb/5/55/Logo_nginx.png/400px-Logo_nginx.png" width="400" height="137" /></a>
+</p><p>NGINX je HTTP i “reverse proxy” server kao i “mail proxy” server kojeg koriste već mnoge poznate web stranice, npr youtube, wordpress itd.. Iako se po internetu može pročitati dosta o tome  kako NGINX baš i nije lagano konfigurirati, i vjerovatno je to jedan od razloga zašto neki ljudi jednostavno niti ne probaj ovaj odličan server, smatram da konfigurirajne ovog servera nije ništa kompliciranije od konfiguriranja npr. Apache-a, jer imamo dostupnu odličnu dokumentaciju a također i njihov wiki <a href="http://wiki.nginx.org/Main" class="external free" rel="nofollow">http://wiki.nginx.org/Main</a>, a uz to mozemo pomoć potražiti i na IRC kanalu #nginx irc.freenode.net. 
+</p><p>Samo razvijanje web sustava može samo po sebi biti i lagano, no problem dolazi sa skalabilnošću. Upravo za to je NGINX odličan izbor jer se fokusira na visoke performanse, visoku konkurentnost te malu količinu memorije koju će upotrebljavati, a kao potvrdu tome pogledajmo iduću sliku na kojoj su prikazana neka nama poznata imena koja su svoje povjerenje što se tiče web servera dali NGINX-u. <a href="http://nginx.com/company.html#nginx-users" class="external free" rel="nofollow">http://nginx.com/company.html#nginx-users</a> -&gt; izvor
+</p><p><img alt="" src="../images/thumb/a/a8/Priselac.jpg/500px-Priselac.jpg" width="500" height="623" />
+</p><p>Problem kod tipičnih arhitektura web servera je što se teško nose sa velikim brojem konkurentnih konekcija, a vidimo i sami da je to danas zahtjev bez kojeg bi neke veliki web sustavi teško funkcionirali. Neka standardna arhitektura web servera prije dolaska NGINX-a i njegove arhitekture bila je da svaku novu konekciju obrađuje u novoj dretvi ili procesu, i samim tim dolazilo je do problema što se tiče iskorištenja procesora, memorije i sl., jer samo stvaranje procesa je zahtjevan posao za sustav jer mora alocirati memoriju i druge sustavke resurse kako bi sve zajedno uredno radilo. 
+</p><p>NGINX nije išao tim smjerom nego je donio sam sobom jednu novu filozofiju što se tiče upravljanja konkurentnim konekcijama a to je tzv. “event based mechanism”, a to je rezultiralo serverom koji je naposljetku imao modularanu, “event-driven, asynchronous, single-threaded, non-blocking” arhitekturu. NGINX obrađuje zahtjeve u tzv. “worker”-ima, koji su jednodretveni procesi, a svaki takav može obraditi po nekoliko tisuća konkurentnih konekcija. Zbog njegove modularne arhitekture developeri su u mogućnosti da prošire samu arhitekturu servera, te da dodaju neke svoje “feature” koji su im potrebni. Na sljedećoj slici možemo vidjeti izgled NGINX arhitekture:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura.png" class="image" title="NGINX arhitektura"><img alt="NGINX arhitektura" src="../images/thumb/9/97/Arhitektura.png/500px-Arhitektura.png" width="500" height="311" /></a>
+</p><p>Na sljedećem linku se nalazi i odličan članak koji objašnjava NGINX arhitekturu servera: <a href="http://www.aosabook.org/en/nginx.html" class="external free" rel="nofollow">http://www.aosabook.org/en/nginx.html</a>
+</p><p>Sam NGINX server možemo lako instalirati pomoći "package manager-a". Također imamo opciju i da kompajliramo source kod servera ukoliko to želimo ili imamo potrebu za takvim načinom instalacije servera. Ukoliko se odlučimo za ovaj lakši način, odnosno instaliranje putem package manager-a, možemo na instalirati (pod pretpostavkom da koristimo apt-get PM) naredbom:
+</p>
+<pre>
+sudo apt-get install nginx
+</pre>
+<p>Ukoliko koristimo yum PM server možemo instalirati naredbom:
+</p>
+<pre>
+sudo yum install nginx
+</pre>
+<p>Nakon što smo instalirali server isti možemo pokrenuti naredbom:
+</p>
+<pre>
+sudo service nginx start
+</pre>
+<p>Konfiguracijski file-ovi se obično nazale u 
+</p>
+<pre> /etc/nginx/ </pre>
+<p>ili
+</p>
+<pre> /usr/local/etc/nginx/ </pre> 
+<p>Dijelovi konfiguracijskih file-ova se mogu razdvojiti u više datoteka, te samim time se dobiva na lakoći održavanja konfiguracijskih file-ova, a sami konfiguracijski file-ovi koriste “c-style” oblik sintakse. 
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija_NGINX-a"> Konfiguracija NGINX-a </span></h3>
+<p>Što se tiče samog sadržaja konfiguracijskih file-ova kao što sam već rekao oni mogu biti razvojeni u više dijelova, no postoji jedan početni file iz kojeg NGINX čita neke globalne postavke što se tiče konfiguracije. U mom slučaju (Fedora Linux) taj konfiguracijski file se nalazi u /etc/nginx/nginx.conf datoteci, i jedan od mogućih sadržaja tog file-a je:
+</p>
+<pre>
+user              nginx;
+worker_processes  4;
+
+error_log  /var/log/nginx/error.log;
+
+pid        /run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '
+                      '$status $body_bytes_sent &quot;$http_referer&quot; '
+                      '&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;';
+
+    access_log  /var/log/nginx/access.log  main;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    gzip             on;
+    gzip_min_length  1000;
+    
+    # Load config files from the /etc/nginx/conf.d directory
+    # The default server is in conf.d/default.conf
+    include /etc/nginx/conf.d/*.conf;
+
+}
+</pre>
+<p>Na početku smo definirali korisnika pod čijim imenom će se NGINX pokretati. U ovom slučaju smo samo specificirali korisnika, ali ne i grupu kojoj pripada. Grupu možemo definirali npr. sa <i>user nginx users;</i> gdje je "users" zapravo grupa. Keepalive
+Kod direktive <i>worker_processes</i> ukoliko se NGINX bavi zahtjevnijim poslovima dobro je broj tih "worker-a" (o njima smo pričali u prošlom poglavlju) staviti na broj jezgri procesora. Znači ukoliko imamo neki dual core procesor onda ćemo ovdje staviti broj 2.
+</p><p>Taj broj možemo doznati linux naredbom: 
+</p>
+<pre>
+nproc
+</pre>
+<p>Ukoliko želimo detaljnije informacije o procesoru servera na kojem se nalazi NGINX server to možemo doznati naredbom:
+</p>
+<pre>
+lscpu
+</pre> 
+<p>Primjer ispisa:
+</p>
+<pre>
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                8
+On-line CPU(s) list:   0-7
+Thread(s) per core:    2
+Core(s) per socket:    4
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 58
+Stepping:              9
+CPU MHz:               1200.000
+BogoMIPS:              4190.37
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              6144K
+NUMA node0 CPU(s):     0-7
+</pre>
+<p>Zatim sa error_log definiralo na koju lokaciju želimo da nam se spremaju error logovi, u našem slučaju to je /var/log/nginx/error.log. Zatim smo definirali lokaciju file-a u kojem će se spremat PID od NGINX-a kako bi mogli prema tom PID-u poslati NGINX-u određene signale.
+</p><p>Poslije toga nam dolazi <i>events</i> blok, koji je dio EventsModule modula i definira kako NGINX postupa sa konekcijama. U bloku vidimo da definiramo broj <i>worker_connections-a</i>, a pomoću ovoga mozemo izračunati maksimalni broj konekcija koji nam NGINX može obraditi. Taj broj se dobije sljedećom formulom:
+</p>
+<pre>
+max clients = worker_processes * worker_connections 
+</pre>
+<p>Zatim u http bloku definiramo MIME tipove koji su podržani. u ovom slučaju su definirani u odvojenom file-u /etc/nginx/mime.types. Sadržaj tog file je npr:
+</p>
+<pre>
+types {
+    text/html                             html htm shtml;
+    text/css                              css;
+}
+</pre>
+<p>Naravno vrlo vjerovatno ćemo trebati dodati još podržanih tipova, no to nam sigurno neće biti problem. Ukoliko se tip ne može pronaći u definiranima upotrebljen će biti onaj koji je specificiran <i>default_type</i> direktivnom. Sa <i>log_format</i> definiramo standarni oblik LOG zapisa.
+</p><p>Sa direktivom access_log definiramo file, veličinu buffera i format ove vrste LOG zapisa. SendFile direktivna omogućuje kopiranje file-ova između file-deskriptora. Ovo je učinkovitiji način kopiranja od kombinacije "read", "write", jer ovdje prenosimo direktno podatke sa memorije računala na kojoj se vrti server na buffer mrežne kartice. 
+</p><p>keepalive_timeout direktivom definiramo timeout tijekom kojeg će NGINX držati konekciju sa klijenom otvorenom. postoji također i keepalive direktiva kojom definiramo maksimalan broj konekcija koje server drži otvorenima. Ukoliko taj broj pređe specificirano server zatvara najstariju konekciju.
+</p><p>Sa gzip direktivom možemo uključiti kompresiranje podataka koji se prenose NGINX serverom. Također smo specificirali da file-ovi veličime manje od 1000 bajova ne budu kompresirani. Ovo nam može smanjiti količinu podataka koje se prenose između servera i klijenta jer će podaci biti kompresirani.
+</p><p>Na kraju smo uključili direktivom <i>include</i> ostale konfiguracijske file-ove, a sada pogledajmo sadržaj jednog takvog file-a.
+</p>
+<pre>
+server {
+    listen   80 default_server;
+
+    server_name  127.0.0.1;
+
+    location / {
+        root   /usr/share/nginx/html;
+	index  index.html index.htm 
+    }
+
+    error_page  404              /404.html;
+    location = /404.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+</pre>
+<p>Ovdje vidimo neku osnovnu konfiguraciju za npr. neku domenu. Ovime smo zapravo definirali jedan virtualni NGINX server, a takvih možemo imati naravno više. Postavlja se pitanje kako NGINX odlučuje kojem virtualnom serveru da proslijedi zahtjev. On to radi tako da pretražuje imena servera koji su specificirana u direktivi <i>server_name</i>. Npr. u našem slučaju server se zove 127.0.0.1, no mogao se zvati i www.mojserver.com. Vidimo da smo definirali i port na kojem server prima dolazeće zahtjeve, to je u ovom slučaju port 80. Zatim nam dolaze <i>location</i> direktive. Njima definiramo specifične opcije i akcije za pojedine URL-ove kojima može korisnik pristupiti. Vidimo da smo za lokaciju "/" definirali da je folder u kojem se nalazi sadržaj kojem trebaju pristupati klijentu na lokaciji "/usr/share/nginx/html", a index stranice su file-ovi imena oblika "index.html, index.htm". Navest ću postojanje i alias direktive, koju neki mješaju sa root direktivom. U jednom i drugom specificiramo lokacije na kojima server treba tražiti sadržaj, no ipak se razlikuju u jednoj bitnoj stvari koja nam u pojedinim slučajevima može stvarati probleme.
+</p><p>Uzmimo sljedeći primjer. Recimo da imamo definiranu lokaciju oblika:
+</p>
+<pre>
+location /test/ {
+
+}
+</pre>
+<p>Pretpostavimo da se sadržaj koji želimo posluživati ovom lokacijom nalazi u direktoriju /tmp/test/.
+</p><p>Ukoliko koristimo direktivu root da bi ovo radilo trebamo staviti
+</p>
+<pre>
+root     /tmp/
+</pre>
+<p>Dok u slučaju da koristimo alias direktivu, da bi stvar uredno radila trebamo definirati alias oblika:
+</p>
+<pre>
+alias    /tmp/test/
+</pre>
+<p>Naime kod direktive root NGINX automatski na folder koji smo definirali dodaje i lokaciju za koju smo definirali root direktivu, u našem slučaju konačan folder na kojem će NGINX tražiti sadržaj biti će /tmp/test/, dok u slučaju da smo u root direktivu stavili lokaciju kao i kod alias, NGINX bi tražio na lokaciji /tmp/test/test/ što bi izazvalo grešku.
+U ostatku konfiguracijskog file-a smo definirali defaultne lokacije za pojedine response kodove.
+</p><p>Odličnu dokumentaciju o samom konfiguriranju servera, primjere konfiguracijskih file-ova te još mnogo toga možemo potražiti na sljedećoj lokaciji <a href="http://wiki.nginx.org/Configuration" class="external free" rel="nofollow">http://wiki.nginx.org/Configuration</a>
+</p><p>U nastavku ćemo malo po malo nadograđivati ovaj osnovni konfiguracijski file sa posebnim naglascima na sigurnost i visoku raspoloživost NGINX servera.
+</p>
+<h3> <span class="mw-headline" id="Raspolo.C5.BEivost_.28High-avability.29"> Raspoloživost (High-avability) </span></h3>
+<p>	Kao što svi već znamo visoka raspoloživost je jedna od najbitnijih komponenti u procjeni jel neki web sustav dobar (za korisnike) ili ne. U ovom dijelu ćemo se bazirati na pregled alata i konfiguracijskih file-ova koji mogu unaprijediti raspoloživost NGINX servera. Primjetite da sam “servera” rekao u množini, jer kada gradimo “high-avability” sustave onda to podrazumjeva veći broj računala koja međusobno “surađuju”. Kako bi testirali neke alate koji nam pružaju podršku što se tiče high-avability-a napravio sam dvije ubuntu virtualke koje će glumiti dva web-servera, a treće računalo pogoni “Linux-Fedora” i na njemu će biti smješteni ti “alati” (HeartBeat, HaProxy, UpStart). Postoji opiširna priča oko ovih alata, no mi ćemo se bazirati na njihovu konfiguraciju. Prvi alat s kojim ćemo se poigrati je “HeartBeat”.
+</p>
+<h4> <span class="mw-headline" id="HeartBeat"> HeartBeat </span></h4>
+<p>	HeartBeat je “deamon” koji pruža grupnu odnosno “cluster” arhitekturu servisa svojim klijentima. Ovo omogućava da klijenti razmjenjuju poruke o tome dal je neki server u nekom trenutku “up” ili “down”. Npr. u slučaju da imamo 2 servera, ukoliko jedan iz nekih razloga više nije u mogućnosti posuživati klijente njegovu ulogu preuzima drugi server, te tako održava cijeli sustav dostupnim. Konfiguracija svakog servera može biti jednostavna a isto tako i prilično složena, ovisno o zahtjevima koje imamo, i o opsegu arhitekture za koju radimo određenu konfiguraciju servera. Ovdje ćemo se pozabaviti nekim osnovnim konfiguracijama koje su dovoljno dobre da korektno prikažu funkcionalnost softwera kojeg opisujemo u nekom trenutku.
+</p><p>Konfiguracija HeartBeat-a je rascjepkana u 3 file-a, a to su <b>authkeys</b>, <b>ha.cf</b> i <b>haresources</b>. Lokacija ovih file-ova je obično u /etc/ha.d/ direktoriju. 
+U file-u authkeys je kao što već i sami pretpostavljate autentikacijski file za “heartbeat cluster messaging layer”, odnosno file nam omogućava da sigurno autenticiramo nodove koji se nalaze u nekoj grupi servera (eng. Cluster). Naš file će se sastojati od svega dvije linije. Prva služi da specificiramo koji ključ da upotrebljavamo prilikom potpisivanja odlaznih paketa, a drugi da definiramo kako dolazni paketi mogu biti potpisani. Taj file izgleda otprilike ovako:
+</p>
+<pre>
+auth num
+num method secret
+num method secret
+num method secret
+</pre>
+<p>num je numericki identifikator čija vrijednost je između 1 i 15, a mora biti jedinstven na razini ove datoteke. Method predstavlja jednu od podržanih metoda za potpisivanje (podržani su sha1, md5, crc), a secret je alfanumericki ključ koji je podjeljen svim članovima clustera. 
+</p>
+<pre>
+auth 2
+2 sha1 test-ha
+</pre>
+<p>Ovo je sadržaj authkeys file-a koji je rađen za potrebe ovog projekta. 
+Također je bitno da podesimo dozvole nad file-om, a to možemo učiniti sljedećom komandom:
+</p>
+<pre>
+chmod 600 /etc/ha.d/authkeys
+</pre>
+<p>Sljedeći jako bitan file je ha.cf, a pomoću njega konfiguriramo “messsaging layer” heartbeat clustera. U tom file-u nalaze se imena nodova koji su članovi clustera, zatim u tom file-u možemo uključiti ili isključiti pojedine funkcionalnosti, itd.. Od važnijih postavki u tom konfiguracijskom file-u izdvojio bi “keepalive” kojim specificiramo vrijeme koji će biti između dvaju “heartbeat” paketa. Deadtime je vrijeme nakon kojeg će heartbeat proglasati neki nod mrtvim ukoliko mu naravno isti ne šalje odgovore. Sa auto_failback specificiramo dal želimo da heartbeat odmah nakon oporavka primarnog noda, postavi primarni nod kao glavi na koji će stizati zahtjevi od klijenata. Node direktiva nam govori koja su to račuala u clusteru. Ovdje imamo konfiguracijski file za naš pokazni primjer, i vidimo da smo specificirali 2 servera u njemu.
+</p>
+<pre>
+logfile /var/log/ha-log
+logfacility local0
+
+keepalive 10ms
+warntime 100ms
+deadtime 200ms
+initdead 10
+
+bcast eth0
+udpport 696
+auto_failback on
+node server1
+node server2
+</pre>
+<p>Zadnji file s kojim se moramo poigrat a potreban je da bi heartbeat proradio je haresources. Tim file-om govorimo koje resurse želimo da nam osposobi heartbeat, i na kojoj ip adresi. Heartbeat će u ovom slučaju sam pokrenuti NGINX server. Ovdje imamo i prikazan izgled našeg pokaznog konfiguracijskog file-a.
+</p>
+<pre>
+server1 10.24.21.122 nginx
+</pre>
+<p>Ova 3 konfiguracijska file-a trebaju biti identicna na oba računala. Kada smo sve kopirali na oba računala spremi smo da testiramo naš high-avability cluster pokretan NGINX serverima. Možemo na pokrenuti na sljedeći način (potrebno pokrenuti na oba servera):
+</p>
+<pre>
+sudo service heartbeat start
+</pre>
+<p>Nakon toga ukoliko odemo na adresu 10.24.21.122 (u našem slučaju) vidjet ćemo odgovor primarnog servera. No ukoliko na tom serveru isključimo npr. mrežu, svi zahtjevi će se preusmjeriti na drugi server, i tako će sustav i dalje biti dostupan klijentima. Nakon što se primarni server vrati u funkciju, svi zahtjevi će se usmjeravati prema njemu.
+U ovom primjeri smo vidjeli kako se NGINX može lagano ukomponirati pomoću heartbeat-a u jednu cluster high-avability arhitekturu. 
+Dokumentaciju možemo pronaći na ovom linku <a href="http://www.linux-ha.org/doc/users-guide/users-guide.html" class="external free" rel="nofollow">http://www.linux-ha.org/doc/users-guide/users-guide.html</a>
+</p><p>DEMO možete pogledati ovdje: <a href="http://www.youtube.com/watch?v=X8vD75CNa5o&amp;feature=youtu.be" class="external free" rel="nofollow">http://www.youtube.com/watch?v=X8vD75CNa5o&amp;feature=youtu.be</a>
+</p><p>Sada ćemo pogledati i jedan modul koji nam dolazi sa samim NGINX-om a može također pridonijeti visokoj dostupnosti servera.
+</p>
+<h4> <span class="mw-headline" id="HttpUpstreamModule_modul"> HttpUpstreamModule modul </span></h4>
+<p>Jedan od zanimljivijih NGINX modula je zasigurno i upstream, koji nam pruža “load-balancing”. Uz pomoć ovog modula na jednostavan način možemo ostvariti balansiranje prometa između NGINX servera, sve što trebamo je u konfiguracijskom file-u imat ovako nešto:
+</p>
+<pre>
+upstream lb_units {
+      server 10.24.21.122:80 weight=2 max_fails=0;
+      server 10.24.21.123:80 weight=1 max_fails=0;
+}
+location / {
+      proxy_pass         http://lb_units;
+}
+</pre>
+<p>U direktivi “upstream” specificiramo ime koje želimo dati našem server clusteru, a kao što vidimo on se sastoji iz 2 servera. Sa “wight” specificiramo koliko će requestova za redom ići na server prije nego što load-balancer ne presumjeri promet na drugi server iz clustera. Pomoću “max_fails” specificiramo nakon koliko neuspješnih pokušaja komunikacije sa serverom će server biti proglašen da je izvan funkcije.
+Nakon ovih postavki, restart-amo naš NGINX server na kojeg smo pisali ove konfiguracijske postvke, i imamo postavljen load-balancing između NGINX servera.
+</p><p>Postoji i modul koji nam omogućava da prije nego pošaljeno neki zahtjer na server provjerimo stanje tog servera, te ukoliko nešto nije u redu sa serverom da automatski šaljemo na drugi server definiran u upstream direktivi. Više o tome se može pročitati ovdje: <a href="http://wiki.nginx.org/HttpHealthcheckModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpHealthcheckModule</a>.
+</p><p>Također postoji modul koji nam omogućava ograničavanje broja konekcija po serverima koji su definirani u upstram direktivi. Više o tome se može pročitati ovdje: <a href="https://github.com/cfsego/nginx-limit-upstream/" class="external free" rel="nofollow">https://github.com/cfsego/nginx-limit-upstream/</a>.
+</p><p>Dokumentaciju modula možemo pronaći na ovom linku: <a href="http://wiki.nginx.org/HttpUpstreamModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpUpstreamModule</a>
+</p><p>DEMO možete pogledati ovdje: <a href="http://www.youtube.com/watch?v=m-wfxDNr29o&amp;feature=youtu.be" class="external free" rel="nofollow">http://www.youtube.com/watch?v=m-wfxDNr29o&amp;feature=youtu.be</a>
+</p>
+<h4> <span class="mw-headline" id="HaProxy"> HaProxy </span></h4>
+<p>HaProxy se može definirati kao high-avability proxy kao i TCP/HTTP load-balancer. U ovom dijelu ćemo pokazati konfiguracijski file u kojem će se balansirati promet između dva NGINX servera.
+HaProxy sprječava preopterećenje nekog servera tako da balansira promet između servera na način da koristi jednu zadanu shemu balansiranja. Napomenimo da je dostupno i više shema balansiranja (roundbin, leastconn...). HaProxy ima i mehanizam detekcije ispada nekog od servera, jer prilikom balansiranja ukoliko je neki server van funkcije, dok isti ne dodje ponovo u normalno stanje zahtjevi moraju biti usmjeravani na druge servere. Prednost HaProxy-a je i to što imamo jednu Public IP adresu koja je dodjeljena HaProxy-u i iza nje se moze nalaziti dosta servera kojima pristupamo preko te jednistvene IP adrese. Konfiguracijski file za HaProxy uobčajeno se nalazi u <b>/etc/haproxy/</b> direktoriju, a sadržaj tog konfiguracijskog file-a koji je kreiran za potrebe ovog rada je:
+</p>
+<pre>
+global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 notice
+        maxconn 4096
+        user haproxy
+        group haproxy
+
+listen stats&#160;:1936
+    mode http
+    stats enable
+    stats hide-version
+    stats realm Haproxy\ Statistics
+    stats uri /
+    stats auth Username:Password
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        retries 3
+        redispatch
+        maxconn 2000
+        contimeout      5000
+        clitimeout      50000
+        srvtimeout      50000
+
+listen webfarm 127.0.0.1:80
+       mode http
+       balance roundrobin
+       cookie JSESSIONID prefix
+       option httpclose
+       option forwardfor
+       option httpchk HEAD /check.txt HTTP/1.0
+       server server1 10.24.21.122:80 cookie A weight 1 check
+       server server2 10.24.21.123:80 cookie B weight 5 check
+</pre>
+<p>U global sekciji postavljamo parametre koji će kao što pretpostavljamo i sami biti globalni, odnosno zahvaćat će proces cijelog balansiranja prometa. Kao i kod NGINX konfiguracije i ovdje možemo definirati korisnika i grupu kojoj korisnik pripada pod kojima će se pokretati HaProxy. Sa maxconn parametrom omogućavamo proxy-u da ograniči broj simultanih konekcija u sustavu. Sa HaProxy-em također možemo vidjeti i neka izvješća o aktivnosti samog proxy-a, i o stanju servera na koje on preusmjerava zahtjeve. Ključna riječ kojom možemo omogućiti ovakve izvještaje jer su po defaultu isključeni je "stats", a u našem slučaju to web sučelje je dostupno na portu 1936.
+Vidimo da koristimo i "defaults" sekciju kojom "override-amo" defaultne vrijednosti sa novima.
+Vidimo da imamo i listen sekciju koja se sastoji od dva parametra. Prvi je ime instance, i ovo ime ćemo naći u LOG file-ovima, npr. kod nas za adresu 127.0.0.1 je ime instance "webfarm". Primjetimo da je HaProxy vezan za adresu 127.0.0.1, i za port 80. Vidimo da smo u toj sekciji definirali dva NGINX servera na koja ćemo slati dolazeće zahtjeve. Opcija weight definira koliko će se zahtjeva poslati tom serveru prije nego se zahtjevi počnu slati drugom. Taokđer možemo definirati i algoritam balansiranja prometa opcijom balanca, a popis možemo vidjeti ovdje <a href="http://wiki.joyent.com/wiki/display/jpc2/Load+Balancing+with+HAproxy#LoadBalancingwithHAproxy-RoundRobin" class="external free" rel="nofollow">http://wiki.joyent.com/wiki/display/jpc2/Load+Balancing+with+HAproxy#LoadBalancingwithHAproxy-RoundRobin</a>. 
+</p><p>Nakon što smo spremili konfiguracijski file, iduće što trebalo je pokrenuti i testirati naš high-avability sustav temeljena na NGINX serverima. U mom slučaju oni su bili smješteni na dvije virtualke, dok je na mom glavnom računalu bio instaliran HaProxy, ali također i NGINX koji se pokreće prilikom podizanja sustava. Ukoliko je NGINX pokrenut, i pokušamo pokrenuti i HaProxy dobit ćemo grešku, pa stoga moramo prvo ugasiti NGINX server i osloboditi port 80. To možemo učiniti naredbom:
+</p>
+<pre>
+sudo service nginx stop
+</pre>
+<p>Nakon toga možemo startat naš HaProxy server:
+</p>
+<pre>
+sudo service haproxy start
+</pre>
+<p>Kako bi testirali HaProxy odimo na adresu 127.0.0.1, i HaProxy bi trebao balansirati i usmjeravati probmet prema dva NGINX servera.
+</p><p>Dokumentacija HaProxy-a se može naći na sljedećem linku <a href="http://haproxy.1wt.eu/download/1.3/doc/haproxy-en.txt" class="external free" rel="nofollow">http://haproxy.1wt.eu/download/1.3/doc/haproxy-en.txt</a>
+</p><p>DEMO možete pogledati ovdje: <a href="http://www.youtube.com/watch?v=0J3u9cHqONk&amp;feature=youtu.be" class="external free" rel="nofollow">http://www.youtube.com/watch?v=0J3u9cHqONk&amp;feature=youtu.be</a>
+</p>
+<h3> <span class="mw-headline" id="Sigurnost_.28Security.29"> Sigurnost (Security) </span></h3>
+<p>Što se tiče same sigurnosti NGINX-u ne nedostaje modula i sigurnosnih nadogranji kojima možemo povećati sigurnost nekom sustava kojeg NGINX poslužuje. Postoji dosta načina i modula koji nam mogu pomoći u tome, no mi ćemo se ovdje bazirati samo na neke od njih. Naglasit ću da svi moduli neće uvijek biti korisni za svaku situaciju, nego ćemo po svojim potrebama i situaciji u kojoj se nalazimo izabrati one koji ne nam najviše koristiti. Pogledajmo u nastavku jedan od najčešćih načina na koje vlasnici nekom sustava žele zaštiti sadržaj koji se prenosi putem njihovog sustava.
+</p>
+<h4> <span class="mw-headline" id="HttpSslModule_modul"> HttpSslModule modul </span></h4>
+<p>Kao što već znamo SSL je jedan od čestih načina zaštite podataka od neovlaštenog čitanja, i sličnih nezakonitih akcija. Sama konfiguracija SSL-a na NGINX-u je vrlo jednostavna. Kao što već i sami znamo da bi SSL radio moramo generirati ključeve i certifikate koji će biti potpisani od strane određenih tijela ("Certification Authority"). Također imamo opciju da u svrhu npr. testiranja sami potpišemo neki certifikat ("self-signed"), no u tom slučaju će nam web preglednik javljati određenu grešku, odnosno upozorenje da certifikat nije potpisan. Certifikat možemo generirati sa openssl toolkitom, npr. koristeći naredbu:
+</p>
+<pre>
+openssl req \
+  -x509 -nodes -days 365 \
+  -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+</pre>
+<p>Nakon što smo generirali sve potrebne certifikate i ključeve vrijeme je da "nadogradimo" naš NGINX config sa SSL podrškom. U konfiguracijski file servera kojeg želimo stavit na SSL dodamo sljedeće linije:
+</p>
+<pre>
+listen                  443;
+ssl                     on;	 
+ssl_certificate         /etc/nginx/conf.d/server.crt;
+ssl_certificate_key     /etc/nginx/conf.d/server.key;
+</pre>
+<p>Ukoliko sada restartamo NGINX naredbom 
+</p>
+<pre>
+sudo service nginx restart
+</pre>
+<p>i odemo na url našeg servera npr <a href="https://nasserver.com" class="external free" rel="nofollow">https://nasserver.com</a>, i ukoliko sve radi vidjet ćemo upozorenje preglednika koje nam govori da certifikat na toj stranici kojoj pristupamo nije potpisan. Kako bi ovo izbjegli (kao što sam već spomenuo) certifikat nam mora "validirati" određeno cerfikikacijsko tijelo. 
+Ukoliko odemo na url <a href="http://nasserver.com" class="external free" rel="nofollow">http://nasserver.com</a> vidjet ćemo da nam se više ne pokazuje to upozorenje iz razloga što više nismo na HTTPS-u, nego na običnom HTTP-u. Ova situacija u nekim slučajevima može biti nezgodna ukoliko želimo da se baš sav promet odvija preko porta 443, odnosno preko SSL-a. Ukoliko želimo korisnike "natjerati" da budu na HTTPS-u u NGINX konfiguracijski file možemo dodati sljedeće:
+</p>
+<pre>
+server {
+       listen 80; 
+       server_name _;
+       return       301 https://127.0.0.1$request_uri;
+}
+</pre>
+<p>Kod ovog servera "slušamo" na portu 80, te sve requestove usmjeravamo na HTTPS, odnosno na SSL i port 443. Da bude malo jasnije, kada korisnik pokuša pristupiti stranici na port 80, NGINX će zaključiti da korisnika treba prebaciti na neki drugi link, i onda će potražiti u konfiguracijskom file-u server koji se slaže sa linkom na koji se korisnik prebacuje i naći će server koji je na portu 443, a ujedno i na SSL-u.
+</p><p>Dokumentaciju modula možemo pronaći na ovom linku: <a href="http://wiki.nginx.org/HttpSslModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpSslModule</a>
+</p>
+<h4> <span class="mw-headline" id="HttpLimitReqModule_modul"> HttpLimitReqModule modul </span></h4>
+<p>Svi smo vjerovatno čuli za "denial of service" tzv. DOS napade. Postavlja se pitanje kako se boriti protiv tih napada. Ukoliko budemo pažljivi pri programiranju i ne pravimo neke sigurnosne propuste, i za aplikaciju možemo reći da je odlična sa aspekta sigurnosti, naša web aplikacija unatoč tome može biti nedostupna zbog eventualnog "zagušenja" samog servera na kojem je hostana, te samim time sav trud oko programiranja u ovom slučaju pada u vodu. Da bi izbjegli ovakve slučajeve gdje zlonamjerne osobe velikim brojem zahtjeva koje šalju serveru nastoje onemogućiti ili otežati pristup našoj stranici, i samom radu na njoj možemo iskoristiti NGINX HttpLimitReqModule modul. 
+Sama konfiruacija modula je vrlo jednostavna. Sve što trebamo napraviti je dodati u konfiguracijski file sljedeće linije koda:
+</p>
+<pre>
+limit_req_zone  $binary_remote_addr  zone=one:10m   rate=1r/s;
+
+...
+
+
+location / {
+...
+            limit_req   zone=one  burst=5;
+}
+</pre>
+<p>Pojasnimo malo što se ovdje točno događa i kakav će biti krajnji rezultat modifikacije našeg konfiguracijskog file-a. Ovdje smo za neku zonu ograničili broj zahtjeva koji dolaze od nekog klijenta na jedan po sekundi. Zatim smo za neku lokaciju koja je pokrivena određenim regex-om definirali da ukoliko broj requestova koji čekaju pređe 5 za zonu sa imenom "one", server će vratiti kod 503 "Service Temporarily Unavailable". Primjetimo da smo ovime otežali napadaču da nam učini sustav nedostupnim. Ovakav pristup bi po meni bilo odlično integrirati sa već spomenutim HeartBeatom te u slučaju da imamo npr. neki veliki DDOS napad i ukoliko da napadač ipak uspije na neki način srušiti server i učiniti ga nedostupnim, HeartBeat može "podići" pomoćni server, i dok ne osposobimo server koji je pao, sustav može nastaviti raditi. 
+</p><p>Dokumentaciju modula možemo pronaći na ovom linku: <a href="http://wiki.nginx.org/HttpLimitReqModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpLimitReqModule</a>
+</p><p>Postoji još jedan modul sličan ovome koji ima sličnu funkcionalnost a zove se HttpLimitZoneModule, pa pogledajmo o čemu se radi.
+</p>
+<h4> <span class="mw-headline" id="HttpLimitZoneModule_modul"> HttpLimitZoneModule modul </span></h4>
+<p>Za razliku modula  HttpLimitReqModule koji ograničava broj zahtjeva po sekundi, ovaj modul ograničava broj simultanih konekcija za neku zonu. Ovo nam također može biti korisno ukoliko želimo spiječiti "zagušenje" samog web servera. Sada konfiguracija ovog modula je jako slična prošloj i izgleda otprilike ovako:
+</p>
+<pre>
+http {
+  limit_zone   one  $binary_remote_addr  10m;
+ 
+  server {
+    location /download/ {
+      limit_conn   one  1;
+    }
+  }
+}
+</pre>
+<p>Ovime smo broj simultanih konekcija za klijenta sa određenom IP adresom ograničili na 1. 
+</p><p>Dokumentaciju modula možemo pronaći na ovom linku: <a href="http://wiki.nginx.org/HttpLimitZoneModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpLimitZoneModule</a>
+</p><p>Prošla dva modula mogu biti još učinkovitija ukoliko se kombiniraju sa npr. politikom kontrole pristupa serveru kojom možemo određene (npr. nama sumljive IP adrese) klijente odbiti, odnosno onemogućiti im pristup serveru. Pogledajmo kako možemo to realizirati.
+</p>
+<h4> <span class="mw-headline" id="HttpAccessModule_modul"> HttpAccessModule modul </span></h4>
+<p>Ovim modulom možemo specificirati kojim klijentima na osnovu IP adrese ili domene želimo omogućiti pristup serveru, ili pak isti odbiti. Da nam bude malo jasnije o čemu se radi pogledajmo sljedeći isječak konfiguracijskog file-a:
+</p>
+<pre>
+location / {
+  deny    192.168.1.1;
+  allow   192.168.1.0/24;
+  allow   10.1.1.0/16;
+  deny    all;
+}
+</pre>
+<p>Ovime smo omogućili pristum klijentima koji dolaze iz mreža 192.168.1.0/24 i 10.1.1.0/16, s tim da smo adresi 192.168.1.1 onemogućili pristup. Svim ostalim klijentima van ove dvije mreže pristup je zabranjen. Primjetimo da se pravila evaluiraju odozgo prema dole. Kako bi ilustrirali bitnost redosljeda pravila pogledajmo sljedeći primjer:
+</p>
+<pre>
+location / {
+  deny all;
+  deny    192.168.1.1;
+  allow   192.168.1.0/24;
+  allow   10.1.1.0/1
+}
+</pre>
+<p>U ovom slučaju će prvo pravilo, odnosno deny all; odbiti sve klijente, te ostala pravila neće biti ni provjeravana. Ovo treba imati na umu jer nas u pojedinim slučajevima može dovesti do problema.
+</p><p>Ovo također može biti korišteno u paru sa error_page direktivnom, jer ukoliko nam je pristup odbijem server nam vraća 403 kod, a to možemo iskoristiti npr. da napravimo poseban html na koji čemo redirectati sve klijente i dati im doznanja (ukoliko to želimo) da im je pristup zabranjen, ili taj html može biti i nekog drugog sadržaja, sve zavisi od naše situacije.
+</p>
+<pre>
+error_page  403  http://example.com/forbidden.html;
+</pre>
+<p>Dokumentaciju modula možemo pronaći na ovom linku: <a href="http://wiki.nginx.org/HttpAccessModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpAccessModule</a>
+</p>
+<h4> <span class="mw-headline" id="HttpAuthBasicModule_modul"> HttpAuthBasicModule modul </span></h4>
+<p>Korištenjem ovog modula možemo zaštititi određene datoteke ili foldere pomoću "HTTP Basic Authentication", odnosno prijava korištenjem korisničkog imena i lozinke. Naglasit ću da ovaj način zaštite određenih dijelova sustava baš i nije najsigurniji, posebno ukoliko ne koristimo SSL. Naime korisničko ime i lozinka u slučaju da ne koristimo SSL se šalje serveru u obliku "plain text" datoteke, te nam svatko može uskrasti podatke za prijavu. No u nekim slučajevima kada ne postoji opasnost od toga, možemo koristiti i ovu metodu. Prvo što trebamo je kreirati datoteku koja će sadržavati korisnička imena i lozinke. Možemo ju kreirati npr. naredbom:
+</p>
+<pre>
+sudo htpasswd -c .htpasswd ivan
+</pre>
+<p>Nakon ovoga sve što trebamo je odabrati neki folder koji želimo zaštititi, i u konfiguracijski file dodati sljedeće:
+</p>
+<pre>
+location /admin {
+        auth_basic &quot;Restricted&quot;;
+        auth_basic_user_file /etc/nginx/.htpasswd;
+}
+</pre>
+<p>Znači ovime smo zaštitili folder admin i sav njegov sadržaj. Sve što smo trebali je navesti putanju do datoteke koja sadrži korisnička imena i lozinke osoba koje smiju pristupiti ovom dijelu sustava. 
+</p><p>Dokumentaciju modula možemo pronaći na ovom linku: <a href="http://wiki.nginx.org/HttpAuthBasicModule" class="external free" rel="nofollow">http://wiki.nginx.org/HttpAuthBasicModule</a>
+</p>
+<h4> <span class="mw-headline" id="Tips_.26_tricks"> Tips &amp; tricks </span></h4>
+<p>U ovom dijelu ćemo spomenuti neke preporuke (dobra praksa) koje se tiču povećanja sigurnosti servera, a i sustava na kojem se server nalazi.
+</p>
+<h5> <span class="mw-headline" id="Koristiti_SE_Linux"> Koristiti SE Linux </span></h5>
+<p>Security-Enhanced Linux je jedan od značajki Linux kernela koja nam omogućava da pravimo svoju politiku pritupa pojedinim resursima samog sustava. Samim tim ovo može pomoći u sprečavanju različitih napada. Npr. mailovima nekog korisnika mogu pristupiti samo on i mail program koji koristi. No što sprečava mail program da šalje te iste mail-ove na neke druge lokacije, i tako ugrožava samu privatnost korisnika. Tu SELinux uskače u pomoć tako da definiramo politike kojima definiramo tko gdje smije pristupiti, i tko šta smije raditi na sustavu.
+Po defaultu SELinux neće štititi NGINX server, no postoji rješenje. Za sve zainteresirane imam sljedeći link: <a href="http://sourceforge.net/projects/selinuxnginx/" class="external free" rel="nofollow">http://sourceforge.net/projects/selinuxnginx/</a>.
+</p>
+<h5> <span class="mw-headline" id="Izolirana_okru.C5.BEenja"> Izolirana okruženja </span></h5>
+<p>Izolirana okruženja (Isolated Environment, Chroot Environment) je jedna od značajka UNIX sustava preko koje možemo unaprijediti sigurnost samog sustava. O čemu se ovdje zapravo radi? Uzmimo za primjer NGINX server. Kako bi pokrenuli NGINX u jednom takvom okruženju moramo prvo kreirati strukturu direktorija koje zahtjeva NGINX. Zatim moramo tim okruženju dati neke sistemske resurse koje zahtjeva server da bi mogao normalno raditi. 
+Nakon svih potrebnih modifikacija koje smo napravili na našem okruženju možemo pokrenuti i NGINX server. Što smo time dobili? Pa unaprijedili smo sigurnost samog sustava, jer će se NGINX izvršavati u svom "malom dijelu svemira", odnosno našeg UNIX sustava, te u slučaju mogućih upada u sustav od strane neželjenih osoba putem web servera otežat ćemo im daljnji posao npr. narušavanja dostupnosti servera, otkrivanja lozinki i slično. Također super kod ovakvih okruženja je i to da se više ne moramo brinuti oko kompaktibilnosti pojedinih verzija programa. Znači sada možemo imati istovremeno više verzija istog programa pod uvijetom da se oni nalaze u odvojenim okruženjima, što često zna biti cool stvar.  
+</p><p>Kod NGINX-a bi trebalo ovakvu nekakvu strukturu direktorija kreirati:
+</p>
+<pre>
+D=/nginx
+mkdir -p $D
+mkdir -p $D/etc
+mkdir -p $D/dev
+mkdir -p $D/var
+mkdir -p $D/usr
+mkdir -p $D/usr/local/nginx
+mkdir -p $D/tmp
+chmod 1777 $D/tmp
+mkdir -p $D/var/tmp
+chmod 1777 $D/var/tmp
+mkdir -p $D/lib64
+</pre>
+<p>Nakon toga bi trebali uključiti neke sistemske resurse koje zahtjeva NGINX i samo okruženje za normalan rad. Detaljne upute o ovome mogu se naći na sljedećoj stranici: <a href="http://www.cyberciti.biz/faq/howto-run-nginx-in-a-chroot-jail/" class="external free" rel="nofollow">http://www.cyberciti.biz/faq/howto-run-nginx-in-a-chroot-jail/</a>
+</p><p>Na sljedećoj stranici se može pogledati i o samoj <i>chroot</i> naredbi <a href="http://linux.about.com/library/cmd/blcmdl2_chroot.htm/" class="external free" rel="nofollow">http://linux.about.com/library/cmd/blcmdl2_chroot.htm/</a>
+</p><p>Također na ovom linku se može naći koristan članak o tome kako ovakvo jedno okruženje postaviti na CentOS-u <a href="http://geek.co.il/wp/2010/03/14/how-to-build-a-chroot-jail-environment-for-centos" class="external free" rel="nofollow">http://geek.co.il/wp/2010/03/14/how-to-build-a-chroot-jail-environment-for-centos</a>
+</p>
+<h5> <span class="mw-headline" id="Isklju.C4.8Diti_sve_nekori.C5.A1tene_NGINX_modula"> Isključiti sve nekorištene NGINX modula </span></h5>
+<p>Prilikom kompajliranja NGINX-a da bi se dodatno povećala sigurnost potrebno je isključiti sve module koji se ne koriste. To možemo učiniti sljedećom komandom:
+</p>
+<pre>
+./configure --without-http_autoindex_module --without-http_ssi_module
+</pre>
+<h5> <span class="mw-headline" id="Kontrolirati_dostupne_informacije_o_serveru"> Kontrolirati dostupne informacije o serveru </span></h5>
+<p>Ukoliko koristimo verziju NGINX-a za koju se u određenom vremenu otkriju određene ranjivosti, u svakom slučaju dobro bi bilo "natjerati" NGINX da ne govori o svojoj verziji. To možemo na sljedeći jednostavan način napraviti:
+</p>
+<pre>
+server_tokens off;
+</pre>
+<p>Također još jedan koristan modul kojim možemo kontrolirati Headere NGINX-a je modul HttpHeadersMoreModule. Ovim modulom možemo postaviti, ili izbrisati headere koji vraća NGINX server. 
+</p>
+<pre>
+more_set_headers 'Server: my-server';
+</pre>
+<p>Više o tom modulu možete pronaći ovdje: <a href="http://wiki.nginx.org/NginxHttpHeadersMoreModule" class="external free" rel="nofollow">http://wiki.nginx.org/NginxHttpHeadersMoreModule</a>
+</p>
+<h5> <span class="mw-headline" id="Onemogu.C4.87iti_.22Buffer_Overflow.22_napade"> Onemogućiti "Buffer Overflow" napade </span></h5>
+<p>Kako bi spiječili ovu ranjivost moramo ograničiti veličinu podataka koje primamo od klijenata. Primjer:
+</p>
+<pre>
+  client_body_buffer_size  1K;
+  client_header_buffer_size 1k;
+  client_max_body_size 1k;
+  large_client_header_buffers 2 1k;
+</pre>
+<p>Npr. u ovom slučaju ako je veličina tijela zahtjeva (eng. body size) veća od definirane, klijent će dobiti pogrešku sa porukom "Request Entity Too Large" (413).
+</p>
+<h5> <span class="mw-headline" id="Ograni.C4.8Davanje_dostupnih_metoda_.28GET.2C_POST....29"> Ograničavanje dostupnih metoda (GET, POST...) </span></h5>
+<p>Ukoliko server ne zahtjeva korištenje svih dostupnih HTTP metoda, onda bi bilo dobro da sve one koje ne koristi odbijamo. Npr. ovime možemo ograničiti NGINX da koristi samo GET, POST i HEAD metode.
+</p>
+<pre>
+if ($request_method&#160;!~ ^(GET|HEAD|POST)$ ) {
+       return 444;
+}
+</pre>
+<h5> <span class="mw-headline" id="Blokiranje_tzv._Referral_Spam-a"> Blokiranje tzv. Referral Spam-a </span></h5>
+<p>Ovdje možemo pročitati o čemu se radi <a href="http://en.wikipedia.org/wiki/Referer_spam" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Referer_spam</a>, a tu je i primjer NGINX konfiguracije kako se možemo braniti od takve vrste spama.
+</p>
+<pre>
+if ($http_referer ~* (babes|click|diamond|forsale|girl|jewelry|love|nudit|organic|poker|porn|poweroversoftware|sex|teen|video|webcam|zippo)) {
+  return 403;   
+}
+</pre>
+<h5> <span class="mw-headline" id="Sprije.C4.8Davanje_Hotlinking-a"> Spriječavanje Hotlinking-a </span></h5>
+<p>Hotlinking je zapravo mogućnost da neki korisnik uzme URL od npr. neke naše slike te ga prikazuje u svojoj stranici. Loša strana ovoga je što nam nepotrebno opterećuje server, jer kada se nekom korisniku bude učitavala ta slika iako se stranica nalazi na drugom serveru za tu sliku će se kontaktirati naš server. Ovome možemo stati na kraj na sljedeći način:
+</p>
+<pre>
+location /images/ {
+  valid_referers none blocked www.example.com example.com;
+   if ($invalid_referer) {
+     return   403;
+   }
+}
+</pre>
+<h3> <span class="mw-headline" id="3rdPartyModules"> 3rdPartyModules </span></h3>
+<p>U ovom dijelu ćemo spomenuti kako instalirati i neke module koji nisu službeno podržani, no postoje i vrlo vjerovatno većina njih će raditi sasvim korektno nakon instaliranja na sustav. Kod NGINX-a da bi koristili neki modul koji nije kompajliran po defaultu moramo ponoviti proces kompajliranja prilikom čega moramo naglasiti da želimo da nam se uključi i željeni modul. Npr. ukoliko želimo instalirati neka dva modula, i skinuli smo njihov source, to možemo učiniti sljedećom komandom (pod pretpostavkom da imamo source od NGINX-a)
+</p>
+<pre>
+./configure --add-module=/path/to/module1/source \
+            --add-module=/path/to/module2/source
+</pre>
+<p>Nakon ovoga proces instalacije nastavlja se standardnim putem. Ukoliko smo NGINX instalirali preko "package-manager-a" morat ćemo nažalost skinuti source i ručno kompajlirati i instalirati NGINX server.
+</p><p>Ukoliko imamo želju razviti neki svoj vlastiti modul za NGINX pomoć oko toga možemo potražiti na sljedećim linkovima: <a href="https://github.com/simpl/ngx_devel_kit" class="external free" rel="nofollow">https://github.com/simpl/ngx_devel_kit</a> i <a href="http://www.evanmiller.org/nginx-modules-guide.html" class="external free" rel="nofollow">http://www.evanmiller.org/nginx-modules-guide.html</a>.
+</p><p>Listu dostupnih dodatnih modula možemo pronaći na sljedećem linku: <a href="http://wiki.nginx.org/3rdPartyModules" class="external free" rel="nofollow">http://wiki.nginx.org/3rdPartyModules</a>. Na ovom popisu može se pronaći dosta zanimljivih modula koji mogu dodatno povećati sigurnost i raspoloživost NGINX servera. Jedan od takvih koje bi volio istaknuti je i "Naxsi" odnosno Web Application Firewall za NGINX. No na toj listi se mogu naći i moduli za mnoge druge namjene.
+</p>
+<h3> <span class="mw-headline" id="Konfiguracijski_file-ovi"> Konfiguracijski file-ovi </span></h3>
+<p>Konfiguracijski file-ovi se mogu naći u sljedećem gitHub repozitoriju:
+</p><p><a href="https://github.com/ivpusic/SIS_configs" class="external free" rel="nofollow">https://github.com/ivpusic/SIS_configs</a>
+</p><p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivan (stranica ne postoji)">Ivan</a> 14:47, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Lighttpd"> Lighttpd </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Lighty_logo.png" class="image" title="lighttpd logo"><img alt="lighttpd logo" src="../images/a/a4/Lighty_logo.png" width="170" height="168" /></a>
+</p><p>Lighttpd je siguran, brz i vrlo fleksibilan web server koji je optimiziran za okruženja gdje su potrebne visoke performanse. Upravo s niskim memorijskim tragom, kada se usporedi s ostalim web serverima, te efektivnim upravljanjem opterećenjem CPU-a, kao i skupom naprednih svojstava (FastCGI, SCGI, Auth i drugi..) lighttpd je idealno rješenje za svaki server. Ono što je najbolje, jest to da je Open Source, licenciran pod revidiranom BSD licencom.
+</p><p>Lighttpd pokreće nekoliko popularnih Web 2.0 stranica, poput Youtubea, Wikipedije i meebo-a. Njegova vrlo brza io-infrastruktura mu dopušta da radi brže na istom hardveru nego alternativni web-serveri. Njegova event-driven(<a href="http://en.wikipedia.org/wiki/Event-driven_architecture" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Event-driven_architecture</a>) arhitektira je optimizirana za veliki broj paralelnih konekcija, što je vrlo važno za AJAX aplikacije s visokim performansama.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Instalacija"> Instalacija </span></h3>
+<p>Lighttpd server se vrlo lako instalira pomoću naredbe:
+</p>
+<pre>
+sudo apt-get install lighttpd
+</pre>
+<p>Ukoliko se koristi apt-get package manager, za ostale, pogledajte upute na sljedećem linku: <a href="http://redmine.lighttpd.net/projects/lighttpd/wiki/GetLighttpd" class="external free" rel="nofollow">http://redmine.lighttpd.net/projects/lighttpd/wiki/GetLighttpd</a>
+</p><p>Pokretanje lighttpd-a se radi pomoću:
+</p>
+<pre>
+sudo service lighttpd start
+</pre>
+<p>Konfiguracijske datoteke se za lighttpd nalaze u:
+</p>
+<pre>
+/etc/lighttpd/
+</pre>
+<p>Dobra praksa pisanja konfiguracijskih datoteka, kada uključujemo pojedine module, jest korištenje naredbe
+</p>
+<pre>
+lighty-enable-mod
+</pre>
+<p>Tada možemo odabrati koji modul želimo uključiti. Primjerice, ja sam odabrao modul <b>ssl</b> za uključiti.
+</p>
+<pre>
+mario@mario-laptop ~ $ sudo lighty-enable-mod 
+[sudo] password for mario: 
+Available modules: auth accesslog cgi evasive evhost expire fastcgi flv-streaming no-www proxy rrdtool simple-vhost 
+ssi ssl status userdir usertrack fastcgi-php debian-doc 
+Already enabled modules: 
+
+Enable module: ssl
+Enabling ssl: ok
+Run /etc/init.d/lighttpd force-reload to enable changes
+</pre>
+<p>Kao što se vidi na primjeru, da su neki moduli prije uključeni, ispisali bi nam se pod <b>Already enabled modules</b>. 
+</p><p>Nakon toga nam se u 
+</p>
+<pre>
+/etc/lighttpd/conf-enabled
+</pre>
+<p>nalazi dio konfiguracije za modul <b>ssl</b>, koji izgleda ovako:
+</p>
+<pre>
+# /usr/share/doc/lighttpd-doc/ssl.txt
+
+$SERVER[&quot;socket&quot;] == &quot;0.0.0.0:443&quot; {
+        ssl.engine  = &quot;enable&quot;
+        ssl.pemfile = &quot;/etc/lighttpd/server.pem&quot;
+}
+</pre>
+<p>Tako možemo svaki modul uključiti opcije koje su bitne za taj modul će se nalaziti u odvojenoj konfiguracijskoj datoteci.
+</p><p>No, za potrebe testiranja ovog projekta, ja sam sve opcije pisao u jednu datoteku, glavnu konfiguracijsku datoteku <b>lighttpd</b> servera, <b>lighttpd.conf</b>.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija"> Konfiguracija </span></h3>
+<p>U početku ću opisat sintaksu konfiguracijske datoteke koju sam koristio prilikom konfiguriranja servera.
+Najćešće korišten način definiranja neke opcije je sljedeći:
+</p>
+<pre>
+naziv_opcije = vrijednost
+</pre>
+<p>Ukoliko je vrijednost brojčana, pišemo je bez navodnika, a ukoliko je vrijednost string ili neka putanja, moramo je upisati s navodnicima.
+</p><p>Također, koristio sam i vrijednosti pomoću kojih želim obuhvatiti neku IP adresu, url i slično. U nastavku ću objasniti značenja pojedinih vrijednosti.
+</p>
+<ul><li> $HTTP["host"] == "vrijednost" – pronaći će host s zadanom vrijednoću. Moguće korištenje regex pravila.
+</li><li> $SERVER["socket"] == "IP adresa:port" – pronaći će prema socketu. Vrijednost mora biti oblika "IP adresa:port".
+</li><li> $HTTP["scheme"] == "vrijednost" – vrijednost može biti <b>http</b> ili <b>https</b>.
+</li><li> $HTTP["url"] == "vrijednost" – vrijednost može biti bilo kakav url. Moguće korištenje regex pravila.
+</li><li> $HTTP["remoteip"] == "IP adresa" – pronaći će prema IP adresi. Moguće je navesti više IP adresa odvojenih pomoću "|", ili korištenje CIDR notacije.
+</li></ul>
+<p>To je zapravo to što se osnovne sintakse tiče.
+</p><p>Sada ću u nekoliko koraka objasniti što bi svaka početna konfiguracijska datoteka trebala imati.
+Svakako, to su root direktorij, IP adresa te port na kojem će server osluškivati.
+</p>
+<pre>
+server.document-root       	= &quot;/var/www&quot;
+server.bind			= &quot;127.0.0.1&quot;
+server.port 			= 80
+</pre>
+<p>Isto tako, možemo dodati i vrste datoteka koje će se moći otvoriti na serveru pomoću:
+</p>
+<pre>
+mimetype.assign = (
+	&quot;.html&quot; =&gt; &quot;text/html&quot;,
+	&quot;.htm&quot; =&gt; &quot;text/html&quot;,
+	&quot;.txt&quot; =&gt; &quot;text/plain&quot;,
+	&quot;.css&quot; =&gt; &quot;text/css&quot;,
+	&quot;.js&quot; =&gt; &quot;text/javascript&quot;,
+	&quot;.xml&quot; =&gt; &quot;text/xml&quot;,
+	&quot;.php&quot; =&gt; &quot;application/x-httpd-php&quot;,
+	&quot;.jpg&quot; =&gt; &quot;image/jpeg&quot;,
+	&quot;.png&quot; =&gt; &quot;image/png&quot;
+)
+</pre>
+<p>Sljedeće što možemo definirati jesu nazivi indeksnih datoteka i to pomoću:
+</p>
+<pre>
+index-file.names            	= ( &quot;index.php&quot;, &quot;index.html&quot;, &quot;index.htm&quot;)
+</pre>
+<p>Trebali bi definirati i lokacije gdje će se spremati logovi za greške i pristup. To možemo učiniti pomoću:
+</p>
+<pre>
+server.errorlog             	= &quot;/var/log/lighttpd/error.log&quot;
+accesslog.filename		= &quot;/var/log/lighttpd/access.log&quot;
+</pre>
+<p>Također, potrebno je učitati module koji na neki način grupiraju povezane opcije. Moduli se učitavaju pomoću:
+</p>
+<pre>
+server.modules = (
+	&quot;mod_access&quot;,
+	&quot;mod_accesslog&quot;,
+	&quot;mod_alias&quot;,
+	&quot;mod_compress&quot;,
+ 	&quot;mod_redirect&quot;,
+	&quot;mod_proxy&quot;
+)
+</pre>
+<p>Detalji o modulima se mogu pronaći na sljedećoj lokaciji:
+<a href="http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs" class="external free" rel="nofollow">http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs</a>
+No, više o tome u nastavku kada ću pojasniti učitavanje modula koji nam mogu pomoći u povećanju sigurnosti te visokoj raspoloživosti servera.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Raspolo.C5.BEivost"> Raspoloživost </span></h3>
+<p>Što se raspoloživosti tiče, ona je jedna od najbitnijih komponenata kada procjenjujemo da li je neki sustav dobar za korisnike. Testiranje bitnih svojstava servera sam radio na način da sam instalirao dvije virtualne mašine, na svakoj od njih sam instalirao Lubuntu te upogonio lighttpd.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_proxy"> mod_proxy </span></h4>
+<p>Modul mod_proxy nam daje mogućnost korištenja tri opcije prilikom konfiguriranja servera. Upravo taj modul sam iskoristio da bih prikazao load-balancing između više servera.
+</p>
+<ul><li> proxy.debug – broj između 0 i 65535 za postavljanje debug-levela u proxy modulu. Trenutno se koriste samo 0 i 1. 1 se koristi da se uključi debug output, dok se 0 koristi da se isključi.
+</li></ul>
+<ul><li> proxy.balance – "round-robin", "hash" ili "fair"
+</li></ul>
+<p>"round-robin" bira drugi host za svaki zahtjev; "hash" generira hash od request-uria i brine se da isti URI zahtjeva bude uvijek poslan istom hostu; "fair" je normalno, pasivno balansiranje, ovisno o opterećenju sustava
+</p>
+<ul><li> proxy.server – govori modulu gdje da pošalje zahtjeve.
+</li></ul>
+<p>U konfiguracijskoj datoteci sam upisao sljedeće postavke:
+</p>
+<pre>
+$HTTP[&quot;host&quot;] == &quot;localhost&quot;{
+	proxy.balance = &quot;round-robin&quot;
+	proxy.server = (&quot;&quot; =&gt; 
+				( ( &quot;host&quot; =&gt; &quot;192.168.1.135&quot; ),
+				  ( &quot;host&quot; =&gt; &quot;192.168.1.137&quot; ) )
+			 )
+}
+</pre>
+<p>Dakle, sve što ide na host localhost se balansira pomoću "round-robin" načina, što znači da će svaki zahtjev ići na drugi host. Definirao sam dva hosta na koja se može balansirati promet, a to su upravo dvije virtualne mašine koje sam instalirao.
+Više o modulu mod_proxy se može pronaći na
+<a href="http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModProxy" class="external free" rel="nofollow">http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModProxy</a>
+</p><p>Nadalje, što se raspoloživosti tiče želio bih spomenuti opciju kojom možemo ograničiti količinu podataka po sekundi za sve otvorene veze, pomoću opcije <b>server.kbytes-per-second</b>. To se može napraviti na sljedeći način:
+</p>
+<pre>
+server.kbytes-per-second	= 1024
+</pre>
+<p>Isto tako, moguće je ograničiti količinu prometa i po pojedinoj konekciji, što je objašnjeno nešto kasnije, u odjeljku o sigurnosti.
+</p><p>Video koji prikazuje funkcioniranje <b>load-balancinga</b> kod korištenja <b>lighttpd</b> servera možete pogledati na sljedećem linku: <a href="http://screencast-o-matic.com/watch/cIVqIyVQB3" class="external free" rel="nofollow">http://screencast-o-matic.com/watch/cIVqIyVQB3</a>
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="alat_Monit"> alat Monit </span></h4>
+<p>Nebrojeno mnogo puta se zna desiti da ne možemo osobno nadzirati dostupnost servera cijelo vrijeme. Korištenjem nekog alata koji automatski nadgleda status servera, ukoliko dođe do nekog ispada u kojem sustav radi, taj alat će automatski uključiti server.
+Naravno, ukoliko se dogodi ispad u kojem sustav ne radi, recimo prekid dovoda struje, tada nam ova metoda ne pomaže već imamo koristi od balansiranja, opisanog u prethodnom odjeljku.
+</p><p>Ovaj alat nije vezan striktno uz server <b>lighttpd</b>, već može poslužiti da pokrene bilo koji servis koji je isključen. Instaliranje alata se radi pomoću naredbe:
+</p>
+<pre>
+sudo apt-get install monit
+</pre>
+<p>ukoliko koristimo apt-get package manager. Nakon što je instalacija gotova, potrebno je konfigurirati navedeni alat. Konfiguracijska datoteka se nalazi u:
+</p>
+<pre>
+/etc/monit/monitrc
+</pre>
+<p>Prva stvar koju je u konfiguracijskoj datoteci moguće promijeniti je broj sekundi nakon kojih će alat provjeravati da li su definirani servisi pokrenuti ili ne. Naredba koja definira taj broj sekundi jest:
+</p>
+<pre>
+set daemon 120
+</pre>
+<p>Dakle, ovdje je postavljeno da se svakih 120 sekundi (2 minute) provjerava da li su definirani servisi pokrenuti. Nakon toga možemo promijeniti lokaciju datoteke u koju će se zapisivati logovi. Po defaultu je to:
+</p>
+<pre>
+set logfile /var/log/monit.log
+</pre>
+<p>Nakon toga sam definirao dio koji će provjeravati da li je uključen <b>lighttpd</b> server, i ako nije, uključit će ga.
+</p>
+<pre>
+check process lighttpd with pidfile /var/run/lighttpd.pid
+group lighttpd
+start program = &quot;/etc/init.d/lighttpd start&quot;
+stop program = &quot;/etc/init.d/lighttpd stop&quot;
+if failed host 127.0.0.1 port 80
+protocol http then restart
+if 5 restarts within 5 cycles then timeout
+</pre>
+<ul><li> check process lighttpd with pidfile /var/run/lighttpd.pid – definiramo ime servisa i lokacija pid datoteke
+</li><li> group lighttpd – ime grupe koja ima ovlasti zaustaviti/pokrenuti lighttpd
+</li><li> start program = "/etc/init.d/lighttpd start" – naredba za pokretanje lighttpd-a
+</li><li> stop program = "/etc/init.d/lighttpd stop"- naredba za zaustavlanje lighttpd-a
+</li><li> if failed host 127.0.0.1 port 80 – adresa servera zajedno sa portom
+</li><li> protocol http then restart – ako navedena IP adresa na portu ne radi, ponovno će se pokrenuti lighttpd
+</li><li> if 5 restarts within 5 cycles then timeout – pokušava se ponovno pokrenuti 5 puta, ukoliko se ne može ponovno pokrenuti, završi s time outom.
+</li></ul>
+<p>Nakon toga je potrebno pokrenuti monit servis pomoću:
+</p>
+<pre>
+sudo /etc/init.d/monit start
+</pre>
+<p>Sada će <b>monit</b> svakih 120 sekundi provjeravati da li <b>lighttpd</b> radi, i ukoliko ne radi, pokušati ga ponovno pokrenuti.
+</p><p>Detaljnije o alatu se može naći na: <a href="http://mmonit.com/monit/" class="external free" rel="nofollow">http://mmonit.com/monit/</a> 
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Sigurnost"> Sigurnost </span></h3>
+<h4> <span class="mw-headline" id="SSL"> SSL </span></h4>
+<p>Za korištenje SSL zaštite ne moramo uključivati niti jedan modul, već se on nalazi u osnovnom (core) modulu. Sama konfiguracija SSL-a je vrlo jednostavna. No, prije konfiguriranja, potrebno je generirati "self-signed" SSL certifikate. Naravno, korištenje takvih certifikata je korisno samo kada ih koristimo u svrhu testiranja. Inače nam certifikat mora potpisati CA (Certification Authority).
+Certifikat možemo kreirati pomoću sljedeće naredbe:
+</p>
+<pre>
+openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes
+</pre>
+<p>Naravno, prije toga se potrebno pozicionirati u onaj direktorij gdje ćemo certifikat pospremiti.
+Nakon generiranja certifikata, potrebno je uključiti SSL u konfiguracijskoj datoteci lighttpd-a.
+</p>
+<pre>
+$SERVER[&quot;socket&quot;] == &quot;127.0.0.1:443&quot;{
+	ssl.engine = &quot;enable&quot;
+	ssl.pemfile = &quot;/etc/lighttpd/ssl/lighttpd/server.pem&quot;
+}
+</pre>
+<p>Dakle, ukoliko smo na IP adresi 127.0.0.1 te na portu 443, uključiti ćemo SSL pomoću <b>ssl.engine</b>. Pomoću <b>ssl.pemfile</b> se upisuje lokacija certifikata koji smo ranije generirali. 
+Potrebno je ponovno pokrenuti lighttpd kako bi upisane promjene u konfiguracijskoj datoteci bile uključene. Lighttpd možemo ponovno pokrenuti pomoću:
+</p>
+<pre>
+sudo service lighttpd restart
+</pre>
+<p>Sada, ukoliko odemo na <a href="https://localhost" class="external free" rel="nofollow">https://localhost</a>, preglednik će nam izbaciti upozorenje u kojem piše da certifikat na stranici kojoj pristupamo nije potpisan. Kako bi se ovo izbjeglo, potrebno je da nam certifikat potpiše CA. Ukoliko bi imali potpisan certifikat, potrebno bi bilo dodati i sljedeću liniju u konfiguracijsku datoteku:
+</p>
+<pre>
+ssl.ca-file = &quot;/etc/lighttpd/ssl/lighttpd/CA_issuing.crt&quot;
+</pre>
+<p>gdje <b>ssl.ca-file</b> predstavlja lokaciju do datoteke u kojoj se nalaze informacije da je naš certifikat potpisan.
+</p><p>Ono što možemo učiniti da bi se uvijek koristio <b>https</b> jest običan <b>url.redirect</b> (iz modula mod_redirect) pomoću sljedećeg odječka konfiguracijske datoteke:
+</p>
+<pre>
+$HTTP[&quot;scheme&quot;] == &quot;http&quot; {
+	$HTTP[&quot;host&quot;] =~ &quot;.*&quot; {
+		url.redirect = (&quot;.*&quot; =&gt; &quot;https://%0$0&quot;)
+	}
+}
+</pre>
+<p>gdje je <b>$HTTP["scheme"]</b> uvijek ili <b>http</b> ili <b>https</b>. U sljedećem koraku koristimo regex pravilo gdje host može biti bilo kakav, i njega preusmjeravamo na <b>https</b>.&#160;%0 označava zapravo naziv hosta. Dakle, pomoću ovoga ćemo svaki zahtjev koji će ići na <b>http</b> preusmjeriti na <b>https</b>.
+</p><p>Video koji prikazuje funkcioniranje <b>SSL-a</b> kod <b>lighttpd</b> servera možete pogledati na sljedećem linku: <a href="http://screencast-o-matic.com/watch/cIVqINVQBu" class="external free" rel="nofollow">http://screencast-o-matic.com/watch/cIVqINVQBu</a>
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_evasive"> mod_evasive </span></h4>
+<p>Pomoću modula <b>mod_evasive</b> možemo ograničiti maksimalan broj konekcija s jedne IP adrese. To nam je korisno kada se donekle želimo osigurati od DoS(Denial of Service) napada. Korištenje navedenog modula nije teško. Potrebno je samo iskoristiti opciju <b>evasive.max-conns-per-ip</b>. Primjer je dan u nastavku.
+</p>
+<pre>
+evasive.max-conns-per-ip	= 1
+</pre>
+<p>Također, moguće je ograničiti maksimalan broj veza na sljedeći način:
+</p>
+<pre>
+evasive.max-conns-per-ip = 1
+
+$HTTP[&quot;host&quot;] == &quot;example.com&quot; {
+	evasive.max-conns-per-ip = 2
+}
+$HTTP[&quot;host&quot;] == &quot;example2.com&quot; {
+	evasive.max-conns-per-ip = 0
+}
+</pre>
+<p>gdje će defaultne stranice imati maksimalno jednu vezu, example.com će imati dvije, a example2.com će ih imati neograničeno. Primjetimo dakle, da 0 označava neograničeno.
+Također, moguće je uključiti opciju <b>silent</b>, tako da se ne bilježe blokirane IP-adrese.
+</p>
+<pre>
+evasive.silent			= &quot;enabled&quot;
+</pre>
+<p>Također, ovdje bih želio spomenuti i jednu opciju koja nije vezana uz ovaj modul, a predstavlja ograničavanje prometa po sekundi za jednu vezu. To je opcija <b>connection.kbytes-per-second</b> koja se postavlja na sljedeći način:
+</p>
+<pre>
+connection.kbytes-per-second	= 64
+</pre>
+<p>Dakle, ovdje smo ograničili količinu prometa po sekundi na 64 kB za jednu vezu.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_access"> mod_access </span></h4>
+<p>Pomoću modula <b>mod_access</b> možemo zabraniti pristup određenim datotekama. Najjednostavniji način za to jest pomoću <b>url.access-deny</b>. Primjer:
+</p>
+<pre>
+url.access-deny             = ( &quot;~&quot;, &quot;.inc&quot; )
+</pre>
+<p>Dakle, u ovom slučaju se neće moći otvoriti datoteke koje završavaju s tildom (~) ili .inc zato što editori teksta često ostavljaju datoteke koje završavaju s "~" kao backup datoteke, a ".inc" ekstenzija se koristi za uključivanje datoteka s programskim kodom, što bi se moglo zloupotrijebiti.
+Također, ovo možemo iskoristiti i da praktički zabranimo pristup cjelom direktoriju, na sljedeći način:
+</p>
+<pre>
+$HTTP[&quot;url&quot;] =~ &quot;^/lighttpd&quot; {
+	url.access-deny	= (&quot;&quot;)
+}
+</pre>
+<p>Svaki url koji će završavati sa <b>/lighttpd</b> će biti zapravo blokiran. Listu datoteka smo ostavili praznu, i to znači da će blokirati sve vrste datoteka. Pojavit će se greška 404.
+</p><p>Ovom prilikom bih spomenuo i jednu opciju kojom možemo definirati lokaciju vlastite datoteke koja će se prikazati u slučaju greške 404. To radimo na sljedeći način:
+</p>
+<pre>
+server.error-handler-404	= &quot;/error-handler.html&quot;
+</pre>
+<p>Dakle, datoteka <b>error-handler.html</b> će se otvoriti umjesto defaultne 404 greške lighttpd servera.
+</p><p>Naravno, prije početka testiranja unesenih promjena, potrebno je ponovno pokrenuti lighttpd server.
+</p><p>Također, vezano uz korištenje modula <b>mod_access</b>, moguće je zabraniti nekoj određenoj IP adresi da pristupi serveru. Tako je moguće, primjerice IP adresi 127.0.0.1 zabraniti pristup preko sljedećeg dijela koda:
+</p>
+<pre>
+$HTTP[&quot;remoteip&quot;] == &quot;127.0.0.0/24&quot; {
+	url.access-deny = ( &quot;&quot; )
+}
+</pre>
+<p>Također, moguće je upisivanje više IP adresa, što bi izgledalo ovako:
+</p>
+<pre>
+$HTTP[&quot;remoteip&quot;] =~ &quot;202.54.1.1|202.54.2.5&quot; {
+	url.access-deny = ( &quot;&quot; )
+}
+</pre>
+<p>Primjetite korištenje <b>"=~"</b> umjesto <b>"=="</b>, što znači da se koristi regex pravilo umjesto klasičnog operatora "==". Uz upisivanje više adresa, moguće je i korištenje CIDR notacije, što bi izgledalo na sljedeći način:
+</p>
+<pre>
+$HTTP[&quot;remoteip&quot;] == &quot;202.54.1.0/24&quot; {
+	url.access-deny = ( &quot;&quot; )
+}
+</pre>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="mod_auth"> mod_auth </span></h4>
+<p>Modul <b>mod_auth</b> nam omogućava korištenje autentikacije. Modul kao takav ima dvije metode autentikacije:
+</p>
+<ul><li> basic – osnovna metoda kod koje se korisničko ime i lozinka prenose u čitljivom obliku preko mreže i koja može rezultirati sigurnosnim problema ako se ne koristi u kriptiranoj vezi između klijenta i servera.
+</li><li> digest – ova metoda šalje hashirane vrijednosti preko mreže, što daje dodatnu sigurnost.
+</li></ul>
+<p>Mogući načini za pohranu korisinčkih podataka, s obzirom na metode su:
+</p>
+<ul><li> plain_ - koristi se u obje metode
+</li><li> htpasswd_ - samo <b>basic</b> metoda
+</li><li> htdigest_ - koristi se u obje metode
+</li><li> ldap_ - samo <b>basic</b> metoda
+</li></ul>
+<p>Ja ću u nastavku pojasniti korištenje <b>htpasswd_</b> načina spremanja korisničkih podataka i, s obzirom da je <b>htpasswd_</b> podržan u <b>basic</b> metodi autentikacije, upravo tu metodu.
+</p><p>Prije samog konfiguriranja servera, potrebno je kreirati datoteku koja će sadržavati korisničke podatke te upisati podatke u nju. Pomoću sljedeće naredbe sam kreirao datoteku <b>korisnici.txt</b> te dodao u nju sadržaj za korisnika pod imenom <b>mario</b>. Napomenut ću da sam opciju "-c" koristio iz razloga što datoteka dosad nije postojala. Ukoliko datoteka postoji, naredba <b>htpasswd</b> bi se koristila bez te opcije, i ona bi u zadanu datoteku dodala novi zapis, za navedenog korisnika.
+</p>
+<pre>
+htpasswd -c korisnici.txt mario
+</pre>
+<p>Prikazat ću i kako izgleda uneseni zapis u datoteku. (Kao lozinku sam upisao <b>lighttpd</b> nakon upisivanja prethodne naredbe.)
+</p>
+<pre>
+mario:$apr1$fkH1tr9l$rco8DcP2XHdRH/UYtYt3f1
+</pre>
+<p>Sada, kada imamo spremnu datoteku s korisničkim podacima, potrebno je i dodati korištenje autentikacije u konfiguracijsku datoteku servera.
+</p>
+<pre>
+$HTTP[&quot;url&quot;] =~ &quot;^/admin/&quot; {
+	auth.backend			= &quot;htpasswd&quot;
+	auth.backend.htpasswd.userfile = &quot;/var/www/admin/korisnici.txt&quot;
+	auth.require = ( &quot;/admin&quot; =&gt; (
+		&quot;method&quot; =&gt; &quot;basic&quot;,
+		&quot;realm&quot; =&gt; &quot;Password protected area&quot;,
+		&quot;require&quot; =&gt; &quot;user=mario&quot;
+	) )
+}
+</pre>
+<p>Pomoću <b>auth.backend</b> smo definirali način za pohranu korisničkih podataka, dok smo sa <b>auth.backend.htpasswd.userfile</b> definirali lokaciju na kojoj se nalazi ta datoteka. Nadalje, pomoću  <b>auth.require</b> smo definirali u kojem ćemo direktoriju zahtijevati pristup pomoću lozinke. U ovom slučaju to je direktorij <b>/admin</b>. Nakon toga, definirali smo tri vrijednosti. Prva, <b>method</b>, je vrsta autentikacije, <b>realm</b> je poruka koja će se ispisati korisniku prije unosa korisničkih podataka, a pod <b>require</b> možemo definirati koji korisnik će moći ući u ovaj direktorij. Ukoliko pod <b>require</b> stavimo <b>valid-user</b>, direktoriju će moći pristupiti svi korisnici koji imaju svoje podatke u datoteci s podacima.
+</p><p>Video koji prikazuje funkcioniranje autorizacije korištenjem <b>htpasswd</b> kod servera <b>lighttpd</b> možete pronaći na sljedećem linku: <a href="http://screencast-o-matic.com/watch/cIVq2oVQBw" class="external free" rel="nofollow">http://screencast-o-matic.com/watch/cIVq2oVQBw</a>
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Tips_.26_tricks_2"> Tips &amp; tricks </span></h4>
+<h5> <span class="mw-headline" id="Izolirana_okru.C5.BEenja_2"> Izolirana okruženja </span></h5>
+<p>Korištenjem chroota možemo kreirati izolirano okruženje kojim se unaprijeđuje sigurnost samog sustava. Ono što se time zapravo radi, jest to da <b>lighttpd-u</b> damo određeni dio prostora na disku koji će biti izoliran i iz kojeg korisnici koji koriste web sustav neće moći izaći.
+</p><p>Također, ono što je odlična stvar vezana uz izolirana okruženja, jest to da praktički možemo imati instalirane različite verzije programa, primjerice php. Bitno je samo da je svaka verzija u zasebnom izoliranom okruženju.
+</p><p>U nastavku ću opisati postupak kako bi se takvo virtualno okruženje napravilo. Prvo je potrebno kreirati <b>root</b> direktorij okruženja. Nakon toga je potrebno kreirati i ostale direktorije u koje će se kopirati sistemski resursi koje server zahtjeva da bi normalno radio.
+</p>
+<pre>
+# mkdir /webroot 
+# mkdir /webroot/tmp/ 
+# chmod 1777 /webroot/tmp/ 
+# mkdir /webroot/etc
+</pre>
+<p>Nakon kreiranih direktorija, potrebno je kopirati sistemske resurse koje <b>lighttpd</b> server koristiti.
+</p>
+<pre>
+# cp /etc/hosts /webroot/etc/ 
+# cp /etc/nsswitch.conf /webroot/etc/ 
+# cp /etc/resolv.conf /webroot/etc/ 
+# cp /etc/services /webroot/etc/ 
+# cp /etc/localtime /webroot/etc/
+</pre>
+<p>Nakon toga je potrebno kreirati i ostale direktorije koji su potrebni za rad servera, kao što su <b>root</b> direktorij za server, direktorij za bilježenje logova i ostali.
+</p>
+<pre>
+# mkdir -p /webroot/var/log/lighttpd 
+# chown lighttpd:lighttpd /webroot/var/log/lighttpd 
+# mkdir -p /webroot/var/tmp/lighttpd/cache/compress/ 
+# chown lighttpd:lighttpd /webroot/var/tmp/lighttpd/cache/compress/ 
+# mkdir -p /webroot/home/lighttpd 
+# mkdir -p /webroot/var/www 
+# chown lighttpd:lighttpd /webroot/home/lighttpd 
+# chown lighttpd:lighttpd /webroot/var/www 
+# chmod 0700 /webroot/home/lighttpd 
+# ls -dl /webroot/home/lighttpd
+</pre>
+<p>Kada smo kreirali i ostale direktorije, potrebno je i umetnuti sadržaj unutra, kao što su html datoteke i ostalo.
+</p><p>Ono što posljednje moramo napraviti, je u glavnoj konfiguraciji <b>lighttpd</b> servera dodati liniju koja će odrediti gdje se nalazi <b>root</b> direktorij izoliranog okruženja. Ovo radimo pomoću:
+</p>
+<pre>
+server.chroot = &quot;/webroot&quot;
+</pre>
+<p>Jednom kada definiramo <b>chroot</b>, nitko osim <b>root</b> korisnika ne može pristupiti bilo čemu izvan <b>/webroot</b> direktorija.
+Nakon što smo sve ovo napravili, potrebno je ponovno pokrenuti <b>lighttpd</b> server i tada će funkcionirati novo postavljeno izoliranje okruženje.
+</p><p>Jedan odličan tutorijal o postavljanju chroota s PHP-om i MySQL-om možete pročitati na: <a href="http://www.cyberciti.biz/tips/howto-setup-lighttpd-php-mysql-chrooted-jail.html" class="external free" rel="nofollow">http://www.cyberciti.biz/tips/howto-setup-lighttpd-php-mysql-chrooted-jail.html</a>.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Konfiguracijske_datoteke"> Konfiguracijske datoteke </span></h3>
+<p>Konfiguracijske datoteke za <b>lighttpd</b> server i alat <b>monit</b> se nalaze na sljedećem linku: <a href="https://github.com/maperokov/SIS_config" class="external free" rel="nofollow">https://github.com/maperokov/SIS_config</a>
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Maperokov&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Maperokov (stranica ne postoji)">Maperokov</a> 13:08, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Apache"> Apache </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:ApacheLogo.png" class="image" title="apache logo"><img alt="apache logo" src="../images/8/81/ApacheLogo.png" width="200" height="178" /></a>
+</p><p>Apache web server je server koji je imao jako veliku ulogu u početnom rastu world wide web-a. Prije 3 godine na apache web serveru vrtilo se 100 milijuna web stranica i prvi je server s tom brojkom. Apache je zamišljen, a i napravljen, za "Unix-like" operativne sustave, odnosno ako želimo specificirati za Linux. No to ne znači da ga ja nemoguće instalirati i konfigurirati na Windowsima. Apache je razvijen od strane "open-source" zajednice pod budnim okom Apache software foundation-a. Iako danas možemo birati između mnoštva web servera(samo u ovom radu vidjeti ćete njih 4) i mnogi se slažu da danas postoje web serveri koji su bolji od apache-a(nginx op.a.), podatak da se 2012. godine na njemu vrtilo otprilike 55&#160;% svih aktivnih web stranica govori da je apache i dalje najpopularniji web server na svijetu. Jedan od glavnih razloga uspjeha apache-a je taj što je "open source" te na taj način svatko može pisati module koji su mu potrebni. 
+</p>
+<h3> <span class="mw-headline" id="Instalacija_Apache-a"> Instalacija Apache-a </span></h3>
+<p>Apache se instalira jednostavnom naredbom u terminalu:
+</p>
+<pre> 
+ apt-get install apache2 
+</pre>
+<p>Nakon što je instalacija završena apache server možemo vrlo lagano pokrenuti. Konfiguracijski fileovi se obično nalaze u /etc/apache2, a do tog direktorija dođemo naredbom u terminalu:
+</p>
+<pre> 
+ cd /etc/apache2 
+</pre>
+<p>U tom direktoriju postoji nekoliko poddirektorija i fileova:
+</p>
+<ul><li> apache2.conf - glavni konfiguracijski file za apache2. Unutra su postavke koje su globalne za apache
+</li><li> conf.d - ovdje se nalaze konfiguracijski fileovi koje se odnose globalno na apache. Moguće je da neki paketi koji koriste                  apache ovdje dodaju svoje fileove
+</li><li> envvars - sadrži varijable okoline
+</li><li> httpd.conf - prije je to bio glavni konfiguracijski file za apache. Ovdje možemo pisati konfigiraciju za nekog korisnika koja globalno utječe na apache
+</li><li> mods-available - u njemu se nalaze svi konfiguracijski i .load fileovi za sve modove
+</li><li> mods-enabled - kada neki mod uključimo (postavimo na enabled) ovdje će biti njegov konfiguracijski file i .load file
+</li><li> ports.conf - ovdje naznačimo koje TCP portove apache "sluša"
+</li><li> sites-available - ovdje se nalaze konfiguracijski fileovi za sve virtualne hostove
+</li><li> sites-enabled - kada neku stranicu "uključimo" (postavimo na enabled) ovdje će biti njezin konfiguracijski file
+</li></ul>
+<p>Apache pokrećemo jednostavnom naredbom:
+</p>
+<pre> 
+ service apache2 start 
+</pre>
+<p>Isto tako sa sličnim naredbama apache možemo zaustaviti ili ponovno pokrenuti (restart):
+</p>
+	<pre> 
+ service apache2 stop
+ service apache2 restart 
+        </pre>
+<p>Sve promjene u terminalu koje su ovdje navedene naravno moramo napraviti kao root korisnik. Ukoliko ne želimo prije svake naredne pisati sudo napišemo na početku&#160;:
+</p>
+<pre> 
+ sudo su 
+</pre>
+<p>Kada "uključimo" neki mod ili stranicu ili napravimo bilo kakvu drugu promjenu, apache je potrebno ponovno pokrenuti kako bi promjene bile vidljive. 
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija_2"> Konfiguracija </span></h3>
+    <pre>
+ PidFile ${APACHE_PID_FILE}  
+
+ Timeout 20
+
+ KeepAlive On
+ MaxKeepAliveRequests 100
+ KeepAliveTimeout 5
+
+ User ${APACHE_RUN_USER}
+ Group ${APACHE_RUN_GROUP}
+
+ &lt;Files ~ &quot;^\.ht&quot;&gt;
+    Order allow,deny
+    Deny from all
+    Satisfy all
+ &lt;/Files&gt;
+
+ HostnameLookups Off
+ 
+ ErrorLog ${APACHE_LOG_DIR}/error.log	
+ LogLevel warn	
+
+ SecResponseBodyMimeType text/plain text/html text/css
+
+ Include mods-enabled/*.load
+ Include mods-enabled/*.conf
+
+ Include httpd.conf
+ Include ports.conf
+ Include conf.d/
+ Include sites-enabled/
+
+
+    </pre>
+<p>Sa PidFile odredimo putanju gdje ćemo spremati id procesa kada se on pokrene. Ovdje je postavljena varijabla APACHE_PID_FILE
+koja je definirana u envvar, kao uostalom i sve varijable okoline. Zatim je postavljeno maksimalno vrijeme (u sekundama) koje će apache 
+čekati na kompletiranje uspostave konekcije. Dakle to možemo povezati sa gradivom Mreža računala i prisjetiti se three-way-handshakea. Klijent šalje serveru request za uspostavu konekcije,
+server zatim vraća odgovor klijentu. I sada klijent treba vratiti bit ACK serveru i to vrijeme koje će sever čekati tu potvrdu od klijenta je zapravo timeout. Ovdje možemo napomenuti i mali "security tip". Ukoliko  timeout postavimo na neku nižu vrijednost time smo smanjili efekt mogućeg DOS napada. Zatim smo omogućili otvaranje perzistentne konekcije prema korisniku. 
+Zašto je ovo dobro i  zašto bi ovo uvijek trebali biti omogućeno&#160;? Zato jer kada otvorimo perzistentnu konekciju prema određenom klijentu ne moramo otvarati
+novu konekciju svaki puta kada on pošalje neki request prema serveru. Kada bi ovo bilo postavljeno na OFF, klijent bi poslao neki request, npr. zahtjev
+za neku sliku, server bi mu odgovorio na request i zatvorio konekciju, a klijent kada bi sada ponovno poslao neki request, server bi trebao otvoriti novu
+konekciju i tako stalno. Naravno, to je puno veće opterećenje za server te je za efikasniji rad servera  prijedlog da se perzistentna konekcija prema klijentima 
+uvijek omogući. Zatim samo postaimo još neke postavke za tu perzistentnu konekciju (naravno pod uvijetom da smo je prethodno omogućili). Možemo odrediti koliko
+maksimalno requestova po jednoj perzistentoj konekciji omogućavamo i koliko se dugo čeka na novi request. Ukoliko u naznačenom vremenu ne stigne novi request 
+perzistentna konekcija se gasi. Što se tiče maksimalnog broja requestova, što je veći broj to su performanse servera bolje. Ukoliko imamo stranicu bogatu slikama 
+i sličnim sadržajem(npr. puno javascrip koda i sl.) možemo MaxKeepAliveRequests postaviti i na 500. Zatim definiramo "usera" i "group". Ovdje smo im dodijelili varijablu
+koja je postavljena zajedno sa svim ostalim varijablama okline u envar. Zatim onemogućimo klijente da vide .htaccess and .htpasswd fileove. Kada bismo HostnameLookups postavili
+na "ON", mogli bismo u log fileove zapisivati imena hostova. Po defaultu je ta opcija postavljena na "OFF" i moja preporuka bi bila da tako i ostane. Kada bismo to omogućili 
+trošili bismo dosta mrežnog prometa. Ukoliko je pak bitno da spremamo imena hostova u log fileove to možemo napraviti i sa "logresolve". Više o tome možete pročitati na 
+<a href="http://httpd.apache.org/docs/current/programs/logresolve.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/current/programs/logresolve.html</a>. Sljedeće što navodimo je putanju do error.log filea. I ovdje smo proslijedili varijablu koja je postavljena u envvar, 
+a po trentunim postavkama error.log file se nalazi u /var/log/apache2. Mi naravno možemo postaviti i neku drugu putanju, a to ćemo naznačiti u envvar. Ukoliko netko to želi može tu putanju
+postaviti i direktno u  konfiguracijskom fileu. Ovdje još postavljamo i razinu poruka koje spremamo u error log, a ovdje je to postavljeno na warn što označava
+warning. Na sljedećem linku možete pogledati koje su još opcije ovdje moguće <a href="http://httpd.apache.org/docs/current/mod/core.html#loglevel" class="external free" rel="nofollow">http://httpd.apache.org/docs/current/mod/core.html#loglevel</a>. Zatim smo sa, SecResponseBodyMimeType, definirali koje sve ekstenzije će naš server prepoznati. Po "defaultu" prepoznava html i plain text, a mi smo još dodali i css. Na kraju konfiguracijskom filea još samo 
+uključimo neke druge fileove koji su nam potrebni. Tako uključimo sve .conf i .load fileove sa iz mods-enabled te httpd.conf i ports.conf, kao i stranice koje su "uključene". Sve to je već opsiano
+prethodno, a ovdje ću samo još jednom napomenuti da je fileu ports.conf postavljeno koje portove "sluša" apache. 
+</p>
+<h3> <span class="mw-headline" id="Kreiranje_virtualnih_hostova"> Kreiranje virtualnih hostova </span></h3>
+<p>Virtualni hostovi nam omogućavaju da "hostamo" više web stranica na jednom serveru. Na apacheu je to poprilično jednostavno za konfigurirati. Prvi korak je kreiranje direktorija u root 
+	folderu. Po defaultu root folder za apache je /var/www, te ukoliko ništa nije mijenjano ovdje bi trebalo napraviti novi direktorij. Novi direktorij možemo nazvati npr. ovako: 
+	www.primjer.com, a naredba kojom kreiramo novi direktorij je sljedeća:
+</p>
+<pre>
+ mkdir  -p /var/www/www.primjer.com
+</pre>
+<p>	Sljedeći korak je dodjeljivanje prava pristupa novo kreiranom direktoriju. To radimo sa sljedećom naredbom:
+</p>
+<pre>
+ chown -R group:user /var/www/www.primjer.com
+</pre>
+<p>	gdje umjesto groop pišemo ime grupe, a umjesto user ime "usera". Isto tako moramo još
+	i omogućiti svima prava pristupa čitanja ovog direktorija, a to radimo naredbom:
+</p>
+<pre>
+ chmod 755 /var/www 
+</pre>
+<p>	Sada možemo kreirati neku stranicu koja će se pokazati kada u naš preglednik upišemo www.primjer.com. Tu stranicu možemo nazvati index.html, a mora biti smještena u direktoriju kojeg
+	smo na početku kreirali(www.primjer.com). Ta stranica za ovaj konkretni slučaj ne mora biti ništa posebno već čisto da pokažemo da smo uspješno konfigurirali virtualni host.
+	Nakon što upišemo naredbu
+</p>
+<pre>
+ nano /var/www/www.primjer.com/index.html
+</pre>
+<p>	kreirali smo novi html dokument. U njega možemo upisati jednostavno:
+</p>
+<pre>
+		
+&lt;html&gt;
+   &lt;body&gt;
+      &lt;h1&gt;Virtual host je uspješno postavljen!&lt;/h1&gt;
+   &lt;/body&gt;
+&lt;/html&gt;	
+</pre>
+<p>	I sada, kada ćemo u web preglednik upisati www.primjer.com, ukoliko smo sve dobro konfigurirali, ispisati će se tekst "Virtual host je uspješno postavljen!".
+</p><p>	Kada smo sve prethodne korake završili, možemo ići konfigurirati novi virtualni host. Nakon što smo instalirali apache, sa njim smo dobili "defaultne" predloške za konfiguriranje 
+	servera koje sada možemo iskoristiti. U folderu /etc/apache2/sites-available se nalazi virtual host koji se zove default. Možemo kopirati taj konfiguacijski file i iskoristiti ga za 
+	konfiguriranje našeg virtual hosta. Upišemo sljedeću naredbu:
+</p>
+<pre> 
+ cp /etc/apache2/sites-available/default /etc/apache2/sites-available/www.primjer.com 
+</pre>
+<p>	Sa naredbom 
+</p>
+<pre> 
+ nano www.primjer.com
+</pre>
+<p>	otvaramo konfiguracijski file našeg novog virtualnog hosta.  Pošto smo jednostavno bili kopirali postojeći konfiguracijski file, nemamo puno posla. 
+</p>
+<pre>
+ &lt;VirtualHost 127.0.2.2:80&gt;
+    ServerAdmin webmaster@localhosto&quot; 
+    ServerName www.primjer.com
+	
+    DocumentRoot /var/www/www.primjer.com
+
+    &lt;Directory /&gt;
+    Options FollowSymLinks
+    AllowOverride None
+    &lt;/Directory&gt;
+
+    &lt;Directory /var/www/www.primjer.com&gt;
+	.
+	.
+	.
+ &lt;/VirtualHost&gt;
+</pre>
+<p>	Gore su navedene sve promjene koje moramo napraviti u našem konfiguracijskom fileu kako bi naš virtual host ispravno radio. Odredili smo da će ovaj virtual host raditi na ip adresi
+	127.0.2.2. i na portu 80. Morali smo promijeniti ServerName i dodati ime našeg novog servera(Virtual hosta), te smo morali promijeniti DocumentRoot i putanju za Directory. Virtual host
+	koji smo kreirali raditi će na portu 80. Ukoliko bismo željeli napraviti ssl virtual host, onda bismo u koraku gdje smo kopirali konfiguracijski file kopirali file defaul-ssl i napravili iste promjene
+	kao i ovdje. Jedino na što bi trebali paziti je da u novokreiranom konfiguracijskom fileu stavimo port 443. 
+</p><p>	Još nam je jedan korak ostao prije nego možemo isprobati naš virtual host. Moramo otići u file hosts, koji se nalazi u direktoriju /etc i tamo još naznačiti ime našeg virtual hosta 
+	sa ip adresom koju smo mu dodijelil. Tamo se već nalazi localhost postavljen na ip adresu 127.0.0.1, a mi sada dodajemo naš kreirani virtual host:
+</p>
+<pre>
+   .
+   .
+ 127.0.0.1       localhost
+ 127.0.2.2       www.primjer.com
+   .
+   .
+</pre>	
+<p>	Sada smo u potpunosti završili sa konfiguriranjem našeg novog virtual hosta. Jedino što još moramo je postaviti virtual host na enabled. To radimo sa sljedećemo naredbom:
+</p>
+<pre> 
+ a2ensite www.primjer.com 
+</pre>
+<p>	Ovime smo naš virtual host stavili u direktorij sites-enabled i sada ga možemo isprobati. Prije treba naravno restartirati server sa 
+</p>
+		<pre> service apache2 restart </pre>
+<p>	te nakon toga u web preglednik možemo upisati www.primjer.com i trebao bi se pojaviti ispis: "Virtual host je uspješno postavljen!" Više o konfiguriranju virtual hostova na apacheu
+	možete pročitati na: <a href="http://httpd.apache.org/docs/2.2/vhosts/" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/vhosts/</a>
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Availability">Availability</span></h3>
+<h4> <span class="mw-headline" id="Load_balancer"> Load balancer </span></h4>
+<p>Zamislimo da imamo neki servis koji radi na više servera(npr. Facebook). Kako bi što lakše objasnili uzeti ćemo da imamo 2 servera. Kada jedan od tih servera prestane raditi, 
+	taj servis i dalje treba nastaviti raditi na ovom drugom serveru koji i dalje radi. Nadalje, dok rade oba dva servera, requestovi pristuži i na jedan i na drugi server. Na taj način
+	rasteretimo servere. Upravo ovo postižemo load balancerom. Sada ćemo pokazati kako to konfigurirati. 
+</p><p>	Na početku trebamo postaviti proxy mod na enabled. To radimo sa sljedećom naredbom.
+</p>
+<pre> 
+ a2enmod proxy
+</pre>
+<p>	Sada u glavni konfiguracijski file od apachea stavimo sljedeće:
+</p>
+<pre>
+ &lt;Proxy balancer://www.primjer.com&gt;
+    BalancerMember http://10.24.21.202:80
+    BalancerMember http://10.24.21.203:80
+ &lt;/Proxy&gt;
+		
+ &lt;Location /&gt;
+    ProxyPass balancer://www.primjer.com
+ &lt;/Location&gt;
+ </pre>
+<p><br />
+	I to je sve što trebamo konfigurirati kako bi load balancer radio. Sa balancer member postavljamo ip adresu svih servera na kojima se neka stranica vrti. Ovo jednostavno možete 
+	testirati na način da podignete dvije virtualne mašine. Na svakoj od njih ćete dobiti zasebnu ip adresu koju stavite ovdje i jednostavno se može provjeriti da load balancer radi.
+</p><p>Link sa kojeg možete downloadati video na kojem je prikazano kako load balancer radi:    <a href="https://www.dropbox.com/s/pc36l3sbgz0o6ty/load_balancer.ogv" class="external free" rel="nofollow">https://www.dropbox.com/s/pc36l3sbgz0o6ty/load_balancer.ogv</a>
+</p>
+<h3> <span class="mw-headline" id="Security"> Security </span></h3>
+<h4> <span class="mw-headline" id="SSL_2"> SSL </span></h4>
+<p>Secure Sockets Layer (SSL) je protokol koji ostvaruje identifikaciju dva sugovornika povezana preko računalne mreže i zaštićeni prijenos podataka među njima. To je danas vjerojatno 
+najpopularniji način zaštite prijenosa podataka na internetu. Na apacheu je SSL poprilično jednostavno konfigurirati. SSL mod omogućimo u terminalu jednostavnom naredbom(naravno kao 
+root korisnik):
+</p>
+	 <pre>a2enmod ssl</pre>
+<p>I SSL mod je sada omogućen na apache serveru. Da bi ovaj mod uopće radio on treba ključ i certifikat. No na apacheu već postoji "defaultni" ključ i certifikat pa se za potrebe ovog projekta 
+može koristiti taj. Ukoliko netko treba kreirati svoj certifikat i ključ detaljne upute može potražiti na sljedećem linku: 
+<a href="https://help.ubuntu.com/10.04/serverguide/certificates-and-security.html" class="external free" rel="nofollow">https://help.ubuntu.com/10.04/serverguide/certificates-and-security.html</a>. Upute su vrlo jasne i mislim da ne bi trebalo biti problema sa kreiranjem vlastitog cerifikata. 
+Nakon što je certifikat kreiran, njega treba i potpisati. To inače potpisuje ovlašteno tijelo (Certification Authority) no isti taj certifikat možemo potpisati i sami što je također objašnjeno
+u prethodnom linku. Treba ovdje napomenuti da ukoliko sami potpišemo certifikat prije otvaranja stranice u pregledniku javiti će nam se sljedeći "warning"&#160;: This Connection is Untrusted. To 
+se dogodilo zato jer smo mi sami potpisali ovaj certifikat, a ne nadležno tijelo. 
+</p><p>Što se tiče ostalih promjena koje trebamo napraviti prije nego možemo koristiti SSL podršku, trebamo u konfiguracijskom fileu servera kojeg želimo pokretati preko SSL-a dodati sljedeće:
+</p>
+ <pre>
+ &lt;VirtualHost  127.0.2.3:443&gt;
+    SSLEngine 	on
+    SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+      .
+      .
+      .
+ &lt;/VirtualHost&gt;
+ </pre>
+<p>Ovdje smo sada definirali da će se promet odvijati preko porta 443 (treba paziti i da je u ports.conf postavljeno da apache "sluša" port 443), te smo postavili SSLEngine na "on " što mora biti
+ukoliko želimo koristiti ovaj mod. Zatim smo još samo postavili putanje do vlastito potpisanog certifikata. 
+</p><p>Nakon što restartiramo apache naredbom:
+</p>
+	<pre>service apache2 restart</pre>
+<p>možemo otići na <a href="https://www.primjer.com" class="external free" rel="nofollow">https://www.primjer.com</a> i vidjeti jesmo li sve dobro konfigurirali. Ukoliko jesmo treba se pojaviti već gore spomenuti "warning" te kada se to zanemari pokazati će se 
+stranica. Treba primjetiti da i dalje možemo pristupiti i preko http-a, odnosno ukoliko bismo upisali <a href="http://www.primjer.com" class="external free" rel="nofollow">http://www.primjer.com</a> to bi radilo. Ukoliko želimo da sav promet ide preko porta 443, to 
+možemo napraviti na sljedeći način:
+</p>
+<pre>
+ &lt;VirtualHost 127.0.2.3:80&gt;
+    ServerAdmin webmaster@localhost
+    RewriteEngine on
+    RewriteCond&#160;%{SERVER_PORT}&#160;!^443$
+    RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
+ &lt;/VirtualHost&gt;
+	
+ &lt;VirtualHost  127.0.2.3:443&gt;
+    SSLEngine 	on
+    SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+	.
+	.
+	.
+ &lt;/VirtualHost&gt;
+</pre>
+<p>Što smo ovime postigli&#160;? Server će svaki puta klijenta sa porta 80 preusmjeriti na port 443. Kada nam je to korisno&#160;? Možda i nije potrebno svaku stranicu preusmjeriti na HTTPS, ali servis 
+poput npr. emaila svakako jest.
+Napomena: ukoliko nije, prije nego će ova konfiguracija ispravno raditi morate postaviti mod rewrite na enabled. To možete učiniti sa sljedećom naredbom:
+</p>
+	<pre>a2enmod rewrite</pre>
+<p>Detaljnije o ovom modulu možete pogledati na sljedećem linku: <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/mod/mod_ssl.html</a>
+</p><p>Na sljedećem linku možete downloadati video na kojem je prikazano kako radi mod ssl: <a href="https://www.dropbox.com/s/pgkrnd73b80bqag/mod_ssl.ogv" class="external free" rel="nofollow">https://www.dropbox.com/s/pgkrnd73b80bqag/mod_ssl.ogv</a>
+</p>
+<h4> <span class="mw-headline" id="Mod_evasive_2"> Mod_evasive </span></h4>
+<p>Mod_evasive je još jedan u nizu modova kojim možemo podići razinu sigurnosti apachea na još višu razinu. Njime se možemo zaštititi od potencijalnih DoS napada te čak i od brute force napada. Ukratko, sa konfiguriranjem ovog moda možemo ograničiti broj requestova po stranici unutar jedne sekunde, onemogućiti klijenta da šalje bilo kakve requestove dok je na "black listi" Mod_evasive ćemo instalirati putem apache extension toola, odnosno apxa. Sa sljedećim naredbama možemo instalirati mod_evasive:
+</p>
+	<pre>
+  wget wget http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_1.10.1.tar.gz
+  tar xzf mod_evasive_1.10.1.tar.gz
+  cd mod_evasive
+  apxs -cia mod_evasive20.c</pre>
+<p>Sa sljedećom naredbom postavljamo mod_evasive na enabled:
+</p>
+	<pre>a2enmod evasive20</pre> 
+<p>Nakon što smo instalirali mod_evasive možemo ga ići konfigurirati. Konfiguraciju za mod_evasive stavljamo u glavni konfiguracijski file od apachea, apache2.config.	
+</p><p><br />
+</p>
+<pre>
+ &lt;IfModule mod_evasive20.c&gt;
+    DOSPageCount        2
+    DOSSiteCount        50
+    DOSPageInterval     2
+    DOSSiteInterval     1
+    DOSBlockingPeriod   10
+    DOSEmailNotify admin@email.com
+ &lt;/IfModule&gt;</pre>
+<p><br />
+Što smo ovdje sve konfigurirali&#160;? Sa DOSPageCount smo postavili maksimalan broj requestova za određenu stranicu unutar postavljenog intervala. Sa DOSSiteCount odredili 
+maksimalan broj requestova za svaki pojedini objekt na toj stranici unutar postavljenog intervala.  Ukoliko će broj postavljenih requestova u bilo koja od ova dva slučaja prijeći ovaj 
+prag koji smo postavili, klijent ide na "block listu". Spomenute intervale postavljamo sa DOSPageInterval i DOSSiteInterval. Na koliko sekundi je blokiran IP klijenta koji je završio 
+na "black listi"  određujemo sa  DOSBlockingPeriod, dok smo sa DOSEmailNotify postavili e-mail adresu (najčešće od admina) na koju želimo primiti obavijest o DoS napadima. 
+</p><p>Naravno, prije nego što idemo raditi bilo šta drugo server je potrebno restartirati kako bi uzeo promjene u obzir:
+</p>
+	<pre>service apache2 restart </pre>
+<p>Gore navedene vrijednosti svatko, naravno, prilagođava sebi. Ovdje su vrijednosti postavljene tako da će biti lako testirati radi li uopće mod_evasive. Naime,postavili smo DOSPageCount = 2 
+te DOSPageInterval = 2. To možemo interpretirati na sljedeći način: svaki klijent može unutar 2 sekunde prema serveru uputiti najviše 2 requesta. Ako će poslati više od 2 requesta, klijent ide
+na "block listu" i neće moći pristupiti stranici 10 sekundi(jer smo toliko odredili sa DOSBlockingPeriod   = 10). Sve to možemo testirati na sljedeći način. Odemo na stranicu www.primjer.com
+(nju smo definirali na početku prilikom objašnjavanja virtual hosta) i kliknemo 3 puta brzo F5. Na taj način prema serveru smo poslali 3 requesta, umjesto maksimalnih 2 i taj klijen ide na 
+"block listu" što je vidljivo jer će se ispisati error: "Forbidden. You don't have permission to access / on this server." Na taj način smo uspješno provjerili da mod_evasive radi.
+</p><p>Na sljedećem linku možete downloadati video na kojem je prikazano kako mod_evasive radi: 
+<a href="https://www.dropbox.com/s/7esss1d3loolo8l/mode_evasive.ogv" class="external free" rel="nofollow">https://www.dropbox.com/s/7esss1d3loolo8l/mode_evasive.ogv</a>
+</p>
+<h4> <span class="mw-headline" id="Mod_security">Mod_security</span></h4>
+<p>Mod_security je mod napravljen za apache server kojim se možemo zaštiti od raznoraznih napada, kao što su npr XSS, SQL injection i sl. Mod_security je u biti firewall pa njime možemo i 
+blokirati određenje ip adrese. Sve to radimo pisanjem pravila unutar konfiguracijskog filea. Pošto je mod_security zaseban projekt, nećemo ga ovdje opisivati jako detaljno već ćemo 
+samo pokazati kako ga instalirati i napraviti neke potrebne promjene u početnoj konfiguraciji. Sljedećim naredbama možete instalirati mod_security:
+</p>
+<pre>
+ sudo apt-get install libxml2 libxml2-dev libxml2-utils
+ sudo apt-get install libaprutil1 libaprutil1-dev
+ sudo apt-get install libapache-mod-security
+</pre>
+<p>Prije nego što ga počnemo koristiti, moramo mod_security postaviti na enabled, a to radimo sljedećom naredbom:
+</p>
+<pre>
+ a2enmod mod_security
+</pre>
+<p>Mod_security je sada instaliran i kako bismo ga dalje koristili potrebno je napraviti neke promjene u konfiiguracijskom fileu. U direktoriju /etc/apache2/mods-enabled biti će konfiguracijski
+file mods_security.conf. No ovdje smo samo uključili, sa naredbom include, konfiguracijski file od mod_security-a koji se nalazi u direktoriju /etc/modsecurity. To je po "defaultu" napravljeno
+naredbom: 
+</p>
+<pre>
+ Include &quot;/etc/modsecurity/*.conf&quot; 
+</pre>
+<p>Ovime smo uključili sve fileove sa ekstenzijom .conf, a koji se nalaze u naznačenom direktoriju. Ovdje se nalazi i "defaultni" konfiguracijski file za mod-security, 
+mod-security.conf-recommended. Ovdje moramo napraviti nekoliko promjena. 
+</p>
+<pre>	
+  .
+  .
+  .
+ SecRuleEngine On
+ SecRequestBodyLimit 13107200
+  .
+  .
+  .
+</pre>
+<p>Najbitnije što smo ovdje napravili, a nikako ne smijemo zaboraviti, je postavljanje SecRuleEngine na "On". Po "defaultu" to je stavljeno na "DetectionOnly", a sa time će mod_security 
+otkriti prijetnju ali ju neće blokirati. Mod_security će početi blokirati prijetnje serveru tek kada ga stavimo u aktivno stanje, odnosno kada postavimo  SecRuleEngine na "On". Još možda
+samo da spomenemo SecRequestBodyLimit. Ovo iznad je "defaultna" vrijednost, a ona se naravno može postaviti na neku drugu, željenu vrijednost. To je broj u bajtovima kojim označavamo
+najveću veličinu neke datoteke koju smijemo uploudati na server. Ukoliko imate web stranicu na kojoj dopuštate uploud datoteka velikih veličina, ovaj broj mora biti što veći. 
+</p><p>I što se tiče neke početne konfiguracije to su sve promjene koje smo trebali napraviti. Već od prije smo u glavni konfiguracijski file za apache, apache2.conf uključili sve konfiguracijske fileove 
+modova koje smo postavili na enabled tako da bi sada mod_security trebao raditi. Ukoliko ga dalje ne konfiguriramo sam po sebi mod_security i neće biti od velike koristi. Kao što sam već 
+naveo, mod_security je firewall, točnije web aplication firewall, i pisanjem pravila u biti potpuno koristimo njegove mogućnosti. Pravila pišemo u konfiguracijski file 
+mod-security.conf-recommended ili u neki drugi ako smo ga kreirali(bitno je samo da se nalazi u direktoriju kojeg smo definirali u fileu mod-security.conf). Navesti ću samo neka pravila
+kako bismo prikazali kako ona izgledaju. Npr. protiv napada XSS možemo iskoristiti sljedeća pravila:
+</p>
+<pre>
+ SecFilter &quot;&lt;(.|\n)+&gt;&quot;
+ SecFilter &quot;&lt;[[:space:]]*script&quot;
+ SecFilter &quot;&lt;script&quot;
+ SecFilter &quot;&lt;.+&gt;&quot; 
+</pre>
+<p>Sa sljedećim pravilom bismo blokirali naznačenu ip adresu:
+</p>
+ <pre>SecRule REMOTE_ADDR &quot;^127\.0\.0\.1$&quot; nolog,phase:1,denny</pre>
+<p>Za kraj, još bih samo napomenuo da nisu naredbe ostale iste kada se prelazilo sa mod_securitya 1.x na noviju verziju 2.x. Na sljedećem linku možete downloadati pdf dokument u kojem
+su lijepo naznačene sve promjene koje su se dogodile: <a href="http://goo.gl/J2Sgm" class="external free" rel="nofollow">http://goo.gl/J2Sgm</a> .
+</p>
+<h4> <span class="mw-headline" id="Mod_access_2"> Mod_access </span></h4>
+<p>Mod_access je još jedan u nizu "security" modula koji je dostupan za apache. Ovaj modul smo već dobili kada smo instalirali apache server. Samo jedna napomena: u prijašnjim verzijama apache servera, ovaj modul se zvao mod_access, a u novijim verzijama 2.x se zove
+authz_host. Ukoliko nije postavljen na enabled po "defaultu", uključujemo ga sa naredbom:
+</p>
+<pre>a2enmod authz_host
+</pre>
+<p>Za ovaj mod nećemo dobiti na početku konfiguracijski file gdje ćemo pisati neke naredbe, već ćemo sve naredbe koje se odnose na ovaj mod pisati npr. unutar kongfiguracijskog filea za svaki pojedini virtual host. Pogledajmo sljedeći primjer.
+</p>
+<pre>
+&lt;VirtualHost 127.0.2.2:80&gt;
+ ServerAdmin webmaster@localhost
+ ServerName www.primjer.com
+ DocumentRoot /var/www/www.primjer.com
+ &lt;Directory /var/www/www.primjer.com&gt;
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    allow from all           
+ &lt;/Directory&gt;
+          .
+          .
+          .
+</pre>
+<p>Ovo je konfiguracijski file za virtual host www.primjer.com. Unutar taga &lt;Directory&gt; možemo pisati naredbe za authz_host. Po "defaultu" je za svaki virtual host postavljeno "allow from all" što znači da će se tome serveru moći pristupiti sa svih ip aresa. 
+Ukoliko želimo blokirati nekog klijenta(uzmimo za primjer da je ip adresa od klijenta 192.168.1.1) jednostavno blokiramo njegovu
+ip adresu i taj klijent više neće moći pristupiti tom serveru. Dakle promjena koju bi trebali napraviti je sljedeća:
+</p>
+<pre>
+ deny from 192.168.1.1         
+</pre>
+<p>Sada taj klijent neće moći pristupiti tom serveru. Možemo ovdje koristiti i cider notaciju ukoliko bismo željeli blokirati neki
+raspon ip adresa.
+</p><p>Više o ovom modu možete pronaći na: <a href="http://httpd.apache.org/docs/2.2/mod/mod_authz_host.html" class="external free" rel="nofollow">http://httpd.apache.org/docs/2.2/mod/mod_authz_host.html</a>
+</p><p>Na sljedećem linku možete downloadati video na kojem je prikazano kako ovaj mod radi: <a href="https://www.dropbox.com/s/lboizqwsx8hgk8g/mod_authz_host.ogv" class="external free" rel="nofollow">https://www.dropbox.com/s/lboizqwsx8hgk8g/mod_authz_host.ogv</a>
+</p>
+<h3> <span class="mw-headline" id="Konfiguracijske_datoteke_2"> Konfiguracijske datoteke  </span></h3>
+<p>Konfiguracijske datoteke se nalaze na githubu na sljedećem linku:
+</p>
+<pre> <a href="https://github.com/toprisela/apache-configuration" class="external free" rel="nofollow">https://github.com/toprisela/apache-configuration</a>
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Toprisela&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Toprisela (stranica ne postoji)">Toprisela</a> 13:10, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Cherokee"> Cherokee </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cherokee_pek_sddgssgsg.jpg" class="image"><img alt="Cherokee pek sddgssgsg.jpg" src="../images/7/71/Cherokee_pek_sddgssgsg.jpg" width="495" height="192" /></a>
+</p><p>Cherokee je open source web server visokih performansi, poprilično brz, fleksibilan i relativno jednostavan za konfiguraciju zahvaljujući kvalitetnom admin panelu. Radi na svim platformama, te je jednako efikasan i na Windowsima i na UNIX-u. Podržava najnovije tehnologije tipa FastCGI, SCGI, PHP, CGI, SSI, TLS i SSL kriptirane konekcije, virtualne hostove, autentikaciju, "fly encoding", "Load Balancing", log datoteke kompatibilne sa Apache serverom, HTTP Proxy i još dosta toga. Tako bar Cherokee vendor navodi. U nastavku ćemo pokušati ispitati većinu toga, sa naglaskom na stvari koje su u domeni projekta.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Instalacija_2"> Instalacija </span></h3>
+<p>Server se instalira jednostavnom i klasičnom naredbom za UNIX sustav:
+</p>
+<pre> sudo apt-get install cherokee </pre>
+<p>Naša preporuka je instalacija dodatnog paketa u kojem se između ostalog nalaze i recovery file-ovi u slučaju da smo greškom izbrisali neku sistemsku datoteku.
+</p>
+<pre>sudo apt-get install lcibherokee-mod-rrd</pre>
+<p>Sljedećom naredbom pristupamo poprilično intuitivnom "user-friendly" grafičkom  sučelju sa brojnim mogućnostima.
+</p>
+<pre>sudo cherokee-admin</pre>
+<p>Nakon izvršene naredbe dobivamo podatke kao na slici ispod.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cherokee_pek_prijava.jpg" class="image"><img alt="Cherokee pek prijava.jpg" src="../images/2/29/Cherokee_pek_prijava.jpg" width="691" height="227" /></a>
+</p><p><br />
+Radi se o useru koji je uvijek standardno "admin" i jednokratkoj lozinci. Potrebno ih je unijeti u formu dobivenu na generiranom linku <a href="http://127.0.0.1:9090/" class="external free" rel="nofollow">http://127.0.0.1:9090/</a> tj. localhostu. Vidimo da je standardni port 9090. Ovo služi tome kako bi se ostali korisnici na hostu onemogućili u pristupu admin panelu bez prethodne autentifikacije. 
+</p><p><br />
+Osnovnim operacijama možemo pristupiti kroz administratorsko sučelje ili preko sljedećih naredbi:
+</p>
+<pre>sudo service cherokee status
+sudo service cherokee stop
+sudo service cherokee start
+sudo service cherokee restart</pre>
+<p>Kako bi se zaobišla ranije navedena autentifikacija (pitanje sigurnosti), koristi se sljedeća naredba:
+</p>
+<pre>sudo cherokee-admin -u</pre>
+<p>Ona se preporuča isključivo u razvojnom procesu i treba ju onemogućiti u stvarnoj upotrebi.
+</p><p>Zanimljiva je još i sljedeća naredba:
+</p>
+<pre>sudo cherokee-admin -b</pre>
+<p>Sa navedenom naredbom omogućujemo pristup administratorskom sučelju sa nekih udaljenih računala, točnije sa svih&#160;:-) tako da sa ovim u praksi treba biti poprilično oprezan. Najbolje je da se navedena naredba ne koristi, već da se koristi njena sigurnija verzija realizirana putem SSH tunela. Ta naredba izgleda ovako:
+</p>
+<pre>ssh -L 9090:localhost:9090 remote_IP</pre>
+<p>a služi spajaju na IP adresu udaljenog računala, točnije na administratorsko sučelje servera. Isto tako, moguće je specificirati adresu kojoj je pristup dozvoljen zajedno sa portom na kojem će se slušati. U primjeru je to adresa 92.150.1.1, te port 5000:
+</p>
+<pre>cherokee-admin -b 92.150.1.1 -p 5000</pre>
+<p><br />
+Eventualno bismo još dodali naredbu koja prikazuje sve aktivne konekcije i brojeve portova koji su vezani za rad servera. Naredba je sljedeća:
+</p>
+<pre>sudo netstat -antp | grep cherokee </pre>
+<p>Ostale korisne naredbe, mogu se naći na <a href="http://www.cherokee-project.com/doc/other_bundle_cherokee-admin.html" class="external autonumber" rel="nofollow">[1]</a>
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija_3"> Konfiguracija </span></h3>
+<p>Konfiguracijski fileovi standardno su smješteni na sljedećoj lokaciji
+</p>
+<pre>/etc/cherokee</pre>
+<p>a konkretno do početne osnovne konfiguracije servera dolazimo naredbama:
+</p>
+<pre>$ cd /etc/cherokee
+$ nano cherokee.conf</pre>
+<p>Otvara nam se .conf file sljedećeg sadržaja:
+</p>
+<pre>
+config!version = 001002101 
+server!bind!2!interface = 127.0.0.1 
+server!bind!2!port = 80 
+server!bind!2!tls = 0 
+server!collector = rrd 
+server!group = alpek
+server!keepalive = 1 
+server!keepalive_max_requests = 500 
+server!panic_action = /usr/share/cherokee/cherokee-panic 
+server!pid_file = /var/run/cherokee.pid 
+server!server_tokens = full 
+server!timeout = 15 
+server!tls!protocol!SSLv2 = 0 
+server!user = alpek
+
+vserver!1!directory_index = index.html 
+vserver!1!document_root = /var/www 
+vserver!1!error_writer!filename = /var/log/cherokee/cherokee.error 
+vserver!1!error_writer!type = file 
+vserver!1!logger = combined 
+vserver!1!logger!access!buffsize = 16384 
+vserver!1!logger!access!filename = /var/log/cherokee/cherokee.access 
+vserver!1!logger!access!type = file 
+vserver!1!nick = default 
+
+icons!default = page_white.png 
+icons!directory = folder.png 
+icons!file!bomb.png = core 
+icons!suffix!page_white_php.png = php 
+
+mime!application/x-latex!extensions = latex 
+mime!application/x-tar!extensions = tar 
+mime!audio/mpeg!extensions = mpga,mpega,mp2,mp3,m4a 
+mime!image/gif!extensions = gif 
+mime!image/jpeg!extensions = jpeg,jpg,jpe 
+mime!image/png!extensions = png 
+mime!text/css!extensions = css
+
+</pre>
+<p>Ukratko ćemo pojasniti što znači koji od navedenih parametara u početnoj konfiguraciji. Jedino smo izmijenili paramtere za korisnika i grupu, iz www-data u postojeći, točnije replicirali www-data i nazvali ga ovako kako je navedeno. Na taj način onemogućavamo pristup drugim korisnicima u ulozi superusera.Ovaj način inače treba izbjegavati jer može stvoriti probleme u radu sa drugim programima i tijekom instalacija. Potrebno je učitati passwd file:
+</p>
+<pre> user@ubuntu:/etc$ nano passwd </pre>
+<p>te u istom file-u promijeniti novokopirani www-data u proizvoljni:
+</p>
+<pre> alpek:x:33:33::/var/www:/bin/sh </pre>
+<p>te na taj način omogućiti standardnu upotrebu dodanog korisnika.
+</p><p>Od važnijih parametara tu je <b>server!bind!2!interface</b> kojim bindamo adresu preko koje ćemo pristupiti serveru (ranije smo naveli naredbe koje služe za to), zatim <b>server!bind!2!port</b> označava port na kojem server čeka konekciju. <b>server!bind!2!tls</b> je logička varijabla koja označava da li je omogućena sigurna konekcija preko TLS protokola. 
+</p><p>Parametar <b>server!keepalive</b> kao i kod ostalih server općenito označava održavanje perzistentne konekcije, odnosno neotvaranje nove konekcije za svaki zahtjev posebno, već se veza održava neko određeno vrijeme dok traje komunikacija između servera i klijenta.
+</p><p>Parametar <b>server!keepalive_max_requests</b> je dosta bitan i poslije će doći do izražaja kada budemo govorili o raspoloživosti ovog servera, a on označava koliko je najviše moguće zahtjeva u jednoj prije spomenutoj konekciji. 
+</p><p><b>server!panic_action</b> je ustvari putanja do skripte u Pythonu koja handla eventualno neželjene događaje, možemo ju nazvati skriptom za obradu pogrešaka. Parametar server!timeout predstavlja vrijeme koje server daje klijentu za treći korak u three-way-handshake-u, konkrento ACK poruci  kojom će se uspostaviti TCP konekcija. Ukoliko se to ne dogodi u navedenom intervalu, server podrazumijeva da je klijent odustao od uspostave veze. 
+</p><p>MIME označava dozvoljene ekstenzije koje server podržava ili bolje rečeno dozvoljava manipulaciju istima, a mogu biti: aplikacijske, slikovne, zvučne i tekstualne.
+</p>
+<h3> <span class="mw-headline" id="Virtualni_host"> Virtualni host </span></h3>
+<p>Cherokee omogućuje dodavanje virtaulnog servera unutar vlastitog admin panela. Izbornik “vServers” nudi intuitivno sučelje u kojemu je potrebno navesti osnovne informacije o serveru kojeg kreiramo. To su “Virtual Server nickname” odnosno naziv servera po kojem ćemo ga prepoznati (u primjeru 'alen'), zatim je potrebno odrediti “Document Root” iz kojeg će server čitati file, te naravno index.html ili file po izboru u formi “Directory Indexes”. 
+Sljedeća opcija je “Host Match” gdje možemo izabrati metode po kojima ćemo pristupiti virtualnom serveru, to su:
+</p>
+<pre>
+Match Nickname
+Wildcards
+Regular Expressions
+Server IP 
+</pre>
+<p>Za potrebe ovoga projekta koristit ćemo prvu opciju, dakle pristup preko ranije unesenog <b>Virtual Server nickname</b>-a. Opcije u formi <b>Behavior</b> su izrazito bitne.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Behavior_cherokee_Alpek.jpg" class="image"><img alt="Behavior cherokee Alpek.jpg" src="../images/1/12/Behavior_cherokee_Alpek.jpg" width="968" height="309" /></a>
+</p><p><br />
+Ovdje definiramo sva potrebna “pravila ponašanja” sa svim objektima koje se nalaze na serveru. Možemo i dodati sve elemente koje smatramo bitnima i koje su nam u radu potrebne. Za potrebe ovog projekta dodana su prva 2 pravila vidljiva na slici te se  po njima se virtualni server razlikuje od standardnog. 
+</p><p>Konkretno, pravila označavaju kako se handlaju .php ekstenzije, te kako se radi redirekcija sa eksterne domene na internu pomoću regularnih izraza. 
+Još bi naveli obrazac za obradu pogrešaka, odnosno kako se definira što će se dogoditi ako dođe do određene pogreške.
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Drugadruga_handl_alpek.jpg" class="image"><img alt="Drugadruga handl alpek.jpg" src="../images/6/69/Drugadruga_handl_alpek.jpg" width="874" height="257" /></a>
+</p><p>Iz prikaza se vidi path do skripte za obradu navedenih tipova pogrešaka.
+</p><p>Nakon definiranja virtualnog hosta, konfiguracijski file izgleda ovako:
+</p>
+<pre>
+vserver!11!directory_index = index.html
+vserver!11!document_root = /etc/cherokee/alen
+vserver!11!error_handler = error_redir
+vserver!11!error_handler!400!show = 0
+vserver!11!error_handler!400!url = /etc/cherokee/alen/krivo.php
+vserver!11!error_handler!403!show = 0
+vserver!11!error_handler!403!url = /etc/cherokee/alen/zabrana.php
+vserver!11!error_handler!404!show = 0
+vserver!11!error_handler!404!url = /etc/cherokee/alen/obavijest_greska.php
+vserver!11!error_writer!filename = /etc/cherokee/alen/greske_virtual.txt
+vserver!11!error_writer!type = file
+vserver!11!nick = alen
+vserver!11!post_max_len = 20000
+vserver!11!rule!30!document_root = /usr/share/cherokee/themes
+vserver!11!rule!30!match = header
+vserver!11!rule!30!match!complete = 0
+vserver!11!rule!30!match!directory = /etc/cherokee/alen/
+vserver!11!rule!30!match!header = Host
+vserver!11!rule!30!match!match = ^alen.com
+vserver!11!rule!30!match!type = regex
+vserver!11!rule!20!document_root = /usr/share/cherokee/icons
+vserver!11!rule!20!handler = file
+vserver!11!rule!20!match = directory
+vserver!11!rule!20!match!directory = /icons
+vserver!11!rule!10!handler = common
+vserver!11!rule!10!match = default
+vserver!11!ssl_certificate_file = /etc/ssl/server.crt
+vserver!11!ssl_certificate_key_file = /etc/ssl/server.key
+</pre>
+<p>Iz njega je jednostavno očitati promjene. Parametri <b>vserver!11!ssl_certificate_file</b> i <b>vserver!11!ssl_certificate_key_file</b> će biti pojašnjeni u nastavku kada bude govora o SSL/TLS-u.
+</p>
+<h3> <span class="mw-headline" id="Raspolo.C5.BEivost_2"> Raspoloživost </span></h3>
+<h4> <span class="mw-headline" id="Load_Balancing"> Load Balancing </span></h4>
+<p>Load balancing podrazumijeva raspodjelu request-ova, a samim time I opterećenje servera na više istih. Samim time, LB daje sljedeće prednosti:
+</p><p>• Povećava skalabilnost
+</p><p>• Povećava performance cjelokupnog sustava
+</p><p>• Povećava raspoloživost I mogućnosti recovery-a u slučaju nepovoljnog događaja
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:GANGnAM_sTYLE_cherokee.jpg" class="image"><img alt="GANGnAM sTYLE cherokee.jpg" src="../images/3/37/GANGnAM_sTYLE_cherokee.jpg" width="495" height="271" /></a>
+</p><p>Na slici iznad je prikazana ilustracija load balancinga uz pomoću posredničkih uređaja na 3. sloju. Kako se ne bismo previše zadržali da teoretskom dijelu, slijedi prikaz na primjeru, konkretno Cherokee serveru. Naravno bez posredničkih uređaja, već virtualno što Cherokee omogućava.
+</p><p>Cherokee omogućava sljedeće strategije balansiranja:
+</p>
+<pre>
+Round Robin
+
+IP hash
+
+FAilover
+</pre>
+<p>Dobra stvar (i jedina takva) jest to što Cherokee omogućuje kreiranje virtualnih servera za potrebe testiranja i komunikaciju između njih pod određenim pravilima, tako da nije potrebno dizati virtualne mašine. Uzima u obzir lokacije foldera, a ne IP adrese. To ipak ne može nadoknaditi dokumentaciju koja je najblaže rečeno - katastrofalna. Nekoliko definicija i to je to, prepušteni ste sami sebi. Postupak je sljedeći:
+</p>
+<pre>
+1. Kreiramo željeni broj virtaulnih servera (u primjeru 3)
+2. Definiramo pravila, na primjer: ukoliko imaju više od 5 zahtjeva u sekundi, moraju pokrenuti handler na temelju definiranog pravila
+3. Handler postavljamo na “Redirection” i odabiremo lokaciju gdje će se request preusmjeriti
+4. U primjeru sa 3 servera Round Robin realiziramo kružno: server1 → server2 → server3 → server1
+</pre>
+<p>Na slici ispod vidimo primjer konfiguracije servera 1 na kojem definiramo preusmjeravanje na server 2 za metodu GET (zahtjev prema serveru).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Redirekcija_cherokeeeee_alpek.jpg" class="image"><img alt="Redirekcija cherokeeeee alpek.jpg" src="../images/b/b4/Redirekcija_cherokeeeee_alpek.jpg" width="807" height="260" /></a>
+</p><p>Mogućnosti Cherokee-a vezano za raspoloživost su poprilično skromne. Ne sadrži klasične module kao što je to kod ostalih servera i daleko je od fleksibilnosti ugradnje modula koje imaju ostali serveri. Većinu stvari treba na neki način improvizirati i to na dosta čudan i nelogičan način. Ukoliko nešto ne radi, teško je shvatiti zašto jer su logovi nejasni i neupotrebljivi, te se tu gubi dosta vremena. Na kraju većinom bude greška tipa: nešto nevezano je enableano/disableano i zbog toga ne radi. U dokumentaciji o tome ni riječi, kao niti na forumima na kojima Cherokee konfiguracija baš i nije tema.
+</p>
+<h3> <span class="mw-headline" id="Sigurnost_2"> Sigurnost </span></h3>
+<h4> <span class="mw-headline" id="SSL_3">SSL</span></h4>
+<p>Prije same instalacije servera nužno je instalirati OpenSSL library sljedećom naredbom:
+</p>
+<pre>
+sudo apt-get install libcherokee-mod-libssl
+</pre>
+<p>Preporuka je da se navedena biblioteka instalira na ovaj način zbog potpunosti intalacije i dodatnih biblioteka:
+</p>
+<pre>
+sudo add-apt-repository ppa:cherokee-webserver/ppa
+sudo apt-get update
+sudo apt-get install libcherokee-mod-libssl
+</pre>
+<p>Ova biblioteka (libcherokee-mod-libssl) je potrebna kako bi za SSL/TLS back-end opciju unutar admin panela mogli dobiti na izbor OpenSSL/libss kao na slici ispod:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Enable_alpek_cherokee.jpg" class="image"><img alt="Enable alpek cherokee.jpg" src="../images/e/e1/Enable_alpek_cherokee.jpg" width="537" height="135" /></a>
+</p><p>Nakon toga slijedi klasično generiranje ključeva. Postupak je ranije opisan pa ga nema smisla više ponavljati (nije specifičan samo za ovaj server). Uglavnom, potrebno je generirati ključeve i potpisati certifikat (za potrebe testiranja potpisano vlastito). Zanimljivo je kako Cherokee ne prihvaća default-ne ključeve kao što je to slučaj sa ostalim serverima, već je nužno generirati nove. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Certifikati_alpek_cherokee.jpg" class="image"><img alt="Certifikati alpek cherokee.jpg" src="../images/9/96/Certifikati_alpek_cherokee.jpg" width="639" height="240" /></a>
+</p><p>Iznad vidimo postavljeni certifikat zajedno sa ključem u pripadajućim formama. Nakon postavljenih certifikata, možemo omogućiti SSL/TLS protokol (HTTPS) na odabranom portu (standardno 443). Ta završna aktivnost prikazana je na slici ispod.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ssltls_Alpek_cherokee.jpg" class="image"><img alt="Ssltls Alpek cherokee.jpg" src="../images/b/b0/Ssltls_Alpek_cherokee.jpg" width="693" height="205" /></a>
+</p><p>"Zanimljiva" stvar je to da ukoliko je omogućen IPv6, HTTPS možete zaboraviti. Izrazito velika zamjerka na dokumentaciju gdje to nije spomenuto niti u tragovima, kao niti valjani razlozi za takvo nešto. Nakon što je IPv6 onemogućen, moguće je preko HTTPS-a pristupiti željenoj stranici, u ovom slučaju zbog generiranih certifikata nema razlika u pristupu stranicama:
+</p>
+<pre>
+http://localhost/alen/
+</pre>
+<p>i
+</p>
+<pre>
+https://localhost/alen/
+</pre>
+<h4> <span class="mw-headline" id="HTTP_-.3E_HTTPS_redirection"> HTTP -&gt; HTTPS redirection </span></h4>
+<p>Ukoliko pristup stranicama zahtjeva veću sigurnost te korisnik toga najčešće nije svjestan, potrebno je automatski preusmjeriti sa standardnog HTTP-a na sigurniji HTTPS. To se na Cherokee serveru može napraviti relativno jednostavno na sljedeći način:
+</p><p>1. Dodajemo pravilo u kojem postavljamo vrijednost SSL / TLS na logičku istinu
+</p><p>2. Dodajemo operator NOT ispred toga izrada
+</p><p>3. Definiramo operaciju koja će se dogoditi ako vrijedi izraz (konkretno ako vrijedi NOT is SSL/TLS )
+</p><p>4. Operaciju postavljamo na "Redirection" 
+</p><p>5. Unosimo REGEX pravilo sljedećeg oblika:
+</p>
+<pre>
+Regular Expression:   /(.*)$
+
+Substitution:         https://${host}/$1
+</pre>
+<p><br />
+čime smo definirali da se koristi HTTPS ukoliko to nije pretpostavljeni slučaj. A admin-panelu Cherokee-a to izgleda kao na slici ispod.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Redirekcija_cherokee_alpek.jpg" class="image"><img alt="Redirekcija cherokee alpek.jpg" src="../images/8/83/Redirekcija_cherokee_alpek.jpg" width="816" height="258" /></a>
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Restricting_traffic_by_IP"> Restricting traffic by IP </span></h4>
+<p>Ograničavanje prometa sa određenih adesa hostova ili mreža je poprilično jednostavno. Važno je samo dodati "non-final" pravilo na vrh liste pravila za server. Koraci su sljedeći:
+</p>
+<pre>
+
+1. Dodajemo pravilo tipa &quot;Incoming IP/Port&quot; i definiramo ulaznu adresu i broj porta koju želimo onemogućiti
+
+2. U novostvorenom pravilu dodajemo logički NOT, te time definiramo u slobodnom govoru sljedeće&#160;:&quot;Ne puštaj ništa sa adrese X.X.X.X na portu Y&quot;
+
+3. Dodajemo handlere koji će obrađivati requestove sa zabranjenih adresa, npr. &quot;Drop connesction&quot; ili &quot;Redirection&quot;
+
+</pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dgdgdfaasfsadllooo_cherokee.jpg" class="image"><img alt="Dgdgdfaasfsadllooo cherokee.jpg" src="../images/6/64/Dgdgdfaasfsadllooo_cherokee.jpg" width="640" height="287" /></a>
+</p><p><br />
+NAPOMENA: Valja biti oprezan sa logičkim operatorima, jer krivom upotrebom možemo u potpunosti promijeniti željene uvjete.
+</p>
+<h3> <span class="mw-headline" id="Rezime"> Rezime </span></h3>
+<p>Cherokee je sve samo ne jednostavan server za konfiguraciju kako razvijatelji navode. Najveći problem je loša dokumentacija iz koje je teško išta shvatiti jer su navedene teorijske osnove (općenite) bez konkretnih stvari za samu konfiguraciju. Prvi pogled na ušminkanu dokumentaciju možda daje drukčiji dojam, ali već pri pokušaju realiziranja nečega ozbiljnijeg dolazi do problema. Problem je i u maloj raširenosti servera tako da je izostavljen i iz većeg broja klasičnih forum rasprava. 
+</p><p>Sljedeća stvar je nelogičnost i nepotrebno kompliciranje u postavljanju same konfiguracije. Na primjer, ranije navedeni HTTPS ne radi ukoliko je IPv6 enable-an. Čudno je da nema konverter adresa iz jednog oblika u drugi ili nešto slično, a u najmanju ruku to je moglo pisati i u dokumentaciji ili u obliku mini forme sa upozorenjem.
+</p><p>Najveća zamjerka ide nedostatku modula klasičnih za druge servere, što znatno utječe na mogućnosti servera. Neke se stvari mogu improvizirati kroz postojeću konfiguraciju, što pak uvelike otežava posao konfiguriranja. 
+</p><p>Pohvala ide serveru zbog brzine, kao i intuitivnom grafičkom sučelju.
+</p>
+<h2> <span class="mw-headline" id="Finalna_usporedba_i_zaklju.C4.8Dak"> Finalna usporedba i zaključak </span></h2>
+<p>Nakon iscrpnog testiranja ova četiri servera dobili smo zanimljive zaključke. Što se tiče količine dostupnih modula apache je definitivno pobjednik, jer se široko koristi i ima veliki "community" koji pridonosi razvoju modula za ovaj server. Posebno se ističe "mod_security" koji uvelike može unaprijediti sigurnost sustava na kojem se isti nalazi. Spomenut ćemo još da isti postoji i za NGINX no on je još u beta fazi pa mu to još uvijek nećemo navoditi kao veliku prednost. Što se tiče same arhitekture servera nginx, lighttpd i cherokee imaju sličnu arhitekturu jer su svi asinkroia serveri, za razliku od apache-a koji je "process based" što u konačnici rezultira većim zauzećem resursa računala na kojem se nalazi apache server. Što se tiče modula za visoku raspoloživost sustava ovdje smo za svaki server naveli po jedan takav, no za nginx i lighttpd ne postoji puno modula mimo ovih navedenih, dok bi se za apache moglo i pronaći. Za cherokee ih gotovo i nema. Prednost svih je da ih se može lako integrirati sa nekim drugim serverima koji su namjenjeni za poboljšanje visoke raspoloživosti sustava, npr HaProxy. HeartBeat i sl.. 
+</p><p>Napravili smo i neke testove na defaultnim postavkama servera. Koristili smo "ab" odnosno "Apache HTTP server benchmarking tool", i na svaki server smo pustili 30000 zahtjeva sa razinom konkurentnosti od 100. Naredba kojom se ovakav jedan test provodi je:
+</p>
+<pre>
+ab -n 30000 -c 100 http://localhost/
+</pre>
+<p>Rezultati testiranja su sljedeći:
+</p><p><b>NGINX</b>
+</p>
+<pre>
+Server Software:        nginx/1.2.1
+Server Hostname:        localhost
+Server Port:            80
+
+Document Path:          /
+Document Length:        151 bytes
+
+Concurrency Level:      100
+Time taken for tests:   3.782 seconds
+Complete requests:      30000
+Failed requests:        0
+Write errors:           0
+Total transferred:      10830000 bytes
+HTML transferred:       4530000 bytes
+Requests per second:    7932.65 [#/sec] (mean)
+Time per request:       12.606 [ms] (mean)
+Time per request:       0.126 [ms] (mean, across all concurrent requests)
+Transfer rate:          2796.57 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    6   1.0      6      10
+Processing:     2    7   1.7      6      18
+Waiting:        1    5   1.5      5      17
+Total:          7   13   1.4     12      25
+
+Percentage of the requests served within a certain time (ms)
+  50%     12
+  66%     13
+  75%     13
+  80%     13
+  90%     14
+  95%     14
+  98%     17
+  99%     19
+ 100%     25 (longest request)
+</pre>
+<p><b>Lighttpd</b>
+</p>
+<pre>
+Server Software:        lighttpd/1.4.28
+Server Hostname:        localhost
+Server Port:            80
+
+Document Path:          /
+Document Length:        177 bytes
+
+Concurrency Level:      100
+Time taken for tests:   3.752 seconds
+Complete requests:      30000
+Failed requests:        0
+Write errors:           0
+Total transferred:      13020000 bytes
+HTML transferred:       5310000 bytes
+Requests per second:    7996.29 [#/sec] (mean)
+Time per request:       12.506 [ms] (mean)
+Time per request:       0.125 [ms] (mean, across all concurrent requests)
+Transfer rate:          3389.05 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        2    6   0.7      5      11
+Processing:     3    7   1.1      7      13
+Waiting:        2    5   1.2      5      11
+Total:          8   12   0.9     12      19
+WARNING: The median and mean for the initial connection time are not within a normal deviation
+        These results are probably not that reliable.
+
+Percentage of the requests served within a certain time (ms)
+  50%     12
+  66%     13
+  75%     13
+  80%     13
+  90%     14
+  95%     14
+  98%     14
+  99%     15
+ 100%     19 (longest request)
+</pre>
+<p><b>Apache</b>
+</p>
+<pre>
+Server Software:        Apache/2.2.22
+Server Hostname:        localhost
+Server Port:            80
+
+Document Path:          /
+Document Length:        177 bytes
+
+Concurrency Level:      100
+Time taken for tests:   7.983 seconds
+Complete requests:      30000
+Failed requests:        0
+Write errors:           0
+Total transferred:      13590000 bytes
+HTML transferred:       5310000 bytes
+Requests per second:    3757.78 [#/sec] (mean)
+Time per request:       26.611 [ms] (mean)
+Time per request:       0.266 [ms] (mean, across all concurrent requests)
+Transfer rate:          1662.38 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0      12
+Processing:     4   26   4.6     28      52
+Waiting:        3   26   4.6     28      52
+Total:         10   27   4.3     28      52
+
+Percentage of the requests served within a certain time (ms)
+  50%     28
+  66%     29
+  75%     29
+  80%     30
+  90%     30
+  95%     31
+  98%     34
+  99%     37
+ 100%     52 (longest request)
+</pre>
+<p><b>Cherokee</b>
+</p>
+<pre>
+Server Software:        Cherokee/1.2.101
+Server Hostname:        localhost
+Server Port:            80
+
+Document Path:          /
+Document Length:        177 bytes
+
+Concurrency Level:      100
+Time taken for tests:   3.877 seconds
+Complete requests:      30000
+Failed requests:        0
+Write errors:           0
+Total transferred:      11370000 bytes
+HTML transferred:       5310000 bytes
+Requests per second:    7737.58 [#/sec] (mean)
+Time per request:       12.924 [ms] (mean)
+Time per request:       0.129 [ms] (mean, across all concurrent requests)
+Transfer rate:          2863.81 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        1    5   1.5      5      12
+Processing:     1    8   6.5      7      58
+Waiting:        1    6   5.0      5      57
+Total:          2   13   6.7     12      64
+
+Percentage of the requests served within a certain time (ms)
+  50%     12
+  66%     13
+  75%     14
+  80%     15
+  90%     18
+  95%     24
+  98%     36
+  99%     45
+ 100%     64 (longest request)
+</pre>
+<p>Vidljivo je da apache server pri ovom broju zahtjeva daleko najsporiji, dok se kao pobjednik istakao lighttpd, no NGINX i Cherokee ne zaostaju puno. Proveli smo i testiranja sa većim brojem zahtjeva i tada se rezultati malo mijenjaju, gdje NGINX pokazuje svoju moc&#160;;). 
+</p><p>Da zaključimo, Apache se ističe velikim brojem modula i mogućnostima nadogradnje, no zbog malo drugačije arhitekture sporiji je nego ostali serveri. NGINX i Lighhttpd su po nama odličan izbor ukoliko se traže dobre performanse, no imaju manjak modula ukoliko se uspoređuju sa Apache-om. Cherokee je opet priča za sebe, poprilično brz i efikasan ali sa izrazito skromnom dokumentacijom po pitanju bitnijih stvari i manjkom modula. 
+</p><p><b>NAPOMENA: U izradi zaključka su sudjelovali svi članovi tima.</b>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 1598/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4393-0!*!0!!hr!2!edit=0 and timestamp 20190203204052 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html">http://security.foi.hr/wiki/index.php/Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspolo%C5%BEivost_i_mogu%C4%87nosti_sigurnosnih_nadogradnja_i_sigurnosti&amp;oldid=16933" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:59, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 18.017 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Usporedba_nginx-a,_lighttpd-a_i_apache-a,_sa_posebnim_naglascima_na_raspoloživost_i_mogućnosti_sigurnosnih_nadogradnja_i_sigurnosti", "wgTitle": "Usporedba nginx-a, lighttpd-a i apache-a, sa posebnim naglascima na raspoloživost i mogućnosti sigurnosnih nadogradnja i sigurnosti", "wgAction": "view", "wgArticleId": 4393, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 16933, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 1.266 secs. -->			</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>ModSecurity - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=ModSecurity&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-ModSecurity skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">ModSecurity</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="ModSecurity.html#mw-head">orijentacija</a>,
+					<a href="ModSecurity.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Zvonimir Kapeš, Igor Rauš, Nikola Pintarić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="ModSecurity.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="ModSecurity.html#Principi_rada_i_mogu.C4.87nosti"><span class="tocnumber">2</span> <span class="toctext">Principi rada i mogućnosti</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="ModSecurity.html#Na.C4.8Dini_implementacije"><span class="tocnumber">2.1</span> <span class="toctext">Načini implementacije</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="ModSecurity.html#Ugra.C4.91ena_implementacija"><span class="tocnumber">2.1.1</span> <span class="toctext">Ugrađena implementacija</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="ModSecurity.html#Implementacija_obrnutog_proxy-a"><span class="tocnumber">2.1.2</span> <span class="toctext">Implementacija obrnutog proxy-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="ModSecurity.html#Podru.C4.8Dja_funkcionalnosti"><span class="tocnumber">2.2</span> <span class="toctext">Područja funkcionalnosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="ModSecurity.html#Faze_obrade"><span class="tocnumber">3</span> <span class="toctext">Faze obrade</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="ModSecurity.html#Faza_Request_Headers_.28zaglavlje_zahtjeva.29"><span class="tocnumber">3.1</span> <span class="toctext">Faza Request Headers (zaglavlje zahtjeva)</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="ModSecurity.html#Faza_Request_Body_.28tijelo_zahtjeva.29"><span class="tocnumber">3.2</span> <span class="toctext">Faza Request Body (tijelo zahtjeva)</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="ModSecurity.html#Faza_Response_Headers_.28zaglavlja_odgovora.29"><span class="tocnumber">3.3</span> <span class="toctext">Faza Response Headers (zaglavlja odgovora)</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="ModSecurity.html#Faza_Response_Body_.28tijelo_odgovora.29"><span class="tocnumber">3.4</span> <span class="toctext">Faza Response Body (tijelo odgovora)</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="ModSecurity.html#Faza_Logging_.28bilje.C5.BEenje.29"><span class="tocnumber">3.5</span> <span class="toctext">Faza Logging (bilježenje)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="ModSecurity.html#Pravila"><span class="tocnumber">4</span> <span class="toctext">Pravila</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="ModSecurity.html#Akcije"><span class="tocnumber">4.1</span> <span class="toctext">Akcije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="ModSecurity.html#Instalacija"><span class="tocnumber">5</span> <span class="toctext">Instalacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="ModSecurity.html#LINUX"><span class="tocnumber">5.1</span> <span class="toctext">LINUX</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="ModSecurity.html#Windows"><span class="tocnumber">5.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="ModSecurity.html#Konfiguracija"><span class="tocnumber">6</span> <span class="toctext">Konfiguracija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="ModSecurity.html#Inicijalizacija_pogona"><span class="tocnumber">6.1</span> <span class="toctext">Inicijalizacija pogona</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="ModSecurity.html#Upravljanje_tijelom_zahtjeva"><span class="tocnumber">6.2</span> <span class="toctext">Upravljanje tijelom zahtjeva</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="ModSecurity.html#Upravljanjem_tijelom_odgovora"><span class="tocnumber">6.3</span> <span class="toctext">Upravljanjem tijelom odgovora</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="ModSecurity.html#Postavke_datote.C4.8Dnog_sustava"><span class="tocnumber">6.4</span> <span class="toctext">Postavke datotečnog sustava</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="ModSecurity.html#Logiranje"><span class="tocnumber">6.5</span> <span class="toctext">Logiranje</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="ModSecurity.html#Ostalo"><span class="tocnumber">6.6</span> <span class="toctext">Ostalo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25"><a href="ModSecurity.html#Core_Rules_Set"><span class="tocnumber">7</span> <span class="toctext">Core Rules Set</span></a>
+<ul>
+<li class="toclevel-2 tocsection-26"><a href="ModSecurity.html#Instalacija_CRS-a"><span class="tocnumber">7.1</span> <span class="toctext">Instalacija CRS-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="ModSecurity.html#Testiranje"><span class="tocnumber">8</span> <span class="toctext">Testiranje</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="ModSecurity.html#SQL_Injection_napad"><span class="tocnumber">8.1</span> <span class="toctext">SQL Injection napad</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="ModSecurity.html#Kontrola_pristupa"><span class="tocnumber">8.2</span> <span class="toctext">Kontrola pristupa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="ModSecurity.html#Literatura"><span class="tocnumber">9</span> <span class="toctext">Literatura</span></a></li>
+<li class="toclevel-1 tocsection-31"><a href="ModSecurity.html#Zadu.C5.BEenja_.C4.8Dlanova_tima"><span class="tocnumber">10</span> <span class="toctext">Zaduženja članova tima</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>ModSecurity je firewall za web aplikacije (Web application firewall - WAF). <a href="http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual" class="external autonumber" rel="nofollow">[1]</a>
+To je open source alat za otkrivanje i prevenciju upada namjenjen za we aplikacije. Funkcionira ugrađen u web server, i ponaša se kao kišobran - štiteći aplikacije od napada. 
+</p><p>Autor ModSecuritya je Ivan Ristić. Prva verzija ModSecurityja je izdana 2002. godine. ModSecurity je stvoren zbog rastuće potrebe za sigurnošću web aplikacija koje su podložne velikom broju napada. ModSecurity omogućuje pregled web prometa - vidljivost HTTP prometa je ključ sigurnosti web aplikacije: promet se može analizirati u realnom vremenu, zabilježiti i reagirati na nepoželjne događaje. Vrlo je praktično što ModSecurity omogućuje sve to potpuno odvojeno od aplikacije, bez da se upliće u njezin rad.
+</p><p>ModSecurity je alat za monitoriranje, bilježenje i kontrolu pristupa web aplikacija u stvarnom vremenu. Ne postoje određena čvrsta pravila koja govore što morate učiniti da bi ModSecurity radio, već se može birati vlastiti put kroz mogućnosti koje su na raspolaganju. Sloboda izbora je bitan dio ModSecurity identiteta. Uz puni pristup izvornom kodu (open source), sloboda biranja proteže se na prilagodbu i proširivanje alata tako da odgovara potrebama svakog korisnika. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nipintaric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nipintaric (stranica ne postoji)">Nipintaric</a> 19:06, 20. siječnja 2013. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Principi_rada_i_mogu.C4.87nosti"> Principi rada i mogućnosti </span></h2>
+<p>Rad ModSecurity alata bazira se na principima kao što su fleksibilnost, pasivnost i predvidljivost, kako bi osigurao najbolji način zaštite. ModSecurity fleksibilnost postiže  tako da pruža moćni jezik pravila, koji vam omogućuje da radite točno što trebate, u kombinaciji sa mogučnošću primjene pravila samo tamo gdje trebate. Na taj način se zapravo osigurava i princip pasivnosti. Koliko god informacija ModSecurity pružio, on nikad ne ostvaruje interakciju sa transakcijom osim ako mu nije tako naređeno, tj. primjenjuje pravila tamo gdje trebate.
+Predvidljivost zapravo nije princip na koji radi, međutim kako nije moguće napraviti savršeni alat ModSecurity pokušava sve svoje nedostatke nadomjestiti pružanjem velike količine informacija. Upravo ta mogućnost pružanja informacija omogućava vama da "predvidite" njegove propuste te ih zaobiđete.
+</p>
+<h3> <span class="mw-headline" id="Na.C4.8Dini_implementacije"> Načini implementacije </span></h3>
+<p>ModSecurity podržava dva načina implementacije: ugrađene i implementaciju obrnutog proxy-a. I jedan i drugi način imaju svoje prednosti i nedostatke, te je najbolje odlučiti za implementaciju koja više paše određenim potrebama.
+</p>
+<h4> <span class="mw-headline" id="Ugra.C4.91ena_implementacija"> Ugrađena implementacija </span></h4>
+<p>S obzirom da je ModSecurity Apache modul, moguće ga je dodati u bilo koju kompatibilnu verziju Apache-a. Ugrađena implementacija je odličan izbor za one koji imaju svoju arhitekturu postavljenu i ne žele je mijenjati. Ova opcija je također i jedina opcija ako treba zaštiti stotine web poslužitelja. U takvim situacijama, nije praktično graditi odvijen proxy baziran sloj zaštite. Ugrađeni ModSecurity ne samo da ne uvodi nove točke kvarova, nego se i skalira neprimjetno sa skaliranjem postojeće web infrastrukture. Glavni izazov sa ugrađenom implementacijom je to što su resursi psolužitelja podjeljeni između web poslužitelja i ModSecurity-a.
+</p>
+<h4> <span class="mw-headline" id="Implementacija_obrnutog_proxy-a"> Implementacija obrnutog proxy-a </span></h4>
+<p>Obrnuti proxy-i su HTTP usmjerivači, dizajnirani da se nalaze među web poslužiteljima i njihovim klijentima. Kada instalirate posvećen Apache obrnuti proxy i dodate mu ModSecurity, dobivate "propisni" mrežni web aplikacijski vatrozid, koji možete koristiti za zaštitu bilo kojeg broja web poslužitelja na istoj mreži. Mnogi sigurnosni praktičari preferiraju imati odvojeni sigurnosni sloj. Sa njim dobijete kompletnu izolaciju od sustava kojeg štitite. Što se tiče performansi, samostalan ModSecurity će imati resurce posvećene njemu, što znači da će moći činiti više (npr. imati više kompleksnih pravila). Glavni nedostatak ovog pristupa je nova točka kvara, s kojom se treba pozabaviti sa višedostupnim postavama dva ili više obrnutih proxy-a.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apache-reverse-proxy-modsecurity.png" class="image"><img alt="Apache-reverse-proxy-modsecurity.png" src="../images/7/76/Apache-reverse-proxy-modsecurity.png" width="766" height="544" /></a></div></div>
+<h3> <span class="mw-headline" id="Podru.C4.8Dja_funkcionalnosti"> Područja funkcionalnosti </span></h3>
+<p><b>Parsiranje</b> - ModSecurity pokušava stvoriti smisao u podacima koliko je god to moguće. Podržani formati podatka su potpomognuti sigurnosno-svjesnim parserima koji izvlače dijelove podataka i pohranjuju ih za korištenje u pravilima.
+</p><p><b>Bufferiranje</b> - U tipičnoj instalaciji, tijela zahtjeva i odgovara će biti bufferirana. To znači da ModSecurity obično vidi kompletne zahtjeve prije nego što su prosljeđeni aplikaciji na procesiranje, i kompletne odgovore prije nego što su poslani klijentima. Bufferiranje je važna mogućnost zato što je to jedini način da se pruži pouzdana zaštita. Negativna strana ove sposobnosti je to što zahtjeva dodatni RAM za pohranjivanje tijela zahtjeva i odgovora. 
+</p><p><b>Vođenje logova</b> - Potpuno transakcijsko logiranje je velik dio onoga što ModSecurity radi. Ova mogućnost omogućava da se bilježi kompletni HTTP promet umjesto samo osnovnih pristupnih log informacija. Zaglavlja zahtjeva, tijelo zahtjeva, zaglavlje odgovora, tijelo odgovora i mnoge druge informacije su dostupne pomoću ove funkcije. 
+</p><p><b>Rule engine</b> - radi na temelju posla izvedenog od svih drugih komponenti. Do trenutka kada rule engine počne raditi, razni bitovi podataka koje zahtjeva će več biti pripremljeni i spremni za inspekciju. U tom trenutku če pravila preuzeti ulogu kako bi procjenile transakcije i poduzele potrebne akcije.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Igraus&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Igraus (stranica ne postoji)">Igraus</a> 13:09, 24. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Faze_obrade"> Faze obrade </span></h2>
+<p>ModSecurity verzija 2.0 i nadalje omogućuje smještanje pravila u jednu od pet faza Apache request ciklusa:
+</p>
+<ul><li><b>Request headers (REQUEST_HEADERS)</b>
+</li><li><b>Request body (REQUEST_BODY)</b>
+</li><li><b>Response headers (RESPONSE_HEADERS)</b>
+</li><li><b>Response body (RESPONSE_BODY)</b>
+</li><li><b>Logging (LOGGING)</b>
+</li></ul>
+<p>Na slici ispod je prikazan Apache ciklus zahtjeva i prikazane su ModSecurity faze obrade. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ProcessingPhases.jpg" class="image"><img alt="ProcessingPhases.jpg" src="../images/2/21/ProcessingPhases.jpg" width="784" height="600" /></a></div></div>
+<p>Za odabir faze koju izvodi pravilo koristi se akcija izravno u pravilu ili korištenjem SecDefaultAction direktive:
+</p>
+<pre>SecDefaultAction &quot;log,pass,phase:2,id:4&quot;	 </pre>
+<pre> SecRule REQUEST_HEADERS:Host &quot;!^$&quot; &quot;deny,phase:1,id:5&quot; </pre>
+<h3> <span class="mw-headline" id="Faza_Request_Headers_.28zaglavlje_zahtjeva.29"> Faza Request Headers (zaglavlje zahtjeva) </span></h3>
+<p>Pravila u ovoj fazi se obrađuju nepostredno nakon što Apache završi čitanje zaglavlja zahtjeva. U tom trenutku tijelo zahtjeva još nije pročitano, te svi argumenti zahtjeva još nisu dostupni. Pravila bi se trebala smjestiti u ovu fazu ako ih je potrebno izvršiti što prije (prije nego Apache učini nešto za zahjevom), za izvršavanje nečega prije nego li je tijelo zahtjeva pročitano ili odlučiti način obrade tijela zahtjeva (hoće li biti parsiran kao XML ili ne). 
+</p>
+<h3> <span class="mw-headline" id="Faza_Request_Body_.28tijelo_zahtjeva.29"> Faza Request Body (tijelo zahtjeva) </span></h3>
+<p>Ovo je faza za generalnu analizu ulaznih podataka. Većina aplikacijski orijentiranih pravila smješta se u ovu fazu. U ovoj fazi primljeni su argumenti zahtjeva (ako je pročitano tijelo zahtjeva). ModSecurity omogućava tri tipa kodiranja za ovu fazu: 
+</p>
+<ul><li><b>application/x-www-form-urlencoded</b> - koristi se za prijenos podataka
+</li><li><b>multipart/form-data</b> - koristi se za prijenos datoteka
+</li><li><b>text/xml</b>  - koristi se za prolaz XML podataka
+</li></ul>
+<p>Za pristup podacima iz ove faze potrebno je postaviti SecRequestBodyAccess na On. 
+</p>
+<h3> <span class="mw-headline" id="Faza_Response_Headers_.28zaglavlja_odgovora.29"> Faza Response Headers (zaglavlja odgovora) </span></h3>
+<p>Ova faza počinje neposredno prije slanja zaglavlja odgovora natrag do klijenta. Pravila se pokreću ovdje ako se želi promatrati odgovor prije negoli se dogodi. Neki kodovi odgovora (npr. 404) se obrađuju ranije od strane Apachea i neće se pokrenuti kako bi bilo za očekivati.
+</p>
+<h3> <span class="mw-headline" id="Faza_Response_Body_.28tijelo_odgovora.29"> Faza Response Body (tijelo odgovora) </span></h3>
+<p>Ovo je faza za generalnu analizu izlaznih podataka. U ovoj fazi mogu se pokrenuti pravila za tijelo odgovora. U ovoj fazi se provjerava odlazni HTML za otkrivanje podataka, provjeru poruka o greškama ili autentičnost teksta.
+Za pristup podacima iz ove faze potrebno je postaviti SecResponseBodyAccess na On. 
+</p>
+<h3> <span class="mw-headline" id="Faza_Logging_.28bilje.C5.BEenje.29"> Faza Logging (bilježenje) </span></h3>
+<p>Ova faza se pokreće neposredno prije bilježenja različitih događaja. Pravila stavljena u ovu fazu određuju samo kako se bilježenje odvija. Ova faza se može koristiti za pregled poruka o greškama koje bilježi Apache. U ovoj fazi ne može se blokirati veza jer je za to prekasno. Ova faza omogućuje i pregled ostalih zaglavlja odgovora koje nisu bile dostupne tijekom faze 3 i faze 4. 
+Ova faza je posebna jer se izvršavan na kraju svake transakcije bez obzira na to što se dogodilo u prethodnim fazama. Izvršit će se čak i ako je zahtjev presreten ili ako je akcija dozvole korištena za propuštanje transakcije.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nipintaric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nipintaric (stranica ne postoji)">Nipintaric</a> 17:07, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pravila"> Pravila </span></h2>
+<p>U ModSecurityu sve se vrti oko dvije stvari: konfiguracije i pravila. Konfiguracija govori ModSecurityju kako obrađivati podatke koje vidi, dok pravila odlučuju što raditi s obrađenim podacima. 
+Primjer pravila: 
+</p>
+<pre> SecRule ARGS &quot;&lt;script&gt;&quot; log,deny,status:404 </pre>
+<p>U ovom pravilu pretražuju se ulazni podaci (&lt;script&gt;) i ako se nađe određeni uzorak dogodit će se log,deny,status:404 (biti će detaljnije objašnjeno u nastavku). 
+</p><p>Sintaksa pravila izgleda ovako [Ristić, 2012, str. 11]: 
+SecRule VARIJABLE OPERATOR AKCIJE
+Ta tri dijela imaju sljedeća značenja:
+</p><p><b>1. VARIJABLE </b>- govore ModSecurityju gdje da gleda. ARGS varijabla u gore navedenom primjeru znači da se gledaju svi parametri zahtjeva.
+</p><p><b>2. OPERATOR </b>dio govori ModSecurityju kako da gleda. U primjeru naveden je regularan izraz koji će se usporediti s ARGS.
+</p><p><b>3. AKCIJE</b> - ovaj dio govori ModSecurityju što da radi ako pronađe ono što traži. U primjeru su dane tri instrukcije: zabilježi problem, odbij transakciju i koristi status 404 za odbijanje. 
+</p><p>Ovo je vrlo jednostavno pravilo, a pravila mogu biti mnogo kompliciranija i pružaju velike mogućnosti i slobodu u uporabi. Popis svih varijabli, operatora i akcija može se pronaći <a href="https://github.com/SpiderLabs/ModSecurity/wiki/Reference-Manual#wiki-Variables" class="external text" rel="nofollow">ovdje</a>. 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nipintaric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nipintaric (stranica ne postoji)">Nipintaric</a> 19:43, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Akcije"> Akcije </span></h3>
+<p>Sve akcije omogućene u ModSecurity alatu spadaju u jednu od sljedećih skupina:
+</p><p><b>1. Prekidne akcije</b> -  Prouzročuju da ModSecurity nešto učini. U mnogo slučajeva to znači blokirati transakciju, međutim ne uvijek. Npr. Allow akcija je klasificirana kao prekdina akcija, a ona čini suportno od blokiranja. U svakom pravilu ili lancu pravila može postojati samo jedna prekidna akcija. U slučaju da postoji više prekidnih akcija u pravilu, samo zadnja će vrijediti. U lancu, prekidna akcija se može pojaviti samo u prvom pravilu. Potrebno je napomenuti da ovavka vrsta akcija neće biti izvršena ako je SecRuleEngine postavljen na DetectionOnly, tj. potrebno je postaviti SecRuleEngine=On.
+</p><p><b>2. Ne prekidne akcije</b> – čini nešto, ali to nešto ne utjeće na tok procesiranja pravila, kao što je npr. Postavljanje varijavle ili promjena njene vrijednosti. Ne prekidna akcija se može pojaviti u bilo kojem pravilu , uključujući svako pravilo uključeno u lanac.
+</p><p><b>3. Akcije toka</b> – Ove akcije utječu na tok pravila
+</p><p><b>4. Akcije meta podataka</b> – Ove akcije se koriste za pružanje više informacija o pravilima
+</p><p><b>5. Podatkovne akcije</b> – Ova skupina nisu zapravo akcije, već samo kontejneri koji sadržavaju podatke korištene od strane drugih akcija. Tako npr.  status akcija sadrži status koji će biti korišten za blokiranje.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Igraus&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Igraus (stranica ne postoji)">Igraus</a> 13:10, 24. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Instalacija">Instalacija</span></h2>
+<p>Instalacijski koraci:
+</p>
+<ul><li> Zaustavljanje Apache httpd
+</li><li> Raspakiravanje ModSecurity arhive
+</li><li> Buildanje
+</li></ul>
+<p>Build se razlikuje kod UNIX OS-a i Windowsa.
+</p>
+<h3> <span class="mw-headline" id="LINUX"> LINUX </span></h3>
+<p>ModSecurity se može instalirati na klasičan način putem izvršne datoteke, a budući da je open source, moguće ga je i kompilirati iz koda. Prednost instalacije preko izvršne datoteke je jednostavnost, a nedostatak je mogućnost da nije dostupna posljednja verzija. Postoji i razvojna verzija dostupna preko svn-a, no kako nije službena, moguće su neke nestabilnosti i bugovi. U nastavku će biti opisan postupak instalacije putem izvršne datoteke za Apache server na Linux Ubuntu operacijskom sustavu.
+</p><p>Kako bi se ModSecurity mogao instalirati, potrebno je prvotno zadovoljiti neke preduvjete, te instalirati potrebne biblioteke ukoliko ih već nema.
+</p>
+<ol><li>ModSecurity radi s Apache serverom verzije 2.0 ili više. Apache se može instalirati sljedećim naredbama:
+<dl><dd><pre>sudo apt-get install apache2</pre>
+</dd><dd>Uz Apache odmah instaliramo i php5:
+</dd><dd><pre>sudo apt-get install php5 </pre>
+</dd><dd>Na poslijetku restartamo:
+</dd><dd><pre>sudo /etc/init.d/apache2 restart</pre>
+</dd></dl>
+</li><li>Ukoliko već nije, potrebno je uključiti  mod_unique_id sljedećom naredbom
+<dl><dd><pre>sudo ln -s /etc/apache2/mods-available/unique_id.load /etc/apache2/mods-enabled</pre>
+</dd></dl>
+</li><li>Potrebno je instalirati libxml2 i libpcre
+<dl><dd><pre>sudo apt-get install libxml2 libxml2-dev libxml2-utils</pre>
+</dd><dd><pre>sudo apt-get install libaprutil1 libaprutil1-dev</pre>
+</dd><dd>Za 64 bitni Ubuntu, potrebno je izvršiti i sljedeću liniju:
+</dd><dd><pre>sudo ln -s /usr/lib/x86_64-linux-gnu/libxml2.so.2 /usr/lib/libxml2.so.2</pre>
+</dd></dl>
+</li><li>Ukoliko ćemo koristiti skriptni jezik Lua, kojim je moguće dodatno obogatiti osnovne funkcionalnostii ModSecuritya, potrebno je instalirati i lua biblioteku. Upute za preuzimanje i instalaciju mogu se pronaći na stranici <a href="http://www.lua.org/download.html" class="external text" rel="nofollow">lua.org/download</a>.
+<dl><dd>Sada su ispunjeni svi preduvjeti potrebni za instalaciju ModSecuritya, pa se u sljedećem koraku može instalirati i sam ModSecurity.
+</dd></dl>
+</li><li>ModSecurity instaliramo sljedećom naredbom:
+<dl><dd><pre>sudo apt-get ins--~~~~tall libapache-mod-security</pre>
+</dd></dl>
+</li></ol>
+<p>ModSecurity je sada instaliran, no potrebno ga je konfigurirati kako bi radio ono što mi želimo.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zvkapes&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zvkapes (stranica ne postoji)">Zvkapes</a> 19:56, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Windows"> Windows </span></h3>
+<p>Podesite Makefile.win da konfigurira Apache bazu i biblioteke. Potrebno je kompajlirati s naredbom: nmake -f Makefile.win. Zatim je potrebno instalirati ModSecurity modul s: nmake -f Makefile.win install. Nakon toga potrebno je kopirati libxml2.dll i lua5.1.dll u Apache bin direktorij. 
+</p><p>Drugi način je korištenje LoadFile za učitavanje tih biblioteka: 
+</p><p>Podešavanje glavne Apache httpd config datoteke vrši se naredbama:
+</p>
+<pre> LoadFile /usr/lib/libxml2.so </pre>
+<pre> LoadFile /usr/lib/liblua5.1.so </pre>
+<p>Učitavanje ModSecurity modula:
+</p>
+<pre> LoadModule security2_module modules/mod_security2.so </pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nipintaric&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nipintaric (stranica ne postoji)">Nipintaric</a> 21:09, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Konfiguracija">Konfiguracija</span></h2>
+<p>ModSecurity je prvotno podešen tako da ne radi ništa. Ne bilježi nikakve događaje niti sprečava napade na aplikacije. Tako je podešen iz više razloga [Ristić, 2012, str. 57]:
+</p>
+<ol><li>	Na taj se način osigurava da ModSecurity radi samo ono što mi želimo da radi. Dakle, mi kontroliramo što i kako će raditi, pritom razmišljajući o svakoj kontroli koju dodamo u konfiguraciju
+</li><li>	Nije moguće podesiti početnu konfiguraciju da radi jednako dobro u svim uvjetima. Postoje određene smjernice i dobra praksa, no detalji konfiguracije ovise o specifičnim uvjetima rada i samoj aplikaciji.
+</li><li>	Sigurnost se plaća povećanim korištenjem računalnih resursa, procesora i radne memorije, a također postoji i mogućnost blokiranja inače prihvatljivih zahtjeva. Zbog toga je važno dobro poznavati konfiguraciju i znati što se radi kako bi se izbjegle takve situacije.
+</li></ol>
+<p>Konfiguracijska datoteka koja povezuje Apache s ModSecurityem je mod-security.conf, a nalazi se u /etc/apache2/mods-available kod Debian/Ubuntu operacijskih sustava. Sadržaj te datoteke izgleda ovako:
+</p>
+<pre>
+&lt;IfModule security2_module&gt;
+	SecDataDir /var/cache/modsecurity
+	Include &quot;/etc/modsecurity/*.conf&quot;
+&lt;/IfModule&gt;
+</pre>
+<p>Unutar IfModule tagova dodaju se konfiguracijske datoteke za ModSecurity. Te datoteke sadrže razne direktive, među kojima su i pravila vatrozida. Na početku je postavljen put do modsecurity direktorija i uključene su sve .conf datoteke iz njega, no u samom tom folderu nakon čiste instalacije takvih datoteka nema. Dostupna je samo "preporučena" konfiguracija u datoteci modsecurity.conf-recomended koju treba preimenovati kako bi se aktivirala. To možemo učiniti sljedećom naredbom:
+</p>
+<pre>sudo mv /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+</pre>
+<p>Konfiguracijskih direktiva ModSecuritya ima poveći broj, preko 50. Detaljnije o svakoj direktivi zasebno može se pronaći u službenoj dokumentaciji. Ovdje ćemo navesti samo neke važnije koje se koriste i kod preporučene konfiguracije. Podijeljene su na više cjelina:
+</p>
+<h3> <span class="mw-headline" id="Inicijalizacija_pogona">Inicijalizacija pogona </span></h3>
+<p>Globalna sklopka za uključivanje/isključivanje ModSecuritya. Direktiva koja ovo omogućuje jest <i>SecRuleEngine</i>, a može poprimiti tri različite vrijednosti:
+</p>
+<ul><li><b>On</b> - ModSecurity uključen, procesuira zahtjeve sukladno definiranim pravilima.
+</li><li><b>Off</b> - ModSecurity isključan
+</li><li><b>DetectionOnly</b> - ModSecurity uključen, no ne prekida transakcije, već samo bilježi u log. Ovaj mod je preporučen za početno testiranje kako bi se lakše razdvojili legitimni zahtjevi od napada. 
+</li></ul>
+<h3> <span class="mw-headline" id="Upravljanje_tijelom_zahtjeva">Upravljanje tijelom zahtjeva </span></h3>
+<p>Zahtjevi se sastoje od dva dijela - zaglavlja i tijela. Kako su tijela opcionalni dio, njih možemo, a i ne moramo uključiti u kontrolu ModSecurity-a. ModSecurity može obaviti inspekciju podataka iz tijela, te nakon toga odlučiti hoće li dopustiti ili odbaciti zahtjev. No, kako bi se podaci provjerili potrebno ih je lokalno pohraniti. Direktive iz ovog dijela definiraju opcije kao što su pristup tijelu (<i>SecRequestBodyAccess</i>), dopuštena veličina tijela prihvatljiva za buffering(<i>SecRequestBodyLimit</i>, <i>SecRequestBodyNoFilesLimit</i>), te što s onima koji prelaze definiranu veličinu(<i>SecRequestBodyLimitAction</i>). Podaci tijela zahtjeva koji odgovaraju definiranom ograničenju buffera, bit će pohranjeni u radnu memoriju, dok će se oni veći pohranjivati na tvrdi disk. Zbog toga treba biti oprezan kod korištenja ovih direktiva jer povećavaju korištenje radne momorije i produljuju vrijeme odgovora.
+</p>
+<h3> <span class="mw-headline" id="Upravljanjem_tijelom_odgovora">Upravljanjem tijelom odgovora</span></h3>
+<p>Kao i kod zahtjeva, na jednak način možemo provjeravati i tijela odgovora koji odlaze s našeg servera. Na taj način možemo spriječiti curenje podataka.  Direktiva kojom uključujemo ovu mogućnost jest <i>SecResponseBodyAccess</i>. Kako ova opcija također povećava korištenje radne memorije, često se isključuje, osobito zbog toga jer je većina podataka koji se šalju sa servera uglavnom u statičkom obliku, npr. html ili css datoteke, a takve stvari nam nisu od značaja za sigurnost. Kako bi se donekle kontrolirali podaci koje će ModSecurity filtrirati, postoji direktiva <i>SecResponseBodyMimeType</i>. Tom direktivom određujemo MIME tipove datoteka koje su nam od interesa, a izbjegavamo nepotrebno korištenje resursa za manje važne podatke. Kao i kod tijela zahtjeva, postoje direktive za upravljanje veličinom buffera i slučajem kada datoteka prijeđe zadanu veličinu.
+</p>
+<h3> <span class="mw-headline" id="Postavke_datote.C4.8Dnog_sustava">Postavke datotečnog sustava</span></h3>
+<p>U ovoj cjelini direktiva upravlja se sa raznim direktorijima koje ModSecurity koristi prilikom rada. Naime, direktorije postavljamo sami kako želimo, a u ovom djelu ih povezujemo s aplikacijom. To su direktive za:
+</p>
+<ul><li><i>privremene datoteke</i> - npr. pohranjivanje tijela zahtjeva većeg od ograničenja. Koristi se direktiva SecTmpDir (npr. SecTmpDir /opt/modsec/tmp).
+</li><li><i>dugotrajne datoteke</i> - npr. podaci o IP adresama, sesijama i sl. Koristi se direktiva SecDataDir.
+</li><li><i>upload datoteka</i> - postavke za upravljanje presretenim datotekama. Kako takve datoteke uzimaju dosta prostora, treba odlučiti hoće li se uopće pohranjivati. To kontroliramo direktivom <i>SecUploadKeepFiles</i>  (On|Off|RelevantOnly). Direktivom <i>SecUploadDir</i> definiramo direktorij u koji pohranjujemo takve datoteke. Direktivom <i>SecUploadFileMode</i> (npr. 0600) definiramo dopuštenja tim datotekama. To mogu biti razne skripte, antivirusni programi i sl. 
+</li></ul>
+<h3> <span class="mw-headline" id="Logiranje">Logiranje</span></h3>
+<p>Skup direktiva za definiranje direktorija pohranjivanja debug loga (<i>SecDebugLog</i>), te određivanje razine logiranja (SecDebugLogLevel). <i>SecDebugLogLevel</i> direktiva ima raspon od 0 (bez logiranja) do 9 (logiraj sve). Preporučena produkcijska razina je 3. Osim debug loga, postoje i razne direktive za upravljanje audit logom. To su <i>SecAuditEngine</i>(On|Off|RelevantOnly) kojim se uključuje|isključuje log, SecAuditLogRelevantStatus kojim se uz pomoć regularnih izraza definira koje će se transakcije logirati s obzirom na njihov HTTP Response Status Code, <i>SecAuditLogParts</i> za definiranje dijelova transakcija koji će se logirati, <i>SecAuditLogType</i> kojim se definira da će se sve bilježiti u jednu datoteku (Serial) ili svaka transakcija u posebnu datoteku (Concurrent), SecAuditLog za definiranje direktorija pohranjivanja serijskih zapisa, te <i>SecAuditLogStorageDir</i> za pohranjivanje concurrent log datoteka.  
+</p>
+<h3> <span class="mw-headline" id="Ostalo">Ostalo</span></h3>
+<p>U ovoj cjelini postoje dvije direktive - <i>SecArgumentSeparator</i> kojom se definira kojim znakom su razdvojeni argumenti i <i>SetCookieFormat</i> za definiranje verzije cookiea.
+</p><p><br />
+Tabela osnovnih direktiva:
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Cjelina </th>
+<th> Direktiva </th>
+<th> Opis </th>
+<th> Vrijednost
+</th></tr>
+<tr>
+<td> Inicijalizacija pogona </td>
+<td> SecRuleEngine </td>
+<td> Globalna sklopka za uključivanje/isključivanje ModSecuritya. </td>
+<td>  On: Procesuiraj pravila <br /> Off: Ne procesuiraj pravila <br /> Detection only: Samo bilježenje u log, bez prekidanja.
+</td></tr>
+<tr>
+<td rowspan="5">Upravljanje tijelom zahtjeva </td>
+<td> SecRequestBodyAccess </td>
+<td> Pristup tijelu zahtjeva. </td>
+<td>On|Off
+</td></tr>
+<tr>
+<td>  SecRequestBodyLimit</td>
+<td> Dopuštena veličina tijela prihvatljiva za buffering. </td>
+<td> broj u bajtovima
+</td></tr>
+<tr>
+<td>  SecRequestBodyNoFilesLimit</td>
+<td>Dopuštena veličina tijela prihvatljiva za buffering, isključujući datoteke koje se prenose u zahtjevu. </td>
+<td> broj u bajtovima
+</td></tr>
+<tr>
+<td>  SecRequestBodyInMemoryLimit</td>
+<td>Dopuštena veličina na disku. </td>
+<td> broj u bajtovima
+</td></tr>
+<tr>
+<td>  SecRequestBodyLimitAction</td>
+<td> Akcije koje se poduzimaju ukoliko je ograničenje veličine prekoračeno. </td>
+<td> Reject, ProcessPartial
+</td></tr>
+<tr>
+<td rowspan="4">Upravljanje tijelom odgovora</td>
+<td> SecResponseBodyAccess</td>
+<td> Pristup tijelu odgovora. </td>
+<td>On|Off
+</td></tr>
+<tr>
+<td>  SecResponseBodyMimeType</td>
+<td> Tipovi datoteka koji će se uzeti u obzir za inspekciju. </td>
+<td> MIME format (npr. text/html, text/xml)
+</td></tr>
+<tr>
+<td>  SecResponseBodyLimit</td>
+<td>Dopuštena veličina tijela prihvatljiva za buffering. </td>
+<td> broj u bajtovima
+</td></tr>
+<tr>
+<td>  SecResponseBodyLimitAction</td>
+<td> Akcije koje se poduzimaju ukoliko je ograničenje veličine prekoračeno. </td>
+<td>Reject|ProcessPartial
+</td></tr>
+<tr>
+<td rowspan="5">Postavke datotečnog sustava</td>
+<td> SecTmpDir</td>
+<td> Direktorij za privremene podatke. </td>
+<td> /put/do/direktorija
+</td></tr>
+<tr>
+<td>  SecDataDir</td>
+<td> Direktorij za trajne podatke. </td>
+<td> /put/do/direktorija
+</td></tr>
+<tr>
+<td>  SecUploadKeepFiles </td>
+<td>Kontrola zadržavanja datoteka. </td>
+<td>On|Off|RelevantOnly
+</td></tr>
+<tr>
+<td>  SecUploadDir</td>
+<td>Direktorij za pohranjivanje presretenih datoteka. </td>
+<td> /put/do/direktorija
+</td></tr>
+<tr>
+<td>  SecUploadFileMode</td>
+<td>Dopuštenja pristupa datotekama. </td>
+<td>octal_mode(npr. 0640)|"default"
+</td></tr>
+<tr>
+<td rowspan="7">Logiranje</td>
+<td> SecDebugLog</td>
+<td> Put do ModSecurity debug loga. </td>
+<td> /put/do/modsec-debug.log
+</td></tr>
+<tr>
+<td>  SecDebugLogLevel</td>
+<td> Razina logiranja. </td>
+<td>0|1|2|3|4|5|6|7|8|9 <br /> 0: bez logiranja <br /> 1: samo greške <br /> 2: upozorenja <br /> 3: napomene <br />  4: detalji o transakcijama <br /> 5: kao i gornje, ali uključujući i informacije o svakom dijelu informacije kojim se barata <br /> 9: logiranje svega
+</td></tr>
+<tr>
+<td>  SecAuditEngine</td>
+<td>Uključivanje/isključivanje audit loga. </td>
+<td> On: logiranje svih transakcija <br /> Off: bez logiranja <br /> RelevantOnly: logiranje samo transakcija koje uzrokuju upozorenje ili grešku, prema tome kako je definirano sa SecAuditLogRelevantStatus
+</td></tr>
+<tr>
+<td>  SecAuditLogRelevantStatus</td>
+<td>Utvrđivanje standardnih kodova odgovora (npr. 404, 405, 504 i sl.) relevantnih za logiranje. </td>
+<td>4(?!04))")
+</td></tr>
+<tr>
+<td>  SecAuditLogParts</td>
+<td>Dijelovi transakcije koji će se bilježiti u audit logu. </td>
+<td>A|B|C|D|E|F|G|H|I|J|K|Z
+</td></tr>
+<tr>
+<td>  SecAuditLogType</td>
+<td>Način bilježenja laudit loga. </td>
+<td> Serial: sve se logira u jednu datoteku. <br /> Concurrent: posebna log datoteka za svaku transakciju.
+</td></tr>
+<tr>
+<td>  SecAuditLog</td>
+<td>Putanja do datoteke audit loga. </td>
+<td> /put/do/audit.log
+</td></tr>
+<tr>
+<td rowspan="2">Ostalo</td>
+<td> SecArgumentSeparator </td>
+<td> Definira kojim znakom su razdvojeni argumenti. </td>
+<td> znak
+</td></tr>
+<tr>
+<td>  SecCookieFormat </td>
+<td>Odabir verzije cookiea. </td>
+<td> 0: Netscape cookie, njčešće korištena verzija <br /> 1: cookie verzija 1
+</td></tr></table>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zvkapes&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zvkapes (stranica ne postoji)">Zvkapes</a> 19:56, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Core_Rules_Set"> Core Rules Set </span></h2>
+<p>ModSecurity je firewall za web aplikacije koji sam po sebi pruža slabu zaštitu. Da bi postao koristan, potrebno je namjestiti pravila.  Kako bi se olakšalo korištenje samog alata, certifiran je set pravila. Taj set pravila nazivaju se Suštinska pravila ili Core Rules. Za razliku od sustava za detekciju i spriječavanje penetracija, koji se baziraju na potpisima specifičnim za poznate ranjivosti, Suštinska pravila pružaju generičku zaštitu od nepoznatih ranjivosti često nađenih u web aplikacijama. Kako bi se osigurala generička zaštita web aplikacija, Suštinska pravila koriste sljedeće tehnike:
+</p><p><b>HTTP zaštita</b> – detekcija kršenja HTTP protokola i lokalno definirana pravila upotrebe.
+</p><p><b>Real-Time Blacklist Lookups</b> – koristi IP reputaciju treće strane.
+</p><p><b>Detekcija malware-a baziranog na webu</b> – Identifirica maliciozni web sadržaj provjeravajući preko Google Safe Browsing API-a.
+</p><p><b>HTTP zaštita od DoS-a</b> – obrana od HTTP poplavljivanja i sporih HTTP DoS napada.
+</p><p><b>Zaštita od uobičajenih web napada</b> – detekcija uobičajenih napada na sigurnost web aplikacije.
+</p><p><b>Detekcija automatizacije</b> – detekcija botova, crawler-a, skenera i ostalih površinskih malicioznih aktivnosti.
+</p><p><b>Integracija sa AV skeniranjem uploadanih datoteka</b> – detekcija malicioznih datoteka uploadanih kroz web aplikaciju.
+</p><p><b>Praćenje osljetljivih podataka</b> – Praćenje korištenja kreditne kartice i blokiranje propusta.
+</p><p><b>Zaštita od Trojanaca</b> – Detekcija pristupa Trojanskim konjima.
+</p><p><b>Identifikacija nedostataka aplikacije</b> – upozoravanje o pogršnoj konfiguraciji aplikacije.
+</p><p><b>Detekcija i sakrivanje greški</b> – Prikrivanje poruka o pogrešci poslanih od servera.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Igraus&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Igraus (stranica ne postoji)">Igraus</a> 21:56, 15. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Instalacija_CRS-a">Instalacija CRS-a</span></h3>
+<p>Osim dodatka samih pravila u konfiguraciju, CRS postavi i vlastitu, jasnu organizaciju direktorija koju kasnije možemo koristiti i za dodavanje vlastitih pravila. CRS možemo preuzeti sa <a href="https://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project" class="external text" rel="nofollow">službenih stranica projekta</a> pod tabom <b>Download</b> ili <a href="http://sourceforge.net/projects/mod-security/files/modsecurity-crs/" class="external text" rel="nofollow">Sourceforge</a>, no potrebno je paziti na verziju koju preuzimamo. Koraci instalacije (za Debian/Ubuntu operacijske sustave) su sljedeći:
+</p>
+<ol><li>Prvo preuzmemo komprimiranu datoteku sa sljedećom naredbom:
+<dl><dd><pre>sudo wget http://downloads.sourceforge.net/project/mod-security/modsecurity-crs/0-CURRENT/modsecurity-crs_2.2.5.tar.gz -P /tmp/ </pre>
+</dd></dl>
+</li><li>Prebacimo se u direktorij u koji smo preuzeli datoteku, te ju dekomprimiramo.
+<dl><dd><pre>cd /tmp </pre>
+</dd><dd>Datoteka koju tražimo jest <b>modsecurity-crs_2.2.5.tar.gz</b>.
+</dd><dd><pre> sudo tar -zxvf modsecurity-crs_2.2.5.tar.gz</pre>
+</dd></dl>
+</li><li>Premjestimo sadržaj dobivenog direktorija u modsecurity direktorij:
+<dl><dd><pre> sudo mv modsecurity-crs_2.2.5/* /etc/modsecurity/ </pre>
+</dd><dd>Možemo odmah i izbrisati datoteke koje nam više ne trebaju:
+</dd><dd><pre> sudo rm -R modsecurity-crs_2.2.5.tar.gz modsecurity-crs_2.2.5 </pre>
+</dd></dl>
+</li><li>S CRS pravilima dolazi i konfiguracijska datoteka (modsecurity_crs_10_setup.conf.example) s dodatnim postavkama, no kao i kod preporučene konfiguracije za čisti ModSecurity, i ova je datoteka prvotno "isključena" na način da je dodana ekstenzija <b>.example</b>. Kako bismo koristili tu konfiguracijsku datoteku potrebno je ukloniti taj dodatak, a to ćemo učiniti na način da ju preimenujemo:
+<dl><dd><pre> sudo mv /etc/modsecurity/modsecurity_crs_10_setup.conf.example /etc/modsecurity/modsecurity_crs_10_setup.conf </pre>
+</dd></dl>
+</li><li>Pravila koja možemo uključiti nalaze se u direktorijima <b>base_rules</b>, <b>optional_rules</b>, <b>slr_rules</b> i <b>experimental_rules</b>. Pravila unutar tih direktorija nalaze se u .conf datotekama, nazvanim prema vrsti napada ili greški od kojih brane.Prema nazivu možemo odrediti pravila koja su nam potrebna, a svako pravilo ima i kratak opis. Predviđeno je da se ona pravila koja želimo uključiti nalaze u direktoriju <b>activated_rules</b> koji je na početku prazan. Kako bismo to učinili, možemo kreirati simbolične linkove za pravila koja želimo. Ovdje ćemo uključiti sva pravila iz direktorija <b>base_rules</b> i <b>optional_rules</b>:
+<dl><dd>Pozicioniramo se u direktorij iz kojeg želimo pravila:
+</dd><dd><pre>cd /etc/modsecurity/base_rules/ </pre>
+</dd><dd>Kreiramo simbolične linove za svaku datoteku:
+</dd><dd><pre>for f in *&#160;; do sudo ln -s /etc/modsecurity/base_rules/$f /etc/modsecurity/activated_rules/$f&#160;; done</pre>
+</dd><dd>Isto učinimo i za direktorij <b>optional_rules:</b>
+</dd><dd><pre>cd /etc/modsecurity/optional_rules</pre>
+</dd><dd><pre>for f in *&#160;; do sudo ln -s /etc/modsecurity/optional_rules/$f /etc/modsecurity/activated_rules/$f&#160;; done </pre>
+</dd></dl>
+</li><li>Kako bismo dodali nova pravila u apache, moramo dodati novu liniju unutar &lt;IfModule security2_module&gt; tagova apache konfiguracije (httpd.conf datoteka, odnosno, kod Debian/Ubuntu OS-a mod-security.conf unutar mods-available direktorija). Pa slijedi:
+<dl><dd><pre>sudo gedit /etc/apache2/mods-available/mod-security.conf</pre>
+</dd><dd>U datoteku, prije &lt;/IfModule&gt; taga dodamo liniju Include "/etc/modsecurity/activated_rules/*.conf" te pohranimo.
+</dd></dl>
+</li><li>Restartamo web server:
+<dl><dd><pre>sudo /etc/init.d/apache2 restart</pre>
+</dd></dl>
+</li></ol>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zvkapes&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zvkapes (stranica ne postoji)">Zvkapes</a> 19:56, 20. siječnja 2013. (CET)  --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Igraus&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Igraus (stranica ne postoji)">Igraus</a> 13:10, 24. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Testiranje">Testiranje</span></h2>
+<p>Za potrebe testiranja koristit će se Damn Vulnerable Web Application iz OWASP Broken Web Application projekta, budući da pruža mnoštvo web aplikacija sa poznatim nedostacima. Prikazat će se osnovna upotreba nekih pravila, te pravila iz Core Rule Seta. 
+</p>
+<h3> <span class="mw-headline" id="SQL_Injection_napad">SQL Injection napad</span></h3>
+<p>Jednostavni SQL Injection napad može izgledati nešto kao na sljedećoj slici:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sis_modsec_01.jpg" class="image"><img alt="Sis modsec 01.jpg" src="../images/8/89/Sis_modsec_01.jpg" width="589" height="366" /></a></div></div>
+<p>U ovom slučaju napad omogućuju znakovi navodnika koji poremete originalni SQL upit na bazu. Dakle, u ovakvom bi slučaju bilo dovoljno da ModSecurity traži takve znakove u argumentima, te ukoliko ih pronađe, zabrani pristup. Jednostavno pravilo bi tada izgledalo ovako:
+</p>
+<pre> SecRule ARGS &quot;'&quot; &quot;phase:2, log, deny, status:503&quot;  </pre>
+<p>Direktivom SecRule definiramo pravilo, tražimo anomalije u ARGS, tj. argumentima, a traži se jednostruki znak navodnika, dakle " ' ". Akcije koje se poduzimaju definirane su sa "phase:2, log, deny, status:503". To znači da će ModSecurity provjeravati transakciju u drugoj fazi, a to je faza provjere tijela zahtjeva. U ovom konkretnom slučaju to bi jednako dobro funkcioniralo da se definiralo i u fazi 1 budući da se argumenti prenose GET metodom, no ukoliko bi se prenosili sa POST, tada bismo ga previdjeli. <i>Log</i> akcijom dajemo uputu da zabilježi pokušaj u log, <i>deny</i> osporava pravo pristupa, te vraća 'status:503'. Nakon dodatka ovog pravila, dobivamo sljedeći zaslon:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sis_modsec_02.jpg" class="image"><img alt="Sis modsec 02.jpg" src="../images/f/fe/Sis_modsec_02.jpg" width="591" height="219" /></a></div></div>
+<p>Ovo je sasvim jednostavan primjer pravila koje omogućuje zaustavljanje takvih osnovnih napada. Core Rule Set sadrži mnoštvo vrlo složenih pravila koje se odnose na SQL injection napade svake vrste. Ta pravila sadrže kompleksne regularne izraze, koji su i vrlo teški za čitanje, pa je potrebno pročitati popratnu dokumentaciju. Primjer jednog takvog pravila: 
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word">
+SecRule REQUEST_COOKIES|REQUEST_COOKIES_NAMES|REQUEST_FILENAME|ARGS_NAMES|ARGS|XML:/* &quot;(?i:(?:\b(?:(?:s(?:ys\.(?:user_(?:(?:t(?:ab(?:_column|le)|rigger)|object|view)s|c(?:onstraints|atalog))|all_tables|tab)|elect\b.{0,40}\b(?:substring|users?|ascii))|m(?:sys(?:(?:queri|ac)e|relationship|column|object)s|ysql\.(db|user))|c(?:onstraint_type|harindex)|waitfor\b\W*?\bdelay|attnotnull)\b|(?:locate|instr)\W+\()|\@\@spid\b)|\b(?:(?:s(?:ys(?:(?:(?:process|tabl)e|filegroup|object)s|c(?:o(?:nstraint|lumn)s|at)|dba|ibm)|ubstr(?:ing)?)|user_(?:(?:(?:constrain|objec)t|tab(?:_column|le)|ind_column|user)s|password|group)|a(?:tt(?:rel|typ)id|ll_objects)|object_(?:(?:nam|typ)e|id)|pg_(?:attribute|class)|column_(?:name|id)|xtype\W+\bchar|mb_users|rownum)\b|t(?:able_name\b|extpos\W+\()))&quot;  &quot;phase:2,rev:'2.2.5',capture,t:none,t:urlDecodeUni,ctl:auditLogParts=+E,block,msg:'Blind SQL Injection Attack',id:'950007',tag:'WEB_ATTACK/SQL_INJECTION',tag:'WASCTC/WASC-19',tag:'OWASP_TOP_10/A1',tag:'OWASP_AppSensor/CIE1',tag:'PCI/6.5.2',logdata:'%{TX.0}',severity:'2',setvar:'tx.msg=%{rule.msg}',setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},setvar:tx.%{rule.id}-WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}&quot; </pre>
+<p>Ovo konkretno pravilo odnosi se na slijepi SQL injection. Vidljivo je da CRS pravila traže greške na mnogim mjestima, od cookiea do naziva datoteka, sadrže iznimno kompleksne regularne izraze, te iscrpan opis greške koji se pojavljuje u logu. Primjer zapisa iz audt-loga kod uključenih CRS pravila prilikom pokušaja SQL injection napada:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sis_modsec_03.jpg" class="image"><img alt="Sis modsec 03.jpg" src="../images/5/52/Sis_modsec_03.jpg" width="630" height="210" /></a></div></div>
+<h3> <span class="mw-headline" id="Kontrola_pristupa">Kontrola pristupa</span></h3>
+<p>ModSecurity dopušta definiranje pravila na način da možemo postaviti i pozitivni i negativni sigurnosni model. Negativni sigurnosni model podrazumijeva definiranje pravila za ono što želimo odbiti, odnosno, dopušta se sve osim onoga što je definirano pravilima. Na negativnom modelu funkcioniraju CRS pravila.
+Pozitivni sigurnosni model, s druge strane, podrazumijeva definiranje onoga što je dopušteno, a blokiranje svega ostaloga. Dobar primjer za korištenje pozitivnog sigurnosnog modela jest kontrola pristupa preko ip adrese, što ćemo pokazati u ovom testu. 
+</p><p>Kako bismo ostvarili pozitivni sigurnosni model, prvo je potrebno definirati koje transakcije su dozvoljene. U ovom primjeru, dozvolit ćemo  pristup aplikaciji samo s određene IP adrese, konkretno, s lokalne adrese 192.168.1.3. 
+</p>
+<pre>SecRule REMOTE_ADDR "@streq 192.168.1.3" "phase:1, allow, nolog"
+</pre>
+<p>Sve ostale zahtjeve trebamo blokirati. U ModSecurityu to najlakše definiramo direktivom SecAction. 
+</p>
+<pre>SecAction "phase:1,deny,log"
+</pre>
+<p>Sada ukoliko pokušamo pristupiti aplikaciji sa bilo koje adrese koja nije 192.168.1.3, dobit ćemo zabranu pristupa kao na sljedećoj slici:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Forbidden.jpg" class="image"><img alt="Forbidden.jpg" src="../images/5/57/Forbidden.jpg" width="637" height="218" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zvkapes&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zvkapes (stranica ne postoji)">Zvkapes</a> 19:56, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> ModSecurity Reference Manual. Dostupno 20.1.2013. na <a href="http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual" class="external free" rel="nofollow">http://sourceforge.net/apps/mediawiki/mod-security/index.php?title=Reference_Manual</a>.
+</li><li> Ristić, I. (2012). ModSecurity Handbook. Feisty Duck. London. Dostupno 20.1.2013. na <a href="https://www.feistyduck.com/books/modsecurity-handbook/gettingStarted.html" class="external free" rel="nofollow">https://www.feistyduck.com/books/modsecurity-handbook/gettingStarted.html</a>
+</li><li> CARNet. Mod security modul. Dostupno 20.1.2013. na <a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-02-63.pdf" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-02-63.pdf</a>
+</li><li> Sa, A. (2012). How To Install Mod_Security On Apache(Ubuntu 12.10) Step By Step Tutorial For Beginners. Root25.com. Dostupno 20.1.2013. <a href="http://www.root25.com/2012/11/how-to-install-modsecurity-on-apache-ubuntu12-stepbystep-tutorial.html" class="external free" rel="nofollow">http://www.root25.com/2012/11/how-to-install-modsecurity-on-apache-ubuntu12-stepbystep-tutorial.html</a>
+</li><li> Pk, S. Mod_Security .. Intro. Dostupno 20.1.2013. na <a href="http://blog.supportpro.com/2009/08/mod_security-intro/" class="external free" rel="nofollow">http://blog.supportpro.com/2009/08/mod_security-intro/</a>
+</li><li> Trustwave. ModSecurity.  <a href="http://www.modsecurity.org/" class="external free" rel="nofollow">http://www.modsecurity.org/</a>
+</li><li> Biancuzzi, F. (2006). ModSecurity 2.0 with Ivan Ristic. Dostupno 20.1.2013. na <a href="http://www.securityfocus.com/columnists/418/1" class="external free" rel="nofollow">http://www.securityfocus.com/columnists/418/1</a>
+</li></ol>
+<h2> <span class="mw-headline" id="Zadu.C5.BEenja_.C4.8Dlanova_tima"> Zaduženja članova tima </span></h2>
+<p><b> Zvonimir Kapeš </b>
+</p>
+<ul><li> Instalacija
+</li><li> Core Rules Set
+</li><li> Konfiguracija
+</li><li> Testiranje
+</li></ul>
+<p><br />
+<b> Nikola Pintarić </b>
+</p>
+<ul><li> Uvod
+</li><li> Faze obrade
+</li><li> Pravila
+</li><li> Instalacija
+</li></ul>
+<p><br />
+<b> Igor Rauš </b>
+</p>
+<ul><li> Principi rada i mogućnosti
+</li><li> Pravila
+</li><li> Akcije
+</li><li> Core Rules Set
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 384/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4394-0!*!0!!hr!2!edit=0 and timestamp 20190203204035 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="ModSecurity.html">http://security.foi.hr/wiki/index.php/ModSecurity</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=ModSecurity" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="ModSecurity.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:ModSecurity&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="ModSecurity.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="ModSecurity.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=ModSecurity&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=ModSecurity&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="ModSecurity.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/ModSecurity" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/ModSecurity" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=ModSecurity&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=ModSecurity&amp;oldid=17349" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 12:10, 24. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 18.426 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "ModSecurity", "wgTitle": "ModSecurity", "wgAction": "view", "wgArticleId": 4394, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17349, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.564 secs. -->			</body>
+</html>

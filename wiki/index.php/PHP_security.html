@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>PHP security - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=PHP_security&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-PHP_security skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">PHP security</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="PHP_security.html#mw-head">orijentacija</a>,
+					<a href="PHP_security.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="PHP_security.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="PHP_security.html#Op.C4.87a_razmatranja"><span class="tocnumber">2</span> <span class="toctext">Opća razmatranja</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="PHP_security.html#Problemi_PHP_jezika"><span class="tocnumber">2.1</span> <span class="toctext">Problemi PHP jezika</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="PHP_security.html#Slabopisanje_.28eng._weak_typing.29"><span class="tocnumber">2.1.1</span> <span class="toctext">Slabopisanje (eng. weak typing)</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="PHP_security.html#Iznimke_i_rukovanje_gre.C5.A1kama_.28eng._Exceptions_and_error_handling.29"><span class="tocnumber">2.1.2</span> <span class="toctext">Iznimke i rukovanje greškama (eng. Exceptions and error handling)</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="PHP_security.html#php.ini"><span class="tocnumber">2.1.3</span> <span class="toctext">php.ini</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="PHP_security.html#Ugra.C4.91ene_funkcije_od_male_koristi"><span class="tocnumber">2.1.4</span> <span class="toctext">Ugrađene funkcije od male koristi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="PHP_security.html#Framework_problemi"><span class="tocnumber">2.2</span> <span class="toctext">Framework problemi</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="PHP_security.html#URL_usmjeravanje_.28eng._routing.29"><span class="tocnumber">2.2.1</span> <span class="toctext">URL usmjeravanje (eng. routing)</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="PHP_security.html#Upravljanje_unosom_.28eng._input_handling.29"><span class="tocnumber">2.2.2</span> <span class="toctext">Upravljanje unosom (eng. input handling)</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="PHP_security.html#Jezik_predlo.C5.A1ka"><span class="tocnumber">2.2.3</span> <span class="toctext">Jezik predloška</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="PHP_security.html#Ostali_nedostatci"><span class="tocnumber">2.2.4</span> <span class="toctext">Ostali nedostatci</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="PHP_security.html#Third_party_PHP_kod"><span class="tocnumber">2.3</span> <span class="toctext">Third party PHP kod</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="PHP_security.html#Postavke_.28eng._Configuration.29"><span class="tocnumber">3</span> <span class="toctext">Postavke (eng. Configuration)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="PHP_security.html#SetHandler"><span class="tocnumber">3.1</span> <span class="toctext">SetHandler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="PHP_security.html#Nepouzdani_podaci_.28eng._Untrusted_data.29"><span class="tocnumber">4</span> <span class="toctext">Nepouzdani podaci (eng. Untrusted data)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="PHP_security.html#Upload_datoteka"><span class="tocnumber">4.1</span> <span class="toctext">Upload datoteka</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="PHP_security.html#Uobi.C4.8Dajene_gre.C5.A1ke_u_obradi_polja_.24_FILES"><span class="tocnumber">4.2</span> <span class="toctext">Uobičajene greške u obradi polja $_FILES</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="PHP_security.html#Kori.C5.A1tenje_.24_REQUEST"><span class="tocnumber">4.3</span> <span class="toctext">Korištenje $_REQUEST</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="PHP_security.html#Sigurnost_datote.C4.8Dnog_sustava_.28eng._filesystem.29"><span class="tocnumber">5</span> <span class="toctext">Sigurnost datotečnog sustava (eng. filesystem)</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="PHP_security.html#Sigurnost_baze_podataka"><span class="tocnumber">6</span> <span class="toctext">Sigurnost baze podataka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="PHP_security.html#Nikad_ne_spajati_ili_interpolirati_podatke_u_SQL-u"><span class="tocnumber">6.1</span> <span class="toctext">Nikad ne spajati ili interpolirati podatke u SQL-u</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="PHP_security.html#Izbjegavati_Escaping"><span class="tocnumber">6.2</span> <span class="toctext">Izbjegavati Escaping</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="PHP_security.html#Uporada_pripremljenih_upita"><span class="tocnumber">6.3</span> <span class="toctext">Uporada pripremljenih upita</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="PHP_security.html#ORM"><span class="tocnumber">6.4</span> <span class="toctext">ORM</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="PHP_security.html#Problemi_kodiranja_.28eng._encoding.29"><span class="tocnumber">6.5</span> <span class="toctext">Problemi kodiranja (eng. encoding)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="PHP_security.html#Ostale_vrste_injection-a"><span class="tocnumber">7</span> <span class="toctext">Ostale vrste injection-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="PHP_security.html#Shell_injection"><span class="tocnumber">7.1</span> <span class="toctext">Shell injection</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="PHP_security.html#Ostalo"><span class="tocnumber">7.2</span> <span class="toctext">Ostalo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="PHP_security.html#XSS"><span class="tocnumber">8</span> <span class="toctext">XSS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31"><a href="PHP_security.html#Bez_oznaka"><span class="tocnumber">8.1</span> <span class="toctext">Bez oznaka</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="PHP_security.html#Nepouzdane_oznake"><span class="tocnumber">8.2</span> <span class="toctext">Nepouzdane oznake</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="PHP_security.html#Templating_engines"><span class="tocnumber">8.3</span> <span class="toctext">Templating engines</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="PHP_security.html#Savjeti"><span class="tocnumber">8.4</span> <span class="toctext">Savjeti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35"><a href="PHP_security.html#CSFR"><span class="tocnumber">9</span> <span class="toctext">CSFR</span></a></li>
+<li class="toclevel-1 tocsection-36"><a href="PHP_security.html#Upravljanje_autentifikacijom_i_sesijama"><span class="tocnumber">10</span> <span class="toctext">Upravljanje autentifikacijom i sesijama</span></a>
+<ul>
+<li class="toclevel-2 tocsection-37"><a href="PHP_security.html#Upravljanje_sesijama"><span class="tocnumber">10.1</span> <span class="toctext">Upravljanje sesijama</span></a>
+<ul>
+<li class="toclevel-3 tocsection-38"><a href="PHP_security.html#Sprje.C4.8Davanje_preuzimanja_sesija"><span class="tocnumber">10.1.1</span> <span class="toctext">Sprječavanje preuzimanja sesija</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="PHP_security.html#Neva.C5.BEe.C4.87i_ID_sesije"><span class="tocnumber">10.1.2</span> <span class="toctext">Nevažeći ID sesije</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="PHP_security.html#Izlo.C5.BEene_ID_sesije"><span class="tocnumber">10.1.3</span> <span class="toctext">Izložene ID sesije</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="PHP_security.html#Fiksiranje_sesije"><span class="tocnumber">10.1.4</span> <span class="toctext">Fiksiranje sesije</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="PHP_security.html#Istek_sesije"><span class="tocnumber">10.1.5</span> <span class="toctext">Istek sesije</span></a>
+<ul>
+<li class="toclevel-4 tocsection-43"><a href="PHP_security.html#Vrijeme_neaktivnosti"><span class="tocnumber">10.1.5.1</span> <span class="toctext">Vrijeme neaktivnosti</span></a></li>
+<li class="toclevel-4 tocsection-44"><a href="PHP_security.html#Op.C4.87i_vremenski_rok"><span class="tocnumber">10.1.5.2</span> <span class="toctext">Opći vremenski rok</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-45"><a href="PHP_security.html#Kola.C4.8Di.C4.87i_.28eng._cookies.29"><span class="tocnumber">10.2</span> <span class="toctext">Kolačići (eng. cookies)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-46"><a href="PHP_security.html#Nikad_ne_raditi_serijalizaciju_.28eng._serialize.29"><span class="tocnumber">10.2.1</span> <span class="toctext">Nikad ne raditi serijalizaciju (eng. serialize)</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="PHP_security.html#Pravilno_brisanje"><span class="tocnumber">10.2.2</span> <span class="toctext">Pravilno brisanje</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="PHP_security.html#HTTP_Only"><span class="tocnumber">10.2.3</span> <span class="toctext">HTTP Only</span></a></li>
+<li class="toclevel-3 tocsection-49"><a href="PHP_security.html#Internet_Explorer"><span class="tocnumber">10.2.4</span> <span class="toctext">Internet Explorer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-50"><a href="PHP_security.html#Autentifikacija"><span class="tocnumber">10.3</span> <span class="toctext">Autentifikacija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-51"><a href="PHP_security.html#Zapamti_me_.28eng._remember_me.29"><span class="tocnumber">10.3.1</span> <span class="toctext">Zapamti me (eng. remember me)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-52"><a href="PHP_security.html#Mogu.C4.87i_napadi_.28Apache.29"><span class="tocnumber">11</span> <span class="toctext">Mogući napadi (Apache)</span></a></li>
+<li class="toclevel-1 tocsection-53"><a href="PHP_security.html#Error_Reporting_.28izvje.C5.A1tavanje_o_pogre.C5.A1akama.29"><span class="tocnumber">12</span> <span class="toctext">Error Reporting (izvještavanje o pogrešakama)</span></a></li>
+<li class="toclevel-1 tocsection-54"><a href="PHP_security.html#Skrivanje_PHP-a"><span class="tocnumber">13</span> <span class="toctext">Skrivanje PHP-a</span></a></li>
+<li class="toclevel-1 tocsection-55"><a href="PHP_security.html#Odr.C5.BEavati_svijest_o_novijim_verzijama"><span class="tocnumber">14</span> <span class="toctext">Održavati svijest o novijim verzijama</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>PHP je močan jezik i prevoditelj (eng. interpreter), bio uključen u web poslužitelju (eng. server) kao modul ili izvršen (eng. executed) kao zasebni binarni CGI (eng. CGI binary), može pristupiti datotekama i otvoriti mrežne veze na poslužitelju. Ova svojstva čine sve što je pokrenuto na web poslužitelju nesigurnim. PHP je posebno osmišljen kako bi bio sigurniji jezik za pisanje CGI programa za razliku od Perl-a ili C-a, a uz točan izbor compile-time i runtime  konfiguracija, i uz pravi način kodiranja može vam dati upravo kombinaciju slobode i sigurnosti koju trebate.
+</p><p>Budući da postoji mnogo različitih načina korištenja PHP-a, postoje mnoge postavke konfiguracija koje kontroliraju njegovo ponašanje. Veliki izbor opcija jamči da možete koristiti PHP za mnoge svrhe, ali to također znači da postoje kombinacije ovih postavki i konfiguracija poslužitelja koji dovode do nesigurnog postavljanja (eng. setup).
+</p><p>Fleksibilnost konfiguracije PHP jednako je konkurentna fleksibilnošću koda. PHP se može koristiti za izgradnju kompletnih poslužiteljskih aplikacija, sa svim snagama korisnika ljuske (eng. shell), ili se može koristiti za jednostavne SSI (eng. server-side inculdes), uz malo rizika u čvrsto kontroliranom okruženju. Kako graditi tu okolinu, i koliko je sigurna, uglavnom ovisi o PHP developeru.
+</p>
+<h2> <span class="mw-headline" id="Op.C4.87a_razmatranja"> Opća razmatranja </span></h2>
+<p>Potpuno siguran sustav je virtualna nemogućnost, tako da je balansiranje rizika i upotrebljivost pristup koji se često koristi u sigurnosnoj profesiji. Ako svaka varijabla koju je korisnik poslao zahtijeva dva oblika biometričke valjanosti (kao što je mrežno skeniranje i otisak prsta), imat ćete iznimno visoku razinu odgovornosti. Trebalo bi i pola sata da napuni prilično složena forma koja bi potaknula korisnike da pronađu načine da zaobiđu sigurnost.
+</p><p>Najbolja sigurnost često je dovoljno neupadljiva da zadovolji zahtjeve bez da se korisniku spriječi ostvarivanje njihovog posla ili prekomjerno opterećenje autora koda prekomjernom složenosti. Doista, neki sigurnosni napadi samo su iskorištavanje ove vrste pretjerano izgrađene sigurnosti.
+</p><p>Izraz vrijedan pamćenja: Sustav je jednako dobar kao najslabija karika u lancu. Ako su sve transakcije strogo napisane na temelju vremena, lokacije, vrste transakcija itd., ali korisnik je potvrđen samo na temelju jednog kolačića (eng. cookies), valjanost vezivanja korisnika u zapisnik transakcija je ozbiljno oslabljena.
+Prilikom testiranja imajte na umu da nećete moći testirati sve mogućnosti čak i za najjednostavnije stranice. Unos koji možete očekivati neće biti u potpunosti nepovezan s unosom kojeg daje nezadovoljni zaposlenik. Zato je najbolje pregledati kôd iz logičke perspektive da biste vidjeli gdje se mogu unijeti neočekivani podaci, a zatim pratiti kako se mijenja, smanjuje ili pojačava.
+</p><p>Internet je pun ljudi koji se žele dokazati kršenjem koda, rušenjem vaše web stranice, objavljivanjem neprimjerenog sadržaja i na drugi način učiniti vaš dan zanimljivim. Nije bitno ako imate malu ili veliku web lokaciju, cilj ste jednostavno biti na mreži, tako da imate poslužitelj na koji se možete povezati. Mnogi programi pucanja ne razlikuju se po veličini, oni jednostavno prevoze masovne IP blokove koji traže žrtve.
+</p>
+<h3> <span class="mw-headline" id="Problemi_PHP_jezika"> Problemi PHP jezika </span></h3>
+<h4> <span class="mw-headline" id="Slabopisanje_.28eng._weak_typing.29"> Slabopisanje (eng. weak typing) </span></h4>
+<p>PHP je slabo pisan, što znači da će automatski pretvoriti podatke netočnog tipa u očekivani tip. Ova značajka često maskira pogreške od strane razvojnog programera ili injekcije neočekivanih podataka, što dovodi do ranjivosti.
+</p><p>Pokušajte upotrijebiti funkcije i operatore koji ne čine implicitne konverzije tipa (npr. ===, a ne ==). Nemaju svi operatori stroge verzije (primjerice veći od i manji), a mnoge ugrađene funkcije (kao što su in_array) koriste slabo upisane usporedne funkcije prema zadanim postavkama, što otežava pisanje ispravnog koda.
+</p>
+<h4> <span class="mw-headline" id="Iznimke_i_rukovanje_gre.C5.A1kama_.28eng._Exceptions_and_error_handling.29"> Iznimke i rukovanje greškama (eng. Exceptions and error handling) </span></h4>
+<p>Gotovo sve PHP ugrađene metode, i mnogi PHP library-i, ne koristiti iznimke, već prijavljuju pogreške na druge načine (npr. putem obavijesti) koje omogućuju neispravnom kodu da nastavi raditi što ima za posljedicu maskiranje mnogih grešaka. U mnogim drugim jezicima i većini jezika visoke razine koji su kompetitivni s PHP-om, pogreške koje su uzrokovane pogreškama razvojnih programera ili pogrešaka izvođenja koje programer nije uspio predvidjeti, uzrokovat će prestanak rada programa, što je najsigurnije raditi.
+</p><p>Razmislite o sljedećem kodu koji pokušava ograničiti pristup određenoj funkciji pomoću upita baze podataka koji provjerava je li korisničko ime na crnom popisu (eng. blacklist):
+</p>
+<pre>
+  $db_link = mysqli_connect('localhost', 'dbuser', 'dbpassword', 'dbname');
+</pre>
+<pre>
+   function can_access_feature($current_user) {
+       global $db_link;
+       $username = mysqli_real_escape_string($db_link, $current_user-&gt;username);
+       $res = mysqli_query($db_link, &quot;SELECT COUNT(id) FROM blacklisted_users WHERE username = '$username';&quot;);
+       $row = mysqli_fetch_array($res);
+       if ((int)$row[0] &gt; 0) {
+           return false;
+       } else {
+           return true;
+       }
+   }
+</pre>
+<pre>
+   if (!can_access_feature($current_user)) {
+       exit();
+   }
+   
+   // Kod za ovo svojstvo (eng. feature) ide ovdje
+</pre>
+<p><br />
+Postoje razne pogreške u runtime koje bi se mogle pojaviti u ovom slučaju - primjerice, veza s bazom podataka može puknuti zbog pogrešne lozinke ili gašenja poslužitelja itd., ili je veza mogla biti zatvorena od strane poslužitelja nakon što je otvorena strana klijenta. U takvim slučajevima, mysqli_ funkcije će prema zadanim postavkama izdavati upozorenja ili obavijesti, ali neće izuzeti iznimke ili kobne pogreške. To znači da kôd jednostavno i dalje radi! Varijabla $row postaje NULL, a PHP će procijeniti $row[0] isto kao NULL, i (int) $row[0] kao 0, zbog lošeg pisanja. Na kraju funkcija can_access_feature vraća <b>true</b>, dajući pristup svim korisnicima, bez obzira na to jesu li na crnoj listi ili ne.
+</p><p>Ako se koriste izvorni API-ji baze podataka, u svakoj se točki treba dodati provjera pogrešaka. Međutim, budući da to zahtijeva dodatni rad i lako se propušta, to je prema zadanim postavkama nesigurno. Također zahtijeva mnogo predložaka (eng. boilerplate). Zbog toga se pristup podacima baze podataka uvijek mora obaviti korištenjem PHP Data Objects (PDO) navedenih s ERRMODE_WARNING ili ERRMODE_EXCEPTION zastavama, osim ako postoji jasno uvjerljiv razlog za korištenje izvornih upravljačkih programa i pažljivu provjeru pogrešaka.
+</p><p>Često je najbolje potaknuti prijavljivanje pogrešaka što je više moguće pomoću funkcije error_reporting i nikad ne pokušavajte ukloniti poruke o pogreškama - uvijek pratite upozorenja i napišite kod koji je robustan.
+</p>
+<h4> <span class="mw-headline" id="php.ini"> php.ini </span></h4>
+<p>Ponašanje PHP koda često ovisi o vrijednostima mnogih konfiguracijskih postavki, uključujući i temeljne promjene stvari poput načina rukovanja pogreškama. To može otežati pisanje koda koji ispravno radi u svim okolnostima. Različiti library-i mogu imati različita očekivanja ili zahtjeve za tim postavkama, što otežava ispravno korištenje koda od treće strane.
+</p>
+<h4> <span class="mw-headline" id="Ugra.C4.91ene_funkcije_od_male_koristi"> Ugrađene funkcije od male koristi </span></h4>
+<p>PHP dolazi s mnogim ugrađenim funkcijama, kao što su addslashes, mysql_escape_string i mysql_real_escape_string, za koje se čini da pružaju sigurnost, ali često su puni grešaka (eng. "buggy") i zapravo su neupotrebljivi način rješavanja sigurnosnih problema. Neki od tih ugrađenih funkcija se obustavljaju i uklanjaju, ali zbog politika kompatibilnosti to traje dugo vremena.
+</p>
+<h3> <span class="mw-headline" id="Framework_problemi"> Framework problemi </span></h3>
+<h4> <span class="mw-headline" id="URL_usmjeravanje_.28eng._routing.29"> URL usmjeravanje (eng. routing) </span></h4>
+<p>PHP-ov ugrađeni mehanizam za usmjeravanje URL-ova služi za korištenje datoteka koje završavaju s ".php" u strukturi direktorija. Routing otvara nekoliko ranjivosti:
+</p>
+<li> Ranjivost remote izvršavanja za svaku značajku prijenosa datoteka kojoj se ne "dezinficira" naziv datoteke. (Drugim riječima, web poslužitelj izvršava nešto umjesto da ga poslužuje). Pobrinite se da prilikom spremanja prenesenih datoteka sadržaj i naziv datoteke odgovarajuće sanificiraju.
+
+<li> Izvorni kod, uključujući konfiguracijske datoteke, pohranjeni su u javno dostupnim direktorijima zajedno s datotekama koje se trebaju preuzeti (kao što je assets koji sadrži statične podatke). Pogrešna konfiguracija (ili nedostatak konfiguracije) može značiti da izvorni kod ili konfiguracijske datoteke koje sadrže tajne podatke mogu biti preuzete od napadača. (Drugim riječima, web poslužitelj služi resursu koji bi trebao biti privatan ili izvršni samo). Možete koristiti .htaccess kako biste ograničili pristup, no to nije idealno jer je nesiguran sam po sebi, ali ne postoji druga alternativa.
+
+<li> Mehanizam usmjeravanja URL-a isti je kao i modulski sustav. To znači da je često moguće da napadači koriste datoteke kao ulazne točke koje nisu bile oblikovane kao takve. To može otvoriti ranjivosti u kojima se mehanizmi provjere autentičnosti potpuno zaobilaze - jednostavni refactoring koji izvlači kod u zasebnu datoteku može otvoriti ranjivost. To je posebno lako u PHP-u jer ima globalno dostupne podatke o zahtjevu ($ _GET itd.), Tako da kôd na razini datoteke može biti imperativni kôd koji djeluje na zahtjev, umjesto da je potreban kôd za rukovanje zahtjevima unutar definicija funkcija.
+
+<li> Nedostatak odgovarajućeg mehanizma usmjeravanja URL-a često dovodi do toga da razvojni programerim stvaraju vlastite ad-hoc metode. To su često nesigurne metode i ne primjenjuju odgovarajuća ograničenja autorizacije na različite funkcije rukovanja zahtjevima.
+
+<h4> <span class="mw-headline" id="Upravljanje_unosom_.28eng._input_handling.29"> Upravljanje unosom (eng. input handling) </span></h4>
+<p>Umjesto da obrađuje HTTP ulaz kao jednostavne nizove (eng. strings), PHP će izraditi polja iz HTTP unosa, pod kontrolom klijenta. To može dovesti do zbrke o podacima i može lako dovesti do sigurnosnih grešaka. Na primjer, uzmite u obzir ovaj pojednostavljeni kôd iz mehanizma "jednokratna korekcija" koji bi se mogao upotrijebiti primjerice u kodu za poništavanje zaporke:
+</p>
+<pre>
+
+   $supplied_nonce = $_GET['nonce'];
+   $correct_nonce = get_correct_value_somehow();
+   
+   if (strcmp($supplied_nonce, $correct_nonce) == 0) {
+       // Go ahead and reset the password
+   } else {
+       echo 'Sorry, incorrect link';
+   }
+
+</pre>
+<p>Ako napadač koristi upit ovako: 
+</p>
+<pre> http://example.com/?nonce[]=a </pre>
+<p>onda završimo s $supplied_nonce kao poljem. Funkcija strcmp() tada će vratiti NULL (umjesto bacanja iznimke, što bi bilo puno korisnije), a potom zbog slabog tipkanja i korištenja operatora == (jednakosti) umjesto === (identitet), usporedba će nam vratiti <b>true</b> (budući da je izraz NULL == 0 istinit prema PHP-u), i napadač će moći poništiti lozinku bez pružanja točne korekcije (eng. nonce).
+</p>
+<h4> <span class="mw-headline" id="Jezik_predlo.C5.A1ka"> Jezik predloška </span></h4>
+<p>PHP je u osnovi jezik predloška. Međutim, prema zadanim postavkama HTML se ne izbjegava, što ga čini vrlo problematičnim za upotrebu u web aplikaciji.
+</p>
+<h4> <span class="mw-headline" id="Ostali_nedostatci"> Ostali nedostatci </span></h4>
+<p>Postoje i druge važne stvari koje bi web-framework trebao dostaviti, kao što je mehanizam za zaštitu od CSRF-a koji je prema zadanim postavkama uključen. Budući da PHP dolazi s rudimentarnim framework-om koji je dovoljno funkcionalan da ljudima omogućuje stvaranje web stranica, mnogi će to učiniti bez ikakvog znanja da im je potrebna zaštita od CSRF-a.
+</p>
+<h3> <span class="mw-headline" id="Third_party_PHP_kod"> Third party PHP kod </span></h3>
+<p>Library-i i projekti pisani u PHP-u često su nesigurni zbog gore navedenih problema, pogotovo kada se ne koriste odgovarajući okviri (eng. framework). Ne vjerujte PHP kodu koji se nalazi na webu, jer se mnoge sigurnosne ranjivosti mogu sakriti u naizgled nevinim kodovima.
+</p><p>Loše napisan PHP kod često rezultira upozorenjima koja se emitiraju, što može uzrokovati probleme. Zajedničko je rješenje isključiti sve obavijesti, što je upravo suprotno od onoga što treba učiniti (vidi gore), a vodi do progresivno lošijih kodova.
+</p>
+<h2> <span class="mw-headline" id="Postavke_.28eng._Configuration.29"> Postavke (eng. Configuration) </span></h2>
+<p>Ponašanje PHP-a jako je pod utjecajem konfiguracije, što se može učiniti kroz datoteku "php.ini", Apache konfiguracijske smjernice i mehanizme izvođenja (eng. runtime).
+</p>
+<h3> <span class="mw-headline" id="SetHandler"> SetHandler </span></h3>
+<p>PHP kod bi trebao biti konfiguriran za pokretanje pomoću 'SetHandler' direktive. U mnogim je slučajevima pogrešno konfiguriran pomoću direktive "AddHandler". To funkcionira, ali čini i druge datoteke izvršne kao PHP kod - primjerice, naziv datoteke "foo.php.txt" će se rukovati kao PHP kod, što može biti vrlo ozbiljna ranjivost izvršavanja remotely ako "foo.php.txt" nije namjeravan za izvršavanje ili je došao iz zlonamjerno prenesene datoteke.
+</p>
+<h2> <span class="mw-headline" id="Nepouzdani_podaci_.28eng._Untrusted_data.29"> Nepouzdani podaci (eng. Untrusted data) </span></h2>
+<p>Svi podaci koji su proizvod ili podizvedbeni korisničkog unosa nisu pouzdani. Moraju se potvrditi, koristeći ispravnu metodologiju ili filtrirati, prije nego što ih se može smatrati "čistim".
+</p><p>Super globali kojima ne treba vjerovati su $_SERVER, $_GET, $_POST, $_REQUEST, $_FILES i $_COOKIE. Korisnik ne može krivotvoriti sve podatke u $_SERVER, ali znatna količina se može, posebno sve što se odnosi na HTTP zaglavlja (počinju s HTTP_).
+</p>
+<h3> <span class="mw-headline" id="Upload_datoteka"> Upload datoteka </span></h3>
+<p>Datoteke primljene od korisnika predstavljaju različite sigurnosne prijetnje, posebno ako drugi korisnici mogu preuzeti te datoteke. Posebno:
+</p>
+<li> Svaka datoteka poslužena kao HTML može se upotrijebiti za XSS napad.
+<li> Svaka datoteka koja se tretira kao PHP može se upotrijebiti za izuzetno ozbiljan napad - ranjivost na remote izvršenje.
+
+Budući da je PHP osmišljen kako bi olakšao izvršavanje PHP koda (samo datoteka s pravom ekstenzijom), to je osobito važno za PHP stranice (bilo koje stranice s instaliranim i konfiguriranim PHP-om) da osiguraju da prenesene datoteke budu spremljene samo sa sanificiranim imenom datoteka.
+
+<h3> <span class="mw-headline" id="Uobi.C4.8Dajene_gre.C5.A1ke_u_obradi_polja_.24_FILES"> Uobičajene greške u obradi polja $_FILES </span></h3>
+<p>Uobičajeno je pronaći isječke koda koji rade nešto slično sljedećem kodu:
+</p>
+<pre>
+   if ($_FILES['some_name']['type'] == 'image/jpeg') {  
+       //Nastavi s prihvačanjem datoteke kao ispravne slike
+</pre>
+<p>Međutim, tip se ne određuje korištenjem heuristike koja ga potvrđuje, već jednostavno čitanjem podataka poslanih HTTP zahtjevima, koje je stvorio klijent. Bolji, ali ne i savršen način validiranja tipa datoteka je korištenje finfo klase.
+</p>
+<pre>
+   $finfo = new finfo(FILEINFO_MIME_TYPE);
+   $fileContents = file_get_contents($_FILES['some_name']['tmp_name']);
+   $mimeType = $finfo-&gt;buffer($fileContents);
+</pre>
+<p>Gdje je $mimeType bolja provjerena vrsta datoteke. Na taj se način upotrebljava više resursa na poslužitelju, ali se može spriječiti korisnika da šalje opasnu datoteku i zavarava kôd u pouzdanju da je riječ o slici, što bi se normalno smatralo sigurnom vrstom datoteke.
+</p>
+<h3> <span class="mw-headline" id="Kori.C5.A1tenje_.24_REQUEST"> Korištenje $_REQUEST </span></h3>
+<p>Korištenje $ _REQUEST-a jako je obeshrabrujuče. Ovaj super global nije preporučljiv jer uključuje ne samo POST i GET podatke, već i kolačiće poslane zahtjevom. Svi se ovi podaci kombiniraju u jedan niz, čineći gotovo nemogućim utvrditi izvor podataka. To može dovesti do konfuzije i čini vaš kôd sklon pogreškama, što može dovesti do sigurnosnih problema.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Sigurnost_datote.C4.8Dnog_sustava_.28eng._filesystem.29"> Sigurnost datotečnog sustava (eng. filesystem) </span></h2>
+<p>PHP podliježe sigurnosti ugrađenoj u većini poslužiteljskih sustava s obzirom na dozvole na temelju datoteka i direktorija. To vam omogućuje da kontrolirate koje datoteke u datotečnom sustavu se mogu pročitati. Treba voditi računa o svim datotekama koje su čitljive svijetu, kako bi se osiguralo da su sigurne za čitanje svih korisnika koji imaju pristup tom datotečnom sustavu.
+</p><p>Budući da je PHP osmišljen kako bi omogućio pristup korisničkoj razini u datotečni sustav, potpuno je moguće napisati PHP skriptu koja će vam omogućiti čitanje datoteka sustava kao što su /etc/passwd, mijenjanje ethernet veza, slanje velikih poslova pisaču itd. To ima neke očite implikacije, zbog toga morate osigurati da datoteke iz kojih čitati i u koje pišete su odgovarajuće.
+</p><p>Razmislite o sljedećoj skripti u kojoj korisnik naznačuje da želi izbrisati datoteku u svojem home direktoriju. Ovo pretpostavlja situaciju u kojoj se PHP web sučelje redovito koristi za upravljanje datotekama, tako da Apache korisnik može izbrisati datoteke u korisničkim home direktoriju.
+</p><p><b>Primjer 1</b>
+</p>
+<pre>
+&lt;?php
+// remove a file from the user's home directory
+$username = $_POST['user_submitted_name'];
+$userfile = $_POST['user_submitted_filename'];
+$homedir  = &quot;/home/$username&quot;;
+
+unlink(&quot;$homedir/$userfile&quot;);
+
+echo &quot;The file has been deleted!&quot;;
+?&gt;
+</pre>
+<h2> <span class="mw-headline" id="Sigurnost_baze_podataka"> Sigurnost baze podataka </span></h2>
+<p>Danas su baze podataka kardinalne komponente bilo koje aplikacije temeljene na webu, omogućujući web stranicama da pružaju različite dinamičke sadržaje. Budući da se vrlo osjetljive ili tajne informacije mogu pohraniti u bazi podataka, trebali biste snažno razmotriti zaštitu vaših baza podataka.
+</p><p>Da biste preuzeli ili spremili sve informacije koje se trebaju povezati s bazom podataka, pošaljite legitiman upit, dohvatite rezultat i zatvorite vezu. Danas, uobičajeni jezik upita u ovoj interakciji je Strukturirani jezik upita (SQL).
+</p><p>Imajte na umu ovo jednostavno pravilo: obrana u dubini. Što više mjesta na kojima se poduzme nešto kako biste povećali zaštitu svoju bazu podataka, to je manja vjerojatnost napadača da uspije otkriti ili zloupotrijebiti pohranjene podatke. Dobar dizajn sheme baze podataka i aplikacije bavi se vašim najvećim strahovima.
+</p>
+<h3> <span class="mw-headline" id="Nikad_ne_spajati_ili_interpolirati_podatke_u_SQL-u"> Nikad ne spajati ili interpolirati podatke u SQL-u </span></h3>
+<p>Nikad ne izrađujte SQL upit koji uključuje korisničke podatke, bilo povezivanjem:
+</p>
+<pre> $sql = &quot;SELECT * FROM users WHERE username = '&quot; . $username . &quot;';&quot;; </pre>
+<p>ili interpolacijom, što je u biti isto:
+</p>
+<pre> 
+   $sql = &quot;SELECT * FROM users WHERE username = '$username';&quot;;
+</pre>
+<p>Ako je "$username" došao iz nepouzdanog izvora (i morate pretpostaviti da je, budući da to u izvornom kodu ne možete lako vidjeti), može sadržavati znakove kao što su ' koji će omogućiti napadaču izvršavanje vrlo različitih upita uključujući brisanje cijele baze podataka itd. Korištenje pripremljenih izjava i vezanih parametara mnogo je bolje rješenje.
+</p>
+<h3> <span class="mw-headline" id="Izbjegavati_Escaping"> Izbjegavati Escaping </span></h3>
+<p>mysql_real_escape_string nije sigurno za korištenje. Ne treba se oslanjati na to za prevenciju SQL injection-a. 
+</p><p>Kada koristite mysql_real_escape_string na svakoj varijabli, a zatim ga povezujete sa svojim upitom sigurno ćete zaboraviti barem jednom to izvesti, i jednom je sve što je potrebno.Osim toga, morate osigurati i korištenje kvota u SQL-u, što nije prirodno učiniti ako pretpostavite da su podaci, primjerice, numerički. Umjesto toga upotrijebite pripremljene izjave ili ekvivalentne API-je koji uvijek izvode ispravnu vrstu SQL escepinga za vas. (Većina ORM-ova će to učiniti esceping, kao i stvaranje SQL upita za vas).
+</p>
+<h3> <span class="mw-headline" id="Uporada_pripremljenih_upita"> Uporada pripremljenih upita </span></h3>
+<p>Pripremljeni upiti su vrlo sigurni. U pripremljenom upiti, podaci se odvajaju od naredbe SQL, tako da se svi korisni ulazi smatraju podacima i stavljaju u tablicu onako kako je to bilo.
+</p><p><b> Gdje pripremljeni upiti ne rade </b>
+</p><p>Problem je kada trebate izgraditi dinamičke upite ili trebate postaviti varijable koje nisu podržane kao pripremljena varijabla ili vaš engine baze podataka ne podržava pripremljene upite. Na primjer, PDO MySQL ne podržava&#160;? kao LIMIT specifikator. Osim toga, ne mogu se koristiti za stvari poput naziva tablica ili stupaca u upitima "SELECT". U tim slučajevima, trebate koristiti alat za generiranje upita koje nudi okvir, ako je dostupan. Ako nije, nekoliko paketa dostupno je za upotrebu preko Composera i Packagista.
+</p>
+<h3> <span class="mw-headline" id="ORM"> ORM </span></h3>
+<p>ORM (Object Relational Mappers) su dobra sigurnosna praksa. Ako koristite ORM (poput Doktrine) u svom PHP projektu, još uvijek ste skloni SQL napadima. Iako je injection upita u ORM-ovima puno teže, imajte na umu da povezivanje ORM upita uzrokuje iste nedostatke koje i povezivanje SQL upita, s toga nikad ne povezujte nizove koji se šalju u bazu podataka. ORM-ova podrška također je pripremila upite.
+</p><p>Uvijek budite sigurni da procijenite kod bilo koji ORM-a koji koristite za provjeru valjanosti načina na koji se izvršava generirani SQL upit. Pobrinite se da se ne povezuje vrijednosti i umjesto toga koristi pripremljene izjave interno, kao i praćenje dobre sigurnosne prakse.
+</p>
+<h3> <span class="mw-headline" id="Problemi_kodiranja_.28eng._encoding.29"> Problemi kodiranja (eng. encoding) </span></h3>
+<p><b>Koristite UTF8</b>
+</p><p>Mnogi novi napadački vektori oslanjaju se na zaobilaženje kodiranja. Upotrijebite UTF-8 za svoju bazu podataka i aplikaciju osim ako nemate obavezan zahtjev za upotrebom drugog kodiranja!
+</p>
+<pre>
+   $DB = new mysqli($Host, $Username, $Password, $DatabaseName);
+   if (mysqli_connect_errno())
+       trigger_error(&quot;Unable to connect to MySQLi database.&quot;);
+   $DB-&gt;set_charset('utf8');
+</pre>
+<h2> <span class="mw-headline" id="Ostale_vrste_injection-a"> Ostale vrste injection-a </span></h2>
+<p>Osim SQL injekcija, postoji još nekoliko mogućih injekcija koje su uobičajene u PHP-u:
+</p>
+<h3> <span class="mw-headline" id="Shell_injection"> Shell injection </span></h3>
+<p>Nekoliko PHP funkcija naime:
+</p>
+<li> shell_exec
+<li> exec
+<li> passthru
+<li> system
+<li> backtick operator (`)
+
+pokreću niz kao shell skripte i naredbe. Ulaz za ove funkcije (posebno backtick operator koji nije poput funkcije). Ovisno o vašoj konfiguraciji, ubrizgavanje skripti ljuske (eng. shell) može uzrokovati curenje vaših postavki i konfiguracije aplikacija ili otmici cijelog poslužitelja. To je vrlo opasno ubrizgavanje i smatra se utočištem za napadača.
+
+Nikad ne prosljeđujte nesiguran ulaz tim funkcijama (koji je korisnik nekako manipulirao), osim ako niste sto posto sigurni da ne povlači nikakvu opasnost. Escaping i bilo koje druge protumjere su neefektivne, postoji mnogo vektora za zaobilaženje svake. 
+
+<h3> <span class="mw-headline" id="Ostalo"> Ostalo </span></h3>
+<p>LDAP, XPath i sve druge aplikacije trećih strana koje pokreću niz, ranjive su na ubrizgavanje. Uvijek imajte na umu da neki nizovi nisu podaci nego naredbe i tako moraju biti sigurne prije prelaska u biblioteke (eng. library) trećih strana.
+</p>
+<h2> <span class="mw-headline" id="XSS"> XSS </span></h2>
+<p>Postoje dva scenarija kada je u pitanju XSS, od kojih se svaki treba ublažiti:
+</p>
+<h3> <span class="mw-headline" id="Bez_oznaka"> Bez oznaka </span></h3>
+<p>Većinu vremena, nema potrebe za korisničkim podacima koji sadrže neizbrisane HTML oznake prilikom izlaza (eng. output). Na primjer, kada namjeravate dump-ati vrijednost tekstualnog okvira ili izbaciti korisničke podatke u ćeliju.
+</p><p>Ako koristite standardni PHP za predložak ili `echo` itd., tada možete ublažiti XSS u ovom slučaju primjenom 'htmlspecialchars' na podatke. Međutim, to se ne preporučuje. Problem je u tome što se morate sjetiti da to primijenite svaki put, i ako jednom zaboravite, imate XSS ranjivost. Metodologije koje su nesigurne po defaultu moraju se tretirati kao nesigurne.
+</p><p>Umjesto toga, trebali biste upotrijebiti template engine koji primjenjuje HTML escaping prema zadanim postavkama. Čitav HTML treba proći kroz template engine.
+</p><p>Ako se ne možete prebaciti na sigurni template engine, možete upotrijebiti funkciju u nastavku na svim nepouzdanim podacima.
+</p><p>Imajte na umu da ovaj scenarij neće ublažiti XSS kada upotrebljavate korisnički unos u opasnim elementima (style, script, src image, itd.). Također imajte na umu da se svaki izlaz koji ne namjerava sadržavati HTML oznake treba poslati pregledniku filtriranom pomoću sljedeće funkcije.
+</p>
+<pre>
+  //xss mitigation functions
+  function xssafe($data,$encoding='UTF-8')
+  {
+     return htmlspecialchars($data,ENT_QUOTES | ENT_HTML401, $encoding);
+  }
+  function xecho($data)
+  {
+     echo xssafe($data);
+  }
+</pre>
+<pre>
+  //usage example
+  &lt;input type='text' name='test' value='&lt;?php xecho (&quot;'onclick='alert(1)&quot;);?&gt;' /&gt;
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Nepouzdane_oznake"> Nepouzdane oznake </span></h3>
+<p>Kada korisnicima trebate omogućiti opskrbu HTML oznaka koje se upotrebljavaju u izlazu, kao što su komentari s richtext-om, forumski postovi, postovi na blogu i sl., ali se ne mogu pouzdati u korisnika, morate koristiti biblioteku za Secure Encoding. To je obično teško i sporo, i zato većina aplikacija ima XSS ranjivosti u njima. OWASP ESAPI ima hrpu kodeka za kodiranje različitih dijelova podataka. Tu je i OWASP AntiSammy i HTMLPurifier za PHP. Svaki od njih zahtijeva puno konfiguracije i učenja za dobro funkcioniranje, ali vam je potrebno kada želite zaštiti aplikaciju od XSS-a.
+</p>
+<h3> <span class="mw-headline" id="Templating_engines"> Templating engines </span></h3>
+<p>Postoji nekoliko templating engine-a koji mogu pomoći programeru (i dizajneru) za izlaz podataka i zaštitu od većine XSS ranjivosti. Iako njihov primarni cilj nije sigurnost, nego poboljšanje iskustva u dizajniranju, najvažniji templating engine-i automatski izbjegavaju varijable na izlazu i prisiljavaju razvojnog programera da izričito ukazuje postoji li varijabla koja se ne bi smjela izbjegavati. To čini izlaz varijabli da imaju "dobro" ponašanje. Postoji nekoliko engine-a. Popularni template engine-i su Smarty, Haanga i Rain TPL.
+</p>
+<h3> <span class="mw-headline" id="Savjeti"> Savjeti </span></h3>
+<li>Nemate pouzdani odjeljak ni u jednoj web-aplikaciji. Mnogi programeri obično napuštaju administratorske zone izvan XSS ublažavanja, ali većinu uljeza zanimaju admin kolačići i XSS. Svaki izlaz treba očistiti gore navedenim funkcijama, ako u njemu postoji varijabla. Uklonite svaku instancu echo, printi printf iz svoje aplikacije i zamijenite ih sigurnim template engine-ima.
+<li> HTTP-Only cookies su vrlo dobra praksa, u bliskoj budućnosti kada svaki preglednik bude kompatibilan. Sada ih počnite upotrebljavati.
+<li> Funkcija koja je gore navedena funkcionira samo za valjane HTML sintakse. VALIDIRAJTE HTML!
+<li> Reflected XSS je opasan kao i normalan XSS, a obično dolazi u skrivenim kutovima aplikacije.
+<li> Neke PHP instalacije nemaju mhash ekstenziju, pa ako trebate napraviti hash, provjerite prije korištenja. Inače ne možete napraviti SHA-256!
+<li> Neke PHP instalacije nemaju proširenje mcrypt, a bez njega ne možete napraviti AES.
+
+<h2> <span class="mw-headline" id="CSFR"> CSFR </span></h2>
+<p>Smanjenje CSRF-a je jednostavno u teoriji, ali je teško implementirati ispravno. Nekoliko savjeta o CSRF-u:
+</p>
+<li> Svaki zahtjev koji čini nešto važno, trebao bi bit ublažiti CSRF. Značajne stvari su promjene u sustavu i čitanje traje duže vrijeme.
+<li> CSRF se uglavnom događa na GET, ali se lako može dogoditi na POST-u. Nikad ne misli da je taj post siguran!
+<li> Koristite ponovnu provjeru autentičnosti za kritične operacije (promijenite zaporku, e-poštu za oporavak itd.)
+<li> Ako niste sigurni je li vaša operacija dokaz CSRF-a, razmislite o dodavanju CAPTCHA-ova (no CAPTCHA-ovi su neugodnosti za korisnike)
+<li> Ako radite na temelju drugih zahtjeva (ni GET niti POST) npr. cookies ili HTTP zaglavlja, možda biste trebali dodati i CSRF tokene.
+<li> Obrasci AJAX-a moraju ponovno stvoriti CSRF tokene.
+<li> CSRF na GET ili Cookies će dovesti do neugodnosti, razmotrite vaš dizajn i arhitekturu!
+
+<h2> <span class="mw-headline" id="Upravljanje_autentifikacijom_i_sesijama"> Upravljanje autentifikacijom i sesijama </span></h2>
+<p>PHP se ne isporučuje s lako dostupnim modulom za provjeru autentičnosti, morate implementirati vlastiti ili koristiti PHP okvir, nažalost, većina PHP okvira nije savršena na ovaj način, jer je razvijena zajednicom razvojnih programera otvorenog koda, a ne od sigurnosnih stručnjaka.
+</p>
+<h3> <span class="mw-headline" id="Upravljanje_sesijama"> Upravljanje sesijama </span></h3>
+<p>PHP-ovi zadani objekti sesije smatraju se sigurnima, generirani ID za PHPSession dovoljno je slučajan, ali pohrana nije nužno sigurna:
+</p>
+<li> Datoteke sesije pohranjene su u temp (/tmp) mapi i one su world writable osim ako je instaliran suPHP, tako da bi bilo koji LFI ili drugi propust mogao završiti manipuliranje istima.
+<li> Sesije se spremaju u datoteke u zadanoj konfiguraciji, što je strašno usporava često posjećivana web mjestima. Možete ih pohraniti u memorijsku mapu (UNIX).
+<li> Možete implementirati svoj vlastiti mehanizam za sesije, bez ikakvog oslanjanja na PHP. Ako ste to učinili, pohranite podatke o sesiji u bazu podataka. Možete upotrijebiti sve, neke ili nijednu od funkcionalnosti PHP za upravljanje sesije.
+
+<h4> <span class="mw-headline" id="Sprje.C4.8Davanje_preuzimanja_sesija"> Sprječavanje preuzimanja sesija </span></h4>
+<p>Dobra je praksa vezati sesije na IP adrese, što bi spriječilo većinu scenarija otmice sesija (ali ne i sve), no neki korisnici mogu koristiti alate za anonimnost (poput TOR-a) te bi oni imali problema s vašom uslugom.
+</p><p>Da biste to implementirali, jednostavno spremite klijentsku IP adresu u sesiju po prvi puta kada je stvorena te potvrdite da sesija bude ista kasnije. Isječak koda u nastavku vraća IP adresu klijenta:
+</p>
+<pre>
+  $IP = getenv ( &quot;REMOTE_ADDR&quot; );
+</pre>
+<p>Imajte na umu da se u lokalnim okruženjima valjana IP adresa se ne vraća, a obično se može pojaviti niz&#160;:::1 ili&#160;:::127, time morate prilagoditi logiku provjere IP-a. Također čuvajte se inačice ovog koda koji upotrebljavaju varijablu HTTP_X_FORWARDED_FOR budući da su ti podaci korisnički uneseni i time podložni spoofingu.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Neva.C5.BEe.C4.87i_ID_sesije"> Nevažeći ID sesije </span></h4>
+<p>Trebali biste poništiti (isključivanje kolačića, poništiti pohranu sesije, ukloniti tragove) sesije svaki put kad dođe do kršenja (npr. 2 IP adrese se primjećuje). Log je tu izuzetno koristan. Mnoge aplikacije također obavještavaju prijavljenog korisnika.
+</p><p>==== Zakretanje (eng. rolling) ID-a sesije
+</p><p>Trebali biste izmijeniti ID sesije kad god se dogodi elevacija, npr. kada se korisnik prijavi ID sesije se treba promijeniti, jer se mijenja njezina važnost.
+</p>
+<h4> <span class="mw-headline" id="Izlo.C5.BEene_ID_sesije"> Izložene ID sesije </span></h4>
+<p>ID-ovi sesije smatraju se povjerljivima, aplikacija ih ne smije izlagati nigdje (posebno kada je vezana za prijavljenog korisnika). Pokušajte ne koristiti URL kao medij sesija.
+</p><p>Prenesite ID sesije preko TLS-a kad god sesija sadrži povjerljive informacije, inače će pasivni napadač moći izvršiti otmicu sesije.
+</p>
+<h4> <span class="mw-headline" id="Fiksiranje_sesije"> Fiksiranje sesije </span></h4>
+<p>Učinite ID sesije nevažećim nakon prijave korisnika (ili čak i nakon svakog zahtjeva) s session_regenerate_id() naredbom.
+</p>
+<h4> <span class="mw-headline" id="Istek_sesije"> Istek sesije </span></h4>
+<p>Sesija treba istjecati nakon određene količine neaktivnosti i nakon određenog vremena aktivnosti. Proces isteka znači poništenje i uklanjanje sesije i stvaranje nove kada se ostvari drugi zahtjev.
+</p><p>Također neka vam gumb za odjavu bude blizu i uklonite sve tragove sesije pri odjavljanju.
+</p>
+<h5> <span class="mw-headline" id="Vrijeme_neaktivnosti"> Vrijeme neaktivnosti </span></h5>
+<p>Istek sesija ako je trenutni zahtjev X sekundi kasniji od zadnjeg zahtjeva. Za to trebate ažurirati podatke sesije s vremenom zahtjeva svaki put kada se podnese zahtjev. Vrijeme uobičajene prakse je 30 minuta, ali ovisi o kriterijima primjene.
+</p><p>Ovo isticanje pomaže kada je korisnik prijavljen na javno dostupno računalo, ali se zaboravi odjaviti. Također pomaže pri otvaranju sesija.
+</p>
+<h5> <span class="mw-headline" id="Op.C4.87i_vremenski_rok"> Opći vremenski rok </span></h5>
+<p>Sesija ističe ako je trenutačna sesija aktivna određeno vrijeme. To pomaže u praćenju stvari, te da biste to implementirali, potrebno je pohraniti vrijeme početka sesije.
+</p>
+<h3> <span class="mw-headline" id="Kola.C4.8Di.C4.87i_.28eng._cookies.29"> Kolačići (eng. cookies) </span></h3>
+<p>Baratanje kolačićima unutar PHP sadrži neke trikove
+</p>
+<h4> <span class="mw-headline" id="Nikad_ne_raditi_serijalizaciju_.28eng._serialize.29"> Nikad ne raditi serijalizaciju (eng. serialize) </span></h4>
+<p>Nikad ne serializirajte podatke pohranjene u kolačićima. Moguće je jednostavno manipulirati, što će rezultirati dodavanjem varijabli u vaš opseg (eng. scope).
+</p>
+<h4> <span class="mw-headline" id="Pravilno_brisanje"> Pravilno brisanje </span></h4>
+<p>Za sigurno brisanje kolačića upotrijebite sljedeći isječak:
+</p>
+<pre>
+   setcookie ($name, &quot;&quot;, 1);
+   setcookie ($name, false);
+   unset($_COOKIE[$name]);
+</pre>
+<p>Prva linija osigurava da kolačić istekne u pregledniku, druga linija je standardni način uklanjanja kolačića (stoga ne možete unijeti lažne podatke u kolačić). Treća linija uklanja kolačić iz skripte. Mnogi upućuju razvojnim programerima da koriste time()-3600 za istek, ali to možda neće funkcionirati ako vrijeme preglednika nije točno.
+</p>
+<h4> <span class="mw-headline" id="HTTP_Only"> HTTP Only </span></h4>
+<p>Većina modernih preglednika podržava HTTP-Only cookies. Ovi kolačići dostupni su samo putem zahtjeva HTTP-a, a ne JavaScripta, pa im XSS isječci ne mogu pristupiti. Korištenje HTTP-Only cookies je vrlo dobra praksa, ali nije zadovoljavajuća jer se u glavnim preglednicima otkrivaju mnogobrojni nedostaci koji dovode do otkrivanja HTTP-Only cookies-a putem JavaScript-a.
+</p><p>Da biste koristili HTTP-Only cookies u PHP-u (5.2+), ručno postavite kolačiće sesije (ne upotrebljavajte session_start):
+</p>
+<pre>
+  #prototype
+  bool setcookie ( string $name [, string $value [, int $expire = 0 [, string $path [, string $domain [, bool $secure = false [, bool 
+  $httponly = false ]]]]]] )
+</pre>
+<pre>
+   #usage
+   if (!setcookie(&quot;MySessionID&quot;, $secureRandomSessionID, $generalTimeout, $applicationRootURLwithoutHost, NULL, NULL,true))
+      echo (&quot;could not set HTTP-only cookie&quot;);
+</pre>
+<p>Parametar putanje postavlja putanju na kojoj je kolačić važeći, npr. ako imate svoju web stranicu na adresi example.com/some/folder putanja bi trebala biti /some/folder, no druge aplikacije koje se nalaze na example.com mogu također vidjeti vaš kolačić. Ako ste na cijeloj domeni, ne morate se opterećivati. Ako je postavljen siguran parametar, kolačić se može prenijeti samo preko HTTPS-a. Pogledajte primjer u nastavku:
+</p>
+<pre>
+   $r=setcookie(&quot;SECSESSID&quot;,&quot;1203j01j0s1209jw0s21jxd01h029y779g724jahsa9opk123973&quot;,time()+60*60*24*7 /*a week*/,&quot;/&quot;,&quot;owasp.org&quot;,true,true);
+   if (!$r) die(&quot;Could not set session cookie.&quot;);
+</pre>
+<h4> <span class="mw-headline" id="Internet_Explorer"> Internet Explorer </span></h4>
+<p>Mnoge inačice Internet Explorera obično imaju problema s kolačićima. Uglavnom postavljanje isteka vremena na 0 popravlja probleme.
+</p>
+<h3> <span class="mw-headline" id="Autentifikacija"> Autentifikacija </span></h3>
+<h4> <span class="mw-headline" id="Zapamti_me_.28eng._remember_me.29"> Zapamti me (eng. remember me) </span></h4>
+<p>Mnoge web stranice imaju ranjive "zapamti me" značajke. Često su ove ranjivosti trivijalno iskoristive (npr. spremanje userid = 13 ili username = paul &amp; password = abcdefg).
+</p><p><b>Nikad ne spremajte korisničko ime / zaporku ili bilo kakve relevantne podatke u kolačić.</b>
+</p><p>Umjesto toga, trebali biste upotrebljavati slučajni (eng. random) token (najmanje 16 znakova iz random_bytes() naredbe, kodiranih kako god želite), koji bi trebao biti pohranjen na samo dva mjesta: korisnikov kolačić i zapis podataka baze podataka. Međutim, čak je i ova strategija puna opasnosti.
+</p><p>Da biste izbjegli neželjene "kanale", razmislite o prihvaćanju ove strategije za "zapamti me" tokene:
+</p>
+<pre> 
+   1. Generirati dva tokena: Selector i verifier pomoću CSPRNG.
+   2. Pohranite selector i SHA-384 hash verifier-a u bazu podataka.
+   3. Pohranite selector i verifier u kolačić (recimo: rememberme).
+</pre>
+<p>Kada korisnik posjeti vašu web stranicu i oni nisu ovjereni, ali imaju cookie "rememberme", pokrenite ovaj postupak:
+</p>
+<pre>
+  1. Podijelite kolačić u selector i verifier komponente.
+  2. Pretražite bazu podataka pomoću selectora.
+  3. Ako se pronađe redak, zgrabite taj zapis.
+  4. Usporedite SHA-384 korisničkog verfiera s vrijednošću pohranjenom u bazi podataka, koristeći hash_equals().
+  5. Ako se podudaraju, automatski autentificirajte korisnika.
+</pre>
+<h2> <span class="mw-headline" id="Mogu.C4.87i_napadi_.28Apache.29"> Mogući napadi (Apache) </span></h2>
+<p>Kada se PHP koristi kao Apache modul nasljeđuje Apache korisnička dopuštenja (obično one korisnika "nitko"). To ima nekoliko utjecaja na sigurnost i autorizaciju. Na primjer, ako koristite PHP za pristup bazi podataka, osim ako ta baza podataka nema ugrađenu kontrolu pristupa, morat ćete napraviti bazu podataka dostupnom korisniku "nitko". To znači da zlonamjerna skripta može pristupiti i mijenjati bazu podataka, čak i bez korisničkog imena i zaporke. Posve je moguće da bi web pauk (eng. web-spider) mogao posrnuti preko web stranice administratora baze podataka i ispustiti sve vaše baze podataka. Možete se zaštititi od toga s autorizacijom programa Apache ili možete izraditi vlastiti pristupni model pomoću LDAP, .htaccess datoteka i sl. Te uključiti taj kôd kao dio vaših PHP skripti.
+</p><p>Često, kada se sigurnost utvrdi do točke u kojoj PHP korisnik (u ovom slučaju, korisnik Apachea) ima vrlo malo rizika, otkriva se da je PHP sada spriječen od pisanja bilo koje datoteke u korisnički direktorije. Ili je možda spriječeno pristupanje ili mijenjanje baza podataka. Jednako je osigurano od pisanja dobrih i loših datoteka, ili unosa dobrih i loših transakcija baze podataka.
+</p><p>Česta sigurnosna pogreška u ovom trenutku je dopustiti apache root dopuštenja ili eskalirati apacheove sposobnosti na neki drugi način.
+Povećanje ovlasti Apache korisnika za root je iznimno opasno i može ugroziti cijeli sustav, tako da su sudoing, chroot'ing ili inače pokretanje kao root ne trebaju uzeti u obzir oni koji nisu sigurnosni stručnjaci.
+Postoje jednostavnija rješenja. Korištenjem open_basedir možete kontrolirati i ograničiti koji se direktoriji mogu koristiti za PHP. Također možete postaviti područja kao apache-only, kako biste ograničili sve aktivnosti na webu u datotekama koje su ne-korisničke ili ne-sistemske.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Error_Reporting_.28izvje.C5.A1tavanje_o_pogre.C5.A1akama.29"> Error Reporting (izvještavanje o pogrešakama) </span></h2>
+<p>Sa PHP sigurnost, postoje dvije strane za izvještavanje o pogreškama. Jedno je korisno za povećanje sigurnosti, a drugo je štetno.
+</p><p>Standardna taktika napada uključuje profiliranje sustava tako što se unose nepravilni podaci i provjeravaju vrste i kontekst pogrešaka koje se vraćaju. To omogućava osobi koja krekira sustav za ispitivanje informacija o poslužitelju, kako bi se utvrdile moguće slabosti. Na primjer, ako je napadač prikupio informacije o stranici na temelju prethodnog slanja obrasca, može pokušati nadjačati varijable ili ih mijenjati: 
+</p>
+<pre>
+  &lt;form method=&quot;post&quot; action=&quot;attacktarget?username=badfoo&amp;password=badfoo&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;username&quot; value=&quot;badfoo&quot; /&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;password&quot; value=&quot;badfoo&quot; /&gt;
+  &lt;/form&gt;
+</pre>
+<p>PHP pogreške koje se obično vraćaju mogu biti vrlo korisne za razvojnog programera koji pokušava ispraviti skriptu, što ukazuje na stvari kao što su funkcija ili datoteka koja nije uspjela, datoteka PHP nije uspjela i broj čvora u kojem je došlo do kvara. Ovo su sve informacije koje se mogu iskoristiti. Nije neuobičajeno da PHP programer upotrebljava show_source(), highlight_string() ili highlight_file() kao mjeru za uklanjanje pogrešaka, ali na živom web mjestu to može otkriti skrivene varijable, neprovjerenu sintaksu i druge opasne informacije. Posebno je opasno pokrenuti kôd iz poznatih izvora s ugrađenim vodičima za uklanjanje pogrešaka ili upotrebom uobičajenih tehnika uklanjanja pogrešaka. Ako napadač može utvrditi koja opća tehnika koju koristite, možda će pokušati prisiliti (eng. brute-force) stranicu, šaljući različite uobičajene nizove za uklanjanje pogrešaka: 
+</p>
+<pre>
+  &lt;form method=&quot;post&quot; action=&quot;attacktarget?errors=Y&amp;showerrors=1&amp;debug=1&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;errors&quot; value=&quot;Y&quot; /&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;showerrors&quot; value=&quot;1&quot; /&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;debug&quot; value=&quot;1&quot; /&gt;
+  &lt;/form&gt;
+</pre>
+<p>Bez obzira na način vođenja pogrešaka, sposobnost sustava za ispitivanje pogrešaka dovodi do pružanja informacija o napadaču.
+Na primjer, vrlo stil generičke pogreške u PHP-u ukazuje na to da sustav koristi PHP. Ako je napadač pregledavao .html stranicu i htio probati za back-end (tražiti poznate slabosti u sustavu), hranjenjem pogrešnih podataka oni bi mogli odrediti da je sustav izgrađen s PHP-om.
+</p><p>Pogreška u funkciji može ukazati može li sustav pokrenuti određeni engine baze podataka ili dati tragove o tome kako je web stranica programirana ili dizajnirana. To omogućuje dublju istragu u otvorenim portovima baze podataka ili traženju specifičnih grešaka ili slabosti na web stranici. Na primjer, hranjenjem različitih dijelova loših podataka, napadač može odrediti redoslijed provjere autentičnosti u skripti (od pogrešaka u redcima brojeva), kao i sonda (eng. probe) za iskorištavanje koja se može iskoristiti na različitim mjestima u skripti.
+</p><p>Datotečni sustav ili opća PHP pogreška može ukazivati na dopuštenja koja ima web poslužitelj, kao i strukturu i organizaciju datoteka na web poslužitelju. Pogrešni kôd napisan od strane razvojnog programera može pogoršati taj problem, što dovodi do jednostavnog iskorištavanja nekadašnjih "skrivenih" informacija.
+</p><p>Postoje tri glavna rješenja ovog problema. Prvo je proučavanje svih funkcija i pokušaj nadoknade većine pogrešaka. Drugi je onemogućiti izvješćivanje o pogreškama u potpunosti o pokretanju koda. Treći je da koristite PHP prilagođene funkcije za rukovanje pogreškama kako biste stvorili vlastiti upravljač pogrešaka. Ovisno o sigurnosnim pravilima, sva tri mogu se primijeniti na vašu situaciju.
+</p><p>Jedan od načina kako uhvatiti propust prije vremena je iskoristiti PHP vlastite error_reporting(), kako bi vam pomogao da zaštitite kôd i pronađete promjenjivu uporabu koja može biti opasna. Testiranjem koda, prije implementacije, s E_ALL, se brzo može  pronaći područja na kojima vaša varijabla može biti otvorena za trovanje ili izmjenu na druge načine. Kada budete spremni za implementaciju, trebali biste potpuno ili potpuno onemogućiti izvješćivanje o pogreškama postavljanjem error_reporting () na 0 ili isključivanjem zaslona pogreške pomoću opcije php.ini display_errors kako biste izdvojili kôd od sondiranja. Ako odlučite izvršiti potonji, trebali biste definirati put do svoje log datoteke pomoću error_log ini datoteke i uključiti log_errors.
+</p>
+<pre>
+  &lt;?php
+  if ($username) {  // Not initialized or checked before usage
+    $good_login = 1;
+  }
+  if ($good_login == 1) { // If above test fails, not initialized or checked before usage
+     readfile (&quot;/highly/sensitive/data/index.html&quot;);
+  }
+ &#160;?&gt;
+</pre>
+<h2> <span class="mw-headline" id="Skrivanje_PHP-a"> Skrivanje PHP-a </span></h2>
+<p>Općenito, sigurnost opskurnošću (eng. obscurity) jedan je od najslabijih oblika sigurnosti. Ali u nekim slučajevima, svaka dodatna sigurnost je poželjna.
+</p><p>Nekoliko jednostavnih tehnika može pomoći sakriti PHP, možda usporavajući napadača koji pokušava otkriti slabosti u vašem sustavu. Ako postavite expose_php na 0 u datoteci php.ini, smanjujete količinu informacija koje su im dostupne.
+Druga taktika je da konfigurirate web poslužitelje kao što je apache za analiziranje različitih vrsta datoteka kroz PHP, bilo s .htaccess-om, ili u apache konfiguracijskoj datoteci. Zatim možete upotrijebiti zavaravajuća proširenja datoteka: 
+</p>
+<pre>
+   # Make PHP code look like other code types
+   AddType application/x-httpd-php .asp .py .pl
+</pre>
+<p>Ili ga u potpunosti učiniti neprimjetnim: 
+</p>
+<pre>
+   # Make PHP code look like unknown types
+   AddType application/x-httpd-php .bop .foo .133t
+</pre>
+<p>Ili ga sakrijte kao HTML kôd, mana je što ima slabu izvedbu, jer će se sav HTML analizirati kroz PHP engine: 
+</p>
+<pre>
+   # Make all PHP code look like HTML
+   AddType application/x-httpd-php .htm .html
+</pre>
+<p>Da bi to djelotvorno funkcioniralo, morate preimenovati PHP datoteke s gore navedenim proširenjima. Iako je to oblik sigurnosti kroz neprimjetnost, to je manja preventivna mjera s nekoliko nedostataka.
+</p>
+<h2> <span class="mw-headline" id="Odr.C5.BEavati_svijest_o_novijim_verzijama"> Održavati svijest o novijim verzijama </span></h2>
+<p>PHP, kao i svaki drugi veliki sustav, pod stalnom je kontrolom i poboljšanjem. Svaka nova inačica često uključuje i velike i male izmjene kako bi se poboljšala sigurnost i popravili svi nedostatci, konfiguracijske pogreške i druga pitanja koja će utjecati na ukupnu sigurnost i stabilnost vašeg sustava.
+</p><p>Poput drugih jezika i programa skriptnih jezika na razini sustava, najbolji je pristup ažurirati često i održavati svijest o najnovijim verzijama i njihovim promjenama.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 452/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:10143-0!*!0!!hr!*!edit=0 and timestamp 20190203204150 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="PHP_security.html">http://security.foi.hr/wiki/index.php/PHP_security</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=PHP_security" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="PHP_security.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:PHP_security&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="PHP_security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="PHP_security.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_security&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=PHP_security&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="PHP_security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/PHP_security" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/PHP_security" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=PHP_security&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=PHP_security&amp;oldid=42779" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 02:40, 31. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 865 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "PHP_security", "wgTitle": "PHP security", "wgAction": "view", "wgArticleId": 10143, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42779, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.568 secs. -->			</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Man in the middle local network attack (mitmf, bettercap) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Man_in_the_middle_local_network_attack_(mitmf,_bettercap)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Man_in_the_middle_local_network_attack_mitmf_bettercap skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Man in the middle local network attack (mitmf, bettercap)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#mw-head">orijentacija</a>,
+					<a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi: Danijel Sladović 8.siječnja.2017.
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#Man_in_the_middle_atack"><span class="tocnumber">1</span> <span class="toctext">Man in the middle atack</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#Mete_i_scenariji_MITM_napada"><span class="tocnumber">2</span> <span class="toctext">Mete i scenariji MITM napada</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#Alati_za_MITM_napade"><span class="tocnumber">3</span> <span class="toctext">Alati za MITM napade</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#Provo.C4.91enje_MITM_napada"><span class="tocnumber">4</span> <span class="toctext">Provođenje MITM napada</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#MITMf_attack"><span class="tocnumber">5</span> <span class="toctext">MITMf attack</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#Bettercap_napad"><span class="tocnumber">6</span> <span class="toctext">Bettercap napad</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#Literatura"><span class="tocnumber">7</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Man_in_the_middle_atack"> Man in the middle atack </span></h2>
+<p>U računalnoj sigurnosti i kriptografiji man in the middle napad često zvan MITM, MitM, MiM, MitMA napad. Je vrsta napada kod kojeg napadač prekida vezu komunikacije između dvije strane te na taj način si omogućuje tajno odašiljanje ili mjenjanje podataka u komunikaciji između dvije strane, ali tako da obje strane misle da izravno komuniciraju jedna sa drugom. Najveći rizik od MITM napada postoji na javnim mjestima gdje postoji nezaštićena wireles acces point ili acces point koji ima lozinku, ali je ona javna, najčešće se taj napad može izvesti na lokalnim mrežama kafića ili gradskim wifi acces pointovima te samim tim napadaču se omogućuje širenje malware-a ili u slučaju da napadač zarazi router ili žrtvu trojanskim konjem i na taj nač si omogući pristup tom računalu ili manipuliranje računalom(remote controll). Još jedna primjena MITM napada je aktivno prisluškivanje komunikacije između dvije strane tj. između žrtve i usmjernika (routera) lokalne mreže.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:MITM.gif" class="image"><img alt="MITM.gif" src="../images/8/87/MITM.gif" width="640" height="324" /></a>
+</p>
+<h2> <span class="mw-headline" id="Mete_i_scenariji_MITM_napada"> Mete i scenariji MITM napada </span></h2>
+<p><b>Mete MITM napada mogu biti:</b>
+</p><p>- razne stranice kojima napadač želi pristupiti, a koje imaju zaštitu putem prijave i napadaču omogućuju pristup toj stranici
+</p><p>- financijske stranice - između prijave i autentifikacije
+</p><p>- veze koje bi trebale zaštićene javnim ili privatnim ključevima
+</p><p><b> Scenariji MITM napada:</b>
+</p><p>- Injection
+</p><p>- Key manipulation
+</p><p>- Downgrade attacks
+</p><p>- Filtering
+</p><p><b>Injecting</b>
+</p><p>Dodavanje paketa kod već uspostavljene veze.
+</p><p>Napadač može odrediti brojeve slijeda i na taj način održati vezu sinkroniziranu dok injecta nove pakete. U slučaju da je MITM napad "proxy napad" još je lakše za napadača da ubaci pakete. Korisna primjena za napadača da koristi MITM napad je prilikom jednostruke autentifikacije kada se koristi RSA token. Kod takvih scenarija "sniffing" lozinke je beskorisno zbog RSA tokena, ali jako važno presresti već autentificiranu vezu jer tada se možemo predstaviti kao autentificirani korisnik  imamo pristup svemu što ima i korisnik koji je upisao lozinku i pin sa tokena.Uz to možemo i injectati naredbe prema serveru ili slati lažne odgovore od servera prema klijentu.
+</p><p><b>Key manipulation</b>
+</p><p>- SSHv1
+</p><p>- IPSEC
+</p><p>- HTTPS
+</p><p>- SSH v1 je modifikacija javnog ključa izmjenjenog od servera i klijenta
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:SSHv1.png" class="image"><img alt="SSHv1.png" src="../images/d/d7/SSHv1.png" width="604" height="317" /></a>
+</p><p><br />
+- IPSEC ako dva ili više klijenata dijele isto tajno pitanje, svaki od njih može predstavljati kao poslužitelj prema drugim klijentima tj.računalima.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ipsec.png" class="image"><img alt="Ipsec.png" src="../images/f/f8/Ipsec.png" width="652" height="262" /></a>
+</p><p><br />
+- HTTPS moguće je napraviti lažni certifikat npr. Issued by VerySign  oslanjajući se na pogrešnu konfiguraciju browsera (pretrazivaca) ili glupost korisnika.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Https.png" class="image"><img alt="Https.png" src="../images/b/bf/Https.png" width="681" height="233" /></a>
+</p><p><br />
+<b>Filtriranje</b>
+</p><p>Napadač može modificirati payload paketa preračunavajući checksum. Može kreirati filtere u tok. Dužina payloada se također može mjenjati ali samo u full-duplex (u ovom slučaju je potrebno prilagoditi i sekvencu).Filtriranjem koda / ubrizgavanjem se ubacuje maliciozni kod u web stranicu ili email (javascript, trojanac, virus itd). Može se vršiti modifikacija binarnih datoteka prilikom faze preuzimanja (virus, backdoor itd).
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Httpredir.png" class="image"><img alt="Httpredir.png" src="../images/c/cb/Httpredir.png" width="582" height="320" /></a>
+</p><p>Filtriranje preusmjeravanje HTTPS-a. To se može izvršiti tako da kada se klijent tj. korisnik želi ulogirati na stranicu za koju je potrebna autentifikacija, tada napadač koji je presreo vezu preusmjerava na svoju web stranicu koja je u identičnog dizajna kao stranica na koju se korisnik želi prijaviti. Korisnik se prijavljuje te predaje podatke na autentifikaciju, a napadač dobiva korisničke podatke te prijavljuje "žrtvu" na njen korisnički račun kako ne bi posumnjala da se nešto krivo dogodilo. Korisnik dalje nastavlja koristiti usluge te stranice, a napadač prisluškuje račun korisnika na toj stranici ukoliko ne bi došao do podataka koje može iskoristiti u svoju korist.
+</p><p><b>Downgrade attack</b> 
+</p><p>Paramteri razmjenjeni od strane poslužitelja i klijenta se mogu smanjiti prilikom početka veze (algoritmi se koriste kasnije)
+Napadač može forsirati klijenta da pokrene SSH1 umjesto SSH2 konekcije.
+</p><p>Server ovako odgovara:
+</p>
+<pre>- SSH-1.99 -- the server supports ssh1 and ssh2
+- SSH-1.51 -- the server supports ONLY ssh1
+</pre>
+<p>Napadač postavlja filter koji mjenja 1.99 na 1.51.
+</p><p>Mogućnost zaobilaska unknown_hosts.
+</p>
+<h2> <span class="mw-headline" id="Alati_za_MITM_napade"> Alati za MITM napade </span></h2>
+<p>Ovdje su navedeni neki od alata za provođenje MITM napade koji su popularni za napade na lokalne mreže: 
+</p><p>- Ettercap
+</p><p>- BetterCap
+</p><p>- DSniff
+</p><p>- Cain &amp; Abel
+</p><p>- Ethernal
+</p><p>- Packet Creator
+</p>
+<h2> <span class="mw-headline" id="Provo.C4.91enje_MITM_napada"> Provođenje MITM napada </span></h2>
+<p>MITM napada se provodi uz pomoć backtrack alata koji je generalno Kali Linux operacijski sustav koji u sebi sadrži velik broj alata koji se koriste u području informacijske sigurnosti. Kali Linux se koristi u razne svrhe, kao što su penetracijskih testiranja, digitalna forenzika, mrežna testiranja itd.
+</p><p>Sada je potrebno preuzeti python skripru koja će raditi SSLSrrip kako bi mogli otkriti podatke koja nas zanimaju a u većini slučajeva su to korisničko ime i lozinka. Nju preuzimamo sa <a href="https://moxie.org/software/sslstrip/sslstrip-0.9.tar.gz" class="external free" rel="nofollow">https://moxie.org/software/sslstrip/sslstrip-0.9.tar.gz</a> te ju je nakon toga potrebno pokrenuti
+</p>
+<pre>wget <a href="https://moxie.org/software/sslstrip/sslstrip-0.9.tar.gz" class="external free" rel="nofollow">https://moxie.org/software/sslstrip/sslstrip-0.9.tar.gz</a>
+tar zxvf sslstrip-0.9.tar.gz
+</pre>
+<p>Kako bi započeli MITM napad potrebno je spojiti se na lokalnu mrežu koji želimo napasti tj. presresti komunikaciju ili promet unutar nje. Da bi to postigli potrebno je omogućiti da paketi prolaze računalo napadača na taj način da korisnici čiji promet napadač presreće ne znaju da je napad u toku. Kako bi postavili da podatci prolaze kroz nas potrebno je izvršiti sljedeću naredbu
+</p>
+<pre>echo 1&gt; /proc/sys/net/ipv4/ip_forward
+</pre>
+<p>Nakon toga postavljamo iptables kako bi presreli HTTP zahtjeve na način da se izvrši sljedeće
+</p>
+<pre>iptables -t nat -A PREROUTING -p tcp –destination-port 80 -j REDIRECT –to-port &lt;yourListenPort&gt;
+</pre>
+<p>Pokrećemo SSLStrip
+</p>
+<pre>sslstrip.py -l &lt;listenPort&gt;
+</pre>
+<p>I sada je još potrebno pokrenuti arpspoof kako bi preusmjerili mrežu na napadačevo računalo.
+</p>
+<pre>arpspoof -i &lt;interface&gt; -t &lt;targetIP&gt; &lt;gatewayIP&gt;
+</pre>
+<p><b>iptables</b>
+</p><p>iptebles je firewall koji je ugrađen u kernel te se može koristiti kao alat za pregled, izmjenu, prosljeđivanje, i brisanje IPv4 paketa. Kod za filtriranje IPv4 paketa već je ugrađena u kernel, a organizirana je u zbirku tablica, svaki s određenom svrhom. Tablice su sastavljene od skupa unaprijed definiranih lanaca, a lanci sadrže pravila koja se prate i izvršavaju redosljedom.
+</p><p>Lanci koji su nam poznati su:
+</p><p>INPUT- Ovaj lanac se koristi za usmjeravanje paketa prema nekom lokalnom procesu
+</p><p>OUTPUT- On će propustiti pakete lokalnih procesa prema mreži
+</p><p>FORWARD- Prosljeđuje pakete nekom drugom računalu
+</p><p>PREROUTING-  Prevođenje  ciljnih adresa 
+</p><p>POSTROUTING- Prevodi adrese izvora
+</p>
+<h2> <span class="mw-headline" id="MITMf_attack">MITMf attack</span></h2>
+<p>MITMf je jedan od alata za napad na lokalnu mrežu te jedna vrsta Man In The Middle napada. Ovdje će biti prikazano kako uz pomoć MITMf alata kako se radi napad na browser žrtve tj. izvest će se napad pomoću JS Injection. to ćemo napraviti na sljedeći način&#160;:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mitmf_install.png" class="image"><img alt="Mitmf install.png" src="../images/2/23/Mitmf_install.png" width="1025" height="586" /></a>
+</p><p>Ovdje je prikazano na koji način se pokreće beef alat tj. iz ovog terminala ćemo dobiti url adresu kojom ćemo pristupiti alatu beef i url adresu pomoću koje hookamo browser žrtve te mu radimo js injection pomoću beef-a.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Beef.png" class="image"><img alt="Beef.png" src="../images/a/af/Beef.png" width="1026" height="687" /></a>
+</p><p>Ovdje je prikazan alat beef kojem pristupamo tako da u browser u Linux-u upisemo url iz terminala koju smo dobili prilikom pokretanja beef-alata.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Hookanje_browsera_zrtve.png" class="image"><img alt="Hookanje browsera zrtve.png" src="../images/4/4f/Hookanje_browsera_zrtve.png" width="824" height="511" /></a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Bettercap_napad">Bettercap napad</span></h2>
+<p>Bettercap je portabilan alat koji je kreiran u Ruby programskom jeziku. Pomoću njega mogu se izvršiti raznovrsni MITM napadi na lokalne mreže, omogućuje manipulaciju HTTP-a, HTTPS-a i TCP-a u realnom vremenu. Te pomoću kojeg automatizirano možemo pratiti promet na nekoj lokalnoj mreži i na taj način doći do podataka koje koji bi se mogli iskoristiti protiv žrtve, kao što su korisnjčki podatci s kojima se neki korisnik autentificira na neku web stranicu. Bettercap je novija verzija Ettercapa koji je napravljen na taj način da ga je lakše nadograditi tj. lakše je napisati neku nadogradnju nego za Ettercap. Bettercap omogućuje praćenje prometa na velikim mrežama dok ettercap to ne može tj. jako je nestabilan. 
+</p><p>Bttercap omogućuje MITMf ICMP spoofing, potpuno prilagodiv sniffer korisničkih podataka i ima ugražene modularne Http(s)i TCP proxy servere.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Preuzimanje_biblioteka_za_ruby_tj_bettercap.png" class="image"><img alt="Preuzimanje biblioteka za ruby tj bettercap.png" src="../images/2/24/Preuzimanje_biblioteka_za_ruby_tj_bettercap.png" width="826" height="544" /></a>
+</p><p>Ova slika prikazuje preuzimanje svih biblioteka koje su nam potrebne za pokretanje Bettercap alata.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Instalacija_bettercapa.png" class="image"><img alt="Instalacija bettercapa.png" src="../images/4/4f/Instalacija_bettercapa.png" width="822" height="508" /></a>
+</p><p>Ovdje je prikazana instalacija Bettercap alata.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Pokretanje_bettercapa.png" class="image"><img alt="Pokretanje bettercapa.png" src="../images/6/60/Pokretanje_bettercapa.png" width="1028" height="587" /></a>
+</p><p>Pokrećemo bettercap sniffer sa parametrima koji su prikazani na vrhu terminala tj. radimo arp poisoning za sve http i https zahtijeve te smo stavili filter po ključnoj riječi kako bi nam lakše bilo pronaći podatke koje trežimo a to su korisnički podatci s kojima se zrtva pokušava autentificirati na neku web stranicu. Unatoč tome što bettercap koristi sslstrip neke poznatije web stranice imaju takvu zaštitu da njohov server zahtjeva od korisnikovog browsera da koristi https unatoč tome što je korišten sslstrip te downgradean https na http.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Sifra_i_pass.png" class="image"><img alt="Sifra i pass.png" src="../images/8/8f/Sifra_i_pass.png" width="1032" height="725" /></a>
+</p><p>Ovdje je prikazano kako se u terminalu može vidjeti korisničko ime i lozinka korisnika na kojem smo izvršili sniffing. U ovom se je primjeru korisnik ulogirao na stranicu koja nema https protokol već http. Sada jednostavno napadač može iskoristiti korisničke podake žrtve kako bi ostvario pristup ovoj stranici.
+</p><p><b>Neke od naredbi koje se koriste u Bettercap alatu</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Examples.png" class="image"><img alt="Examples.png" src="../images/1/1a/Examples.png" width="659" height="450" /></a>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Naredbe_koje_se_koriste.png" class="image"><img alt="Naredbe koje se koriste.png" src="../images/4/41/Naredbe_koje_se_koriste.png" width="466" height="537" /></a>
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p>1. <a href="https://www.bettercap.org/" class="external free" rel="nofollow">https://www.bettercap.org/</a> , dostupno 19.1.2017.
+</p><p>2. <a href="https://www.bettercap.org/docs/logging.html" class="external free" rel="nofollow">https://www.bettercap.org/docs/logging.html</a> , dostupno 19.1.2017.
+</p><p>3. <a href="https://www.youtube.com/watch?v=BOzDswGQWzE" class="external free" rel="nofollow">https://www.youtube.com/watch?v=BOzDswGQWzE</a> , dostupno 19.1.2017.
+</p><p>4. <a href="https://www.youtube.com/watch?v=bEMwES6TQUw" class="external free" rel="nofollow">https://www.youtube.com/watch?v=bEMwES6TQUw</a> , dostupno 18.1.2017.
+</p><p>5. <a href="https://www.youtube.com/watch?v=hI9J_tnNDCc" class="external free" rel="nofollow">https://www.youtube.com/watch?v=hI9J_tnNDCc</a> , dostupno 18.1.2017.
+</p><p>6. <a href="https://www.youtube.com/watch?v=Dat5kJxpwbI" class="external free" rel="nofollow">https://www.youtube.com/watch?v=Dat5kJxpwbI</a> , dostupno 18.1.2017.
+</p><p>7. <a href="https://www.veracode.com/security/man-middle-attack" class="external free" rel="nofollow">https://www.veracode.com/security/man-middle-attack</a> , dostupno 9.1.2017.
+</p><p>8. <a href="http://www.ethikalhacker.webs.com/ManInTheMiddle_SSL.pdf" class="external free" rel="nofollow">http://www.ethikalhacker.webs.com/ManInTheMiddle_SSL.pdf</a> , dostupno 9.1.2017.
+</p><p>9. <a href="https://www.blackhat.com/presentations/bh-usa-03/bh-us-03-ornaghi-valleri.pdf" class="external free" rel="nofollow">https://www.blackhat.com/presentations/bh-usa-03/bh-us-03-ornaghi-valleri.pdf</a> , dostupno 9.1.2017. 
+</p><p>10.<a href="https://arxiv.org/ftp/arxiv/papers/1504/1504.02115.pdf" class="external free" rel="nofollow">https://arxiv.org/ftp/arxiv/papers/1504/1504.02115.pdf</a>, dostupno 9.1.2017.
+</p><p>11.<a href="https://blogs.msdn.microsoft.com/ptorr/2005/02/22/guerrilla-threat-modelling-or-threat-modeling-if-youre-american/" class="external free" rel="nofollow">https://blogs.msdn.microsoft.com/ptorr/2005/02/22/guerrilla-threat-modelling-or-threat-modeling-if-youre-american/</a> , dostupno 9.1.2017. 
+</p><p>12.<a href="https://msdn.microsoft.com/library/ms978516.aspx" class="external free" rel="nofollow">https://msdn.microsoft.com/library/ms978516.aspx</a> , dostupno 9.1.2017.
+</p><p>13.<a href="https://www.owasp.org/index.php/Threat_Risk_Modeling" class="external free" rel="nofollow">https://www.owasp.org/index.php/Threat_Risk_Modeling</a> ,dostupno 9.1.2017.
+</p><p>14.<a href="https://www.youtube.com/watch?v=-oOV0Q9LS_M" class="external free" rel="nofollow">https://www.youtube.com/watch?v=-oOV0Q9LS_M</a> , dostupno 19.1.2017.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 27/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9244-0!*!0!!hr!2!edit=0 and timestamp 20190203204206 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html">http://security.foi.hr/wiki/index.php/Man_in_the_middle_local_network_attack_(mitmf,_bettercap)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Man_in_the_middle_local_network_attack_(mitmf,_bettercap)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Man_in_the_middle_local_network_attack_(mitmf,_bettercap)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Man_in_the_middle_local_network_attack_(mitmf,_bettercap)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Man_in_the_middle_local_network_attack_(mitmf,_bettercap)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Man_in_the_middle_local_network_attack_(mitmf,_bettercap).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Man_in_the_middle_local_network_attack_(mitmf,_bettercap)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Man_in_the_middle_local_network_attack_(mitmf,_bettercap)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Man_in_the_middle_local_network_attack_(mitmf,_bettercap)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Man_in_the_middle_local_network_attack_(mitmf,_bettercap)&amp;oldid=40877" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 00:05, 20. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 793 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Man_in_the_middle_local_network_attack_(mitmf,_bettercap)", "wgTitle": "Man in the middle local network attack (mitmf, bettercap)", "wgAction": "view", "wgArticleId": 9244, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40877, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.320 secs. -->			</body>
+</html>

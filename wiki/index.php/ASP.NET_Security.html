@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>ASP.NET Security - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=ASP.NET_Security&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-ASP_NET_Security skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">ASP.NET Security</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="ASP.NET_Security.html#mw-head">orijentacija</a>,
+					<a href="ASP.NET_Security.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Član: 
+</p>
+<ul><li> Nikola Majcen
+</li></ul>
+<p>Poveznice: 
+</p>
+<ul><li> <a href="https://docs.google.com/presentation/d/1TWqmAkUGz_RuWQ8TfCEGIIFdw3MpS6cZ5KYVHx8DO9I" class="external text" rel="nofollow">Prezentacija</a>
+</li><li> <a href="https://www.youtube.com/playlist?list=PLgSI2pcKCmqaSs7IhQKFuOgduz6Eep46I" class="external text" rel="nofollow">Video materijali</a>
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Nikola.majcen&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Nikola.majcen (stranica ne postoji)">Nikola Majcen</a> 22:35, 9. studenog 2015. (CET)
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="ASP.NET_Security.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="ASP.NET_Security.html#SQL_Injection"><span class="tocnumber">2</span> <span class="toctext">SQL Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="ASP.NET_Security.html#Primjer"><span class="tocnumber">2.1</span> <span class="toctext">Primjer</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="ASP.NET_Security.html#Prevencija_SQL_injection-a"><span class="tocnumber">2.2</span> <span class="toctext">Prevencija SQL injection-a</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="ASP.NET_Security.html#Parametrizirani_upit"><span class="tocnumber">2.2.1</span> <span class="toctext">Parametrizirani upit</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="ASP.NET_Security.html#Stored_procedures"><span class="tocnumber">2.2.2</span> <span class="toctext">Stored procedures</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="ASP.NET_Security.html#Upotreba_ORM-a"><span class="tocnumber">2.2.3</span> <span class="toctext">Upotreba ORM-a</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="ASP.NET_Security.html#Video_prikaz"><span class="tocnumber">2.3</span> <span class="toctext">Video prikaz</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="ASP.NET_Security.html#Parameter_Tampering"><span class="tocnumber">3</span> <span class="toctext">Parameter Tampering</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="ASP.NET_Security.html#Primjer_i_video_prikaz_napada"><span class="tocnumber">3.1</span> <span class="toctext">Primjer i video prikaz napada</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="ASP.NET_Security.html#Prevencija_i_video_prikaz"><span class="tocnumber">3.2</span> <span class="toctext">Prevencija i video prikaz</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="ASP.NET_Security.html#Information_Leakage"><span class="tocnumber">4</span> <span class="toctext">Information Leakage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="ASP.NET_Security.html#Primjeri_curenja_informacija"><span class="tocnumber">4.1</span> <span class="toctext">Primjeri curenja informacija</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="ASP.NET_Security.html#Prevencija"><span class="tocnumber">4.2</span> <span class="toctext">Prevencija</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="ASP.NET_Security.html#Uklju.C4.8Divanje_definirane_stranice_s_gre.C5.A1kom"><span class="tocnumber">4.2.1</span> <span class="toctext">Uključivanje definirane stranice s greškom</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="ASP.NET_Security.html#Promjena_zaglavlja"><span class="tocnumber">4.2.2</span> <span class="toctext">Promjena zaglavlja</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="ASP.NET_Security.html#Isklju.C4.8Divanje_trace-a"><span class="tocnumber">4.2.3</span> <span class="toctext">Isključivanje trace-a</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="ASP.NET_Security.html#Promjena_kompilacijskog_na.C4.8Dina_rada"><span class="tocnumber">4.2.4</span> <span class="toctext">Promjena kompilacijskog načina rada</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="ASP.NET_Security.html#Cross-Site_Request_Forgery_.28CSRF.29"><span class="tocnumber">5</span> <span class="toctext">Cross-Site Request Forgery (CSRF)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-20"><a href="ASP.NET_Security.html#Primjeri_napada"><span class="tocnumber">5.1</span> <span class="toctext">Primjeri napada</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="ASP.NET_Security.html#E-mail_i_GET_metoda_.28video.29"><span class="tocnumber">5.1.1</span> <span class="toctext">E-mail i GET metoda (video)</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="ASP.NET_Security.html#Rje.C5.A1enje_POST_metodom.3F_.28video.29"><span class="tocnumber">5.1.2</span> <span class="toctext">Rješenje POST metodom? (video)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-23"><a href="ASP.NET_Security.html#Prevencija_napada_u_ASP.NET_MVC-u"><span class="tocnumber">5.2</span> <span class="toctext">Prevencija napada u ASP.NET MVC-u</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="ASP.NET_Security.html#Cross-Site_Scripting"><span class="tocnumber">6</span> <span class="toctext">Cross-Site Scripting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-25"><a href="ASP.NET_Security.html#Primjer_i_video_prikaz"><span class="tocnumber">6.1</span> <span class="toctext">Primjer i video prikaz</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="ASP.NET_Security.html#Na.C4.8Dini_prevencije"><span class="tocnumber">6.2</span> <span class="toctext">Načini prevencije</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="ASP.NET_Security.html#Za.C5.A1tita_podataka"><span class="tocnumber">7</span> <span class="toctext">Zaštita podataka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="ASP.NET_Security.html#Kori.C5.A1tenje_SSL-a"><span class="tocnumber">7.1</span> <span class="toctext">Korištenje SSL-a</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="ASP.NET_Security.html#Za.C5.A1tita_lozinke"><span class="tocnumber">7.2</span> <span class="toctext">Zaštita lozinke</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="ASP.NET_Security.html#Za.C5.A1tita_baze_podataka"><span class="tocnumber">7.3</span> <span class="toctext">Zaštita baze podataka</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-31"><a href="ASP.NET_Security.html#Denial_of_Service"><span class="tocnumber">8</span> <span class="toctext">Denial of Service</span></a>
+<ul>
+<li class="toclevel-2 tocsection-32"><a href="ASP.NET_Security.html#Prevencija_napada"><span class="tocnumber">8.1</span> <span class="toctext">Prevencija napada</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-33"><a href="ASP.NET_Security.html#ASP.NET_Identity"><span class="tocnumber">9</span> <span class="toctext">ASP.NET Identity</span></a>
+<ul>
+<li class="toclevel-2 tocsection-34"><a href="ASP.NET_Security.html#Mogu.C4.87nosti"><span class="tocnumber">9.1</span> <span class="toctext">Mogućnosti</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="ASP.NET_Security.html#Primjer_ERA_modela"><span class="tocnumber">9.2</span> <span class="toctext">Primjer ERA modela</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-36"><a href="ASP.NET_Security.html#Literatura"><span class="tocnumber">10</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Za razvijanje web aplikacija postoje razna rješenja i mogućnosti. Jedna od tih mogućnosti je ASP.NET, odnosno Microsoftov razvojni okvir (engl. framework) za izradu web aplikacija. ASP.NET sadrži razne elemente i načine za razvijanje web aplikacija, a to su WebForms, MVC, WebAPI i slično. Ono što je važno napomenuti jest da svaka vrsta web aplikacije, bilo da se radi o MVC-u, WebForms itd. donosi određene prednosti i nedostatke.
+</p><p>U ovom radu ću se orijentirati na sigurnost ASP.NET MVC-a pošto je to trenutno preporučeni način izrade web aplikacija, sadrži i mnogo sigurnosnih elemenata koji su već automatski implementirani.
+</p>
+<h2> <span class="mw-headline" id="SQL_Injection"> SQL Injection </span></h2>
+<p>Kao što je poznato, većina web aplikacija omogućuje korisniku da unese određene podatke u formu za unos podataka. Ukoliko zanemarimo osnovne radnje koje korisnik može napraviti koristeći navedene forme, postoji opasnost da se takve funkcionalnosti aplikacije zloupotrijebe. Primjer toga je SQL injection.
+SQL injection je tehnika napada kojom se želi umetnuti određen SQL programski kod zbog određene ranjivosti web aplikacije, kako bi se došlo do određenih podataka ili bi se izmjenili podaci u bazi podataka.
+Naravno, važno je da se ovom tehnikom zapravo želi promijeniti kod originalnog upita nad bazom podataka i tako izmijeniti sam upit, što se manifestira radnjom koja nije predviđena.
+</p>
+<h3> <span class="mw-headline" id="Primjer"> Primjer </span></h3>
+<p>Da bih konkretnije prikazao problem SQL injection-a, slijedi vrlo jednostavan primjer.
+Zamislimo da imamo sljedeći upit:
+</p><p><code>
+</p>
+<pre> private List&lt;Result&gt; GetByQuery(String input)
+ {
+     String query = "SELECT FirstName, LastName, Country FROM Employees " +
+                    "WHERE FirstName LIKE '" + input + "' OR LastName LIKE '" + input + "'";
+     List&lt;Result&gt; results = new List&lt;Result&gt;();
+     using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+     {
+         connection.Open();
+         using (SqlCommand command = new SqlCommand(query, connection))
+         {
+             SqlDataReader data = command.ExecuteReader();
+             while(data.Read())
+             {
+                 Object[] row = new Object[data.FieldCount];
+                 data.GetValues(row);
+                 results.Add(new Result(row));
+             }
+         }
+     }
+     return results;
+ }
+</pre>
+<p></code>
+</p><p>Ukoliko unesemo neko ime ili prezime (primjerice "Marko"), dobivamo sljedeći upit:
+</p><p><code>
+</p>
+<pre> SELECT FirstName, LastName, Country
+ FROM Employees
+ WHERE FirstName Like 'Marko' OR LastName LIKE 'Marko'
+</pre>
+<p></code>
+</p><p>Ukoliko se unese bilo koje ime ili prezime, bit će ispisana navedena osoba. Međutim, problem koji se javlja je u tome što se unos korisnika konkatenira odnosno spaja u string te se nakon toga izvršava kao konačni upit.
+Da bi se na jednostavan način napravio SQL injection, potrebno je samo umjesto imena ili prezimena unijeti sljedeće:
+</p><p><code>
+</p>
+<pre> ' OR 'a'=='a'--
+</pre>
+<p></code>
+</p><p>Na taj način upit postaje sljedeći:
+</p><p><code>
+</p>
+<pre> SELECT FirstName, LastName, Country
+ FROM Employees
+ WHERE FirstName Like <i> OR 'a'=='a'-- OR LastName LIKE 'Marko'</i>
+</pre>
+<p></code>
+</p><p>Ono što vidimo jest da imamo upit koji će nam vratiti sve vrijednosti iz razloga jer je 'a'=='a' uvijek točno, dok je ostali dio upita odnosno koda zanemaren radi znaka "--".
+</p><p>Isto tako, primjer koji se kasnije nalazi u videu jest ukoliko se u polje za unos unese sljedeće: "%'--", pa je sve nakon znaka "--" opet zanemareno. Konačni upit izgleda ovako:
+</p><p><code>
+</p>
+<pre> SELECT FirstName, LastName, Country
+ FROM Employees
+ WHERE FirstName Like '%'--' OR LastName LIKE 'Marko'
+</pre>
+<p></code>
+</p>
+<h3> <span class="mw-headline" id="Prevencija_SQL_injection-a"> Prevencija SQL injection-a </span></h3>
+<p>Prevencija ovakve tehnike napada može se izbjeći vrlo lako, a dane su i određene upute:
+</p>
+<ul><li> <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet" class="external text" rel="nofollow">"SQL Injection Prevention Cheet Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Query_Parameterization_Cheat_Sheet" class="external text" rel="nofollow">"Query Parameterization Cheat Sheet"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Guide_to_SQL_Injection" class="external text" rel="nofollow">"Guide to SQL Injection"</a>
+</li></ul>
+<p>U nastavku ću prikazati na koji način se SQL injection može izbjeći u ASP.NET MVC-u.
+</p>
+<h4> <span class="mw-headline" id="Parametrizirani_upit"> Parametrizirani upit </span></h4>
+<p>Prvo ću objasniti i prikazati korištenje parametriziranog upita. Ovaj način je jedan od preporučenih načina kako spriječiti SQL injection.
+Opet ću krenuti od primjera:
+</p><p><code>
+private List&lt;Result&gt; GetByParams(String input)
+</p>
+<pre>{
+     String query = "SELECT FirstName, LastName, Country FROM Employees WHERE FirstName LIKE @Name OR LastName LIKE @Name";
+     List&lt;Result&gt; results = new List&lt;Result&gt;();
+     using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+     {
+         connection.Open();
+         using (SqlCommand command = new SqlCommand(query, connection))
+         {
+             command.Parameters.Add(new SqlParameter("@Name", input));
+             SqlDataReader data = command.ExecuteReader();
+             while(data.Read())
+             {
+                 Object[] row = new object[data.FieldCount];
+                 data.GetValues(row);
+                 results.Add(new Result(row));
+             }
+         }
+     }
+     return results;
+ }
+</pre>
+<p></code>
+</p><p>Ovdje vidimo da nakon što korisnik unese određeni unos, taj unos se ne konkatenira u sam upit. To je vrlo važno, jer ukoliko bismo načinili tu grešku, onda bismo opet imali propust kao i kod primjera SQL injection-a. Prema tome, potrebno je samo u upitu naznačiti naziv parametra (parametri se definiraju na način "@ImeParametra") te ga kasnije dodati prije samog izvođenja upita što se radi na sljedeći način:
+</p><p><code>
+</p>
+<pre> command.Parameters.Add(new SqlParameter("@Name", input));
+</pre>
+<p></code>
+</p><p>Na ovakav način uspješno se može spriječiti SQL injection napad, iako se i tu mogu potkrasti određeni propusti. U video primjeru je prikazan sličan kod koji radi isto, međutim, vidimo da je ipak uspješno prikazao sve elemente odnosno korisnike iz tablice.
+</p><p><code>
+</p>
+<pre> String query = @"SELECT FirstName, LastName, Country
+                  FROM Employees 
+                  WHERE FirstName LIKE '%' +  @Name  + '%' 
+                  OR LastName LIKE '%' + @Name + '%'";
+</pre>
+<p></code>
+</p><p>Upravo zbog konkatenacije bilo je moguće provesti SQL injection, ali ne uz sve mogućnosti koje je bilo moguće uz "obični" upit. Ipak, to je i dalje određeni propust pa je preporučljivo da se izbjegava konkatenacija.
+</p>
+<h4> <span class="mw-headline" id="Stored_procedures"> Stored procedures </span></h4>
+<p>Sljedeći način je zaštita od SQL injection-a pomoću procedura. To je zapravo način gdje također proslijeđujemo parametre u unaprijed definirane procedure koje će izvršiti upit, ali ovdje postoje određene prednosti.
+Naime, moguće je definirati zaštitu na razini korisnika, odnosno, koji korisnici mogu koristiti određene tablice, tj. koje akcije mogu raditi, što je definirano u samoj bazi podataka. Na ovakav način vrlo je teško pribaviti podatke, ako korisnik nema mogućnost čitanja ili pisanja za određenu tablicu u bazi podataka.
+Ipak, potrebno je reći da u ponekim slučajevima nije moguće mijenjati ovlasti za korisnike u bazi podataka, pa ovakva vrsta zaštite nije uvijek moguća.
+</p><p>Primjer pozivanja procedure:
+</p><p><code>
+</p>
+<pre> using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+ {
+     using (SqlCommand command = new SqlCommand("ADD_NEW", connection))
+     {
+         command.CommandType = CommandType.StoredProcedure;
+         command.Parameters.AddWithValue("@FirstName", firstName);
+         command.Parameters.AddWithValue("@LastName", lastName);
+         connection.Open();
+         command.ExecuteNonQuery();
+     }
+ }
+</pre>
+<p></code>
+</p>
+<h4> <span class="mw-headline" id="Upotreba_ORM-a"> Upotreba ORM-a </span></h4>
+<p>Posljednji način koji ću navesti je uz korištenje ORM-a. ORM je kratica za Object-relation maping, a Microsoft ga je nazvao Entity Framework.
+Entity Framework olakšava rad samom programeru pošto se u ovom slučaju ne mora brinuti o samom upitu i na koji način je on strukturiran, već pomoću definiranih metoda na temelju unosa korisnika pretražuje bazu za određni objekt.
+</p><p>Da bi Entity Framework uopće mogao raditi, mora biti instaliran u sam projekt, što je u slučaju ASP.NET MVC-a automatski podešeno. Kako bi se moglo pristupiti određenim elementima odnosno objektima iz tablice, potrebno je napraviti sljedeće:
+</p><p>Za početak ću prikazati primjer jedne klase:
+</p><p><code>
+</p>
+<pre> using System;
+ using System.Collections.Generic;
+ using System.ComponentModel.DataAnnotations;
+ using System.ComponentModel.DataAnnotations.Schema;
+ using System.Linq;
+ using System.Web;
+ namespace AspnetSecurity.Models
+ {
+     public class Employee
+     {
+         [Key]
+         public int EmployeeId { get; set; }
+         public string Username;
+         public string FirstName { get; set; }
+         public string LastName { get; set; }
+         public string City { get; set; }
+         public string Country { get; set; }
+         public virtual IEnumerable&lt;Account&gt; Accounts { get; set; }
+     }
+ }
+</pre>
+<p></code>
+</p><p>Ovdje vidimo standardni prikaz klase, gdje imamo anotaciju za primarni ključ, odnosno za atribut koji će poprimiti vrijednost primarnog ključa u bazi. Ukoliko se prate konvencije Entity Framework-a, dovoljno je samo definirati atribut <code>Id</code> ili <code>nazivKlaseId</code> bez anotacije <code>[Key]</code>. Isto tako, ovdje se nalazi i atribut <code>Accounts</code> dok to uz <code>virtual</code> predstavlja navigacijsko svojstvo, odnosno, na taj način je moguće pristupiti drugoj klasi u Entity Frameworku.
+</p><p>Da bi ta klasa bila zapisana u bazi podataka, odnosno da se kreira tablica na temelju ove klase, potrebno je još u klasu <code>ApplicationDbContext</code> koju možemo naći u datoteci "IdentityModels.cs" unijeti sljedeće:
+</p><p><code>
+</p>
+<pre> public DbSet&lt;Account&gt; Accounts { get; set; }
+</pre>
+<p></code>
+</p><p>Sada smo definirali klasu koja se može koristiti uz Entity Framework te je potrebno pokrenuti Rebuild aplikacije.
+Kada je to učinjeno, mogu prikazati na koji način je napravljen upit uz pomoć ORM-a:
+</p><p><code>
+</p>
+<pre> private List&lt;Result&gt; GetByOrm(String input)
+ {
+     List&lt;Result&gt; results = new List&lt;Result&gt;();
+     using (ApplicationDbContext db = new ApplicationDbContext())
+     {
+         List&lt;Employee&gt; employees = db.Employee
+             .Where(o =&gt; o.FirstName == input || o.LastName == input).ToList&lt;Employee&gt;();        
+         foreach (Employee employee in employees)
+         {
+             results.Add(new Result
+             {
+                 Column1 = employee.FirstName,
+                 Column2 = employee.LastName,
+                 Column3 = employee.Country
+             });
+         }
+     }
+     return results;
+  }
+</pre>
+<p></code>
+</p><p>Ovdje je vidljivo da se ne koristi sintaksa niti SQL jezik, već je sve obavljeno pomoću metoda objekta. Naravno, potrebno je reći da se sve obavlja pomoću konteksta, tj. pomoću njega je omogućen pristup bazi podataka. Tako da on vraća objekt koji na temelju određenih metoda vraća vrijednosti iz baze podataka. Ono što je zgodno jest to da se zapravo u samoj pozadini Entity Frameworka koriste parametrizirani upiti, ali je svakako dobro za programera što taj dio njega ne treba zanimati.
+U video primjeru bit će prikazano korištenje i ove metode koja se pokazala veoma sigurna, a i sam Microsoft preporučuje da se ista koristi.
+</p>
+<h3> <span class="mw-headline" id="Video_prikaz"> Video prikaz </span></h3>
+<p>U nastavku se nalazi kratki video prikaz SQL injection-a i prevencije istog: <a href="https://www.youtube.com/watch?v=6dpYV8WY6J0" class="external text" rel="nofollow">"SQL Injection Demonstration"</a>
+</p>
+<h2> <span class="mw-headline" id="Parameter_Tampering"> Parameter Tampering </span></h2>
+<p>Parameter tampering je vrlo jednostavan napad koji pomoću modifikacije parametara pokušava promijeniti podatke u sustavu i/ili naštetiti istom. Ovaj napad je vrlo raširen i često ga je vrlo lako provesti jer većina web aplikacija sadrži skrivena polja u kojima su pohranjene vrijednosti kao što su ID korisnika i slično.
+Postoje određene zaštite od ovakvog napada, ali prije toga ću prikazati kako se isti može realizirati.
+</p>
+<h3> <span class="mw-headline" id="Primjer_i_video_prikaz_napada"> Primjer i video prikaz napada </span></h3>
+<p>Ovdje ću prikazati vrlo jednostavan način parameter tampering-a, gdje je omogućeno promijeniti podatke jednog korisnika, iz forme za promjenu podataka drugog korisnika. Upravo se ranjivost može vidjeti u sakrivanju ID-a, ali i vidljivosti istog u adresnog traci. Iako te vrijednosti mogu ostati vidljive, naišao sam na zanimljivu biblioteku koja rješava problem ovakve ranjivosti.
+</p><p>Biblioteka se zove MVC Security Extensions, a moguće ju je preuzeti sa sljedećeg linka: <a href="https://mvcsecurity.codeplex.com/" class="external text" rel="nofollow">"MVC Security Extensions"</a>. Da bi se ista uključila u projekt, potrebno je samo dodati referencu u projekt.
+</p><p>Ova biblioteka funkcionira na način da enkriptira ključ (ID) asimetričnim ključem, te se i taj ključ pojavljuje kao skriveni parametar. Međutim, promjenom vrijednosti ID-a (bilo u adresnoj traci ili u skrivenom polju), kada se podaci pošalju natrag na server, taj ID ne odgovara dekriptiranom ključu, pa je onemogućen tampering.
+</p><p>Da bi se ovo omogućilo, potrebno je za početak dodati anotaciju <code>[ValidateAntiModelInjectionAttribute("EmployeeId")]</code> iznad određene metode u kontroleru sa identifikatorom kao stringom koji predstavlja naziv ID-a entiteta koji se koristi u formi:
+</p><p><code>
+</p>
+<pre> [HttpPost]
+ [ValidateAntiForgeryToken]
+ [ValidateAntiModelInjectionAttribute("EmployeeId")]
+ public ActionResult Edit([Bind(Include = "EmployeeId,FirstName,LastName,City,Country")] Employee employee)
+ {
+     if (ModelState.IsValid)
+     {
+         db.Entry(employee).State = EntityState.Modified;
+         db.SaveChanges();
+         return RedirectToAction("Index");
+     }
+     return View(employee);
+ }
+</pre>
+<p></code>
+</p><p>Isto tako, potrebno je unutar forme unijeti HtmlHelper koji će dio koji je dohvaćen sa servera prikazati na samoj formi, a kasnije ga vratiti serveru:
+</p><p><code>
+</p>
+<pre> @Html.AntiModelInjectionFor(o =&gt; o.EmployeeId)
+</pre>
+<p></code>
+</p><p>Video prikazu moguće je pristupiti sa sljedeće poveznice: <a href="https://www.youtube.com/watch?v=DVzhi9c3DlM" class="external text" rel="nofollow">"Parameter Tampering Part I"</a>
+</p><p>Iako je ovo samo jedan od načina prevencije, postoje i razni drugi. Jedan od načina je korištenje Identity-a ili Membership-a koji omogućuju da se na temelju kolačića (engl. cookie) vidi koji je korisnik trenutno prijavljen te se vidi da li je zapravo on korisnik koji može raditi određene promjene.
+Prikaz koda je u nastavku:
+</p><p><code>
+</p>
+<pre> UserManager.FindById(User.Identity.GetUserId&lt;int&gt;());
+</pre>
+<p></code>
+</p><p>Isto tako, za sam kraj, vrlo je korisno, iako ne i presudno da se na početku metode uvijek provjeri da li je model validan, odnosno, da li sadrži sve podatke koje bi trebao, kako ne bi podaci koji su dobiveni bili krivi, odnosno ne bi zadovoljavali definiranu formu podataka koje smo trebali dobiti.
+Primjer koda je u nastavku:
+</p><p><code>
+</p>
+<pre> if (!ModelState.IsValid)
+ {
+     return View();
+ }
+</pre>
+<p></code>
+</p>
+<h3> <span class="mw-headline" id="Prevencija_i_video_prikaz"> Prevencija i video prikaz </span></h3>
+<p>U prethodnom video primjeru bio je prikazan jedan način na koji je Parameter Tampering vrlo lako rješen. Naravno, to je samo jedno rješenje.
+</p><p>Druga rješenja su sljedeća; jedan od načina jest korištenje <code>Regex</code>-a odnosno validiranja korisničkog unosa koji može dovesti do SQL Injection-a ili XXS-a. Ovakvu vrstu obrane je vrlo lako napraviti, a moguće je tako što nakon prihvata podataka iz forme jednostavno iskoristimo sljedeće:
+</p><p><code>
+</p>
+<pre> input = Regex.Replace(input, "[^a-zA-Z0-9]", "");
+</pre>
+<p></code>
+</p><p>Ovdje vidimo da se korisnikov unos filtrira na način da su omogućeni samo znakovi od a do z i od A do Z. Prema tome, vrlo lako je isfiltriran unos korisnika, koje je u ranijim primjerima doveo do SQL Injection-a. Naravno, važno je reći da se ovakve stvari mogu definirati samo onda ukoliko ste sigurni da su potrebni samo znakovi u određenom intervalu.
+</p><p>Drugi primjer također se tiče <code>Regex</code>-a, ali u ovom slučaju je on definiran na modelu. Na ovaj način definiramo kako će se ponašati određen property, primjerice <code>FirstName</code> kojem će biti onemogućen unos bilo kojeg drugog znaka osim malog ili velikog slova. Primjer koda je u nastavku, dok na sljedećoj poveznici možete vidjeti video primjer: <a href="https://www.youtube.com/watch?v=PwwNTCs3Iog" class="external text" rel="nofollow">"Parameter Tampering Part II"</a>
+</p><p><code>
+</p>
+<pre> [RegularExpression("^[a-zA-Z]*", ErrorMessage = "Characters only!")]
+</pre>
+<p></code>
+</p>
+<h2> <span class="mw-headline" id="Information_Leakage"> Information Leakage </span></h2>
+<p>Information leakage odnosno curenje informacija predstavlja odavanje informacija o sustavu ili informacija o nekim grešaka sustava. Na ovakav način vrlo je lako moguće dobiti opće informacije o sustavu koji se koristi za pogonjenje određene web aplikacije i/ili koji se elementi koriste, odnosno koji dijelovi sustava koriste.
+Način na koji najčešće dolazi do curenja informacija jest ukoliko ostanu nepromijenjeni modovi za ispravljanje pogrešaka (engl. debug mode), pa ukoliko dođe do pogreške ne pojavi se stranica koja je namijenjena korisnicima aplikacije, već se pojavi stranica sa svim detaljima koji su uzrokovali pogrešku te što je pošlo po zlu.
+</p>
+<h3> <span class="mw-headline" id="Primjeri_curenja_informacija"> Primjeri curenja informacija </span></h3>
+<p>Ovakvih primjera ima mnogo, a jedan od njih može se vidjeti u nastavku, gdje je tražilica Google indeksirala određene web aplikacije, a s njima i prikaz stranica o određenoj pogrešci koja uključuje curenje informacija:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nikola-majcen_information-leakage-google.jpg" class="image"><img alt="Nikola-majcen information-leakage-google.jpg" src="../images/e/e5/Nikola-majcen_information-leakage-google.jpg" width="818" height="461" /></a></div></div>
+<p>Isto tako, moguće je pomoću određenih alata kao što je <a href="http://www.telerik.com/fiddler" class="external text" rel="nofollow">"Fiddler"</a> vidjeti određene informacije zaglavlja, što u slućaju uključenog moda za ispravljanje pogrešaka daje određene dodatne informacije koje bi trebale biti sakrivene.
+</p>
+<h3> <span class="mw-headline" id="Prevencija"> Prevencija </span></h3>
+<p>Kako bi se spriječilo curenje informacija, ovdje sam naveo najčešća četiri načina kako spriječiti ovaj problem.
+</p>
+<h4> <span class="mw-headline" id="Uklju.C4.8Divanje_definirane_stranice_s_gre.C5.A1kom"> Uključivanje definirane stranice s greškom </span></h4>
+<p>Za početak, potrebno bi bilo uključiti opciju kojom bi se onemogućilo prikazivanje detalja zbog kojih je došlo do pogreške. Naravno, ovo se radi prije nego se aplikacija izdaje, a ne za vrijeme izgradnje aplikacije, jer bi to otežalo njezinu izradu.
+Prema tome, treba napraviti sljedeće; otvoriti datoteku <code>web.config</code> te unutar dijela <code>system.web</code> unijeti sljedeće:
+</p><p><code>
+</p>
+<pre> &lt;customErrors mode="On"/&gt;
+</pre>
+<p></code>
+</p><p>Ovo je najosnovniji način na koji je omogućeno prikazivanje definirane stranice s greškom, tj. automatski generirane stranice koja se kreira pri izradi novog projekta. Ukoliko je potrebno, ta stranica se može modificirati, a isto tako, postoji mogućnost prikaza više definiranih stranica s greškom ukoliko za to ima potrebe. Za takav način, potrebno je promijeniti istu stvar, ali s drugačijim parametrima:
+</p><p><code>
+</p>
+<pre> &lt;customErrors mode="On" defaultRedirect="~/Error"&gt;
+   &lt;error redirect="~/Error/404Error" statusCode="404" /&gt;
+ &lt;/customErrors&gt;
+</pre>
+<p></code>
+</p><p>U kodu vidimo da je da se kao osnovni prikaz prikazuje stranica "Error", dok je moguće i pozvati stranicu "404Error", gdje je svaka drugačije kreirana od strane programera. Te stranice prikazuju se ukoliko dođe do pogreške u samom radu sustava, ali ih je isto moguće pozvati kao rezultat određene akcije, a to se radi u samom kontroleru na sljedeći način:
+</p><p><code>
+</p>
+<pre> return View("Error");
+ // ili
+ return View("404Error");
+</pre>
+<p></code>
+</p>
+<h4> <span class="mw-headline" id="Promjena_zaglavlja"> Promjena zaglavlja </span></h4>
+<p>Kod ASP.NET aplikacije, moguće je također prikriti odnosno prikazati čim manje nepotrebnih informacija u zaglavlju.Ovdje je prikazano kako maknuti njih nekoliko koji otkrivaju informacije o verziji ASP.NET-a te o verziji sustava.
+</p>
+<ul><li> Da biste uklonili <code>X-AspNet-Version</code> zaglavlje potrebno je unutar <code>web.config</code> datoteke pod <code>system.web</code> dodati sljedeće:
+</li></ul>
+<p><code>
+</p>
+<pre> &lt;httpRuntime enableVersionHeader="false"/&gt;
+</pre>
+<p></code>
+</p>
+<ul><li> Da biste uklonili <code>X-AspNetMvc-Version</code> zaglavlje potrebno je u datoteku <code>Global.asax.cs</code> (nemojte to zamijeniti sa <code>Global.asax</code>) dodati sljedeće:
+</li></ul>
+<p><code>
+</p>
+<pre> MvcHandler.DisableMvcResponseHeader = true; 
+</pre>
+<p></code>
+</p>
+<ul><li> Da biste uklonili zaglavlje <code>X-Powered-By</code>, potrebno je u datoteci <code>web.config</code> unijeti sljedeće:
+</li></ul>
+<p><code>
+</p>
+<pre> &lt;httpProtocol&gt;
+   &lt;customHeaders&gt;
+     &lt;remove name="X-Powered-By" /&gt;
+   &lt;/customHeaders&gt;
+ &lt;/httpProtocol&gt;
+</pre>
+<p></code>
+</p><p>Sve ove načine moguće je učiniti sve skupa zajedno i programski tako da u <code>Global.asax.cs</code> dodamo sljedeći programski kod:
+</p><p><code>
+</p>
+<pre> Response.Headers.Set("Ime servera","Opis servera");
+ Response.Headers.Remove("X-AspNet-Version");
+ Response.Headers.Remove("X-AspNetMvc-Version");
+</pre>
+<p></code>
+</p><p>Ovdje vidimo da se kao zaglavlje dodaje korisnički definirano zaglavlje, što je svakako korisno, dok se ostale informacije o sustavku uklanjaju.
+</p>
+<h4> <span class="mw-headline" id="Isklju.C4.8Divanje_trace-a"> Isključivanje trace-a </span></h4>
+<p>Ukoliko ste tijekom razvoja u bilo kojem dijelu uključivali tracing, isti je potrebno isključiti, odnosno ukoliko je isti bio automatski uključen, potrebno ga je isključiti, a to se radi na vrlo jednostavan način. Potrebno je samo unutar datoteke &lt;web.config&gt; unijeti sljeće:
+</p><p><code>
+</p>
+<pre> &lt;trace enabled="false"/&gt;
+</pre>
+<p></code>
+</p>
+<h4> <span class="mw-headline" id="Promjena_kompilacijskog_na.C4.8Dina_rada"> Promjena kompilacijskog načina rada </span></h4>
+<p>Kao posljeđnji korak prije objave web aplikacije, potrebno je promijeniti način rada aplikacije. Dok je ista bila u fazi razvoja, onda se kompilacija izvršavala u debug modu, što za produkcijsku aplikaciju nije dobro rješenje jer je moguće doći do određenih informacija koje ne bi smjele izaći "van".
+Upravo iz tog razloga, potrebno je iz "debug" načina rada promijeniti kompilaciju u "release" način rada.
+</p><p>To se može izvršiti pri samoj kompilaciji web aplikacije, ali se isto može promijeniti u "Settings" opcijama prilikom same objave aplikacije.
+</p><p>Za sam kraj, vrijedi napomenuti da se sve ove dosad promijene mogu načiniti uz samo jednu promjenu, a to je da se omogući opcija "retail", odnosno da se u <code>web.config</code> unutar konfiguracije samog .NET razvojnog okruženja u datoteci <code>machine</code> doda sljedeće:
+</p><p><code>
+</p>
+<pre>  &lt;deployment retail="true" /&gt; 
+</pre>
+<p></code>
+</p><p>Omogućavanjem ove opcije, automatski se onemogućuje "debug" način rada, isključuje se tracing te se kompilacija izvršava u "release" načinu rada.== 
+</p>
+<h2> <span class="mw-headline" id="Cross-Site_Request_Forgery_.28CSRF.29"> Cross-Site Request Forgery (CSRF) </span></h2>
+<p>Cross-Site Request Forgery je vrsta napada koja prisiljava krajnjeg korisnika da izvršava određene akcije, kojih on je ili najčešće nije svjestan, u aplikaciji u koju je trenutno prijavljen. Ovakvi napadi ne služe za prikupljanje podataka, već za promjenu statusa korisnika, brisanje njegovih podataka ili općenito promjenu i/ili uništavanje podataka web aplikacije.
+Najčešće se ovakvi napadi manifestiraju preko e-maila ili posjeta određenih stranica.
+</p>
+<h3> <span class="mw-headline" id="Primjeri_napada"> Primjeri napada </span></h3>
+<p>Ovdje ću prikazati dva CSRF napada, odnosno dvije mogućnosti koje se mogu desiti, ukoliko napadač uspješno učini određene korake, a web aplikacija nije kvalitetno sigurnosno rješila ovaj problem, odnosno nema prevencije od CSRF napada.
+</p>
+<h4> <span class="mw-headline" id="E-mail_i_GET_metoda_.28video.29"> E-mail i GET metoda (video) </span></h4>
+<p>Prvi primjer je vrlo jednostavan, ali i kreativan. Naime, radi se o tome da napadač pošalje e-mail nekom korisniku, gdje se nalazi neka poveznica ili slika (u primjeru se koristi poveznica). Bit nije u samoj slici ili poveznici, već u adresi te poveznice odnosno slike. Naime, kada dobijemo poruku od nekog poznatog GMail nas ne upozorava da sadržaj može biti zloćudan, dok kod sumnjivih e-mailova to ipak piše. To naravno nije toliko veliki problem, jer većina korisnika klikne odnosno potvrdi da se učita cijela e-mail poruka ili klikne jednostavno na link koji vidi. Kada se to desi, učitava se stranica, koja zapravo može biti adresa kojom se izvršava određena neželjena akcija u nekoj web aplikaciji. Upravo je to prvi primjer koji ću ovdje prikazati.
+</p><p>Prva stvar odnosno problem koji se ovdje dešava jest, ukoliko pogledamo programski kod, da se akcija brisanja korisnika događa kada se GET metodom poziva određena metoda. Prema OWASP-u, preporuča se da se GET metoda koristi samo za dohvat podataka.
+</p><p><code>
+</p>
+<pre> [Authorize]
+ [HttpGet]
+ public ActionResult Delete(int id)
+ {
+     Employee employee = db.Employee.Find(id);
+     if(employee&#160;!= null)
+     {
+         db.Employee.Remove(employee);
+         db.SaveChanges();
+     }
+     return RedirectToAction("Index");
+ }
+</pre>
+<p></code>
+</p><p>Isto tako, vidimo da je metoda osigurana sa anotacijom <code>Authorize</code> da je mogu pozvati samo prijavljeni korisnici. Međutim, ukoliko je korisnik prijavljen, a pozove tu metodu slučajnim klikom na neku poveznicu ili otvaranjem e-maila, dolazi do brisanja podataka, bez ikakve provjere koji je to korisnik učinio, pošto nikakve daljnje provjere nema.
+</p><p>Cijeli primjer se može vidjeti i na videu, a do njega se može doći na sljedećoj poveznici: <a href="https://www.youtube.com/watch?v=cFiGo9KZrNU" class="external text" rel="nofollow">"Cross-Site Request Forgery with GET and E-mail"</a>
+</p>
+<h4> <span class="mw-headline" id="Rje.C5.A1enje_POST_metodom.3F_.28video.29"> Rješenje POST metodom? (video) </span></h4>
+<p>Da li rješenje leži u POST metodi? Definitivno otežavamo posao napadaču iz razloga jer se on ne može osloniti na sam pristup stranici pošto će se u tom slučaju koristiti GET metoda koja služi za prihvat podataka. Na taj način se riješio taj problem. Prikaz koda je u nastavku:
+</p><p>Ovdje vidimo GET metodu koja samo vraća podatke, odnosno pogled s detaljima korisnika, gdje se zatim pita korisnika da li je siguran da želi obrisati navedenog korisnika:
+</p><p><code>
+</p>
+<pre> [Authorize]
+ public ActionResult Delete(int? id)
+ {
+     if (id == null)
+     {
+         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+     }
+     Employee employee = db.Employee.Find(id);
+     if (employee == null)
+     {
+         return HttpNotFound();
+     }
+     return View(employee);
+ }
+</pre>
+<p></code>
+</p><p>Isto tako, u nastavku je POST metoda, koja briše korisnika ukoliko je korisnik potvrdio brisanje:
+</p><p><code>
+</p>
+<pre> [Authorize]
+ [HttpPost]
+ public ActionResult Delete(int id)
+ {
+     Employee employee = db.Employee.Find(id);
+     db.Employee.Remove(employee);
+     db.SaveChanges();
+     return RedirectToAction("Index");
+ }
+</pre>
+<p></code>
+</p><p>Međutim, ovdje možemo potencijalno opet vidjeti problem. Iako je korisnik morao potvrditi brisanje korisnika, opet nemamo nikakvu dodatnu provjeru ukoliko je to taj korisnik odnosno ukoliko je zahtjev došao sa te stranice. Naime, na određenim blogovima i sličnim stranicama, moguće je unijeti određene skripte, a prema tome, vrlo je lako unijeti skriptu koja koristi, recimo, jQuery sa POST metodom koja zove ovu akciju. Na taj način zaobilazimo GET metodu i direktno dolazimo do POST metode koja briše korisnika.
+</p><p>Video primjer se nalazi na sljedećoj poveznici <a href="https://youtu.be/HbyxwwKL52c" class="external text" rel="nofollow">"Cross-Site Request Forgery with POST and jQuery"</a>, dok je kod skripte u nastavku:
+</p><p><code>
+</p>
+<pre> &lt;script src="<a href="http://code.jquery.com/jquery-1.12.0.min.js" class="external free" rel="nofollow">http://code.jquery.com/jquery-1.12.0.min.js</a>"&gt;&lt;/script&gt;
+ &lt;script&gt;
+     $.ajax({
+         method: "POST",
+         url: "<a href="http://localhost:52148/Employees/Delete/10" class="external free" rel="nofollow">http://localhost:52148/Employees/Delete/10</a>",
+         contentType: "application/x-www-form-urlencoded"
+     });
+ &lt;/script&gt;
+</pre>
+<p></code>
+</p>
+<h3> <span class="mw-headline" id="Prevencija_napada_u_ASP.NET_MVC-u"> Prevencija napada u ASP.NET MVC-u </span></h3>
+<p>Da bi se riješio problem CSRF-a, u ASP.NET MVC-u postoji jedno vrlo jednostavno rješenje, a to je upotreba Anti-Forgery Tokena. Naime, Anti-Forgery Token funkcionira na sljedeći način:
+</p>
+<ul><li> Klijent zahtjeva HTML s određenom formom.
+</li><li> Server u zahtjevu dodaje dva slučajno generirana tokena u formu, jednog kao kolačić (engl. cookie), a drugog u samu formu kao skriveno polje.
+</li><li> Kada klijent pošalje formu natrag serveru, mora poslati oba tokena, jedan kao kolačić, a jedan se šalje kao podatak u formi.
+</li><li> Ukoliko server ne dobije oba tokena natrag, ne prihvaća se zahtjev.
+</li></ul>
+<p>Ovakav način prevencije funkcionira iz razloga jer zlonamjerna stranica ili e-mail u kojemu je određena poveznica ne može pročitati korisnikove tokene, odnosno, može poslati zahtjev, ali napadač ne može dobiti natrag odgovor.
+</p><p>Da bi se omogućio rad sa Anti-Forgery Tokenom, potrebno je dodati ga kao anotaciju za definiranu metodu, te isto tako, unutar forme, potrebno je pozvati HtmlHelper za dodavanje tokena u formu. U nastavku je prikaz metode sa anotacijom: 
+</p><p><code>
+</p>
+<pre> [HttpPost]
+ [ValidateAntiForgeryToken]
+ public ActionResult Delete(int id)
+ {
+     Employee employee = db.Employee.Find(id);
+     db.Employee.Remove(employee);
+     db.SaveChanges();
+     return RedirectToAction("Index");
+ }
+</pre>
+<p></code>
+</p><p>Potrebno je učinit samo još jedan korak, a to je uključiti HtmlHelper u samu formu:
+</p><p><code>
+</p>
+<pre> @using (Html.BeginForm()) {
+     @Html.AntiForgeryToken()
+     // Kod...
+ }
+</pre>
+<p></code>
+</p><p>Na ovaj način sprijećen je napad CSRF-a, dok je za neke dodatne potrebe moguće dodati i provjere da li se radi o korisniku koji može učiniti navedene promjene, o čemu će biti riječi kasnije.
+</p>
+<h2> <span class="mw-headline" id="Cross-Site_Scripting"> Cross-Site Scripting</span></h2>
+<p>Cross-Site Scripting napadi su napadi koji služe za injektiranje programskog koda napadača u web aplikaciju koja je inače sigurna. Na taj način, napadač u web aplikaciju unese maliciozni kod, koji korisnik nenamjerno izvrši, što dovodi do napada na web aplikaciju odnosno podatke iste. Sličan primjer bio je prikazan kod CSRF-a, gdje je to prikazano u drugom kontekstu, ali mogli bismo reći da je to XSS napad.
+</p><p>Ono što je kod ovog napada opasno jest da korisnik misli da klikom na određenu akciju radi nešto što je dobro pošto vjeruje određenoj stranici koju posjećuje, a to je zapravo pokretač malicioznog koda. Naravno, kada korisnik to učini, moguće je pristupiti kolačićima, sesijskim tokenima i/ili drugim osjetljivim informacijama korisnika.
+</p><p>Postoji više vrsta XSS napada, a oni se mogu svrstati u sljedeće:
+</p>
+<ul><li> Persistent XSS - ovakav napad se manifestira kada se maliciozni kod pohrani u bazu podataka, što je posljedica korisničkog unosa. Na taj način se svaki puta kada se podaci dohvaćaju iz baze, zapravo i dohvaća i maliciozni kod.
+</li><li> Reflected XSS - ovakav napad manifestira se iz korisničkog preglednika, te izvršava određene operacije na serveru i nakon toga vrati određen rezultat korisniku.
+</li><li> DOM based XSS - ovdje se koristi korisnički preglednik te parsiranje DOM-a koji zapravo omogućuje da se određeni podaci unesu u DOM i na taj način rade štetu.
+</li></ul>
+<h3> <span class="mw-headline" id="Primjer_i_video_prikaz"> Primjer i video prikaz </span></h3>
+<p>Ovdje ću prikazati na koji način je moguće napraviti vrlo jednostavan napad, odnosno provjeriti da li je web aplikacija ranjiva na XSS napade.
+U primjeru se nalazi textbox koji služi za unos podataka pretrage. Kada se podaci unesu, izvršava se određena akcija. Međutim, ukoliko se unese nešto poput
+</p><p><code>
+</p>
+<pre> &lt;script&gt;alert("Bok")&lt;/script&gt;
+</pre>
+<p></code>
+</p><p>ASP.NET MVC to shvaća kao potencijalno opasan tekst odnosno kod pošto je automatski uključena opcija validacije korisničkog unosa. Validacija korisničkog unosa naziva se <code>ValidateRequest</code> koji je omogućen odmah nakon kreiranja projekta, te ga je moguće isključiti ako je to potrebno.
+Za onemogućavanje ove zaštite, potrebno je u kontroleru kao anotaciju unijeti:
+</p><p><code>
+</p>
+<pre> [ValidateInput(false)]
+</pre>
+<p></code>
+</p><p>A isto tako, ukoliko se radi o nekom property-u, što uglavnom i jest slučaj kako bi se sadržaj mogao dalje koristiti ili pohraniti, potrebno je u modelu istog unijeti sljedeće kako bi se to moglo pohraniti ili koristiti kao HTML:
+</p><p><code>
+</p>
+<pre> [AllowHtml]
+</pre>
+<p></code>
+</p><p>Naravno, potrebno je reći da isključivanje validacije korisničkog unosa može biti štetno za aplikaciju, međutim, ukoliko je to zbilja potrebno, dobro je da se radi određeno validiranje uz pomoć <code>Regex</code>-a i sl.
+</p><p>Video primjer može se pogledati u nastavku: <a href="https://www.youtube.com/watch?v=kSfYiSXPorA" class="external text" rel="nofollow">"Cross-Site Scripting Prevention"</a>
+</p>
+<h3> <span class="mw-headline" id="Na.C4.8Dini_prevencije"> Načini prevencije </span></h3>
+<p>Pošto je ovo jedan on najčešćih napada te ih ima više vrsta, postoji određen broj i mnogo načina prevencije ovog napada.
+</p>
+<ul><li> Prvi način prevencije jest već uključen u ASP.NET MVC, a to je <code>ValidateRequest</code> koji služi za validaciju korisničkog unosa, te ukoliko primjeti određene tagove, automatski baca grešku kako se ne bi izvršila određena operacija zbog mogućeg potencijalno opasnog programskog koda. Iako u nekim situacijama korištenje istog nije najbolje rješenje, ranije sam naveo kako se ova opcija može isključiti.
+</li></ul>
+<ul><li> Drugi način prevencije je korištenje Microsoftove biblioteke <code>AntiXss</code> koji sadrži ugrađene metode za dohvaćanje podataka iz HTML-a, JSON-a i slično, odnosno, uzimajući cijeli kod, iz njega izvlači samo podatke, dok s druge strane postoji i <code>HtmlEncode</code> koji radi na suprotni način, koji zapravo dohvaća sve "opasne" elemente.
+</li></ul>
+<ul><li> Sljedeća stvar kod prevencije XSS-a je postavljanje odgovarajućeg zaglavlja web aplikacije, primjerice <code>UTF-8</code>, pošto sam tijekom izrade ovog rada naišao na materijale koji su ukazivali da su mogući napadi XSS-a upotrebom <code>UTF-7</code>. Osim enkodiranja, vrlo važno i korisno je koristiti takozvane <code>Security-Policy</code> mogućnosti zaglavlja, za svaki preglednik posebno. Na taj način se također onemogućuje XSS jer se omogućuje izvršavanje skripti samo iz aplikacije. Primjer kako se stavljaju stavljaju iste u zaglavlje je na sljedeći način:
+</li></ul>
+<p><code>
+</p>
+<pre> // Chrome &amp; Safari
+ Response.AddHeader("X-WebKit-CSP", "default-src 'self'");
+ // Firefox
+ Response.AddHeader("X-Content-Security-Policy", "default-src 'self'");
+</pre>
+<p></code>
+</p>
+<ul><li> Isto tako, vrlo je važno kod upotrebe JSON-a koristiti <code>Json.Encode()</code>, odnosno <code>Encoder.JavascriptEncode()</code>.
+</li><li> I za sam kraj, bilo bi dobro da se za svaki korisnički unos radi određena provjera, tj. vrlo je jednostavno onemogućiti unos određenih znakova pomoću <code>Regex</code>-a ukoliko znamo koje znakove možemo odnosno trebamo prihvaćati.
+</li></ul>
+<h2> <span class="mw-headline" id="Za.C5.A1tita_podataka"> Zaštita podataka </span></h2>
+<p>Kao što znamo, svaki korisnik želi da su njegovi podaci sigurni. Upravo zato, ovo je veoma važan segment izrade web aplikacija, a najviše se veže za samu kriptografiju. Zahvaljujući kriptografiji, moguće je zaštiti komunikaciju s klijentom, njegove osobne podatke, lozinke i sve ostale važne podatke. Prema tome, veoma je korisno koristiti ovaj način zaštite, koji onemogućuje napadaču da dođe do podataka u izvornom obliku.
+</p>
+<h3> <span class="mw-headline" id="Kori.C5.A1tenje_SSL-a"> Korištenje SSL-a </span></h3>
+<p>Kod većine stranica, često možemo vidjeti da kod adrese umjesto <code>http</code> piše <code>https</code>. To znači da web stranica ili aplikacija ima određeni SSL certifikat što donosi određene sigurnosne benefite.
+Stranice koje koriste SSL svakako su sigurnije, odnosno komunikacija je sigurnija pošto je ista enkriptirana, stoga je nerazumljiva drugim korisnicima. U današnje vrijeme SSL certifikati nisu niti toliko skupi, pa se svakako isplati uložiti u sigurnost web aplikacije.
+</p>
+<table class="wikitable" style="text-align:center; margin-left:auto; margin-right:auto">
+<caption> <b> Usporedba HTTP-a i HTTPS-a </b>
+</caption>
+<tr>
+<th>Tip
+</th>
+<th>HTTP
+</th>
+<th>HTTPS
+</th></tr>
+<tr>
+<th>PORT
+</th>
+<td>80
+</td>
+<td>443
+</td></tr>
+<tr>
+<th>SIGURNOST
+</th>
+<td>Nesiguran
+</td>
+<td>Siguran
+</td></tr>
+<tr>
+<th>SLOJ
+</th>
+<td>Aplikacijski sloj
+</td>
+<td>Transportni sloj
+</td></tr>
+<tr>
+<th>ENKRIPCIJA
+</th>
+<td>Ne
+</td>
+<td>Da
+</td></tr>
+<tr>
+<th>CERTIFIKAT
+</th>
+<td>Nije potreban
+</td>
+<td>Potreban
+</td></tr>
+</table>
+<p>Da bi se mogao koristiti SSL, potrebno je isti uključiti. Ipak, prije toga, ukoliko se radi o produkcijskoj aplikaciji, potrebno je imati cerfifikat ili ga napraviti lokalno. Ukoliko se isti koristi za svrhu lokalnog korištenja, Visual Studio će generirati certifikat. Koraci kako omogućiti SSL su sljedeći, ali je važno da zbog automatskog generiranja certifikata pokrenete Visual Studio kao administrator:
+</p>
+<ol><li> Potrebno je kliknuti na naziv projekta, te odabrati karticu <code>Properties</code>
+</li><li> U kartici <code>Properties</code>, potrebno je pod <code>Enable SSL</code> odabrati <code>True</code>
+</li><li> Nakon toga, automatski se kao SSL porta stavka <code>44300</code>, a ukoliko se isti želi promijeniti, potrebno je prvo kliknuti na naziv projekta desnim klikom i odabrati <code>Unload Project</code>
+</li><li> Kada smo napravili navedene korake, možemo desnim klikom klinuti na naziv projekta i odabrati <code>Edit &lt;NazivProjekta&gt;.csproj</code>
+</li><li> Potrebno je izmjeniti samo jednu liniju koda, te umjesto trenutnog 44300, promijeniti na sljedeće: <pre>&lt;IISExpressSSLPort&gt;443&lt;/IISExpressSSLPort&gt;</pre>
+</li><li> Sada je potrebno ponovno učitati projekt s desnim klikom na projekt i odabrati <code>Reload Project</code> te pokrenuti aplikaciju.
+</li><li> Ukoliko se prilikom pokretanja pojavi zaslon kao na sljedećoj slici, odaberite <code>Yes</code>.
+</li></ol>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nikola-majcen_Instalacija-certifikaca.jpg" class="image"><img alt="Nikola-majcen Instalacija-certifikaca.jpg" src="../images/a/ad/Nikola-majcen_Instalacija-certifikaca.jpg" width="486" height="400" /></a></div></div>
+<p>Isto tako, potrebno je napomenuti da se za stranice na kojima želimo imati SSL, trebamo staviti anotaciju:
+</p><p><code>
+</p>
+<pre> [RequireHttps]
+</pre>
+<p></code>
+</p><p>Moguće je to staviti i na razini klase kontrolera ili Area-a, pa će to vrijediti za navedene dijelove, ali napomena postoji u vezi prijave. Naime, ukoliko je anotacija stavljena na POST metodu kod prijave, isto tako mora i anotacija biti kod GET metode, kako bi se dogodio redirekt kod GET metode, jer se isti neće dogoditi ukoliko GET metoda ne zahtjeva SSL, a POST metoda zahtjeva, pa će doći do greške.
+</p>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_lozinke"> Zaštita lozinke </span></h3>
+<p>Zaštita korisničkih lozinki jedno je od vrlo važnih elemenata svake web aplikacije.
+U slučaju ASP.NET MVC-a, osnovni način pohranjivanja lozinke jest takav da se ona hash-ira i zatim sprema u bazu podataka. Na taj način lozinka nije poznata nikome osim samom korisniku (ovakav način je aktivan ukoliko se koristi Identity koji je defaultno složen pri kreiranju projekta).
+</p><p>O Identity-u ću reći ukratko na kraju, međutim, vrijedi reći da je do korisnički podataka, odnosno lozinke moguće doći pomoću klase <code>ApplicationUserManager</code>.
+</p><p><code>
+</p>
+<pre> ApplicationUserManager manager = new ApplicationUserManager();
+</pre>
+<p></code>
+</p><p>Kada se kreira ovaj objekt, on ima metode kao što su:
+</p>
+<ul><li> <code>AddPasswordAsync</code>
+</li><li> <code>ChangePasswordAsync</code>
+</li><li> <code>CheckPasswordAsync</code>
+</li><li> <code>GeneratePasswordAsync</code>
+</li><li> <code>HasPasswordAsync</code>
+</li><li> <code>RemovePasswordAsync</code>
+</li><li> <code>ResetPasswordAsync</code>
+</li></ul>
+<p>Pomoću tih metoda, moguće je uspoređivati lozinke koju korisnik unese ili ih resetirati na korisnički zahtjev itd.
+Na taj način, također, moguće je i korištenje <code>PasswordHasher</code>-u i <code>PasswordValidator</code>-u.
+</p>
+<h3> <span class="mw-headline" id="Za.C5.A1tita_baze_podataka"> Zaštita baze podataka </span></h3>
+<p>Osim zaštite na razini programskog koda, moguće je zaštiti podatke i na razini baze podataka. Taj dio neću detaljno objašnjavati, ali postoje tri metode u SQL Serveru koje omogućavaju enkripciju pojedinih atributa ili cijele tablice, a to su:
+</p>
+<ul><li> <code>EncryptByPassphrase</code>
+</li><li> <code>EncryptByKey</code>
+</li><li> <code>EncryptByCertificate</code>
+</li></ul>
+<p>Također, vrijedi napomenuti da se prije pretraga ili korištenja podataka, također isti moraju dekriptirati.
+</p><p>Detalje i način kako to napraviti na razini baze podataka možete naći na sljedećoj poveznici: <a href="http://blog.sqlauthority.com/2009/04/28/sql-server-introduction-to-sql-server-encryption-and-symmetric-key-encryption-tutorial-with-script/" class="external text" rel="nofollow">"Introduction to SQL Server Encryption and Symmetric Key Encryption Tutorial with Script"</a>
+</p>
+<h2> <span class="mw-headline" id="Denial_of_Service"> Denial of Service </span></h2>
+<p>DoS napad je napad kojemu je cilj učiniti određeni resurs ili uslugu nedostupnom kako ju korisnik ne bi mogao u određenom trenutku koristiti. Ovaj napad manifestira se u velikom broju zahtjeva, i to veličine takve da server ne može obrađivati zahtjeve, pa dolazi do toga da je web aplikacija koja se pokreće na tom serveru nedostupna.
+</p>
+<h3> <span class="mw-headline" id="Prevencija_napada"> Prevencija napada </span></h3>
+<p>Što se prevencije ovakvih napada tiče, naišao sam na način kako to zaustaviti na razini servera. Naime, alat pod nazivom Dynamic IP Restrictions omogućuje blokiranje DoS napada. Naime, kada program vidi da sa određene IP adrese dolazi mnogo zahtjeva, moguće je konfigurirati koliko zahtjeva je maksimalno moguće u određenom intervalu, te ukoliko se taj broj premaši, dolazi do određenog vremena nedostupnosti servera za tu IP adresu. Kada se broj zahtjeva smanji, odnosno nakon što se ne pošalje zahtjev određeno i definirano vrijeme, ta IP adresa više nije blokirana.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nikola-majcen_dynamic-ip-restrictions.jpg" class="image"><img alt="Nikola-majcen dynamic-ip-restrictions.jpg" src="../images/5/54/Nikola-majcen_dynamic-ip-restrictions.jpg" width="271" height="177" /></a></div></div>
+<h2> <span class="mw-headline" id="ASP.NET_Identity"> ASP.NET Identity </span></h2>
+<p>ASP.NET Identity predstavlja novi korak i to je zapravo novi membership sustav za ASP.NET aplikacije. Identity omogućuje vrlo lake promjene i modifikacije osnovnih korisničkih operacija kao što je prijava ili odjava. Isto tako, Identity sadržava i automatski sadrži gotove primjere kodova za slanje potvrdnih e-mailova, hashiranje lozinki, resetiranje lozinki, dvofaktorsku autentifikaciju i slično.
+</p>
+<h3> <span class="mw-headline" id="Mogu.C4.87nosti"> Mogućnosti </span></h3>
+<p>Ranije sam naveo neke od mogućnosti Identity-a, a sada ću detaljno objasniti jednu po jednu mogućnost. Prema tome, mogućnosti odnosno ciljevi Identity-a su:
+</p>
+<ul><li> <b>Jedan jedini membership sustav</b>
+<ul><li> Ovaj sustav koristi se za sve ASP.NET aplikacije kao što je MVC, WebForms, WebAPI i sl.
+</li></ul>
+</li></ul>
+<ul><li> <b>Jednostavno praćenje korisničkih informacija</b>
+<ul><li> Omogućeno je vrlo jednostavno dodavanje ili izbacivanje određenih informacija o korisniku, kao i način pohrane (ovisno u kojoj tablici)
+</li><li> Podaci se automatski preko Entity Frameworka pohranjuju u bazi podataka (tablice s prefiksom AspNet), ali je to moguće promijeniti
+</li></ul>
+</li></ul>
+<ul><li> <b>Role provider</b>
+<ul><li> Posebno definirano kreiranje i korištenje rola po korisniku, a za pristup rolama i mijenjanje podataka u vezi s korisnicima postoje unaprijed definirane klase
+</li></ul>
+</li></ul>
+<ul><li> <b>Korištenje claimova</b>
+<ul><li> Unos opisnih podataka o korisniku umjesto podataka kao što su <code>True</code> ili <code>False</code>
+</li><li> Primjer claima: <code>This user is Admin</code>
+</li></ul>
+</li></ul>
+<ul><li> <b>Social login provider</b>
+<ul><li> Vrlo jednostavno postavljanje korisničkih računa s drugih platformi, odnosno, prijavljivanje korisnika s računom drugog servisa, s time da se osjetljivi podaci ne pohranjuju na serveru
+</li></ul>
+</li></ul>
+<ul><li> <b>Integracija OWIN-a</b>
+<ul><li> Autentifikacija je bazirana na OWIN-u (kolačiće kreira OWIN)
+</li></ul>
+</li></ul>
+<h3> <span class="mw-headline" id="Primjer_ERA_modela"> Primjer ERA modela </span></h3>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nikola-majcen_identity.png" class="image"><img alt="Nikola-majcen identity.png" src="../images/8/87/Nikola-majcen_identity.png" width="1042" height="608" /></a></div></div>
+<p>Na slici je prikazan ERA model koji sam koristio za projekt <a href="https://github.com/nikolamajcen/rent-a-car" class="external text" rel="nofollow">Rent a car</a>.
+Naime, ovdje je korišten Identity, a osnovne tablice koje Identity koristi i generira su sljedeće:
+</p>
+<ul><li> AspNetUsers
+</li><li> AspNetRoles
+</li><li> AspNetClaims
+</li><li> AspNetUserRoles
+</li><li> AspNetUserLogins
+</li></ul>
+<p>Naravno, moguće je mijenjati tablice i koristiti samo one koje su nam potrebne, a ono što je ovdje učinjeno jest da su tablice preimenovane:
+</p><p><code>
+</p>
+<pre> modelBuilder.Entity&lt;MyUser&gt;().ToTable("Users");
+ modelBuilder.Entity&lt;MyRole&gt;().ToTable("Roles");
+ modelBuilder.Entity&lt;MyUserRole&gt;().ToTable("UserRoles");
+ modelBuilder.Entity&lt;MyUserLogin&gt;().ToTable("UserLogins");
+ modelBuilder.Entity&lt;MyUserClaim&gt;().ToTable("UserClaims");
+</pre>
+<p></code>
+</p><p>Važno je reći da sam ovdje radio malo veće promjene, ne samo od promjene imena tablica i klasa, već i promjene primarnih ključeva, pošto je defaultno primarni ključ u Identity-u tipa String.
+Iako je moguće raditi mnoge promjene, vrlo je važno držati se konvencija pri definiranju modela, te ne kreirati razne klase za izradu ili pohranjivanje korisničkih podataka u bazu i slično, kad većina tih klasa i metoda već postoji. Isto tako, u mapi <code>App_Start</code> već postoje klase s definiranim načinima kako da se koristi <code>OAuth</code> i primjerice dvofaktorska autentifikacija, pa je samo potrebno iste odkomentirati, pošto je preko Identity-a i Entity Frameworka sve već konfigurirano da ovakve stvari odmah budu funkcionalne.
+</p><p>Osnove i načini korištenja Identity-a mogu se vidjeti na sljedećoj poveznici: <a href="http://www.codeproject.com/Articles/762428/ASP-NET-MVC-and-Identity-Understanding-the-Basics" class="external text" rel="nofollow">"ASP.NET Identity - Basics"</a>
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> <a href="http://www.codedigest.com/Articles/ASPNET/401_Understanding_Web_Security_Vulnerabilities_and_Preventing_it_in_ASPNet_Applications.aspx" class="external text" rel="nofollow">"Understanding Web Security Vulnerabilities and Preventing it in ASP.Net Applications"</a>
+</li><li> <a href="https://www.owasp.org/index.php/SQL_Injection" class="external text" rel="nofollow">"OWASP - SQL Injection"</a>
+</li><li> <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet" class="external text" rel="nofollow">"OWASP - SQL Injection Prevention Cheat Sheet"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Guide_to_SQL_Injection" class="external text" rel="nofollow">"OWASP - Guide to SQL Injection"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Query_Parameterization_Cheat_Sheet" class="external text" rel="nofollow">"Query Parameterization Cheat Sheet"</a>
+</li><li> <a href="https://msdn.microsoft.com/en-us/library/ff648339.aspx" class="external text" rel="nofollow">"How To: Protect From SQL Injection"</a>
+</li><li> <a href="https://dzone.com/articles/aspnet-preventing-sql-injectio" class="external text" rel="nofollow">"ASP.NET - Preventing SQL Injection Attacks"</a>
+</li><li> <a href="http://www.mikesdotnetting.com/article/113/preventing-sql-injection-in-asp-net" class="external text" rel="nofollow">"Preventing SQL Injection in ASP.NET"</a>
+</li><li> <a href="http://www.cgisecurity.com/owasp/html/ch11s04.html" class="external text" rel="nofollow">"Parameter Manipulation"</a>
+</li><li> <a href="http://austinejei.blogspot.hr/2013/02/securing-your-aspnet-mvc-apps.html" class="external text" rel="nofollow">"Securing your ASP.NET MVC Apps"</a>
+</li><li> <a href="https://mvcsecurity.codeplex.com/" class="external text" rel="nofollow">"MVC Security Extensions"</a>
+</li><li> <a href="http://www.sql-server-performance.com/2012/preventing-parameter-tampering-in-asp-net-mvc/" class="external text" rel="nofollow">"Preventing Parameter Tampering in ASP.NET MVC"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Information_Leakage" class="external text" rel="nofollow">"OWASP - Information Leakage"</a>
+</li><li> <a href="https://www.owasp.org/index.php/ASP.NET_Misconfigurations" class="external text" rel="nofollow">"OWASP - ASP.NET Misconfigurations"</a>
+</li><li> <a href="http://www.codeproject.com/Articles/783229/Hack-proof-your-ASP-NET-applications-from-Sensitiv" class="external text" rel="nofollow">"Hack proof your ASP.NET applications from Sensitive Data Exposure and Information Leakage"</a> 
+</li><li> <a href="http://projects.webappsec.org/w/page/13246936/Information%20Leakage" class="external text" rel="nofollow">"Information Leakage"</a>
+</li><li> <a href="https://www.saotn.org/remove-iis-server-version-http-response-header/" class="external text" rel="nofollow">"Remove IIS Server version HTTP response header "</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)" class="external text" rel="nofollow">"OWASP - Cross-Site Request Forgery (CSRF)"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" class="external text" rel="nofollow">"OWASP - Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet"</a>
+</li><li> <a href="http://www.asp.net/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages" class="external text" rel="nofollow">"XSRF/CSRF Prevention in ASP.NET MVC and Web Pages"</a>
+</li><li> <a href="http://www.asp.net/web-api/overview/security/preventing-cross-site-request-forgery-csrf-attacks" class="external text" rel="nofollow">"Preventing Cross-Site Request Forgery (CSRF) Attacks in ASP.NET Web API"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)" class="external text" rel="nofollow">"OWASP - Cross-Site Scripting (XSS)"</a>
+</li><li> <a href="https://msdn.microsoft.com/en-us/library/ff649310.aspx" class="external text" rel="nofollow">"How To: Prevent Cross-Site Scripting in ASP.NET"</a>
+</li><li> <a href="http://code.tutsplus.com/tutorials/preventing-xss-in-aspnet--cms-21801" class="external text" rel="nofollow">"Preventing XSS in ASP.NET"</a>
+</li><li> <a href="http://www.troyhunt.com/2010/05/owasp-top-10-for-net-developers-part-2.html" class="external text" rel="nofollow">"OWASP Top 10 for .NET developers part 2: Cross-Site Scripting (XSS)"</a>
+</li><li> <a href="http://lockmedown.com/preventing-xss-in-asp-net-made-easy/" class="external text" rel="nofollow">"Preventing XSS in ASP.NET Made Easy"</a>
+</li><li> <a href="http://www.codeproject.com/Articles/617043/Hack-Proof-Your-ASP-NET-Application-From-Cross-Sit" class="external text" rel="nofollow">"Hack Proof Your ASP.NET Application From Cross Site Scripting (XSS)"</a>
+</li><li> <a href="http://www.c-sharpcorner.com/UploadFile/225740/what-is-ssl-and-how-to-implement-in-Asp-Net-web-aaplication/" class="external text" rel="nofollow">"What is SSL and How to Implement in ASP.Net Web Application"</a>
+</li><li> <a href="https://www.macaw.nl/weblog/2013/6/configuring-an-asp-net-project-for-development-with-ssl" class="external text" rel="nofollow">"Configuring an ASP.NET project for development with SSL"</a>
+</li><li> <a href="https://msdn.microsoft.com/en-us/library/bb510663.aspx" class="external text" rel="nofollow">"SQL Server Encryption"</a>
+</li><li> <a href="https://msdn.microsoft.com/en-us/library/ms179331.aspx" class="external text" rel="nofollow">"Encrypt a Column of Data"</a>
+</li><li> <a href="http://blog.sqlauthority.com/2009/04/28/sql-server-introduction-to-sql-server-encryption-and-symmetric-key-encryption-tutorial-with-script/" class="external text" rel="nofollow">"SQL SERVER – Introduction to SQL Server Encryption and Symmetric Key Encryption Tutorial with Script"</a>
+</li><li> <a href="https://www.owasp.org/index.php/Denial_of_Service" class="external text" rel="nofollow">"OWASP - Denial of Service"</a>
+</li><li> <a href="http://www.iis.net/downloads/microsoft/dynamic-ip-restrictions" class="external text" rel="nofollow">"Dynamic IP Restrictions"</a>
+</li><li> <a href="http://www.asp.net/identity/overview/getting-started/introduction-to-aspnet-identity" class="external text" rel="nofollow">"Introduction to ASP.NET Identity"</a>
+</li><li> <a href="http://www.codeproject.com/Articles/762428/ASP-NET-MVC-and-Identity-Understanding-the-Basics" class="external text" rel="nofollow">"ASP.NET MVC and Identity 2.0: Understanding the Basics"</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 152/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8701-0!*!0!!hr!2!edit=0 and timestamp 20190203204227 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="ASP.NET_Security.html">http://security.foi.hr/wiki/index.php/ASP.NET_Security</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=ASP.NET_Security" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="ASP.NET_Security.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:ASP.NET_Security&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="ASP.NET_Security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="ASP.NET_Security.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=ASP.NET_Security&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=ASP.NET_Security&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="ASP.NET_Security.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/ASP.NET_Security" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/ASP.NET_Security" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=ASP.NET_Security&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=ASP.NET_Security&amp;oldid=38024" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 19:32, 25. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 16.370 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "ASP.NET_Security", "wgTitle": "ASP.NET Security", "wgAction": "view", "wgArticleId": 8701, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 38024, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.652 secs. -->			</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Tshark i tcpdump u praksi - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Tshark_i_tcpdump_u_praksi&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Tshark_i_tcpdump_u_praksi skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Tshark i tcpdump u praksi</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Tshark_i_tcpdump_u_praksi.html#mw-head">orijentacija</a>,
+					<a href="Tshark_i_tcpdump_u_praksi.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p><b>Matija Jurman</b> --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Mjurman&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Mjurman (stranica ne postoji)">Mjurman</a> 08:30, 20. siječnja 2015
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Tshark_i_tcpdump_u_praksi.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Tshark_i_tcpdump_u_praksi.html#Mre.C5.BEa_i_mre.C5.BEni_promet"><span class="tocnumber">2</span> <span class="toctext">Mreža i mrežni promet</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Tshark_i_tcpdump_u_praksi.html#Tshark"><span class="tocnumber">3</span> <span class="toctext">Tshark</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Tshark_i_tcpdump_u_praksi.html#Instalacija_i_manipulacija_okru.C5.BEjem"><span class="tocnumber">3.1</span> <span class="toctext">Instalacija i manipulacija okružjem</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Tshark_i_tcpdump_u_praksi.html#Izvoz_snimljenih_podstaka_u_.csv_datoteku"><span class="tocnumber">3.2</span> <span class="toctext">Izvoz snimljenih podstaka u .csv datoteku</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Tshark_i_tcpdump_u_praksi.html#Dohva.C4.87anje_Cookie-a"><span class="tocnumber">3.3</span> <span class="toctext">Dohvaćanje Cookie-a</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Tshark_i_tcpdump_u_praksi.html#Snimanje_TCP_streamova"><span class="tocnumber">3.4</span> <span class="toctext">Snimanje TCP streamova</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Tshark_i_tcpdump_u_praksi.html#Tcpdump"><span class="tocnumber">4</span> <span class="toctext">Tcpdump</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="Tshark_i_tcpdump_u_praksi.html#Http_zaglavlje_i_Cookie-vi_koji_se_prenose"><span class="tocnumber">4.1</span> <span class="toctext">Http zaglavlje i Cookie-vi koji se prenose</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Tshark_i_tcpdump_u_praksi.html#Udaljena_kontrola_ra.C4.8Dunala_.28Teamviewer.29"><span class="tocnumber">4.2</span> <span class="toctext">Udaljena kontrola računala (Teamviewer)</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Tshark_i_tcpdump_u_praksi.html#Manji_Tcpdump_korisni_primjeri"><span class="tocnumber">4.3</span> <span class="toctext">Manji Tcpdump korisni primjeri</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="Tshark_i_tcpdump_u_praksi.html#Top_10_Talkers"><span class="tocnumber">4.3.1</span> <span class="toctext">Top 10 Talkers</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="Tshark_i_tcpdump_u_praksi.html#Snimanje_cijelih_paketa_u_ASCII_i_Hexadecimalnom_obliku"><span class="tocnumber">4.3.2</span> <span class="toctext">Snimanje cijelih paketa u ASCII i Hexadecimalnom obliku</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="Tshark_i_tcpdump_u_praksi.html#Najzastupljeniji_promet_u_mre.C5.BEi"><span class="tocnumber">4.3.3</span> <span class="toctext">Najzastupljeniji promet u mreži</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="Tshark_i_tcpdump_u_praksi.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Tshark_i_tcpdump_u_praksi.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Paketi koji prolaze kroz mrežu ili ukupna količina mrežnih transakcija naziva se mrežni promet. Prateći količinu i vrstu mrežnog prometa možemo doznati mnoštvo informacija o namjeni i korištenju računalne mreže. Tako primjerice možemo predvidjeti ili otkriti neku malicioznu aktivnost unutar te mreže, a ujedno je i lakše spriječiti prije nego li dođe do većih materijalnih i drugih gubitaka. Poznavanje mrežnih protokola i standarada na kojima se zasniva računalna mreža koja se analizira bitan je preduvjet kvalitetne analize računalne mreže. 
+</p><p>U navedenom radu biti će prikazane različite mogućnosti koje nam pružaju alati za snimanje mrežnog prometa te mnoštvo takozvanih „trikova“ kojima je moguće doznati primjerice koji cookie se prenosio, poruka koja se prenosila u HTML zaglavlju prilikom uobičajenog, ali i onog neuobičajenog, rada na mreži, TCP streamove, otkrivanje mogućeg neželjenog upada u sustav i druge  – koristeći Tshark i Tcpdump alate za analizu mrežnog prometa.
+</p>
+<h1> <span class="mw-headline" id="Mre.C5.BEa_i_mre.C5.BEni_promet">Mreža i mrežni promet</span></h1>
+<p>Za spajanje na mrežu računalo treba imati barem jedno fizičko mrežno sučelje. Pritom svako takvo sučelje najčešće posjeduje jedno logičko ili programsko sučelje, ali valja naglasiti da je fizičkom sučelju moguće dodijeliti i više logičkih sučelja. Svako fizičko sučelje ima dodijeljenu jednu MAC adresu, dok svako logičko sučelje ima dodijeljenu IP adresu. Ukoliko je fizičko mrežno sučelje spojeno na neki medij koji dijeli više uređaja, do njega dolaze i podaci koji mu nisu namijenjeni. Fizičko mrežno sučelje to raspoznaje na osnovu odredišne adrese. Podatke koji mu nisu namijenjeni najčešće ignorira, no moguće ga je postaviti u poseban modul rada u kojem prihvaća sve informacije koje dolaze do njega. 
+</p><p>Packet snifferom nazivamo program koji snima mrežne pakete koje stižu na sučelje i one koji se preko njega šalju u mrežu. Za analizu mrežnog prometa možemo reći da je postupak kojim se mrežni paketi presreću, a zatim analiziraju. Presretanje paketa podrazumijeva čitanje paketa od strane aplikacije kojoj paket nije originalno namijenjen. Uhvaćeni se paket nakon hvatanja primitka i lokalnog zapisivanja prosljeđuje na odredište, tj. mrežni promet se samo snima bez izmjene ili blokiranja komunikacije. <a href="http://www.cis.hr/sigurosni-alati/pracenje-mreznog-prometa.html" class="external text" rel="nofollow">Izvor1</a> 
+Pojednostavljeni koncept funkcionalnosti packet sniffera vidljiv je na slici 1, dok je  struktura packet sniffera prikazana na slici 2.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman001.gif" class="image"><img alt="Mjurman001.gif" src="../images/9/9f/Mjurman001.gif" width="574" height="191" /></a></div></div>
+<center><i>Pojednostavljeni prikaz pozicioniranja alata za analizu mrežnog prometa u mreži <a href="http://www.cis.hr/sigurosni-alati/pracenje-mreznog-prometa.html" class="external text" rel="nofollow">Izvor2</a></i></center>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman002.png" class="image"><img alt="Mjurman002.png" src="../images/f/f7/Mjurman002.png" width="626" height="281" /></a></div></div>
+<p><br />
+</p>
+<center>Struktura packet sniffera <a href="http://elfarchive.foi.hr/11_12" class="external text" rel="nofollow">Izvor3</a></center>
+<p>Packet sniffer sprema kopije paketa, analizira ih i prikazuje u pogodnom obliku, ali te pakete ne šalje na sučelje niti ima svoju posebnu adresu na koju bi se njemu slali paketi. Princip rada je sljedeći: modul „snimanje paketa“ prima kopije okvira, koje onda analizator paketa analizira i prikazuje. Na slici 2 je vidljiv primjer s poznatim Internet protokolima, a vidi se i koji su dijelovi ostvareni na razini operacijskog sustava, a koji na aplikativnoj razini.
+</p>
+<h1> <span class="mw-headline" id="Tshark">Tshark</span></h1>
+<h2> <span class="mw-headline" id="Instalacija_i_manipulacija_okru.C5.BEjem">Instalacija i manipulacija okružjem</span></h2>
+<p>Za objašnjenje funkcionalnosti Tshark alata, najprije će biti par riječi o Wireshark alatu. To je besplatni alat izdan pod GPL licencom otvorenog koda za analizu, presretanje i snimanje mrežnog prometa. On podržava više operacijskih sustava (Windows, Linux, OS X, Solaris, FreeBSD). Wireshark „razumije“ strukturu različitih mrežnih protokola, pa je stoga sposoban prikazati podatke iz paketa specifičnih za različite protokole. Za hvatanje paketa koristi se biblioteka koda  - pcap (eng.Packet capture). Valja naglasiti kako može hvatati samo pakete s mreža koje pcap podržava, a to su primjerice: Ethernet, IEEE 802.11, PPP/HDLC, ATM, Bluetooth, USB, Token Ring, Frame Relay i sl. 
+Pcap je biblioteka koja raznim programima pruža programsko sučelje za dohvaćanje paketa s mrežnih sučelja na operacijskim sustavima Windows i Linux/Unix. Podaci se mogu uhvatiti izravno s aktivne mrežne veze, a mogu se i učitati iz datoteke u kojoj su pohranjeni već ranije  uhvaćeni paketi. Uhvaćeni podaci mogu biti prikazani, filtrirani i analizirani preko grafičkog korisničkog sučelja (Wireshark) ili preko komandne linije (Tshark). Tshark je stoga jedan od alata koji dolazi prilikom instalacije Wiresharka kao moguća dodatna funkcionalnost samog alata. Osnovna značajka u kojoj se razlikuje od Wiresharka je ta što se Tshark i sve njegove mogućnosti, odnosno funkcionalnosti pokreću iz komandne linije. 
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman003.png" class="image"><img alt="Mjurman003.png" src="../images/c/cb/Mjurman003.png" width="510" height="397" /></a></div></div>
+<center><i>Slika: Mogućnost odabira instalacije Tsharka prilikom instalacije WIresharka</i></center>
+<h2> <span class="mw-headline" id="Izvoz_snimljenih_podstaka_u_.csv_datoteku">Izvoz snimljenih podstaka u .csv datoteku</span></h2>
+<p>U nastavku će biti prikazano kako se snimljeni podaci pomoću alata Tshark mogu spremiti u .csv datoteku koju je kasnije moguće otvoriti u programu Microsoft Excel.
+Navedena funkcionalnost biti će prikazana na operacijskom sustavu Windows 7, koristeći komandnu liniju (eng. Command Prompt) i alat Tshark prethodno instaliran uz Wireshark.
+Najprije se je potrebno pozicionirati u direktorij na kojem je instaliran Tshark. U ovom slučaju C:\Program files\Wireshark. Zatim je pomoću naredbe tshark –D potrebno provjeriti koji je redni broj fizičkog mrežnog sučelja spojenog na mrežu. U mojem slučaju imamo sljedeća 2 mrežna sučelja prikazana na slici 4.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman004.png" class="image"><img alt="Mjurman004.png" src="../images/0/02/Mjurman004.png" width="643" height="56" /></a>
+</p><p><br />
+Kako se u upravljačkoj ploči računala može provjeriti da je računalo spojeno na mrežu preko Local Area Connection-a, koristit ćemo uređaj broj 1.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman005.png" class="image"><img alt="Mjurman005.png" src="../images/3/34/Mjurman005.png" width="522" height="65" /></a>
+</p><p><br />
+Snimanje podataka – limit paketa
+Zatim zadajemo sljedeću naredbu:
+</p><p><b>tshark –i 1 –w Matija1.pcap –c 100</b>
+</p><p><br />
+pri čemu kratice znače sljedeće:
+<b>-i 1</b> – snimanje prometa na mrežnom sučelju 1 (Local Area Connection)
+<b>-w Matija1.pcap</b> – zapis snimljenih paketa u datoteku Matija1.pcap (zapis čitljiv Wireshark alatu)
+<b>-c 100</b> – postavljanje limita snimanja na 100 snimljenih paketa.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman006.png" class="image"><img alt="Mjurman006.png" src="../images/f/fb/Mjurman006.png" width="498" height="45" /></a>
+</p><p><br />
+Valja naglasiti kako je moguće ranije zaustaviti snimanje mrežnog prometa korištenjem Ctrl+C tipkovničke kratice 
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman007.png" class="image"><img alt="Mjurman007.png" src="../images/2/2c/Mjurman007.png" width="592" height="188" /></a>
+</p><p><br />
+Vidljivo je kako se u direktoriju C:\Program files\Wireshark nalazi novokreirana Matija1.pcap datoteka. Njezin sadržaj moguće je pogledati u Wireshark alatu (grafičko sučelje) gdje izgleda kao na slici 5:
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman008.png" class="image"><img alt="Mjurman008.png" src="../images/thumb/9/96/Mjurman008.png/1050px-Mjurman008.png" width="1050" height="547" /></a></div></div>
+<center><i>Slika: Sadržaj datoteke Matija.pcap otvoren u Wireshark alatu</i></center>
+<p><br />
+Njezin sadržaj također je moguće pogledati i u Tshark komandnom okruženju sa određenim filterima, odnosno prikazom samo nama zanimljivih okvira. Upisujemo sljedeću naredbu:
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman009.png" class="image"><img alt="Mjurman009.png" src="../images/6/61/Mjurman009.png" width="481" height="39" /></a>
+</p><p>odnosno:
+</p><p><b>tshark -r Matija1.pcap -T fields -e frame.time -e eth.src -e eth.dst -e ip.src -e ip.dst -E header=y -E separator=, -E quote=d -E occurrence=f</b>
+</p><p>pri čemu su:
+</p><p><b>-T fields</b> – naredba za dohvat određenih polja
+</p><p><b>-e frame.number</b>– broj snimljenog paketa
+</p><p><b>-e eth.src</b> – MAC adresa izvorišta
+</p><p><b>-e eth.dst</b> – MAC adresa odredišta
+</p><p><b>-e ip.src</b> – IP adresa izvorišta
+</p><p><b>-e ip.dst</b> – IP adresa odredišta
+</p><p><b>-E header=y</b> – naredba za postavljanje zaglavlja
+</p><p><b>-E separator=,</b> - naredba kojom govorimo kojim znakom ćemo razdvojiti okvire
+</p><p><b>-E quote=d</b> – za izbjegavanje neujednačenih brojeva zareza (ukoliko u nekom rezultatu/okviru već postoji zarez, kako bi rezultat ili krajnja .csv datoteka bila u čitljivom obliku)
+</p><p>Izvršavanjem naredbe u rezultatu dobivamo prethodno selektirane podatke o svakom primljenom paketu, kao što je to vidljivo na slici
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman010.png" class="image"><img alt="Mjurman010.png" src="../images/5/57/Mjurman010.png" width="661" height="254" /></a></div></div>
+<p><br />
+Dodavanjem naredbe 
+</p><p><b>&gt; Matija1.csv</b>
+</p><p>rezultat prethodno napisanog upita zapisujemo u datoteku Matija1.csv koja se također kreira u direktoriju Wiresharka. Rezultat zapisa u .csv datoteci izgleda ovako
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman011.png" class="image"><img alt="Mjurman011.png" src="../images/0/0d/Mjurman011.png" width="504" height="350" /></a></div></div>
+<h2> <span class="mw-headline" id="Dohva.C4.87anje_Cookie-a">Dohvaćanje Cookie-a</span></h2>
+<p>Laički rečeno - HTTP cookie, skraćeno cookie ili kolačić – je datoteka najčešće tekstualnog oblika koja se sprema  u web preglednik tijekom korisnikove aktivnosti na nekoj Internet stranici. Najčešće se koristi u svrhu da kada korisnik više puta pregledava istu Internet stranicu, ta stranica može dohvatiti podatke spremljene u kolačiću i tako olakšati odnosno poboljšati korisnikovo iskustvo „surfanja“ tom Internet stranicom. Takve datoteke najčešće sadrže „osjetljive“ podatke kao što su podaci o prijavi korisnika (korisničko ime i lozinka), podaci o gumbovima koji su bili pritisnuti na toj stranici i slično. U nastavku će biti prikazano kako je pomoću alata Tshark lako moguće snimiti, a kasnije i manipulirati Cookie-vima koje je web preglednik spremio tijekom korisnikove aktivnosti na nekoj Internet stranici.  Za početak će biti prikazana jednostavna stranica <a href="http://www.httprecipes.com/1/2/cookies.php" class="external text" rel="nofollow">Izvor_testiranje_kolačića</a>, koja omogućava testiranje Cookiea u obliku postavljanja vrijednosti testnog Cookiea i brisanja vrijednosti tog Cookia. Osnovni obrazac stranice prikazan je na slici ispod.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman012.png" class="image"><img alt="Mjurman012.png" src="../images/e/ec/Mjurman012.png" width="311" height="92" /></a>
+</p><p><br />
+Nakon što sam otvorio stranicu pokrenut ću snimanje paketa u alatu Tshark sljedećom naredbom:
+</p><p><b>tshark –i 1 –w testiranje_cookiea.pcap</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman013.png" class="image"><img alt="Mjurman013.png" src="../images/0/0e/Mjurman013.png" width="530" height="29" /></a>
+</p><p>Sada kada je pokrenuto snimanje paketa, biti će postavljena vrijednost testnog Cookiea na „Matija“.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman014.png" class="image"><img alt="Mjurman014.png" src="../images/1/10/Mjurman014.png" width="311" height="42" /></a>
+</p><p>Kao što je vidljivo trenutna vrijednost testnog Cookia iz [Undefined] je promijenjena u „Matija“.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman015.png" class="image"><img alt="Mjurman015.png" src="../images/8/8e/Mjurman015.png" width="296" height="88" /></a>
+</p><p>Nakon toga će biti izbrisana povijest pretraživanja zajedno sa spremljenim kolačićima.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman016.png" class="image"><img alt="Mjurman016.png" src="../images/5/5d/Mjurman016.png" width="420" height="318" /></a>
+</p><p><br />
+Nakon što su kolačići obrisani može se refreshati stranica gdje je vidljivo kako je vrijednost testnog Cookiea opet nedefinirana – [Undefined].  Sada se može zaustaviti snimanje paketa naredbom CTRL+C. Nakon toga u naredbeni redak upisujemo sljedeću naredbu:
+</p><p><b>tshark –r testiranje_cookiea.pcap –T fields –e http.host –e http.cookie –y http.cookie</b>
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman017.png" class="image"><img alt="Mjurman017.png" src="../images/d/df/Mjurman017.png" width="913" height="99" /></a></div></div>
+<p>Naredbom <b>-Y http.cookie</b> filtriraju se i prikazuju samo oni paketi koji u HTTP protokolu posjeduju informaciju o kolačiću dok se naredbom <b>-T fields -e http.host -e http.cookie</b> selektiraju ti paketi prema atributu poslužitelja i atributu imena i vrijednosti kolačića. 
+Sada kad je vidljiv popis kolačića koji su bili korišteni za vrijeme snimanja mrežnog prometa  - zajedno sa njihovim imenom i vrijednošću – pokrenut ću Cookie Injector skriptu za web preglednik Mozillu Firefox naredbom ALT+C.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman018.png" class="image"><img alt="Mjurman018.png" src="../images/7/74/Mjurman018.png" width="245" height="206" /></a>
+</p><p><br />
+Pokrenuta skripta traži unos Cookiea u obliku: Cookie: naziv=vrijednost; U skriptu unosimo vrijednost iz prethodno pokrenutog upita u Tsharku – dakle unosimo: <b>„Cookie: test-cookie=Matija;“</b>
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman019.png" class="image"><img alt="Mjurman019.png" src="../images/1/1f/Mjurman019.png" width="596" height="151" /></a>
+</p><p>Pritiskom na tipku OK dobivamo potrvrdu da su svi uneseni kolačići zapisani.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman020.png" class="image"><img alt="Mjurman020.png" src="../images/1/19/Mjurman020.png" width="302" height="191" /></a>
+</p><p>Osvježavanjem stranice dobivamo vrijednost ranije unesenih kolačića koji su prethodno bili izbrisani - brisanjem povijesti pretraživanja zajedno sa kolačićima. Osvježena stranica, opet ima prvobitni oblik u kojem je vrijednost testnog kolačića postavljena na „Matija“.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman015.png" class="image"><img alt="Mjurman015.png" src="../images/8/8e/Mjurman015.png" width="296" height="88" /></a>
+</p><p><br />
+Isti ovakav primjer biti će prikazan i alatom Tcpdump, u video formatu. Video dohvaćanja Cookiea, na principu kao što je to ranije opisano možete pogledati 
+<a href="https://www.youtube.com/watch?v=_hcKuvPWk9M&amp;feature=youtu.be" class="external text" rel="nofollow">OVDJE: Dohvaćanje Cookiea alatom Tcpdump</a>
+</p>
+<h2> <span class="mw-headline" id="Snimanje_TCP_streamova">Snimanje TCP streamova</span></h2>
+<p>Možemo početi identificirati pune TCP konverzacije tražeći zastavice s 3 stanja. Tražeći SYN i SYN-ACT pakete svake TCP konverzacije koja je pokrenuta je prilično jednostavno. U Wireshark alatu se to da jednostavno napraviti primjenom filtera kao što je:
+</p><p><b>tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0.</b>
+</p><p>Takav filter pronalazi SYN pakete, ali za pronalaženje SYN-ACK paketa potrebno je dodati još jedan filter:
+</p><p><b>tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 1.</b>
+</p><p>Konačan filter izgledati će kao kombinacija prethodna 2 filtera povezana logičkim ILI:
+</p><p><b>(tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0) || (tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 1)</b>
+</p><p><br />
+Ovim filterom identificirane su konverzacije koje su započele nakon što je započelo snimanje, no sljedeće pitanje koje se nameće je: „Kako izdvojiti sve pakete svake konverzacije i to za svaku konverzaciju?“ U Wireshark alatu se nešto takvo lako može napraviti na sljedeći način: desni klik na svaki SYN ili SYN-ACK paket i odabir „Follow TCP Stream“ opcionalnosti. Takav odabir dati će sve pakete za svaku TCP konverzaciju, no takvo što može vrlo lako postati naporno i „ne-user-friendly“ za korisnika. Stoga se bolje rješenje pronalazi u skriptnom rješenju problema – alatu Tshark.
+Ono što nam je potrebno je filter koji prikazuje svaku punu TCP konverzaciju unutar naše .pcap datoteke sa snimljenim paketima.
+</p><p>Stoga postavljamo snimanje paketa sljedećom naredbom:
+</p><p><b>Tshark –i 1 –w tcp_stream.pcap</b>
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman021.png" class="image"><img alt="Mjurman021.png" src="../images/d/d9/Mjurman021.png" width="477" height="43" /></a></div></div>
+<p><br />
+i zaustavljamo snimanje sa CTR+C. Wireshark alat prati sve TCP konverzaije sa ID-em streama. S druge strane, Tshark nam može pomoći izgraditi listu ID streamova.
+Dakle naredba koju upisujemo u tshark je sljedećeg oblika:
+</p><p><b>Tshark –r tcp_stream.pcap –Y "(tcp.flags.syn==1 &amp;&amp; tcp.flags.ack==0) || (tcp.flags.syn==1 &amp;&amp; tcp.flags.ack==1)" -T fields -e ip.src -e ip.dst -e tcp.stream</b>
+</p><p>a rezultat naredbe vidljiv je na slici X.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman022.png" class="image"><img alt="Mjurman022.png" src="../images/thumb/3/32/Mjurman022.png/600px-Mjurman022.png" width="600" height="573" /></a></div></div>
+<p><br />
+Objasnimo još jednom dijelove naredbe:
+</p><p><b>-r tcp_stream.pcap</b> – čitamo ranije snimljenu .pcap datoteku „tcp_stream.pcap“
+</p><p><b>-T fields-</b> označava da ćemo iz pročitane datoteke izdvojiti samo određena polja
+</p><p><b>-e ip.src</b> – izdvajamo ip adresu izvorišta
+</p><p><b>-e ip.dst</b> – izdvajamo ip adresu odredišta
+</p><p><b>-e tcp.stream</b> – izdvajamo id tcp streama
+</p><p><br />
+Isto tako možemo izdvojiti sve TCP streamove istog id-a (po želji) sa pripadnim ip adresama izvorišta i odredišta te pripadnim MAC adresama izvorišta i odredišta. Takvu funkcionalnost također nudi Tshark alat, a upit koji zadajemo izglet će ovako:
+</p><p><b>tshark –r tcp_stream.pcap –T fields –e eth.src –e eth.dest –e ip.src –e ip.dst –e tcp.stream –Y tcp.stream==9</b>
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman023.png" class="image"><img alt="Mjurman023.png" src="../images/8/82/Mjurman023.png" width="760" height="143" /></a></div></div>
+<p><br />
+Objasnimo samo izraze iz naredbe koji ranije nisu objašnjeni, dakle:
+</p><p><b>–e eth.src</b> - naredba kojom ispisujemo MAC adresu izvorišta
+</p><p><b>–e eth.dest</b> -  naredba koja ispsisuje MAC adresu odredišta
+</p><p><b>–Y tcp.stream==9</b> -  filter prema kojem filtriramo samo tcp streamove sa id-em 9
+</p>
+<h1> <span class="mw-headline" id="Tcpdump">Tcpdump</span></h1>
+<p>Drugi alat za snimanje i analizu mrežnog koji će biti obrađen u ovom radu je Tcpdump. Prednost ovog alata je što je besplatan i što je jako prilagodljiv korisniku. Iako je manipulacija grafičkim alatima za analizu mrežnog prometa kao što je Wireshark možda više user-friendly, u naredbenom retku moguće je zadati mnoštvo više parametara kojima je često puno lakše i brže postići željeni cilj ili doći do traženog rezultata.    Iako generalno dolazi predinstaliran na Linux/Ubuntu operacijskom okružju, moguće je da u nekim verzijama toga OS-a nije predinstaliran. U tom slučaju potrebno ga je dohvatiti sljedećom naredbom:
+</p><p><b>sudo apt-get install tcpdump</b>
+</p><p>Nakon instalacije alat je spreman za korištenje, a sva manipulacija i rad sa programom radi se u konzoli operacijskog sustava (U mojem slučaju Ubuntu 14.04 LTS).
+</p><p>Tcpdump se koristi za specifičnu svrhu presretanja i prikazivanja komunikacije drugog korisnika ili računala. Korisnik sa potrebnim ovlastima na sustavu se ponaša kao ruter ili gateway kroz koji prolazi nekriptirani promet kao što je Telnet ili HTTP, te je u mogućnosti iskoristiti tcpdump za uvid u korisnička imena, lozinke, URL-ove i sadržaje posjećenih web stranica ili nekih drugih nekriptiranih informacija. Prema potrebi korisnik može primijeniti BPF-bazirani filter za ograničenje broja paketa koje može vidjeti tcpdump – što čini izlaz korisnijim za mreže sa velikim volumenom prometa.
+</p><p>Ukoliko želimo snimati mrežni promet Tcpdump-om  prvo je potrebno odabrati pripadajuće mrežno sučelje na kojem će se vršiti snimanje mrežnog prometa. Najprije upisujemo u terminal naredbu <b>ifconfig</b> za kofiguraciju mrežnog sučelja. Kao rezultat upita dobivamo različita mrežna sučelja koje posjeduje računalo zajedno sa pripadnim informacijama o svakom sučelju. Vidljivo je da moje računalo poseduje 3 mrežna sučelja (eth0,l0, wlan0) i da je trenutno spojeno preko wlan0 mrežnog sučelja na mrežu, pa je stoga potrebno napisati sljedeću naredbu za snimanje preko mrežnog sučelja wlan0:
+</p><p><b>tcpdump -i wlan0</b>
+</p><p>Ukoliko želimo snimati promet koje ide preko određenog porta to ćemo učiniti dodavanjem ključne riječi 'port XY' zajedno sa navodnicima gdje XY predstavlja broj porta. Stoga, ukoliko želimo snimati samo promet preko porta 80 u terminal upisujemo sljedeću naredbu:
+</p><p><b>tcpdump -i wlan0 'port 80'</b>
+</p><p>Ukoliko želimo snimljeni promet spremiti lokalno na računalo radi kasnije manipulacije, filtriranja i detaljnije obrade na kraj naredbe dodat će se ključna riječ -w ime_datoteke
+Kasnije se ta datoteka može lako ponovno pročitati u konzoli dodavanjem ključne riječi <b>-r ime_datoteke</b>.
+</p>
+<h2> <span class="mw-headline" id="Http_zaglavlje_i_Cookie-vi_koji_se_prenose">Http zaglavlje i Cookie-vi koji se prenose</span></h2>
+<p>Još jedna opcionalnost koju nudi tcpdump je snimanje http zaglavlja. Sljedećom naredbom dohvatiti će se prvih 1024 bajta u liniju međuspremnika izlaza za sve pakete koji idu na neku  adresu. Za naš ću primjer uzeti adresu www.24sata.hr.
+</p><p>Naredba koju zadajem je sljedeća:
+</p><p><b>tcpdump -s 1024 -l -A dst www.24sata.hr –w matija</b>
+</p><p><b>-A</b> –ispisuje svaki paket u ASCII obliku
+</p><p><b>-l</b> – za promatranje podataka tijekom snimanja
+</p><p><b>dst www.24sata.hr</b> – snimanje hosta odredišta www.24sata.hr
+</p><p><b>-w matija</b> – zapis podataka u datoteku matija
+</p><p>Sada izvršavamo naredbu, ali bez zapisa u datoteku matija - dakle upisujemo samo:
+</p><p><b>tcpdump -s 1024 -l -A dst www.24sata.hr</b>
+</p><p>Kao rezultat upita dobivamo sljedeće podatke:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman_cookie1.png" class="image"><img alt="Mjurman cookie1.png" src="../images/9/94/Mjurman_cookie1.png" width="738" height="768" /></a></div></div>
+<p><br />
+Kao što je vidljivo, jedni od mnogobrojnih podataka u svakom paketu su podaci o Hostu, User Agentu, Prihvatljivom jeziku i Encodingu, tipu veze, tipu sadržaja, Cookie-u koji se prenosio i slično. U našem slučaju vidljiv je id Cookiea koji je ovakvog oblika
+</p><p><br />
+<b>Cookie: _ff_prevReqData=vLen%3D103%26mScroll%3D0%26statjsIdRnd%3D1858499203%26enterTs%3D1421423410; xtvrn=$392976$; xtan392976=-; xtant392976=1; __gfp_64b=Q04seKhmvVAjqccbgT2zH4kU1CS4mRAFT1gZXjpw.dv.e7; __gads=ID=40def92d943b5b94:T=1421421331:S=ALNI_MZs2dLM-dEZ9w2JDPZ3_DpYKgRNKA; __utma=22025656.595830939.1421421331.1421421331.1421421331.1; __utmb=22025656.16.9.1421423410354; ff_uvid=51962907; DM_SitIdT93=true; DM_SitId93SecIdT287=true; cookieToolbarContainer=1; DM_SitId93SecIdT295=true; ff_1st_sess=1; ff_usvid=113938702; DM_SitId93=true; DM_SitId93SecId287=true; DM_SitId93SecId295=true; __utmc=22025656; __utmz=22025656.1421421</b>
+</p><p><br />
+Ako snimljenu datoteku otvorimo u alatu Notepad ili u Wiresharku također možemo pronaći podatak o Cookiu koje se prenosio. Primjer je vidljiv na sljedećim slikama:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman_cookie2.png" class="image"><img alt="Mjurman cookie2.png" src="../images/thumb/a/a9/Mjurman_cookie2.png/900px-Mjurman_cookie2.png" width="900" height="506" /></a></div></div>
+<center><i>Slika: Ranije snimljena datoteka matija otvorena u Notepadu</i></center>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman_cookie3.png" class="image"><img alt="Mjurman cookie3.png" src="../images/thumb/3/33/Mjurman_cookie3.png/900px-Mjurman_cookie3.png" width="900" height="506" /></a></div></div>
+<center><i>Slika: Ranije snimljena datoteka matija otvorena u Wiresharku</i></center>
+<h2> <span class="mw-headline" id="Udaljena_kontrola_ra.C4.8Dunala_.28Teamviewer.29">Udaljena kontrola računala (Teamviewer)</span></h2>
+<p>Jedna od glavnim prednosti alata za analizu mrežnog prometa je otkrivanje mogućih potencijalnih opasnosti i ranjivosti sustava. Jedna od takvih opasnosti je opasnost od udaljene kontrole računala. Postoji mnoštvo načina kojima je moguće pristupiti računalu s udaljene lokacije i tako doći do datoteka i povjerljivih podataka. Poneki alati omogućavaju napadaču da pristupi grafičkom sučelju operacijskog sustava žrtve sa udaljene lokacije te tako ima uvid u sve što se događa na računalu klijenta – od vizualnih pokreta mišem, do stranica koje posjećuje, aktivnosti koje obavlja na računalu i slično. Ne treba posebno objašnjavati koliko uvid u takve aktivnosti može naštetiti žrtvi, ponajviše  zbog bitnih informacija do kojih dolazi klijent. Jedan od takvih alata – izrađen s dobrom namjerom – je općepoznati alat Teamviewer. 
+</p><p>Teamviewer je programski paket izrađen u svrhu: udaljene kontrole računala, razmjene podataka, web konferencija, dijeljenja sadržaja ekrana između dva udaljena računala, ili računala i mobilnog uređaja. Teamviewer funkcionira na način da je potrebno instalirati programski paket na računalo „žrtve“ i programski paket na računalu ili mobilnom uređaju „napadača“. Jednom kada „napadač“ dođe do informacija o internom Teamviewer ID-u i passwordu „žrtve“, vrlo lako je moguće pristupiti računalu „žrtve“ – potrebno je samo pritisnuti Connect to partner. U nastavku će biti prikazano kako je pomoću alata Tcpdump lako moguće vidjeti jesmo li pod „napadom“ ovakve vrste. 
+U ovom slučaju za primjer će biti prikazana konekcija između mobilnog računala na kojem je instalirana aplikacija Teamviewer i računala „žrtve“. U tcpdump alatu zadajemo naredbu za snimanje mrežnog prometa:
+</p><p><b>tcpdump –i eth0</b>
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman027.png" class="image"><img alt="Mjurman027.png" src="../images/thumb/9/9f/Mjurman027.png/410px-Mjurman027.png" width="410" height="24" /></a>
+</p><p><br />
+</p><p>Ova naredba omogućuje osnovno snimanje mrežnog prometa koji se odvija preko eth0 mrežnog sučelja. Pokretanjem ove naredbe dobivamo sljedeći rezultat u konzoli:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman028.png" class="image"><img alt="Mjurman028.png" src="../images/thumb/6/65/Mjurman028.png/780px-Mjurman028.png" width="780" height="583" /></a></div></div>
+<p>Kao što je vidljivo , ono što prvo upada u oko je veliki broj pojavljivanja UDP protokola. Pošto je UDP protokol - protokol transportnog sloja OSI modela - koji omogućava slanje datagrama između aplikacija na umreženim računalima, a najčešće se koristi kada je bitnija efikasnost i brzina te su dozvoljeni gubici (VoIP telefonija, multicast), dok je pouzdanost manje bitna; lako se dade zaključiti kako se nešto slično odvija na našem računalu. Kada ovoj tvrdnji pridodamo činjenicu da se rad Teamviewera bazira na UDP protokolu, prema rezultatima na prethodnoj slici lako se dade predpostaviti kako je  naše računalo „nadgledano i upravljano“ s neke udaljene lokacije – u ovom slučaju preko alata Teamviewer. Upišimo još sljedeću naredbu
+</p><p><b>tcpdump –i eth0 –vvv -qe</b>
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman029.png" class="image"><img alt="Mjurman029.png" src="../images/thumb/d/d9/Mjurman029.png/450px-Mjurman029.png" width="450" height="22" /></a>
+</p><p>Ovom naredbom dobivamo detaljniji izvještaj (kratica -vvv znači very very verbose, odnosno vrlo vrlo opširno), u našem slučaju sljedeće:
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman030.png" class="image"><img alt="Mjurman030.png" src="../images/thumb/4/4a/Mjurman030.png/1000px-Mjurman030.png" width="1000" height="562" /></a></div></div>
+<p>U ovakvom opširnom izvještaju uostalom dobivamo informacije o MAC adresi pošiljatelja i primatelja paketa. U našem slučaju MAC adresa pošiljatelja je e8:9a:8f:69:d1:d1, što se lako može provjeriti da je to zapravo MAC adresa naše mrežne kartice.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman031.png" class="image"><img alt="Mjurman031.png" src="../images/thumb/5/5b/Mjurman031.png/310px-Mjurman031.png" width="310" height="332" /></a></div></div>
+<p>Kako je Tcpdump vrlo fleksibilan alat njime lako možemo ispisati sadržaj snimljenog prometa u vizualnom obliku sličnom kao što to prikazuje i Wireshark alat. I dalje smo spojeni preko mobilne aplikacije TeamViewer na računalo “žrtve”. Snimamo mrežni promet u datoteku teamviewer2.pcap naredbom
+</p><p><b>tcpdump -i wlan0 -vvv -qe -w teamviewer2</b>
+</p><p>Objašnjenje:
+</p><p><b>-i wlan0</b> – odabiremo wlan0 jer smo spojeni na mrežu preko wireless mrežne kartice, sučelje nazvano wlan0 na Ubuntu 12.04 operacijskom sustavu
+</p><p><b>-vvv</b> - very very verbose (vrlo vrlo opširno)
+</p><p><b>-qe</b> – brzi ispis link-level headera za svaki snimljeni paket (može se koristiti primjerice za ispis MAC adresa za protokole kao što su Ethernet ili IEEE 802.11 
+<b>-w teamviewer2</b> – sadržaj snimljenog prometa zapisujemo u datoteku teamviewer2.pcap
+</p><p>Zatim sadržaj datoteke kopiramo sa root direktorija u u naš home direktorij ranije opisanom naredbom
+</p><p><b>cp -i /root/teamviewer2 /home/matija/matija_tcpdump_docs</b>
+</p><p>Zatim čitamo sadržaj datoteke teamviewer2 u obliku kakav je čitljiv u Wireshark alatu. Upisujemo:
+</p><p><b>tcpdump -qns 0 -X -r teamviewer2</b>
+</p><p>Rezultat koji dobivamo u konzoli ima sljedeći oblik:
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman032.png" class="image"><img alt="Mjurman032.png" src="../images/thumb/0/02/Mjurman032.png/550px-Mjurman032.png" width="550" height="595" /></a></div></div>
+<p><br />
+Iz priloženog je vidljiv sadržaj svakog pojedinog paketa, IP adresa odredišta i izvorišta, odredišni i izvorišni port protokola, sadržaj svakog pojedinog paketa u ASCII znakovima , dužinu, vrijeme snimanja i sl. Da je računalo pod “napadom” stranog “napadača” i ovdje se lako može zaključiti kada scrolamo prema gore i također vidimo mnoštvo UDP protokola.
+</p>
+<h2> <span class="mw-headline" id="Manji_Tcpdump_korisni_primjeri">Manji Tcpdump korisni primjeri</span></h2>
+<h3> <span class="mw-headline" id="Top_10_Talkers">Top 10 Talkers</span></h3>
+<p>Jedna zanimljiva naredba je naredba kojom Tcpdump izlistava tzv. “Top 10 Talkers”. Ovo je vrlo korisna naredba koju valja pokrenuti kada HTTP zauzima većinu mrežne propusnosti. Sintaksa naredbe je sljedeća:
+</p><p><b>tcpdump -tnn -c 2000 -i wlan0  | awk -F "." '{print $1"."$2"."$3"."$4}' | sort | uniq -c | sort -nr | awk ' $1 &gt; 10 '</b>
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman024.png" class="image"><img alt="Mjurman024.png" src="../images/thumb/4/4c/Mjurman024.png/500px-Mjurman024.png" width="500" height="263" /></a></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Snimanje_cijelih_paketa_u_ASCII_i_Hexadecimalnom_obliku">Snimanje cijelih paketa u ASCII i Hexadecimalnom obliku</span></h3>
+<p>Sljedeća zanimljiva naredba omogućava snimanje cijelih paketa u datoteku u ASCII i hexa decimalnom obliku zajedno sa pripadnim ip adresama naziva hosta.
+</p><p><b>tcpdump -i wlan0 host 192.168.1.21 -nXXv</b>
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman025.png" class="image"><img alt="Mjurman025.png" src="../images/thumb/2/2c/Mjurman025.png/940px-Mjurman025.png" width="940" height="553" /></a></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Najzastupljeniji_promet_u_mre.C5.BEi">Najzastupljeniji promet u mreži</span></h3>
+<p>Ponekad je korisno imati generalni sliku o tome “što sve smanjuje propusnost mreže”. Ova naredba će ograničiti snimanje prometa na samo nekoliko paketa umjesto da preplavi cijeli terminal u nedogled)  te će pružiti mali ali ponekad dovoljni uzorak o tome što se događa s mrežom. Ova naredba može biti izrazito korisna kod dijagnoze DOS napada te daje dobru sliku o tome koji se promet najčešće vrti mrežom. Sintaksa naredbe je sljedeća:
+</p><p><b>tcpdump -i wlan0 -n  | head</b>
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mjurman026.png" class="image"><img alt="Mjurman026.png" src="../images/thumb/1/19/Mjurman026.png/600px-Mjurman026.png" width="600" height="595" /></a></div></div>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h1>
+<p>Podaci koji putuju mrežom prenose se paketima, a ukupna količina mrežnih transakcija naziva se mrežni promet.  Najviše tutoriala/članaka o prikupljanju i analizi mrežnog prometa na internetskim resursima pronašao sam o alatu Wireshark koji je još uvijek najpopularniji iz razloga što je jednostavan za korištenje i grafičkog je sučelja na koje je većina korisnika naviklo. Ipak, profesionalnjimim korisnicima mogućnosti toga alata nisu dovoljne, stoga je u sve većem porastu upotreba Tshark i Tcpdump alata koji se pokreću iz komandne linije i omogućavaju korisnicima izvršavanje specifičnijih, efikasnijih i boljih upita. Radeći na ovom projektu naišao sam na brojne probleme ponajviše iz razloga što sam se tek sada prvi puta susreo sa Debian GNU/Linux OS okružjem pa mi je trebalo vremena da se priviknem na rad u Terminalu. Smatram da sam uspješno prikazao neke osnovne koncepte i mogućnosti dvoje alata i uspješno ih povezao sa ciljem kolegija - upoznavanjem sa sigurnošću informacijskih sustava. Rad u Tsharku, a pogotovo u Tcpdumpu iziskuje kreativnost i potrebu sa stalnim "držanjem oka" na onim što zapravo želimo postići prislušivanjem mrežnog prometa. Mogućnosti su zaista široke, i ovo je zapravo tek uvod u stvarne mogućnosti koje nude ova dva alata.
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<p>J. F. Kurose, Keith W. Ross: Computer networking&#160;: a top-down approach 6. izdanje	
+</p><p>CIS: Praćenje mrežnog prometa,  pristupano 20.1.2015., <a href="http://www.cis.hr/sigurosni-alati/pracenje-mreznog-prometa.html" class="external text" rel="nofollow">Izvor</a>
+</p><p>CCERT: Analiza mrežnog prometa, pristupano 20.1.2015.,<a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2004-09-90.pdf" class="external text" rel="nofollow">Izvor</a>
+</p><p>tshark - Dump and analyze network traffic, pristupano 20.1.2015. <a href="https://www.wireshark.org/docs/man-pages/tshark.html" class="external text" rel="nofollow">Izvor</a>
+</p><p>Tcpdump: User Comands, pristupano 20.1.2015.,  <a href="http://www.tcpdump.org/manpages/tcpdump.1.html" class="external text" rel="nofollow">Izvor</a>
+</p><p>A. Sandler: Tcpdump for Dummies, pristupano 20.1.2015. <a href="http://www.alexonlinux.com/tcpdump-for-dummies#introduction" class="external text" rel="nofollow">Izvor</a>
+</p><p>A tcpdump Tutorial and Primer, pristupano 20.1.2015., <a href="https://danielmiessler.com/study/tcpdump/" class="external text" rel="nofollow">Izvor</a>
+</p><p>Appneta: How to Easily Capture TCP Conversation Streams, pristupano 20.1.2015., <a href="http://www.appneta.com/blog/how-to-easily-capture-tcp-conversation-streams/" class="external text" rel="nofollow">Izvor</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 63/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7924-0!*!0!!hr!2!edit=0 and timestamp 20190203204254 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Tshark_i_tcpdump_u_praksi.html">http://security.foi.hr/wiki/index.php/Tshark_i_tcpdump_u_praksi</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Tshark_i_tcpdump_u_praksi" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Tshark_i_tcpdump_u_praksi.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Tshark_i_tcpdump_u_praksi&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Tshark_i_tcpdump_u_praksi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Tshark_i_tcpdump_u_praksi.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Tshark_i_tcpdump_u_praksi&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Tshark_i_tcpdump_u_praksi&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Tshark_i_tcpdump_u_praksi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Tshark_i_tcpdump_u_praksi" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Tshark_i_tcpdump_u_praksi" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Tshark_i_tcpdump_u_praksi&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Tshark_i_tcpdump_u_praksi&amp;oldid=33400" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 09:52, 20. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 480 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Tshark_i_tcpdump_u_praksi", "wgTitle": "Tshark i tcpdump u praksi", "wgAction": "view", "wgArticleId": 7924, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33400, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.467 secs. -->			</body>
+</html>

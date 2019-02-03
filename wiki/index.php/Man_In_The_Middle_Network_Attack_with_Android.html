@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Man In The Middle Network Attack with Android - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Man_In_The_Middle_Network_Attack_with_Android&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Man_In_The_Middle_Network_Attack_with_Android skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Man In The Middle Network Attack with Android</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Man_In_The_Middle_Network_Attack_with_Android.html#mw-head">orijentacija</a>,
+					<a href="Man_In_The_Middle_Network_Attack_with_Android.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi:
+</p>
+<pre> Zoran Jovanović--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zojovanov&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zojovanov (stranica ne postoji)">Zoran Jovanović</a> 12:23, 7. studenog 2015. (CET)
+</pre>
+<p>Stefano Kliba
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 20:51, 8. studenog 2015. (CET)
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Man_in_the_middle_attack"><span class="tocnumber">1</span> <span class="toctext">Man in the middle attack</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Mete_MITM_napada"><span class="tocnumber">2</span> <span class="toctext">Mete MITM napada</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Injecting"><span class="tocnumber">2.1</span> <span class="toctext">Injecting</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Manipulacije_klju.C4.8Devima"><span class="tocnumber">2.2</span> <span class="toctext">Manipulacije ključevima</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Filtriranje"><span class="tocnumber">2.3</span> <span class="toctext">Filtriranje</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Downgrade_napadi"><span class="tocnumber">2.4</span> <span class="toctext">Downgrade napadi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#MITM_alati"><span class="tocnumber">3</span> <span class="toctext">MITM alati</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#MITM_Proxy"><span class="tocnumber">3.1</span> <span class="toctext">MITM Proxy</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Forenzi.C4.8Dka_analiza_MITM_napada"><span class="tocnumber">3.2</span> <span class="toctext">Forenzička analiza MITM napada</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Upotreba_MITM_napada"><span class="tocnumber">4</span> <span class="toctext">Upotreba MITM napada</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#iptables"><span class="tocnumber">4.1</span> <span class="toctext">iptables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Uvod_u_MITM_napade"><span class="tocnumber">5</span> <span class="toctext">Uvod u MITM napade</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Kako_se_za.C5.A1tititi_od_MITM_napada_na_Android_ure.C4.91ajima"><span class="tocnumber">5.1</span> <span class="toctext">Kako se zaštititi od MITM napada na Android uređajima</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#zAnti_aplikacija_i_primjena"><span class="tocnumber">6</span> <span class="toctext">zAnti aplikacija i primjena</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Tko_slu.C5.A1a_kada_dvije_aplikacije_komuniciraju.3F"><span class="tocnumber">7</span> <span class="toctext">Tko sluša kada dvije aplikacije komuniciraju?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Detektiranje_SSL_ranjivosti_u_Androidu"><span class="tocnumber">7.1</span> <span class="toctext">Detektiranje SSL ranjivosti u Androidu</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Aplikacije_koje_su_ranjive_zbog_ranjivih_biblioteka"><span class="tocnumber">7.2</span> <span class="toctext">Aplikacije koje su ranjive zbog ranjivih biblioteka</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Najbolje_prakse_za_SSL.2FTLS_u_Androidu"><span class="tocnumber">7.3</span> <span class="toctext">Najbolje prakse za SSL/TLS u Androidu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Implementacija_danog_problema"><span class="tocnumber">8</span> <span class="toctext">Implementacija danog problema</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="Man_In_The_Middle_Network_Attack_with_Android.html#Literatura"><span class="tocnumber">9</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Man_in_the_middle_attack"> Man in the middle attack </span></h2>
+<p>U kriptografiji i kompjutorskoj sigurnosti man-in-the-middle napad je često skraćeno nazvan MITM, MitM, MIM, MiM ili MITMA. To je napad gdje napadač potajno odašilje i/ili možda izmijeni komunikaciju između dvije strane koje vjeruju da komuniciraju samo jedna s drugom. MITM se može smatrati analogijom šaha. Miranda koja jedva i zna igrati šah tvrdi da može igrati s dva grandmastera u šahu odjednom i da će pobijediti jednu partiju ili odigrati izjednačeno s obje. Čeka da prvi grandmaster odigra svoj potez i onda napravi taj isti potez s drugim grandmasterom. Kada drugi odgovori s nekim potezom Miranda napravi isti potez protiv prvog. Ovom logikom Miranda ne može izgubiti jer zapravo obojica igraju jedan protiv drugog, jedini problem koji bi se mogao dogoditi ovdje je da Miranda ima problema s vremenom jer joj oduzme kopiranje poteza jer ima blagi delay između njih. MITM je sličan kao i igranju ovakvog šaha, postoje dvije strane koje komuniciraju i osoba koja stoji između njih i prisluškuje cijeli razgovor, na osnovi toga što osoba između njih čuje ona može promijeniti cijeli tijek razgovora samo izmjenom par informacija koje prolaze kroz nju. Ključna stvar je da se komunikacija odvija preko napadača koji je izmeđju dvije osobe i napadač zapravo dostavlja informacije od jedne do druge osobe, tako da ono što napadač dopusti da dođe do druge strane, to će i doći. Drugim riječima, napadač kontrolira cijeli razgovor. Ovakva vrsta napada se često događa na javnim mjestima gdje su wifi wireless access pointovi nezaštićeni lozinkama, tj. ako i jesu zaštićeni lozinkama one su u 99% slučajeva javno dostupne. (Kafići, disko klubovi, teretane i sl.)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 15:27, 11. siječnja 2016. (CET)
+</p><p>U Man-in-the-Middle napadu napadač presreće svu komunikaciju između dva domaćina. Postavlja se tako da sva komunikacija između klijenta i servera mora ići preko njega, što mu dozvoljava da prilagodi komunikaciju. Pošiljatelj poruka ne prepoznaje da je primatelj zapravo napadač koji pokušava urediti poruku prije nego ju proslijedi stvarnom primatelju. 
+Protokoli koji se oslanjaju na razmjenu javnih ključeva kao zaštitu komunikacije su česte mete upravo ovakvih napada. 
+</p><p>MITM presreće komunikaciju između dva domaćina i napad je moguć kada napadač kontrolira usmjernik (router) do normalne točke prometa. Napadač je u većini slučajeva na istoj domeni kao i žrtva. Na primjer, u HTTP transakciji, TCP veza postoji između klijenta i servera. Napadač dijeli TCP vezu na dvije veze - jedna između žrtve i napadača i druga između napadača i servera. Na presretanju TCP veze, napadač glumi proxy dok čita, mijenja i ubacuje podatke u presrelu komunikaciju. Sesijski kolačić (session cookie) koji čita HTTP zaglavlje može lako uhvatiti napadač.
+U HTTPS vezi su dvije nezavisne SSL veze uspostavljene preko TCP veze. MITM napad iskorištava slabost u protokolu mrežne komunikacije, uvjeravajući žrtvu da šalje promet kroz napadača umjesto kroz normalni usmjernik (router), što se općenito naziva ARP spoofing. Drugim riječima, preglednik uspostavlja SSL vezu s napadačem te napadač uspostavlja drugu SSL vezu sa web serverom. Preglednik upozorava korisnika na nevažeće digitalne certifikate što najčešće korisnik zanemaruje jer ne razumije prijetnju. Ponekad upozorenje se ni ne prikazuje jer je certifikat servera uređen od strane napadača ili je napadačev certifikat potpisan kao pouzdan.
+</p><p>MITM napad je jako efikasan zbog prirode HTTP protokola i prijenosa podataka koji su osnovani na ASCII. Upravo zbog toga je moguće vidjeti i utjecati na HTTP protokol i prijenos podataka, te vrlo lako promijeniti iznos u novčanoj transakciji.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mitm-steps.gif" class="image"><img alt="Mitm-steps.gif" src="../images/8/8e/Mitm-steps.gif" width="640" height="324" /></a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Mete_MITM_napada"> Mete MITM napada </span></h2>
+<p>- financijske stranice - između prijave i autentifikacije
+</p><p>- veze koje bi trebale zaštićene javnim ili privatnim ključevima
+</p><p>- stranice koje zahtjevaju prijavu i time osobi omogućuju pristup nečemu
+</p><p><b>Scenariji napada</b>
+</p><p>- injection
+</p><p>- key manipulation
+</p><p>- downgrade attack
+</p><p>- filtering
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Injecting">Injecting</span></h3>
+<p>Dodavanje paketa već uspostavljenoj komunikacijskoj vezi
+</p><p>Napadač može modificirati brojeve niza i održati komunikaciju sinkroniziranom dok dodaje pakete te ako je MITM napad preko proxy-a onda je čak i lakše za nadodati pakete
+</p><p>Ovaj primjer je koristan u scenariju gdje one-time-auth se koristi tipa RSA token, u tim slučajevima izvlačenje passworda iz paketa je beskorisno, ali krađa provjerene sesije je ključna i iznimno korisna, jer ako se mi uspijemo predstaviti kao verificirani korisnik u sesiji imamo doslovno sve. 
+</p><p>Injectanje naredbi prema serveru isto naravno pale
+</p><p>Kreiranje lažnih odgovora od servera prema klijentu
+</p>
+<h3> <span class="mw-headline" id="Manipulacije_klju.C4.8Devima">Manipulacije ključevima</span></h3>
+<p>- SSH v1
+</p><p>- IPSEC
+</p><p>- HTTPS
+</p><p><br />
+<b>SSH v1</b>
+Predstavljaju izmjene u ključevima koje izmjenjuju poslužitelj i klijent, kada napadač dobije taj ključ onda može raditi štogod želi u komunikaciji
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:KeyManipulation.png" class="image"><img alt="KeyManipulation.png" src="../images/0/02/KeyManipulation.png" width="531" height="295" /></a>
+</p><p><br />
+<b>IPSEC</b>
+Ako postoje više od jednog klijenta s istim tajnim pitanjem svaki od njih može se predstaviti kao poslužitelj i zavarati drugog
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:IPSEC.png" class="image"><img alt="IPSEC.png" src="../images/7/70/IPSEC.png" width="532" height="293" /></a>
+</p><p><b>HTTPS</b>
+Možemo jednostavno napraviti lažni certifikat koji se oslanja na krivo konfiguriranje browsera ili korisničku glupost
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:HTTPS.png" class="image"><img alt="HTTPS.png" src="../images/b/b6/HTTPS.png" width="520" height="291" /></a>
+</p>
+<h3> <span class="mw-headline" id="Filtriranje">Filtriranje</span></h3>
+<p>Predstavlja postupak gdje napadač modificira payload od paketa tako da ponovno kalkulira checksum. Može kreirati filtere u toku. Dužina payloada može se samo mijenjati u full-duplex načinu rada. U ovom slučaju može se također insertati određeni maliciozni kod u nekakve web stranice, mailove i sl. Mogu se modificirati binarni fileovi u tijeku downloadanja podataka (virus, backdoor i sl.)
+</p><p>Primjer:
+</p><p>HTTPS redirekcija
+</p><p>Imamo Anu koja bi se htjela ulogirati u svoj facebook account, s obzirom da napadač Ivan koji stoji između nje i facebooka prisluškuje vezu vidi da je Ana requestala page
+</p><p>facebook.com/login.php
+</p><p>Ivan "dobar" kakav jest, odgovara sa svojim siteom 
+</p><p><a href="http://ivangrozni/login.php" class="external free" rel="nofollow">http://ivangrozni/login.php</a>
+</p><p>Srećom Ivan nije glup pa je napravio da njegova stranica ima isti dizajn kao i facebook login stranica te Ana ne primjećuje da se radi o varci. Ona normalno upisuje svoj username i password u stranicu od Ivana koji željno iščekuje njezine auth podatke. Ana ih submittta i Ivan dobiva njene podatke, nakon toga Ivan je normalno ulogirava u facebook, konkretnije, Ivan šalje Anine login podatke prema poslužitelju facebook.com i proslijeđuje odgovor od facebook.com poslužitelja prema Ani, tako da ona ni ne posumnja slučajno da se nešto krivo dogodilo, Ana nastavlja koristiti svoj facebook account, a Ivan samo prisluškuje i čeka svoju iduću priliku da joj ukrade nešto drugo od veće važnosti.
+</p>
+<h3> <span class="mw-headline" id="Downgrade_napadi">Downgrade napadi</span></h3>
+<p>Konkretno to su napadi u kojem napadač može smanjiti verziju algoritma da mu bude lakše kasnije raditi s njime. Predstavlja parametre koji se izmjenjuju između poslužitelja i klijenta koji su lako izmjenjivi na početku konekcije. Napadač može natjerati klijenta da inicijalizira SSH1 konekciju umjesto SSH2 koju inače koristi poslužitelj. Jedino što mora napraviti je sljedeće:
+</p><p>server odgovara sa:
+</p>
+<pre>- SSH-1.99 -- the server supports ssh1 and ssh2
+- SSH-1.51 -- the server supports ONLY ssh1
+</pre>
+<p>napadač samo mora napraviti filter koji izmjenjuje "1.99" u "1.51"
+</p>
+<h2> <span class="mw-headline" id="MITM_alati"> MITM alati </span></h2>
+<p>Postoje pojedini alati s kojima je moguće realizirati MITM napad. Ovi alati su posebno učinkoviti u LAN mrežama jer provode dodatne funkcionalnosti kao što je ARP spoof koje omogućuju presretanje komunikacija između domaćina.
+</p><p>- PacketCreator
+</p><p>- Ettercap
+</p><p>- Dsniff
+</p><p>- Cain e Abel
+</p>
+<h3> <span class="mw-headline" id="MITM_Proxy"> MITM Proxy </span></h3>
+<p>Proxy alati jedino dozvoljavaju interakciju s dijelovima HTTP protokola poput zaglavlja i tijela transakcije, ali nemaju sposobnost presretanja TCP veze između klijenta i servera. Kako bi se presrela komunikacija, potrebno je koristiti druge alate za mrežne napade ili konfigurirati preglednik. 
+</p><p>- OWASP WebScarab
+</p><p>- Paros Proxy
+</p><p>- Burp Proxy
+</p><p>- ProxyFuzz
+</p><p>- Odysseus Proxy
+</p><p>- Fiddler (Microsoft)
+</p>
+<h3> <span class="mw-headline" id="Forenzi.C4.8Dka_analiza_MITM_napada"> Forenzička analiza MITM napada </span></h3>
+<p>Snimljeni mrežni promet za koji se sumnja da je MITM napad može se lako analizirati kako bi se utvrdilo da li je to stvarno bio MITM napad ili ne. Dokazi koje je potrebno analizirati da bi se to utvrdilo su:
+</p><p>- IP adresa servera
+</p><p>- DNS ime servera
+</p><p>- X.509 certifikat servera
+</p><p>- je li certifikat 
+</p><p>- je li certifikat samopotpisan?
+</p><p>- je li certifikat potpisan od nekog trećeg trusted CA?
+</p><p>- je li certifikat opozvan?
+</p><p>- je li certifikat izmijenjen nedavno&#160;?
+</p><p>- imaju li ostali klijenti, negdje drugdje na internetu isti certifikat?
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Upotreba_MITM_napada"> Upotreba MITM napada </span></h2>
+<p>Najlakše će se izvesti MITM napad ukoliko ga izvodimo na računalu uz pomoć Backtrack alata, on je generalno distribucija Linux operativnog sustava. Konkretnije, Backtrack je distribucija operativnog sustava bazirana na Ubuntuu, a koristi se u području informacijske sigurnosti. Backtrack ima preko 300 alata koji mogu služiti za penetracijska testiranja, mrežna testiranja, digitalna forenzika, stress testing i slične stvari. Kako bi izvršili MITM napad  koristimo dva alata Backtrack distribucije - iptables i arsproof koji se naravno mogu zamijeniti s ettercapom. 
+</p><p>Da bi pokrenuli i pozicionirali se kako spada u mrežu idemo na računalo s kojeg ćemo lansirati MITM napad i moramo prvo omogućiti da paketi prolaze kroz nas, jer ako oni ne bi prolazili kroz nas i ostajali s nama bi napravili DOS napad, a to ne želimo,želimo se pozicionirati u mrežu bez da ostali korisnici znaju da smo tu i da možemo nesmetano slušati podatke to izvršavamo naredbom:
+</p>
+<pre>echo 1 &gt;&gt; /proc/sys/net/ipv4/ip_forward
+</pre>
+<p>Kako bi otkrili korisnička imena i lozinke potrebna nam je python skripta koju smo spominjali već u ovom radu koja se zove SSLstrip koju preuzimamo sa stranice autora. 
+</p>
+<pre>wget <a href="http://www.thoughtcrime.org/software/sslstrip/sslstrip-0.9.tar.gz" class="external free" rel="nofollow">http://www.thoughtcrime.org/software/sslstrip/sslstrip-0.9.tar.gz</a>
+tar zxvf sslstrip-0.9.tar.gz
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="iptables"> iptables </span></h3>
+<p>Administratorski kernel alat koji se koristi da bi se postavila pravila filtriranja ip paketa. Ovaj alat je postavljen unutar linux kernela pod Netfilter projektom i predstavlja firewall u linuxu. Iptables radi na način da se paketi koji se šalju ili primaju uspoređuju s određenim pravilima koja su zapisana u tablice. Naravno skup pravila kroz koje određeni paket prođe naziva se lanac te i njega definiramo naredbom Iptables. Poznati lanci koje imamo su:
+</p><p>Input - propušta pakete lokalnim procesima
+</p><p>Output - propušta pakete lokalnih procesa prema mreži
+</p><p>Forward - prosljeđuje pakete drugim računalima
+</p><p>Prerouting - prevodi odredišne adrese
+</p><p>Postrouting - prevodi izvorne adrese
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Iptables.png" class="image"><img alt="Iptables.png" src="../images/b/b1/Iptables.png" width="922" height="619" /></a>
+</p><p>Na idućoj slici vidimo neke akcije koje možemo izvesti nad paketima, od kojih su najznačajnije: accept, drop, reject, queue, return i log
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Iptables2.png" class="image"><img alt="Iptables2.png" src="../images/8/8e/Iptables2.png" width="916" height="614" /></a>
+</p><p>Kako bi proveli onu SSLstrip skriptu moramo TCP pakete preusmjeriti na port s kojeg će skripta slušati promet, za to koristimo naredbu
+</p>
+<pre>iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port (zeljeniPort)
+</pre>
+<p>Kod definiranja ovog lanca koristimo tablicu nat u kojoj definiramo prevođenje porta. Uz opciju append -A navodimo akciju prerouting. -p flag je postavljen da označi koji protokol koristimo za slušanje, tu komotno poslije -p zastavice napišemo tcp. Nakon toga slijedi odredišni port koji preusmjerimo na željeni port koji je unutar zagrada (zeljeniPort) s kojega se sluša promet (to može biti 8080 ili 10000 ili nešto simbolično tome).
+</p><p><b>sslstrip.py</b>
+</p><p>Kod ovog napada kao što je i nebrojeno puta rečeno prije ključno nam je da nam je žrtva prosječni korisnik koji ne gleda nikada u url i favicon kod unosa nekakvih login podataka ili slično. Ova py skripta zamjenjuje https s http prometom i izvodi tipičan MITM napad, što znači da ne koristimo ranjivosti SSL protokola nego na slabost browsera i njegovog usera.
+</p><p>Skripta uzima ime porta kao ulazni podatak, tako da je pokrećemo na sljedeći način: 
+</p>
+<pre>python sslstrip.py -l (port)
+</pre>
+<p>gdje je (port) naš port koji smo odabrali za preusmjeravanje prometa.
+</p><p><b>arpspoof</b>
+</p><p>Ovaj alat je vrlo vjerojatno najmoćniji u ovom setu alata. Konkretno nalazi se u Backtracku i dio je paketa dsniff, on generalno šalje lažne arp poruke mreži. ARP protokol je bitan protokol ISO OSI modela koji povezuje mrežni s podatkovnim slojem, a njegova zadaća je mapiranje MAC adresa mrežnog uređaja s lokalnom ip adresom. ARP funkcionira tako da samo mapiranje MAC adresa obavlja ruter, a komunikaciju s uređajima na mreži se odvija preko arp protokola tako da se šalje zahtjev na ruter koji odgovara u obliku mac ipv4 para. Tablica u kojoj se nalaze ip parovi je pohranjena u privremenoj memoriji tj cacheu i takvu memoriju imaju ruter i svi uređaji koji su u mreži spojeni. ARP spoofingom šaljemo lažne arp poruke mrežom s ciljem kako bi se naša (napadač) mac adresa povezala s ip adresom rutera čime bi se onda našoj žrtvi predstavili kao ruter. Kada bi to uspjeli sav promet koji dolazi prema ruteru dolazi do našeg računala i mi imamo svu kontrolu nad komunikacijom, naravno to vrijedi za obratnu komunikaciju isto. 
+</p>
+<pre>arpspoof -t victim gateway -&gt; ovom naredbom šaljemo lažnu arp poruku u kojoj je victimgateway ip adresa žrtve
+</pre>
+<pre>arpspoof -t gateway victim -&gt; šaljemo arp poruku u kojoj je gatewayvictim ip adresa rutera
+</pre>
+<p>No ako želimo biti pravi h4xx0rz onda možemo napraviti sve u jednoj naredbi
+</p>
+<pre>arpspoof -i &lt;interface&gt; -t &lt;targetIp&gt; &lt;default gateway ip&gt;
+</pre>
+<p>TargetIp je ovdje ip adresa od žrtve.
+Default gateway IP je IP adresa rutera.
+</p><p>Nemojmo zaboraviti 
+</p>
+<pre>tcpdump host victim and not arp
+</pre>
+<p>Kako bi vidjeli točno sav promet koji prolazi kroz naše računalo. --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 11:01, 18. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Uvod_u_MITM_napade"> Uvod u MITM napade </span></h2>
+<p>Zbog velike raširenosti bežičnih veza uveliko je povećan i rizik od neovlaštenih pristupa podacima koji se prenose putem istih. Često prisluškivanje prometa prolazi neprimjećeno, a razvojem mobilnih tehnologija to je uveliko olakšano. Android operacijski sustav za smartphone-ove je baziran na Linux operativnim sustavima te zbog open source prirode operacijskog sustava Linux naprednijim korisnicima je omogućena zloupotreba istih. 
+</p><p>Man in the middle (MITM) je vrsta napada koja omogućuje napadaču predstavljanje žrtvi kao router. Napadač je posrednik u vezi korisnika između žrtve i interneta. Žrtva normalno koristi internet te nije svijesna da je još netko na mreži te prisluškuje sav promet. MITM napad omogućuje napadaču presretanje prometa iz kojeg može preuzeti podatke iz korisničkih “kolačića” (Cookies) pomoću kojih može ukrasti osjetljive podatke ili ih mijenjati bez znanja žrtve, preusmjeravati promet na lažne web lokacije te čak i ukrasti identitet žrtve, ako je to cilj napada, podmetnuti i instalirati zlonamjernu skriptu koja omogućuje druge načine napada. U nastavku ću obraditi na koji način je moguće to napraviti pomoću smartphone-a koji koristi Android operacijski sustav. Dok se na računalu MITM napadi izvode pomoću Backtrack alata koji je distribucija Linux-a pomoću raznih naredba na Android smartphoneu je dovoljno imati rootan(otključan) uređaj i instaliranu aplikaciju. Takvih aplikacija ima mnogo, neke od njih su: zAnti, Dsploit, Csploit, Faceniff, Packet Capture. Za ovaj rad ću koristiti aplikaciju zAnti 2 koja je samodostatna za napad. 
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kako_se_za.C5.A1tititi_od_MITM_napada_na_Android_ure.C4.91ajima"> Kako se zaštititi od MITM napada na Android uređajima </span></h3>
+<p>MITM napad je relativno primitivan i lako se obraniti od njega. Generalno on se zasniva na korisničkoj nepažnji jer taj napad ostavlja brdo tragova (breadcrumbova) za detekciju i jedan je od jednostavnijih napada za implementirati, pogotovo na javnim mjestima gdje je lozinka neke mreže bazično javna. Možemo očuvati sve naše informacije koje se kreću kroz mobitel koristeći VPN primjerice ko <a href="http://www.privatewifi.com/get-protected/" class="external text" rel="nofollow">PRIVATE Wifi</a>. VPN čuva sve podatke koji ulaze i izlaze iz mobitela tako da čak i da napadač ih uspije presresti to bi bila samo hrpa besmislica.
+No, neovisno o tom alatu postoje razni načini kako se korisnik sam može zaštititi.
+</p><p>- Provjerite uvijek da ste na <b>HTTPS</b> protokolu, to se napravi tako da pogledate na url bar ili nešto slično. Postoji čak i mogućnost primjerice SSLStrip koja onemogućava bilokoju konekciju koja nije HTTPS i uz to ako Vas se pokuša redirectati s HTTPS-a na HTTP SSLStrip ne dopušta takve radnje.
+</p><p>- Postoji aplikacija Wifi Protector koja provjerava vašu trenutnu mrežu i ukaže vam na moguće napadače.
+</p><p>- Izbjegavajte javne mreže one su najveća prijetnja. Srećom ovakvi napadi nisu učestali tako da ne bi trebali uhvatiti napadača ako ste većinom na privatnim mrežama.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="zAnti_aplikacija_i_primjena"> zAnti aplikacija i primjena </span></h2>
+<p>zAnti je mobilni toolkit koji je zamišljen kao pen test aplikacija za security administratore kako bi testirali sigurnosnu razinu mreže u par klikova na zaslonu mobilnog uređaja. Aplikacija prilikom pokretanja analizira mrežu te nalazi sigurnosne propuste koje je moguće zlorabiti. Nakon analize prikazani su svi uređaji spojeni na mrežu te je moguće napasti samo jednog korisnika klikom na njegovu IP adresu ili sve uređaje odabirom IP adrese routera. Napad je moguće izvršiti spajanjem na neku otvorenu mrežu, na zatvorenu mrežu kojoj imamo pristup ili kreiranjem vlastite mreže. Kod kreiranja vlastite mreže napadač dolazi na javno mjesto, po mogućnosti bez pristupa bežičnoj mreži, te kreira vlastitu pristupnu točku (po mogućnosti odgovarajućeg naziva koji ne izaziva sumnju žrtve, naziv kafića ili lokacije napada) te čeka da se netko spoji. Nakon što se žrtva spoji sav promet ide kroz napadačev mobilni uređaj te mu ostaje samo čekati i prikupljati informacije, a žrtva nije toga svjesna jer internet funkcionira sasvim normalno.
+Na slici 1 se vidi početni zaslon aplikacije nakon što završi analiza dostupnih uređaja na mreži. Za svaki uređaj vidimo broj ranjivih portova. Drawer aplikacije (slika 2) sadrži dodatne mogućnosti: promjenu MAC adrese, tether (dijeljenje mreže), Routerpwn (link na stranicu sa ranjivostima raznih routera), pristup security report-ovima spremljenima na cloud servisu, Wifi Monitor (analiza mreže) te HTTP server.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_slika1.png" class="image"><img alt="ZAnti slika1.png" src="../images/0/0b/ZAnti_slika1.png" width="450" height="800" /></a>
+</p><p>Slika 1: Screenshot početnog zaslona aplikacije
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_slika2.png" class="image"><img alt="ZAnti slika2.png" src="../images/6/60/ZAnti_slika2.png" width="450" height="800" /></a>
+</p><p>Slika 2: Drawer aplikacije
+</p><p><br />
+</p><p>Nakon što imamo sve uređaje na mreži otvaramo određenu IP adresu te pokrenemo automatizirano skeniranje ranjivosti kao što je vidljivo na slici 3 (Mapping network). Postoji mnogo načina skeniranja (slika 4) te je moguće i prilikom skeniranja pokrenuti neku spremljenu skriptu kako bi omogućili dodatne načine napada. Nakon završenog skeniranja možemo vidjeti detalje svih uređaja na mreži u Nmap scans kartici.
+</p><p><br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_Slika3.png" class="image"><img alt="ZAnti Slika3.png" src="../images/7/7e/ZAnti_Slika3.png" width="450" height="800" /></a> 
+</p><p>Slika 3: Prikaz mogućnosti testova nad cijelom mrežom                  
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_Slika4.png" class="image"><img alt="ZAnti Slika4.png" src="../images/1/13/ZAnti_Slika4.png" width="450" height="800" /></a>
+</p><p>Slika 4: Mogućnosti skeniranja propusta na mreži
+</p><p><br />
+Nakon završenog skeniranja mreže možemo odabrati određeni uređaj na glavnom zaslonu (slika 1) te napraviti dodatna skeniranja, spojiti se na žrtvin uređaj, izvršiti MITM napad, provjeriti da li postoje lose lozinke na uređaju koje je moguće “probiti” implementiranim alatima, provjeriti ShellShock ranjivost žrtve te izvršiti SSL Poodle. Nas u ovom radu zanima MITM napad te pritiskom na navedeni imamo mnogo opcija za odabrati. 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_Slika5.png" class="image"><img alt="ZAnti Slika5.png" src="../images/2/2b/ZAnti_Slika5.png" width="450" height="800" /></a>
+</p><p>Slika 5: Mogućnosti MITM napada				
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_Slika6.png" class="image"><img alt="ZAnti Slika6.png" src="../images/5/54/ZAnti_Slika6.png" width="450" height="800" /></a>
+</p><p>Slika 6: Mogućnosti MITM napada
+</p><p><br />
+Prije pokretanja MITM napada poželjno je odabrati željene postavke te nakon toga pokrenuti napad. 
+Logged Requests prikazuje sve otvorene web lokacije u obliku liste s brojem zahtjeva za web lokacijom te poslanih lozinki. Ukoliko je poslana lozinka tekst web lokacije je označen žutom bojom. Otvaranjem imamo nekoliko kartica koje su redom: Sessions (prikazuje kolačiće sesije), Passwords (prikazuje presretnute lozinke i korisnička imena žrtve), Requests (svi zahtjevi za lokaciju), User Agents (preglednici s kojima je pristupano lokaciji te mogućnost Zetasploit napada). Pritiskom na kolačić moguće je krivotvoriti zahtjev za lokacijom i vidjeti što je žrtva pregledavala.
+Logged Images omogućava napadaču da vidi sve slike koje preuzete(pregledane) na mreži.
+zPacketEditor je interaktivni način pregledavanja zahtjeva, slično Logged Requests ali omogućava njihovu promjenu. Nakon što pronađemo željeni zahtjev, moguće ga je otvoriti potezom prsta na desnu stranu te se odvara editor koji omogućava napadaču modificiranje zahtjeva bez znanja žrtve (primjer slika 7 i 8). 
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_Slika7.png" class="image"><img alt="ZAnti Slika7.png" src="../images/1/14/ZAnti_Slika7.png" width="450" height="800" /></a>
+</p><p>Slika 7: Prikaz  editora zahtjeva 				
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:ZAnti_Slika8.png" class="image"><img alt="ZAnti Slika8.png" src="../images/2/27/ZAnti_Slika8.png" width="450" height="800" /></a>
+</p><p>Slika 8: Prikaz  editora zahtjeva
+</p><p><br />
+</p><p>Sljedeća opcija je MITM method, postoji mogućnost odabira ARP i ICMP. ARP MITM napad radi tako da šalje lažne ARP poruke lokalnoj mreži s ciljem da našu MAC adresu poveže s IP adresom routera te na taj način sav promet prolazi preko napadačevog uređaja, dok ICMP šalje poruke kako bi promet išao što boljom rutom. Slanjem lažnih ICMP reroute poruka, promet žrtve se preusmjerava preko napadačevog uređaja te nije nužna lokalna mreža. Nedostatak je šo mnogi routeri imaju statičke rute te ne prihvaćaju preusmjeravajuće ICMP pakete.
+</p><p>Ukoliko uključimo opciju SSL Strip tada će se svi https linkovi promijeniti u http te preusmjeriti kroz uređaj, ovo utječe samo na adrese koje se preusmjeravaju s http-a na https, dok posjećivanje direktno https lokacija ostaje nepromijenjeno. 
+</p><p>Redirect HTTP preusmjerava sav promet na određenu proizvoljnu adresu što omogućava preusmjeravanje na phishing site-ove.
+</p><p>Replace images mijenja sve slike koje žrtva učitava u sliku koju želimo sami postaviti.
+</p><p>Ukoliko uključimo Capture download opciju sve datoteke koje žrtva „skida“ (Downloada) se spremaju na sd karticu uređaja.
+</p><p>Intercept download je idealan za podmetanje vlastitih zlonamjernih datoteka jer ukoliko žrtva želi nešto skinuti s interneta možemo zamjeniti s proizvoljnom datotekom bez sumnje na neispravnost sve do pokretanja.
+</p><p>Insert HTML omogućava ubacivanje vlastitog html koda u stranice koje žrtva učitava.
+</p><p>Pripremio:
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Zojovanov&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Zojovanov (stranica ne postoji)">Zoran Jovanović</a> 17:16, 11. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Tko_slu.C5.A1a_kada_dvije_aplikacije_komuniciraju.3F"> Tko sluša kada dvije aplikacije komuniciraju? </span></h2>
+<p>Androidov ekosustav je sav oko komunikacije i trenutno vrišti upomoć. To je zato što SSL ranjivosti i MITM napadi omogućavaju da se napravi jako puno loših stvari s sigurnošću podataka. Najstrašniji dio svega je to što su te ranjivosti javno poznate, kao što ćemo malo kasnije napomenuti.
+</p><p>FireEye je analizirao Google Playeve najviše preuzimane aplikacije i saznali su da značajan dio njih su osjetljive na MITM napade. Ove popularne aplikacije omogućuju napadaču da presretne podatke koje razmjenjuje Android uređaj s udaljenim poslužiteljem. 
+</p><p>Mobilne aplikacije jako često komuniciraju s udaljenim poslužiteljem za njihove funkcionalnosti. Aplikacije mogu komunicirati putem HTTP protokola koji olakšava jako drugima da presreću pakete koji se razmjenjuju ili HTTPS protokol koji to otežava ako ne i onemogućuje. Sigurnosni podaci od HTTPSa se odvijaju kroz SSL-a i njegovog nasljednika TLS-a. Android platforma nudi biblioteke i metode za komunikaciju sa serverom koristeći te sigurne protokole mreže, koji čine okosnicu PKI (Public-Key infrastructure), ali dokle god SSL/TLS protokol služi da bi poboljšao sigurnost, neispravno korištenje istog bi moglo pojednostavniti napade. U tim napadima MITM napadač prisluškuje promet iz aplikacije ili obrnuto i može:
+</p><p>- biti tihi osluškivač koji otkriva podatke koji se pošalju od aplikacije prema serveru ili obratno
+</p><p>- presresti podatke od servera i modificirati ili izmijeniti s nekim malicioznim podacima koji se umetnu u aplikaciju
+</p><p>- preusmjeriti promet u kompletno novu destinaciju koju kontrolira napadač 
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Detektiranje_SSL_ranjivosti_u_Androidu"> Detektiranje SSL ranjivosti u Androidu </span></h3>
+<p>Sljedeće su poznate ranjivosti od SSL/TLS-a:
+</p><p>- Većina trust managera ne provjeravaju lance certifikata od udaljenih poslužitelja, to je ono što omogućava MITM napad da uspije -&gt; verificiranje certifikata ukoliko su potpisani od strane CA je integralni dio komunikacije poslužitelja i klijenta uz posredstvo certifikata
+</p><p>- Ne provjerava se remote server i njegov hostname -&gt; Kada postoji trust manager u ovoj situaciji koji provjerava certifikate on jednostavno nije doovljan, tj. ako je slučaj da napadač ima validan certifikat koji je potpisao CA i prezentira validan cert chain. Međutim, da bi se spriječio MITM napad moramo provjeriti hostname servera koji se izvuče iz certifikata koji je izdao CA i taj hostname se mora matchati onom hostnameu na koji aplikacija šalje podatke (api endpoint, url, kakogod)
+</p><p>- Aplikacije ignoriraju SSL erore kada koriste WebKit da renderaju web stranice na mobilnim aplikacijama -&gt; kada se koristi poslužiteljska komunikacija koja koristi SSL/TLS bilokakava pogreška koja je bačena mora biti uhvačena, inače se otvaramo prema aplikacijama koje su ranjive na MITM napade koji mogu iskoristiti ranjivosti kao <a href="https://www.fireeye.com/blog/threat-research/2014/01/js-binding-over-http-vulnerability-and-javascript-sidedoor.html" class="external text" rel="nofollow">Javascript binding over HTTP</a>
+</p><p>FireEye je napravio analizu top 1000 najviše skidanih aplikacija s google play servisa i ovo su njihovi rezultati bili:
+</p><p>674 (~68%) ima jedan od tri prethodno navedene SSL/TLS ranjivosti:
+</p><p>Aplikacije koje koriste trust managere koji nikada ne provjeravaju certifikate:
+</p><p>- od 614 aplikacija koje koriste SSL/TLS da bi komunicirali sa serverom 448 oko 73% ne provjeravaju certifikate
+</p><p>Koriste hostname verifikatore koji ne rade ništa
+</p><p>- 50 oko 8% koriste vlastite hostname verifikatore koji ne provjeravaju hostnameove
+</p><p>Ignoriraju SSL errore u WebKitovima
+</p><p>- 285 koje koriste WebKit, 219 oko 77% ignoriraju SSL errore koji se generiraju u WebKitovima
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Aplikacije_koje_su_ranjive_zbog_ranjivih_biblioteka"> Aplikacije koje su ranjive zbog ranjivih biblioteka </span></h3>
+<p>Aplikacije vrlo često koriste third party biblioteke kao dio svojih funkcionalnosti. Kada te biblioteke imaju u sebi integrirane ranjivosti onda se predstavlja veliki problem, jer svaka aplikacija koja koristi tu biblioteku ili jednostavnije svaki mobitel koji vrti aplikaciju koja koristi ranjivu biblioteku je potencijalno i sam ranjiv. Nadalje, ove ranjivosti nisu slabosti u aplikacijama nego u mogućnostima koje se oslanjaju na određenu funkcionalnost. 
+<b>Flurry</b> je prva po redu biblioteka za reklame koju koristi 9702 od 70k+ aplikacija na google playu s više od 50k downloadova. Ove aplikacije su bile skinute više od 8.7 milijardi puta i kao i svaka biblioteka za reklame Flurry koristi HTTPS sa ranjivim trust managerom da bi uploadao informacije kao device IMEI i lokaciju.
+</p><p>Ovako izgleda hexdump Flurry aplikacije
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:HexDump.png" class="image"><img alt="HexDump.png" src="../images/3/39/HexDump.png" width="439" height="363" /></a>
+</p>
+<pre>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</pre>
+<h3> <span class="mw-headline" id="Najbolje_prakse_za_SSL.2FTLS_u_Androidu"> Najbolje prakse za SSL/TLS u Androidu </span></h3>
+<p>Bilokoja aplikacija koja se spaja na third party web servis je lako moguće da će moći verificirati certifikat i hostname. Te platforme imaju najčešće vise od 100CA-ova i validirati će bilokoji third party poslužitelj koji prezentira certifikat koji je potpisao on. Ako je certifikat samopotpisan ili ako dolazi od CA kojoj android platforma ne vjeruje onda to zahtjeva pozornost developera aplikacije. U tim slučajevima najbolje za učiniti je sljedeće:
+</p><p>- Napraviti keystore i settati njegov cert unos jednak onom certifikatu od kojeg se pokušavamo obraniti
+- Inicijalizirati TrustManager instancu s KeyStoreom
+- Iskoristiti tu instancu TrustManager klase u SSLContext objektima da bi se uspostavila SSL konekcija
+</p><p>Mobilne aplikacije se mogu same zaštititi ako se ne spajaju s javnim mrežama koje koriste bilokakve login podatke i slično. Ovo i ne otvaranje čudnih emailova koje dobijemo će napraviti čuda u obrani protiv MITM napada. Kao što je rečeno prethodno.--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Implementacija_danog_problema"> Implementacija danog problema </span></h2>
+<p>Planirano je bilo napisati aplikaciju koja može napraviti MITM napad, ali zbog manjka vremena i opreme to nije bilo izvedivo. --<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. <a href="https://www.techopedia.com/definition/4018/man-in-the-middle-attack-mitm" class="external free" rel="nofollow">https://www.techopedia.com/definition/4018/man-in-the-middle-attack-mitm</a> dostupno 11.01.2016.
+</p><p>2. <a href="https://www.veracode.com/security/man-middle-attack" class="external free" rel="nofollow">https://www.veracode.com/security/man-middle-attack</a> dostupno 11.01.2016.
+</p><p>3. <a href="http://hackersonlineclub.com/android-tools/" class="external free" rel="nofollow">http://hackersonlineclub.com/android-tools/</a> dostupno 11.01.2016.
+</p><p>4. <a href="http://androidhackz.blogspot.hr/2015/04/android-wifi-hacking-how-mitm-attack.html" class="external free" rel="nofollow">http://androidhackz.blogspot.hr/2015/04/android-wifi-hacking-how-mitm-attack.html</a> 11.01.2016.
+</p><p>5. <a href="http://www.treeks.net/2015/06/hacking-wifi-man-middle-attack-android-zanti.html" class="external free" rel="nofollow">http://www.treeks.net/2015/06/hacking-wifi-man-middle-attack-android-zanti.html</a> dostupno 11.01.2016.
+</p><p>6. <a href="https://www.youtube.com/watch?v=5vEkyLRs75g" class="external free" rel="nofollow">https://www.youtube.com/watch?v=5vEkyLRs75g</a> dostupno 11.01.2016.
+</p><p>7. <a href="https://stackoverflow.com/questions/34104592/how-avoid-man-in-the-middle-attack-when-using-google-cloud-endpoints" class="external free" rel="nofollow">https://stackoverflow.com/questions/34104592/how-avoid-man-in-the-middle-attack-when-using-google-cloud-endpoints</a> dostupno 11.01.2016.
+</p><p>8. <a href="https://commonsware.com/blog/2013/03/05/ssl-android-mitm.html" class="external free" rel="nofollow">https://commonsware.com/blog/2013/03/05/ssl-android-mitm.html</a> dostupno 11.01.2016.
+</p><p>9. <a href="http://www.last.fm/group/Last.fm+Android/forum/114391/_/2258919" class="external free" rel="nofollow">http://www.last.fm/group/Last.fm+Android/forum/114391/_/2258919</a> dostupno 11.01.2016.
+</p><p>10. <a href="https://op-co.de/blog/posts/java_sslsocket_mitm/" class="external free" rel="nofollow">https://op-co.de/blog/posts/java_sslsocket_mitm/</a> dostupno 11.01.2016.
+</p><p>11. <a href="http://www.securityweek.com/cert-warns-android-apps-vulnerable-mitm-attacks" class="external free" rel="nofollow">http://www.securityweek.com/cert-warns-android-apps-vulnerable-mitm-attacks</a> dostupno 11.01.2016.
+</p><p>12. <a href="https://support.silentcircle.com/customer/en/portal/articles/2118924-what-is-a-man-in-the-middle-attack-mitm-and-why-do-i-need-to-verify-the-authentication-keywords-" class="external free" rel="nofollow">https://support.silentcircle.com/customer/en/portal/articles/2118924-what-is-a-man-in-the-middle-attack-mitm-and-why-do-i-need-to-verify-the-authentication-keywords-</a> dostupno 11.01.2016.
+</p><p>13. <a href="https://wiki.archlinux.org/index.php/iptables" class="external free" rel="nofollow">https://wiki.archlinux.org/index.php/iptables</a> dostupno 15.01.2016.
+</p><p>14. <a href="https://en.wikipedia.org/wiki/ARP_spoofing" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/ARP_spoofing</a> dostupno 15.01.2016.
+</p><p>15. <a href="https://pypi.python.org/pypi/sslstrip/0.9.2" class="external free" rel="nofollow">https://pypi.python.org/pypi/sslstrip/0.9.2</a> dostupno 15.01.2016.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Skliba&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Skliba (stranica ne postoji)">Skliba</a> 04:37, 18. siječnja 2016. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 79/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8695-0!*!0!!hr!2!edit=0 and timestamp 20190203204226 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Man_In_The_Middle_Network_Attack_with_Android.html">http://security.foi.hr/wiki/index.php/Man_In_The_Middle_Network_Attack_with_Android</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Man_In_The_Middle_Network_Attack_with_Android" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Man_In_The_Middle_Network_Attack_with_Android.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Man_In_The_Middle_Network_Attack_with_Android&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Man_In_The_Middle_Network_Attack_with_Android.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Man_In_The_Middle_Network_Attack_with_Android.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Man_In_The_Middle_Network_Attack_with_Android&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Man_In_The_Middle_Network_Attack_with_Android&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Man_In_The_Middle_Network_Attack_with_Android.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Man_In_The_Middle_Network_Attack_with_Android" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Man_In_The_Middle_Network_Attack_with_Android" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Man_In_The_Middle_Network_Attack_with_Android&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Man_In_The_Middle_Network_Attack_with_Android&amp;oldid=37352" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 10:03, 18. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.318 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Man_In_The_Middle_Network_Attack_with_Android", "wgTitle": "Man In The Middle Network Attack with Android", "wgAction": "view", "wgArticleId": 8695, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37352, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.419 secs. -->			</body>
+</html>

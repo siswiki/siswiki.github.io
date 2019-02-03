@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Napredne funkcije iptables-a kao vatrozida (sa L7 filtiranjem i custom zakrpama) - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Napredne_funkcije_iptables-a_kao_vatrozida_sa_L7_filtiranjem_i_custom_zakrpama skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Napredne funkcije iptables-a kao vatrozida (sa L7 filtiranjem i custom zakrpama)</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#mw-head">orijentacija</a>,
+					<a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Projekt iz kolegija "Sigurnost informacijskih sustava"
+</p><p>Akademska godina 2012./13.
+</p><p>Izradio: Dejan Todorović
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Potrebni_paketi_za_Iptables_filtriranje_na_7.sloju"><span class="tocnumber">2</span> <span class="toctext">Potrebni paketi za Iptables filtriranje na 7.sloju</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Linux_jezgra"><span class="tocnumber">2.1</span> <span class="toctext">Linux jezgra</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Iptables"><span class="tocnumber">2.2</span> <span class="toctext">Iptables</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#l7-filtar"><span class="tocnumber">2.3</span> <span class="toctext">l7-filtar</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Instalacija_L7-filtra"><span class="tocnumber">3</span> <span class="toctext">Instalacija L7-filtra</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Primjer_instalacije_i_pode.C5.A1avanja_L7-filtra_na_CentOS_5.9"><span class="tocnumber">3.1</span> <span class="toctext">Primjer instalacije i podešavanja L7-filtra na CentOS 5.9</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Preuzimanje_potrebnih_paketa"><span class="tocnumber">3.1.1</span> <span class="toctext">Preuzimanje potrebnih paketa</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Instalacija_L7-filtra_2"><span class="tocnumber">3.1.2</span> <span class="toctext">Instalacija L7-filtra</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Instalacija_definicija_protokola"><span class="tocnumber">3.1.3</span> <span class="toctext">Instalacija definicija protokola</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Komplajliranje_i_instalacija_nove_Linux_jezgre"><span class="tocnumber">3.1.4</span> <span class="toctext">Komplajliranje i instalacija nove Linux jezgre</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Mogu.C4.87nosti_l7-filtra"><span class="tocnumber">3.2</span> <span class="toctext">Mogućnosti l7-filtra</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Blokiranje_protokola"><span class="tocnumber">3.2.1</span> <span class="toctext">Blokiranje protokola</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Kontrola_pojasne_.C5.A1irine"><span class="tocnumber">3.2.2</span> <span class="toctext">Kontrola pojasne širine</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Pra.C4.87enje_prometa_na_mre.C5.BEi"><span class="tocnumber">3.2.3</span> <span class="toctext">Praćenje prometa na mreži</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Zaklju.C4.8Dak"><span class="tocnumber">4</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Popularizacija Interneta stvorila je potrebu za zaštitom od neovlaštenih udaljenih zlonamjernih korisnika, kako na poslužiteljima tako i na osobnim računalima. Zbog što bolje zaštite vatrozidi postaju neizostavni dio računalnih sustava.
+</p><p>Jednostavno rečeno vatrozidi su sustavi koji sprječavaju neautorizirani pristup privatnoj mreži ili izlaz s privatne mreže. Mogu biti implementirani i u softver i u hardver, kao i kombinirano u oboje. Obično im je namjena da spriječe Internet korisnike kako bi neautorizirano pristupili privatnim mrežama koje su spojene na Internet, te analiziraju svaki paket i blokira one koje ne zadovoljavaju sigurnosne kriterije.
+</p><p>Općenito, vatrozidi su konfigurirani za zaštitu od neprovjerenih interaktivnih prijava iz vanjskog svijeta. To pomaže u sprečavanju "hakera" da se prijavljuju na strojeve koji se nalaze u privatnoj mreži. Više sofisticirani vatrozidi blokiraju promet izvana, ali dopuštaju korisnicima u privatnoj mreži da komuniciraju sa nešto više slobode s vanjskim svijetom.
+</p><p>Današnji vatrozidi dolaze u različitim oblicima i sa različito postavljenim mrežnim konfiguracijama, a sve ovisi o potrebama korisnika. Velika većina ih ima mogućnost filtriranja mrežnog prometa isključivo na drugom, trećem i četvrtom OSI sloju, tj. prema MAC adresi, IP adresi, priključnoj točki (portu usluge) i stanju konekcije. Sve masovnija upotreba računalnih mreža dovodi do potrebe kontroliranja mrežnog prometa na sedmom sloju ( aplikacijskoj razini). Mrežni se promet filtrira prema protokolima koji se koriste na ovoj razini OSI modela, te postoje razna rješenja za tu vrstu kontrole. Jedno od takvih rješenja je i filtriranje mrežnog prometa pomoću Iptables alata s L7 filtriranjem i custom zakrpama.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Potrebni_paketi_za_Iptables_filtriranje_na_7.sloju"> Potrebni paketi za Iptables filtriranje na 7.sloju </span></h2>
+<p>- 2.4 or 2.6 Linux jezgra source (preporuka 2.6) - kernel.org
+</p><p>- iptables source - netfilter.org
+</p><p>- "l7-filter verzija jezgre" paket (netfilter-layer7-vX.Y.tar.gz)
+</p><p>- "Definicije protokola" paket (l7-protocols-GGGG-MM-DD.tar.gz)
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Linux_jezgra"> Linux jezgra </span></h3>
+<div class="thumb tleft"><div class="thumbinner" style="width:202px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Linux.jpg" class="image"><img alt="" src="../images/thumb/6/6a/Linux.jpg/200px-Linux.jpg" width="200" height="136" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Linux.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 1. Linux logo</b></div></div></div>Linux je jezgra računalnog operativnog UNIXoidnog sustava. Kreator Linuxa je Linus Torvalds, koji je 1991. dok je još bio student, zbog vlastitih potreba, napravio vlastiti operativni sustav. U ranim danima Linux je služio kao eksperimentalni sustav, te nije bilo komercijalne upotrebe. Kasnije se to promijenilo te pod okriljem GNU projekta i pod GPL licencom, kao besplatan i otvorenog koda, Linux postaje dominantan na području poslužitelja i superračunala, te na područjima pametnih telefona, tablet računalima, usmjerivačima, televizorima itd…
+<p>Linux distribucija je operacijski sustav sastavljen od Linux jezgre (s pogonskim programima), GNU sistemskih i aplikacijskih programa, Xorg grafičkog servera i grafičkog okruženja. Osim tih osnovnih dijelova, različite distribucije uključuju veći ili manji broj ostalih korisničkih programa specifične namjene. Svaka distribucija je podešena prema željama autora i korisnika za određenu namjenu. Nemoguće je utvrditi točan broj distribucija, a ne postoji niti jasan kriterij što čini Linux distribuciju. Veliki broj distribucija kao i nepostojanje standarda - poput jedinstvenog načina instaliranja programa - mnogim korisnicima računala otežava prelazak na Linux, ali i komercijalnu upotrebu.
+</p><p>Distribucije se mogu podijeliti u tri osnovne skupine s obzirom kako se distribuira softver uz pojedinu distribuciju. Softver se može distribuirati u izvornom kodu (kao kod distribucije Gentoo) ili u zato predviđenim paketima (koji sadrže izvršne inačice softvera) ili pak kao izvršni programi ili skripte koje same instaliraju softver (također u izvršnom obliku). Dva najčešća sustava za upravljanje paketima su rpm i dpkg pa se stoga distribucije koje ih koriste često nazivaju nazivaju RPM distribucije, odnosno distribucije temeljene na Debianu. U distribucije vrste RPM spadaju npr. RHEL, Fedora, Mandriva, PCLinuxOS, OpenSuse, dok u distribucije vrste Debian spadaju (osim samog Debiana): Ubuntu, Xandros, Mepis, Knoppix, Sidux i dr.
+</p><p>Posljednja stabilna verzija Linux jezgre je 3.6.5 (na dan 3.11.2012). Prilikom prikaza naprednih funkcija iptablesa na 7. sloju koristit će se Linux distribucija CentOS 5.9 sa 2.6.26 verzijom jezgre.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Iptables"> Iptables </span></h3>
+<p>Iptables je napredni administratorski alat koji omogućuje IPv4 filtriranje mrežnog prometa i translaciju mrežnih i port adresa. Iptables paket uključuje i ip6tables za IPv6 filtriranje. S korisničke strane iptables je osnovni vatrozid većine linux distribucija te u njima dolazi kao dio osnovne instalacije. Koristi se u naprednim nadzorima mreže, vatrozidima, transparentnim proxyjima i dijeljenju mrežne povezanosti.
+</p><p>Iako se iptables paket instalira pri instalaciji sustava i automatski je konfiguriran tako da se pokreće prilikom podizanja sustava, bez dodatne konfiguracije ne pružaju nikakvu zaštitu.
+</p><p>Program se iz komandne linije poziva sa naredbom:
+</p>
+<pre>#iptables &lt;opcije&gt;
+</pre>
+<p>Ovisno o opcijama navedenim iza imena programa, u tablice za filtriranje paketa se dodaju nova, brišu stara,ili mijenjaju postojeća pravila. Iako je program iptables moguće pozvati direktno iz komandne linije, za veći skup pravila to nije praktično, pa je zbog toga jednostavnije napisati skriptu u kojoj se definiraju pozivi programa sa svim željenim opcijama.
+</p><p>Postoje 4 osnovne tablice u iptables konfiguraciji: filter, nat, mangle i raw. Osnovna tablica koja se koristi i koja je zadana (default) kada se eksplicitno ne navede ime tablice je filter.
+</p>
+<pre>#iptables –L
+</pre>
+<p>S ovom naredbom ćemo izlistati „filter“ zadanu tablicu.
+</p><p><br />
+Ukoliko želimo više informacija, i da vidimo portove kao brojeve umjesto imena upisat ćemo slijedeću naredbu:
+</p>
+<pre>#iptables –L –vn
+</pre>
+<p>Pravila u tablicama podijeljena su na lance, a u filter tablici postoje tri osnovna lanca:
+</p><p>INPUT – lanac koji definira pravila za ulazne pakete
+</p><p>OUTPUT – lanac koji definira pravila za izlazne pakete
+</p><p>FOWARD – lanac koji definira pravila za pakete koji poslužitelj prosljeđuje.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:1439px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tok_paketa.jpg" class="image"><img alt="" src="../images/4/4d/Tok_paketa.jpg" width="1437" height="411" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tok_paketa.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 2. Tok paketa u Netfilteru i mreži</b></div></div></div></div>
+<p><br />
+U svakom od tih lanaca moguće je definirati prosljeđivanje paketa u neki od drugih, od strane korisnika definirani lanac. Postoje pravila kojima se slažu pravila u lancima, koja govore što se  može a što ne može nalaziti u pravilima, pa tako na primjer nije dopušteno definirati ulazni port bez da se definira protokol, te postoje brojna druga pravila i kombinacije onoga što se može definirati u jednom pravilu.
+</p><p>Akcija je najvažnija stvar koja se definira u jednom pravilu, a ona opisuje što će se dogoditi sa paketom koji je obuhvaćen. Akcije mogu biti: ACCEPT - koja označava bezuvjetno prihvaćenje paketa, LOG – koja stvara zapise u paketu u log datotekama, REJECT – koji vrši odbacivanje projekta i šalje poruku o grešci pošiljatelju, DROP – vrši bezuvjetno odbacivanje paketa, na taj način da druga strana, koja poslala paket, ne zna što se dogodilo s njim ... 
+</p><p><br />
+Ukoliko želimo blokirati IP promet koji dolazi sa specifične IP adrese, to bi napravili sa naredbom:
+</p>
+<pre>#iptables –A INPUT –s 192.168.200.150 –j DROP
+</pre>
+<p><br />
+Ako želimo blokirati samo na određenoj mrežnoj kartici, onda bi koristila slijedeća naredba:
+</p>
+<pre>#iptables –A INPUT –s 192.168.200.150 –i eth0 –j DROP
+</pre>
+<p><br />
+Za određeni port, npr. Tcp port 22:
+</p>
+<pre>#iptables –A INPUT –s 192.168.200.150 –p tcp –dport 22 –j DROP
+</pre>
+<p><br />
+Također se može blokirati promet koji dolazi sa određene mreže, a ne samo sa IP adrese, i to naredbom:
+</p>
+<pre>#iptables –A INPUT –s 192.168.200.150/24 -j DROP
+</pre>
+<p><br />
+Ukoliko želimo možemo zabraniti bilo kakav promet koji dolazi s određene MAC adrese. To može biti korisno u slučaju kada DHCP server mijenja IP adresu stroja od kojeg ne želimo prihvaćati promet. U tom slučaju se upisuje ova naredba:
+</p>
+<pre>#iptables –A INPUT –m mac --mac-source 00:12:2f:8f:f8:f8 –j DROP
+</pre>
+<p><br />
+Osim što možemo blokirati određeni port sa određene IP adrese, također možemo blokirati bilo kakav dolazni promet preko određenog porta. Npr. Port 21 ćemo blokirati na ovaj način:
+</p>
+<pre>#iptables –A INPUT –p tcp --destination-port 21 –j DROP
+</pre>
+<p><br />
+Ako imamo server sa dvije mrežne kartice, sa jednom mrežnom okrenutu prema Internetu, a drugu prema privatnoj lokalnoj mreži, te pri tome želimo blokirati FTP protokol od vanjskog svijeta.
+</p>
+<pre>#iptables -A INPUT -p tcp -i eth1 -p tcp --destination-port 21 -j DROP
+</pre>
+<p>U ovom slučaju eth1 je mrežna okrenuta prema Internetu.
+</p><p><br />
+Možemo blokirati port sa specifične IP adrese:
+</p>
+<pre>#iptables -A INPUT -p tcp -s 22.33.44.55 --destination-port 21 -j DROP
+</pre>
+<p><br />
+Ili čak blokirati pristup portu od bilo gdje, osim sa specifičnog IP raspona
+</p>
+<pre>#iptables -A INPUT p tcp -s&#160;! 192.168.200.150/24 --destination-port 21 -j DROP
+</pre>
+<p><br />
+Korisna naredba kojom možemo zabraniti virusu da šalje mailove je da zabranimo izlaz prometa preko porta 25:
+</p>
+<pre>#iptables -A FORWARD -p tcp --dport 25 -j DROP
+</pre>
+<p>U ovom primjeru koristimo FORWARD, jer bi naredbu koristili da je npr. poslužitelj i vatrozid, ali možemo koristiti i OUTPUT također da bi blokirali i poslužiteljev promet preko tog porta.
+</p><p><br />
+<b>Logiranje prometa</b>
+
+</p><p>Ukoliko želimo napraviti log prometa prije nego ga blokiramo, npr. Kada bi u uredu postojalo pravilo, gdje su svim zaposlenicima rekli da se ne prijavljuju na određeni poslužitelj, i želimo biti sigurni da će se svi pridržavati tog pravila tako da ćemo blokirati pristup ssh portu. Ali također želimo i vidjeti da li se neki zaposlenik pokušao prijaviti.
+</p>
+<pre>#iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "blokiran promet na port 22"
+</pre>
+<pre>#iptables -A INPUT -p tcp --dport 22 -j DROP
+</pre>
+<p>Na ovaj način možemo vidjeti koja je IP adresa pokušala pristupiti serveru, ali naravno nije mogla.
+</p><p><br />
+<b>Savjeti i trikovi</b>
+
+</p><p>Kako iptables izvršava pravila po redu, ako želimo nešto promijeniti morali bi umetnuti pravilo u određeno mjesto, ili željeni efekt neće biti postignut.
+</p><p><br />
+Izlistavanje određenih lanaca
+</p>
+<pre>#iptables -nL --line-numbers
+</pre>
+<p>Ova naredba će izlistati sva pravila koja smo upisali sa brojevima koja prethode pravilima. Odredimo gdje želimo umetnuti pravilo i upišemo:
+</p>
+<pre>#iptables -nL INPUT
+</pre>
+<p>Izlistat će sva INPUT pravila.
+</p>
+<pre>#iptables -nL FORWARD
+</pre>
+<p>Izlistat će sva OUTPUT pravila.
+</p><p><br />
+Umetanje pravila:
+</p>
+<pre>#iptables -I INPUT 3 -s 10.0.0.0/8 -j ACCEPT
+</pre>
+<p>Ta će naredba dodati pravilo na poziciju 3
+</p><p><br />
+Brisanje pravila:
+</p>
+<pre>#iptables -D INPUT 3
+</pre>
+<p>Ovo će obrisati pravilo koje je umetnuto sa prethodnom naredbom, odnosno briše pravilo koje se nalazi 3. u nizu u lancu, a također ga možemo maknuti i na ovaj način:
+</p>
+<pre>#iptables -D INPUT -s 10.0.0.0/8 -j ACCEPT
+</pre>
+<p><br />
+Ukoliko želimo započeti sa praznom talicom i potpuno obrisati tablice, to bi učinili sa slijedećim naredbama:
+</p>
+<pre>#iptables --flush
+#iptables --table nat --flush
+#iptables --table mangle --flush
+#iptables --delete-chain
+#iptables --table nat --delete-chain
+#iptables --table mangle --delete-chain
+</pre>
+<p><br />
+<b>Zaustavljanje brute force napada</b>
+
+</p><p>Primjer kako zaustaviti brute force napade na poslužitelj pomoću iptablesa. Ovim primjerom ćemo dozvoliti samo tri pokušaja prijave preko ssh prije nego će IP adresa biti blokirana na 15minuta. Na taj način ćemo dozvoliti legitimnim korisnicima da se prijave na server, a botovima ćemo to onemogućiti.
+</p>
+<pre>#iptables -F
+#iptables -A INPUT -i lo -p all -j ACCEPT
+#iptables -A OUTPUT -o lo -p all -j ACCEPT                    
+#iptables -A INPUT -i eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+#iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+#iptables -A INPUT -p tcp --dport www -j ACCEPT
+#iptables -I INPUT -p tcp --dport 22 -i eth0 -m state --state NEW -m recent --set
+#iptables -I INPUT -p tcp --dport 22 -i eth0 -m state --state NEW -m recent --update --seconds 900 --hitcount 3 -j DROP
+#iptables -P INPUT DROP
+</pre>
+<p><br />
+<b>NAT sa iptablesima</b>
+
+</p><p>Iptables je vrlo koristan i za konfiguriranje NAT usmjerivača, i to tako da se Linux stroj konfigurira da se ponaša kao usmjerivač i dijeli svoju javnu IP adresu sa privatnim mrežama iza njega. Također je korisno i za konfiguriranje DHCP-a na istom poslužitelju.
+</p><p>Kako bi konfigurirali NAT usmjerivač, bilo bi dobro da imamo računalo sa dvije mrežne kartice. Npr.
+</p><p>	* eth0: 12.13.14.15
+</p><p>	* eth1: 10.1.1.1
+</p><p>Sada možemo konfigurirati NAT da prosljeđuje sav promet sa 10.1.1.0 mreže preko eth0, i to slijedećim naredbama:
+</p>
+<pre>#iptables --table nat --append POSTROUTING --out-interface eth0 -j MASQUERADE
+#iptables --append FORWARD --in-interface eth1 -j ACCEPT
+</pre>
+<p>Sve što se još treba napraviti je da se omogući jezgrino preusmjerivanje:
+</p>
+<pre>#echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+</pre>
+<p><br />
+</p><p>U primjerima su navedene neki osnovne, ali i korisne funkcije iptables vatrozida.
+</p><p>Kratka objašnjenja osnovnih upotrijebljenih opcija:
+</p><p><b>-A INPUT</b> - označava lanac u koji se dodaje pravilo (INPUT)
+</p><p><b>-A FOWARD</b> – označava lanac u koji se dodaje pravilo (FOWARD)
+</p><p><b>-A OUTPUT</b> – označava lanac u koji se dodaje pravilo (OUTPUT)
+</p><p><b>-i eth0</b> - označava na koje sučelje dolaze paketi na koje se pravilo odnosi
+</p><p><b>-p tcp</b> - označava da pravilo filtrira TCP pakete
+</p><p><b>--dport 22</b> - označava odredišni port paketa na koje se pravilo odnosi, u ovom slučaju 22
+</p><p><b>-m state</b> - označava match naredbu koja definira koji modul se koristi (moguće je koristiti samo module koji se nalaze u kernelu), a za zadani primjer koristi se modul state koji omogućava upravljanje paketima na osnovi njihovog stanja
+</p><p><b>--state NEW</b> - označava da se ovim pravilom filtriraju samo novouspostavljene konekcije
+</p><p><b>-m recent</b> --update --seconds 60 --hitcount 8 - koristi modul recent i radi prebrojavanje paketa unutar vremenskog okvira od 60 sekundi (pravilo se aktivira kada se pobroji više od 8 paketa u 60 sekundi)
+</p><p><b>--rttl</b> - naredba recent modula koja može poslužiti kao zaštita od lažiranja adrese
+</p><p><b>-j DROP</b> - paketi se odbacuju bez upisa u log datoteku
+</p><p><b>-j ACCEPT</b> – paketi su prihvaćeni
+</p><p><b>POSTROUTING</b> - mijenjanje odredišne IP adrese i/ili porta u zaglavlju 
+</p><p><b>MASQUERADING</b> - prevođenje internih IP adresa na adrese izlaznog sučelja
+</p><p><br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="l7-filtar"> l7-filtar </span></h3>
+<p>L7-filter je softverski paket koji omogućuje klasifikaciju za Linux Netfilter podsustav koji mogu kategorizirati pakete Internet protokola na temelju njihovih podataka iz aplikacijskog sloja. Glavni cilj ovog alata je da omogućuje identifikaciju peer-to-peer programa, koji koriste nepredvidive brojeve portova. Postoje dvije verzije za ovaj softver, prvi je implementiran kao modul jezgre za Linux 2.4 i 2.6. Druga eksperimentalna verzija je objavljena u prosincu 2006. koja radi kao program korisničkog prostora (dio memorije unutar koje se izvršavaju sve aplikacije), a oslanja se na biblioteke iz netfilterovog korisničkog prostora za postupak klasifikacije.
+</p><p>Obje verzije L7-filtra koriste regularne izraze (iako korisnički prostor i moduli jezgre koriste različite regularne izraze biblioteka) za prepoznavanje mrežnih protokola. 
+</p><p>Sve verzije L7-filtra su objavljeni pod GNU Općom javnom licencom.
+</p><p>L7-filtar je dobio ime po sedmom (aplikacijskom) sloju OSI modela. Taj sloj je najbliži krajnjem korisniku. On dostavlja mrežne servise/usluge aplikacijama krajnjeg korisnika. Za razliku od svih ostalih slojeva, ne dostavlja usluge ni jednom drugom OSI sloju, nego isključivo aplikacijama koje se nalaze van OSI modela. Primjeri takvih aplikacija su tablični kalkulatori, uređivača teksta i slično. Aplikacijski sloj uspostavlja dostupnost između komunikacijskih partnera i sinkronizira i uspostavlja dogovore o procedurama oporavka u slučaju greški i kontrolira integritet podataka. Ne predstavlja, na primjer, razinu nekog uređivača teksta ili baze podataka, već protokole i funkcije da bi korisnikove aplikacije ispravno komunicirale s podacima, kao: otvaranje, čitanje, brisanje i zapisivanje datoteka, zajednički pristup datotekama, prijenos datoteka i pristup bazama podataka, potpora programskoj potpori za elektroničku poštu, opća usluga pregleda i dohvata resursa mreže, usluge za ispravan rad postaje i resursa koje 'vidi'.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:526px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Osi_model.png" class="image"><img alt="" src="../images/1/19/Osi_model.png" width="524" height="362" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Osi_model.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 3. OSI model</b></div></div></div></div>
+<p><br />
+L7-filtar je odlično rješenje za klasifikaciju aplikacijskih podataka u mreži, i značajno je poboljšanje zaštite korištenjem L7-filtra u odnosu na filtriranje korištenjem samo klasičnih vatrozida. Ono što klasični vatrozidi rade je propuštanje i blokiranje prometa prema samo prethodno definiranim pravilima o tome koji servis osluškuju na kojem portu, te da li mu se smije pristupiti ili ne. Ukoliko jedna od strana u komunikaciji, bilo da je to klijent ili poslužitelj s kojim klijent razmjenjuje podatke, promijeni broj portova vatrozida više ne može ispraviti filtrirani promet.
+</p><p>L7-filtri služe i kao nadopuna postojećim programima koji se poklapaju prema IP adresi, broju porta i slično pa se zato često koriste kao nadopuna vatrozida i sličnih sustava. Filtriranjem se omogućava otkrivanje bilo kojeg protokola koji koristi nepredvidljive priključnice (npr. P2P razmjena podataka), otkrivanje prometa na nestandardnim portovima (npr. HTTP na portu 1111), razlikovanje protokola koji dijele port (npr. P2P razmjena podataka koja koristi port 80).
+</p><p>L7-filtriranje ima dosta prednosti, ali kao i sa gotovo svakom dobrom stvari, postoje i nedostaci. Kako L7-filtar mora zapravo analizirati podatke sadržane u IP paketima, prilično je očito da to može „pojesti“ puno procesorske snage. Dakle, koristiti L7-filtar na Linux usmjerivaču s visokim prometom nije baš preporučljivo, s obzirom da L7-filtar dosta troši procesorsku snagu te stoga može dovesti do latencije i gubitka paketa u mreži. Međutim, to stvarno ovisi o vrsti prometa koji prolazi kroz taj usmjerivač, a ne toliko o količini prometa. Na primjer, ako imamo u prosjeku 20 Mbps WWW podataka, L7-filtar može raditi prilično dobro, ali za 2 Mbps VoIP prometa, performanse usmjerivača će dramatično pasti.
+</p><p>Ono što L7-filtar pruža je način za iptables kako bi poslagali pakete na temelju aplikacije kojoj pripadaju.
+</p><p>TCP / IP model sadrži četiri sloja i, prije L7-filtar projekta, Netfilter je mogao slagati podatke prema prva tri sloja.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tcp_ip_model.png" class="image"><img alt="" src="../images/a/ab/Tcp_ip_model.png" width="500" height="410" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tcp_ip_model.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 4. Tcp/ip_model.png</b></div></div></div></div>
+<p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Instalacija_L7-filtra"> Instalacija L7-filtra </span></h2>
+<p>Za instalaciju L7-filter projekta, moramo zakrpati naše kernele sa zakrpama koji se mogu pronaći na <a href="http://l7-filter.sourceforge.net" class="external free" rel="nofollow">http://l7-filter.sourceforge.net</a>. Da bi to učinili, moramo imati izvorni kod kernela. Sljedeći korak bi bio da se primijeni iptables zakrpa, rekompajlira iptables, i instaliraju definicije protokola datoteke.
+</p><p><br />
+<b>Primjena Kernel Patch</b>
+
+</p><p>Prvi korak je preuzimanje izvornog koda kernela sa slijedećeg linka - <a href="http://www.kernel.org" class="external free" rel="nofollow">http://www.kernel.org</a>. Dalje, moramo preuzeti L7-filtar od <a href="http://l7-filter.sourceforge.net" class="external free" rel="nofollow">http://l7-filter.sourceforge.net</a>.
+</p><p><br />
+<b>L7-filter Aplikacije</b>
+
+</p><p>L7-filtar možemo koristiti s bilo kojom iptables opcijom, jer ipak L7-filtar pruža samo još jednu odgovarajuću opciju. Međutim, nisu sve stvari koje možemo napraviti sa tom novom opcijom preporučljive, jer se može dogoditi da L7-filtar odgovara paketima koji pripadaju drugim aplikacijama a ne onima koje želimo.
+</p><p><br />
+<b>Filtriranje Application Data</b>
+
+</p><p>Blokiranje podataka aplikacije koja prolazi kroz usmjerivač je jedan od ne-preporučenih stvari koje možemo učiniti s L7-filtra.
+</p><p><br />
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Primjer_instalacije_i_pode.C5.A1avanja_L7-filtra_na_CentOS_5.9"> Primjer instalacije i podešavanja L7-filtra na CentOS 5.9 </span></h3>
+<p>U slijedećem primjeru će biti prikazano podešavanje L7-filtra na Linux distribuciji Cent0S 5.9, koje se može primijeniti na bilo koju drugu Linux distribuciju.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Preuzimanje_potrebnih_paketa"> Preuzimanje potrebnih paketa </span></h4>
+<p>1.1) Preuzimanje izvornog koda L7-filtra
+</p>
+<pre>wget <a href="http://downloads.sourceforge.net/l7-filter/netfilter-layer7-v2.19.tar.gz" class="external free" rel="nofollow">http://downloads.sourceforge.net/l7-filter/netfilter-layer7-v2.19.tar.gz</a>
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture1.PNG" class="image"><img alt="" src="../images/thumb/0/04/Capture1.PNG/600px-Capture1.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture1.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 5. Preuzimanje izvornog koda L7-filtra</b></div></div></div></div>
+<p><br />
+1.2) Preuzimanje L7-filtra korisničkog prostora
+</p><p>wget <a href="http://downloads.sourceforge.net/l7-filter/l7-filter-userspace-0.7.tar.gz" class="external free" rel="nofollow">http://downloads.sourceforge.net/l7-filter/l7-filter-userspace-0.7.tar.gz</a>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture2.PNG" class="image"><img alt="" src="../images/thumb/1/1d/Capture2.PNG/600px-Capture2.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture2.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 6. Preuzimanje L7-filtra korisničkog prostora</b></div></div></div></div>
+<p><br />
+1.3) Preuzimanje definicija protokola L7-filtra
+</p>
+<pre>wget <a href="http://downloads.sourceforge.net/l7-filter/l7-protocols-2008-04-23.tar.gz" class="external free" rel="nofollow">http://downloads.sourceforge.net/l7-filter/l7-protocols-2008-04-23.tar.gz</a>
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture3.PNG" class="image"><img alt="" src="../images/thumb/9/92/Capture3.PNG/600px-Capture3.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture3.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 7. Preuzimanje definicija protokola L7-filtra</b></div></div></div></div>
+<p>Napomena: Posljednja dostupna verzija paketa, za prva tri koraka, se preuzima sa slijedećeg linka - <a href="http://sourceforge.net/projects/l7-filter/files/" class="external free" rel="nofollow">http://sourceforge.net/projects/l7-filter/files/</a>
+</p><p><br />
+1.4) Preuzimanje Linux Iptables 1.4.0
+</p>
+<pre>wget <a href="http://www.netfilter.org/projects/iptables/files/iptables-1.4.0.tar.bz2" class="external free" rel="nofollow">http://www.netfilter.org/projects/iptables/files/iptables-1.4.0.tar.bz2</a>
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture4.PNG" class="image"><img alt="" src="../images/thumb/7/74/Capture4.PNG/600px-Capture4.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture4.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 8. Preuzimanje iptablesa</b></div></div></div></div>
+<p><br />
+1.5) Preuzimanje Linux Jezgre 2.6.26
+</p>
+<pre>wget <a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.26.tar.bz2" class="external free" rel="nofollow">http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.26.tar.bz2</a>
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture5.1.PNG" class="image"><img alt="" src="../images/thumb/0/05/Capture5.1.PNG/600px-Capture5.1.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture5.1.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 9. Preuzimanje definicija protokola L7-filtra</b></div></div></div></div>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Instalacija_L7-filtra_2"> Instalacija L7-filtra </span></h4>
+<pre>tar -xvf linux-2.6.26.tar.bz2
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture5.5.PNG" class="image"><img alt="" src="../images/thumb/4/4e/Capture5.5.PNG/600px-Capture5.5.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture5.5.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 10. Ekstraktiranje arhive izvornog koda Linux jezgre</b></div></div></div></div>
+<pre>tar -xvf netfilter-layer7-v2.19.tar.gz
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture5.PNG" class="image"><img alt="" src="../images/thumb/7/7e/Capture5.PNG/600px-Capture5.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture5.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 11. Ekstraktiranje arhive izvornog koda Layer7 filtra</b></div></div></div></div>
+<p><br />
+2.1) Primjeniti zakrpu na izvorni kod Linux jezgre
+</p>
+<pre>cd linux-2.6.26 
+patch -p1 &lt; ../netfilter-layer7-v2.19/kernel-2.6.25-layer7-2.19.patch
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture6.PNG" class="image"><img alt="" src="../images/thumb/2/26/Capture6.PNG/600px-Capture6.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture6.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 12. Primjena zakrpe na izvorni kod Linux jezgre</b></div></div></div></div>
+<p><br />
+2.2) Primjena zakrpa i instalacija iptables 1.4.0
+</p>
+<pre>tar -xvf iptables-1.4.0.tar.bz2
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture7.PNG" class="image"><img alt="" src="../images/thumb/7/75/Capture7.PNG/600px-Capture7.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture7.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 13. Ekstraktiranje arhive iptablesa</b></div></div></div></div>
+<pre>cd iptables-1.4.0
+patch -p1 &lt; ../netfilter-layer7-v2.19/iptables-1.4-for-kernel-2.6.20forward-layer7-2.19.patch
+chmod +x extensions/.layer7-test
+make KERNEL_DIR=~/linux-2.6.26
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture8.PNG" class="image"><img alt="" src="../images/thumb/6/61/Capture8.PNG/600px-Capture8.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture8.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 14. Primjena zakrpe iptablesa i instalacija</b></div></div></div></div>
+<pre>make install KERNEL_DIR=~/linux-2.6.26
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture9.PNG" class="image"><img alt="" src="../images/thumb/7/7f/Capture9.PNG/600px-Capture9.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture9.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 15. Instalacija iptablesa</b></div></div></div></div>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Instalacija_definicija_protokola"> Instalacija definicija protokola </span></h4>
+<pre>tar -xvf l7-protocols-2008-04-23.tar.gz
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture10.PNG" class="image"><img alt="" src="../images/thumb/8/84/Capture10.PNG/600px-Capture10.PNG" width="600" height="374" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture10.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 16. Ekstraktiranje arhive s definicijama protokola</b></div></div></div></div>
+<pre>cd l7-protocols-2008-04-23
+mkdir /etc/l7-protocols
+cp protocols/* /etc/l7-protocols
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture11.PNG" class="image"><img alt="" src="../images/thumb/6/66/Capture11.PNG/600px-Capture11.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture11.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 17. Kopiranje protokola u novokreirani folder etc/l7-protocols</b></div></div></div></div>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Komplajliranje_i_instalacija_nove_Linux_jezgre"> Komplajliranje i instalacija nove Linux jezgre </span></h4>
+<pre>cd linux-2.6.26
+make menuconfig
+</pre>
+<p>Konfiguriranje Linux jezgre za L7 filtriranje:
+</p><p>Odabrati <b>Networking ---&gt;</b> opciju
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture12.PNG" class="image"><img alt="" src="../images/thumb/5/5b/Capture12.PNG/600px-Capture12.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture12.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 18. Izbornik za konfiguriranje Linux jezgre</b></div></div></div></div>
+<p><br />
+Odabrati <b>Networking options ---&gt;</b> opciju
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture13.PNG" class="image"><img alt="" src="../images/thumb/e/e7/Capture13.PNG/600px-Capture13.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture13.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 19. Networking izbornik</b></div></div></div></div>
+<p><br />
+Odabrati <b>Network packet filtering framework (Netfilter) ---&gt;</b> opciju
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture14.PNG" class="image"><img alt="" src="../images/thumb/2/29/Capture14.PNG/600px-Capture14.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture14.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 20. Networking options izbornik</b></div></div></div></div>
+<p><br />
+Odabrati <b>Core Netfilter Configuration ---&gt;</b> opciju
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture15.PNG" class="image"><img alt="" src="../images/thumb/e/e3/Capture15.PNG/600px-Capture15.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture15.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 21. Network packet filtering framework (Netfilter) izbornik</b></div></div></div></div>
+<p><br />
+Odabrati <b>"layer7" match support (NEW)</b> opciju
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture16.PNG" class="image"><img alt="" src="../images/thumb/5/59/Capture16.PNG/600px-Capture16.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture16.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 22. Core Netfilter Configuration izbornik</b></div></div></div></div>
+<p><br />
+Odabrati i označiti <b>Layer 7 debugging output</b> opciju
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture17.PNG" class="image"><img alt="" src="../images/thumb/f/f2/Capture17.PNG/600px-Capture17.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture17.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 23. Core Netfilter Configuration izbornik</b></div></div></div></div>
+<p><br />
+Izaći iz konfiguracijskog izbornika i prihvatiti promjene
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture18.PNG" class="image"><img alt="" src="../images/thumb/3/30/Capture18.PNG/600px-Capture18.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture18.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 24. Izlaz iz konfiguracijskog izbornika</b></div></div></div></div>
+<p><br />
+Kompajliranje izvornog koda jezgre
+</p>
+<pre>make all
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture20.PNG" class="image"><img alt="" src="../images/thumb/2/2b/Capture20.PNG/600px-Capture20.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture20.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 25. Komajliranje jezgre</b></div></div></div></div>
+<p><br />
+Instalacija modula
+</p>
+<pre>make modules_install
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture21.PNG" class="image"><img alt="" src="../images/thumb/9/9b/Capture21.PNG/600px-Capture21.PNG" width="600" height="377" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture21.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 26. Kopiranje jezgre</b></div></div></div></div>
+<p><br />
+Instalacija Linux jezgre
+</p>
+<pre>make install
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture22.PNG" class="image"><img alt="" src="../images/thumb/7/72/Capture22.PNG/600px-Capture22.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture22.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 27. Instalacija jezgre</b></div></div></div></div>
+<p><br />
+Provjeriti da li grub.conf file izgleda ovako:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture23.PNG" class="image"><img alt="" src="../images/thumb/e/e8/Capture23.PNG/600px-Capture23.PNG" width="600" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture23.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 28. grub.conf fajl</b></div></div></div></div>
+<p><br />
+Ponovno pokrenuti sustav, te nakon što se sustav ponovno podigne testirati L7-filtar s naredbom:
+</p>
+<pre>#iptables -m layer7 --help
+</pre>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture24.PNG" class="image"><img alt="" src="../images/thumb/5/57/Capture24.PNG/600px-Capture24.PNG" width="600" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Capture24.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><b>Slika 29. Mogućnosti L7-filtra</b></div></div></div></div>
+<pre>iptables v1.4.0
+
+Usage: iptables -[AD] chain rule-specification [options]
+      iptables -[RI] chain rulenum rule-specification [options]
+      iptables -D chain rulenum [options]
+      iptables -[LFZ] [chain] [options]
+      iptables -[NX] chain
+      iptables -E old-chain-name new-chain-name
+      iptables -P chain target [options]
+      iptables -h (print this help information)
+
+Commands:
+Either long or short options are allowed.
+  --append  -A chain            Append to chain
+  --delete  -D chain            Delete matching rule from chain
+  --delete  -D chain rulenum
+                                Delete rule rulenum (1 = first) from chain
+  --insert  -I chain [rulenum]
+                                Insert in chain as rulenum (default 1=first)
+  --replace -R chain rulenum
+                                Replace rule rulenum (1 = first) in chain
+  --list    -L [chain]          List the rules in a chain or all chains
+  --flush   -F [chain]          Delete all rules in  chain or all chains
+  --zero    -Z [chain]          Zero counters in chain or all chains
+  --new     -N chain            Create a new user-defined chain
+  --delete-chain
+            -X [chain]          Delete a user-defined chain
+  --policy  -P chain target
+                                Change policy on chain to target
+  --rename-chain
+            -E old-chain new-chain
+                                Change chain name, (moving any references)
+Options:
+  --proto       -p [!] proto    protocol: by number or name, eg. `tcp'
+  --source      -s [!] address[/mask]
+                                source specification
+  --destination -d [!] address[/mask]
+                                destination specification
+  --in-interface -i [!] input name[+]
+                                network interface name ([+] for wildcard)
+  --jump        -j target
+                                target for rule (may load target extension)
+  --goto      -g chain
+                              jump to chain with no return
+  --match       -m match
+                                extended match (may load extension)
+  --numeric     -n              numeric output of addresses and ports
+  --out-interface -o [!] output name[+]
+                                network interface name ([+] for wildcard)
+  --table       -t table        table to manipulate (default: `filter')
+  --verbose     -v              verbose mode
+  --line-numbers                print line numbers when listing
+  --exact       -x              expand numbers (display exact values)
+[!] --fragment  -f              match second or further fragments only
+  --modprobe=&lt;command&gt;          try to insert modules using this command
+  --set-counters PKTS BYTES     set the counter during insert/append
+[!] --version   -V              print package version.
+
+LAYER7 match v1.4.0 options:
+--l7dir &lt;directory&gt; &#160;: Look for patterns here instead of /etc/l7-protocols/
+                       (--l7dir must be specified before --l7proto if used!)
+--l7proto [!] &lt;name&gt;&#160;: Match the protocol defined in /etc/l7-protocols/name.pat
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Mogu.C4.87nosti_l7-filtra"> Mogućnosti l7-filtra </span></h3>
+<p>L7-filtar koristi standardnu iptables sintaksu, pa će komanda izgledati ovako:
+</p>
+<pre>#iptables [specifikacija tablice i lanca] -m layer7 --l7proto [ime protokola] -j [akcija
+</pre>
+<p>Moguće radnje su: blokiranje određenih protokola, kontroliranje pojasne širine i praćenje stanja na mreži. Svaka navedena radnja bit će opisana dalje u tekstu.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Blokiranje_protokola"> Blokiranje protokola </span></h4>
+<p>Blokiranje nije najpoželjniji način kontrole mrežnog prometa, i to iz više razloga:
+- l7-filtar klasifikacija nije neotporna, jer se može dogoditi da jedan protokol izgleda kao drugi (false positive), a i aplikacije mogu učiniti opskurne stvari na koje nismo računali
+- skoro svaka vrsta mrežnog prometa je legitimna (primjer su P2P protokoli koji se koriste za legalno razmjenjivanje i distribuciju besplatnih programa i programa otvorenog koda, a istovremeno se koriste za piratstvo i kršenje autorskih prava)
+L7-filtar nije dizajniran s namjerom da se mrežni promet blokira, pa bi ovu radnju trebalo koristiti samo u nuždi.
+</p><p><br />
+<b>Primjer kako se može blokirati neke aplikacije</b>
+
+</p><p>Blokiranje Microsoft MSN messengera:
+</p>
+<pre>#iptables -I FORWARD -m layer7 --l7proto msnmessenger -j DROP
+#iptables -I FORWARD -m layer7 --l7proto msn-filetransfer -j DROP
+</pre>
+<p><br />
+Blokiranje bittorrenta:
+</p>
+<pre>#iptables -I FORWARD -m layer7 --l7proto bittorrent -j DROP
+</pre>
+<p><br />
+Blokiranje mrežnog igranja videoigre Doom 3:
+</p>
+<pre>#iptables -I FORWARD -m layer7 --l7proto doom3 -j DROP
+</pre>
+<p><br />
+Blokiranje Symantecovog programa za udaljeni pristup:
+</p>
+<pre>#iptables -I FORWARD -m layer7 --l7proto pcanywhere -j DROP
+</pre>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Kontrola_pojasne_.C5.A1irine"> Kontrola pojasne širine </span></h4>
+<p>Za kontrolu pojasne širine koristi se Netfilter za označavanje paketa (mark) i zatim se pomoću QoS (Quality of Service) tehnika može oblikovati promet označenih paketa. Samo označavanje radi se s opcijom
+</p>
+<pre>-j MARK --set-mark [integer]
+</pre>
+<p>dok se za oblikovanje koristi tc komandna linija koja je dio IPROUTE paketa. Slijedi primjer označavanja i filtriranja paketa koji koristi imap protokol:
+</p>
+<pre>#iptables -t mangle -A POSTROUTING -m layer7 --l7proto imap -j MARK --set-mark 3
+</pre>
+<p>Vrijednost [integer] varijable je proizvoljna.
+</p><p>Oblikovanje mrežnog prometa tog označenog paketa se može izvoditi na sljedeći način:
+</p>
+<pre>tc filter add dev eth0 protocol ip parent 1:0 prio 1 handle 3 fw flowid 1:3
+</pre>
+<p>Time je označeni imap promet usmjeren na treću podklasu prio metode za upravljanje redom čekanja.
+Komplicirana i nerazumljiva sintaksa tc komandne linije opisana je u <a href="http://https://www.google.hr/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;cad=rja&amp;ved=0CEcQFjAC&amp;url=http%3A%2F%2Flartc.org%2Flartc.pdf&amp;ei=Iw77UMPEB87GtAan3YCADQ&amp;usg=AFQjCNGgnuuzfxHCbKIe9cOMOf4jRHr_Bw&amp;sig2=Pgfg-xuaEFwBmvfG-Sftkw&amp;bvm=bv.41248874,d.Yms" class="external text" rel="nofollow">LARTC HOWTO</a> dokumentu. Skriptu je potrebno modificirati na način da se odredi protokol koji se želi pratiti tj. oblikovati. Također, u slučaju ne-premosnika, potrebno je konfigurirati i NAT servis. Skriptu treba modificirati na način da se promjeni IP adresa na kojoj se nalazi računalo koje obavlja NAT. Preporučljivo je da se skripte stave unutar /etc/init.d/ direktorija te se stave u startup proceduru sustava naredbom:
+</p>
+<pre>update-rc.d -f &lt;ime_skripte&gt; defaults
+</pre>
+<p>Podržan je priličan broj protokola, a to su uglavnom P2P protokoli te protokoli koje koriste računalne igre. Također je moguće napisati definicije za nove protokole, ukoliko za to postoji potreba. Uz protokole, moguće je definirati i tipove datoteka čiji promet želimo kontrolirati.
+</p><p><br />
+Popis protokola:
+</p>
+<table border="1" style="border-spacing: 5">
+
+<tr>
+<th scope="col"> Ime
+</th>
+<th scope="col"> Opis
+</th></tr>
+<tr>
+<td>100bao	100bao
+</td>
+<td>a Chinese P2P protocol/program - <a href="http://www.100bao.com" class="external free" rel="nofollow">http://www.100bao.com</a>
+</td></tr>
+<tr>
+<td>aim
+</td>
+<td>AIM - AOL instant messenger (OSCAR and TOC)
+</td></tr>
+<tr>
+<td>aimwebcontent
+</td>
+<td>AIM web content - ads/news content downloaded by AOL Instant Messenger
+</td></tr>
+<tr>
+<td>applejuice
+</td>
+<td>Apple Juice - P2P filesharing - <a href="http://www.applejuicenet.de" class="external free" rel="nofollow">http://www.applejuicenet.de</a>
+</td></tr>
+<tr>
+<td>ares
+</td>
+<td>Ares - P2P filesharing - <a href="http://aresgalaxy.sf.net" class="external free" rel="nofollow">http://aresgalaxy.sf.net</a>
+</td></tr>
+<tr>
+<td>armagetron
+</td>
+<td>Armagetron Advanced - open source Tron/snake based multiplayer game
+</td></tr>
+<tr>
+<td>battlefield1942
+</td>
+<td>Battlefield 1942 - An EA game
+</td></tr>
+<tr>
+<td>battlefield2
+</td>
+<td>Battlefield 2 - An EA game.
+</td></tr>
+<tr>
+<td>battlefield2142
+</td>
+<td>Battlefield 2142 - An EA game.
+</td></tr>
+<tr>
+<td>bgp
+</td>
+<td>BGP - Border Gateway Protocol - <a href="http://tools.ietf.org/html/rfc1771" class="external mw-magiclink-rfc">RFC 1771</a>
+</td></tr>
+<tr>
+<td>biff
+</td>
+<td>Biff - new mail notification
+</td></tr>
+<tr>
+<td>bittorrent
+</td>
+<td>Bittorrent - P2P filesharing / publishing tool - <a href="http://www.bittorrent.com" class="external free" rel="nofollow">http://www.bittorrent.com</a>
+</td></tr>
+<tr>
+<td>chikka
+</td>
+<td>Chikka - SMS service which can be used without phones - <a href="http://chikka.com" class="external free" rel="nofollow">http://chikka.com</a>
+</td></tr>
+<tr>
+<td>cimd
+</td>
+<td>Computer Interface to Message Distribution, an SMSC protocol by Nokia
+</td></tr>
+<tr>
+<td>ciscovpn
+</td>
+<td>Cisco VPN - VPN client software to a Cisco VPN server
+</td></tr>
+<tr>
+<td>citrix
+</td>
+<td>Citrix ICA - proprietary remote desktop application - <a href="http://citrix.com" class="external free" rel="nofollow">http://citrix.com</a>
+</td></tr>
+<tr>
+<td>counterstrike-source
+</td>
+<td>Counterstrike (using the new "Source" engine) - network game
+</td></tr>
+<tr>
+<td>cvs
+</td>
+<td>CVS - Concurrent Versions System
+</td></tr>
+<tr>
+<td>dayofdefeat-source
+</td>
+<td>Day of Defeat: Source - game (Half-Life 2 mod) - <a href="http://www.valvesoftware.com" class="external free" rel="nofollow">http://www.valvesoftware.com</a>
+</td></tr>
+<tr>
+<td>dazhihui
+</td>
+<td>Dazhihui - stock analysis and trading; Chinese - <a href="http://www.gw.com.cn" class="external free" rel="nofollow">http://www.gw.com.cn</a>
+</td></tr>
+<tr>
+<td>dhcp
+</td>
+<td>DHCP - Dynamic Host Configuration Protocol - <a href="http://tools.ietf.org/html/rfc1541" class="external mw-magiclink-rfc">RFC 1541</a>
+</td></tr>
+<tr>
+<td>directconnect
+</td>
+<td>Direct Connect - P2P filesharing - <a href="http://www.neo-modus.com" class="external free" rel="nofollow">http://www.neo-modus.com</a>
+</td></tr>
+<tr>
+<td>dns
+</td>
+<td>DNS - Domain Name System - <a href="http://tools.ietf.org/html/rfc1035" class="external mw-magiclink-rfc">RFC 1035</a>
+</td></tr>
+<tr>
+<td>doom3
+</td>
+<td>Doom 3 - computer game
+</td></tr>
+<tr>
+<td>edonkey
+</td>
+<td>eDonkey2000 - P2P filesharing - <a href="http://edonkey2000.com" class="external free" rel="nofollow">http://edonkey2000.com</a> and others
+</td></tr>
+<tr>
+<td>fasttrack
+</td>
+<td>FastTrack - P2P filesharing (Kazaa, Morpheus, iMesh, Grokster, etc)
+</td></tr>
+<tr>
+<td>finger
+</td>
+<td>Finger - User information server - <a href="http://tools.ietf.org/html/rfc1288" class="external mw-magiclink-rfc">RFC 1288</a>
+</td></tr>
+<tr>
+<td>freenet
+</td>
+<td>Freenet - Anonymous information retrieval - <a href="http://freenetproject.org" class="external free" rel="nofollow">http://freenetproject.org</a>
+</td></tr>
+<tr>
+<td>ftp
+</td>
+<td>FTP - File Transfer Protocol - <a href="http://tools.ietf.org/html/rfc959" class="external mw-magiclink-rfc">RFC 959</a>
+</td></tr>
+<tr>
+<td>gkrellm
+</td>
+<td>Gkrellm - a system monitor - <a href="http://gkrellm.net" class="external free" rel="nofollow">http://gkrellm.net</a>
+</td></tr>
+<tr>
+<td>gnucleuslan
+</td>
+<td>GnucleusLAN - LAN-only P2P filesharing
+</td></tr>
+<tr>
+<td>gnutella
+</td>
+<td>Gnutella - P2P filesharing
+</td></tr>
+<tr>
+<td>goboogy
+</td>
+<td>GoBoogy - a Korean P2P protocol
+</td></tr>
+<tr>
+<td>gopher
+</td>
+<td>Gopher - A precursor to HTTP - <a href="http://tools.ietf.org/html/rfc1436" class="external mw-magiclink-rfc">RFC 1436</a>
+</td></tr>
+<tr>
+<td>guildwars
+</td>
+<td>Guild Wars - online game - <a href="http://guildwars.com" class="external free" rel="nofollow">http://guildwars.com</a>
+</td></tr>
+<tr>
+<td>h323
+</td>
+<td>H.323 - Voice over IP.
+</td></tr>
+<tr>
+<td>halflife2-deathmatch
+</td>
+<td>Half-Life 2 Deathmatch - popular computer game
+</td></tr>
+<tr>
+<td>hddtemp
+</td>
+<td>hddtemp - Hard drive temperature reporting
+</td></tr>
+<tr>
+<td>hotline
+</td>
+<td>Hotline - An old P2P filesharing protocol
+</td></tr>
+<tr>
+<td>http-rtsp
+</td>
+<td>RTSP tunneled within HTTP
+</td></tr>
+<tr>
+<td>http
+</td>
+<td>HTTP - HyperText Transfer Protocol - <a href="http://tools.ietf.org/html/rfc2616" class="external mw-magiclink-rfc">RFC 2616</a>
+</td></tr>
+<tr>
+<td>ident
+</td>
+<td>Ident - Identification Protocol - <a href="http://tools.ietf.org/html/rfc1413" class="external mw-magiclink-rfc">RFC 1413</a>
+</td></tr>
+<tr>
+<td>imap
+</td>
+<td>IMAP - Internet Message Access Protocol (A common e-mail protocol)
+</td></tr>
+<tr>
+<td>imesh
+</td>
+<td>iMesh - the native protocol of iMesh, a P2P application - <a href="http://imesh.com" class="external free" rel="nofollow">http://imesh.com</a>
+</td></tr>
+<tr>
+<td>ipp
+</td>
+<td>IP printing - a new standard for UNIX printing - <a href="http://tools.ietf.org/html/rfc2911" class="external mw-magiclink-rfc">RFC 2911</a>
+</td></tr>
+<tr>
+<td>irc
+</td>
+<td>IRC - Internet Relay Chat - <a href="http://tools.ietf.org/html/rfc1459" class="external mw-magiclink-rfc">RFC 1459</a>
+</td></tr>
+<tr>
+<td>jabber
+</td>
+<td>Jabber (XMPP) - open instant messenger protocol - <a href="http://tools.ietf.org/html/rfc3920" class="external mw-magiclink-rfc">RFC 3920</a> - <a href="http://jabber.org" class="external free" rel="nofollow">http://jabber.org</a>
+</td></tr>
+<tr>
+<td>kugoo
+</td>
+<td>KuGoo - a Chinese P2P program - <a href="http://www.kugoo.com" class="external free" rel="nofollow">http://www.kugoo.com</a>
+</td></tr>
+<tr>
+<td>live365
+</td>
+<td>live365 - An Internet radio site - <a href="http://live365.com" class="external free" rel="nofollow">http://live365.com</a>
+</td></tr>
+<tr>
+<td>liveforspeed
+</td>
+<td>Live For Speed - A racing game.
+</td></tr>
+<tr>
+<td>lpd
+</td>
+<td>LPD - Line Printer Daemon Protocol (old-style UNIX printing) - <a href="http://tools.ietf.org/html/rfc1179" class="external mw-magiclink-rfc">RFC 1179</a>
+</td></tr>
+<tr>
+<td>mohaa
+</td>
+<td>Medal of Honor Allied Assault - an Electronic Arts game
+</td></tr>
+<tr>
+<td>msn-filetransfer
+</td>
+<td>MSN (Micosoft Network) Messenger file transfers (MSNFTP and MSNSLP)
+</td></tr>
+<tr>
+<td>msnmessenger
+</td>
+<td>MSN Messenger - Microsoft Network chat client
+</td></tr>
+<tr>
+<td>mute
+</td>
+<td>MUTE - P2P filesharing - <a href="http://mute-net.sourceforge.net" class="external free" rel="nofollow">http://mute-net.sourceforge.net</a>
+</td></tr>
+<tr>
+<td>napster
+</td>
+<td>Napster - P2P filesharing
+</td></tr>
+<tr>
+<td>nbns
+</td>
+<td>NBNS - NetBIOS name service
+</td></tr>
+<tr>
+<td>ncp
+</td>
+<td>NCP - Novell Core Protocol
+</td></tr>
+<tr>
+<td>netbios
+</td>
+<td>NetBIOS - Network Basic Input Output System
+</td></tr>
+<tr>
+<td>nntp
+</td>
+<td>NNTP - Network News Transfer Protocol - RFCs 977 and 2980
+</td></tr>
+<tr>
+<td>ntp
+</td>
+<td>(S)NTP - (Simple) Network Time Protocol - RFCs 1305 and 2030
+</td></tr>
+<tr>
+<td>openft
+</td>
+<td>OpenFT - P2P filesharing (implemented in giFT library)
+</td></tr>
+<tr>
+<td>pcanywhere
+</td>
+<td>pcAnywhere - Symantec remote access program
+</td></tr>
+<tr>
+<td>poco
+</td>
+<td>POCO and PP365 - Chinese P2P filesharing - <a href="http://pp365.com" class="external free" rel="nofollow">http://pp365.com</a> <a href="http://poco.cn" class="external free" rel="nofollow">http://poco.cn</a>
+</td></tr>
+<tr>
+<td>pop3
+</td>
+<td>POP3 - Post Office Protocol version 3 (popular e-mail protocol) - <a href="http://tools.ietf.org/html/rfc1939" class="external mw-magiclink-rfc">RFC 1939</a>
+</td></tr>
+<tr>
+<td>pplive
+</td>
+<td>PPLive - Chinese P2P streaming video - <a href="http://pplive.com" class="external free" rel="nofollow">http://pplive.com</a>
+</td></tr>
+<tr>
+<td>qq
+</td>
+<td>Tencent QQ Protocol - Chinese instant messenger protocol - <a href="http://www.qq.com" class="external free" rel="nofollow">http://www.qq.com</a>
+</td></tr>
+<tr>
+<td>quake-halflife
+</td>
+<td>Half Life 1 engine games (HL 1, Quake 2/3/World, Counterstrike 1.6, etc.)
+</td></tr>
+<tr>
+<td>quake1
+</td>
+<td>Quake 1 - A popular computer game.
+</td></tr>
+<tr>
+<td>radmin
+</td>
+<td>Famatech Remote Administrator - remote desktop for MS Windows
+</td></tr>
+<tr>
+<td>rdp
+</td>
+<td>RDP - Remote Desktop Protocol (used in Windows Terminal Services)
+</td></tr>
+<tr>
+<td>replaytv-ivs
+</td>
+<td>ReplayTV Internet Video Sharing - Digital Video Recorder - <a href="http://replaytv.com" class="external free" rel="nofollow">http://replaytv.com</a>
+</td></tr>
+<tr>
+<td>rlogin
+</td>
+<td>rlogin - remote login - <a href="http://tools.ietf.org/html/rfc1282" class="external mw-magiclink-rfc">RFC 1282</a>
+</td></tr>
+<tr>
+<td>rtp
+</td>
+<td>RTP - Real-time Transport Protocol - <a href="http://tools.ietf.org/html/rfc3550" class="external mw-magiclink-rfc">RFC 3550</a>
+</td></tr>
+<tr>
+<td>rtsp
+</td>
+<td>RTSP - Real Time Streaming Protocol - <a href="http://www.rtsp.org" class="external free" rel="nofollow">http://www.rtsp.org</a> - <a href="http://tools.ietf.org/html/rfc2326" class="external mw-magiclink-rfc">RFC 2326</a>
+</td></tr>
+<tr>
+<td>runesofmagic
+</td>
+<td>Runes of Magic - game - <a href="http://www.runesofmagic.com" class="external free" rel="nofollow">http://www.runesofmagic.com</a>
+</td></tr>
+<tr>
+<td>shoutcast
+</td>
+<td>Shoutcast and Icecast - streaming audio
+</td></tr>
+<tr>
+<td>sip
+</td>
+<td>SIP - Session Initiation Protocol - Internet telephony - <a href="http://tools.ietf.org/html/rfc3261" class="external mw-magiclink-rfc">RFC 3261</a>, 3265, etc.
+</td></tr>
+<tr>
+<td>skypeout
+</td>
+<td>Skype to phone - UDP voice call (program to POTS phone) - <a href="http://skype.com" class="external free" rel="nofollow">http://skype.com</a>
+</td></tr>
+<tr>
+<td>skypetoskype
+</td>
+<td>Skype to Skype - UDP voice call (program to program) - <a href="http://skype.com" class="external free" rel="nofollow">http://skype.com</a>
+</td></tr>
+<tr>
+<td>smb
+</td>
+<td>Samba/SMB - Server Message Block - Microsoft Windows filesharing
+</td></tr>
+<tr>
+<td>smtp
+</td>
+<td>SMTP - Simple Mail Transfer Protocol - <a href="http://tools.ietf.org/html/rfc2821" class="external mw-magiclink-rfc">RFC 2821</a> (See also <a href="http://tools.ietf.org/html/rfc1869" class="external mw-magiclink-rfc">RFC 1869</a>)
+</td></tr>
+<tr>
+<td>snmp
+</td>
+<td>SNMP - Simple Network Management Protocol - <a href="http://tools.ietf.org/html/rfc1157" class="external mw-magiclink-rfc">RFC 1157</a>
+</td></tr>
+<tr>
+<td>socks
+</td>
+<td>SOCKS Version 5 - Firewall traversal protocol - <a href="http://tools.ietf.org/html/rfc1928" class="external mw-magiclink-rfc">RFC 1928</a>
+</td></tr>
+<tr>
+<td>soribada
+</td>
+<td>Soribada - A Korean P2P filesharing program/protocol - <a href="http://www.soribada.com" class="external free" rel="nofollow">http://www.soribada.com</a>
+</td></tr>
+<tr>
+<td>soulseek
+</td>
+<td>Soulseek - P2P filesharing - <a href="http://slsknet.org" class="external free" rel="nofollow">http://slsknet.org</a>
+</td></tr>
+<tr>
+<td>ssdp
+</td>
+<td>SSDP - Simple Service Discovery Protocol - easy discovery of network devices
+</td></tr>
+<tr>
+<td>ssh
+</td>
+<td>SSH - Secure SHell
+</td></tr>
+<tr>
+<td>ssl
+</td>
+<td>SSL and TLS - Secure Socket Layer / Transport Layer Security - <a href="http://tools.ietf.org/html/rfc2246" class="external mw-magiclink-rfc">RFC 2246</a>
+</td></tr>
+<tr>
+<td>stun
+</td>
+<td>STUN - Simple Traversal of UDP Through NAT - <a href="http://tools.ietf.org/html/rfc3489" class="external mw-magiclink-rfc">RFC 3489</a>
+</td></tr>
+<tr>
+<td>subspace
+</td>
+<td>Subspace - 2D asteroids-style space game - <a href="http://sscentral.com" class="external free" rel="nofollow">http://sscentral.com</a>
+</td></tr>
+<tr>
+<td>subversion
+</td>
+<td>Subversion - a version control system
+</td></tr>
+<tr>
+<td>teamfortress2
+</td>
+<td>Team Fortress 2 - network game - <a href="http://www.valvesoftware.com" class="external free" rel="nofollow">http://www.valvesoftware.com</a>
+</td></tr>
+<tr>
+<td>teamspeak
+</td>
+<td>TeamSpeak - VoIP application - <a href="http://goteamspeak.com" class="external free" rel="nofollow">http://goteamspeak.com</a>
+</td></tr>
+<tr>
+<td>telnet
+</td>
+<td>Telnet - Insecure remote login - <a href="http://tools.ietf.org/html/rfc854" class="external mw-magiclink-rfc">RFC 854</a>
+</td></tr>
+<tr>
+<td>tesla
+</td>
+<td>Tesla Advanced Communication - P2P filesharing (?)
+</td></tr>
+<tr>
+<td>tftp
+</td>
+<td>TFTP - Trivial File Transfer Protocol - used for bootstrapping - <a href="http://tools.ietf.org/html/rfc1350" class="external mw-magiclink-rfc">RFC 1350</a>
+</td></tr>
+<tr>
+<td>thecircle
+</td>
+<td>The Circle - P2P application - <a href="http://thecircle.org.au" class="external free" rel="nofollow">http://thecircle.org.au</a>
+</td></tr>
+<tr>
+<td>tonghuashun
+</td>
+<td>Tonghuashun - stock analysis and trading; Chinese - <a href="http://www.10jqka.com.cn" class="external free" rel="nofollow">http://www.10jqka.com.cn</a>
+</td></tr>
+<tr>
+<td>tor
+</td>
+<td>Tor - The Onion Router - used for anonymization - <a href="http://tor.eff.org" class="external free" rel="nofollow">http://tor.eff.org</a>
+</td></tr>
+<tr>
+<td>tsp
+</td>
+<td>TSP - Berkely UNIX Time Synchronization Protocol
+</td></tr>
+<tr>
+<td>uucp
+</td>
+<td>UUCP - Unix to Unix Copy
+</td></tr>
+<tr>
+<td>validcertssl
+</td>
+<td>Valid certificate SSL
+</td></tr>
+<tr>
+<td>ventrilo
+</td>
+<td>Ventrilo - VoIP - <a href="http://ventrilo.com" class="external free" rel="nofollow">http://ventrilo.com</a>
+</td></tr>
+<tr>
+<td>vnc
+</td>
+<td>VNC - Virtual Network Computing. Also known as RFB - Remote Frame Buffer
+</td></tr>
+<tr>
+<td>whois
+</td>
+<td>Whois - query/response system, usually used for domain name info - <a href="http://tools.ietf.org/html/rfc3912" class="external mw-magiclink-rfc">RFC 3912</a>
+</td></tr>
+<tr>
+<td>worldofwarcraft
+</td>
+<td>World of Warcraft - popular network game - <a href="http://blizzard.com/" class="external free" rel="nofollow">http://blizzard.com/</a>
+</td></tr>
+<tr>
+<td>x11
+</td>
+<td>X Windows Version 11 - Networked GUI system used in most Unices
+</td></tr>
+<tr>
+<td>xboxlive
+</td>
+<td>XBox Live - Console gaming
+</td></tr>
+<tr>
+<td>xunlei
+</td>
+<td>Xunlei - Chinese P2P filesharing - <a href="http://xunlei.com" class="external free" rel="nofollow">http://xunlei.com</a>
+</td></tr>
+<tr>
+<td>yahoo
+</td>
+<td>Yahoo messenger - an instant messenger protocol - <a href="http://yahoo.com" class="external free" rel="nofollow">http://yahoo.com</a>
+</td></tr>
+<tr>
+<td>zmaap
+</td>
+<td>ZMAAP - Zeroconf Multicast Address Allocation Protocol
+</td></tr></table>
+<p><br />
+Drugi, manje popularni, protokoli:
+</p>
+<table border="1" style="border-spacing: 5">
+
+<tr>
+<th scope="col"> Ime
+</th>
+<th scope="col"> Opis
+</th></tr>
+<tr>
+<td>audiogalaxy
+</td>
+<td>Audiogalaxy - (defunct) Peer to Peer filesharing
+</td></tr>
+<tr>
+<td>gtalk
+</td>
+<td>GTalk, a Jabber (XMPP) client
+</td></tr>
+<tr>
+<td>http-dap
+</td>
+<td>HTTP by Download Accelerator Plus - <a href="http://www.speedbit.com" class="external free" rel="nofollow">http://www.speedbit.com</a>
+</td></tr>
+<tr>
+<td>http-freshdownload
+</td>
+<td>HTTP by Fresh Download - <a href="http://www.freshdevices.com" class="external free" rel="nofollow">http://www.freshdevices.com</a>
+</td></tr>
+<tr>
+<td>http-itunes
+</td>
+<td>HTTP - iTunes (Apple's music program)
+</td></tr>
+<tr>
+<td>httpaudio
+</td>
+<td>HTTP - Audio over HyperText Transfer Protocol (<a href="http://tools.ietf.org/html/rfc2616" class="external mw-magiclink-rfc">RFC 2616</a>)
+</td></tr>
+<tr>
+<td>httpcachehit
+</td>
+<td>HTTP - Proxy Cache hit for HyperText Transfer Protocol (<a href="http://tools.ietf.org/html/rfc2616" class="external mw-magiclink-rfc">RFC 2616</a>)
+</td></tr>
+<tr>
+<td>httpcachemiss
+</td>
+<td>HTTP - Proxy Cache miss for HyperText Transfer Protocol (<a href="http://tools.ietf.org/html/rfc2616" class="external mw-magiclink-rfc">RFC 2616</a>)
+</td></tr>
+<tr>
+<td>httpvideo
+</td>
+<td>HTTP - Video over HyperText Transfer Protocol (<a href="http://tools.ietf.org/html/rfc2616" class="external mw-magiclink-rfc">RFC 2616</a>)
+</td></tr>
+<tr>
+<td>pressplay
+</td>
+<td>pressplay - A legal music distribution site - <a href="http://pressplay.com" class="external free" rel="nofollow">http://pressplay.com</a>
+</td></tr>
+<tr>
+<td>quicktime
+</td>
+<td>Quicktime HTTP
+</td></tr>
+<tr>
+<td>snmp-mon
+</td>
+<td>SNMP Monitoring - Simple Network Management Protocol (RFC1157)
+</td></tr>
+<tr>
+<td>snmp-trap
+</td>
+<td>SNMP Traps - Simple Network Management Protocol (RFC1157)
+</td></tr></table>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Pra.C4.87enje_prometa_na_mre.C5.BEi"> Praćenje prometa na mreži </span></h4>
+<p>Ako nas zanima što se događa na našoj mreži, koristimo gornju naredbu, ali bez -j opcije. Na primjer:
+</p>
+<pre>#iptables -t mangle -A POSTROUTING -m layer7 --l7proto imap
+</pre>
+<p>Statistika se u tom slučaju može pratiti pomoću naredbe
+</p>
+<pre>#iptables  -t mangle -L -v
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>Programski paket L7-filtar namijenjen je unixoidnim operacijskim sustavima, a svrha mu je klasifikacija paketa na temelju aplikacijskog sloja podataka. Instalacija L7-filtara nije  komplicirana, a najviše vremena oduzima konfiguracija jezgre operacijskog sustava, jer trenutna inačica L7-filtra nije kompatibilna s novijim inačicama jezgre.
+</p><p>Osim jezgrene verzije, postoji i verzija korisničkog prostora s kojom se namjerava zamijeniti jezgrena s obzirom da je verzija koja radi u korisnikom prostoru puno sigurnija i fleksibilnija, te je puno lakša za instalaciju pošto ju dosta poznatih Linux distribucija mogu povući direktno iz repozitorija. Međutim verzija korisničkog prostora je još u ranom stupnju razvoja i još nije spremna za primarnu uporabu.
+</p><p>Osim iptablesa i drugi Linux vatrozidi mogu dobiti nadogradnju koja bi im omogućila filtriranje na 7. sloju, kao što je IpCop, a nekakve alternative su AppArmour, SELinux i Tomoyo, koji zapravo nisu vatrozidi u tradicionalnom smislu, ali rade kontrolu pristupa na aplikacijskoj razini, odnosno do nje, i već su unaprijed instalirani i aktivirani na gotovo svim poznatim Linux distribucijama.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>1. L7-filter Kernel Version HOWTO, Preuzeto 15.11.2012. <a href="http://l7-filter.sourceforge.net/HOWTO" class="external free" rel="nofollow">http://l7-filter.sourceforge.net/HOWTO</a>
+</p><p>2. L7-filter Supported Protocols, Preuzeto 15.11.2012. <a href="http://l7-filter.sourceforge.net/protocols" class="external free" rel="nofollow">http://l7-filter.sourceforge.net/protocols</a>
+</p><p>3. L7-filter Userspace Version HOWTO, , Preuzeto 16.11.2012. <a href="http://l7-filter.sourceforge.net/HOWTO-userspace" class="external free" rel="nofollow">http://l7-filter.sourceforge.net/HOWTO-userspace</a>
+</p><p>4. Linux Advanced Routing &amp; Traffic Control, Preuzeto 15.11.2012. <a href="http://lartc.org/" class="external free" rel="nofollow">http://lartc.org/</a>
+</p><p>5. Linux Firewalls Using iptables, Preuzeto 15.11.2012. <a href="http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Firewalls_Using_iptables" class="external free" rel="nofollow">http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Firewalls_Using_iptables</a>
+</p><p>6. SafariBooksOnline - Layer 7 filtering, Preuzeto 16.11.2012. <a href="http://my.safaribooksonline.com/book/-/9781904811657/layer-7-filtering/ch05#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE5MDQ4MTE2NTclMkZjaDA3bHZsMXNlYzAxJnF1ZXJ5PQ==" class="external free" rel="nofollow">http://my.safaribooksonline.com/book/-/9781904811657/layer-7-filtering/ch05#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE5MDQ4MTE2NTclMkZjaDA3bHZsMXNlYzAxJnF1ZXJ5PQ==</a>
+</p><p>7. Službena stranica Centos.org – Firewalls, Preuzeto 15.11.2012. <a href="http://www.centos.org/docs/4/4.5/System_Administration_Guide/ch-fw.html" class="external free" rel="nofollow">http://www.centos.org/docs/4/4.5/System_Administration_Guide/ch-fw.html</a>
+</p><p>8. Zaštita od upada korištenjem L7- filtara, Preuzeto 15.11.2012.  <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2008-10-242.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2008-10-242.pdf</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 67/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4406-0!*!0!!hr!2!edit=0 and timestamp 20190203204012 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html">http://security.foi.hr/wiki/index.php/Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama).html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)&amp;oldid=17196" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:45, 20. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.505 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Napredne_funkcije_iptables-a_kao_vatrozida_(sa_L7_filtiranjem_i_custom_zakrpama)", "wgTitle": "Napredne funkcije iptables-a kao vatrozida (sa L7 filtiranjem i custom zakrpama)", "wgAction": "view", "wgArticleId": 4406, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17196, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.645 secs. -->			</body>
+</html>

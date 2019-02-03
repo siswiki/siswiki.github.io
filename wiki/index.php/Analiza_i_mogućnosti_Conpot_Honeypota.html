@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Analiza i mogućnosti Conpot Honeypota - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Analiza_i_mogu%C4%87nosti_Conpot_Honeypota&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Analiza_i_mogućnosti_Conpot_Honeypota skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Analiza i mogućnosti Conpot Honeypota</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#mw-head">orijentacija</a>,
+					<a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Martin Šoštar
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Dva_tipa_Honeypot-a"><span class="tocnumber">2</span> <span class="toctext">Dva tipa Honeypot-a</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Pogodnosti_Honeypot-ova_na_SCADA_mre.C5.BEama"><span class="tocnumber">3</span> <span class="toctext">Pogodnosti Honeypot-ova na SCADA mrežama</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Analiza_i_mogu.C4.87nosti_Conpot_Honeypota"><span class="tocnumber">4</span> <span class="toctext">Analiza i mogućnosti Conpot Honeypota</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Implementiranje_honeypot-a_na_mre.C5.BEu"><span class="tocnumber">5</span> <span class="toctext">Implementiranje honeypot-a na mrežu</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Konfiguracija_honeypot-a"><span class="tocnumber">6</span> <span class="toctext">Konfiguracija honeypot-a</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Instalacija_Conpot-a"><span class="tocnumber">7</span> <span class="toctext">Instalacija Conpot-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Human_Machine_Interface"><span class="tocnumber">7.1</span> <span class="toctext">Human Machine Interface</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Pra.C4.87enje_napada.C4.8Da"><span class="tocnumber">7.2</span> <span class="toctext">Praćenje napadača</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Hpfriends"><span class="tocnumber">7.3</span> <span class="toctext">Hpfriends</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Za honeypot se može reći da je zamka za napadače. Generalno oni preuzimaju formu fizičkog ili virtualnog sistema koji oponaša stvarne uređaje u mreži, sa jakim nadzorom i bilježenjem tako da se napadačeve akcije mogu proučavati. Iako se čini paradoksalnim za sigurnosnog  profesionalca da želi da napadač bude zainteresiran u njegov sustav, postoji niz prednosti koje honeypot pruža. 
+Honeypot-ovi pružaju sigurnosnim istraživačima jedinstvenu priliku da proučavaju njihove protivnike. Analizirajući kako se stvarni napadi događaju, koliko često se događaju i što napadači ostavljaju za sobom (npr. Rootkit, Trojan, exploit). Konačno, honeypot koji sadrži lažne ali uvjerljive informacije koje mogu biti interesantne unutarnjem ili vanjskom napadaču (npr. Intelektualno vlasništvo ili brojevi kreditnih kartica) mogu pružati diverziju od vrjednije mete.
+Važno je za napomenuti da u nekim jurisdikcijama upotreba honeypot-a može biti smatrana kao zarobljavanjem  [Provos &amp; Holz, 2008]. Najbolje bi bilo da se pogledaju primjenjivi zakoni i da se konzultira odvjetnik prije nego se krene na taj put.
+</p>
+<h1> <span class="mw-headline" id="Dva_tipa_Honeypot-a"> Dva tipa Honeypot-a </span></h1>
+<p>Istraživači klasificiraju honeypot-ove ili visoko interaktivnim ili nisko interaktivnim[Provos, 2008]. Visoko interaktivni honeypot je tipično napravljen od stvarnog uređaja, operativnog sustava i aplikacija za koje se želi da se napadnu. Primarna prednost je da napadač može uraditi što god želi sa njime, kao što bi i s pravim uređajem, zato što i je pravi uređaj. To znači da exploit zapravo i radi i može se analizirati. To je istovremeno i najveća mana visoko interaktivnih honeypot-ova,  jer kad je jedno komprimiran mora se ispočetka sagraditi. Malware napadi protiv honeypot-ovog BIOS-a, iako rijetki, mogu postići da sistem bude trajno nepouzdan. To također povlači da se honeypot može koristiti kao izvor drugih napada, koje može povlačiti legalne komplikacije.
+Nisko interaktivni honeypot uzima uobičajeni sistem, poput Linuxa, i pokreće software koji imitira operativni sustav, mrežni stog i servise u koje is istražitelj zainteresiran. Kao primjer možemo reći da simulira Cisco ruter koji može izgledati kao standardni Cisco IOS Telnet zastava, ali da nikad ne dozvoljava napadaču da se zapravo prijavi. Umjesto toga, korisnička imena i lozinke koje pokušaju upisati se bilježe. Primarna prednost nisko interaktivnih honeypot-ova je lakoća održavanja sustava, jer među ostalim razlozima, je da je manja vjerojatnost da se zapravo kompromitira. To također povlači da istraživač možda ne dobiju punu sliku što napadač želi postići.  
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Pogodnosti_Honeypot-ova_na_SCADA_mre.C5.BEama"> Pogodnosti Honeypot-ova na SCADA mrežama </span></h1>
+<p>SCADA (supervisory control and data acquisition) je sistem koji barata sa kodiranim signalima preko komunikacijskih kanala da pruža kontrolu nad udaljenim uređajem. To je tip industrijskog kontrolnog sistema (ICS) koji je računalno bazirani koji nadzire i kontrolira industrijske procese koji postoje u stvarnom fizičkom svijetu. 
+Honeypot ne mijenja postojeće SCADA mrežne konfiguracije uključujući firewall i menadžera unificiranih prijetnji. Honeypot se jednostavno uključi u mrežu kao i bilo koji drugi sistem i složi se da pokreće servise koji izgledaju poput drugih uređaja u SCADA mreži. Zato što honeypot ne blokira maliciozni promet, reducira se vjerojatnost da mreža prestane raditi zbog false positiva.
+Dodatna prednost honeypot-a je što se može konfigurirati da izgleda kao specifični uređaj na tipičnoj SCADA mreži. Može se konfigurirati da bude sistem za održavanje topline ili sistem za kontrolu ulaska u zgradu. To omogućuje da se nadgledaju napadi dizajnirani specifično da meta bude trenutna infrastruktura. Za sve pozitivne stvari da se pokrene honeypot na SCADA mreži, postoji jedna velika mana. Sistem mora biti nadzirani i na prijetnje se mora reagirati. Honeypot neće automatski blokirati napade.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Analiza_i_mogu.C4.87nosti_Conpot_Honeypota"> Analiza i mogućnosti Conpot Honeypota </span></h1>
+<p>Conpot je nisko interaktivan industrijski kontrolni sistem honeypot koji se postavlja na server. Dizajniran je da se lako može implementirati, modificirati i proširiti.  Pružajući  niz čestih industrijskih upravljačkih protokola, kreirane su osnove da se implementira vlastiti sistem koji će biti sposoban imitirati kompleksne infrastrukture da uvjeri protivnike da su upravo našli veliki industrijski kompleks.  Da se poboljšaju sposobnosti pritajenosti, također je dodana mogućnost da se napravi human machine interface da se poveća honeypot-ova površina napada. Vrijeme odgovora servisa može biti namjerno odgođeno da se oponaša sistem pod stalnim opterećenjem. Conpot je razvijen pod okriljem Honeynet Project i na ramenima je par velikih divova.
+Conpot sam po sebi daje relativno malu površinu za napad. Bez dodatnog truda da se promovira conpot, budu se mogle primijetiti veze koje skeniraju sistem za informacije. Ako se pokaže potreba za većom površinom za napad, može se postaviti Human Machine Interface koji je povezan s conpot-om. Tako će protivnici moći naći vaš conpot pomoću tražilice i specifičnih ključnih riječi.
+Standardna konfiguracija conpot-a simulira osnovni Siemens SIMATIC S7-200 PLC sa ulazno – izlaznim modulom i CP 443-1 koji bi bio potreban u realno situaciji da pruža mrežnu povezanost.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Implementiranje_honeypot-a_na_mre.C5.BEu"> Implementiranje honeypot-a na mrežu </span></h1>
+<p>Honeypot se može implementirati na mrežu poduzeća koja se sastoji od mnogo kontrola (za dizalo, ulaz u zgradu, pumpe, generatori itd.). Postoje tri primarna segmenta u takvoj konfiguraciji, uključujući samu mrežu poduzeća, DMZ mreža koja sadrži alate i sučelja koja se koriste za nadzor i menadžment uređaja na mreži poduzeća i kontrolne mreže iz koje ljudi upravljaju ili nadziru uređaje na mreži poduzeća. Kontrolna mreža i DMZ mreža su razdvojena firewall-om, isto kao i DMZ mreža i mreža poduzeća. Nema direktne komunikacije između kontrolne mreže i mreže poduzeća, sav promet mora proći kroz DMZ. Situacija je prikazana sljedećim dijagramom.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_scada.jpg" class="image"><img alt="Msostar scada.jpg" src="../images/5/51/Msostar_scada.jpg" width="709" height="305" /></a></div></div>
+<h1> <span class="mw-headline" id="Konfiguracija_honeypot-a"> Konfiguracija honeypot-a </span></h1>
+<p>Ubuntu 12.04 LTS je odabrana distribucija jer je testirana od strane Conpot-a i ima relativno jednostavan proces instalacije. Ovaj seminar neće pokrivati instalaciju Ubuntu OS, jer je korištena standardna metoda instalacije. Korištena je serverska inačica Ubuntu 12.04 LTS, jer nema potreba za grafičkim sučeljem i desktop aplikacijama. Instalacija i konfiguracija  honeypot-a u svrhe seminara je napravljena na serverima DigitalOcean-a, na čijim se stranicama može vrlo lagano konfigurirati koje se OS želi instalirati na server. Nakon instalacije nije potrebno puno mijenjati OS, jer nema pokrenutih mrežnih servisa. Conpot ima vlastite SNMP, HTTP i Modbus servise, tako da nema potrebe da se pokreće Apache web server. Da se izbjegnu mogući konflikti ili potencijalni ranjivi servisi, najbolje bi bilo da se svi isključe.
+</p><p>SNMP (Simple Network Management Protocol, slobodni prijevod: jednostavni mrežni protokol za nadzor i upravljane) jednostavni je protokol koji se danas najčešće koristi za nadzor i upravljanje mrežnim uređajima u TCP/IP mrežama. SNMP omogućava mrežnim administratorima da upravljaju mrežnim performansama, nalaze i rješavaju mrežne probleme te planiraju potrebe za rastom mreže. Iz šale se govori „Security Not My Problem“.
+</p><p>Modbus je serijski komunikacijski protokol originalno izdan od Modicon 1979 godine da se koristi sa njegovim programibilnim logičkim kontrolerima (PLC - programmable logic controllers). Jednostavni i robusni, od tada je postal de facto stanard za komunikacijske protokole.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Instalacija_Conpot-a"> Instalacija Conpot-a </span></h1>
+<p>Budući da se radi o čistoj instalaciji OS-a, potrebno je instalirati odgovarajuće pakete da bi stvar funkcionirala. Instalacija Conpot-a je praćena po službenoj dokumentaciji.
+</p><p><code>
+</p>
+<pre>
+ sudo apt-get install ssh
+ sudo apt-get install git
+ sudo apt-get install cython
+ sudo apt-get install python-dev
+ sudo apt-get install python-pip
+ sudo apt-get install build-essential
+ sudo apt-get install libxml2-dev
+ sudo apt-get install libxslt1-dev
+ sudo apt-get install libevent-dev
+ sudo apt-get install snmp-mibs-downloader
+</pre>
+<p></code>
+</p><p>Nakon izvršavanja navedenih naredbi prilikom instalacije Conpot-a može se dogoditi da prikazuje mysql grešku. Pa se mora naknadno (nije bilo navedeno u dokumentaciji) instalirati mysql baza podataka pomoću naredbi:
+</p>
+<pre>
+pip install MySQL-python
+sudo apt-get install python-mysqldb
+</pre>
+<p>Nakon što je uspješno instalirani GIT, korišten je da bi se klonirao modbus-tk, koji je implementacija Modbus protokola u Pythonu. Zatim se može napokon instalirati i sami Conpot.
+</p><p><code>
+</p>
+<pre>
+cd opt/
+sudo git clone http://github.com/glastopf/modbus-tk.git
+cd modbus-tk/
+sudo python setup.py install
+cd opt/
+sudo git clone http://github.com/glastopf/conpot.git
+cd conpot/
+sudo python setup.py install
+sudo conpot
+</pre>
+<p></code>
+</p><p>Pokretanjem naredbe <i>sudo conpot</i> se ne pokreće conpot, iz razgloga što je dokumentacija stara. Server izbaci automatski <i>--help</i> za Conpot i može se vidjeti iz prikazanog da se pokreće pomoću naredbe <i>conpot –t [TEMPLATE]</i>.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_template.jpg" class="image"><img alt="Msostar template.jpg" src="../images/4/44/Msostar_template.jpg" width="736" height="519" /></a></div></div>
+<p>Kao što je prije navedeno, conpot može simulirat bilo koji uređaj za kojeg se pravilno postavi konfiguracija. Većina konfiguracijskih opcija su u datoteci pod nazivom <i>template.xml</i> koja se nalazi u <i>templates/</i> direktoriju. Svaki predložak se sprema u posebni direktorij pod nazivom uređaja kojeg se želi pokrenuti. U conpotu je standardni uređaj Siemens SIMATIC S7-200 PLC. Nakon što uspješno napišemo naziv predloška, otvara se conpot.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_conpot.jpg" class="image"><img alt="Msostar conpot.jpg" src="../images/b/b1/Msostar_conpot.jpg" width="917" height="655" /></a></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Human_Machine_Interface"> Human Machine Interface </span></h2>
+<p>Da se poveća površina napada na sistem, conpot nudi mogućnost postavljanja HMI (Human Machine Interface). Human Machine Interface je dio stroja koji barata sa ljudskom interakcijom. U ovom slučaju je to sučelje prema uređaju Siemens SIMATIC S7-200 PLC. Sučelje se ostvaruje preko web stranice servera i automatski ga napadač može lakše pronaći pomoću tražilice. Kada napadač uđe u sučelje, conpot bilježi svaki njegov pokret. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_hmi.png" class="image"><img alt="Msostar hmi.png" src="../images/c/c8/Msostar_hmi.png" width="640" height="360" /></a></div></div>
+<p>Conpot podržava HMI preko HTTP servera na TCP portu 80 i može se konfigurirati da prikaže stranicu koju korisnik želi. Da bi se stranice prikazale conpot-u, potrebno je kreirati direktorij u conpot-ovom root direktoriju.
+</p>
+<pre>
+cd /usr/local/lib/python2.7/dist-packages/Conpot-0.4.0-py2.7.egg/conpot/
+sudo mkdir www
+sudo mkdir www/htdocs
+</pre>
+<p>U navedeni direktorij se mogu stavljati web stranice po želji i po mogućnosti da što bolje imitira uređaj kojeg conpot imitira. Conpot automatski generira index.html za standardni template i njegova stranica izgleda sljedeće.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_siemens.jpg" class="image"><img alt="Msostar siemens.jpg" src="../images/9/9b/Msostar_siemens.jpg" width="394" height="202" /></a></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Pra.C4.87enje_napada.C4.8Da"> Praćenje napadača </span></h2>
+<p>Nakon što je uspješno pokrenuti conpot i njegov HMI došlo je vrijeme čekanja napadača. U slučaju da netko posjeti web stranicu, conpot to bilježi u datoteku conpot.log. U svrhu testiranja conpota ja autor sam išao po stranici i bilježio napade koji su se događali. Dogodio se i napad izvana u to vrijeme, što dokazuje da sučelje funkcionira. Kako je mogao netko drugi osim autora znati za to sučelje koje je upravo izrađeno i koje nema nikakvo poznato ime iza sebe? Odgovor na to pitanje će biti u sljedećem odlomku, dodatnoj mogućnosti conpota, zvanoj hpfriends.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_conpot2.jpg" class="image"><img alt="Msostar conpot2.jpg" src="../images/f/f1/Msostar_conpot2.jpg" width="923" height="686" /></a></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Hpfriends"> Hpfriends </span></h2>
+<p>Hpfriends implementira autenticirani protokol za objavljivanje/pretplaćivanje  razmjene datafeeds-a. Različiti feed-ovi su odvojeni kanalima i podržavaju osnovne binarne sadržaje. To znači da korisnici kanala trebaju odabrati odgovarajuću strukturu podataka. To se može napraviti npr. da se  odabere odgovarajući serijalizacijski format.
+Pristup kanalima je dan preko takozvanih „Authkeys“ koji su u osnovi par identifikatora i tajne koja se čuva. Pomoću toga su napadači saznali da postoji navedena mreža. U datoteci conpot.cfg imamo mogućnost srediti sve parametre tako da odgovaraju za naš slučaj, te conpot to šalje hpfriends bazi podataka da je aktivna. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Conpot_cfg.jpg" class="image"><img alt="Conpot cfg.jpg" src="../images/0/09/Conpot_cfg.jpg" width="468" height="642" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msostar_hpfriends.jpg" class="image"><img alt="Msostar hpfriends.jpg" src="../images/0/0d/Msostar_hpfriends.jpg" width="1188" height="380" /></a></div></div>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>Provos, N., &amp; Holz, T. (2008). Virtual-Honeypots: From Botnet Tracking to Intrusion 
+Detection. Boston, Massachusetts, US: Pearson Education, Inc.
+</p><p>Provos, N.(2008) Developments of the Honeyd Virtual Honeypot. Preuzeto 19.1.2015. sa 
+<a href="http://www.honeyd.org/" class="external free" rel="nofollow">http://www.honeyd.org/</a>
+</p><p>"Linux kernel INPUT OUPUT evdev gem USB framebuffer" by Shmuel Csaba Otto Traian. Licensed under CC BY-SA 3.0 via Wikimedia Commons - <a href="http://commons.wikimedia.org/wiki/File:Linux_kernel_INPUT_OUPUT_evdev_gem_USB_framebuffer.svg#mediaviewer/File:Linux_kernel_INPUT_OUPUT_evdev_gem_USB_framebuffer.svg" class="external free" rel="nofollow">http://commons.wikimedia.org/wiki/File:Linux_kernel_INPUT_OUPUT_evdev_gem_USB_framebuffer.svg#mediaviewer/File:Linux_kernel_INPUT_OUPUT_evdev_gem_USB_framebuffer.svg</a>
+</p><p>Glastopf Developers. Ubuntu-12.04-LTS. Preuzeto 19.1.2015. od Conpot 0.3.1 Documentation <a href="https://glastopf.github.io/conpot/installation/ubuntu.html" class="external free" rel="nofollow">https://glastopf.github.io/conpot/installation/ubuntu.html</a>
+</p><p>Rist, L., Vestergaard, J., &amp; Haslinger, D. CONPOT. preuzeto 19.1.2015. od CONPOT: <a href="http://conpot.org/" class="external free" rel="nofollow">http://conpot.org/</a> 
+</p><p>Hpfriends <a href="http://hpfriends.honeycloud.net/#/home" class="external free" rel="nofollow">http://hpfriends.honeycloud.net/#/home</a>, preuzeto 19.1.2015.
+</p><p>DigitalOcean <a href="https://cloud.digitalocean.com/droplets" class="external free" rel="nofollow">https://cloud.digitalocean.com/droplets</a> , preuzeto 19.1.2015.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 79/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7960-0!*!0!!hr!2!edit=0 and timestamp 20190203204303 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Analiza_i_mogućnosti_Conpot_Honeypota.html">http://security.foi.hr/wiki/index.php/Analiza_i_mogu%C4%87nosti_Conpot_Honeypota</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Analiza_i_mogu%C4%87nosti_Conpot_Honeypota" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Analiza_i_mogu%C4%87nosti_Conpot_Honeypota&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_i_mogu%C4%87nosti_Conpot_Honeypota&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_i_mogu%C4%87nosti_Conpot_Honeypota&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Analiza_i_mogućnosti_Conpot_Honeypota.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Analiza_i_mogu%C4%87nosti_Conpot_Honeypota" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Analiza_i_mogu%C4%87nosti_Conpot_Honeypota" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_i_mogu%C4%87nosti_Conpot_Honeypota&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_i_mogu%C4%87nosti_Conpot_Honeypota&amp;oldid=33472" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 11:52, 20. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.204 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Analiza_i_mogućnosti_Conpot_Honeypota", "wgTitle": "Analiza i mogućnosti Conpot Honeypota", "wgAction": "view", "wgArticleId": 7960, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33472, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.359 secs. -->			</body>
+</html>

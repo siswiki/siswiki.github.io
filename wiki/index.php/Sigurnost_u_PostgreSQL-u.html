@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnost u PostgreSQL-u - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnost_u_PostgreSQL-u&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnost_u_PostgreSQL-u skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnost u PostgreSQL-u</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnost_u_PostgreSQL-u.html#mw-head">orijentacija</a>,
+					<a href="Sigurnost_u_PostgreSQL-u.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu rezervirala: Marija Jerbić
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Sigurnost_u_PostgreSQL-u.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1"><a href="Sigurnost_u_PostgreSQL-u.html#Prava_pristupa"><span class="tocnumber">2</span> <span class="toctext">Prava pristupa</span></a>
+<ul>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Grupe_i_uloge"><span class="tocnumber">2.1</span> <span class="toctext">Grupe i uloge</span></a></li>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Lozinke"><span class="tocnumber">2.2</span> <span class="toctext">Lozinke</span></a></li>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Prava_pristupa_objektima_pod_kontrolom_korisnika"><span class="tocnumber">2.3</span> <span class="toctext">Prava pristupa objektima pod kontrolom korisnika</span></a>
+<ul>
+<li class="toclevel-3"><a href="Sigurnost_u_PostgreSQL-u.html#Kreiranje_i_pristupanje_korisni.C4.8Dki_definiranim_funkcijama"><span class="tocnumber">2.3.1</span> <span class="toctext">Kreiranje i pristupanje korisnički definiranim funkcijama</span></a></li>
+<li class="toclevel-3"><a href="Sigurnost_u_PostgreSQL-u.html#Security_definer"><span class="tocnumber">2.3.2</span> <span class="toctext">Security definer</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Sigurnost_u_PostgreSQL-u.html#Javna_shema"><span class="tocnumber">3</span> <span class="toctext">Javna shema</span></a></li>
+<li class="toclevel-1"><a href="Sigurnost_u_PostgreSQL-u.html#Sigurnosna_kopija_.28Back-up.29"><span class="tocnumber">4</span> <span class="toctext">Sigurnosna kopija (Back-up)</span></a>
+<ul>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#SQL_dump"><span class="tocnumber">4.1</span> <span class="toctext">SQL dump</span></a></li>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Sigurnosna_kopija_na_razini_datote.C4.8Dnog_sustava"><span class="tocnumber">4.2</span> <span class="toctext">Sigurnosna kopija na razini datotečnog sustava</span></a></li>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Kontinuirano_arhiviranje"><span class="tocnumber">4.3</span> <span class="toctext">Kontinuirano arhiviranje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Sigurnost_u_PostgreSQL-u.html#SEPostgreSQL"><span class="tocnumber">5</span> <span class="toctext">SEPostgreSQL</span></a>
+<ul>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Obavezne_kontrole_pristupa_.28Mandatory_Access_Controls.29"><span class="tocnumber">5.1</span> <span class="toctext">Obavezne kontrole pristupa (Mandatory Access Controls)</span></a></li>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Precizne_kontrole_pristupa_.28Fine-grained_Access_Controls.29"><span class="tocnumber">5.2</span> <span class="toctext">Precizne kontrole pristupa (Fine-grained Access Controls)</span></a></li>
+<li class="toclevel-2"><a href="Sigurnost_u_PostgreSQL-u.html#Dosljednost_kontrole_pristupa_.28Consistency_in_Access_Controls.29"><span class="tocnumber">5.3</span> <span class="toctext">Dosljednost kontrole pristupa (Consistency in Access Controls)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Sigurnost_u_PostgreSQL-u.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>PostgreSQL jedna je od najnaprednijih open source baza podataka na svijetu, ali 82 dokumentirane sigurnosne ranjivosti također ju čine vrlo ranjivom. Odobreno, popularna objektno-relacijska baza smatra se superiornom kada je riječ o sigurnosti, no potrebne je provesti odgovarajuće mjere zaštite podataka. 
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Prava_pristupa"> Prava pristupa </span></h1>
+<h2> <span class="mw-headline" id="Grupe_i_uloge"> Grupe i uloge </span></h2>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Create_admin.png" class="image"><img alt="Create admin.png" src="../images/3/3f/Create_admin.png" width="522" height="293" /></a><br />Slika 1. Kreiranje grupa <br />
+</p><p>Prilikom kreiranja grupa i korisnika, preporuka je zaštititi nadzor pristupa unutar PostgreSQL baze podataka. PostgreSQL ima nekoliko super uloga koje gotovo jamče sve privilegije. Te super uloge treba stalno pregledavati zbog neovlaštenog pristupa. U većini slučajeva uloga SUPERUSER-a te privilegije CREATEROLE i CREATEDB, trebaju biti ograničene na administratora baze podataka. Korištenje grupa/uloga su, u PostgreSQL-u, ista stvar. Ne postoji razlika između navedena dva kao u drugim sustavima za upravljanje bazom podataka, tako da prilikom stvaranja korisnika stvarate ulogu. 
+</p><p>U sovjoj bazi podataka kreirala sam dvije grupe: korisnik i admin. Kao što se može vidjeti na slici, administrator ima privilegije superuser-a dok obični korisnik nema privilegija. Nakon toga, kreirala sam par uloga te sam svakome od njih odredila da li su član grupe korisnika ili grupe administratora te su time nasljedili privilegije dane grupe.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Privilegije_administratora.png" class="image"><img alt="Privilegije administratora.png" src="../images/e/eb/Privilegije_administratora.png" width="1029" height="568" /></a><br />Slika 2. Privilegije grupe administratira i korisnika <br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Role_marija.png" class="image"><img alt="Role marija.png" src="../images/2/2a/Role_marija.png" width="515" height="564" /></a><br />Slika 3. Kreiranje korisnika sa ulogom administratora <br />
+</p><p><br />
+Podjelom korisnika u grupe onemogućavamo korisnicima pregled tablica te bilo kakve promjene tablica nad kojima nemaju prava pristupa. Na sljedećoj slici možemo vidjeti da je korisnik 'iva' pokušao pristupiti tablici 'grupa' koju je krenirao korisnik 'antonio'. Pošto korisnik iva nema prava pristupa nad tablicom grupa, ne može joj ni pristupiti. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Select_grupa_iva_permitted_sql_shell.png" class="image"><img alt="Select grupa iva permitted sql shell.png" src="../images/3/3f/Select_grupa_iva_permitted_sql_shell.png" width="978" height="510" /></a><br />Slika 5. Nedopušten pristup tablicama [4]<br />
+</p><p>Ako bi korisnik ‘antonio’ želio dozvoliti pristup tablici ‘grupa’ (SELECT) korisniku ‘iva’, to će napraviti uz pomoć naredbe GRANT. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Grant_antonio_grupa_to_korisnik_psql_shell.png" class="image"><img alt="Grant antonio grupa to korisnik psql shell.png" src="../images/7/72/Grant_antonio_grupa_to_korisnik_psql_shell.png" width="978" height="507" /></a><br />Slika 6. Dopušten pristup tablici [5]<br />
+</p><p>Na sljedećoj slici možemo vidjeti kako korisnik ‘iva’ sada može vidjeti tablicu ‘grupa’.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Select_grupa_iva_allowed_sql_shell.png" class="image"><img alt="Select grupa iva allowed sql shell.png" src="../images/9/98/Select_grupa_iva_allowed_sql_shell.png" width="979" height="515" /></a><br />Slika 7. Mogućnost pristupa tablici grupa [6]<br />
+</p>
+<h2> <span class="mw-headline" id="Lozinke"> Lozinke </span></h2>
+<p>Lozinke se pohranjuju kao nekriptirane ili kriptirane. Nekriptirane lozinke se pohranjuju kao čisti tekst i može ih se pročitati od strane superuser-a. Kriptiranje lozinke uključuje generiranje i pohranjivanje kao MD5 hash, koji se ne može čitati. Lozinka se potvrđuje prilikom prijave pomoću hash-a uspoređujući ga s onim što je već pohranjeno u klasteru podataka. 
+</p><p>Hashevi su jednosmjerni te su najbolji za podatke poput lozinke kod koje samo treba provjeriti podudaranje a ne treba ju dešifrirati.
+</p><p>Slijedi nekoliko primjera stvaranja i upravljanja zaporkom:
+</p>
+<ul><li> Račun se stvara bez zaporke:
+</li></ul>
+<p>CREATE ROLE user1 WITH LOGIN;
+</p>
+<ul><li> Račun se stvara s nekriptiranom zaporkom:
+</li></ul>
+<p>CREATE ROLE roger WITH LOGIN UNENCRYPTED PASSWORD '123';
+</p>
+<ul><li> Promjena računa te dodjela kriptirane lozinke:
+</li></ul>
+<p>ALTER ROLE user1 WITH ENCRYPTED PASSWORD '123'
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Password2.png" class="image"><img alt="Password2.png" src="../images/a/a8/Password2.png" width="980" height="268" /></a><br />Slika 4. Pristup lozinkama <br />
+</p><p><b>Moguća sigurnosna ograničenja uključuju:</b>
+
+</p>
+<ul><li>Superuser ne može postaviti minimalni broj znakova koji će se koristiti za lozinku
+</li><li>Iako u postavkama konfiguracije postoji zadani parametar za pohranjivanje lozinke (nekriptiranog ili kriptiranog kao MD5 hash), korisnik ne može biti prisiljen primijeniti određeni način pohrane od strane nadređenog.
+</li><li>Mehanizam koji kontrolira učinkoviti životni vijek lozinke za korisnički račun postaje nevažan kada je metoda povezivanja drugačija od PASSWORD ili MD5 u datoteci konfiguracije autentifikacije klijenta, pg_hba.conf.
+</li><li>Parametri korisničkog izvođenja koji su izmijenjeni naredbom ALTER ROLE, a koje su postavili nadređeni ili u postavkama konfiguracije u datoteci postgresql.conf, vlasnik korisničkog računa može mijenjati po volji.
+</li><li>Preimenovanje korisničkog računa briše lozinku ako je kriptirana.
+</li><li>Nije moguće pratiti tko je unio izmjene na korisničkim računima ili kada su se te promjene dogodile.
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Trust_security.png" class="image"><img alt="Trust security.png" src="../images/c/ca/Trust_security.png" width="639" height="512" /></a><br />Slika 5. pg_hba.conf - datoteka konfiguracije autentikacije klijenata <br />
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pg_hba.png" class="image"><img alt="Pg hba.png" src="../images/8/81/Pg_hba.png" width="525" height="887" /></a><br />Slika 6. pg_hba.conf - mogućnosti <br />
+</p>
+<h2> <span class="mw-headline" id="Prava_pristupa_objektima_pod_kontrolom_korisnika"> Prava pristupa objektima pod kontrolom korisnika </span></h2>
+<p>Sljedeća slika prikazuje kako korisnik 'patrik' može dobiti popis korisničkih računa i njihovih odgovarajućih svojstava. Obični korisnik ne može pristupiti lozinkama.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pg_user.png" class="image"><img alt="Pg user.png" src="../images/9/96/Pg_user.png" width="838" height="392" /></a><br />Slika 8. Mogućnost pristupa korisničkim računima <br />
+</p>
+<h3> <span class="mw-headline" id="Kreiranje_i_pristupanje_korisni.C4.8Dki_definiranim_funkcijama"> Kreiranje i pristupanje korisnički definiranim funkcijama </span></h3>
+<p>Za razliku od tablica, obični korisnički račun ne zahtijeva posebna dopuštenja kada poziva tuđu funkciju, čak i ako ih je stvorio superuser. Na sljedećoj slici vidimo da ukoliko ne oduzmemo prava pristupa javnoj shemi, običan korisnik može pristupiti funciji.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Funkcija.png" class="image"><img alt="Funkcija.png" src="../images/a/a6/Funkcija.png" width="667" height="425" /></a><br />Slika 9. Pristup funkciji od strane običnog korisnika <br />
+</p><p>Na sljedećoj slici možemo vidjeti kako se zaštititi od neovlaštenog pristupa korisnički definiranih funkcija.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Funkcija2.png" class="image"><img alt="Funkcija2.png" src="../images/d/d1/Funkcija2.png" width="610" height="334" /></a><br />Slika 10. Oduzimanje prava pristupa funkciji <br />
+</p>
+<h3> <span class="mw-headline" id="Security_definer"> Security definer </span></h3>
+<p>Security definer izvršava funkciju s privilegijama korisnika koji ju je stvorio, stoga korisnik može pristupiti tablici koja je u normalnim okolnostima inače nedostupna.
+</p><p>Na primjer, kao što je prikazano na sljedećim slikama, korisnik marija (administrator i superuser) je kreirao tablicu s dva stupca. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kreniranje_finkcije.png" class="image"><img alt="Kreniranje finkcije.png" src="../images/c/c1/Kreniranje_finkcije.png" width="980" height="513" /></a><br />Slika 11. Kreiranje funkcije od strane admina <br />
+</p><p>Običan korisnik, iva, pozvat će funkciju pomoću parametra SECURITY DEFINER i dobiti vrijednost na temelju ulazne vrijednosti.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Security_definer2.png" class="image"><img alt="Security definer2.png" src="../images/d/de/Security_definer2.png" width="334" height="219" /></a><br />Slika 12. Pristup funkciji pomoću security definer-a <br />
+</p><p>Kako bi spriječili nedopušten pristup korisnički definiranim funkcijama, treba se napraviti sljedeće:
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Security_definer3.png" class="image"><img alt="Security definer3.png" src="../images/e/e9/Security_definer3.png" width="590" height="248" /></a><br />Slika 13. Zabrana pristupa funkciji pomoću security definer-a <br />
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Javna_shema"> Javna shema </span></h1>
+<p>Prema zadanim postavkama, PostgresSQL koristi javnu shemu koja se koristi za pohranu informacija o bazama podataka, tablicama i procedurama. Ta shema prema zadanim postavkama dostupna je svim korisnicima, tako da svi mogu vidjeti strukturu ili procedure svake tablice. Korisnik može, primjerice, "data mine-ati" tablice. Čak bi bilo moguće mijenjati ih dodavanjem pravila i okidača, spremajući podatke u tablicama koje se nalaze u javnoj shemi, te ih zatim pokupiti.
+Prema tome, treba ukloniti javnu shemu tako da ona ne bude dostupna svim korisnicima. To možemo postići naredbom REVOKE.
+</p><p>Na sljedećoj slici možemo vidjeti da je korisnik 'antonio' (koji ima prava običnog korisnika) upisao \d čime vidi strukturu svih tablica koje trenutno postoje u bazi 'marijadb'.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Struktura_dopusteno.png" class="image"><img alt="Struktura dopusteno.png" src="../images/e/e1/Struktura_dopusteno.png" width="977" height="512" /></a><br />Slika 14. Mogućnost pristupa strukturi tablica <br />
+</p><p>Kako bi onemogućili korisnicima da imaju uvid u strukturu, ali i mogućnost bilo kakvog mijenjanja javne sheme, administrator treba napraviti sljedeće:
+</p>
+<ul><li> Zabrana mijenjanja i pristupanja javnoj shemi
+</li><li> Kreiranje nove sheme naziva 'myschema'
+</li><li> Modifikacija putanje korisnika naredbom SET search_path TO myschema,public. Na taj će se način struktura baze podataka pohraniti u privatnoj shemi i pristup će biti zajamčen samo pravom korisniku
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Revoke_schema_public.png" class="image"><img alt="Revoke schema public.png" src="../images/3/38/Revoke_schema_public.png" width="611" height="353" /></a><br />Slika 15. Uklanjanje zadane javne sheme <br />
+</p><p>Za sigurnost, search_path bi trebao biti postavljen tako da isključuje sheme koje mogu pisati nepouzdani korisnici.
+</p><p>Na kraju možemo vidjeti kako korisnik 'antonio' nakon što upiše \d više ne može vidjeti strukturu tablica.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Struktura_nedopusteno.png" class="image"><img alt="Struktura nedopusteno.png" src="../images/e/e7/Struktura_nedopusteno.png" width="980" height="507" /></a><br />Slika 16. Nemogućnost pristupa strukturi tablica <br />
+</p>
+<h1> <span class="mw-headline" id="Sigurnosna_kopija_.28Back-up.29"> Sigurnosna kopija (Back-up) </span></h1>
+<p>Kao i sa svime što sadrži vrijedne podatke, PostgreSQL baze podataka trebaju biti redovito back-upirane. Iako je postupak u osnovi jednostavan, važno je imati jasno razumijevanje temeljnih tehnika i pretpostavki.
+</p><p>Postoje tri temeljno drugačija pristupa backupu PostgreSQL podataka:
+</p>
+<ul><li>SQL dump
+</li><li>Sigurnosna kopija na razini datotečnog sustava (File system level backup)
+</li><li>Kontinuirano arhiviranje (Continuous archiving)
+</li></ul>
+<h2> <span class="mw-headline" id="SQL_dump"> SQL dump </span></h2>
+<p><b>Kreiranje sigurnosne kopije</b>
+
+Ideja iza ove metode jest generiranje tekstualne datoteke s SQL naredbama koje će, kada se vrati na poslužitelj, ponovno stvoriti bazu podataka u istom stanju kakva je bila prije izvršenja naredbe pg_dump. 
+Dobro je napomenuti kako pg_dump ne radi s posebnim dozvolama. Konkretno, mora imati pristup čitanju svim tablicama za koje želite napraviti back-up, tako da se u praksi gotovo uvijek morati pokrenuti kao superuser baze podataka. 
+</p><p>Opći oblik naredbe izgleda ovako:
+</p>
+<ul><li>pg_dump -U &lt;korisnicko_ime&gt; &lt;ime_baze_podataka&gt; &gt; &lt;ime_izlazne_datoteke.sql&gt;
+</li></ul>
+<ul><li>pg_dump -U marija proba &gt; kopija.sql
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Command.png" class="image"><img alt="Command.png" src="../images/9/94/Command.png" width="692" height="201" /></a><br />Slika 17. Kreiranje sigurnosne kopije u Command Promptu <br />
+</p><p><b>Vraćanje sigurnosne kopije</b>
+
+</p><p>Da bi mogli vratiti sigurnosnu kopiju prvo je potrebno kreirati novu bazu podataka u koju ćemo prenijeti sve iz sigurnosne kopije.
+</p><p>Opći oblik naredbe za vraćanje kopije je:
+</p>
+<ul><li>psql -U &lt;korisnicko_ime&gt; &lt;ime_baze_podataka&gt; &lt; &lt;ime_datoteke.sql&gt;
+</li></ul>
+<p>Prema zadanim postavkama, psql skripta nastavit će se izvršavati nakon pogreške. Stoga bi bilo dobro pokrenuti psql s ON_ERROR_STOP setom varijabli kako bi promijenili to ponašanje te kako bi mogli izaći ako dođe do pogreške:
+</p>
+<ul><li>psql -U &lt;korisnicko_ime&gt; -- set ON_ERROR_STOP=on &lt;ime_baze_podataka&gt; &lt; &lt;ime_datoteke.sql&gt;.
+</li></ul>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Aaa.png" class="image"><img alt="Aaa.png" src="../images/d/dc/Aaa.png" width="793" height="397" /></a><br />Slika 18. Vraćanje sigurnosne kopije u Command Promptu <br />
+</p><p>Nakon što smo prenijeli sve u novu bazu podataka, možemo vidjeti na sljedećoj slici kako administrator sada ima pristup svim elementima iz stare baze podataka.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Aaaa.png" class="image"><img alt="Aaaa.png" src="../images/1/1f/Aaaa.png" width="587" height="581" /></a><br />Slika 18. Pristup elementima nove baze podataka <br />
+</p><p>Ukoliko imamo više baza podataka, ovim načinom bismo morali izrađivati sigurnosne kopije za svaku bazu podataka. Ukoliko imamo cluster baza podataka na istome serveru, možemo koristiti naredbu pg_dumpall. 
+Primjer jedne takve naredbe je: pg_dumpall &gt; "cluster.sql". Ukoliko želimo prenijeti podatke iz takve datoteke trebamo koristiti naredbu psql -f "cluster.sql" &lt;ime_baze_podataka (obicno postgres)&gt;. 
+</p><p><br />
+Važna prednost pg_dumpa nad ostalim metodama sigurnosnog kopiranja je da se datoteka napravljena kao izlaz naredbe pg_dump općenito može ponovno učitati u novije verzije PostgreSQL-a, dok su sigurnosna kopija na razini datotečnog sustava i kontinuirano arhiviranje ekstremno specificirane na verziju servera. pg_dump je također jedina metoda koja će raditi pri prijenosu baze podataka na drugu arhitekturu, kao što je npr. prelazak s 32-bitnog na 64-bitni poslužitelj.
+</p>
+<h2> <span class="mw-headline" id="Sigurnosna_kopija_na_razini_datote.C4.8Dnog_sustava"> Sigurnosna kopija na razini datotečnog sustava </span></h2>
+<p>Alternativna strategija sigurnosnog kopiranja je izravno kopiranje datoteka koje PostgreSQL koristi za pohranu podataka u bazi podataka
+tar -cf backup.tar /usr/local/pgsql/data
+Međutim, postoje dva ograničenja koja ovu metodu čine nepraktičnom ili barem inferiornom metodom od pg_dump-a
+</p>
+<ul><li>Server baze podataka mora biti isključen kako bi se dobila upotrebljiva sigurnosna kopija. Polu-mjere poput onesposobljavanja svih veza neće raditi. Nepotrebno je reći kako se server mora isključiti i prije vraćanja podataka.
+</li><li>Ako ste došli do pristupa podacima o izgledu datotečnog sustava baze podataka, možda ćete biti u iskušenju pokušavanja sigurnosnog kopiranja ili vraćanja samo određene pojedinačne tablice ili baze podataka iz njihovih odgovarajućih datoteka ili direktorija. To neće funkcionirati jer se informacije sadržane u tim datotekama ne mogu koristiti bez "commit log" datoteka, pg_clog/*, koji sadrže status commit-ova svih transakcija. Također je nemoguće vratiti samo tablicu i asocirane pg_clog podatke jer bi se sve druge tablice u bazi podataka učinile beskorisnima. 
+</li></ul>
+<p>Sigurnosna kopija datotečnog sustava funkcionira samo za potpuni sigurnosni backup i obnavljanje cijelog klastera baze podataka.
+</p>
+<h2> <span class="mw-headline" id="Kontinuirano_arhiviranje"> Kontinuirano arhiviranje </span></h2>
+<p>U svakom trenutku, PostgreSQL održava zapisivanje u pg_xlog / poddirektorij direktorija klastera podataka. Zapisnik bilježi svaku promjenu napravljenu u podatkovnim datotekama baze podataka. Zapisnik postoji prvenstveno za sigurnosne svrhe: ako sustav padne, baza podataka se može vratiti ns prethodno stanje ponovnim unosom zapisnika od zadnje kontrolne točke.
+</p>
+<h1> <span class="mw-headline" id="SEPostgreSQL"> SEPostgreSQL </span></h1>
+<p>Većina postojećih sustava za upravljanje relacijskom bazom podataka primjenjuju vlastite kontrole pristupa, primjerice naredbe GRANT i REVOKE, bez suradnje s operacijskim sustavom. To može rezultirati nedosljednim kontrolama pristupa u usporedbi s onima na datotečnom sustavu.
+</p><p>SE-PostgreSQL je ugrađeno (built-in) poboljšanje PostgreSQL-a, koje pruža precizne obvezne kontrole pristupa (eng. mandatory access control) za objekte baze podataka te donosi odluke o kontroli pristupa temeljenim na SELinux sigurnosnoj politici. 
+</p><p>Dizajn većine ovih značajki temelji se na modelu referentnog monitora koji omogućava upravljanje cijelim sustavom centraliziranom sigurnosnom politikom.
+</p><p>Model referentnog monitora pretpostavlja da upravitelji objekata (npr. operacijski sustavi) mogu prihvatiti sve pristupe sustavu, a zatim donositi odluke o tome je li taj pristup dozvoljen ili odbijen. Sustav za upravljanje relacijskom bazom podataka (RDBMS) je upravitelj objekata za objekte baze podataka, slično operacijskim sustavima koji su upravitelji objekata za objekte datotečnih sustava.
+</p><p>Ranije su sustavi za upravljanje relacijskim bazama podataka donosili odluke o kontroli pristupa neovisno o centraliziranoj sigurnosnoj politici te se trebala pažljivo skrbiti za održavanje dosljednosti između operacijskog sustava i sustava za upravljanje bazom podataka.
+</p><p>SEPostgreSQL pruža sljedeće značajne značajke:
+</p>
+<h2> <span class="mw-headline" id="Obavezne_kontrole_pristupa_.28Mandatory_Access_Controls.29">Obavezne kontrole pristupa (Mandatory Access Controls)</span></h2>
+<p>PostgreSQL koristi koncept superuser-a baze podataka koji može zaobići (bypass) sve kontrole pristupa nativnog PostgreSQL-a. Naprotiv, SE-PostgreSQL provodi kontrolu pristupa svakog klijenta, bez iznimke, čak i ako je klijent superuser baze podataka. Klijenti mogu pristupiti objektima baze podataka samo kada pristup dopušta i nativni PostgreSQL i SE-PostgreSQL.
+</p><p>Primjer:
+</p><p>SELECT a,b FROM t WHERE c = 'aaa'
+</p><p><b>Nativni</b> mehanizam privilegije baze podataka prvo provjerava ima li trenutačna uloga (role) baze podataka privilegiju superuser-a baze podataka, ili ne. Ako uloga ima navedenu privilegiju, ostatak provjera odobrenja se zaobilazi. U suprotnom, provjerava naredbu SELECT na tablici t. Ako nije dopušteno, ona također provjerava naredbu SELECT nad svim referenciranim stupcima.
+</p><p><br />
+<b>SE-PostgreSQL</b> provjerava sve potrebne dozvole pojedinačno. Ako klijent baze podataka pokuša izvršiti određenu akciju kao superuser baze podataka, provjerava naredbu db_database:{superuser}. Zatim također provjerava db_table:{select} za tablicu t i db_column:{select} na stupcu a, b i c pojedinačno, neovisno o odluci o kontroli pristupa nad db_database:{superuser} i db_table:{select }.
+</p><p>Ovo prikazuje načelo SELinuxa. Njegov sigurnosni model donosi odluke o tome može li korisnik izvršiti određenu operaciju na određenom objektu ili ne, temeljenu samo na odnosu između korisnika i objekta kojem se pristupa. Nikada nije nadjačano bilo kojim drugim dozvolama (eng. permissions), kao što je db_database: {superuser}. Ta se osobina naziva <b>analizibilnost sigurnosne politike</b>.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Precizne_kontrole_pristupa_.28Fine-grained_Access_Controls.29"> Precizne kontrole pristupa (Fine-grained Access Controls) </span></h2>
+<p>Granularnost kontrole pristupa ovisi o sustavu za upravljanje relacijskom bazom podataka. SE-PostgreSQL omogućuje da kontrola pristupa bude konfigurirana na razini stupaca i redaka.
+Stupci i redci su najmanja jedinica objekata baze podataka. Kontrola pristupa nad tim objektima omogućuje administratorima baze podataka da primjenjuju fleksibilnu kontrolu pristupa nad njima.
+</p>
+<h2> <span class="mw-headline" id="Dosljednost_kontrole_pristupa_.28Consistency_in_Access_Controls.29"> Dosljednost kontrole pristupa (Consistency in Access Controls) </span></h2>
+<p>SELinux zahtijeva da svi procesi i objekti imaju sigurnosni kontekst koji predstavljaju njegove privilegije i atribute. SE-PostgreSQL dodjeljuje sigurnosni kontekst nad svakim objektom baze podataka i donosi odluke kontrole pristupa na temelju privilegija i atributa.
+SE-PostgreSQL treba sigurnosne kontekste (Security Context) da donese svoje odluke. Ovo je bitna značajka za konzistentnost u kontroli pristupa, time što su privilegije za klijente i atributi za objekte zastupljeni u istom obliku.
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<p>[1] IBM, <i>Total security in a PostgreSQL database</i>, Preuzeto sa: <a href="https://www.ibm.com/developerworks/library/os-postgresecurity/" class="external free" rel="nofollow">https://www.ibm.com/developerworks/library/os-postgresecurity/</a> 
+</p><p>[2] Trustwave, <i>Helping to Secure your PostgreSQL Database</i>, Preuzeto sa: <a href="https://www.trustwave.com/Resources/SpiderLabs-Blog/Helping-to-Secure-your-PostgreSQL-Database/" class="external free" rel="nofollow">https://www.trustwave.com/Resources/SpiderLabs-Blog/Helping-to-Secure-your-PostgreSQL-Database/</a>
+</p><p>[3] Wiki, <i>SEPostgreSQL Developmen</i>t, Preuzeto sa: <a href="https://wiki.postgresql.org/wiki/SEPostgreSQL_Development" class="external free" rel="nofollow">https://wiki.postgresql.org/wiki/SEPostgreSQL_Development</a>
+</p><p>[4] Kohei K., <i>Security-Enhanced PostgreSQL</i>, Preuzeto sa: <a href="http://www.pgcon.org/2008/schedule/attachments/38_pgcon2008-sepostgresql.pdf" class="external free" rel="nofollow">http://www.pgcon.org/2008/schedule/attachments/38_pgcon2008-sepostgresql.pdf</a>
+</p><p>[5] PostgreSQL, <i>PostgreSQL 8.3.23 Documentation</i>, Preuzeto sa: <a href="https://www.postgresql.org/docs/8.3/static/auth-pg-hba-conf.html" class="external free" rel="nofollow">https://www.postgresql.org/docs/8.3/static/auth-pg-hba-conf.html</a> 
+</p><p>[6] OWASP, <i>Backend Security Project PostgreSQL Hardening</i>, Preuzeto sa: <a href="https://www.owasp.org/index.php/OWASP_Backend_Security_Project_PostgreSQL_Hardening" class="external free" rel="nofollow">https://www.owasp.org/index.php/OWASP_Backend_Security_Project_PostgreSQL_Hardening</a>
+</p><p>[7] PostgreSQL 9.1.24 Documentation, <i>File System Level Backup</i>, Preuzeto sa: <a href="https://www.postgresql.org/docs/9.1/static/backup-file.html" class="external free" rel="nofollow">https://www.postgresql.org/docs/9.1/static/backup-file.html</a>
+</p><p>[8] PostgreSQL 9.1.24 Documentation, <i>SQL Dump</i>, Preuzeto sa: <a href="https://www.postgresql.org/docs/9.1/static/backup-dump.html" class="external free" rel="nofollow">https://www.postgresql.org/docs/9.1/static/backup-dump.html</a>
+</p><p>[9] PostgreSQL 9.1.24 Documentation, <i>Continuous Archiving and Point-in-Time Recovery (PITR)</i>, Preuzeto sa: <a href="https://www.postgresql.org/docs/9.1/static/continuous-archiving.html" class="external free" rel="nofollow">https://www.postgresql.org/docs/9.1/static/continuous-archiving.html</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 2/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9868-0!*!0!!hr!2!edit=0 and timestamp 20190203204129 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnost_u_PostgreSQL-u.html">http://security.foi.hr/wiki/index.php/Sigurnost_u_PostgreSQL-u</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnost_u_PostgreSQL-u" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnost_u_PostgreSQL-u.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnost_u_PostgreSQL-u&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnost_u_PostgreSQL-u.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnost_u_PostgreSQL-u.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_u_PostgreSQL-u&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_u_PostgreSQL-u&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnost_u_PostgreSQL-u.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnost_u_PostgreSQL-u" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnost_u_PostgreSQL-u" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_u_PostgreSQL-u&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_u_PostgreSQL-u&amp;oldid=42257" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 06:19, 23. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 721 put.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnost_u_PostgreSQL-u", "wgTitle": "Sigurnost u PostgreSQL-u", "wgAction": "view", "wgArticleId": 9868, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42257, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.366 secs. -->			</body>
+</html>

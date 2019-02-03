@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Obvezna kontrola pristupa - MAC - AppArmor - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Obvezna_kontrola_pristupa_-_MAC_-_AppArmor&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Obvezna_kontrola_pristupa_-_MAC_-_AppArmor skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Obvezna kontrola pristupa - MAC - AppArmor</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#mw-head">orijentacija</a>,
+					<a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<center><a href="http://security.foi.hr/wiki/index.php/Datoteka:Apparmor.jpg" class="image"><img alt="Apparmor.jpg" src="../images/f/f9/Apparmor.jpg" width="400" height="314" /></a></center>
+<center>Izvor: <a href="http://ubuntuforums.org/showthread.php?t=1008906" class="external text" rel="nofollow">AppArmor</a></center>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#Obvezna_kontrola_pristupa"><span class="tocnumber">1</span> <span class="toctext">Obvezna kontrola pristupa</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#Usporedba_obvezne_i_diskrecijske_kontrole_pristupa"><span class="tocnumber">1.1</span> <span class="toctext">Usporedba obvezne i diskrecijske kontrole pristupa</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#Implementacije"><span class="tocnumber">1.2</span> <span class="toctext">Implementacije</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#Mandatory_Integrity_Control_.28obvezna_kontrola_integriteta.29"><span class="tocnumber">1.2.1</span> <span class="toctext">Mandatory Integrity Control (obvezna kontrola integriteta)</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#Security-Enhanced_Linux_.28SELinux.29"><span class="tocnumber">1.2.2</span> <span class="toctext">Security-Enhanced Linux (SELinux)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#Literatura"><span class="tocnumber">2</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Obvezna_kontrola_pristupa"> Obvezna kontrola pristupa </span></h2>
+<p>Obvezna kontrola pristupa (eng. Mandatory Access Control - MAC) predstavlja vrstu kontrole pomoću koje operacijski sustav ograničava nekom subjektu (<i>procesu</i> ili <i>programu</i>) pristup ili izvršavanje operacija nad nekim objektom. Pod objektom se obično misli na datoteke i mape u datotečnom sustavu, mrežne portove, dijeljene resurse (memorija, printeri ...) i drugo. "I subjekti i objekti imaju skup sigurnosnih atributa. Kada god subjekt pokuša pristupiti objektu, autorizacijsko pravilo operacijskog sustava ispituje te atribute te određuju da li će se pristup objektu odobriti." [1] Skup takvih autorizacijskih pravila čini <i>sigurnosnu politiku</i>.
+</p><p>Obvezna kontrola pristupa specifična je po tome što sigurnosnu politiku kontrolira (samo) administrator. To znači da korisnici nemaju mogućnost "zaobilaženja" sigurnosnih pravila kako bi, na primjer, dopustili pristup nekoj datoteci koji bi inače bio zabranjen. Ovakav pristup suprotan je <i>diskrecijskoj kontroli pristupa</i> (eng. Discretionary access control - DAC), koja korisnicima daje mogućnost donošenja odluka o politici i postavljanja sigurnosnih atributa. Tipičan primjer DAC-a je UNIX-ov sustav korisnika, grupa i prava za čitanje, pisanje i izvođenje. Za razliku od DAC-a, obvezna kontrola pristupa omogućuje sigurnosnim administratorima postavljanje <i>središnje sigurnosne politike</i> koja se primjenjuje jednako za sve korisnike.
+</p><p>Povijesno gledajući, MAC je ispočetka bio blisko povezan sa <i>sustavima sigurnosti na više razina</i> (eng. MLS - <a href="http://en.wikipedia.org/wiki/Multi-level_secure" class="external text" rel="nofollow">Multilevel security</a>). U tom kontekstu MAC se definirao kao "sredstvo za ograničavanje pristupa objektima temeljeno na osjetljivosti informacija sadržanih u objektima i formalnoj autorizaciji subjekata za pristup informacijama te razine povjerljivosti." Tako su rane implementacije MAC-a bile usredotočene na zaštitu vojno orijentiranih informacija, gdje je bila potrebna striktna provedba sigurnosne politike, a ne samo strategija kao općenito pravilo.   
+</p><p>U posljednje vrijeme, s pojavom implementacija kao što su <a href="http://en.wikipedia.org/wiki/Security-Enhanced_Linux" class="external text" rel="nofollow">SELinux</a>, <a href="http://en.wikipedia.org/wiki/AppArmor" class="external text" rel="nofollow">AppArmor</a> i <a href="http://en.wikipedia.org/wiki/Mandatory_Integrity_Control" class="external text" rel="nofollow">Mandatory Integrity Control</a>, MAC prestaje biti MLS orijentiran te prelazi u područje općenite primjene. Te nove implementacije pružaju veću dubinu i fleksibilnost nego ranije MLS-orijentirane inačice, što, na primjer, omogućuje administratorima da se usredotoče na mrežne napade i malware bez strogih ograničenja MLS-a.
+</p>
+<h3> <span class="mw-headline" id="Usporedba_obvezne_i_diskrecijske_kontrole_pristupa"> Usporedba obvezne i diskrecijske kontrole pristupa </span></h3>
+<p>Glavna prednost diskrecijske kontrole pristupa je <i>fleksibilnost</i> – svaki korisnik, kao vlasnik nekog objekta, može postaviti kontrolu pristupa kojom dopušta ili onemogućuje pristup tom objektu. Iz tog razloga je DAC široko rasprostranjen i implementiran u operacijskim sustavima. Ali osim ove prednosti postoje i ozbiljna <b>ograničenja DAC-a</b> [2, 1]:
+</p>
+<ul><li> <i>globalna politika</i> - DAC korisnicima dopušta da sami određuju politiku pristupa nad svojim podacima, bez obzira da li se ta politika poklapa s globalnim politikama. Po tome, ako postoji globalna politika, DAC ima problem konzistentnosti s tom politikom.
+</li><li> <i>protok informacija</i> - informacije se mogu kopirati između objekata, na način da je pristup kopiji moguć čak ako i vlasnik originala ne pruža pristup kopiji. To zadaje veliku brigu u vojnim primjenama.
+</li><li> <i>maliciozni softver</i> - DAC sigurnosne politike vlasnik može lako promijeniti, pa tako i maliciozni program koji se izvodi "u ime vlasnika" može promijeniti takve politike.
+</li><li> <i>softver s propustima</i> - program koji ima sigurnosne propuste može biti navođen (od strane napadača) da promijeni svoje DAC postavke.
+</li></ul>
+<p>Obvezna kontrola pristupa rješava (ili barem ublažava) gore navedene probleme. Politika koja vrijedi na razini sustava smanjuje mogućnost zlouporabe pristupa; pojedini korisnici ne mogu mijenjati tako postavljena pravila pristupa.
+</p>
+<h3> <span class="mw-headline" id="Implementacije"> Implementacije </span></h3>
+<p>U ovom odjeljku ukratko će biti prikazane dvije implementacije MAC-a: <i>Mandatory Integrity Control</i> (za Windows platformu) i <i>Security-Enhanced Linux</i> (Linux), dok će u nastavku biti detaljno prikazan alat <b>AppArmor</b>.
+</p>
+<h4> <span class="mw-headline" id="Mandatory_Integrity_Control_.28obvezna_kontrola_integriteta.29"> Mandatory Integrity Control (obvezna kontrola integriteta) </span></h4>
+<p>Uvedena je u Windows Visti i implementirana u sljedećim verzijama Windows operacijskog sustava. Ova sigurnosna kontrola uvodi izolaciju procesa temeljenu na <i>stupnjevima integriteta</i>. Tako Windows Vista razlikuje 4 stupnja integriteta:
+</p>
+<ul><li> <i>niski</i> - svi (na primjer, svi izvršni programi skinuti s Interneta)
+</li><li> <i>srednji</i> - standardni korisnici
+</li><li> <i>visoki</i> - lokalni servis, mrežni servis, napredni korisnici (administratori)
+</li><li> <i>sustavski</i> - sustavski servisi.
+</li></ul>
+<p>Kad se korisnik prijavi na sustav, pridružuje mu se sigurnosni identifikator (SID) integriteta, odnosno <i>oznaka subjekta</i>. U tom SID-u uključena je i oznaka integriteta koja određuje koji stupanj pristupa taj korisnik može ostvariti. Objektima, kao što su datoteke, procesi, servisi i štampači, se također pridružuje SID-ovi, koji su pohranjeni u sustavskom popisu za kontrolu pristupa (eng. system access control list - SACL). Oznake u tim SID-ovima određuju stupanj integriteta objekta. Kako bi <i>subjekt</i> mogao pisati u objekt ili ga obrisati, stupanj integriteta subjekta mora biti jednak ili veći od stupnja integriteta objekta. Windows Vista prvo provodi ovu <i>MAC</i> provjeru, a zatim radi <i>DAC</i> provjeru (na primjer, koja prava nad objektom je vlasnik objekta dao drugim korisnicima).
+Procesi djeca najčešće nasljeđuju stupanj integriteta od procesa roditelja, osim ako izvšni program u procesu djetetu nema niži stupanj integriteta. Objekti koje kreiraju procesi će naslijediti stupanj integriteta od procesa. Tako će, na primjer, datoteke skinute nekim web preglednikom imati stupanj integriteta <i>nizak</i>, jer taj stupanj ima i web preglednik. 
+Objekte koji nemaju postavljenu oznaku integriteta, operacijski sustav tretira kao da imaju oznaku integiteta <i>srednji</i>. Na taj način se sprečava da procesi niskog integriteta mijenjaju neoznačene objekte.
+</p>
+<h4> <span class="mw-headline" id="Security-Enhanced_Linux_.28SELinux.29"> Security-Enhanced Linux (SELinux) </span></h4>
+<p>NSA (eng. National Security Agency) agencija Sjedinjenih Američkih Država, stoji iza inicijalnog razvoja SELinux-a, čija je prva open-source verzija izdana u prosincu 2000. godine. Od 2003. godine SELinux je integriran u glavnu (mainstream) verziju Linux kernela (od verzije 2.6 nadalje). SELinux ostvaruje obveznu kontrolu pristupa korištenjem <a href="http://en.wikipedia.org/wiki/Linux_Security_Modules" class="external text" rel="nofollow">Linux Security Modules</a> u Linux kernelu.
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol><li> <a href="http://en.wikipedia.org/wiki/Mandatory_access_control" class="external text" rel="nofollow">Wikipedia - Mandatory access control</a>
+</li><li> <a href="http://www.cis.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/MAC.pdf" class="external text" rel="nofollow">Mandatory Access Control</a>
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 23/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:38-0!*!0!!hr!2!edit=0 and timestamp 20190203203959 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html">http://security.foi.hr/wiki/index.php/Obvezna_kontrola_pristupa_-_MAC_-_AppArmor</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Obvezna_kontrola_pristupa_-_MAC_-_AppArmor" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Obvezna_kontrola_pristupa_-_MAC_-_AppArmor&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Obvezna_kontrola_pristupa_-_MAC_-_AppArmor&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Obvezna_kontrola_pristupa_-_MAC_-_AppArmor&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Obvezna_kontrola_pristupa_-_MAC_-_AppArmor.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Obvezna_kontrola_pristupa_-_MAC_-_AppArmor" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Obvezna_kontrola_pristupa_-_MAC_-_AppArmor" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Obvezna_kontrola_pristupa_-_MAC_-_AppArmor&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Obvezna_kontrola_pristupa_-_MAC_-_AppArmor&amp;oldid=9322" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 21:53, 6. travnja 2012.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 24.475 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Obvezna_kontrola_pristupa_-_MAC_-_AppArmor", "wgTitle": "Obvezna kontrola pristupa - MAC - AppArmor", "wgAction": "view", "wgArticleId": 38, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 9322, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.260 secs. -->			</body>
+</html>

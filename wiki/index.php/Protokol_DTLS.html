@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Protokol DTLS - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Protokol_DTLS&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Protokol_DTLS skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Protokol DTLS</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Protokol_DTLS.html#mw-head">orijentacija</a>,
+					<a href="Protokol_DTLS.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Blaza.marinic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Blaza.marinic (stranica ne postoji)">Blaza.marinic</a> 19:16, 11. siječnja 2017. (CET)
+</p><p><b>Sigurnost aplikacija za rad u realnom vremenu s pomoću DTLS-a</b>    
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Protokol_DTLS.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Protokol_DTLS.html#Sigurnost_web_aplikacija"><span class="tocnumber">2</span> <span class="toctext">Sigurnost web aplikacija</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Protokol_DTLS.html#Protokol_TLS"><span class="tocnumber">3</span> <span class="toctext">Protokol TLS</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Protokol_DTLS.html#Zahtijevana_svojstva_DTLS-a"><span class="tocnumber">4</span> <span class="toctext">Zahtijevana svojstva DTLS-a</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Protokol_DTLS.html#Gubici_pri_razmjeni_poruka"><span class="tocnumber">4.1</span> <span class="toctext">Gubici pri razmjeni poruka</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Protokol_DTLS.html#Osiguravanje_pouzdanosti_za_handshake"><span class="tocnumber">4.2</span> <span class="toctext">Osiguravanje pouzdanosti za handshake</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Protokol_DTLS.html#DTSL"><span class="tocnumber">5</span> <span class="toctext">DTSL</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Protokol_DTLS.html#Sloj_zapisa"><span class="tocnumber">5.1</span> <span class="toctext">Sloj zapisa</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Protokol_DTLS.html#Transportni_sloj"><span class="tocnumber">5.2</span> <span class="toctext">Transportni sloj</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Protokol_DTLS.html#Handshake_protokol"><span class="tocnumber">5.3</span> <span class="toctext">Handshake protokol</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Protokol_DTLS.html#Denial-of-service_protumjere"><span class="tocnumber">5.4</span> <span class="toctext">Denial-of-service protumjere</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Protokol_DTLS.html#Slijedni_broj_poruke"><span class="tocnumber">5.5</span> <span class="toctext">Slijedni broj poruke</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Protokol_DTLS.html#Timeout_i_retransmisija"><span class="tocnumber">5.6</span> <span class="toctext">Timeout i retransmisija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Protokol_DTLS.html#Implementacija"><span class="tocnumber">6</span> <span class="toctext">Implementacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="Protokol_DTLS.html#Izrada_certifikata_i_klju.C4.8Deva"><span class="tocnumber">6.1</span> <span class="toctext">Izrada certifikata i ključeva</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Protokol_DTLS.html#Server"><span class="tocnumber">6.2</span> <span class="toctext">Server</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Protokol_DTLS.html#Klijent"><span class="tocnumber">6.3</span> <span class="toctext">Klijent</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="Protokol_DTLS.html#Zaklju.C4.8Dak"><span class="tocnumber">7</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="Protokol_DTLS.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Sigurnost aplikacija uvelike ovisi o dizajnu istih, stoga se programeri aplikacija u današnje vrijeme moraju konstantno informirati o novitetima na polju sigurnosti interneta. Napadač otkriva ranjivosti aplikacija i prema njima odlučuje o izboru jedne od mnoštva napadačkih tehnika. Prema organizaciji „Web Application Security Consortium“ te su tehnike podijeljene u šest grupa, tzv. klasa napada: autentifikacijski, autorizacijski napadi, napadi na klijentsku stranu, napadi izvršavanja naredbi i otkrivanja informacija te logički napadi. U radu ćemo ih ukratko opisati. [1]   
+</p><p>Od sve je veće važnosti i rad aplikacija u realnom vremenu. Real-time sustav mora procesirati informacije i pružiti odgovore u okviru zadanog vremena, u suprotnom riskira suočavanje s posljedicama, koje mogu biti klasificirane kao teške (eng. hard) – potpuni kvar sustava u slučaju prekoračenja zadanog roka, solidne (eng. firm) - rijetka prekoračenja su podnošljiva, ali mogu smanjiti kvalitetu sustava, nema korisnosti rezultata nakon prekoračenja i blage (eng. soft) - korisnost rezultata se smanjuje nakon prekoračenja, smanjujući time i kvalitetu sustava. [2] Definicija navodi Real-time Application (RTA) kao aplikacijski program koji funkcionira u vremenskom okviru kojeg korisnik doživljava kao trenutno. Je li ili nije aplikacija kvalificirana kao RTA ovisi o najgorem slučaju u kojem se ista izvrši (eng. Worst-case Execution Time). [3]   
+</p><p>Nakon kratkog uvoda u sigurnost aplikacija i rad u realnom vremenu, detaljnije je objašnjen protokol DTLS. Datagram Transport Layer Security protokol razvijen je iz Transport Layer Security protokola i dizajniran je kako bi bio što sličniji njemu. TLS je najčešće korišten protokol što se tiče sigurnosti mrežnog prometa. Aplikacije bazirane na pouzdanom prijenosu podataka, kojeg omogućuje Transmission Control Protocol, mogu biti osigurane pomoću protokola TLS. Primarna prednost je ta što pruža siguran, transparentan kanal; jednostavno je omogućiti sigurnost aplikacijskim protokolima stavljajući TLS između aplikacijskog i mrežnog sloja. Međutim, zbog toga što zahtijeva pouzdan transportni kanal (uobičajeno je to TCP), ne može biti korišten za osiguravanje nepouzdanog prometa datagrama. Razvojem TLS-a, ovo ograničenje nije se uzimalo kao problem jer je većina aplikacija koristila TCP kao transportni protokol, no kroz zadnjih nekoliko godina sve veći broj protokola aplikacijskog sloja, kao što su Session Initiation Protocol (SIP), Real Time Protocol (RTP), Media Gateway Control Protocol (MGCP) i mnogi protokoli za igre, dizajnirano je da koristi UDP transport. Stoga su dizajneri takvih aplikacija u današnje vrijeme suočeni s mnogim nezadovoljavajućim izborima pružanja sigurnosti. Dobra alternativa je dizajniranje sigurnosnog protokola koji će osigurati prijenos datagrama za spomenute aplikacije. [4]   
+</p><p>Protokol DTLS je modificirana verzija TLS-a i dizajniran je kako bi osigurao podatke između aplikacija koje komuniciraju. Razlog zbog kojeg TLS ne može direktno biti korišten u datagramskom okruženju je taj što može doći do gubitka ili razmještaja paketa. Upravo je svrha DTLS-a stvaranje minimalnih promjena u TLS-u koje su potrebne kako bi se riješili ovi problemi. [5]   
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Sigurnost_web_aplikacija"> Sigurnost web aplikacija </span></h2>
+<p>Izvršavanje napada na web aplikaciju zahtijeva korištenje neke od napadačkih tehnika. Te su tehnike zajednički nazvane klasama napada, a Web Application Security Consortium ih dijeli na sljedeće klase:        
+</p><p>1. Autentifikacijski napadi: Brute Force, Insufficient Authentication, Weak Password Recovery Validation    
+</p><p>2. Autorizacijski napadi: Credential/Session Prediction, Insufficient Authorization, Insufficient Session Expiration, Session Fixation   
+</p><p>3. Napadi na klijentsku stranu: Content Spoofing, Cross-side Scripting    
+</p><p>4. Napadi izvršavanja naredbi: Buffer Overflow, Format String Attack, LDAP/SQL/XPath Injection, SSI Injection (Server-side Include), OS (eng. Operating System) Commanding    
+</p><p>5. Napadi otkrivanja informacija: Directory Indexing, Information Leakage, Path Traversal, Predictable Resource Location    
+</p><p>6. Logički napadi: Abuse of Functionality, Denial of Service, Insufficient Anti-automation, Insufficient Process Validation.    
+</p><p>Budući da su protokoli za sigurnost datagrama izuzetno podložni raznim DoS napadima, recimo nešto više o njima. Denial-of-Service napadi su uspješni zbog toga što uskraćuju sustavu potrebne resurse, kao što su CPU (eng. Central Processing Unit), memorija, prostor na disku i sl., uzrokujući nedostupnost web stranice. Primjerice, ako imamo veliku bazu podataka i pošaljemo joj određeni zahtjev, u vremenu dok čekamo na odgovor, server doseže do 60% iskoristivosti. DoS napadač će poslati 10 sličnih zahtjeva kako bi CPU dosegao 100% iskoristivosti, nakon čega sustav postaje nedostupan običnom korisniku. [1]    
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Protokol_TLS"> Protokol TLS </span></h2>
+<p>Primarni cilj Transport Layer Security protokola je osiguravanje privatnosti i pouzdanosti prijenosa podataka između aplikacija. Sigurnosni kanal kojeg pruža ima tri primarne sigurnosne značajke: autentifikaciju servera, povjerljivost komunikacijskog kanala i integritet poruka komunikacijskog kanala. Opcionalno, TLS može pružiti i autentifikaciju klijenta.     
+Slijedi prikaz TLS handshake-a:       
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:TLS_handshake.PNG" class="image"><img alt="TLS handshake.PNG" src="../images/f/f8/TLS_handshake.PNG" width="495" height="287" /></a>    
+</p><p>TLS klijent inicira handshake šaljući ClientHello poruku koja sadrži TLS verziju i listu algoritama. Server odgovara s tri poruke: ServerHello sadrži serverov odabir verzije i algoritma; Certificate sadrži serverov lanac certifikata; ServerHelloDone je jednostavna poruka koja znači da ne slijedi više nijedna poruka. Klijent tada slučajnim odabirom izabire PreMasterSecret koji će biti korišten kao osnova za ključeve obiju strana, kriptira ga pomoću serverovog javnog ključa te šalje serveru u ClientKeyExchange poruci. Šalje i ChangeCipherSpec poruku kako bi naznačio promjenu u novopregovoreni sigurnosni set. I na kraju šalje Finished poruku koja sadrži MAC  prijašnjih handshake poruka. Server odgovara s vlastitim ChangeCipherSpec i Finished porukama.    
+</p><p>Handshake protokol pretpostavlja da su podaci poslani pouzdanim prijenosom, redoslijed poruka je precizno definiran i svaka poruka ovisi o prethodnoj, svaki drugi redoslijed je pogrešan i rezultira neuspjehom protokola. Također, ne postoji mehanizam za rukovanje gubitkom poruka. [4]   
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Zahtijevana_svojstva_DTLS-a"> Zahtijevana svojstva DTLS-a </span></h2>
+<p>U informacijskoj tehnologiji, protokol DTLS pruža privatnost pri komunikaciji. Dopušta aplikacijama baziranim na podacima komunikaciju na način koji je dizajniran kako bi spriječio prisluškivanje ili krivotvorenje poruka. Protokol DTLS je baziran na protočnom (eng. stream-oriented) TLS protokolu i namijenjen je pružanju sličnih sigurnosnih garancija. Aplikacija neće imati kašnjenja koja su povezana s protočnim protokolima, ali će se morati suočiti s razmještajem paketa, gubitkom datagrama, i podacima koji su veći od veličine mrežnog datagrama. [6]   
+</p><p>Nepouzdanost TLS-a stvara probleme na dvije razine:     
+</p><p>1. TLS ne dopušta nezavisne dekripcije individualnih zapisa. Budući da provjera integriteta ovisi o slijednom broju, ukoliko N zapis nije stigao, provjera N+1 zapisa bit će bazirana na krivom slijednom broju.    
+</p><p>2. TLS handshake sloj pretpostavlja da su handshake poruke pouzdano dostavljene te se veza prekida ukoliko su iste poruke izgubljene.    
+</p><p>Slijedi opis pristupa DTLS-a u rješavanju ovih problema.    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Gubici_pri_razmjeni_poruka"> Gubici pri razmjeni poruka </span></h3>
+<p>U TLS-ovom sloju za enkripciju mrežnog prometa (eng. record layer) zapisi nisu nezavisni. Postoje dvije vrste međuzapisne ovisnosti:     
+</p><p>1. Kriptografski sadržaj je zadržan između zapisa.     
+</p><p>2. Zaštite razmještaja poruka i neovlaštenog odgovora za vrijeme aktivne sjednice (eng. anti-replay) osigurane su MAC-om, koji uključuje slijedni broj, koji je implicitan u zapisu.    
+</p><p>DTLS rješava prvi problem zabranjujući protok kriptografskog sadržaja, a drugi dodajući eksplicitne slijedne brojeve.    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Osiguravanje_pouzdanosti_za_handshake"> Osiguravanje pouzdanosti za handshake </span></h3>
+<p><b>Gubitak paketa</b>    
+</p><p>DTLS koristi jednostavan tajmer ponovnog slanja za rukovanje gubitkom paketa.     
+</p><p>Sljedeća slika demonstrira osnovni koncept:      
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tajmer.PNG" class="image"><img alt="Tajmer.PNG" src="../images/1/13/Tajmer.PNG" width="459" height="200" /></a>        
+</p><p>Kada je klijent poslao ClientHello poruku, očekuje dobiti HelloVerifyRequest od servera. Međutim, ukoliko je poruka servera izgubljena, klijent zna da je ili ClientHello ili HelloVerifyRequest poruka izgubljena te ponovno odašilje istu poruku. Kada server primi ponovno odaslanu poruku klijenta, zna da treba ponovno poslati svoju poruku odgovora. Primijetimo da se tajmaut i retransmisija ne primjenjuju na HelloVerifyRequest zato što bi to zahtijevalo stvaranje stanja na serveru. HelloVerifyRequest je dizajniran da bude dovoljno malen kako se ne bi mogao fragmentirati, time ne brinući o ostavljanju nekoliko HelloVerifyRequest-ova.     
+</p><p><b>Razmještaj</b>      
+</p><p>Kod DTLS-a, svakoj handshake poruci dodijeljen je specifičan slijedni broj unutar tog handshake-a. Kada računalo primi handshake poruku, može brzo utvrditi je li ta poruka sljedeća koju mora primiti. Ako je, obrađuje ju, ako nije, stavlja ju u red za rukovanje (eng. buffer). [5]    
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="DTSL"> DTSL </span></h2>
+<p>DTLS koristi gotovo sve protokolne elemente TLS-a s malim, ali značajnim promjenama kako bi pravilno radio s prijenosom datagrama. U ovom je poglavlju opisan protokol DTLS  i izmjene u odnosu na TLS.    
+</p>
+<h3> <span class="mw-headline" id="Sloj_zapisa"> Sloj zapisa </span></h3>
+<p>Kako bi se izbjegla fragmentacija, zahtijeva se da DTLS zapis stane u jedan datagram. Ovaj zahtjev donosi tri prednosti. Prva je ta da se djelomični zapisi ne moraju spremati u buffer pa se memorija domaćina može efikasnije iskoristiti što ga čini manje podložnim na DoS napade. Druga prednost je što pri fragmentaciji, datagrami koji prenose fragmente mogu biti izgubljeni, u tom slučaju su primljeni fragmenti beskorisni i ne mogu se obraditi. I treća prednost je što pri spremanju fragmenata u buffer nije jasno definirano koliko dugo oni trebaju biti čuvani prije nego ih se odbaci, pohranjivanje fragmenata bi dodatno zakompliciralo DTLS implementaciju bez pružanja očitih prednosti. [4]    
+</p><p>DTLS-ov sloj zapisa je vrlo sličan onom kod TLS-a 1.2, jedina promjena je uključenje slijednog broja i epoch-a u zapisima. Format DTLS zapisa je prikazan na sljedećoj slici:        
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:DTLS_sloj_zapisa.PNG" class="image"><img alt="DTLS sloj zapisa.PNG" src="../images/c/c5/DTLS_sloj_zapisa.PNG" width="479" height="188" /></a>    
+</p><p>type – protokol višeg sloja kojim se procesuira fragment    
+</p><p>version – verzija korištenog protokola    
+</p><p>epoch – vrijednost koja je uvećana pri svakoj promjeni stanja šifre    
+</p><p>sequence_number – slijedni broj zapisa    
+</p><p>length – dužina ne bi trebala prelaziti 2^14    
+</p><p>fragment – transparentan aplikacijski podatak kojim se rukuje pomoću protokola višeg sloja efiniranog u type polju    
+</p><p>DTLS ne koristi implicitan, nego eksplicitan slijedni broj, sadržan u polju zapisa slijedni broj. Svaki započinje od nule za svaku epohu. Primjerice, ako je handshake poruka iz epohe 0 ponovno odaslana, ona može nakon poruke sadržavati slijedni broj iz epohe 1, iako je prvo odaslana poruka iz epohe 0. Kako bi se osigurala jedinstvenost svakog slijednog broja i epohe, implementacije ne smiju dopustiti korištenje iste vrijednosti epohe u razdoblju maksimalnog životnog vijeka segmenta TCP-a.    
+</p><p>Nadalje, zbog toga što DTLS zapisi mogu biti razmješteni, zapis iz epohe 1 može biti primljen nakon što je započela epoha 2. Općenito, implementacije bi trebale odbaciti pakete iz prijašnjih epoha, no ukoliko gubitak paketa uzrokuje probleme potrebni materijal može se zadržati za potrebe prerazmještaja paketa.    
+</p><p>U posebnim slučajevima ponovljenog handshake-a na postojećoj vezi, sigurno je odmah procesirati paket, iako ChangeCipherSpec ili Finished poruke još nisu primljene, ukoliko je osigurano da ponovljeni handshake nastavlja postojeću sjednicu ili koristi iste sigurnosne parametre kao postojeća veza. U svakom drugom slučaju, primatelj mora čekati Finished poruku kako bi se spriječio napad presretanja mreže.     
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Transportni_sloj"> Transportni sloj </span></h3>
+<p>Svaki DTLS zapis mora stati u jedan datagram. Kako bi izbjegli IP fragmentaciju, klijenti DTLS-ovog sloja zapisa trebaju prilagoditi veličinu zapisa kako bi stali u bilo koju PMTU ((eng. Path Maximum Transmission Unit) služi za određivanje maksimalne veličine jedinice prijenosa između dva IP hosta) procjenu sadržanu u sloju zapisa. 
+Neki transportni protokoli, kao što je DCCP ((eng. Datagram Congestion Control Protocol) je transportni protokol koji služi za kontrolu zakrčenosti), pružaju kontrolu zakrčenosti prometa koji se prenosi preko njih. Ukoliko je prozor zakrčenosti dovoljno uzak, ponovljeni prijenos DTLS handshake-a mogao bi biti zadržan, što može dovesti do tajmauta ili lažnih retransmisija. O tome treba brinuti kada se koristi DTLS preko transporta takve vrste.    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Handshake_protokol"> Handshake protokol </span></h3>
+<p>Na slici ispod prikazan je slijed DTLS handshake-a:     
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:DTLS_handshake.PNG" class="image"><img alt="DTLS handshake.PNG" src="../images/a/af/DTLS_handshake.PNG" width="473" height="328" /></a>    
+</p><p>DTLS koristi gotovo iste handshake poruke kao i TLS, uz tri glavne promjene:    
+</p><p>1. Dodana je razmjena kolačića bez stanja kako bi se spriječili DoS napadi.     
+</p><p>2. Modificirano je handshake zaglavlje kako bi se spriječili gubitak, razmještaj i fragmentacija poruka.    
+</p><p>3. Dodani su tajmeri za ponovan prijenos kako bi se spriječio gubitak poruka.    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Denial-of-service_protumjere"> Denial-of-service protumjere </span></h3>
+<p>Protokoli za sigurnost datagrama su izuzetno podložni raznim DoS napadima. Dva napada su posebno zabrinjavajuća:    
+</p><p>1. Napadač može zauzeti mnogo resursa na serveru odašiljući serije inicijalnih handshake zahtjeva zbog čega bi server potencijalno mogao izvesti skupocjene kriptografske operacije.     
+</p><p>2. Napadač može koristiti server kao pojačivač šaljući poruke za inicijaciju vezu s krivotvorenim izvorom žrtve. Server tada šalje svoju sljedeću poruku žrtvinom računalu (kod DTLS-a je to Certificate poruka, koja može biti jako velika), time ga preplavljujući.    
+</p><p>Kako bi se obranio od ovih napada, DTLS posuđuje tehnologiju kolačića bez stanja koju koriste Photuris (protokol za upravljanje ključevima i sjednicom namijenjen za korištenje s IP sigurnosnim protokolima) i IKE (eng. Internet Key Exchange protokol, komponenta Ipsec-a korištena za izvođenje zajedničkih autentifikacija te uspostavljanje i održavanje sigurnosne povezanosti).     
+</p><p>Na sljedećoj slici možemo vidjeti prikaz handshake-a s kolačićem:     
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cookie.PNG" class="image"><img alt="Cookie.PNG" src="../images/1/16/Cookie.PNG" width="427" height="168" /></a>    
+</p><p>Kada klijent pošalje ClientHello poruku serveru, server može odgovoriti HelloVerifyRequest porukom koja sadrži kolačić bez stanja. Klijent mora ponovno poslati ClientHello s dodanim kolačićem nakon čega ga server provjerava i nastavlja s handshake-om samo ukoliko je kolačić valjan. Ovaj mehanizam prisiljava napadača/klijenta da bude u mogućnosti primiti kolačić, što otežava DoS napade s krivotvorenim IP adresama. S druge strane, ne osigurava obranu od istih napada s valjanim IP adresama.     
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Slijedni_broj_poruke"> Slijedni broj poruke </span></h3>
+<p>Prva poruka koju bilo koja strana odašilje u svakom handshake-u uvijek ima message_seq = 0. Svaki put kad se generira nova poruka, vrijednost message_seq se inkrementira za 1. Ukoliko dođe do ponovnog slanja iste poruke, message_seq ne mijenja vrijednost, kao što vidimo na sljedećoj slici:     
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Message_seq.PNG" class="image"><img alt="Message seq.PNG" src="../images/3/37/Message_seq.PNG" width="510" height="391" /></a>    
+</p><p>DTLS implementacije sadrže next_receive_seq brojač koji je inicijalno postavljen na 0. Kada je poruka primljena, ukoliko njezin slijedni broj odgovara next_receive_seq, isti se povećava za jedan i poruka je obrađena. Ukoliko je slijedni broj manji, poruka mora biti odbačena. Ukoliko je veći, poruka se stavlja u red ili se odbacuje. [5]   
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Timeout_i_retransmisija"> Timeout i retransmisija </span></h3>
+<p>Budući da DTLS handshake poruke mogu biti izgubljene, potreban je mehanizam za ponovno slanje. DTLS ga implementira pomoću tajmera na svakoj krajnjoj točki, koja ponovo šalje zadnju poruku sve dok nije primljen odgovor. [4]   
+</p><p>DTLS poruke su grupirane u serije takozvanih flight (u DTLS-u označava logički grupirane poruke) poruka, prikazane na slici:     
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Flights.PNG" class="image"><img alt="Flights.PNG" src="../images/e/ef/Flights.PNG" width="622" height="443" /></a>     
+</p><p>Iako se svaki flight može sastojati od nekoliko poruka, na njega se treba gledati kao na jednu cjelinu radi tajmauta i retransmisije.    
+</p><p>DTLS koristi jednostavnu shemu tajmauta i retransmisije, prikazanu na slici ispod, sa sljedećim stanjima: budući da klijent šalje prvu poruku, on je u stanju pripreme (eng. preparing state), dok je server u stanju čekanja (eng. waiting state), ali s praznim buffer-om i bez tajmera za ponovno slanje.    
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Timeout_and_retransmission.PNG" class="image"><img alt="Timeout and retransmission.PNG" src="../images/a/ab/Timeout_and_retransmission.PNG" width="558" height="431" /></a>    
+</p><p>Stroj s konačnim brojem stanja ima tri osnovna stanja. U stanju PRIPREME implementacija čini potrebne izračune za pripremu sljedećeg flight-a poruka. Nakon toga ih sprema u buffer za prijenos (ispražnjujući buffer prije toga) i ulazi u stanje slanja. U stanju SLANJA, implementacija prenosi flight poruke iz buffer-a. Kada su poruke poslane, implementacija ulazi u ZAVRŠNO stanje ukoliko se radi o zadnjem flight-u u handshake-u. A ukoliko očekuje primiti još poruka, postavlja tajmer za ponovno slanje i ulazi u stanje ČEKANJA.     
+</p><p>Iako su vrijednosti tajmera izbor implementacije, loše rukovanje tajmerom može dovesti do problema zakrčenosti. Primjerice, ako mnogo instanci DTLS-a isteknu rano i brzo se pošalju na zakrčenu vezu. Implementacije trebaju koristiti inicijalnu vrijednost tajmera od jedne sekunde i poduplati tu vrijednost pri svakom ponovnom prijenosu, sve do maksimuma od 60 sekundi. Trebaju zadržati trenutnu vrijednost tajmera sve dok ne dođe do prijenosa bez gubitaka, kada se ta vrijednost može resetirati na inicijalnu. [5]     
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Implementacija"> Implementacija </span></h2>
+<p>DTLS je implementiran na osnovi OpenSSL biblioteke i koristi većinu koda iz TLS implementacije, time DTLS nasljeđuje dobro testiran i stabilan kod. OpenSSL je standardna TLS/SSL implementacija otvorenog koda. Modificirani su demo server i klijent aplikacije kako bi odgovarali UDP-u, također je implementiran UDP proxy , koji je sposoban za otpuštanje, odgađanje i dupliciranje paketa.     
+Pri implementaciji DTLS-a dodano je oko 7 000 linija koda osnovnoj distribuciji OpenSSL-a, koja ima ukupno 240 000 linija. [4]   
+</p><p>Implementacija je napravljena na operacijskom sustavu Ubuntu 16.04.1 LTS koji je instaliran na virtualnu mašinu kreiranu korištenjem alata VirtualBox . Za programski jezik odabran je Python (verzija 2.7.12) te je korištena PyDTLS (verzija 1.0.1) [8] biblioteka. Biblioteka sadrži metodu čiji poziv dodaje podršku za protokol DTLS u Python ssl [9] biblioteku. Instalacija navedene datoteke napravljena je korištenjem Python paketnog menadžera:    
+</p><p><i>pip install dtls</i>    
+</p><p>Projektna struktura sastavljena je od dvije Python datoteke koje predstavljaju server i klijenta te direktorija certs koji sadrži potrebne certifikate i ključeve. Implementacija se bazira na socket  serveru koji čeka vezu te kada istu uspostavi čeka i ispisuje poruke koje klijent šalje. Komunikacija je ostvarena prijenosom UDP paketa kroz protokol DTLS.    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Izrada_certifikata_i_klju.C4.8Deva"> Izrada certifikata i ključeva </span></h3>
+<p>Izrada certifikata i ključeva napravljena je prema uputama koje su dane u službenim man stranicama openssl naredbe koja je dostupna u operacijskom sustavu Ubuntu. Kreirana je konfiguracijska datoteka koja će se koristiti pri izradi certifikata:         
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Config_file.PNG" class="image"><img alt="Config file.PNG" src="../images/6/6c/Config_file.PNG" width="408" height="234" /></a>    
+</p><p>Generiranje samopotpisanog CA (eng. Certificate Authority) certifikata:    
+</p><p><i>openssl req –config dtls.cnf –x509 –newkey rsa –nodes –keyout tmp_ca.key –out ca-cert.pem –days 3650</i>    
+</p><p>Generiranje zahtjeva za certifikatom (eng. certificate request):    
+</p><p><i>openssl req –config dtls.cnf –newkey rsa –nodes –keyout tmp_server.key –out tmp_server.req</i>    
+</p><p>Potpisivanje zahtjeva za certifikatom sa CA certifikatom:    
+</p><p><i>openssl x509 –req –in tmp_server.req –CA ca-cert.pem –CAkey tmp_ca.key –CAcreateserial –days 3650 –out server-cert.pem</i>    
+</p><p>Izrada .pem  datoteke koja sadrži privatni i javni ključ servera:    
+</p><p><i>cat tmp_server.key server-cert.pem &gt; keycert.pem</i>    
+</p><p>Brisanje nepotrebnih datoteka:    
+</p><p><i>rm tmp_* ca-cert.srl</i>    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Server"> Server </span></h3>
+<pre>
+  # -*- coding: utf-8 -*-
+
+  import sys
+  import socket
+  import ssl
+
+  from dtls import do_patch
+
+
+  EXIT_WORDS = ('close', 'exit', 'quit', 'bye')
+
+
+  def close_connections():
+    conn.shutdown(socket.SHUT_RDWR)
+    conn.close()
+    wrap.close()
+
+  do_patch()
+
+  sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  sock.bind(('127.0.0.1', 5000))
+  wrap = ssl.wrap_socket(sock, 
+                         server_side=True,
+                         certfile='certs/keycert.pem',
+                         ca_certs='certs/ca-cert.pem',
+                         ssl_version=ssl.PROTOCOL_DTLSv1)
+  wrap.listen(0)
+
+  while True:
+    try:
+      acc_ret = wrap.accept()
+
+      if acc_ret:
+        conn, conn_addr = acc_ret
+        client = ':'.join(map(str, conn_addr))
+        print '[DTLS Server] Nova veza (%s)'&#160;% client
+
+        try: 
+          loop = True
+
+          while loop:
+            msg = conn.recv()
+
+            if msg.lower() in EXIT_WORDS:
+              loop = False
+              print '[DTLS Server] Zatvaram vezu (%s)'&#160;% client
+            else:
+              print '[DTLS Klijent]&#160;%s'&#160;% msg
+        except ssl.SSLError:
+          print '[DTLS Server] Došlo je do pogreške u radu'
+          close_connections()
+          sys.exit(1)
+    except KeyboardInterrupt:
+      print '[DTLS Server] Manualni prekid rada'
+      close_connections()
+      sys.exit(0)    
+</pre>
+<p><br />
+Za jednostavnu implementaciju socket servera u programskom jeziku Python bilo je potrebno pozvati metodu do_patch iz PyDTLS biblioteke. Kreiran je socket server koji koristi UDP kao transportni protokol te sluša na lokalnoj IPv4 adresi (127.0.0.1) i portu 5000. Nakon toga taj socket je upakiran u SSL kontekst s ranije izrađenim certifikatom i ključem, također eksplicitno je navedeno da se kao protokol komunikacije koristi DTLS. Server u beskonačnoj petlji čeka novu vezu, odnosno klijenta. Kada je veza uspostavljena server u petlji čeka poruku od klijenta te ju ispisuje na ekran. U slučaju da je poruka jedna od, u kodu, navedenih riječi (varijabla EXIT_WORDS) petlja se prekida te server ponovno čeka na novu vezu. Rad servera može se prekinuti slanjem signala SIGINT (CTRL + C na operacijskom sustavu koji je baziran na Unix-u).    
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Klijent"> Klijent </span></h3>
+<pre>
+  # -*- coding: utf-8 -*-
+
+  import sys
+  import socket
+  import ssl
+
+  from dtls import do_patch
+
+
+  EXIT_WORDS = ('close', 'exit', 'quit', 'bye')
+
+
+  def close_connections():
+    wrap.shutdown(socket.SHUT_RDWR)
+    wrap.close()
+
+  do_patch()
+
+  sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  wrap = ssl.wrap_socket(sock,
+                         server_side=False,
+                         ssl_version=ssl.PROTOCOL_DTLSv1)
+
+  try:
+    wrap.connect(('127.0.0.1', 5000))
+    msg = ''
+
+    while msg.lower() not in EXIT_WORDS:
+      msg = raw_input('Poruka: ')
+
+      if msg.strip() is not '':
+        wrap.send(str(msg))
+
+    close_connections()
+    sys.exit(0)
+  except ssl.SSLError:
+    print '[DTLS Klijent] Server nije dostupan'
+    close_connections()
+    sys.exit(1)
+  except KeyboardInterrupt:
+    print '[DTLS Klijent] Manualni prekid rada' 
+    wrap.send('close')
+    close_connections()
+    sys.exit(0)    
+</pre>
+<p><br />
+Na klijentskoj strani je također potrebno pozvati metodu do_patch iz PyDTLS biblioteke. Zatim je kreiran socket koji koristi UDP kao transportni protokol. Socket je upakiran u SSL kontekst te je eksplicitno navedeno da se kao protokol komunikacije koristi DTLS. Klijent pokuša otvoriti vezu prema serveru kojeg očekuje na lokalnoj IPv4 adresi (127.0.0.1) i portu 5000. Ako se uspostavi veza omogućuje se upis i slanje poruka prema serveru dok god poruka nije jedna od, u kodu, navedenih riječi (varijabla EXIT_WORDS). Rad klijenta može se prekinuti slanjem signala SIGINT (CTRL + C na operacijskom sustavu koji je baziran na Unix-u).    
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h2>
+<p>DTLS je sigurnosni protokol baziran na dobro znanom protokolu TLS. Dok TLS ovisi o pouzdanom transportnom kanalu (najčešće TCP-u), DTLS može podupirati nepouzdane transporte kao što je UDP. Inače je gotovo identičan TLS-u i podržava iste kriptografske mehanizme. Svaka DTLS veza započinje razmjenom handshake-a, tijekom kojeg se računala autentificiraju i pregovaraju o algoritmima, modovima, i drugim parametrima te dogovaraju način razmjene ključeva. Kako bi se osigurao nepouzdani transport, svaka strana održava tajmere za ponovno slanje u svrhu pouzdane dostave poruka. Kada je handshake završio, kriptirani podaci mogu biti poslani. Podaci su zaštićeni tako što su poslani u serijama DTLS zapisa. Ti su zapisi međusobno neovisni i mogu biti uspješno obrađeni čak i kada dođe do gubitka ili razmještaja. [7]    
+</p><p>TCP nije dobar za komunikaciju u realnom vremenu jer usporava slanje poruka zbog kontrole zakrčenja. SSL/TLS ne mare za gubitak ili razmještaj podataka jer su pokrenuti na TCP-u i računaju na njega da se brine o tome. Potreba za autentifikacijom i privatnošću TLS-a, ali u isto vrijeme i rad u realnom vremenu kojeg omogućuje UDP dovode do nastanka protokola DTLS. [6]   
+</p><p>Najvažnija dodatna sigurnosna mjera DTLS-a je zaštita od denial-of-service napada. DTLS uključuje razmjenu kolačića kojom se štiti od ovih napada. Za razliku od TLS implementacija, DTLS implementacije ne trebaju nevažećim zapisima odgovoriti prekidom veze. [5]   
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<p>[1] Web Application Security Consortium: Threat Classification. Dostupno na: <a href="http://projects.webappsec.org/f/WASC-TC-v1_0.pdf" class="external free" rel="nofollow">http://projects.webappsec.org/f/WASC-TC-v1_0.pdf</a> [09.01.2017.]    
+</p><p>[2] Wikipedia: Real-time computing. Dostupno na: <a href="https://en.wikipedia.org/wiki/Real-time_computing" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Real-time_computing</a> [09.01.2017.]    
+</p><p>[3] TechTarget: Real-time application. Dostupno na: <a href="http://searchunifiedcommunications.techtarget.com/definition/real-time-application-RTA" class="external free" rel="nofollow">http://searchunifiedcommunications.techtarget.com/definition/real-time-application-RTA</a> [09.01.2017.]    
+</p><p>[4] Modadugu N., Rescorla E.: The Design and Implementation of Datagram TLS. Dostupno na: <a href="https://crypto.stanford.edu/~nagendra/papers/dtls.pdf" class="external free" rel="nofollow">https://crypto.stanford.edu/~nagendra/papers/dtls.pdf</a> [09.01.2017.]     
+</p><p>[5] Internet Engineering Task Force: Datagram Tranport Layer Security Version 1.2. Dostupno na: <a href="https://tools.ietf.org/html/rfc6347" class="external free" rel="nofollow">https://tools.ietf.org/html/rfc6347</a> [09.01.2017.]     
+</p><p>[6] Wikipedia: Datagram Transport Layer Security. Dostupno na: <a href="http://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security</a> [09.01.2017.]     
+</p><p>[7] Internet Engineering Task Force: Datagram Tranport Layer Security (DTLS) Extension to Establish Keys for the Secure Real-time Transport Protocol (SRTP). Dostupno na: <a href="https://tools.ietf.org/html/rfc5764" class="external free" rel="nofollow">https://tools.ietf.org/html/rfc5764</a> [09.01.2017.]    
+</p><p>[8] Python: Dtls 1.0.1. Dostupno na: <a href="https://pypi.python.org/pypi/Dtls/1.0.1" class="external free" rel="nofollow">https://pypi.python.org/pypi/Dtls/1.0.1</a> [09.01.2017.]     
+</p><p>[9] Python: ssl 1.16. Dostupno na: <a href="https://pypi.python.org/pypi/ssl" class="external free" rel="nofollow">https://pypi.python.org/pypi/ssl</a> [09.01.2017.]
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 93/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9238-0!*!0!!hr!2!edit=0 and timestamp 20190203204203 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Protokol_DTLS.html">http://security.foi.hr/wiki/index.php/Protokol_DTLS</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Protokol_DTLS" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Protokol_DTLS.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Protokol_DTLS&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Protokol_DTLS.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Protokol_DTLS.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Protokol_DTLS&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Protokol_DTLS&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Protokol_DTLS.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Protokol_DTLS" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Protokol_DTLS" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Protokol_DTLS&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Protokol_DTLS&amp;oldid=40383" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 14:23, 16. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 886 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Protokol_DTLS", "wgTitle": "Protokol DTLS", "wgAction": "view", "wgArticleId": 9238, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 40383, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.453 secs. -->			</body>
+</html>

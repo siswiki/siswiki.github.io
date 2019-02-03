@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnosni video sustav za Raspberry Pi - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnosni_video_sustav_za_Raspberry_Pi&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnosni_video_sustav_za_Raspberry_Pi skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnosni video sustav za Raspberry Pi</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#mw-head">orijentacija</a>,
+					<a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Temu obradili:
+</p>
+<ul><li> Ivan Penga
+</li><li> Lucija Matulić
+</li></ul>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Rasberry_Pi_3b"><span class="tocnumber">2</span> <span class="toctext">Rasberry Pi 3b</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Kako_osigurati_Raspberry_Pi"><span class="tocnumber">2.1</span> <span class="toctext">Kako osigurati Raspberry Pi</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Kori.C5.A1tenje_Raspberry_Pi-a_u_sigurnosti"><span class="tocnumber">2.2</span> <span class="toctext">Korištenje Raspberry Pi-a u sigurnosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Open_CV"><span class="tocnumber">3</span> <span class="toctext">Open CV</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Instalacija_OpenCV-a_na_Raspberry_Pi"><span class="tocnumber">3.1</span> <span class="toctext">Instalacija OpenCV-a na Raspberry Pi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Pushbullet"><span class="tocnumber">4</span> <span class="toctext">Pushbullet</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Princip_rada_detektora_pokreta"><span class="tocnumber">5</span> <span class="toctext">Princip rada detektora pokreta</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Opis_programskog_koda"><span class="tocnumber">6</span> <span class="toctext">Opis programskog koda</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Reference"><span class="tocnumber">7</span> <span class="toctext">Reference</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#Slike"><span class="tocnumber">8</span> <span class="toctext">Slike</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Zbog mogućih provala i napada na nečije vlasništvo, važno je osigurati sustav koji prati i prepoznaje te javlja kretnje nepoznatih osoba. Zato smo osmislili projekt koji uz pomoć Raspberry Pi-a, njemu pripadajuće kamere te programske implementacije prepoznaje kretnje u određenom prostoru te u trenutku detekcije šalje obavijest vlasniku prostora. Uz to smo dodali detalj da pri detekciji kretnje se pali crvena led lampica.
+</p><p>Korištene tehnologije:
+</p>
+<ul><li> Raspberry Pi 3b
+</li><li> Raspberry Pi Camera V2
+</li><li> Breadboard ploča
+</li><li> Led lampica
+</li><li> OpenCV
+</li><li> Python
+</li><li> Pushbullet
+</li></ul>
+<h2> <span class="mw-headline" id="Rasberry_Pi_3b"> Rasberry Pi 3b </span></h2>
+<p>Rasberry Pi je minijaturno računalo koje je primarno bilo namijenjeno učenju programiranja ali je zbog svoje praktičnosti, jednostavnosti i pristupačne cijene postao korišten u raznovrsne svrhe. Koristi se u mnogobrojnim Internet of things projektima, znanstvenim, istraživačkim i edukativnim svrhama, mnogi ga koriste kao multimedijski centar i slično. O njegovoj popularnosti najviše govori činjenica da je u samo četiri godine svojeg postojanja prodan više od 8 000 000 primjeraka.
+Rasberry Pi 3b koji smo mi koristili, ima bolje performanse i bolju povezivost od svojih prethodnika. Poput dvojke i trojka dolazi s četerojezgrenim procesorom, s time da se sada oslanja na novije Broadcomovo rješenje koje ima četiri 64-bitne ARM Cortex-A53 jezgre. Novi Pi 3 ima oko 1,5 puta bolje performanse i snažniji čip što ubrzava i poboljšava rad pri korištenju istog. Velika promjena i novost u odnosu na svoje prethodnike a iznimno je važna, jest integracija WiFi modula koju smo isto tako koristili u ovom projektu. Operacijski sustav Raspbian smo instalirali na microSD karticu od 16 GB.
+</p>
+<h3> <span class="mw-headline" id="Kako_osigurati_Raspberry_Pi"> Kako osigurati Raspberry Pi </span></h3>
+<p>S obzirom da je Raspberry spojen na Internet, postoje mogući razni napadi na uređaj, odnosno na informacije koje se na njemu nalaze. Pronašli smo nekoliko kvalitetnih savjeta kako se zaštiti od mogućih napada, tj. koje su preventivne mjere.
+</p>
+<ul><li><b>1.  Mijenjanje defaultne šifre i korisničkog imena</b> – pri prvom korištenju Raspberry-ja iznimno je važno promijeniti defaultno postavljene informacije. Lozinka se mijenja putem raspi-config aplikacije ili direktno putem komandne linije upisom 'passwd'. Korisničko ime se mijenja tako da se unese dodatni korisnik unosom linije: 'sudo useradd -m NovoKorIme' te se nakon toga može pobrisati defaultno postavljen 'pi' korisnik.
+</li><li><b>2.  	Postavljanje traženja lozinke svaki put</b> – korištenjem naredbe 'sudo' ispred neke komande znači da izvršavamo radnje kao super korisnik. To znači da napadač ukoliko se domogne informacija o našem Raspberry-ju može mijenjati postavke koristeći navedenu naredbu. Zato postavljamo opciju da se i pri 'sudo' naredbi mora upisati lozinka. To se izvršava naredbom 'sudo nano /etc/sudoers.d/010_pi-nopasswd'
+</li><li><b>3.  	Instaliranje vatrozida</b> – vatrozid se instalira na jednostavan način (jednostavniji od korištenja iptables)  naredbom ' sudo apt-get install ufw'. Ufw znači 'Uncomplicated Fire Wall'
+</li><li><b>4.  	Instaliranje fial2ban-a</b> – zbog propusta tj. rupa koje se nalaze u vatrozidu, preporuča se instalacija fial2ban-a, skener koji promatra log-ove koji se produciraju na Raspberry-ju i provjerava sumnjive aktivnosti. Instalacija se vrši naredbom 'sudo apt-get install fail2ban'
+</li></ul>
+<h3> <span class="mw-headline" id="Kori.C5.A1tenje_Raspberry_Pi-a_u_sigurnosti"> Korištenje Raspberry Pi-a u sigurnosti </span></h3>
+<p>Kao jedna od mnogobrojnih koristi Raspberry Pi-a u svijetu Interneta stvari, tako je i izrada kućne nadzorne kamere jedna od njih. Jedan od zanimljivijih projekata jest Sweet Security gdje se Raspberry Pi koristi za obranu spojenih uređaja. Izgrađen na open source kodu starom 20 goidina koji prati mrežne napade, projekt pokazuje kako je moguće izgraditi snažnu sigurnost za IoT naprave i to sa pristupačnom cijenom. Osim navedenog, postoji mnogo raznovrsnih pothvata u kojem ljudi pretvaraju Raspberry u cjelokupan kućni sugurnosni nadzor. Zbog mogućnosti spajanja kamere, detektiranja pokreta te naravno spajanja na Internet, vlasnici kuće mogu dobiti kompletan pregled svojeg prostora. Pozitivna strana koju mnogi napominju pri ove vrste sigurnosnog nadzora jest da, pri korištenju usluge nekog velikog poduzeća - oni mogu pristupiti našim podacima, dok izradom vlastitog nadzora - sve ostaje u našoj kontroli.
+</p>
+<h2> <span class="mw-headline" id="Open_CV"> Open CV </span></h2>
+<p>OpenCV (Open Source Computer Vision) je programska biblioteka zasnovana na računalnom vidu, području umjetne inteligencije koja se bavi prepoznavanjem različitih oblika na slici i manipuliranjem njenog sadržaja. Jezik je izdan pod BSD dozvolom, tako da je u se u potpunosti može besplatno koristiti. Ovaj sustav koristi JavaCV biblioteku koja sadrži omotače (eng. „wrappers“) za različite biblioteke sa područja računalnog vida, uključujući i OpenCV te sadrži dodatne klase za olakšani rad u Javi ili Androidu („Bytedeco“,2015).
+</p>
+<h3> <span class="mw-headline" id="Instalacija_OpenCV-a_na_Raspberry_Pi">Instalacija OpenCV-a na Raspberry Pi </span></h3>
+<p>Prvi korak pri instalaciji Open CV-a na Rapberry je update-anje i upgrade-anje svih paketa:
+</p>
+<pre>sudo apt-get update
+sudo apt-get upgrade
+</pre>
+<p>Nakon toga je potrebno instalirati developerski alat CMake, koji pomaže s konfiguriranjem OpenCV-a.
+</p>
+<pre>sudo apt-get install build-essential cmake pkg-config
+</pre>
+<p>Zatim moramo instalirati pakete koji omogućuju učitavanje različitih formata slikovnih datoteka s diska.
+</p>
+<pre>sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
+</pre>
+<p>Osim paketa za prepoznavanje formata slike, potrebni su nam oni iza čitanje datoteka video formata.
+</p>
+<pre>sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+sudo apt-get install libxvidcore-dev libx264-dev
+</pre>
+<p>OpenCV knjižnica dolazi s podmodulom pod nazivom highgui koji se koristi za prikaz slika na zaslonu i izgradnju osnovnih grafičkih sučelja. Da bismo sastavili modul highgui, moramo instalirati GTK razvojnu knjižnicu:
+</p>
+<pre>sudo apt-get install libgtk2.0-dev
+</pre>
+<p>Mnoge operacije unutar OpenCV-a (posebice operacija matrice) mogu se dodatno optimizirati instaliranjem nekoliko dodatnih ovisnosti:
+</p>
+<pre>sudo apt-get install libatlas-base-dev gfortran
+</pre>
+<p>Ove knjižnice za optimizaciju su osobito važne za  uređaje ograničenih resursa kao što je Raspberry Pi.
+</p><p>Na kraju, instaliramo Python 2.7 i Python 3 zaglavlja kako bismo mogli sastaviti OpenCV s vezama Python:
+</p>
+<pre>sudo apt-get install python2.7-dev python3-dev
+</pre>
+<p>Sada kada je sve instalirano, potrebno je dohvatiti paket sa službenog CV repozitorija
+</p>
+<pre>cd ~
+wget -O opencv.zip <a href="https://github.com/Itseez/opencv/archive/3.1.0.zip" class="external free" rel="nofollow">https://github.com/Itseez/opencv/archive/3.1.0.zip</a>
+unzip opencv.zip
+</pre>
+<p>Na kraju instaliravamo pip koji je Python manager za pakete.
+</p>
+<pre>wget <a href="https://bootstrap.pypa.io/get-pip.py" class="external free" rel="nofollow">https://bootstrap.pypa.io/get-pip.py</a>
+sudo python get-pip.py
+</pre>
+<p>Potom možemo skinuti biblioteku numpy za Python za rad s mnogim matematičkim izrazima.
+</p>
+<pre>pip install numpy
+</pre>
+<p>Kada smo poskidali i instalirali sve potrebne pakete i bibilioteke, možemo kompajlitati OpenCV
+</p>
+<pre>workon cv
+</pre>
+<p>Sada kada radimo u cv virtualnoj okolini, setapiramo pomoću prethodno instaliranom CMake-a
+</p>
+<pre>cd ~/opencv-3.1.0/
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+</pre>
+<p>	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.1.0/modules \
+	-D BUILD_EXAMPLES=ON ..
+</p><p>Sada kada je sve gotovo i spremno možemo kompajlirati OpenCV:
+</p>
+<pre>make -j4
+</pre>
+<h2> <span class="mw-headline" id="Pushbullet"> Pushbullet </span></h2>
+<p>Pushbullet je aplikacija koja povezuje više različitih uređaja na način da se obavijesti dobivene na jednom uređaju šalju i svim ostalim definiranim uređajima (koje smo povezali). Mi smo aplikaciju iskoristili kako bi se obavijesti o detekciji pokreta koje je generirao Raspberry Pi poslale na mobilni uređaj.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:PushBulletRaspberry.PNG" class="image"><img alt="PushBulletRaspberry.PNG" src="../images/2/2b/PushBulletRaspberry.PNG" width="586" height="339" /></a>
+</p><p>Slika 1: Struktura aplikacije
+</p><p>Kada se Python skripta pokrene, potrebne su dvije sekunde kako bi se kamera upalila i postavila u mod skeniranja slike koju vidi. Ako se dogode neki pokreti, odnosno Raspberry detektira kretnje na slici, notifikacija se automatski šalje na mobilni uređaj.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Rasppostava.jpg" class="image"><img alt="Rasppostava.jpg" src="../images/thumb/1/1f/Rasppostava.jpg/600px-Rasppostava.jpg" width="600" height="800" /></a>
+</p><p>Slika 2: Postava
+</p>
+<h2> <span class="mw-headline" id="Princip_rada_detektora_pokreta"> Princip rada detektora pokreta </span></h2>
+<p>Osnovni princip rada detektora pokreta proizlazi iz oduzimanja vrijednosti svakog piksela slike s prethodno dohvaćenom slikom. Svaka slika predstavljena je u obliku matrice gdje je svaki piksel određen vrijednošću od 0 do 255, s obzirom da je 0 crna boja, 255 bijela a sve između su nijanse sive. Ukoliko su dvije slijedne dohvaćene slike iste, imati će jednake vrijednosti piksela pa će rezultat biti nul matrica (cijela slika će biti crna). No ukoliko su različite na određenom dijelu, vrijednosti piksela više neće biti iste, te će se uduzimanjem vrijednosti dobiti broj veći od 0 tako da će dijelovi slike na kojima se dogodila promjena biti popraćena nijansama sive.
+</p>
+<h2> <span class="mw-headline" id="Opis_programskog_koda"> Opis programskog koda </span></h2>
+<p>Kao što je već navedeno, cijeli projekt izrađen je u Pythonu, ponajviše zbog jednostavnosti koda i mnogo primjera raznih programskih isječaka.
+Kako se koristi Raspicam, dohvaćanje video streama kamere je drugačije nego kod standardne web kamere. Potrebno je uključiti biblioteke PiCamera te PiRGBArray te pomoću njih dohvaćati sliku po sliku.
+</p>
+<pre>rawCapture = PiRGBArray(camera, size=(640, 480))
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+	image = frame.array
+</pre>
+<p>OpenCv koristi se slikama u formatu “BGR”, pa je u parametrima metode capture_continuous to potrebno i navesti. Sve slike koje se dohvaćaju spremaju se u objekt image te ih sada možemo prosljediti metodama OpenCv-a. Svaka slika predstavljena je matricom pri čemu je svaki piksel također matrica jednog reda i tri stupca, sa vrijednostima od 0 do 255 (svaki element predstavlja udio boje, plave, zelene i crvene respektivno). Za detektor pokreta nije potrebno raditi s bojama pa je najbolje pretvoriti sliku u crno bijelu. Sada će svaki piksel biti predstavljen samo jednim brojem od 0 do 255 gdje je 0 crna boja, 255 bijela, a sva između su nijanse sive. Da se ukloni šum na slici koji može uzrokovati kamera, potrebno je zamutiti sliku.
+</p>
+<pre>gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+blur = cv2.GaussianBlur(gray,(21,21),0)
+</pre>
+<p>Nakon što smo uklonili potencijalni šum na slici, možemo napraviti apsolutno oduzimanje piksela trenutne slike te prethodno dohvaćene slike metodom absdiff.
+</p>
+<pre>absdiff = cv2.absdiff(blur,previous_image)
+thresh = cv2.threshold(absdiff,10,255,cv2.THRESH_BINARY)[1]
+dilate = cv2.dilate(thresh,None,iterations=2)
+</pre>
+<p>Kako bi se naglasio pokret, potrebno je izvršiti threshold nad rezulatom, odnosno svaki piksel s vrijednošću manjom od 10 postati će crn (0), dok će svaki piksel iznad  postati u potpunosti bijel (255). Da dodatno naglasimo pokret, dobra praksa je zadebljati sve bijele površine nad thresholdanom slikom. Navedene operacije nad slikama  prikazane su na sljedećim slikama:
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Absdiff.PNG" class="image"><img alt="Absdiff.PNG" src="../images/thumb/7/73/Absdiff.PNG/1000px-Absdiff.PNG" width="1000" height="394" /></a>
+</p><p>Slika 3: Apsolutno oduzimanje piksela dvaju slika
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Thresh.PNG" class="image"><img alt="Thresh.PNG" src="../images/thumb/2/2f/Thresh.PNG/1000px-Thresh.PNG" width="1000" height="392" /></a>
+</p><p>Slika 4: Treshold nad slikom
+</p><p>Nakon što smo dobili željeni rezultat, možemo provjeriti postoje li bijeli obrisi na slici. To se postiže metodom findContours() koja vraća konture u obliku liste vektora pronađene na slici. Sve malene konture smatrati ćemo šumom, dok velike konture sigurno označavaju pokret. Ako se uvjet zadovolji, pokret je detektiran. Oko konture nacrtati će se pravokutnik zelene boje. Sve konture mogu se prikazati na slici pomoću metode drawContours()
+</p>
+<pre>cnts = cv2.findContours(dilate.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[1]
+for c in cnts:
+   	if cv2.contourArea(c) &gt; 500:
+       	(x, y, w, h) = cv2.boundingRect(c)
+       	cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+       	motionDetected = True
+</pre>
+<p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cnts.PNG" class="image"><img alt="Cnts.PNG" src="../images/thumb/c/c2/Cnts.PNG/1000px-Cnts.PNG" width="1000" height="399" /></a>
+</p><p>Slika 5: Prikaz kontura na slici
+</p><p>Nakon prikazivanja kontura, potrebno je upaliti crvenu led lampicu koja je spojena na GPIO pin pod brojem 17. Popis svih pinova može se pregledati naredbom gpio readall u terminalu.
+</p><p>Također, potrebno je poslati push notifikaciju na mobitel, te spremiti video od svega 15 slika, na Dropbox.
+</p>
+<pre>if motionDetected == True:
+   	GPIO.output(17,True)
+   	imageCount += 1
+   	if imageCount &lt;= 15:
+       	videoOut.write(originalImage)
+   	if imageCount &gt;= 15:
+       	thread.start_new_thread(upload,(randomVideoName,))
+       	thread.start_new_thread(sendMessage,())
+       	randomVideoName = randint(0,999999)
+       	videoOut = cv2.VideoWriter('{0}.avi'.format(randomVideoName),cv2.VideoWriter_fourcc(*'XVID'), 20.0, (640,480))
+</pre>
+<p>videoOut je objekt pomoću kojega se izrađuje video u .avi formatu. Svaki video imati će nasumično ime (broj od 0 do 999999) kako ne bi došlo do presnimavanja nekog drugog videa. Dvije navedene dretve pobrinuti će se snimka spremi na Dropbox, odnosno da se pošalje push notifikacija na mobitel, bez da snimka stane na kratko vrijeme.
+</p>
+<pre>def sendMessage():
+</pre>
+<p>	title = "Video Security"
+	body = "Intruder alert! Video file is saved on your Dropbox account."
+</p><p>	data_send = {"type": "note", "title": title, "body": body}
+</p><p>	ACCESS_TOKEN = '&lt;tu_ide_api_token&gt;'
+	resp = requests.post('<a href="https://api.pushbullet.com/v2/pushes'" class="external free" rel="nofollow">https://api.pushbullet.com/v2/pushes'</a>, data=json.dumps(data_send),
+</p>
+<pre>                    	headers={'Authorization': 'Bearer ' + ACCESS_TOKEN, 'Content-Type': 'application/json'})
+</pre>
+<p>	if resp.status_code&#160;!= 200:
+</p>
+<pre>   	raise Exception('Something wrong')
+</pre>
+<p>	else:
+</p>
+<pre>   	print 'complete sending'
+</pre>
+<p>Ova metoda poslati će post zahtjev na web stranicu Pushbulleta, koji, ukoliko dođe do odgovora 200 (“sve je bilo u redu”) na ekran ispisuje poruku “Complete sending”. Acess token jednostavno se može dobiti na prilikom logiranja na web stranicu Pushbulleta te pritiskom na gumb “Generate Access token”. Također je na Android uređaj potrebno instalirati Pushbullet aplikaciju te se logirati pomoću istog računa kao i na web stranicu. Poruka koja se šalje je u JSON formatu s naslovom i tijelom poruke.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pushbulletobavijest.jpg" class="image"><img alt="Pushbulletobavijest.jpg" src="../images/thumb/5/57/Pushbulletobavijest.jpg/300px-Pushbulletobavijest.jpg" width="300" height="533" /></a>
+</p><p>Slika 6: Pushbullet aplikacija
+</p><p>Metoda upload, pobrinuti će se da se izrađen video pospremi na Dropbox račun.  
+</p>
+<pre>def upload(name):
+</pre>
+<p>	global uploadVideoObj
+	uploadVideoObj.upload_file('{0}.avi'.format(name))
+</p><p>TransferData klasa za rad s Dropboxom.
+</p>
+<pre>import dropbox
+</pre>
+<pre>class TransferData:
+</pre>
+<p>	def __init__(self):
+</p>
+<pre>   	self.access_token = &lt;access_token_ide_tu&gt;'
+   	self.fileTo = '/Apps/VideoNadzor/'
+   	#self.upload_file(fileName,self.fileTo)
+</pre>
+<p>	def upload_file(self, fileName):
+</p>
+<pre>   	dbx = dropbox.Dropbox(self.access_token)
+   	location = "{0}{1}".format(self.fileTo,fileName)
+   	with open(fileName, 'rb') as f:
+       	dbx.files_upload(f.read(), location)
+</pre>
+<p>Isječak koda prikazuje rad s Dropboxom pomoću dropbox biblioteke. Nad dropbox objektom poziva se metoda files_upload(dokument, lokacija) koja uploada datoteku u direktorij na Dropbox računu. Lokacija dokumenta je putanja koja osim imena datoteke uključuje i direktorij na Dropboxu. Access token za Dropbox može se pridobiti odlaskom na url: <a href="https://www.dropbox.com/developers/apps/create" class="external free" rel="nofollow">https://www.dropbox.com/developers/apps/create</a>
+te kreiranjem direktorija kojem se može pristupiti. Nakon toga, moguće je generirati Access token za dotični direktorij.
+</p>
+<h2> <span class="mw-headline" id="Reference"> Reference </span></h2>
+<p>1. Ho, K. (2017.) Camera Alert Application with Raspberry Pi 3, iOS/Android. Preuzeto 23.1.2018. <a href="https://raspberrypi.hackster.io/KennyHo2911/camera-alert-application-with-raspberry-pi-3-ios-android-881bb4?ref=tag&amp;ref_id=security&amp;offset=10" class="external free" rel="nofollow">https://raspberrypi.hackster.io/KennyHo2911/camera-alert-application-with-raspberry-pi-3-ios-android-881bb4?ref=tag&amp;ref_id=security&amp;offset=10</a>
+</p><p>2. Klein Keane J. (2017) Take These Steps to Secure Your Raspberry Pi Against Attackers. Preuzeto 23.1.2018. sa <a href="https://makezine.com/2017/09/07/secure-your-raspberry-pi-against-attackers/" class="external free" rel="nofollow">https://makezine.com/2017/09/07/secure-your-raspberry-pi-against-attackers/</a>
+</p><p>3.Stackoverflow, Preuzeto 22.1.2018. <a href="https://stackoverflow.com/questions/23894221/upload-file-to-my-dropbox-from-python-script" class="external free" rel="nofollow">https://stackoverflow.com/questions/23894221/upload-file-to-my-dropbox-from-python-script</a>
+</p><p>4. Rosebrock, A. (2016.) Accessing the Raspberry Pi Camera with OpenCV and Python. Preuzeto 25.12.2017. sa <a href="https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/" class="external free" rel="nofollow">https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/</a>
+</p><p>5. Rosebrock, A. (2015.) Basic motion detection and tracking with Python and OpenCV. Preuzeto 5.1.2018. sa <a href="https://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/" class="external free" rel="nofollow">https://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/</a>
+</p><p>6. Rosebrock, A. (2015.) Install guide: Raspberry Pi 3 + Raspbian Jessie + OpenCV 3. Preuzeto 24.12.2017. sa <a href="https://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/" class="external free" rel="nofollow">https://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/</a>
+</p><p>7. SimplyPython (bez dat.) Sending aletts to Iphone or Android phone using Python. Preuzeto 22.1.2018. sa <a href="https://simply-python.com/tag/pushbullet/" class="external free" rel="nofollow">https://simply-python.com/tag/pushbullet/</a>
+</p>
+<h2> <span class="mw-headline" id="Slike"> Slike </span></h2>
+<p>Slika 1: Struktura aplikacije,  Ho, K. (2017.) Camera Alert Application with Raspberry Pi 3, iOS/Android. Preuzeto 23.1.2018. <a href="https://raspberrypi.hackster.io/KennyHo2911/camera-alert-application-with-raspberry-pi-3-ios-android-881bb4?ref=tag&amp;ref_id=security&amp;offset=10" class="external free" rel="nofollow">https://raspberrypi.hackster.io/KennyHo2911/camera-alert-application-with-raspberry-pi-3-ios-android-881bb4?ref=tag&amp;ref_id=security&amp;offset=10</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 43/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9878-0!*!0!!hr!2!edit=0 and timestamp 20190203204132 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html">http://security.foi.hr/wiki/index.php/Sigurnosni_video_sustav_za_Raspberry_Pi</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnosni_video_sustav_za_Raspberry_Pi" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnosni_video_sustav_za_Raspberry_Pi&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosni_video_sustav_za_Raspberry_Pi&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosni_video_sustav_za_Raspberry_Pi&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnosni_video_sustav_za_Raspberry_Pi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnosni_video_sustav_za_Raspberry_Pi" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnosni_video_sustav_za_Raspberry_Pi" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosni_video_sustav_za_Raspberry_Pi&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosni_video_sustav_za_Raspberry_Pi&amp;oldid=42641" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 00:47, 30. siječnja 2018.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 119 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnosni_video_sustav_za_Raspberry_Pi", "wgTitle": "Sigurnosni video sustav za Raspberry Pi", "wgAction": "view", "wgArticleId": 9878, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 42641, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.315 secs. -->			</body>
+</html>

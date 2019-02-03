@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Integracija ESP8266 modula i mikrofona - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Integracija_ESP8266_modula_i_mikrofona&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Integracija_ESP8266_modula_i_mikrofona skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Integracija ESP8266 modula i mikrofona</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Integracija_ESP8266_modula_i_mikrofona.html#mw-head">orijentacija</a>,
+					<a href="Integracija_ESP8266_modula_i_mikrofona.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Izradio: Marko Flajšek
+</p><p><br />
+Tehnološki zamah u područjima računala, interneta i gotovo svih elektroničkih aparata u posljednjih nekoliko godina zaprepastio je one stare, a i mlađe generacije. Smartphone-i, tableti, prijenosna računala i sve slične tehnologije postali su sveprisutne, a njihov nedostatak je nezamisliv. No, kod svakog sljedećeg izuma koji "zaprepasti" svijet postavlja se pitanje: Gdje je granica? Tehnologija koja se u prethodnih nekoliko godina nadmetnula kao vrlo atraktivnom i primamljivom entuzijastima i iskustvenjacima u razvoju tehnologije je <i>Internet of Things (IoT)</i>.
+</p><p>Kratica <i>IoT</i>, kako to navodi kolumnist Forbes-a, Jacob Morgan, je koncept povezivanja bilo kojeg uređaja za on/off prekidačem na internet, a i međusobno. To uključuje mobilne uređaje, aparate za kavu, perilice rublja, slušalice, lapme, nosive uređaje i gotovo sve ostalo što Vam može pasti na pamet. To se odnosi i na komponente strojeva, primjerice mlazni motor aviona ili bušilica na naftnoj platformi. Analitička tvrtka Gartner tvrdi da će se do 2020 godine broj povezanih uređaja iznositi 26 milijarde. <i>IoT</i> je ogrmona mreža povezanih "stvari" (uključujući i ljude), a veze koje se ostvaruju su između međusobno ljudi, međusobno stvari i između ljudi i stvari <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[1]</a></sup>.
+</p><p><br />
+Zadatak ovog projekta bila je integracija mikrokontrolera <i>ESP8266</i>, koji pripada u porodicu <i>IoT</i> uređaja te <i>SparkFun Sound Detector</i>-a koji omogućuje snimanje zvuka, u smislu da se snimljeni zvuk u realnom vremenu odašilje i sprema putem internetske veze. 
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Integracija_ESP8266_modula_i_mikrofona.html#.C5.A0to_je_NodeMCU_ESP8266.3F"><span class="tocnumber">1</span> <span class="toctext">Što je NodeMCU ESP8266?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Primjer_testnih_programa"><span class="tocnumber">1.1</span> <span class="toctext">Primjer testnih programa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="Integracija_ESP8266_modula_i_mikrofona.html#O_SparkFun_Sound_Detector-u"><span class="tocnumber">2</span> <span class="toctext">O SparkFun Sound Detector-u</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Streamanje_zvuka"><span class="tocnumber">3</span> <span class="toctext">Streamanje zvuka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Integracija_ESP8266_modula_i_mikrofona.html#WAV_format"><span class="tocnumber">3.1</span> <span class="toctext">WAV format</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Zaglavlje"><span class="tocnumber">3.1.1</span> <span class="toctext">Zaglavlje</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Format_chunk"><span class="tocnumber">3.1.2</span> <span class="toctext">Format chunk</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Data_chunk"><span class="tocnumber">3.1.3</span> <span class="toctext">Data chunk</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Rje.C5.A1enje_projekta"><span class="tocnumber">4</span> <span class="toctext">Rješenje projekta</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Tehni.C4.8Dka_implementacija"><span class="tocnumber">4.1</span> <span class="toctext">Tehnička implementacija</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Obja.C5.A1njenje_rje.C5.A1enja"><span class="tocnumber">4.2</span> <span class="toctext">Objašnjenje rješenja</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Programski_kod"><span class="tocnumber">4.3</span> <span class="toctext">Programski kod</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Firmware_-_main.ino"><span class="tocnumber">4.3.1</span> <span class="toctext">Firmware - main.ino</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Server_-_server.js"><span class="tocnumber">4.3.2</span> <span class="toctext">Server - server.js</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id=".C5.A0to_je_NodeMCU_ESP8266.3F"> Što je NodeMCU ESP8266? </span></h1>
+<p>Mikrokontroler je kompaktno mikroračunalo dizajnirano da upravlja operacijama ugrađenih sustava u motornim vozilima, robotima, uredskim aparatima, kompleksnim medicinskim uređajima, mobilnim radio stanicama, automatima, kućanskim aparatima i raznim drugim uređajima. Tipični mikrokontroler sadrži procesor, memoriju i ostale periferne dodatke <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[2]</a></sup>. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NodeMCU.jpg" class="image"><img alt="" src="../images/thumb/a/af/NodeMCU.jpg/600px-NodeMCU.jpg" width="600" height="450" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NodeMCU.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 1. Izgled NodeMCU-a (Izvor: <a href="https://www.seeedstudio.com/NodeMCU-v2-Lua-based-ESP8266-development-kit-p-2415.html#" class="external autonumber" rel="nofollow">[1]</a>)</div></div></div></div>
+<p>NodeMCU, prikazan na slici 1., je open-source IoT platforma. Uključuje firmware koji radi na ESP8266 Wi-Fi SoC (System on a Chip), proizveden od Espressiv Systems te hardware koji je baziran na ESP-12 modulu. Temin "NodeMCU" se po defaultu odnosi na firmware, a ne na dev kit.
+Na prvi pogled bi običan korisnik pomislio da ovaj mikrokontroler nije nešto posebno, pošto se na samoj stranici proizvoda (<a href="http://www.nodemcu.com/index_en.html" class="external free" rel="nofollow">http://www.nodemcu.com/index_en.html</a>) ne nalazi gotovo ništa informacija o njemu, već samo nekoliko obilježja i primjera koda.
+</p><p>Najbitnije značajke ovog mikrokontrolera razumljive svim korisnicima su <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[4]</a></sup>:
+</p>
+<ul><li> interaktivan je
+</li><li> programibilan
+</li><li> jeftin
+</li><li> jednostavan
+</li><li> pametan
+</li><li> sadrži Wi-Fi
+</li></ul>
+<p>Tehničke specifikacije <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[3]</a></sup>:
+</p>
+<ul><li> XTOS operacijski sustav
+</li><li> ESP8266(LX106) procesor
+</li><li> 128kB radne memorije
+</li><li> 4MB memorije za pohranu
+</li><li> napajanje putem USB-a
+</li></ul>
+<p><br />
+ESP-ov ugrađeni Wi-Fi može poslužiti kao samostalna Wi-Fi točka za spajanje drugih uređaja ili kao tehnologija za spajanje na bilo koju bežičnu mrežu. Protokol koji ovaj mikrokontroler podržava je 802.11 b/g/n <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[7]</a></sup>. Kao što je već u uvodu spomenuto, ESP8266 je kompatibilan sa velikim brojem perifernih uređaja kao što su uređaji za GPS, kamere, senzori, a i mikrofoni, od kojih je jedan upotrijebljen i u ovom projektu, no više o tome u nastavku. Sva ova komunikacija ostvaruje se spajanjem putem Pin-ova na ESP-u čiji je dijagram prikazan na slici 2. Za potrebe ovog projekta korišteni su pinovi:
+</p>
+<ul><li> <b>GND</b> - ground (uzemljenje)
+</li><li> <b>Vin</b> - napajanje prema perifernim uređajima (5V)
+</li><li> <b>A0</b> - ADC pin (pretvornik analognog signala u digitalni)
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP_Pinmap.jpg" class="image"><img alt="" src="../images/thumb/0/0e/ESP_Pinmap.jpg/600px-ESP_Pinmap.jpg" width="600" height="533" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ESP_Pinmap.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 2. Dijagram Pin-ova na ESP8266 (Izvor: <a href="https://github.com/nodemcu/nodemcu-devkit-v1.0" class="external autonumber" rel="nofollow">[2]</a>)</div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Primjer_testnih_programa"> Primjer testnih programa </span></h2>
+<p>U nastavku je prikazan kod za program paljenja i gašenja LED lampice ESP-a pomoću Web servera pokrenutog na ESP-u. 
+</p><p>Prije pokretanja programa je potrebno ESP8266 spojiti putem USB kabla tipa Micro-B Male To Male, a zatim pokrenuti <b>Arduino IDE</b> program i promijeniti SSID i password za Wi-Fi pristup nekoj vlastitoj mreži. Nakon što pokrenete program, u pregledniku se upisom IP adrese ESP-a otvara Web stranica sa kontrolama za paljenje i gašenje LED lampice. Cijeli kod je kreiran po uzoru na primjer dostupan na ovoj stranici gdje se nalazi i cijeli proces postavljanja Arduino IDE-a i povezivanja sa NodeMCU ESP-om: <a href="http://www.instructables.com/id/Quick-Start-to-Nodemcu-ESP8266-on-Arduino-IDE/" class="external free" rel="nofollow">http://www.instructables.com/id/Quick-Start-to-Nodemcu-ESP8266-on-Arduino-IDE/</a>
+</p>
+<pre>
+#include &lt;ESP8266WiFi.h&gt;
+ 
+const char* ssid = &quot;Hotspot&quot;;
+const char* password = &quot;xxxxxxxx&quot;;
+ 
+int ledPin = 2;
+WiFiServer server(80);
+
+void setup() {
+  Serial.begin(115200);
+  delay(10);
+ 
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+ 
+  // Connect to WiFi network
+  Serial.println();
+  Serial.println();
+  Serial.print(&quot;Connecting to &quot;);
+  Serial.println(ssid);
+ 
+  WiFi.begin(ssid, password);
+ 
+  while (WiFi.status()&#160;!= WL_CONNECTED) {
+    delay(500);
+    Serial.print(&quot;.&quot;);
+  }
+  Serial.println(&quot;&quot;);
+  Serial.println(&quot;WiFi connected&quot;);
+ 
+  // Start the server
+  server.begin();
+  Serial.println(&quot;Server started&quot;);
+ 
+  // Print the IP address
+  Serial.print(&quot;Use this URL to connect: &quot;);
+  Serial.print(&quot;http://&quot;);
+  Serial.print(WiFi.localIP());
+  Serial.println(&quot;/&quot;);
+}
+
+void loop() {
+  // Check if a client has connected
+  WiFiClient client = server.available();
+  if (!client) {
+    return;
+  }
+ 
+  // Wait until the client sends some data
+  Serial.println(&quot;new client&quot;);
+  while(!client.available()){
+    delay(1);
+  }
+ 
+  // Read the first line of the request
+  String request = client.readStringUntil('\r');
+  Serial.println(request);
+  client.flush();
+ 
+  // Match the request
+ 
+  int value = LOW;
+  if (request.indexOf(&quot;/LED=ON&quot;)&#160;!= -1)  {
+    digitalWrite(ledPin, LOW);
+    value = LOW;
+  }
+  if (request.indexOf(&quot;/LED=OFF&quot;)&#160;!= -1)  {
+    digitalWrite(ledPin, HIGH);
+    value = HIGH;
+  }
+ 
+  // Return the response
+  client.println(&quot;HTTP/1.1 200 OK&quot;);
+  client.println(&quot;Content-Type: text/html&quot;);
+  client.println(&quot;&quot;); //  do not forget this one
+  client.println(&quot;&lt;!DOCTYPE HTML&gt;&quot;);
+  client.println(&quot;&lt;html&gt;&quot;);
+ 
+  client.print(&quot;Led pin is now: &quot;);
+ 
+  if(value == LOW) {
+    client.print(&quot;On&quot;);
+  } else {
+    client.print(&quot;Off&quot;);
+  }
+  client.println(&quot;&lt;br&gt;&lt;br&gt;&quot;);
+  client.println(&quot;&lt;a href=\&quot;/LED=OFF\&quot;\&quot;&gt;&lt;button&gt;Turn Off &lt;/button&gt;&lt;/a&gt;&quot;);
+  client.println(&quot;&lt;a href=\&quot;/LED=ON\&quot;\&quot;&gt;&lt;button&gt;Turn On &lt;/button&gt;&lt;/a&gt;&lt;br /&gt;&quot;);  
+  client.println(&quot;&lt;/html&gt;&quot;);
+ 
+  delay(1);
+  Serial.println(&quot;Client disonnected&quot;);
+  Serial.println(&quot;&quot;);
+}
+</pre>
+<p>Druga metoda pisanja i pokretanja programa na ESP-u je pomoću <b>MicroPythona</b> - <i>open source</i> interpretera Python programskog jezika. Jednostavnost Python-a čini MicroPython odličnim izborom za početnike koji nisu još upoznati za programiranjem i ovim hardware-om. Sadrži i nekoliko sljedećih unikatnih svojstava koji ga odvajaju od ostalih ugrađenih sustava<sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[10]</a></sup>:
+</p>
+<ul><li> interaktivan RELP (read-evaluate-print loop) koji omogućava izvršavanje koda bez prethodnog kompajliranja
+</li><li> opsežni izbor biblioteka za izvršavanje raznolikih zadataka
+</li><li> proširivost sa C/C++ <i>low-level</i> funkcijama
+</li></ul>
+<p>Kako bi MicroPython mogli koristiti na ESP-u potrebno ga je prije toga flash-ati firmware sa kompajliranim MicroPython-om koji je dostupan na ovom linku: <a href="http://micropython.org/download" class="external free" rel="nofollow">http://micropython.org/download</a>. Detaljne upute se nalaze na <a href="https://learn.adafruit.com/building-and-running-micropython-on-the-esp8266?view=all#overview" class="external free" rel="nofollow">https://learn.adafruit.com/building-and-running-micropython-on-the-esp8266?view=all#overview</a>. 
+</p><p>Važno je napomenuti da, za razliku od Arduino-a, MicroPhython po defaultu zahtijeva dvije datoteke - boot.py i main.py. Boot.py datoteka je prva datoteka koja se izvršava pri paljenju ili resetiranju, a sadrži <i>low-level</i> kod koji postavlja mikrokontroler prije završetka bootanja. Main.py datoteka, koja se pokreće sljedeća po redu, bi trebala sadržavati sve glavne skripte koje bi željeli pokretati na ESP-u <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[11]</a></sup>.
+</p><p>Slijedi primjer koda napisan u MicroPythonu koji, ovisno o veličini buke koja se stvara na Sound Detector-u, pali i gasi LED lampicu.
+</p>
+<pre>
+import machine
+import time
+pin = machine.Pin(2, machine.Pin.OUT)
+adc = machine.ADC(0)
+while True:
+    print('ADC: ' + str(adc.read()))
+    volts = (adc.read()*3.3)/1024;
+
+    if(volts &gt;= 1.0):
+        pin.low()
+    else:
+        pin.high()
+        
+    time.sleep(0.25)
+</pre>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="O_SparkFun_Sound_Detector-u"> O SparkFun Sound Detector-u </span></h1>
+<p>Sound Detector, proizveden od tvrtke SparkFun je mala pločica koja kombinira mikrofon i nekoliko sklopova za obradu. Osim audio outputa, pruža i binarnu indikaciju prisutnosti zvuka i analognu reprezentaciju amplitude. Zanimljiva komponenta je i crvena LED lampica koja svijetli pri prisutnosti nekog zvuka. Na slici 3. je prikazana ova komponenta <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[5]</a></sup>.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sound_Detector.jpg" class="image"><img alt="" src="../images/thumb/c/cc/Sound_Detector.jpg/600px-Sound_Detector.jpg" width="600" height="336" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sound_Detector.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 3. SparkFun Sound Detector (Izvor: <a href="https://learn.sparkfun.com/tutorials/sound-detector-hookup-guide" class="external autonumber" rel="nofollow">[3]</a>)</div></div></div></div>
+<p>Kako bi započeli koristiti Sound Detector potrebno ga je spojiti na neko napajanje (između 3.5 i 5.5V), po mogućnosti na ono od 5 Volti. Na sljedećem grafu su prikazana tri moguća outputa koje pruža ova pločica. Tamnozeleni trag na grafu je audio output Sound Detectora, tj. audio napon. Svijetlozeleni trag označava tzv. <i>envelope</i> output, tj. amplitudu zvuka koja se povećava što je zvuk kojeg mikrofon očitava glasniji. Posljednji, crveni trag, označava <i>gate</i> output. Ovaj output je nizak u slučaju tišine, a visok kada detektira neki zvuk <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[5]</a></sup>.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sound_detector_waves.png" class="image"><img alt="" src="../images/thumb/3/31/Sound_detector_waves.png/600px-Sound_detector_waves.png" width="600" height="345" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Sound_detector_waves.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 4. Pimjer grafa outputa Sound Detector-a (Izvor: <a href="https://learn.sparkfun.com/tutorials/sound-detector-hookup-guide" class="external autonumber" rel="nofollow">[4]</a>)</div></div></div></div>
+<p><br />
+U srcu Sound Detector-a nalazi se trajno magnetizirana kapsula bez koje ne bi bila moguća pretvorba akustične u električnu energiju. Unutar kapsule se nalazi dijafragma koja je zapravo ploča od malog kondenzatora. Kondenzator kreira otporni djelitelj (eng. <i>voltage divider</i>) te se miče kao reakcija na zvuk gdje se kapacitet mijenja što se ploče približavaju ili udaljavaju. Sound detector je analogni sktop te je to kao takav osjetljiviji na buku na izvoru napajanja nego većina drugih digitalnih sklopova. Podešen je na umjerenu osjetljivost pa se kod direktnog pričanja u mikrofon ili pljeskanjem ruku <i>gate</i> output okida <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[5]</a></sup>
+</p><p>Primjer demo koda u kojem su prikazane dvije različite metode korištenja Sound Detector-a (<i>envelope</i> i <i>gate</i> output) je prikazan u nastavku <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[5]</a></sup>.
+</p>
+<pre>
+/******************************************************************************
+ * sound_detector_demo.ino
+ * Sound detector sample sketch
+ * Byron Jacquot @ SparkFun Electronics
+ * February 19, 2014
+ * https://github.com/sparkfun/Sound_Detector
+ * 
+ * The gate output (a binary indication that is high when sound
+ * is present, and low when conditions are quiet) is used to fire a pin-change 
+ * ISR, which lights an LED when the sound is present.  The envelope output 
+ * (an analog voltage to rises to indicate the amplitude of the sound) is 
+ * sampled in the loop(), and it prints an indication of the level to the 
+ * serial terminal. 
+ *
+ * For more details about the Sound Detector, please check the hookup guide.
+ *
+ * Connections:
+ * The Sound Detector is connected to the Adrduino as follows:
+ * (Sound Detector -&gt; Arduino pin)
+ * GND → GND
+ * VCC → 5V
+ * Gate → Pin 2
+ * Envelope → A0
+ * 
+ * Resources:
+ * Additional library requirements: none
+ * 
+ * Development environment specifics:
+ * Using Arduino IDe 1.0.5
+ * Tested on Redboard, 3.3v/8MHz and 5v/16MHz ProMini hardware.
+ * 
+ * This code is beerware; if you see me (or any other SparkFun employee) at the
+ * local, and you've found our code helpful, please buy us a round!
+ * 
+ * Distributed as-is; no warranty is given.
+ ******************************************************************************/
+
+// Define hardware connections
+#define PIN_GATE_IN 2
+#define IRQ_GATE_IN  0
+#define PIN_LED_OUT 13
+#define PIN_ANALOG_IN A0
+
+// soundISR()
+// This function is installed as an interrupt service routine for the pin
+// change interrupt.  When digital input 2 changes state, this routine
+// is called.
+// It queries the state of that pin, and sets the onboard LED to reflect that 
+// pin's state.
+void soundISR()
+{
+  int pin_val;
+
+  pin_val = digitalRead(PIN_GATE_IN);
+  digitalWrite(PIN_LED_OUT, pin_val);   
+}
+
+void setup()
+{
+  Serial.begin(9600);
+
+  //  Configure LED pin as output
+  pinMode(PIN_LED_OUT, OUTPUT);
+
+  // configure input to interrupt
+  pinMode(PIN_GATE_IN, INPUT);
+  attachInterrupt(IRQ_GATE_IN, soundISR, CHANGE);
+
+  // Display status
+  Serial.println(&quot;Initialized&quot;);
+}
+
+void loop()
+{
+  int value;
+
+  // Check the envelope input
+  value = analogRead(PIN_ANALOG_IN);
+
+  // Convert envelope value into a message
+  Serial.print(&quot;Status: &quot;);
+  if(value &lt;= 10)
+  {
+    Serial.println(&quot;Quiet.&quot;);
+  }
+  else if( (value &gt; 10) &amp;&amp; ( value &lt;= 30) )
+  {
+    Serial.println(&quot;Moderate.&quot;);
+  }
+  else if(value &gt; 30)
+  {
+    Serial.println(&quot;Loud.&quot;);
+  }
+
+  // pause for 1 second
+  delay(1000);
+}
+
+</pre>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Streamanje_zvuka"> Streamanje zvuka </span></h1>
+<p>Pojam streamanja koristimo kod multimedijskog sadržaja koji se konstantno dostavlja i prezentira krajnjem korisniku od strane pošiljatelja  (eng. <i>provider</i>). Klijent pri tome može koristiti neki <i>media player</i> kako bi reproducirao te podatke, primjerice digitalnu datoteku, video ili pjesmu). Od 2016. godine se streamanje generalno shvaća kao slučaj gdje korisnik putem interneta gleda video ili sluša audio sadržaj na nekom ekranu (PC-a, smartphone-a itd.) i preko zvučnika. Da bi mogao reproducirati tu datoteku, korisnik ju prethodno ne mora cijelu preuzeti. Postoji i nekoliko izazova kod streamanja putem interneta kao što je brzina veze koja može uzrokovati stanke pri kontinuiranom dohvaćanju podataka ili neprikladan software na računalu korisnika <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[8]</a></sup>.
+</p><p><b>Live streaming</b> se odnosi na Internetsko streamanje pri čemu se sadržaj dohvaća i prikazuje u realnom vremenu kao što je to slučaj primjerice kod izravnog prijenosa na televiziji. Na internetu veliki broj platformi za pregledavanje slika i video sadržaja podržava ovakvu tehnologiju. Neki od primjera su YouTube, Twitch, Instagram itd.
+</p>
+<h2> <span class="mw-headline" id="WAV_format"> WAV format </span></h2>
+<p>Za WAV format možemo reći da je jedan od najosnovnijih audio formata. Razvijen je od strane Microsoft-a i IBM-a te je relativno labavo što daje za posljedicu da postoji veliki broj trenutnih WAV datoteka koje teoretski ne bi trebale raditi, ali nekako rade. 
+</p><p>WAV datoteke se uobičajeno spremaju bez kompresije, što znači da mogu biti poprilično velike, ali ne mogu premašiti 4GB. Razlog je što je zaglavlje datoteke integer od 32 bita. Spremaju se u binarnom obliku, a sastoje se od komadića (eng. <i>chunk</i>) pri čemu svaki komadić daje neku informaciju o podacima u datoteci. Svaki komadić ima svoju svrhu i specifično je strukturiran pri čemu je i poredak bitan. Važno je napomenuti da svaki komadić, uključujući i zaglavlje datoteke, započinje za četiri znaka (byte) koji definiraju <i>sGroupID</i>. Na sljedećoj slici je ilustrirana struktura WAV datoteke koja će u nastavku biti detaljnije objašnjena <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:WAV_struktura.png" class="image"><img alt="" src="../images/thumb/3/3b/WAV_struktura.png/600px-WAV_struktura.png" width="600" height="563" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:WAV_struktura.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 5. Struktura WAV formata (Izvor: <a href="http://soundfile.sapp.org/doc/WaveFormat/" class="external autonumber" rel="nofollow">[5]</a>)</div></div></div></div>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Zaglavlje"> Zaglavlje </span></h3>
+<p>Iako se prema WAV specifikaciji zaglavlje ne tretira kao komadić, ono ipak dolazi prvo u svakoj WAV datoteci. Izgleda na sljedeći način<sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>: 
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Naziv
+</th>
+<th> Vrsta podatka
+</th>
+<th> Vrijednost
+</th>
+<th> Opis
+</th></tr>
+<tr>
+<td> sGroupID (ChunkID)
+</td>
+<td> char[4]
+</td>
+<td> "RIFF"
+</td>
+<td style="width: 300px;"> Za WAV datoteke je ova vrijednost uvijek WAVE
+</td></tr>
+<tr>
+<td> dwFileLength (ChunkSize)
+</td>
+<td> uint
+</td>
+<td> varijabilna
+</td>
+<td style="width: 200px;"> Ukupna veličina datoteke, umanjena za 8 (za ignoriranje RIFF i WAVE teksta u zaglavlju)
+</td></tr>
+<tr>
+<td> sRiffType (Format)
+</td>
+<td> char[4]
+</td>
+<td> "WAVE"
+</td>
+<td style="width: 200px;"> Za WAV datoteke je ova vrijednost uvijek WAVE
+</td></tr></table>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Format_chunk"> Format chunk </span></h3>
+<p>Format komadić je zapravo <i>metadata</i> komadić. Specificira većinu stvari kao što je <i>sample rate</i>, <i>bit depth</i>, <i>broj kanala</i> itd. Prije nego prijeđemo na strukturu, važno je razjasniti nekoliko pojmova<sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>:
+</p>
+<ul><li> <i>Sample</i> - Pojedinačna, skalarna vrijednost koja reprezentira amplitudu zvučnog vala u jednom kanalu audio podataka
+</li><li> <i>Channel</i> - Samostalan valni oblik u audio podacima. Broj kanala je vrlo važan: jedan kanal je "Mono", dva kanala su "Stereo" - različiti su valovi za lijevi i desni zvučnik. Primjerice, 5.1 <i>surround sound</i> ima 5 kanala, od kojih je jedan za najniže zvukove te se šalje do <i>subwoofera</i>. Svaki kanal sadrži audio podatke koji su neovisni o svim ostalim kanalima iako će svi kanali biti jednake duljine
+</li><li> <i>Frame</i> - Sličan <i>sample</i>-u, ali u multi-kanalnom formatu - to je tzv. <i>snapshot</i> svih kanala u specifičnoj točki.
+</li><li> <i>Sampling Rate / Sample Rate - Broj </i>sample<i>-ova (ili </i>frame<i>-ova) koji postoje za svaku sekundu podatka. Označava se u Hz ili "po sekundi". Primjerice, audio CD kvalitete ima 44,100 </i>sample<i>-ova u sekundi. Viši </i>sample<i> znači i zvuk više kvalitete.</i>
+</li><li> <i>Bit Depth / Bits per Sample - Broj bitova po jednom </i>sample<i>-u. Česte vrijednosti su 8, 16 i 32 bita. Reprezentira se u tipu podatka kao što je byte, short ili integer. Viši </i>bit depth<i> povlači i višu preciznost </i>sample<i>-ova što ponovno rezultira u zvuku više kvalitete.</i>
+</li><li> <i>Block Align</i> - Broj bajtova u <i>frame</i>-u. Izračunava se multipliciranjem broja kanala sa brojem bajtova u <i>sample</i>-u. Da bi došli do tog broja, dijelimo <i>bit depth</i> sa 8.
+</li><li> <i>Average Bytes per Second</i> - Koristi se uobičajeno za alokaciju memorije, a jednako je umnošku <i>sampling rate</i> * <i>block align</i>.
+</li></ul>
+<table class="wikitable">
+
+<tr>
+<th> Naziv
+</th>
+<th> Vrsta podataka
+</th>
+<th> Vrijednost
+</th></tr>
+<tr>
+<td> sGroupID
+</td>
+<td> char[4]
+</td>
+<td> "fmt"
+</td></tr>
+<tr>
+<td> dwChunkSize
+</td>
+<td> uint
+</td>
+<td> varijabilna
+</td></tr>
+<tr>
+<td> wFormatTag
+</td>
+<td> ushort
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> wChannels
+</td>
+<td> ushort
+</td>
+<td> varijabilna
+</td></tr>
+<tr>
+<td> dwSamplesPerSec
+</td>
+<td> uint
+</td>
+<td> varijabilna
+</td></tr>
+<tr>
+<td> dwAvgBytesPerSec
+</td>
+<td> uint
+</td>
+<td> sampleRate * blockAlign
+</td></tr>
+<tr>
+<td> wBlockAlign
+</td>
+<td> ushort
+</td>
+<td> Channels * (dwBitsPerSample / 8)
+</td></tr>
+<tr>
+<td> dwBitsPerSample
+</td>
+<td> uint
+</td>
+<td> varijabilna
+</td></tr></table>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Data_chunk"> Data chunk </span></h3>
+<p>Data komadić je relativno jednostavan. Sadrži sGroupID, duljinu podataka i same podatke. Ovisno o odabranoj vrijednosti <i>bit depth</i>-a, razlikovat će se i tip polja <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>.
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Naziv
+</th>
+<th> Vrsta podatka
+</th>
+<th> Vrijednost
+</th></tr>
+<tr>
+<td> sGroupID
+</td>
+<td> char[4]
+</td>
+<td> "data"
+</td></tr>
+<tr>
+<td> dwChunkSize
+</td>
+<td> uint
+</td>
+<td> varijabilna
+</td></tr>
+<tr>
+<td> sampleData
+</td>
+<td> byte[]/short[]/float[]
+</td>
+<td> sample data
+</td></tr></table>
+<p>Za <i>sample data</i> je važno napomenuti da svaki element polja podataka može biti pozitivan, negativan ili 0. Također je bitan i opseg svakog od pojedinih elemenata. Pošto svaki <i>sample</i> predstavlja aplitudu, moramo uzeti u obzir minimalnu i maksimalnu aplitudu temeljem tipa podatka kojeg smo odabrali. Tipovi su: byte[] za 8-bitni audio, short[] za 16-bitni, a float[] za 32-bitni audio <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>. 
+</p><p>Rasponi vrijednosti za svaki od tipova podataka su <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>:
+</p>
+<ul><li> 8-bitni audio: –128 to 127 
+</li><li> 16-bitni audio: –32760 do 32760 
+</li><li> 32-bitni audio: –1.0f do 1.0f 
+</li></ul>
+<p>Kreiranje wave datoteke izgleda poput sastavljanja zaglavlja, Format chunk-a i Data chunk-a i njihovog zapisivanja u binarnom obliku u tom istom poretku <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[9]</a></sup>.
+</p><p>Na slici 6. nalazi se primjer sturkture prvih 72 bajta WAVE datoteke pri čemu su bajtovi prikazani kao heksadekadski brojevi:
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Primjer_WAV_filea.png" class="image"><img alt="" src="../images/thumb/0/03/Primjer_WAV_filea.png/600px-Primjer_WAV_filea.png" width="600" height="395" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Primjer_WAV_filea.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 6. Primjer WAV datoteke (Izvor: <a href="http://soundfile.sapp.org/doc/WaveFormat/" class="external autonumber" rel="nofollow">[6]</a>)</div></div></div></div>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Rje.C5.A1enje_projekta"> Rješenje projekta </span></h1>
+<p>U ovom poglavlju biti će objašnjen način na koji je riješen zadani problem, s tehničkog i teoretskog pogleda.
+</p>
+<h2> <span class="mw-headline" id="Tehni.C4.8Dka_implementacija"> Tehnička implementacija </span></h2>
+<p>Za realizaciju ovog projekta korištene su ove komponente:
+</p>
+<ul><li> <b>NodeMCU ESP8266 mikrokontroler</b>
+</li><li> <b>SparkFun Sound Detector</b>
+</li><li> <b>Female-to-female kablovi koji povezuju pinove</b>
+</li><li> <b>Micro-B Male-to-Male USB kabel</b>
+</li></ul>
+<p>Za spajanje ESP-a i Sound Detector-a nužno je bilo povezani odgovarajuće pinove na obje komponente. Temeljem dokumentacije komponenti povezane su na sljedeći način (sa lijeve strane se nalaze oznake pinova ESP-a, a sa desne Sound Detector-a):
+</p>
+<ul><li> <b>GND - GND</b>
+</li><li> <b>Vin - VCC</b>
+</li><li> <b>A0 - AUDIO</b>
+</li></ul>
+<p>Kao što je u prethodnim poglavljima objašnjeno, GND komponenta definira uzemljenje, VCC je napon koji treba dovesti do Sound Detector-a - u ovom slučaju je to napon od 5V. Kroz razvoj projekta je testiran rad i sa opcijom napajanja od 3.3V, u kojem je slučaju kvaliteta izlazne datoteke je bila vidljivo slabija (prisutno je više šumova). 
+</p><p>A0 je jedini 10-bitni analogno-digitalni pretvornik na korištenom ESP-u te je to bila jedina opcija pristupa, pošto je analogan format zvuka pri snimanju, no kako bi sa njime mogli manipulirati i u ovom slučaju pretvoriti ga u odgovarajući audio format, potrebno ga je pretvoriti u digitalni oblik. U slučaju tišine je vrijednost ADC-a iznosila polovicu skale - 512 bitova.
+</p><p>Na sljedećoj slici je prikazan objašnjeni način spajanja.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Spojene_komponente.jpg" class="image"><img alt="" src="../images/thumb/9/97/Spojene_komponente.jpg/800px-Spojene_komponente.jpg" width="800" height="450" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Spojene_komponente.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 7. Način spajanja Sound Detectora sa ESP8266 mikrokontrolerom</div></div></div></div>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Obja.C5.A1njenje_rje.C5.A1enja"> Objašnjenje rješenja </span></h2>
+<p>Rješenje projekta možemo podijeliti na nekoliko komponenti. Prvi dio cijele slagalice je ESP koji ima ulogu odašiljača zvuka koji se dohvaća na Sound Detector-u. Prilikom spajanja ESP-a na računalo, upali se LED lampica na obadvije komponente, a mikrokontroler se spaja na odgovarajuću Wi-Fi mrežu za koju su postavljeni parametri u main datoteci te čeka spajanje klijenta koji želi dohvatiti audio podatke. Nakon što se poveže, ispisuje se IP adresa mikrokontrolera. Na slici 8. je prikazan opisani proces na Serial Monitor-u u Arduino IDE-u.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:602px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Serial_Monitor.jpg" class="image"><img alt="" src="../images/thumb/8/81/Serial_Monitor.jpg/600px-Serial_Monitor.jpg" width="600" height="344" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Serial_Monitor.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 8. Prikaz spajanja u Serial Monitor-u</div></div></div></div>
+<p><br />
+U drugom dijelu dolazimo do klijentske aplikacije napisane u node.js-u koja se spaja na spomenutu IP adresu i socket (u ovo primjeru su to adresa 192.168.1.19 i socket 3443). Kako bi bili u mogućnosti pokrenuti tu aplikaciju potrebno je prethodno instalirati node.js na računalo te u <i>command prompt</i>-u ući u direktorij u kojem je pohranjena datoteka datoteka application.js. Pokretanje node.js aplikacije izvršava se naredbom <i>node application.js</i>. Na ekranu bi se trebao pojaviti tekst prikazan na slici 9. koji prikazuje dohvaćenje komadiće u heksadekadskom obliku.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:978px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nodejs_primjer.jpg" class="image"><img alt="" src="../images/4/4a/Nodejs_primjer.jpg" width="976" height="512" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Nodejs_primjer.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Slika 9. Dohvaćanje podataka u Node.js-u</div></div></div></div>
+<p><br />
+Nakon što su dohvaćeni svi podaci u prethodno zadanom vremenskom intervalu dohvaćanja, kreira se .wav datoteka koju je moguće reproducirati u nekoj aplikaciji za audio ili video reprodukciju poput VLC playera. Primjer gotove wav datoteke u koju je spremljen rezultat snimanja ovog projekta nalazi se na sljedećem linku: <a href="https://www.dropbox.com/s/zlf2txqlq6jewqi/test.wav?dl=0" class="external free" rel="nofollow">https://www.dropbox.com/s/zlf2txqlq6jewqi/test.wav?dl=0</a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Programski_kod"> Programski kod </span></h2>
+<p>Programski kod je napisan u programskim jezicima C i JavaScript. Modificiran na temelju primjera sličnog projekta, ali na Particle Photon mikrokontroleru <sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[12]</a></sup>. 
+</p><p>main.ino program je <i>skecth</i> napisan koristeći tekstualni editor u Arduino IDE-u. Sastoji se od nekoliko funkcija čije će zadaće biti objašnjene u nastavku<sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[13]</a></sup><sup><a href="Integracija_ESP8266_modula_i_mikrofona.html#Literatura">[14]</a></sup>:
+</p>
+<ul><li> <b>setup()</b> - Funkcija koja se poziva kod pokretanja <i>sketch</i>-a. Koristi se za inicijaliziranje varijabli, pin modova, početak korištenja biblioteka itd. Pokreće se samo jednom i to nakon svakog uključivanja mikrokontrolera. U ovom programu ima i ulogu povezivanja na zadanu Wi-Fi mrežu te pokretanja servera.
+</li><li> <b>loop()</b> - Funkcija koja se konstantno vrti u petlji što dozvoljava programu da se mijenja i odgovara. Koristi se za aktivno kontroliranje mikrokontrolera. U ovom programu provjerava postoji li klijent koji se spojio na pokrenuti server te poziva funkciju listenAndSend() za snimanje zvuka.
+</li><li> <b>listenAndSend()</b> - Funkcija koja snima i šalje podatke. Kako ESP radi na 80 Hz, znači da se petlje izvode otprilike 1/80s što je točno 125 mikrosekundi. Nakon što se snimi sample odgovarajuće duljine, šalje se klijentu.
+</li><li> <b>readMic()</b> - Funkcija u kojoj se očitava vrijednost sa A0 (ADC) pina i sprema u uint16_t varijablu (uint16_t koristimo kako bismo odredili točnu veličinu varijable, jer int na razičitim platformama može imati različite veličine) nakon čega punimo audio buffer sa pročitanom vijednošću.
+</li><li> <b>copyAudio()</b> - Funkcija iz koje se kopira iz audio buffera u transfer buffer. 
+</li><li> <b>sendAudio()</b> - Funkcija koja, ukoliko je primatelj audia spojen, mu putem socketa šalje snimljeni sample, a ako nije, tada snimljeni komad ispisuje na serijski izlaz.
+</li><li> <b>writeSocket()</b> - Pošto se mrežom može poslati samo buffer čije su vrijednosti unutar 8bita, tj. uint8, a buffer aplikacije ima vrijednosti do 16 bita, se u ovoj funkciji radi konverzija.
+</li></ul>
+<h3> <span class="mw-headline" id="Firmware_-_main.ino"> Firmware - main.ino </span></h3>
+<pre>
+#include &lt;ESP8266WiFi.h&gt;
+#include &lt;WiFiClient.h&gt;
+
+#define AUDIO_BUFFER_MAX 8192
+
+int audioStartIdx = 0, audioEndIdx = 0;
+uint16_t audioBuffer[AUDIO_BUFFER_MAX];
+uint16_t txBuffer[AUDIO_BUFFER_MAX];
+
+// version without timers
+unsigned long lastRead = micros();
+
+// WiFi paremeters
+char* ssid = &quot;Hotspot&quot;;
+char* password = &quot;xxxxxxxx&quot;;
+
+// LED Pin on the board
+int ledPin = 2;
+
+WiFiClient checkClient;
+WiFiClient audioClient;
+
+// Start a TCP Server on port 3443
+WiFiServer server(3443);
+
+void setup() {
+    Serial.begin(115200);
+    delay(10);
+  
+    pinMode(A0, INPUT);
+    pinMode(ledPin, OUTPUT);
+   
+    // Connect to WiFi network
+    Serial.println();
+    Serial.println();
+    Serial.print(&quot;Connecting to &quot;);
+    Serial.println(ssid);
+   
+    WiFi.begin(ssid, password);
+   
+    while (WiFi.status()&#160;!= WL_CONNECTED) {
+      delay(500);
+      Serial.print(&quot;.&quot;);
+    }
+  
+    lastRead = micros();
+    server.begin();
+    Serial.println(&quot;Server started&quot;);
+  
+    // Print the IP address
+    Serial.print(&quot;Use this URL to connect: &quot;);
+    Serial.print(&quot;http://&quot;);
+    Serial.print(WiFi.localIP());
+    Serial.println(&quot;/&quot;);
+
+}
+
+void loop() {
+    checkClient = server.available();
+
+    if (!checkClient) {
+      return;
+    }
+
+    if (checkClient.connected()) {
+        audioClient = checkClient; 
+        Serial.println(&quot;Client connected&quot;);
+    }
+
+    //listen for 1000ms, taking a sample every 125us,
+    //and then send that chunk over the network.
+    listenAndSend(1000);
+
+}
+
+void listenAndSend(int delay) {
+    unsigned long startedListening = millis();
+    
+    while ((millis() - startedListening) &lt; delay) {
+        unsigned long time = micros();
+        
+        if (lastRead &gt; time) {
+            // time wrapped?
+            //lets just skip a beat for now, whatever.
+            lastRead = time;
+        }
+        
+        //125 microseconds is 1/8000th of a second
+        if ((time - lastRead) &gt; 125) {
+            lastRead = time;
+            readMic();
+        }
+    }
+    sendAudio();
+}
+
+
+// Callback for Timer 1
+void readMic(void) {
+    uint16_t value = analogRead(A0);
+    if (audioEndIdx &gt;= AUDIO_BUFFER_MAX) {
+        audioEndIdx = 0;
+    }
+    audioBuffer[audioEndIdx++] = value;
+}
+
+void copyAudio(uint16_t *bufferPtr) {
+    //if end is after start, read from start-&gt;end
+    //if end is before start, then we wrapped, read from start-&gt;max, 0-&gt;end
+    
+    int endSnapshotIdx = audioEndIdx;
+    bool wrapped = endSnapshotIdx &lt; audioStartIdx;
+    int endIdx = (wrapped)&#160;? AUDIO_BUFFER_MAX&#160;: endSnapshotIdx;
+    int c = 0;
+    
+    for(int i=audioStartIdx;i&lt;endIdx;i++) {
+        // do a thing
+        bufferPtr[c++] = audioBuffer[i];
+    }
+    
+    if (wrapped) {
+        //we have extra
+        for(int i=0;i&lt;endSnapshotIdx;i++) {
+            // do more of a thing.
+            bufferPtr[c++] = audioBuffer[i];
+        }
+    }
+    
+    //and we're done.
+    audioStartIdx = audioEndIdx;
+    
+    if (c &lt; AUDIO_BUFFER_MAX) {
+        bufferPtr[c] = -1;
+    }
+}
+
+// Callback for Timer 1
+void sendAudio(void) {
+    copyAudio(txBuffer);
+    
+    int i=0;
+    uint16_t val = 0;
+        
+    if (audioClient.connected()) {
+       write_socket(audioClient, txBuffer);
+    }
+    else {
+        while( (val = txBuffer[i++]) &lt; 65535 ) {
+            Serial.print(val);
+            Serial.print(',');
+        }
+        Serial.println(&quot;DONE&quot;);
+    }
+}
+
+// an audio sample is 16bit, we need to convert it to bytes for sending over the network
+void write_socket(WiFiClient socket, uint16_t *buffer) {
+    int i=0;
+    uint16_t val = 0;
+    
+    int tcpIdx = 0;
+    uint8_t tcpBuffer[1024];
+    
+    while( (val = buffer[i++]) &lt; 65535 ) {
+        if ((tcpIdx+1) &gt;= 1024) {
+            socket.write((uint8_t*)tcpBuffer, tcpIdx);
+            tcpIdx = 0;
+        }
+        
+        tcpBuffer[tcpIdx] = val &amp; 0xff;
+        tcpBuffer[tcpIdx+1] = (val &gt;&gt; 8);
+        tcpIdx += 2;
+    }
+    
+    // any leftovers?
+    if (tcpIdx &gt; 0) {
+        socket.write((uint8_t*)tcpBuffer, tcpIdx);
+    }
+}
+</pre>
+<p>Datoteka server.js se pokreće na klijentu, a zadatak joj je osluškivanje podataka na definiranom portu i IP adresi i kreiranje WAV datoteke prema prethodno objašnjenim kriterijima.
+</p>
+<h3> <span class="mw-headline" id="Server_-_server.js"> Server - server.js </span></h3>
+<pre>
+
+// ESP8266 IP address
+
+var settings = {
+	ip: &quot;192.168.1.6&quot;,
+	port: 3440
+};
+
+
+/**
+ * Created by middleca on 7/18/15.
+ */
+
+
+//based on a sample from here
+//http://stackoverflow.com/questions/19548755/nodejs-write-binary-data-into-writablestream-with-buffer
+
+
+var fs = require(&quot;fs&quot;);
+
+var samplesLength = 1000;
+var sampleRate = 8000;
+
+var outStream = fs.createWriteStream(&quot;test.wav&quot;);
+
+var writeHeader = function() {
+
+	var b = new Buffer(1024);
+
+	b.write('RIFF', 0);
+
+	/* file length */
+	b.writeUInt32LE(32 + samplesLength * 2, 4);
+	//b.writeUint32LE(0, 4);
+
+	b.write('WAVE', 8);
+	
+	/* format chunk identifier */
+	b.write('fmt ', 12);
+	
+	/* format chunk length */
+	b.writeUInt32LE(16, 16);
+
+	/* sample format (raw) */
+	b.writeUInt16LE(1, 20);
+
+	/* channel count */
+	b.writeUInt16LE(1, 22);
+
+	/* sample rate */
+	b.writeUInt32LE(sampleRate, 24);
+
+	/* byte rate (sample rate * block align) */
+	b.writeUInt32LE(sampleRate * 2, 28);
+
+	/* block align (channel count * bytes per sample) */
+	b.writeUInt16LE(2, 32);
+
+	/* bits per sample */
+	b.writeUInt16LE(16, 34);
+
+	/* data chunk identifier */
+	b.write('data', 36);
+
+	/* data chunk length */
+	//b.writeUInt32LE(40, samplesLength * 2);
+	b.writeUInt32LE(0, 40);
+
+	outStream.write(b.slice(0, 50));
+};
+
+writeHeader(outStream);
+
+
+var net = require('net');
+console.log(&quot;connecting...&quot;);
+
+client = net.connect(settings.port, settings.ip, function () {
+
+    client.setNoDelay(true);
+
+    client.on(&quot;data&quot;, function (data) {
+
+        try {
+		console.log(&quot;GOT DATA&quot;);
+		outStream.write(data);
+		//outStream.flush();
+		console.log(&quot;got chunk of &quot; + data.length + &quot; bytes &quot;);
+		console.log(&quot;got chunk of &quot; + data.toString('hex'));
+	}
+
+        catch (ex) {
+		console.error(&quot;Er!&quot; + ex);
+        }
+    });
+});
+
+
+setTimeout(function() {
+	console.log('recorded for 3 seconds');
+	client.end();
+	outStream.end();
+	process.exit(0);
+}, 3 * 1000);
+</pre>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h1>
+<p>Premda rješenje projekta nije u cijelosti realizirano, početna ideja projekta bila je koliko zanimljiva, toliko i izazovna. Kao autoru ovog projekta, drago mi je da sam imao prilike isprobati primjer <i>IoT</i> tehnologije i "zagrepsti površinu" kroz jednu od mogućnosti koje ove tehnologije omogućavaju. Na projektu bi se, kao dodatak, mogao implementirati i niz drugih funkcionalnosti poput kontinuiranog streamanja, prepoznavanja glasa, direktnog outputa putem drugog ESP-a na neki zvučnik itd.
+</p><p>Smatram da ove male kartice poput ESP-a, koje su tek zaživjele u prethodnih nekoliko godina te koje su "pod haubom" zapravo daleko veće, imaju veliki potencijal u sadašnjosti, a i u budućnosti u različitim poljima života.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<ol><li> <i>Morgan J.</i>, A Simple Explanation Of 'The Internet Of Things', <a href="http://www.forbes.com/sites/jacobmorgan/2014/05/13/simple-explanation-internet-things-that-anyone-can-understand/#13f314456828" class="external free" rel="nofollow">http://www.forbes.com/sites/jacobmorgan/2014/05/13/simple-explanation-internet-things-that-anyone-can-understand/#13f314456828</a> dostupno 21.1.2017.
+</li><li> <a href="http://internetofthingsagenda.techtarget.com/definition/microcontroller" class="external free" rel="nofollow">http://internetofthingsagenda.techtarget.com/definition/microcontroller</a>, dostupno 21.1.2017.
+</li><li> <a href="https://en.wikipedia.org/wiki/NodeMCU#cite_note-nodemcu_firmware-4" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/NodeMCU#cite_note-nodemcu_firmware-4</a>, dostupno 21.1.2017.
+</li><li> <a href="https://www.seeedstudio.com/NodeMCU-v2-Lua-based-ESP8266-development-kit-p-2415.html#" class="external free" rel="nofollow">https://www.seeedstudio.com/NodeMCU-v2-Lua-based-ESP8266-development-kit-p-2415.html#</a> dostupno, 21.1.2017.
+</li><li> <i>Byron J.</i>, Sound Detector Hookup Guide, <a href="https://learn.sparkfun.com/tutorials/sound-detector-hookup-guide" class="external free" rel="nofollow">https://learn.sparkfun.com/tutorials/sound-detector-hookup-guide</a>, dostupno 21.1.2017.
+</li><li> <i>Jayakumar M.</i>, Quick Start to Nodemcu (ESP8266) on Arduino IDE, <a href="http://www.instructables.com/id/Quick-Start-to-Nodemcu-ESP8266-on-Arduino-IDE/" class="external free" rel="nofollow">http://www.instructables.com/id/Quick-Start-to-Nodemcu-ESP8266-on-Arduino-IDE/</a>, dostupno 21.1.2017.
+</li><li> ESP8266 WiFi Module Quick Start Guide, <a href="http://rancidbacon.com/files/kiwicon8/ESP8266_WiFi_Module_Quick_Start_Guide_v_1.0.4.pdf" class="external free" rel="nofollow">http://rancidbacon.com/files/kiwicon8/ESP8266_WiFi_Module_Quick_Start_Guide_v_1.0.4.pdf</a>, dostupno 21.1.2017.
+</li><li> <a href="https://en.wikipedia.org/wiki/Streaming_media" class="external free" rel="nofollow">https://en.wikipedia.org/wiki/Streaming_media</a>, dostupno 24.2.2017.
+</li><li> <i>dawate</i>, Intro to Audio Programming, Part 2: Demystifying the WAV Format, <a href="https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/" class="external free" rel="nofollow">https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/</a>, dostupno 24.1.2017.
+</li><li> MicroPython Basics: What is MicroPython?, <a href="https://learn.adafruit.com/micropython-basics-what-is-micropython/overview" class="external free" rel="nofollow">https://learn.adafruit.com/micropython-basics-what-is-micropython/overview</a>, dostupno 24.1.2017.
+</li><li> MicroPython Basics: Load Files &amp; Run Code, <a href="https://learn.adafruit.com/micropython-basics-load-files-and-run-code/boot-scripts" class="external free" rel="nofollow">https://learn.adafruit.com/micropython-basics-load-files-and-run-code/boot-scripts</a>, dostupno 24.1.2017.
+</li><li> <i>Middlecamp D.</i>, Sending sound over the internet!, <a href="https://www.hackster.io/middleca/sending-sound-over-the-internet-f097b4" class="external free" rel="nofollow">https://www.hackster.io/middleca/sending-sound-over-the-internet-f097b4</a>, dostupno 24.1.2017.
+</li><li> <a href="https://www.arduino.cc/en/Reference/Setup" class="external free" rel="nofollow">https://www.arduino.cc/en/Reference/Setup</a>, dostupno 25.1.2017.
+</li><li> <a href="https://www.arduino.cc/en/Reference/Loop" class="external free" rel="nofollow">https://www.arduino.cc/en/Reference/Loop</a>, dostupno 25.1.2017.
+</li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 108/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:9227-0!*!0!!hr!2!edit=0 and timestamp 20190203204157 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Integracija_ESP8266_modula_i_mikrofona.html">http://security.foi.hr/wiki/index.php/Integracija_ESP8266_modula_i_mikrofona</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Integracija_ESP8266_modula_i_mikrofona" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Integracija_ESP8266_modula_i_mikrofona.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Integracija_ESP8266_modula_i_mikrofona&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Integracija_ESP8266_modula_i_mikrofona.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Integracija_ESP8266_modula_i_mikrofona.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Integracija_ESP8266_modula_i_mikrofona&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Integracija_ESP8266_modula_i_mikrofona&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Integracija_ESP8266_modula_i_mikrofona.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Integracija_ESP8266_modula_i_mikrofona" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Integracija_ESP8266_modula_i_mikrofona" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Integracija_ESP8266_modula_i_mikrofona&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Integracija_ESP8266_modula_i_mikrofona&amp;oldid=41023" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 07:32, 26. siječnja 2017.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 7.732 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Integracija_ESP8266_modula_i_mikrofona", "wgTitle": "Integracija ESP8266 modula i mikrofona", "wgAction": "view", "wgArticleId": 9227, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 41023, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.558 secs. -->			</body>
+</html>

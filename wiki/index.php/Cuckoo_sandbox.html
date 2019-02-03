@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Cuckoo sandbox - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Cuckoo_sandbox&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Cuckoo_sandbox skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Cuckoo sandbox</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Cuckoo_sandbox.html#mw-head">orijentacija</a>,
+					<a href="Cuckoo_sandbox.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Cuckoo_sandbox.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Cuckoo_sandbox.html#Kori.C5.A1tenje"><span class="tocnumber">2</span> <span class="toctext">Korištenje</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Cuckoo_sandbox.html#Princip"><span class="tocnumber">3</span> <span class="toctext">Princip</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Cuckoo_sandbox.html#Cuckoo_Sandbox"><span class="tocnumber">4</span> <span class="toctext">Cuckoo Sandbox</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Cuckoo_sandbox.html#Kratka_povijest"><span class="tocnumber">5</span> <span class="toctext">Kratka povijest</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Cuckoo_sandbox.html#Kako_radi"><span class="tocnumber">6</span> <span class="toctext">Kako radi</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Cuckoo_sandbox.html#Instalacija"><span class="tocnumber">7</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Cuckoo_sandbox.html#Pokretanje"><span class="tocnumber">8</span> <span class="toctext">Pokretanje</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Cuckoo_sandbox.html#Gre.C5.A1ke_kod_pokretanja"><span class="tocnumber">9</span> <span class="toctext">Greške kod pokretanja</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Cuckoo_sandbox.html#Analize"><span class="tocnumber">10</span> <span class="toctext">Analize</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="Cuckoo_sandbox.html#Zeus"><span class="tocnumber">10.1</span> <span class="toctext">Zeus</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Cuckoo_sandbox.html#CryptoLocker"><span class="tocnumber">10.2</span> <span class="toctext">CryptoLocker</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Cuckoo_sandbox.html#Confiker"><span class="tocnumber">10.3</span> <span class="toctext">Confiker</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="Cuckoo_sandbox.html#Zaklju.C4.8Dak"><span class="tocnumber">11</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Cuckoo_sandbox.html#Literatura"><span class="tocnumber">12</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod">  Uvod  </span></h2>
+<div style="text-align: justify; line-height:1.6;">U računalnoj sigurnosti sandbox je sigurnosni mehanizam, odnosno virtualno okruženje kreirano od strane korisnika koje je izolirano od ostatka sustava te služi kako bi se operacijski sustav i podatke na računalu zaštitilo od namjerno ili slučajno kreiranih zlo namjernih programa, slučajnih ili pogrešnih izmjena postavki operacijskog sustava ili namjernog nanošenja štete samom operacijskom sustavu odnosno računalu. Sandbox aplikacije su jedan od najčešćih tehnika testiranja uglavnom štetnog software-a i datoteka .
+<p>Takvi sustavi repliciraju barem minimalne funkcionalnosti potrebne za testiranje određenog programa ili neke određene izmjene na sustavu za koje korisnik nije siguran kako će se ponašati ili želi saznati dodatne informacije o samom ponašanju sustava tokom neke svoje interakcije.
+Kod sandbox sustava mogu se izvršavati, isprobavati i testirati razne aplikacije, web adrese,mijenjati određene postavke ali na način da ih se izolira, odnosno da im se onemogući pristup ili mijenjanje računala na uglavnom štetan način. Može se ograničiti pristup određenim resursima računala poput memorije računala, tvrdom disku ili nekoj drugoj komponenti koja bi mogla biti ugrožena.
+Osim samih računala „sandboxing“ štiti i servere te njihove podatke koji bi inače mogli biti ugroženi i oštećeni. Zaštićeni su i sustavi za distribuciju programskog koda koji bi mogli biti povezani sa samim programom ili sustavom.
+</p><p>Osim računalnim resursima, pomoću sandbox sustava moguće je onemogućiti pristup određenom poslužitelju, podacima sa vanjskih, ne provjerenih medija gdje se vrlo često nalaze i prenose zloćudni kodovi te mreži čime se mogu spriječiti napadi iz nekih vanjskih sustava. Određuje se razina pristupa dijelovima na računalu odnosno svakom programu se dodjeljuje virtualni prostor unutar kojeg može djelovati na ograničen način.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ihontic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ihontic (stranica ne postoji)">Ihontic</a> 10:50, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Kori.C5.A1tenje"> Korištenje </span></h2>
+<p>Sandbox alati se najčešće koriste u sigurnosnim tvrtkama gdje je to neizostavan alat svakodnevnog poslovanja. Tim alatima poduzeća mogu testirati i izolirati neki netestirane promjene u kodu ili cjelokupno novi kod odnosno program te na temelju ishoda i raznih izvješća i praćenja detaljno razaznati što taj kod radi, kako se ponaša sustav i što se događa sa cjelokupnom okolinom. Isto tako ukoliko poduzeće primi neki kod od vanjsko suradnika, moguće je taj kod testirati i detaljno provjeriti. Sandbox sustavi su korisni takvim poduzećima ali i pojedincima jer mogu isprobavat i testirat software bez da naštete svojem sustavu što može biti vrlo pogubno. Također ti sustavi uvelike pomažu prilikom izrade određenih zaštita, poboljšanja i zakrpa na programima ali i cjelokupnim sustavima.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ihontic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ihontic (stranica ne postoji)">Ihontic</a> 10:50, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Princip"> Princip </span></h2>
+<p>Princip sandbox alata se često koristi kod programera na način da svoj kod, aplikaciju testiraju u svojem zaštićenom okruženju te pritom ispituju sve moguće scenarije, testiraju što se događa sa sustavom i aplikacijom te nakon što utvrde da je aplikacija sigurna i da funkcionira na način koji bi trebala, svoj kod prosljeđuju dalje svom timu ili na daljnji razvoj.
+</p>
+<h2> <span class="mw-headline" id="Cuckoo_Sandbox"> Cuckoo Sandbox </span></h2>
+<p>Cuckoo Sandbox je open source sistem izrađen od strane Cuckoo Foundation-a za automatsku dinamičku analizu malware-a, exploita, dokumenata, linkova i sumnjivih datoteka. Kako bi to postigao koristi razne komponente koje nadgledaju ponašanje zlonamjernih procesa prilikom izvršavanja u izoliranom okruženju. Cuckoo je dobar po tome što se sa njim može radit dinamička analiza, odnosno eventualni  maliciozni kod se prati i pokreče u realnom vremenu i okruženju a zatim se kasnije može odradit i statička analiza.
+</p><p><br />
+Cuckoo je napisan u programskom jeziku Python te se vrti na u virtualnom okruženju odnosno VirtualBox-u. Cuckoo je odličan alata no sami postupak dizanja i podešavanja okruženja nije previše „user-friendly“. Instalacija se ne vrši kroz gotov paket nego ručno sa mnogo detaljnih postupaka i koraka na Linux operacijskom sustavu te korištenjem virtualizacijskih softvera i Python-a. Nešto više o samoj instalacije spomenuto je kasnije.
+Preporučeno okruženje je GNU/Linux(najbolje Ubuntu) kao glavni host uređaj i Windows XP Service Pack 3 kao sustav koji se pokreće unutar virtualnog uređaja, tj kao gost. Osim navedene preporuke po službenoj dokumentaciji, Cuckoo se može pravilo pokrenut i na Mac OS X kao host i Vista ili Widnows 7 kao gost.
+</p><p>Prilikom pokretanja i analiziranja datoteka, Cuckoo prikuplja opsežne rezultate analize prikazujući pritom što ta datoteka odnosno zloćudni kod radi prilikom izvršavanja na izoliranom Windows sustavu.
+Prilikom analize, Cuckoo može prikupiti i generirati mnoge korisne podatke i rezultate te obavljati mnoge funkcije poput:
+</p>
+<ul><li>Spremanje datoteke koje su se kreirale, brisale i preuzele prilikom izvršavanja malware-a	
+</li><li>Nadgledanje win32 API poziva i funkcija
+</li><li>Nadgledanje i izvješćivanje o memoriji procesa od malware koji je pokrenut
+</li><li>Kreiranje snimke, traga mrežnog prometa u PCAP formatu
+</li><li>Izrađivanjeslike ekrana Windows-a snimljene tokom izvršavanja malware-a
+</li><li>Spremljen potpuni „memory dump“ računala 	
+</li><li>Primanje datoteka sa udaljenih URL-ova i njihovo analiziranje
+</li></ul>
+<p>Kako bi svi rezultati bili pregledniji, lakši za pregledavanje i dostupniji korisniku, Cuckoo može rezultate procesirati i kreirati različite oblike izvješća kao što su:
+</p>
+<ul><li>JSON izvješće	
+</li><li>HTML izvješće	
+</li><li>MAEC izvješće	
+</li><li>MongoDB 		
+</li><li>HPFeeds 	
+</li></ul>
+<p>Sam Cuckoo može analizirati sljedeće datoteke:
+</p>
+<ul><li>Izvršne Windows datoteke
+</li><li>DLL datoteke
+</li><li>PDF dokumente
+</li><li>Microsoft Office dokument
+</li><li>URL-ove HTML datoteke
+</li><li>PHP skripte
+</li><li>CPL datoteke
+</li><li>Visual Basic(VB) skripte
+</li><li>ZIP datoteke
+</li><li>Java JAR
+</li><li>Python datoteke
+</li></ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhrgar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhrgar (stranica ne postoji)">Dhrgar</a> 10:48, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Kratka_povijest"> Kratka povijest </span></h2>
+<p>Cuckoo Sandbox započeo je na „Google Summer of Code“ projektu 2010. godine unutar „The Honeynet Project“-a. Kreator samog Cuckoo Sandbox-a je Claudio Guarnieri koji je još uvijek glavni razvojni programer i voditelj samog projekta no od tada do danas je doživio veliki napredak i poboljšanja. Prvo beta izdanje programa objavljeno je u 5. mjesecu 2011. godine kad je i prvi put distribuiran. U 11. mjesecu 2011. godine puštena je u javnost verzija 0.2 kao prva stabilna verzija Cuckoo programa.
+Početko 2012. Cuucko objavljuje i Malwr.com koji predstavlja javnu,online pokrenutu verziju Cuckoo Sandbox-a sa potpuno integriranim korisničkim sučeljem gdje korisnici mogu predati neku datoteku na analizu i dobiti detaljno izvješće kao povratnu informaciju.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Thop&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Thop (stranica ne postoji)">Thop</a> 08:39, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Kako_radi"> Kako radi </span></h2>
+<p>Cuckoo započinje tako da kreira čistu snimku sustava te zatim kada se pokrenu određeni programi nadgleda, snima i istražuje promjene koje se događaju na sustavu uspoređujući pritom rezultate i otkriva sve maliciozne aktivnosti analiziranog sustava.
+Zahvaljujući svojem modularnom dizajnu Cuckoo može raditi kao samostalna aplikacija ali i biti integriran u neke druge okoline.
+Prilikom svake analize automatski se pokreće se nova izolirana virtualna mašina. Infrastruktura samog alata je sastavljena od glavnog host uređaja, odnosno Linux OS-a na kojem je instaliran Cuckoo i svi potrebni dodaci. Osim glavnog, host uređaja potreban je i “gost” odnosno guest mašina koja može biti virtualna mašina te u njoj određeni operacijski sustav ili fizički drugo računalo no takav način konfiguracije nije preporučljiv zbog mogućeg štetnog djelovanja na fizičku mašinu.
+</p><p>Glavi host uređaj izvršava glavne komponente sandbox-a koje rade cjelokupnu analizu dok su gostujuće, virtualne mašine izolirana okruženja gdje se zloćudni uzorak sigurno pokreće i analizira.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Arhitektura_h3.png" class="image"><img alt="Arhitektura h3.png" src="../images/thumb/d/d6/Arhitektura_h3.png/500px-Arhitektura_h3.png" width="500" height="332" /></a></div></div>
+<p>Slika 1: Arhitektura Cuckoo Sandbox-a<a href="https://cuckoo.readthedocs.org/en/latest/introduction/what/" class="external text" rel="nofollow">(izvor)</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Thop&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Thop (stranica ne postoji)">Thop</a> 08:39, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Instalacija"> Instalacija </span></h2>
+<p>Instalacija Cuckoo Sandboxa
+</p><p>Instalacija Cuckoo Sandboxa je dosta komplicirana i zahtjeva podosta vremena jer u slučaju da preskočite ikoji korak vjerovatno neće raditi i izgubiti ćete puno vremena za popravljanje problema kao u našem slučaju. Pa počnimo!
+</p><p>Na početku ažuriramo linux i ažuriramo sve pakete koji trebaju biti ažurirani sa naredbama:
+</p>
+<pre>          <code>sudo apt-get update
+          sudo apt-get upgrade</code>
+</pre>
+<p>Nakon ažuriranja trebamo instalirati okruženje u kojem će Cuckoo Sandbox raditi. Trebao python i toolkit za bazu podataka koje koristi sandbox.
+</p>
+<pre>          <code>sudo apt-get python
+          sudo apt-get install python-sqlalchemy python-bson</code>
+</pre>
+<p>Prema službenoj dokumentaciji Cuckoo Sandboxa sada instaliramo zavisnosti koje koriste Python i Cuckoo. Ove zavisnosti su nam potrebne kako bi koristili većinu Cuckoo-vih značajki:
+</p>
+<ul><li>Dpkt
+</li><li>Jinja2 
+</li><li>Magic 
+</li><li>Pydeep 
+</li><li>Pymongo 
+</li><li>Yara i Yara Python
+</li><li>Libvirt 
+</li><li>Bottlepy 
+</li><li>Django 
+</li><li>Pefile 
+</li><li>Chardet 
+</li></ul>
+<p><br />
+</p>
+<pre>          <code>sudo apt-get install python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet</code>
+</pre>
+<p>Kako bi instalirali ostale zavisnosti trebamo PIP na našem okruženju pa ga instaliramo sa 
+</p>
+<pre>          <code>sudo apt-get install python-pip
+          sudo pip install cybox</code>
+</pre>
+<p>Sada imamo PIP pa možemo instalirati ostale zavisnosti sa:
+</p>
+<pre>          <code>sudo pip install jinja2 pymongo bottle pefile django chardet</code>
+</pre>
+<p>Nakon ovoga idemo instalirati virtualbox i tcpdump te postaviti direktorij gdje će spremati logove.
+</p>
+<pre>          <code>sudo apt-get install virtualbox
+          sudo apt-get install tcpdump
+          sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump</code>
+</pre>
+<p>Sada možemo kreirati Cuckoo korisnika na linuxu sa
+</p>
+<pre>          <code>sudo adduser cuckoo
+          sudo usermod -G vboxusers cuckoo</code>
+</pre>
+<p>Nakon kreiranja usera instaliramo SSDEEP
+</p>
+<pre>          <code>sudo apt-get install ssdeep
+          sudo apt-get install python-pyrex # required for pyssdeep installation
+          sudo apt-get install subversion
+          sudo apt-get install libfuzzy-dev
+          sudo svn checkout <a href="http://pyssdeep.googlecode.com/svn/trunk/" class="external free" rel="nofollow">http://pyssdeep.googlecode.com/svn/trunk/</a> pyssdeep
+          cd pyssdeep
+          sudo python setup.py build
+          sudo python setup.py install </code>
+</pre>
+<p><br />
+</p><p>Pa trebamo Mongo
+</p>
+<pre>          <code>sudo apt-get install python-pymongo
+          sudo apt-get install mongodb</code>
+</pre>
+<p>YARA
+</p>
+<pre>          <code>sudo apt-get install g++
+          sudo apt-get install libpcre3 libpcre3-dev
+          sudo wget <a href="http://yara-project.googlecode.com/files/yara-1.6.tar.gz" class="external free" rel="nofollow">http://yara-project.googlecode.com/files/yara-1.6.tar.gz</a>
+          sudo  tar -xvzf yara-1.6.tar.gz
+          sudo  cd yara-1.6
+          sudo ./configure
+          sudo  make
+          sudo make check
+          sudo make install</code>
+</pre>
+<p><br />
+I Python Support
+</p>
+<pre>          <code>sudo wget <a href="http://yara-project.googlecode.com/files/yara-python-1.6.tar.gz" class="external free" rel="nofollow">http://yara-project.googlecode.com/files/yara-python-1.6.tar.gz</a>
+          sudo tar -xvzf yara-python-1.6.tar.gz
+          sudo cd yara-python-1.6
+          sudo python setup.py build
+          sudo python setup.py install</code>
+</pre>
+<p>Sada nakon instalacije svih potrebnih paketa možemo instalirati Cuckoo Sandbox. 
+Odite na <a href="http://cuckoosandbox.org/download.html" class="external free" rel="nofollow">http://cuckoosandbox.org/download.html</a> skinite zadnji verziju i ekstraktajte ju na desktop. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DownloadpageH3.png" class="image"><img alt="DownloadpageH3.png" src="../images/thumb/7/7a/DownloadpageH3.png/500px-DownloadpageH3.png" width="500" height="139" /></a></div></div> 
+<p>Sada treba složiti virtualnu mašinu koja će pokretati našeg hosta tj. Windows XP operativni sustav. Nakon  virtualke treba konfigurirati vezu između sandboxa i hosta, ovo je najvažniji dio same instalacije i kod ovog dijela smo naišli na najviše problema.
+</p><p>Prvo instaliramo Windows XP u virtual box. Instalacija izgleda isto kao i instalacija na normalnom računalu pa to nećemo objašnjavati ovdje. Jedina trebate zapamtiti ime koje ste postavili za virtualnu mašinu na kojoj se nalazi Windows u našem slučaju se zove “cuckoo1” kao što ćete vidjeti u config datotekama u nastavku. Nakon što smo instalirali Windowse trebamo na njih skinuti Python i Python Image Library koji je potreban za snimanje ekrana. 
+</p><p><br />
+Python možete pronaći na: <a href="https://www.python.org/getit/" class="external free" rel="nofollow">https://www.python.org/getit/</a>
+</p><p>Python Image Library na: <a href="http://www.pythonware.com/products/pil/" class="external free" rel="nofollow">http://www.pythonware.com/products/pil/</a>
+</p><p>Sada možemo skinuti i programe koje trebamo kako bi “pokretali” malware kao PDF čitače. 
+</p><p>OBAVEZNO: ugasiti ažuriranje Windowsa, ugasiti vatrozid, ugasiti obavijesti  te onemogućiti servise koji se automatski pokreću pokretanjem Windowsa.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:FirewallgasiH3.png" class="image"><img alt="FirewallgasiH3.png" src="../images/thumb/8/82/FirewallgasiH3.png/500px-FirewallgasiH3.png" width="500" height="403" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Gdje se gasi Firewall</div>  
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:UgasiNotificationeH3.png" class="image"><img alt="UgasiNotificationeH3.png" src="../images/thumb/d/dc/UgasiNotificationeH3.png/500px-UgasiNotificationeH3.png" width="500" height="402" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Gašenje notificationa</div>  
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ServisiRUNH3.png" class="image"><img alt="ServisiRUNH3.png" src="../images/thumb/1/12/ServisiRUNH3.png/300px-ServisiRUNH3.png" width="300" height="377" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Navigacija do servisa</div>   
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ServisiRUN2H3.png" class="image"><img alt="ServisiRUN2H3.png" src="../images/7/71/ServisiRUN2H3.png" width="349" height="193" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Pokretanje programa za kontrolu servisa</div>    
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ServisiAutoUpdateH3.png" class="image"><img alt="ServisiAutoUpdateH3.png" src="../images/thumb/1/10/ServisiAutoUpdateH3.png/500px-ServisiAutoUpdateH3.png" width="500" height="400" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Odabir servisa(Automatic Update) koji želimo ugasiti</div>   
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ServisiPROPERTISIH3.png" class="image"><img alt="ServisiPROPERTISIH3.png" src="../images/thumb/6/68/ServisiPROPERTISIH3.png/500px-ServisiPROPERTISIH3.png" width="500" height="400" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Ulaz u svojstva servisa</div>   
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ServisiPROPERTISIUGASIH3.png" class="image"><img alt="ServisiPROPERTISIUGASIH3.png" src="../images/3/3b/ServisiPROPERTISIUGASIH3.png" width="417" height="468" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Gašnje servisa klikom na tipku "Stop" i gašenje automatskog pokretanja servisa na opciji "Startup type:"</div>   
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ServisiFirewallH3.png" class="image"><img alt="ServisiFirewallH3.png" src="../images/thumb/3/34/ServisiFirewallH3.png/500px-ServisiFirewallH3.png" width="500" height="400" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Isti postupak potreban je za servis koji kontrolira firewall</div>   
+<p>Još nam nedostaje agent.py tj. program koji obavlja svu komunikaciju između virtualne mašine i sandboxa. Agent se nalazi u direktoriju od Cuckoo Sandboxa unutar foldera agent. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:AGENTH3.png" class="image"><img alt="AGENTH3.png" src="../images/thumb/8/8a/AGENTH3.png/500px-AGENTH3.png" width="500" height="338" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Lokacija agenta u Cuckoo Sandbox direktoriju</div>
+<p>Agenta trebate prebaciti na Windows kako god želite. Možete koristeći shared folder između virtualne mašine i ubuntua ili možete samo postaviti agenta na file hosting stranicu i skinuti ga direktno preko Internet Explorera u Windowsu. 
+Nakon što je agent skinut postavite ga na radnu površinu i pokrenite ga ako vidite sljedeći ekran onda ste instalirali sve pravilno u virtual boxu. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:AGENTradiH3.png" class="image"><img alt="AGENTradiH3.png" src="../images/thumb/e/ee/AGENTradiH3.png/500px-AGENTradiH3.png" width="500" height="403" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Agent pokrenut u virtualnoj mašini</div>      
+<p>Sada ugasite Windowse kako bi mogli postaviti adapter za internet preko kojega će virtualna mašina ići na internet. Adapter koji će virtualna mašina korisiti će biti hostonly i kreira se na sljedeći način(ovdje trebate ime vaše virtualne mašine):
+</p>
+<pre>          <code>vboxmanage hostonlyif create
+          vboxmanage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
+          vboxmanage modifyvm 'cuckoo1' --hostonlyadapter1 vboxnet0
+          vboxmanage modifyvm 'cuckoo1’' --nic1 hostonly</code>
+</pre>
+<p>Nakon što smo kreirali adapter naša mašina neće biti spojena na internet jer mora imati statičnu ip adresu. Naše postavke za ip adresu su bile sljedeće. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:InternetWindowsH3.png" class="image"><img alt="InternetWindowsH3.png" src="../images/thumb/e/e7/InternetWindowsH3.png/500px-InternetWindowsH3.png" width="500" height="400" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Postavke za statičnu ip adresu</div> 
+<p>Sada je konfiguracija virtualne mašine gotova i možemo napraviti snapshot koji će Cuckoo Sandbox svaki put pokretati kada mi pokrenemo našu analizu.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SnapshotWindowsH3.png" class="image"><img alt="SnapshotWindowsH3.png" src="../images/thumb/d/de/SnapshotWindowsH3.png/500px-SnapshotWindowsH3.png" width="500" height="365" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Kreiranje snapshota</div> 
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SnapshotWindows2H3.png" class="image"><img alt="SnapshotWindows2H3.png" src="../images/thumb/d/da/SnapshotWindows2H3.png/500px-SnapshotWindows2H3.png" width="500" height="401" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Imenovanje snapshota prije spremanja(Cuckoo Sandbox će automatski uzimati zadnju verziju snapshota</div> 
+<p>Još trebamo forwardati pakete kroz server kako bi internet radio. Koristeći sljedeće naredbe:
+</p>
+<pre>          <code>sudo iptables -A FORWARD -o eth0 -i vboxnet0 -s 192.168.56.0/24 -m conntrack --ctstate NEW -j ACCEPT
+          sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+          sudo iptables -A POSTROUTING -t nat -j MASQUERADE</code>
+</pre>
+<p>Nakon konfiguracije virtualne mašine dolazimo do konfiguracije Cuckoo Sandboxa. Moramo izmjeniti ili provjeriti sljedeće datoteke koje se nalaze u direktoriju od sandboxa u folderu naziva conf
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ConfSlikaH3.png" class="image"><img alt="ConfSlikaH3.png" src="../images/thumb/a/ad/ConfSlikaH3.png/500px-ConfSlikaH3.png" width="500" height="338" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Lokacija konfiguracijskih datoteka u Cuckoo Sandbox direktoriju</div> 
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ConfSlikeFajlovaH3.png" class="image"><img alt="ConfSlikeFajlovaH3.png" src="../images/thumb/0/06/ConfSlikeFajlovaH3.png/500px-ConfSlikeFajlovaH3.png" width="500" height="338" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Datoteke koje ćemo mijenjati ili provjeravati</div> 
+<ul><li>auxiliary.conf
+</li><li>cuckoo.conf
+</li><li>kvm.conf
+</li><li>virtualbox.conf
+</li></ul>
+<p>U nastavku ću prikazati koje smo dijelove config datoteka izmjenili kako bi osposobili Cuckoo Sandbox. 
+</p><p><br />
+</p>
+<pre>          <code>auxiliary.conf 
+          
+          [sniffer]
+          </code><code>#</code><code> Enable or disable the use of an external sniffer (tcpdump) [yes/no].
+          enabled = yes
+          </code><code>#</code><code> Specify the path to your local installation of tcpdump. Make sure this
+          </code><code>#</code><code> path is correct.
+          tcpdump = /usr/sbin/tcpdump
+          
+          </code><code>#</code><code> Specify the network interface name on which tcpdump should monitor the
+          </code><code>#</code><code> traffic. Make sure the interface is active.
+          interface = vboxnet0
+          
+          </code><code>#</code><code> Specify a Berkeley packet filter to pass to tcpdump.
+          </code><code>#</code><code> bpf = not arp</code>
+</pre>
+<p>Provjerite putanju za tcpdump koristeći naredbu:
+</p>
+<pre>          <code>locate tcpdump</code>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:TcpdumpH3.png" class="image"><img alt="TcpdumpH3.png" src="../images/thumb/7/7d/TcpdumpH3.png/500px-TcpdumpH3.png" width="500" height="249" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right:&#160;;">Provjera putanje tpcdump-a</div> 
+<pre>          <code>cuckoo.conf
+          
+          [cuckoo]
+          </code><code>#</code><code> Enable or disable startup version check. When enabled, Cuckoo will connect
+          </code><code>#</code><code> to a remote location to verify whether the running version is the latest
+          </code><code>#</code><code> one available.
+          version_check = off
+          
+          </code><code>#</code><code> Specify the name of the machinery module to use, this module will
+          </code><code>#</code><code> define the interaction between Cuckoo and your virtualization software
+          </code><code>#</code><code> of choice.
+          machinery = virtualbox
+          
+          </code><code>#</code><code> Enable creation of memory dump of the analysis machine before shutting
+          </code><code>#</code><code> down. Even if turned off, this functionality can also be enabled at
+          </code><code>#</code><code> submission. Currently available for: VirtualBox and libvirt modules (KVM).
+          memory_dump = on
+          
+          [resultserver]
+          </code><code>#</code><code> The Result Server is used to receive in real time the behavioral logs
+          </code><code>#</code><code> produced by the analyzer.
+          </code><code>#</code><code> Specify the IP address of the host. The analysis machines should be able
+          </code><code>#</code><code> to contact the host through such address, so make sure it's valid.
+          </code><code>#</code><code> NOTE: if you set resultserver IP to 0.0.0.0 you have to set the option
+          </code><code>#</code><code> `resultserver_ip` for all your virtual machines in machinery configuration.
+          ip = 192.168.56.1
+          </code>
+          
+</pre>
+<p>Ovdje treba ugasiti provjeru verzije, provjeriti ako je odabran virtual box kao software za virtualizaciju, uključiti memory_dump te postaviti ip servera koji postavljamo pod default gateway u Windowsima.
+</p>
+<pre>          <code>kvm.conf
+          
+          [kvm]
+          </code><code>#</code><code> Specify a comma-separated list of available machines to be used. For each
+          </code><code>#</code><code> specified ID you have to define a dedicated section containing the details
+          </code><code>#</code><code> on the respective machine. (E.g. cuckoo1,cuckoo2,cuckoo3)
+          machines = cuckoo1
+                     
+          [cuckoo1]
+          </code><code>#</code><code> Specify the label name of the current machine as specified in your
+          </code><code>#</code><code> libvirt configuration.
+          label = cuckoo1
+          
+          </code><code>#</code><code> Specify the operating system platform used by current machine
+          </code><code>#</code><code> [windows/darwin/linux].
+          platform = windows
+          
+          # Specify the IP address of the current virtual machine. Make sure that the
+          # IP address is valid and that the host machine is able to reach it. If not,
+          # the analysis will fail. You may want to configure your network settings in
+          # /etc/libvirt/&lt;hypervisor&gt;/networks/
+          ip = 192.168.56.102</code>
+</pre>
+<p><br />
+Ovdje postavljamo naziv naše virtualne mašine(cuckoo1) na sva mjesta gdje je to potrebno, provjeravamo ako je platforma postavljena na windows te odabiremo IP adresa naše virtualne mašine tj. ovaj ip upisujemo u statičku adresu Windowsa.
+</p>
+<pre>          <code>virtualbox.conf
+          
+          [virtualbox]
+          </code><code>#</code><code> Specify which VirtualBox mode you want to run your machines on.
+          </code><code>#</code><code> Can be "gui", "sdl" or "headless". Refer to VirtualBox's official
+          </code><code>#</code><code> documentation to understand the differences.
+          mode = gui
+          
+          </code><code>#</code><code> Path to the local installation of the VBoxManage utility.
+          
+          path = /usr/bin/VBoxManage
+          
+          </code><code>#</code><code> Specify a comma-separated list of available machines to be used. For each
+          </code><code>#</code><code> specified ID you have to define a dedicated section containing the details
+          </code><code>#</code><code> on the respective machine. (E.g. cuckoo1,cuckoo2,cuckoo3)
+          machines = cuckoo1
+          
+          [cuckoo1]
+          </code><code>#</code><code> Specify the label name of the current machine as specified in your
+          </code><code>#</code><code> VirtualBox configuration.
+          label = cuckoo1
+          
+          </code><code>#</code><code> Specify the operating system platform used by current machine
+          </code><code>#</code><code> [windows/darwin/linux].
+          platform = windows
+          
+          </code><code>#</code><code> Specify the IP address of the current virtual machine. Make sure that the
+          </code><code>#</code><code> IP address is valid and that the host machine is able to reach it. If not,
+          </code><code>#</code><code> the analysis will fail.
+          ip = 192.168.56.102</code>
+</pre>
+<p>Postavljamo mod virtual boxa na gui, provjeravamo ako je putanja do VBoxManage točna sa naredbom:
+</p>
+<pre>          <code>locate VBoxManage</code>
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:VboxmanageH3.png" class="image"><img alt="VboxmanageH3.png" src="../images/thumb/4/48/VboxmanageH3.png/500px-VboxmanageH3.png" width="500" height="249" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Provjera putanje VBoxManage-a</div> 
+<p>Promjenimo sve nazive koje potrebno u naziv naše virtualne mašine(cuckoo1), provjerimo platformu te unesemo ip na koji će se virtual box spajati tj preko kojeg će ip-a ići svi podatci.
+</p><p>Nakon konfiguracije naš sustav za analizu izgleda ovako:
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Graf_h3.png" class="image"><img alt="Graf h3.png" src="../images/thumb/6/62/Graf_h3.png/600px-Graf_h3.png" width="600" height="484" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Sustav za analizu</div> 
+<p>Sada smo napokon spremni pokrenuti i analizirati naš prvi file.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Thop&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Thop (stranica ne postoji)">Thop</a> 09:15, 20. siječnja 2015. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhrgar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhrgar (stranica ne postoji)">Dhrgar</a> 09:20, 20. siječnja 2015. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ihontic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ihontic (stranica ne postoji)">Ihontic</a> 09:24, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Pokretanje"> Pokretanje </span></h2>
+<p>U ovom dijelu objasnit ću i demonstrirat kako pokrenuti analizu malicioznog koda. Prikazat će se koraci na slikama koje smo uslikali kao slike zaslona, te naredbe koje smo koristili su bile unašanje u 3 različita terminala.
+</p><p>Prije nego što pojasnim kako se pokreče analiza, objasnit ću kako i od kud smo nabavili maliciozni kod. Prvo smo istražili na internetu koji su napoznatiji i najopasniji maliciozni kodovi. Nakon istraživanja, odabrali smo neke od tih jako poznatih i opasnih: Zeus, Conficker i CryptoLocker. 
+Jednom kad smo odabrali neke od poznatijih, otvorili smo stranicu: <a href="https://malwr.com/" class="external free" rel="nofollow">https://malwr.com/</a> . Tamo smo potražili maliciozne kodove prema oznakama(pr. “zeus”, ”cryptolocker”, “conficker”). Nakon što smo pronašli željeni kod, skinuli smo tu datoteku i tada smo mogli pokrenuti analizu.
+</p><p>Prvi korak je da se koristi naredba za pokretanje virtualne mašine koja je potrebna Cuckoo Sandboxu:
+</p>
+<pre>          <code>sudo virtualbox</code>
+</pre>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pokretanjevirtualbox1_h3.png" class="image"><img alt="Pokretanjevirtualbox1 h3.png" src="../images/5/53/Pokretanjevirtualbox1_h3.png" width="722" height="462" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Pokretanje VirtualBox-a u terminalu</div>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Pokrenutivirtualbox2_h3.png" class="image"><img alt="Pokrenutivirtualbox2 h3.png" src="../images/2/29/Pokrenutivirtualbox2_h3.png" width="770" height="578" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Pokrenuti VirtualBox</div>
+<p>Nakon toga pokrečemo Cuckoo tako da pokrenemo ga uz pomoć naredbe:
+</p>
+<pre>          <code>sudo python cuckoo.py</code>
+</pre>
+<p><br />	
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Cuckoopokretanje1_h3.png" class="image"><img alt="Cuckoopokretanje1 h3.png" src="../images/f/f4/Cuckoopokretanje1_h3.png" width="848" height="462" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Pokrenuti Cuckoo u terminalu</div>
+<p><br />
+</p><p>Sada je Cuckoo spreman i čeka da mu se pošalje maliciozni kod na testiranje. Neki kod se prosljeđuje na analizu pomoću naredbe:
+</p>
+<pre>          <code>sudo python submit.py ime_koda</code>
+</pre>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PokretanjeAnalize_h3.png" class="image"><img alt="PokretanjeAnalize h3.png" src="../images/7/76/PokretanjeAnalize_h3.png" width="722" height="462" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Slanje malicioznog koda Cuckoo-u</div>
+<p><br />
+Nakon toga Cuckoo pokreće virtualnu mašinu i počinje analizirati maliciozni kod u njoj, a mi preko python agenta vidimo što se događa u pozadini. Cuckoo Sandbox također za to vrijeme snima sve što se događa i uz to radi snimke ekrana kad god se nešto novo pokrene ili dogodi. Osim snimki ekrana Cuckoo radi i detaljna izvješća koja se kasnije mogu pregledavati. Pokretanje detaljnih izvješća u web sučelju se pokreće naredbom:
+</p>
+<pre>          <code>sudo python web.py</code>
+</pre>
+<p>Tada nam se u terminalu prikaže web adresa kojoj pristupamo do tog izvješća. To vidimo na slici ispod.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:PokretanjewebservisaCitanje_h3.png" class="image"><img alt="PokretanjewebservisaCitanje h3.png" src="../images/d/db/PokretanjewebservisaCitanje_h3.png" width="721" height="289" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Pokretanje Web servisa</div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ihontic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ihontic (stranica ne postoji)">Ihontic</a> 10:49, 20. siječnja 2015. (CET)
+</p><p><br />
+<a href="http://youtu.be/Q-PZkbihy3g" class="external text" rel="nofollow">Video koji prikazuje pokretanje Cuckoo Sandboxa</a>
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Thop&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Thop (stranica ne postoji)">Thop</a> 09:36, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Gre.C5.A1ke_kod_pokretanja"> Greške kod pokretanja </span></h2>
+<p>Ukoliko ste obavili cijelu instalaciju i resetirali računalo vjerovatno više neće funkcionirati Cuckoo Sandbox jer će vam javljati grešku kako IP na koji se želi povezati ne postoji. U ovom slučaju su moguća dva rješenja. Prvo je da niste pokrenuli virtualbox prije pokretana Cuckoo Sandboxa pa je samo potrebno virtulbox pokrenuti i ponovno pokušati pokrenuti Cuckoo Sandbox. 
+</p><p>Drugo riješenje je ponovno postavljanje adaptera za virtualnu mašinu i forwardanje ipa koji su vam potrebni sa sljedećim naredbama:
+</p>
+<pre>          <code>
+          vboxmanage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
+          vboxmanage modifyvm 'cuckoo1' --hostonlyadapter1 vboxnet0
+          vboxmanage modifyvm 'cuckoo1' --nic1 hostonly</code>
+          
+          <code>sudo iptables -A FORWARD -o eth0 -i vboxnet0 -s 192.168.56.0/24 -m conntrack --ctstate NEW -j ACCEPT
+          sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+          sudo iptables -A POSTROUTING -t nat -j MASQUERADE</code>
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Thop&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Thop (stranica ne postoji)">Thop</a> 08:39, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Analize"> Analize </span></h2>
+<p>Nakon što se pomoću Chuckoo Sandboxa pokrene određena datoteka za analizu te nakon što se analiza uspješno završi, pokreću se cuckoo web servisi pomoću web.py datoteke kako bi se pristupilo svojim rezultatima analize koji se spremaju u preglednom  korisničkom sučelju. Rezultatima se pristupi tako da se u preglednik upiše adresa koja se ispiše u terminalu u Linux sustavu nakon završetka analize. U sučelju se nalazi popis svih uzoraka koji su testirani sa tog sustava te njihovi statusi. 
+</p>
+<h3> <span class="mw-headline" id="Zeus"> Zeus </span></h3>
+<p>Kao primjer za analizu uzeto je nekoliko najpoznatijih zloćudnih programa. Prvi od njih je Zeus. Zeus je zloćudni kod iz porodice trojanskih konja koji se pokreću na WIndows operacijskim sustavima. Postoje razne inačice Zeus-a no najčešće služi za krađu informacija o bankovnim računima te za instalaciju CryptoLocker zloćudnog koda.   
+</p><p>Odmah na početku izvješća prikazane su sve detaljne informacije o samoj datoteci koja je analizirana.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Zeus_file_details.jpg" class="image"><img alt="Zeus file details.jpg" src="../images/thumb/3/3f/Zeus_file_details.jpg/600px-Zeus_file_details.jpg" width="600" height="245" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Detalji o datoteci</div> 
+<p>Na dnu tablice sa podacima o samoj datoteci nalazi se podatak koliko je antivirusnih programa detektiralo testirani sločudni kod. Zeus koji je ovdje testiran preuzet je sa malwr.com<a href="https://malwr.com/" class="external autonumber" rel="nofollow">[1]</a> stranice te se u stupcu VirusTotal vidi da ga otkriva većina antivirusnih programa odnosno 42/54 u ovom slučaju. Može se i posjetiti VirusTotal te detaljno pregledat koji antivirusni programi su ga detektirali.
+</p><p>Nakon informacija o datoteci, nalaze se snimke ekrana koje se snimaju prilikom svake promjene na uređaju na kojem se izvršava zloćudni kod. U ovom slučaju zloćudni kod je unutar PDF dokumenta koji se tokom analize pokrenuo. PDF dokument nudi korisniku još i opcije za “zaradu” upisivanjem svoje email adrese što je naravno dio štetnog djelovanja samog Zeus-a.
+</p><p>Nakon snimki ekrana, dolazimo do statičke analize. Kod polja statičke analize postoje četiri podsekcije: 
+</p>
+<ul><li>.text - Ova sekcija bi trebala sadržavati programski kod
+</li><li>.rdata - Sadrži informacije o uvozu i izvozu informacija
+</li><li>.data - Sekcija sadrži globalne podatke programa
+</li><li>.rsrc - Ovdje se nalaze resursi potrebni od izvršnog programa poput slika, ikona i slično
+</li></ul>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:BezInterneta1H3.png" class="image"><img alt="BezInterneta1H3.png" src="../images/thumb/8/8a/BezInterneta1H3.png/500px-BezInterneta1H3.png" width="500" height="155" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Statička analiza</div> 
+<p>U polju “Size of Raw Data” vidi koliko koji dio zauzima memorije na uređaju.   
+</p><p>Kada pogledamo sekciju “Strings” vidimo puno nečitljivih stringova.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:StringoviH3.png" class="image"><img alt="StringoviH3.png" src="../images/thumb/7/77/StringoviH3.png/200px-StringoviH3.png" width="200" height="306" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Stringovi</div> 
+<p>Kod importova vidimo koje su datoteke dodane kod pokretanja
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ImportoviH3.png" class="image"><img alt="ImportoviH3.png" src="../images/thumb/2/26/ImportoviH3.png/500px-ImportoviH3.png" width="500" height="381" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Importane datoteke</div> 
+<p>Sve datoteka koje su importane možemo naći na internetu i možemo saznati za što se mogu koristiti.Uzet ćemo neke od importanih datoteka i objasniti što bi napadači mogli pokušati napraviti sa njima:
+</p><p>Library KERNEL32.dll:
+</p>
+<ul><li>LoadLibrary and GetProcAddress - 2 datoteke koje se nalaze u KERNEL32.DLL se koriste kako bi program dobio pristup bilo kojoj funkciji u bilo kojoj biblioteci u sustavu.
+</li><li>VirtualAlloc import nam pokazuje kako možda ubacuju nove procese.
+</li><li>Koristeći IsDebuggerPresent se provjerava ako se program debagira i ako se to događa onda može promjeniti svoje ponašanje. Ovo se koristi kako bi se otežao posao programerima koji debagiraju viruse kako bi saznali kako rade.
+</li></ul>
+<p>Library OPENGL32.dll - nam govori kako ima grafičke sposobnosti tj. kako vjerovatno ima GUI
+</p><p>Library USER32.dll:
+</p>
+<ul><li>CreateWindowExW i SetForegroundWindow - sa ovim datotekama napadač može kreirati novi prozor i povući ga ispred svih ostalih prozora.
+</li></ul>
+<p>Ovdje sam uzeo samo neke od mnogih datoteka koja se su se nalazile u importovima i kada bi detaljno proučili sve saznali bi puno više o malware-u. 
+</p><p>Onda možemo pogledati sekciju Dropped Files gdje vidimo koje je datoteke program kreirao i ostavio na zaraženom računalu. Svaku od tih datoteka možemo pogledati na Virustotalu i daljnje analizirati koristeći podatke sa te stranice.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DroppedFilesH3.png" class="image"><img alt="DroppedFilesH3.png" src="../images/thumb/2/26/DroppedFilesH3.png/500px-DroppedFilesH3.png" width="500" height="436" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Dropped Files</div> 
+<p>Onda imamo sekciju Behaviour gdje vidimo gdje se malware kreatao i koje je promjene radio u registru.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:BehaviourH3.png" class="image"><img alt="BehaviourH3.png" src="../images/thumb/f/f4/BehaviourH3.png/500px-BehaviourH3.png" width="500" height="130" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Ponašanje</div> 
+<p>I u sekciji procesi vidimo koje je procese pokrenuo
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:ProcesiH3.png" class="image"><img alt="ProcesiH3.png" src="../images/thumb/f/f0/ProcesiH3.png/500px-ProcesiH3.png" width="500" height="271" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Procesi</div> 
+<p>Zanimljivost
+</p><p>Slučajno smo pokrenuli zeusa bez interneta i bez adobe readera pomoću kojega bi otvorio pdf pa je malware pokušao instalirati adobe reader koristeći search for programs on the web opciju koju Windows nudi
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NETH3.jpg" class="image"><img alt="NETH3.jpg" src="../images/thumb/1/12/NETH3.jpg/500px-NETH3.jpg" width="500" height="375" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Ne može otvoriti PDF</div> 
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:NET2H3.jpg" class="image"><img alt="NET2H3.jpg" src="../images/thumb/9/9c/NET2H3.jpg/500px-NET2H3.jpg" width="500" height="375" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Pokušaj instalacije preko Web-a</div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Thop&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Thop (stranica ne postoji)">Thop</a> 08:24, 20. siječnja 2015. (CET)
+</p>
+<h3> <span class="mw-headline" id="CryptoLocker"> CryptoLocker</span></h3>
+<p>Sljedeći malware koji je pokrenut i analiziran sa Cuckoo Sandbox-om je CryptoLocker. Ova vrsta zloćudnog koda napada Windows operacijske sustave uglavnom kada ga korisnici preuzmu putem email privitaka. Kad se aktivira, kriptiraju se određene datoteke spremljene lokalno koristeći RSA kriptografiju te je privatni ključ spremljen samo na serveru od zloćudnog koda. 
+</p><p>Kod koji je ovdje analiziran je u obliku exe datoteke koja se sama pokreće prilikom analize. Kod početnih informacija o samoj datoteci koja je testirana vide se svi osnovni podaci toj datoteci te koliko antivirusnih programa je detektiralo ovaj zloćudni kod (47/56).
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Crypto_h3.png" class="image"><img alt="Crypto h3.png" src="../images/thumb/8/83/Crypto_h3.png/500px-Crypto_h3.png" width="500" height="232" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Detalji o analiziranoj datoteci</div>
+<p><br />
+Zatim se u sekciji statičke analize nalaze podaci o verziji dateoteke, sekcije odnosno dijelovi od kojih je sastavljena datoteka te koliko prostora zauzimaju u memoriji. U sekciji uvoza, odnosno “Imports” vide se importovi od datoteke tj sve što se importa prilikom pokretanja datoteke. 
+</p><p><br />
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Crypto_static.png" class="image"><img alt="Crypto static.png" src="../images/thumb/a/a5/Crypto_static.png/500px-Crypto_static.png" width="500" height="343" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Statička analiza</div>
+<p><br />
+U Libary KERNEL32.ddl nalazimo:
+</p>
+<ul><li>CreateFileA import te još neke importove koji su povezani sa datotekama te daju naslutiti kako zloćudni kod radi nešto sa određenim datotekama na računalu.
+</li><li>VirtualAlloc import pokazuje da datoteka alocira određeni dio memorije te ubacuje određene procese.
+</li><li>CreateProcess znači da bi datoteka mogla kreirati neke nove procese sa svojim dretvama. 
+</li></ul>
+<p>Nakon toga vide se i neki importovi poput GetStartupInfo pomoću kojih datoteka može prikupljati i neke informacije o računalu prilikom pokretanja.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Kripto_32.png" class="image"><img alt="Kripto 32.png" src="../images/thumb/3/3e/Kripto_32.png/500px-Kripto_32.png" width="500" height="403" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Statička analiza biblioteka</div>
+<p><br />
+Zatim se vidi kako program korisi i USER32 biblioteke. U ovom dijelu se može vidjeti što će možda aplikacija koristiti tokom izvođenja, tj dali će integrirati sa korisničkim sučeljem. 
+Tu se nalaze importovi poput:
+</p>
+<ul><li>SetForegroundWindow kojim aplikacija dretve koje su kreirane u određenom prozoru stavlja u prednji plan.
+</li><li>GetKeyState, GetFocus, GetCapture daju naslutiti da aplikacija prati korisnikove interakcije na sustavu.
+</li></ul>
+<p>Aplikacija koristi još i neke druge biblioteke poput GDI32 koja je povezana sa kreiranjem određenih grafičkih elemenata te WINSPOOL.DRV gdje aplikacija koristi importove za korištenje printera računala.
+</p><p>Svi importovi koji se koriste kogu se pronaći na službeinm dokumentacijama Microsoft-a te se lako može prilično detaljno analizirati što aplikacija radi ili može raditi.
+</p><p>U sekciji “Dropped Files” nalaze se datoteke koje je analizirani zloćudni koda kreirao. 
+Kod trenutnog primjera vidi se da su kreirane 3 datoteke te odairom svake mogu se pregledati dodatni detalji:
+</p>
+<ul><li>Kreirana jedna exe datoteka - CryptoLocker.bin
+</li><li>XML dokument - FQF2494.tmp
+</li><li>Jedna prazna datoteka - autoexec.bat
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Datoteke_h3.png" class="image"><img alt="Datoteke h3.png" src="../images/thumb/e/ea/Datoteke_h3.png/500px-Datoteke_h3.png" width="500" height="414" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Kreirane datoteke</div>
+<p>Zatim sljedi sekcija “Network Analysis” gdje se vidi promet koji je testirani kod ostvario. Testirani CryptoLocker poslao je mnogo DNS Request-a prema mnogobrojnim sumnjivim domenama 
+U sekciji “Behavior Summary” može se vidjeti što je sve aplikacija radila po računalu korisnika. U konkretnom primjeru vidi se da se pristupalo podacima o pregledniku, coockie datotekama korisnika, povijesti pregledavanja interneta te još mnoge druge datoteke.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mre%C5%BEa_h3.png" class="image"><img alt="Mreža h3.png" src="../images/thumb/0/0b/Mreža_h3.png/500px-Mreža_h3.png" width="500" height="385" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Mrežni promet</div>
+<p><br />
+U sekciji “Mutexes vidi se da je aplikacija razne mutex objekte  uglavnom povezane sa podacima o internet datotekama. Također velika aktivnost vidi se i u registrima Windows-a što znaćči da aplikacija pristupa određenim konfiguracijskim podacima računala.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Mutex_h3.png" class="image"><img alt="Mutex h3.png" src="../images/thumb/2/21/Mutex_h3.png/500px-Mutex_h3.png" width="500" height="277" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Mutex i registri sustava</div>
+<p>Kod sekcije procesa vide se procesi koje je analizirani program pokrenuo. Odabirom određenog procesa vide se svi detalji što je koji proces radio, kojim datotekama je pristupao i kako se ponašao u memoriji.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Procesi_kripto.png" class="image"><img alt="Procesi kripto.png" src="../images/thumb/0/01/Procesi_kripto.png/700px-Procesi_kripto.png" width="700" height="380" /></a></div></div>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Kreirani procesi</div>
+<p><br />
+</p><p>Cuckoo je kreirao i snimke ekrana tokom izvođenja no na tim snimkama se ne vidi nikakva interakcija jer se zloćudni kod izvodi u pozadini.
+</p><p>Iz svega zaključenog, testirana datoteka sakuplja podatke sa sustava i podatke o korisniku tokom izvođenja. Također u velikoj mjeri čita privatne informacije sa korisnikovog preglednika i pokreće određene procese u pozadini.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Dhrgar&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Dhrgar (stranica ne postoji)">Dhrgar</a> 10:50, 20. siječnja 2015. (CET)
+</p>
+<h3> <span class="mw-headline" id="Confiker"> Confiker</span></h3>
+<p>Ovaj maliciozni kod smo odabrali jer je dosta poznat, pa čak na nekim blogovima ga ubrajaju u top 5 najopasnijih. Postoji više verzija, ali sve verzije uglavnom isključe važne sistemske servise i sustave za sigurnost poput Windows Defendera. Također spriječava korisnika da posjeti određene web stranice, pogotovo one koje bi nam dopustile preuzimanje sigurnosnih zakrpa. Širi se pomoću razmjene podataka pomoću eksternih diskova i usb uređaja i sam sebe kopira u Windows system mapu. Na usb uređaj kopira datoteku koja kad se usb koristi omogućuje prikaz još jedne opcije kod samopokretanja(eng. Autoplay). Ako se klikne na tu dodatnu opciju, tada se crv širi i dalje.
+Conficker je poznat još i kao Downup, Downadup i Kido. To je maliciozni kod iz porodice crva koji traži mane u operacijskom sustavu Windows i pokušava izgraditi svoj botnet pomoću zaraženih računala. Ovaj maliciozni kod kombinirao je skoro sve napredne maliciozne kodove, pa ga je zbog toga bilo dosta teško ukloniti sa računala.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Conficker1_h3.png" class="image"><img alt="Conficker1 h3.png" src="../images/6/61/Conficker1_h3.png" width="1259" height="545" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Općeniti podaci nakon analize</div>
+<p>Na slici vidimo općenite informacije nakon završetka analiziranja. Prema VirusTotal-u ovaj maliciozni kod otkriva 43 od 46 antivirusnih programa.
+</p><p><br />
+Na sljedećim slikama se vide importovi koje je maliciozni kod izradio.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Importconficker1_h3.png" class="image"><img alt="Importconficker1 h3.png" src="../images/a/a4/Importconficker1_h3.png" width="339" height="489" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Import u Kernel32.dll</div>
+<p>Library KERNEL32.dll. 
+U ovom dijelu pronašao sam da koristi funkcije LoadLibraryA, GetProcAddress, VirtualAlloc i VirtualProtect.
+Te funkcije nam pokazaju da je maliciozni kod možda baratao sa zaštitama pozvanih procesa u virtualnom adresnom prostoru. Također postoji mogućnost da je ubacivao neke druge procese i poziva određene module u adresni prostor pozvanog procesa.
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Importconficker2_h3.png" class="image"><img alt="Importconficker2 h3.png" src="../images/1/11/Importconficker2_h3.png" width="361" height="593" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Import u USER32.dll i ADVAPI32.dll</div>
+<p>Library USER32.dll.  Ovaj library se koristi standardne elemente grafičkog sučelja poput interfejsa, desktop pozadine, prozora i menija. To vidimo na slici da je otvoren novi prozor tijekom analize.
+</p><p><br />
+</p><p>U ovom dijelu za oko su nam zapele dvije funkcije: GetWindowDC i GetDesktopWindow. Te funkcije dohvaćaju potrebne elemente za rad s prozorom koji je bio otvoren tijekom analize.
+</p><p><br />
+Library ADVAPI32.dll: koristi se za naprednije servise: pristup Windows registrima, uključivanje/ponovno pokretanje računala, rad sa Windows servisima, upravljanje korisničkim računima
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Importconficker3_h3.png" class="image"><img alt="Importconficker3 h3.png" src="../images/2/27/Importconficker3_h3.png" width="277" height="653" /></a></div></div> 
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;">Import u ostale DLL-ove</div>
+<p><br />
+Library MSVCRT.dll: između ostaloga omogućuje alokaciju memorije. Funkcija malloc služi za alociranje blokova u memoriji.
+Library GDI32.dll: ovaj library se koristi za primitivne funkcije crtanja za prikaz na ekranu ili za ispis na printer. Trenutno najmanji problem.
+Library SHELL32.dll: funkcije za pristup web stranicama.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ihontic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ihontic (stranica ne postoji)">Ihontic</a> 16:13, 20. siječnja 2015. (CET)
+</p>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">  Zaključak  </span></h2>
+<p>Nakon izrade cjelokupnog projekta, upoznavanja sa Sandbox sustavima, kako i što rade te čemu služe te upoznavanjem sa samim Cuckoo Sandbox sustavom možemo utvrditi da su sandbox sustavi neizostavan dio današnjeg razvoja i testiranja software-a. Sam Cuckoo Sandbox je jedan vrlo napredan sustav koji može analizirati gotovo sve vrste datoteka koje korisnik poželi te se može preporučit u naprednom testiranju i analiziranju zloćudnog koda. Iako je sam postupak instalacije, dizanja sustava i cjelokupnog okruženja prilično zahtjevan i kompliciran te zahtijeva određeno znanje Linux i Python okruženja, nakon cijelog tog postupka Cuckoo sam radi automatsku dinamičku analizu te sprema sve rezultate koje korisnik želi. Iako na tržištu postoje razni konkurentni alati za analizu, Cuckoo je specifičan po svojoj modularnosti te mogućnosti integracije u neke druge sustave te „real-time“ analize tako da korisnik može vidjeti što se događa sa sustavom na kojem je određena datoteka pokrenuta. Analiza koju smo proveli nad određenim štetnim datotekama pokazale su da zloćudni kodovi često ne pokazuju nikakve vizualne promjene na sustavu te korisnik često može imati zaraženo računalo bez da je o tome svjestan te analizirane datoteke pristupaju mnogobrojnim podacima korisnika te kreiraju razne procese. Iako većina poznatih antivirusnih zaštita otkrije zloćudne kodove, postoje još mnogobrojni malware-i koje je teško detektirati te stoga treba biti vrlo oprezan sa korištenjem računala, interneta i vanjskih medija.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura">  Literatura  </span></h2>
+<ul><li>[1]<a href="http://en.wikipedia.org/wiki/Sandbox_(computer_security)" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Sandbox_(computer_security)</a>
+</li><li>[2]<a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2009-03-259.pdf" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2009-03-259.pdf</a>
+</li><li>[3]<a href="http://en.wikipedia.org/wiki/Sandbox_(software_development)" class="external free" rel="nofollow">http://en.wikipedia.org/wiki/Sandbox_(software_development)</a>
+</li><li>[4]<a href="http://www.cuckoosandbox.org/index.html" class="external free" rel="nofollow">http://www.cuckoosandbox.org/index.html</a>
+</li><li>[5]<a href="http://docs.cuckoosandbox.org/en/latest" class="external free" rel="nofollow">http://docs.cuckoosandbox.org/en/latest</a>
+</li><li>[6]<a href="http://www.howtogeek.com/169139/sandboxes-explained-how-theyre-already-protecting-you-and-how-to-sandbox-any-program" class="external free" rel="nofollow">http://www.howtogeek.com/169139/sandboxes-explained-how-theyre-already-protecting-you-and-how-to-sandbox-any-program</a>
+</li><li>[7]<a href="http://www.cis.hr/sigurosni-alati/okruzenje-za-proucavanje-malicioznih-programa.html" class="external free" rel="nofollow">http://www.cis.hr/sigurosni-alati/okruzenje-za-proucavanje-malicioznih-programa.html</a>
+</li><li>[8]<a href="http://www.behindthefirewalls.com/2013/10/tatic-analysis-packed-malware-cuckoo.html" class="external free" rel="nofollow">http://www.behindthefirewalls.com/2013/10/tatic-analysis-packed-malware-cuckoo.html</a>
+</li><li>[9]<a href="http://www.behindthefirewalls.com/2013/10/static-analysis-of-packed-malware.html" class="external free" rel="nofollow">http://www.behindthefirewalls.com/2013/10/static-analysis-of-packed-malware.html</a></div>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 102/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:7920-0!*!0!!hr!2!edit=0 and timestamp 20190203204251 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Cuckoo_sandbox.html">http://security.foi.hr/wiki/index.php/Cuckoo_sandbox</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Cuckoo_sandbox" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Cuckoo_sandbox.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Cuckoo_sandbox&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Cuckoo_sandbox.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Cuckoo_sandbox.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_sandbox&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_sandbox&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Cuckoo_sandbox.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Cuckoo_sandbox" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Cuckoo_sandbox" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_sandbox&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Cuckoo_sandbox&amp;oldid=33487" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 15:13, 20. siječnja 2015.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 18.872 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Cuckoo_sandbox", "wgTitle": "Cuckoo sandbox", "wgAction": "view", "wgArticleId": 7920, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 33487, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.624 secs. -->			</body>
+</html>

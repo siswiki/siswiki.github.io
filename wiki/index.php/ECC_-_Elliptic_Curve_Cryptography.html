@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>ECC - Elliptic Curve Cryptography - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=ECC_-_Elliptic_Curve_Cryptography&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-ECC_-_Elliptic_Curve_Cryptography skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">ECC - Elliptic Curve Cryptography</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="ECC_-_Elliptic_Curve_Cryptography.html#mw-head">orijentacija</a>,
+					<a href="ECC_-_Elliptic_Curve_Cryptography.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Olga Šimunović
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Svrha_javnog_klju.C4.8Da"><span class="tocnumber">2</span> <span class="toctext">Svrha javnog ključa</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="ECC_-_Elliptic_Curve_Cryptography.html#RSA"><span class="tocnumber">2.1</span> <span class="toctext">RSA</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Primjer_RSA_algoritma"><span class="tocnumber">2.1.1</span> <span class="toctext">Primjer RSA algoritma</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Elipti.C4.8Dne_krivulje"><span class="tocnumber">3</span> <span class="toctext">Eliptične krivulje</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Primjena_Elipti.C4.8Dnih_krivulja"><span class="tocnumber">3.1</span> <span class="toctext">Primjena Eliptičnih krivulja</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Digitalni_potpis"><span class="tocnumber">3.2</span> <span class="toctext">Digitalni potpis</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="ECC_-_Elliptic_Curve_Cryptography.html#ECDSA_algoritam"><span class="tocnumber">3.2.1</span> <span class="toctext">ECDSA algoritam</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Ed25519"><span class="tocnumber">3.2.2</span> <span class="toctext">Ed25519</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="ECC_-_Elliptic_Curve_Cryptography.html#ECPSV"><span class="tocnumber">3.2.3</span> <span class="toctext">ECPSV</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="ECC_-_Elliptic_Curve_Cryptography.html#NIST_prime_elipti.C4.8Dne_krivulje"><span class="tocnumber">3.2.4</span> <span class="toctext">NIST prime eliptične krivulje</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Za.C5.A1to_koristiti_ECC"><span class="tocnumber">4</span> <span class="toctext">Zašto koristiti ECC</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Zaklju.C4.8Dak"><span class="tocnumber">5</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="ECC_-_Elliptic_Curve_Cryptography.html#Literatura"><span class="tocnumber">6</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>Kriptografiju odnosno njene algoritme potrebno je u današnje vrijeme  konstantno unaprjeđivati kako bi se informacije dobro zaštitile i kako algoritmi ne bi bili razbijeni i time sama sigurnost narušena. U ovom projektom zadatku želja mi je na što bolji način objasniti jednu od vrsta kriptografije koja i nije toliko poznata a njena metoda je zasnovana na eliptičnim krivuljama. U matematici diskretni logaritamski problem eliptičnih krivulja bio je predstavljen 1985. godine od strane N. Koblitza iz tvrtke IBM i V. Millera sa Sveučilišta u Washingtonu. Algoritam koji je nastao na temelju eliptičnih krivulja bio je ECDSA (eng. Elliptic Curve Digital Signature Algorithm).  Nastao je kao „nadogradnja“ RSA sustava zbog kraćih ključeva i bržeg generiranja. Oba spomenuta algoritma biti će detaljnije objašnjena u daljnjem tekstu. „Korištenje eliptičnih krivulja osigurava i brže izračune matematičkih operacija, uštede u memoriji i iskorištenju mrežnog linka, a činjenica je da u svom radu više opterećuje poslužitelj nego klijenta te zato postaje idealno za upotrebu na malim uređajima.“  U daljnjem radu objasniti ću svrhu javnog ključa, objasniti kako radi RSA algoritam te ga i na primjeru pokazati, zatim objasniti što su to eliptične krivulje i koja je prednost ECDSA algoritma nad RSA algoritmom. Dolje možete vidjeti primjer eliptične krivulje
+</p>
+<pre>                                          <a href="http://security.foi.hr/wiki/index.php/Datoteka:EK.png" class="image"><img alt="EK.png" src="../images/e/e7/EK.png" width="336" height="271" /></a>
+</pre>
+<p>Slika preuzeta iz izvora<a href="http://sigurnost.zemris.fer.hr/algoritmi/asimetricni/2004_krivacic/Final1.pdf/" class="external autonumber" rel="nofollow">[1]</a>
+</p>
+<h1> <span class="mw-headline" id="Svrha_javnog_klju.C4.8Da"> Svrha javnog ključa </span></h1>
+<p>Kako bi što bolje shvatila i pojasnila u ovom svom projektu što je ECC odnosno kriptografija zasnovana na metodi eliptičnih krivulja početi ću sa objašnjavanjem svrhe javnog ključa. Objašnjavanje ću pojednostaviti tako da uvedem dva prijatelja kriptografije Alice i Boba. Pa tako, pretpostaviti ću da oni žele komunicirati tajnim porukama među sobom, no postoji problem koji se zove Eve. Eve ima pristup svim komunikacijama Alice i Bob, pitanje je mogu li oni komunicirati bez da ih Eve čuje? Ideja javnog ključa se zasniva na tome da Alice i Bob imaju ključ, neki broj ili matematičku proceduru koja može biti aplicirana u poruku sastavljenu od privatnog i javnog ključa. Privatni ključ se ne prenosi nikome dok je javni dostupan svakome uključujući i Evu. Pa tako Alice šalje poruku Bobu koristeći javni ključ kako bi šifrirala informaciju koju šalje bez da se mora brinuti da ju netko „prisluškuje“ a Bob zatim koristi privatni dio svog ključa kako bi dešifrirao informaciju. Ako Alice želi da Bob zna da je poruka koju je on primio od nje autentična ona će staviti svoj potpis prije nego pošalje poruku a Bob će po primitku kako bi znao da je poruka njena primijeniti će lako dostupan javni dio njenog potpisa ono kojeg je primio sa porukom i poslati će na provjeru. Ako Eva našteti povjerljivosti poruke potpis će doći pomiješan te će Bob na temelju toga znati da je poruka korumpirana. Ovim možemo zaključiti da je sigurnost ovog sistema nije uopće na Alice i Bobu koji traže siguran način prijenosa informacija nego na vrlo teškom vraćanju privatnih ključeva koristeći samo javne ključeve. Ovaj problem dovodi do ECC koji nam može dati koristan par ključeva.
+</p>
+<h2> <span class="mw-headline" id="RSA"> RSA </span></h2>
+<p>„Algoritam za kriptiranje javnih ključeva idejno je predstavljen 1977. godine od strane Ron Rivesta, Adi Shamira i Len Adlemana s Tehnološkog Instituta Massachusetts (MIT), a 1983. godine je i patentiran.“  <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-09-169.pdf/" class="external autonumber" rel="nofollow">[2]</a>
+RSA (Rivest, Shamir, Adleman) algoritam kao što i vidimo da je ime dobio po svojim tvorcima a on je bio ujedno i prvi algoritam za digitalni potpis i njegovim stvaranjem napravio se veliki napredak za kriptografiju javnog ključa. Danas je ovo najviše upotrebljavan algoritam.
+Ponovno ću na našim prijateljima kriptografije Bobu i Alice objasniti kako funkcionira RSA algoritam. Proučavajući matematičke činjenice i razmatranjem teorema na kojem se ovaj algoritam temelji cjelokupna shema načina rada RSA izgleda ovako:
+</p><p>Bob izabere neke proste brojeve koje možemo označiti sa p i q te odmah izračunava n = p∙q uz uvjet da je p ≠ q.
+Iz teorema koji sam razmatrala vidim da je ϕ (n) = (p − 1)•(q − 1) zbog ovog iskaza postavimo da je 1&lt; d &lt; ϕ (n) te Bob izabere jedan broj d koji je uzajamno prost  sa ϕ (n).
+Bob na kraju računa ε, (1 &lt; ε &lt; ϕ (n)), uz uvjet d • ε ≡ 1(mod ϕ (n)). Ovo se računa pomoću Euklidovog algoritma
+Bobovi javni ključevi su n i ε  te ih on objavi kako bi drugi znali kako uspostaviti komunikaciju sa Bobom. Zatim važno je da Bob objavi i da koristi algoritam RSA (kako bi drugi znali u ovom slučaju Alice  na temelju kojeg algoritma komunicirati). Njegov tajni ključ predstavlja d koji samo on zna. Ako Alice želi poslati Bobu poruku mora izračunati M^ε mod n , to znam iz teorema koji sam proučila a kako izračunati tako da Alice izračuna neke od M npr. M^2,M^4,M^8… te ih zatim pomnožiti kako bi dobili neki M^ε. Kada Bob želi dekodirati poruku od Alice ponovo koristeći teorem saznajem da treba izračunati C^d mod n. Ako Eve koju sam prije navela kao nekoga tko želi prisluškivati razgovor rastavi javni ključ n na proste faktore odnosno da sazna p i q.
+</p>
+<h3> <span class="mw-headline" id="Primjer_RSA_algoritma"> Primjer RSA algoritma </span></h3>
+<p>Primjer RSA algoritma ću napraviti tako da pošaljem neku poruku, pa slijedi:
+</p><p>Šaljem poruku: I AM OLGA
+</p><p><br />
+Zadam da su mi p = 47, q= 59,
+pa izračunam n = p • q = 47 • 59 = 2773,
+te dobijem dalje 
+ϕ (n) = (p − 1) • (q − 1) = 46 • 58 = 2668  i odredim d = 157 a ε = 17
+</p><p>Za svako slovo odredim da je: blanko = 00, A=01, B= 02,… Z=26
+</p><p><br />
+Poruka glasi
+I AM OLGA pa tako primjenim za svako slovo njegovu vrijednost 
+</p><p>0900 0113 0015 1207 0100
+</p><p>Sada kodiram blokove redom C =  M^ε mod n = 〖900〗^17 mod 2773= 1510 
+Na ovaj način izračunam za svaki blok ( ja sam to radila koristeći kalkulator) i tako kodirane podatke šaljem u nizu preko računalne mreže. 
+</p><p>Provjerim i dekodiranje 〖1510〗^157 mod 2773 = 900 vidim da vrijedi.
+</p><p>Važno je napomenuti da osim RSA algoritma postoje i druge  metode kriptiranja kao što su DSA, DES, AES, IDEA i druge.
+ 
+</p>
+<h1> <span class="mw-headline" id="Elipti.C4.8Dne_krivulje"> Eliptične krivulje </span></h1>
+<p>Glavni razlog za uvođenje ovih krivulja u kriptografiji je veća sigurnost sa manjim brojem ključeva odnosno problem diskretnog logaritma u grupi E (Fp) je teži problem nego diskretni logaritam u grupi F∙p.
+Prvo što ću objasniti su eliptične krivulje kako bi što lakše objasnila kriptografiju koja se temelji na njima. „Ono što čini eliptičnu krivulju prikladnom za upotrebu u kriptografiji je njeno matematičko svojstvo koje kaže da ako se odaberu dvije različite točke na krivulji, tada pravac koji ih spaja presijeca krivulju u trećoj točki. Ako se ta točka reflektira na x-os dobiva se još jedna točka (krivulja je simetrična u odnosu na x-os). Pod uvjetom da su poznate točke P i Q, moguće je naći točku refleksije, koja je na slici označena kao P + Q. Pokazalo se da P + Q zadovoljava najčešća matematička svojstva koja se pojavljuju uz cijele brojeve, pod uvjetom da je definirana točka beskonačnosti, što je u slučaju cijelih brojeva 0.“ 
+</p><p><br />
+</p>
+<pre>                                              <a href="http://security.foi.hr/wiki/index.php/Datoteka:EK2.png" class="image"><img alt="EK2.png" src="../images/d/d0/EK2.png" width="393" height="254" /></a> 
+</pre>
+<p>Slika preuzeta iz izvora <a href="http://www.cis.hr/www.edicija/LinkedDocuments/CCERT-PUBDOC-2006-11-169.pdf/" class="external autonumber" rel="nofollow">[3]</a>
+</p>
+<h2> <span class="mw-headline" id="Primjena_Elipti.C4.8Dnih_krivulja"> Primjena Eliptičnih krivulja </span></h2>
+<p>Eliptične krivulje koriste mnogi kriptosustavi neki od njih su:
+</p>
+	<pre>EC ElGamalov kriptosustav (eng. Elliptic Curve ElGamal encription)</pre>
+	<pre>Menze - Vanstoneov kriptosustav i ECES (eng. Elliptic Curve Encryption System)</pre> 
+	<pre>Demytkov kriptosustav</pre>
+	<pre>KMOV kriptosustav </pre>
+	<pre>Kuwokado – Koyama kriptosustav </pre>
+<h2> <span class="mw-headline" id="Digitalni_potpis"> Digitalni potpis </span></h2>
+<p>Glavna svrha digitalnog potpisa je zaštita podataka osobe i komunikacije od neovlaštenih upada i narušavanja identiteta korisnika. Digitalni potpis koristi tajni i javni ključ, pa tako imamo četiri koraka u komunikaciji Bob i Alice sa digitalnim potpisima istih. Kako već spomenuti Bob ne bi primio poruku „Ovo ti šalje Alice“ koju zapravo šalje Eve postoje digitalni potpisi kako bi primatelj poruke bio siguran da poruku upravo šalje onaj koji ju i piše.
+Na poruku M koju je primila, Alice prvo mora primijeniti funkciju za dekriptiranje te zatim dobiva S odnosno potpisani oblik poruke. Iduće što mora učiti je kodirati S tako da koristi Bobov ključ te osim postupkom  dobije C koji šalje na računalnu mrežu. U ovom koraku C stigne do Boba, te sada on obavi dekriptiranje sa svojim ključem i tako odredi S, Bob na kraju na S primjeni enkripciju te dobije M i može pročitati poruku od Alice. 
+</p>
+<h3> <span class="mw-headline" id="ECDSA_algoritam"> ECDSA algoritam </span></h3>
+<p>ECDSA (Digitalni algoritam potpisa eliptične krivulje) nastao je kao opcija RSA algoritmu. 1999. godine prihvaćen je kao dio ANSI standarda, a 2000. Godine je prihvaćen kao dio IEEE i NIST standarda. Jedan je od algoritama u kojima se koristi kriptografija temeljena na eliptičkim krivuljama. Njegove prednosti kao što kraći ključevi i brže generiranje istih svakako pridonose da  ECC omogućava lakši, jednostavniji ali i sigurniji algoritam. Kao što sam već navela citatom u uvodu „Korištenje eliptičnih krivulja osigurava i brže izračune matematičkih operacija, uštede u memoriji i iskorištenju mrežnog linka, a činjenica je da u svom radu više opterećuje poslužitelj nego klijenta te zato postaje idealno za upotrebu na malim uređajima.“  Kraći ključevi znače jednaku sigurnost primjerice 160 (210) bitni ECC i RSA 1024 (2048) bitni ključ imaju jednaku razinu sigurnosti za podatke koji se prenose. Kao što možemo vidjeti u donjoj tablici veličine ključeva u bitovima uspoređujući kriptosustave pa tako vidimo da kod 192 bitnog simetričnog AES ključa isto tako potrebno koristiti 7680 ključ RSA a dok kod algoritama koji koriste eliptične krivulje dovoljno je koristiti 384 bitni ključ za istu razinu sigurnosti.
+</p>
+<pre>                                     <a href="http://security.foi.hr/wiki/index.php/Datoteka:EK3.png" class="image"><img alt="EK3.png" src="../images/7/7e/EK3.png" width="564" height="135" /></a>
+</pre>
+<p>Slika preuzeta iz izvora <a href="http://sigurnost.zemris.fer.hr/algoritmi/asimetricni/2014_kolar/EllipticCurveCryptography_AnaKolar.html/" class="external autonumber" rel="nofollow">[4]</a>
+</p><p>Algoritam ću pojasniti ponovno pomoću Alice i Boba
+</p><p>„E je eliptička krivulja nad Fp, a P je točka prostog reda n na E(). Svaki korisnik napravi sljedeće:
+</p><p>1. ECDSA Generiranje ključeva.
+a) Izabere slučajan broj d iz skupa {1, ... , n - 1};
+b) Izračuna Q = [d] P; 
+c) Q je javni, a d privatni ključ.
+</p><p>2. ECDSA Generiranje potpisa. 
+</p><p>Kad želi potpisati poruku m, Alice radi sljedeće: 
+a) Izabere slučajan broj k iz skupa {1, ... , n - 1};
+b) Izračuna [k] P = (x1, y1) i r = x1 mod n. Ako je r = 0, onda se vrati na korak a);
+c) Izračuna k-1 mod n; 
+d) Izračuna s = k-1(H(m) + dr) mod n, gdje je H hash funkcija.  Ako je s = 0, onda se vrati na korak a); 
+e) Potpis poruke m je uređeni par prirodnih brojeva (r, s). 
+</p><p>3. ECDSA Verifikacija potpisa. 
+</p><p>Da bi verificirao Alicein potpis (r, s) poruke m, Bob treba napraviti sljedeće: 
+a) Dobiti Alicein javni ključ Q; 
+b) Provjeriti da su r i s cijeli brojevi iz skupa {1, ... , n - 1}; 
+c) Izračunati w = s-1 mod n i H(m); 
+d) Izračunati u1 = H(m)w mod n i u2 = rw mod n; 
+e) Izračunati [u1] P + [u2] Q = (x0, y0) i v = x0 mod n; 
+f) Prihvatiti potpis kao vjerodostojan ako i samo ako je v = r. 
+Uvjet r!=0 osigurava da se u potpisivanju stvarno koristi Alicein tajni ključ d, dok se uvjet s!=0 pojavljuje zbog koraka 3.c) .“
+</p><p>Opis algoritma preuzet iz izvora <a href="http://sigurnost.zemris.fer.hr/algoritmi/hash/2005_dukic/ecdsa.html/" class="external autonumber" rel="nofollow">[5]</a>
+</p>
+<h3> <span class="mw-headline" id="Ed25519"> Ed25519 </span></h3>
+<p>Karakteristike ovih krivulja su:
+	Brza potvrda potpisom
+	Još brža verifikacija
+	Brzo potpisivanje
+	Brzo generiranje ključeva
+	Visoki stupanj sigurnosti
+	Sigurni i mali ključevi (samo 32 bajta)
+	Mali potpisi (stanu u 64 bajta)
+</p>
+<h3> <span class="mw-headline" id="ECPSV"> ECPSV </span></h3>
+<p>(engl. Elliptic Curve Pintsov Vanstone Signatures) algoritam koji se temelji na eliptičnim krivuljama te se koristi za digitalni potpis. Koristi se kako bi omogućio stupanj sigurnosti tako što omogući dio poruke da bude „skriven“ u jednom od poruka koje budu primljene.
+Postoje tako i drugi algoritmi temeljeni na eliptičnim krivuljama kao što su ECNR (engl. Elliptic Curve Nyberg Rueppel) za digitalni potpis, ECMQV (engl. Elliptic Curve Menezes-Qu-Vanstone) služi za razmjenu ključa te umjesto prirodnih brojeva koristi eliptične krivulje. Te ECIES (engl. Elliptic Curve Integrated Encryption Scheme) za asimetrično kriptiranje je shema koja se temelji na eliptičnim krivuljama.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="NIST_prime_elipti.C4.8Dne_krivulje"> NIST prime eliptične krivulje </span></h3>
+<p>Postoje P-192, P-224, P-256, P-384, P-521 Nist linije. 
+Analizirajući ECC krivulje možemo doći do zaključka da nisu sve krivulje ECC jednako upotrebljive i korisne.  Postoje tako linije koje su preporučene za upotrebu u praksi radi sigurnosti a preporučuju ih neke od institucija koje istražuju ovu domenu a to su ANSI (American National Standards Institute) i NIST ( National Institute of Standards and Technology) . Pa tako Elliptic Prime Curve 256 bit – P-256 i Elliptic Prime Curve 521 bit – P-521 su od strane svih instituta preporučljive i zadovoljavaju sve standarde protokola.
+ 
+</p>
+<h1> <span class="mw-headline" id="Za.C5.A1to_koristiti_ECC"> Zašto koristiti ECC </span></h1>
+<p>ECC kriptografski sustavi imaju prednost u odnosu na druge kriptografske sustave veću sigurnost po bitu, za rad im je potrebna manja količina memorije i sa računske strane nisu toliko zahtjevni, primjenjivi su na male uređaje (koji imaju ograničenje što se memorije tiče) pa ih se sve više koristi kod pametnih kartica, u elektroničkom poslovanju i u mobilnim uređajima. Postavlja se pitanje zbog svih prednosti koje imaju ove krivulje odnosno kriptosustavi zasnovani na njima zašto nisu u većoj upotrebi u današnje vrijeme.
+Naravno uz sve prednosti koje ECC ima postoje i negativne strane a to je sporija provjera potpisa te sporije generiranje ključa. Pa tako vidimo u tablici ispod kod ECDSA algoritma da je provjera potpisa puno duža nego kod RSA algoritma. Stoga je RSA algoritam prikladniji za sustave gdje ima puno računala koji obavljaju komunikaciju sa glavnim računalom te je potrebno provjeriti potpise u što kraćem vremenskom periodu.
+</p><p><br />
+</p>
+<pre>                                  <a href="http://security.foi.hr/wiki/index.php/Datoteka:EK4.png" class="image"><img alt="EK4.png" src="../images/6/62/EK4.png" width="446" height="104" /></a>
+</pre>
+<p>Slika preuzeta iz izvora <a href="http://sigurnost.zemris.fer.hr/algoritmi/asimetricni/2014_kolar/EllipticCurveCryptography_AnaKolar.html/" class="external autonumber" rel="nofollow">[6]</a>
+</p>
+<h1> <span class="mw-headline" id="Zaklju.C4.8Dak"> Zaključak </span></h1>
+<p>Sustavi kriptografije koji se temelje na eliptičnim krivuljama jedna su od opcija za RSA algoritam. Prednosti  koje sam navela za ECC i malena potrošnja energije sigurno predstavljaju i potencijalnu zamjenu RSA algoritma. Također algoritmi koji se temelje na eliptičnim krivuljama imaju sigurnije parametre od javnih ključeva RSA i Diffie-Hellman  algoritama. Uz prednosti koje ECC ima postoje i nedostaci, kao što su teškoća generiranja ključeva, sporije potvrde potpisa te nekompatibilnosti implementacije. 
+Mogu reći na temelju svega što sam do sada proučila u vezi prednosti i nedostataka kriptografskih sustava koji se temelje na eliptičnim krivuljama još nisu zastupljeni u velikoj mjeri pogotovo uspoređujući sa RSA  te kako je više onih pozitivnih strana pretpostavljam da će se isti sve više koristiti u budućnosti. Prednost je i svakako kompleksnost kriptografije koja se temelji na eliptičnim krivuljama te je teže probiti ključeve napadačima.
+</p>
+<h1> <span class="mw-headline" id="Literatura">Literatura</span></h1>
+<p>1. <a href="http://gen.lib.rus.ec/search.php?req=elliptic+curve+cryptography&amp;lg_topic=libgen&amp;open=0&amp;view=simple&amp;phrase=1&amp;column=def/" class="external free" rel="nofollow">http://gen.lib.rus.ec/search.php?req=elliptic+curve+cryptography&amp;lg_topic=libgen&amp;open=0&amp;view=simple&amp;phrase=1&amp;column=def/</a>
+2. <a href="https://eprint.iacr.org/2013/734.pdf/" class="external free" rel="nofollow">https://eprint.iacr.org/2013/734.pdf/</a>
+3. https//math.boisestate.edu/~liljanab/MATH508/GuideEllipticCurveCryptography.PDF/
+4. <a href="https://www.math.hmc.edu/~ursula/teaching/math189/finalpapers/elaine.pdf/" class="external free" rel="nofollow">https://www.math.hmc.edu/~ursula/teaching/math189/finalpapers/elaine.pdf/</a>
+5. <a href="http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-09-169.pdf/" class="external free" rel="nofollow">http://www.cert.hr/sites/default/files/CCERT-PUBDOC-2006-09-169.pdf/</a>
+6. <a href="http://www.cis.hr/www.edicija/Koritenjeeliptinihkrivuljaukriptografiji.html/" class="external free" rel="nofollow">http://www.cis.hr/www.edicija/Koritenjeeliptinihkrivuljaukriptografiji.html/</a>
+7. <a href="http://www.johannes-bauer.com/compsci/ecc/#anchor14/" class="external free" rel="nofollow">http://www.johannes-bauer.com/compsci/ecc/#anchor14/</a>
+8. <a href="http://www.pmf.ni.ac.rs/pmf/predmeti/7011/doc/DODATAK%20PREDAVANJE7-RSA.pdf/" class="external free" rel="nofollow">http://www.pmf.ni.ac.rs/pmf/predmeti/7011/doc/DODATAK%20PREDAVANJE7-RSA.pdf/</a>
+9. <a href="https://web.math.pmf.unizg.hr/~duje/elkript/elkripto2.pdf/" class="external free" rel="nofollow">https://web.math.pmf.unizg.hr/~duje/elkript/elkripto2.pdf/</a>
+10.<a href="http://sigurnost.zemris.fer.hr/algoritmi/asimetricni/2014_kolar/EllipticCurveCryptography_AnaKolar.html/" class="external free" rel="nofollow">http://sigurnost.zemris.fer.hr/algoritmi/asimetricni/2014_kolar/EllipticCurveCryptography_AnaKolar.html/</a>
+11.<a href="http://sigurnost.zemris.fer.hr/algoritmi/hash/2005_dukic/ecdsa.html/" class="external free" rel="nofollow">http://sigurnost.zemris.fer.hr/algoritmi/hash/2005_dukic/ecdsa.html/</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 100/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8909-0!*!0!!hr!2!edit=0 and timestamp 20190203204243 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="ECC_-_Elliptic_Curve_Cryptography.html">http://security.foi.hr/wiki/index.php/ECC_-_Elliptic_Curve_Cryptography</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=ECC_-_Elliptic_Curve_Cryptography" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="ECC_-_Elliptic_Curve_Cryptography.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk"><span><a href="http://security.foi.hr/wiki/index.php/Razgovor:ECC_-_Elliptic_Curve_Cryptography"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="ECC_-_Elliptic_Curve_Cryptography.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="ECC_-_Elliptic_Curve_Cryptography.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=ECC_-_Elliptic_Curve_Cryptography&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=ECC_-_Elliptic_Curve_Cryptography&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="ECC_-_Elliptic_Curve_Cryptography.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/ECC_-_Elliptic_Curve_Cryptography" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/ECC_-_Elliptic_Curve_Cryptography" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=ECC_-_Elliptic_Curve_Cryptography&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=ECC_-_Elliptic_Curve_Cryptography&amp;oldid=37412" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 05:20, 20. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 3.239 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "ECC_-_Elliptic_Curve_Cryptography", "wgTitle": "ECC - Elliptic Curve Cryptography", "wgAction": "view", "wgArticleId": 8909, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37412, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.391 secs. -->			</body>
+</html>

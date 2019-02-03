@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sigurnost i propusti u DNS infrastrukturi - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Sigurnost_i_propusti_u_DNS_infrastrukturi&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Sigurnost_i_propusti_u_DNS_infrastrukturi skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Sigurnost i propusti u DNS infrastrukturi</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#mw-head">orijentacija</a>,
+					<a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Problem_rasta"><span class="tocnumber">1.1</span> <span class="toctext">Problem rasta</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Problem_sigurnosti"><span class="tocnumber">1.2</span> <span class="toctext">Problem sigurnosti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Terminologija"><span class="tocnumber">2</span> <span class="toctext">Terminologija</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Jednostavan_DNS_upit"><span class="tocnumber">3</span> <span class="toctext">Jednostavan DNS upit</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#.C5.A0to_je_DNS_paket.3F"><span class="tocnumber">4</span> <span class="toctext">Što je DNS paket?</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Tipovi_zapisa"><span class="tocnumber">5</span> <span class="toctext">Tipovi zapisa</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Cache_memorija_-_.C5.A1to_se_nalazi_unutra.3F"><span class="tocnumber">6</span> <span class="toctext">Cache memorija - što se nalazi unutra?</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Trovanje_cache-memorije"><span class="tocnumber">7</span> <span class="toctext">Trovanje cache-memorije</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Poga.C4.91anje_ID-a_upita"><span class="tocnumber">7.1</span> <span class="toctext">Pogađanje ID-a upita</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Po.C4.8Detak_trovanja"><span class="tocnumber">7.2</span> <span class="toctext">Početak trovanja</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Zaklju.C4.8Dak"><span class="tocnumber">8</span> <span class="toctext">Zaključak</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#Literatura"><span class="tocnumber">9</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Uvod">Uvod</span></h2>
+<p>Domain Name System (DNS) je tehnička uzdanica interneta,
+</p><p>ali se suočava sa značajnim izazovima  koji su prisutni zbog rasta i osiguranja.
+</p><p>Internet ovisi o DNS-u; kada ne radi, ne radi ni internet.
+</p><p>Organizacije današnjice ne ovise samo o internet DNS-u več i o vlastitom DNS-u,
+</p><p>i kad im se DNS sistem poremeti, ruše se i njihove aplikacije.
+</p><p><br /> 
+</p>
+<h3> <span class="mw-headline" id="Problem_rasta">Problem rasta</span></h3>
+<p>Kako su "pametni" telefoni postali sveprisutni kroz zadnje desetlječe,
+</p><p>broj internet korisnika povečao se 5 puta, na broj od oko 2.6 milijardi.
+</p><p>Forrester predviđa da do 2016. godine, diljem svijeta će biti preko milijarda "pametnih" telefona,
+</p><p>i velika količina aplikacija koja će se koristiti 4G i LTE mrežama će dovesti do velikog porasta u DNS prometu.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns1.png" class="image"><img alt="Dns1.png" src="../images/a/ab/Dns1.png" width="539" height="364" /></a>
+</p><p><br />
+Povečani broj stranica za zabavu, socijalnih servisa, pretraživača i online kupnje
+</p><p>također stavlja pritisak na DNS. U zadnjih 5 godina, količina DNS upita narasla je 200%
+</p><p>-prosječna dnevna količina upita u prvom kvartalu 2011 je bila nevjerovatnih 57 milijardi.
+</p><p>Kako stranice i aplikacije postaju bogatije sadržajem i sofisticiranije, teret na DNS se povečava.
+</p><p>Za primjer, na modernoj web stranici, svaka slika, botun, dodatak, poveznica,
+</p><p>ikona i drugi ugrađeni sadržaj ima potencijal da mu se IP adresa mora potražiti.
+</p><p>Nije rijetko da jedna stranica zahtjeva preko 20 različitih DNS upita.
+</p><p>Uzmimo za primjer cnn.com, ta stranica koristi preko stotinu DNS zahtjeva.
+</p><p>Dakle velike, kompleksnije stranice zahtjevaju povečan broj upita.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Problem_sigurnosti">Problem sigurnosti</span></h3>
+<p>Gotovo se svi klijenti oslanjaju na DNS prilikom pristupa potrebnim servisima,
+</p><p>što čini DNS najkritičnijim i najviše izloženim servisom.
+</p><p>DNS prekidi utječu na sve vanjse servise podatkovnih centara, a ne samo jedne aplikacije.
+</p><p>Baš to što je jedna točka za sve prekide, skupa sa arhitekturom kojom je izvedena,
+</p><p>posebno u podatkovnim centrima, je čine jako privlačnom metom za DNS napade.
+</p><p>Postao je drugi najčešči oblik DDoS napada, što tjera organizacije na pojačane mjere opreza.
+</p><p>Jednako važna je činjenica da financijski najopasniji napadi, kao što su phishing,
+</p><p>i MITM napadi počinju manipuliranjem DNS-a. DNSSEC (domain name system security extensions)
+</p><p>cilja na adresiranje tih problema, ali dodana kompleksnost se pokazuje kao teret organizacijama
+</p><p>koje se ionako več muče s problemima ubrzanog rasta i obranom od Ddos napada.
+</p><p>Tradicionalne mjere opreza, kao blokatori preko alatnih traka se oslanjaju na DNS servise,
+</p><p>pa kada su ti servisi ometani, mjere sigurnosti mogu zakazati.
+</p><p>Isti problemi do neke mjere postoje sa SSL certifikatima.
+</p><p>Organizacije moraju uzeti u obzir sva riješenja da bi osigurali neomatane performanse
+</p><p>i sigurnost interneta današnjice, ali i budučnosti.
+</p><p>(izvor: David Holmes, Senior Technical Marketing Manager)
+</p><p><br />  
+</p>
+<h2> <span class="mw-headline" id="Terminologija">Terminologija</span></h2>
+<p>Prije nego se upoznamo s radom DNS-a, moramo definirati neke termine radi lakšeg razumijavanja.
+</p><p>Neki propušteni detalji neće biti važni za razumijevanje daljnjeg teksta.
+</p><p><br />
+<b>Zona</b>
+</p><p>Možemo misliti o ovome kao o domeni: kolekcija naziva servera/IP adresa skupa spojenih.
+</p><p><br />
+<b>"Nameserver"</b>
+</p><p>ovo je serverski software koji odgovara na DNS upite, kao što su "koja je IP adresa za www.foi.hr?".
+</p><p>Ponekad nameserver zna odgovor direktno (ako je "autoritativan" u toj zoni),
+</p><p>u drugim slučajevima mora ići vani u internet i raspitivati se da bi našao odgovor
+</p><p>(ukoliko je riječ u rekurzivnom Nameserveru).
+</p><p>Postoje razni softveri koji izvršavaju ovu uslugu: BIND, PowerDNS, djbdns i drugi.
+</p><p>Svi odgovaraju na isto pitanje na manje više jednak način.
+</p><p><br />
+<b>Autoritativni Nameserver  - "Authoritative Nameserver"</b>
+</p><p>Za svaku zonu, netko mora održavati listu imena servera i pripadajučih IP adresa
+</p><p>( "www.foi.hr ima adresu 161.53.120.192", itd.).
+</p><p>To je inače administrativna radnja koju obavlja pojedinac, i u večini slučajeva jedno računalo ima tu datoteku.
+</p><p>Zone s večim brojem javnih Nameservera imaju administrativna uređenja za transfer
+</p><p>zonskih podataka automatski na podređene servere, od kojih je svaki autoritativan.
+</p><p>Razlika između spomenutog nadređenog i podređenog je nebitna za razumijevanje teksta u nastavku.
+</p><p><br />
+<b>Resolver</b>
+</p><p>On se nalazi na klijent strani DNS sistema: postavlja pitanje o imenima servera.
+</p><p>Rezolver je najčešće mala knjižnica podataka kompajlirana u programima koji koriste DNS usluge,
+</p><p>i zna tek dovoljno da šalje upite Nameserverima.
+</p><p>Na Linux/UNIX sistemima, lokacija traženih servera se nalazi u file-u: "/etc/resolv.conf",
+</p><p>a u Windows okruženju podešava se u mrežnim konekcijama - kontrolne ploče.
+</p><p>To inače izgleda kao lista IP adresa, kraj kojih se nalaze imena servera.
+</p><p>Rezolveri su inače mali i jednostavni, oslanjaju se zapravo na servere za obavljanje težih zadača.
+</p><p><br /> 
+<b>Rekurzivni Nameserver</b>
+</p><p>To je Nameserver koji izlazi na internet i traži rezultate za zone koje nije autoritativan,
+</p><p>kao servis za svoje klijente. Nisu svi Nameserveri konfigurirani da pružaju uslugu rekurzije,
+</p><p>neki mogu biti i limitirani da pružaju uslugu samo svojim klijentima (pružatelj internet usluge može se ograničiti samo na svoje klijente).
+</p><p><br />
+<b>Zapis o resursima - "Resource Record"</b>
+</p><p>Iako će većina pomisliti da DNS služi samo za mapiranje imena servera / IP adrese,
+</p><p>postoje i zapravo i drugi upiti koje ih možemo poslati, što znači da je DNS zapravo baza podataka "zapisa o resursima".
+</p><p>Najčešći tim je IP adresa ("A" zapis), ali postoje i drugi zapisi: NS (Nameserver), MX (mail exchanger), SOA (Start of Authority), itd.
+</p><p><br />
+<b>Delegati</b>
+</p><p>Kada Nameserver nema zapise o traženoj zoni, ali zna kako pronači vlasnika zone,
+</p><p>tada daje adresu tog drugog Nameservera. Neformalno radi se o nekakvoj vrsti proslijeđivanja:
+</p><p>"Ja imam podatke o zoni koju tražim, evo ti podaci za daljnju potragu".
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jglavan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jglavan (stranica ne postoji)">Jglavan</a> 14:47, 12. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id="Jednostavan_DNS_upit">Jednostavan DNS upit</span></h2>
+<p>S ovih par objašnjenih pojmova, možemo sada pogledati kako jedan jednostavan rekurzivan upit izgleda,
+</p><p>bez prisutnosti bilo kakvih anomalija, te ćemo kasnije pogledati gdje tu može doći do iskorištavanja.
+</p><p>Iako se Dns paket sastoji od mnogo polja, preskočit ćemo večinu jer nisu bitni za razumijevanje osnovnog načina fukncioniranja sistema.
+</p><p>Vizualiziranje kako delegiranje skače s jednog servera na drugi je od vitalne važnosti da bi razumijeli kako se propusti iskorištavaju.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns2.png" class="image"><img alt="Dns2.png" src="../images/7/7c/Dns2.png" width="548" height="227" /></a>
+</p><p><br />
+Na slici vidimo da je korisnik ping-ao web-server, i ping je poslao upit Nameserveru za pregled web-naziva/IP adrese.
+</p><p>To se isto moglo napraviti pisanjem "<a href="http://www.unixwiz.net" class="external free" rel="nofollow">http://www.unixwiz.net</a>" u adresnoj traci web pretraživača.
+</p><p>Nije nam važno zašto se ime pretražuje već kako.
+</p><p><br /> 
+1.      Klijent s nazivom "user's PC" radi zahtjev za "www.unixwiz.net", i usmjeren je na Nameserver kojeg mu pruža ISP.
+</p><p>On traži A zapis, što predstavlja IP adresu. ISP Nameserver zna da nije autoritativan za "unixwiz.net",
+</p><p>te nemože pogledati u lokalnu bazu podataka za taj zapis. Isto tako ne nalazi zapis u svojoj cache-memoriji,
+</p><p>te zna da mora izači vani na internet u potragu.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns3.png" class="image"><img alt="Dns3.png" src="../images/a/a8/Dns3.png" width="274" height="228" /></a> 
+</p><p><br />
+2.      Sve rekurzivni Nameserveri se prekonfigurirani s listom 13 izvornih servera, selekcija izgleda ovako:
+</p>
+<pre>*A.ROOT-SERVERS.NET.  IN  A  198.41.0.4
+*B.ROOT-SERVERS.NET.  IN  A  192.228.79.201
+*C.ROOT-SERVERS.NET.  IN  A  192.33.4.12
+*...
+*M.ROOT-SERVERS.NET.  IN  A  202.12.27.33
+
+</pre>
+<p>Srečom ove IP adrese se ne mijenjaju često. Nameserver bira nasumično jednu adresu
+</p><p>i šalje joj upit zapisom "www.unixwiz.net"; na primjeru ovdje taj upit se šalje na "b.root-servers.net"
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns4.png" class="image"><img alt="Dns4.png" src="../images/1/19/Dns4.png" width="443" height="542" /></a>
+</p><p><br />
+3.      Root-server nema nikakve informacije o unixwiz.net-u,
+</p><p>ali će nas rado preusmjeriti na GTLD (global top level domain) servere,
+</p><p>odgovorne za .net domenu. Ovo je oblik NS zapisa liste servera kvalificiranih da odgovore na naš upit:
+</p><p><br />
+</p>
+<pre>/* Authority section */
+NET.                 IN  NS A.GTLD-SERVERS.NET.
+                     IN  NS B.GTLD-SERVERS.NET.
+                     IN  NS C.GTLD-SERVERS.NET.
+                     ...
+                     IN  NS M.GTLD-SERVERS.NET.
+
+/* Additional section - "glue" records */
+A.GTLD-SERVERS.net.  IN  A  192.5.6.30
+B.GTLD-SERVERS.net.  IN  A  192.33.14.30
+C.GTLD-SERVERS.net.  IN  A  192.26.92.30
+...
+M.GTLD-SERVERS.net.  IN  A  192.55.83.30
+
+</pre>
+<p>Iako smo tehnički tražili samo imena servera, root-server nam daje i IP adrese svakog servera:
+</p><p>odnosno priljepljuje ih, što nam skračuje vrijeme ponovnog traženja IP adresa.
+</p><p>4.      Uz pomoč root-servera, naš Nameserver izabire jednog od autoritativnih servera nasumično,
+</p><p>ovdje je to c.gtld-servers.net - i šalje mu isti upit,
+</p><p>odnosno njega sada pita isto pitanje za A zapis o "www.unixwiz.net"-u.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns5.png" class="image"><img alt="Dns5.png" src="../images/a/a6/Dns5.png" width="360" height="366" /></a>
+</p><p>5.      GTLD server nezna točnu adresu za naš upit, ali zna kako da nas približi cilju.
+</p><p>Kao i root-serveri, šalje nam nazad listu NS zapisa, koji će vjerovatnije imati podatke koji nama trebaju.
+</p>
+<pre>*/* Authority section */
+unixwiz.net.        IN  NS cs.unixwiz.net.
+                    IN  NS linux.unixwiz.net.
+
+/* Additional section - "glue" records */
+cs.unixwiz.net.     IN  A  8.7.25.94
+linux.unixwiz.net.  IN  A  64.170.162.98
+
+
+
+</pre>
+<p>6.      Ponovno kao i prije naš Nameserver prati lanac referentnih servera na zahtjev klijenta,
+</p><p>i opet nasumično izabire jednog od Nameservera i po treči put šalje upit, koji je isti kao i prošli.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns6.png" class="image"><img alt="Dns6.png" src="../images/a/a6/Dns6.png" width="427" height="434" /></a>
+</p><p>7.      Za razliku od drugih odgovora, koji prebacuju upit na druge Nameservere,
+</p><p>ovaj zapravo ima informaciju koju mi tražimo: te nam daje A zapis za "www.unixwiz.net".
+</p><p>U dodatku na tu informaciju, šalje nam potvrdu da se radi o autoritativnom odgovoru,
+</p><p>što indicira da je odgovor došao sa servera koji je odgovoran za tu domenu, i da je neupitno točan.
+</p><p>8.      Sada s raspoloživim odgovorom, ISP-ov rekurzivni Nameserver daje odgovor nazad klijentu, i upit je zadovoljen.
+</p><p>Rekurzivni Nameserver isto tako pohranjuje odgovor u cache-memoriju
+</p><p>u slučaju da isti ili neki drugi klijent kasnije bude imao isti upit.
+</p><p>Ali treba napomenuti da odgovor klijentu ne uključuje indikator da se radi o autoritetu,
+</p><p>iako je primljen od strane cs.unixwiz.net, rekurzivni Nameserver se dakle
+</p><p>nemože postavljati klijentu kao izvor autoriteta, te se smatra ne-autoritativnim odgovorom.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns7.png" class="image"><img alt="Dns7.png" src="../images/3/30/Dns7.png" width="386" height="408" /></a> 
+</p><p><br />
+Ova procedura se dešava na trilijune puta dnevno, bez da smo svjesni.
+</p><p>Sistem je dosta brz, tako da se ovih 8 koraka izvrši u djeliću sekunde.
+</p><p>Ovo otkriva prirodu DNS arhitekture: ni jedno računalo nema sve informacije,
+</p><p>ali znaju kako doći jedan do drugoga.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jglavan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jglavan (stranica ne postoji)">Jglavan</a> 14:54, 12. lipnja 2013. (CEST)
+</p>
+<h2> <span class="mw-headline" id=".C5.A0to_je_DNS_paket.3F">Što je DNS paket?</span></h2>
+<p>Sa shvačanjem osnova DNS sistema, idemo malo detaljnije objasniti što je DNS paket:
+</p><p>detalji su potrebni da bi shvatili otrovanje cache-memorije.
+</p><p>Imamo mnogo detalja, ali srečom večina nije potrebna za razumijevanje daljnih problema.
+</p><p>Slika desno prikazuje strukturu jednog DNS paketa podataka,
+</p><p>i prikazuje paket upita ili odgovora.
+</p><p><br /> 
+<b>Source / Destination IP adrese</b>
+</p><p>Prikazuje IP adrese računala koji šalju i primaju zahtjeve.
+</p><p>Moguče je krivotvoriti adresu pošiljatelja, ali je uzaludno krivotvoriti primaoca.
+</p><p><b>Source / Destination port brojevi</b>
+</p><p>DNS serveri prate port 53/udp za upite iz vani, tako da prvi paket svake izmjene
+</p><p>je uvIjek usmjeren na taj port. Port pošiljatelja dosta varira (ali ne dovoljno što ćemo kasnije vidjeti):
+</p><p>ponekad je to isto port 53/udp, ponekad je fiksni port odabran od strane OS-a, a ponekad je nasumično odabran.
+</p><p>Što se tiče funkcionalnosti DNS-a, port pošiljatelja nije važan dokle god odgovori stižu nazad na njega ispravno. 
+</p><p>Vidjet ćemo kasnije da je to srž problema.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns8.png" class="image"><img alt="Dns8.png" src="../images/e/ea/Dns8.png" width="582" height="536" /></a>
+</p><p><b>ID upita - "Query ID"</b>
+</p><p>Ovo je jedinstven indetifikator kreiran u paketu kojeg server ne mijenja:
+</p><p>omogučuje serveru da spoji odgovor s upitom kasnije.
+</p><p>Nameserver može imati više upita u isto vrijeme - čak i više njih za isti server
+</p><p>- tako da ID upita pomaže pri uparivanju odgovora s pitanjem.
+</p><p><b>Upit / Odgovor - "Q/R"</b>
+</p><p>Vrijednost je 0 za upit od klijenta, 1 za odgovor od servera.
+</p><p><b>"Opcode"</b>
+</p><p>Vrijednost je 0 za standardan upit.
+</p><p><b>Autoritativni odgovor - "AA"</b>
+</p><p>Vrijednost je 1 ako je izvor autoritativan, 0 za obrnuto.
+</p><p><b>"TC" (Truncated)</b>
+</p><p>Vrijednost je 1 ako ako odgovor servera nemože stati u 512-bitni okvir UDP odgovora;
+</p><p>što znači da klijent mora pokušati ponovno sa TCP upitom, koji ima drugačija ograničenja.
+</p><p><b>Rekurzija - "RD" (Recursion Desired)</b>
+</p><p>Klijent stavlja vrijednost na 1 ako želi da server obavi cijelu pretragu rekurzivno,
+</p><p>ili 0 ako želi samo najbolju informaciju koju server ima a klijent će dalje nastaviti potragu sam.
+</p><p>Samo neki serveri imaju omogučenu rekurziju, Root serveri nisu među njima za primjer.
+</p><p><b>Rekurzija na raspolaganju - "RA (Recursion Available)"</b>
+</p><p>Vrijednost 0 ili 1, što indicira mogučnost servera za rekurziju.
+</p><p><b>Z - rezervirano</b>
+</p><p>Rezerviran znak, mora biti 0.
+</p><p><b>"rcode"</b>
+</p><p>Odgovor od servera, označava uspjeh ili neuspjeh.
+</p><p><b>Broj upita - "Question record count"</b>
+</p><p>Klijent ispunjava s upitom, odnosno što on traži zapravo:
+</p><p>uključuje ime (www.unixwiz.net), tip (A, NS, MX, itd.), i klasu koja je inače IN=Internet.
+</p><p>Server ponavlja pitanje u "response" paketu, tako da je "question count" gotovo uvjek 1.
+</p><p><b>"Answer/authority/additional record count"</b>
+</p><p>Postavljeno od strane servera, pruža razne odgovore na upit klijenta.
+</p><p><b>"DNS Question/Answer data"</b>
+</p><p>U ovom dijelu se nalaze podatci spomenuti iz "Question count" polja prije spomenutog.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Tipovi_zapisa">Tipovi zapisa</span></h2>
+<p>Možemo reči da je DNS oblik distribuirane baze podataka, i svaki upit ili odgovor uključuje ime,
+</p><p>tip, i vrijednost odgovora.
+</p><p>Tipovi zapisa imaju različite namjene, i razumijevanje DNS-a nije moguče bez da znamo sve o njima.
+</p><p>Postoje deseci tipova zapisa, iako se samo njih par koristi.
+</p><p>Ostali su eksperimentalni, zastarjeli ili služe za neke stvari koje se jako rijetko koriste.
+</p><p><br />
+Najčešći tipovi DNS zapisa
+</p><p><b>A </b>      Ovaj zapis predstavlja IP adresu, i najočitiji je podržani tip.
+</p><p>Mnogi korisnici ni neznaju da se DNS koristi i za druge stvari.
+</p><p><b>NS</b>      Predstavlja zapis o Nameserveru odgovornom za domenu koju tražimo.
+</p><p><b>MX</b>      MX zapis čuva informacije o Mail Exchangeru, sistemu odgovornom za rukovanje e-mailom za danu domenu.
+</p><p>Više MX zapisa može biti pruženo za jednu domenu.
+</p><p><b>SOA</b>     „Start of Authorities“ – Opisuje i pruža neke ključne podatke vezane za samu zonu.
+</p><p>Uključuje kontakt adresu administratora, i vrijeme za koje bi računala trebala biti spojena
+</p><p>na zonu ukoliko glavni server nije dostupan.
+</p><p><b>CNAME</b>   „Canonical Name“, poznatiji kao Alias, pruža zamjenski naziv za resurs.
+</p><p><b>TXT</b>     Standardni Text zapis koji pruža opisne podatke o domeni. To su u biti komentari.
+</p><p><br /> 
+Opčenito je dozvoljeno da jedno ime ima više zapisa, čak i više zapisa za isti tip podatka. Čest primjer bi bio zapis za računalo koje ima više IP adresa, za primjer:
+</p>
+<pre>www.example.com. IN A 192.168.1.3
+www.example.com. IN A 192.168.7.149
+</pre>
+<p>Ovdje vidimo da gornji primjer ima dva IP zapisa asociranih za jedno ime, i oba dva zapisa će se vratiti u odgovoru za A upit. Njihov redoslijed nije specificiran, tj. pomiješanog su redoslijeda.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Cache_memorija_-_.C5.A1to_se_nalazi_unutra.3F">Cache memorija - što se nalazi unutra?</span></h2>
+<p>U DNS pretraživanjima koja smo gledali do sad, ISP-ov Nameserver je išao vani na internet
+</p><p>i u potpunosti riješio svaki naš upit, ne oslanjajuči se na ikakvo znanje osim na pomoč od root-servera.
+</p><p>Ali u praksi cijeli taj krug operacija nije potreban: jednom kad dobijemo autoritativan odgovor za traženi naziv,
+</p><p>možemo taj isti odgovor pohraniti u lokalnom cacheu, da bi sljedeće upite izravno zadovoljili.
+</p><p>Što veći broj klijenata uslužen od strane Nameservera, veća je korist od cache-a,
+</p><p>istina je da treba veča količina memorije, međutim korist je velika.
+</p><p><br />
+Vrijeme trajanja - "TTL"
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns9.png" class="image"><img alt="Dns9.png" src="../images/6/62/Dns9.png" width="72" height="89" /></a> 
+</p><p>Kada se DNS odgovor pohrani u lokalnu memoriju, nemože ga čuvati tamo viječno:
+</p><p>to bi moglo voditi zastarjelih podataka i oštetiti uključene domene.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns10.png" class="image"><img alt="Dns10.png" src="../images/9/97/Dns10.png" width="289" height="67" /></a>
+</p><p>Srečom, rekurzivni Nameserver netreba pogađati koliko dugo da čuva podatke:
+</p><p>administrator zone specificira potrebnu informaciju za svaki zapis. To vrijeme zovemo TTL.
+</p><p>Na slici ispod vidimo različita vremena trajanja TTL-a, koje može trajati od par sekundi,
+</p><p>do tjedna ili više. Što je još bitno za napomenuti da možemo čuvati i podatke o drugim vrstama zapisa.
+</p><p><a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns11.png" class="image"><img alt="Dns11.png" src="../images/8/8c/Dns11.png" width="289" height="130" /></a>
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Trovanje_cache-memorije">Trovanje cache-memorije</span></h2>
+<p>S doneklim razumijevanjem funkcioniranja DNS-a, vrijeme je da pogledamo gdje stvari prestaju funkcionirati.
+</p><p>Trovanje memorije je gdje napadač uspjeva ubaciti neispravne podatke u memoriju rekurzivnog servera,
+</p><p>što uzrokuje da isti taj server daje neispravne podatke klijentima.
+</p><p>Nije toliko jednostavno kao slanje DNS paketa Nameserveru,
+</p><p>pošto DNS prihvača samo odgovore za več poslane upite; neočekivani odgovori bivaju ignorirani.
+</p><p><br />
+Ovo nije "phishing"&#160;!!!
+</p><p><br />
+S DNS trovanjem memorije, sama priroda DNS-a samog je potkopana na način da rezultatima
+</p><p>hostname-IP upita nemožemo više vjerovati.
+</p><p>Stranice koje tada posječujemo su ispravne, ali se preusmjerava s njih na neki drugi server:
+</p><p>to se nemože detektirati pregledom linkova i HTML koda.
+</p><p>Kako nameserver zna da treba očekivati odgovor?
+</p><p><br />
+</p>
+<ul><li>odgovor dolazi na isti UDP port s kojeg je poslan: u suprotnom paket se ignorira
+</li></ul>
+<ul><li>sekcija "question" koja se duplicira u odgovoru odgovara "question"-u poslanog paketa
+</li></ul>
+<ul><li>"Query ID" odgovara jedno drugomu
+</li></ul>
+<ul><li>vrijednosti polja "Authority" i "Additional sections" odgovaraju imenima domena pitanja
+</li></ul>
+<p><br />
+Što onemogučuje ns.unixwiz.net da odgovori na adresu "www.unixwiz.net" s nekim drugim adresama također.
+</p><p>Ako su svi uvijeti zadovoljeni, Nameserver će prihvatiti paket kao izvorani odgovor na upit,
+</p><p>i iskoristiti informaciju iz paketa.
+</p><p>Ali ako napadač može predvidjeti i krivotvoriti DNS odgovor može prouzročiti svakakve probleme žrtvama.
+</p><p>Napadač inače prvo izabire žrtvu tako da nađe Nameserver za koji vjeruje da je ranjiv na trovanje:
+</p><p>u tom postupku svi drugi korisnici koji pripadaju istom Nameserveru trpe posljedice.
+</p><p>Zatim odabire domenu koju želi preuzeti. Namjera mu je da zavara žrtve tako da posječuju njegovu moguče malicioznu
+</p><p>stranicu umjesto pravu.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Poga.C4.91anje_ID-a_upita">Pogađanje ID-a upita</span></h3>
+<p>Na starim Nameserverima ID upita se jednostavno povečavao za jedan za svaki izlazni zahtjev, i to čini pogađanje dosta lakšim.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns12.png" class="image"><img alt="Dns12.png" src="../images/6/67/Dns12.png" width="392" height="386" /></a>
+</p><p><br />
+Nemožemo direktno pitati NS za trenutni "query ID", ali ga možemo izazvati da nam ga kaže:
+</p>
+<ol><li>Napadač šalje upit NS-u za ime u zoni koju on kontrolira ("test.badguy.com")<br />Može poslati upit direktno, ako NS dozvoljava rekurziju s njegove lokacije, <br />ili može na neki način nagovoriti korisnika da pristupi toj istoj stranici.
+</li><li>Žrtvin NS prima zahtjev i koristi se klasičnim koraciam da riješi upit.
+</li><li>Eventualno, žrtvin NS će biti usmjeren na NS napadača: na poslijetku on je autoritativan za njegovu stranicu.
+</li><li>Napadač na razne načine nadzire pakete sa svog NS-a, i ulazi u trag "port"-u i "query ID"-u korištenom.
+</li></ol>
+<p>U ovom trenutko napadač ima potrebne informacije za krenuti u napad! ---&gt; CHARGEEEE&#160;!!!
+</p>
+<h3> <span class="mw-headline" id="Po.C4.8Detak_trovanja">Početak trovanja</span></h3>
+<p>S potrebnim informacijama, napadač sada može krenuti u napad.
+</p><p><br />
+<a href="http://security.foi.hr/wiki/index.php/Datoteka:Dns13.png" class="image"><img alt="Dns13.png" src="../images/c/c6/Dns13.png" width="449" height="416" /></a>
+</p><p><br />
+Napadač šalje DNS upit žrtvinom NS-u za stranicu koju želi "preoteti".
+</p><p>Potrebna je rekurzija na dotičnom NS-u.
+Znajuči da će žrtvin NS poslati upit root/GTLD serverima, on počinje bombardiranje s krivotvorenim paketima.
+</p><p>Dok NS čeka "ispravne odgovore" od tih servera, postoji mogučnost da je jedan od DNS paketa napadača uspio zavarati 
+</p><p>sistem, te je cache memorija uspješno zaražena.
+</p><p>Jer pravilo kaže, prvi ispravan odgovor pobijeđuje. Večina paketa napadače ispadne,
+</p><p>jer imaju krivi "Query ID" ali u moru paketa, jedan će biti ispravan,
+</p><p>i NS će ga prihvatiti kao ispravnog.
+</p><p><br />
+Postoje neki problemi na koje napadač može naiči, a to su:
+</p>
+<ul><li>rezultat upita je več u memoriji
+</li><li>odabir "Query ID" je nasumičan
+</li><li>brzina odnosno udaljenost NS i tražene domene
+</li></ul>
+<h2> <span class="mw-headline" id="Zaklju.C4.8Dak">Zaključak</span></h2>
+<p>Ovo je jako ozbiljna ranjivost sistema, jer potkopava osnovno uzdavanje u DNS sistem i internet, neki kažu ako nemožeš vjerovati DNS-u da je sve izgubljeno, s ćim se možemo i donekle složiti.
+Ono što možemo reći za kraj:
+</p>
+<ul><li>zakrpajte servere, jer postoje alati s kojima ih i amateri mogu ugroziti
+</li><li>autoritativni serveri se nemogu zaraziti, jer ne koriste cache-sistem
+</li><li>SSL certifikat može biti od koristi, međutim malo tko ide za tim da se radi o krivom certifikatu
+</li></ul>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<p>www.unixwiz.net
+</p><p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Jglavan&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Jglavan (stranica ne postoji)">Jglavan</a> 12:14, 12. lipnja 2013. (CEST)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 52/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:6151-0!*!0!!hr!2!edit=0 and timestamp 20190203204105 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html">http://security.foi.hr/wiki/index.php/Sigurnost_i_propusti_u_DNS_infrastrukturi</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Sigurnost_i_propusti_u_DNS_infrastrukturi" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Sigurnost_i_propusti_u_DNS_infrastrukturi&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_i_propusti_u_DNS_infrastrukturi&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_i_propusti_u_DNS_infrastrukturi&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Sigurnost_i_propusti_u_DNS_infrastrukturi.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Sigurnost_i_propusti_u_DNS_infrastrukturi" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Sigurnost_i_propusti_u_DNS_infrastrukturi" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_i_propusti_u_DNS_infrastrukturi&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Sigurnost_i_propusti_u_DNS_infrastrukturi&amp;oldid=21382" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 22:06, 12. lipnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 5.100 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Sigurnost_i_propusti_u_DNS_infrastrukturi", "wgTitle": "Sigurnost i propusti u DNS infrastrukturi", "wgAction": "view", "wgArticleId": 6151, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 21382, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.389 secs. -->			</body>
+</html>

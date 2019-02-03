@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Korištenje Windows PowerShella u posteksploataciji - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Korištenje_Windows_PowerShella_u_posteksploataciji skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Korištenje Windows PowerShella u posteksploataciji</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#mw-head">orijentacija</a>,
+					<a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Danijel Filipović, 44423/15-R
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Uvod"><span class="tocnumber">1</span> <span class="toctext">Uvod</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#O_PowerShell-u"><span class="tocnumber">2</span> <span class="toctext">O PowerShell-u</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#PowerSploit"><span class="tocnumber">3</span> <span class="toctext">PowerSploit</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Instalacija"><span class="tocnumber">3.1</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Primjer:_Keylogging"><span class="tocnumber">3.2</span> <span class="toctext">Primjer: Keylogging</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Primjer:_Tajmirani_sceenshot-i"><span class="tocnumber">3.3</span> <span class="toctext">Primjer: Tajmirani sceenshot-i</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Empire"><span class="tocnumber">4</span> <span class="toctext">Empire</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Instalacija_2"><span class="tocnumber">4.1</span> <span class="toctext">Instalacija</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Primjer:_Kreiranje_oslu.C5.A1kiva.C4.8Da"><span class="tocnumber">4.2</span> <span class="toctext">Primjer: Kreiranje osluškivača</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Primjer:_Spajanje_na_remote_PowerShell"><span class="tocnumber">4.3</span> <span class="toctext">Primjer: Spajanje na remote PowerShell</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Primjer:_Ispis_lozinki_sa_inficiranog_ra.C4.8Dunala"><span class="tocnumber">4.4</span> <span class="toctext">Primjer: Ispis lozinki sa inficiranog računala</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#Literatura"><span class="tocnumber">5</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Uvod"> Uvod </span></h1>
+<p>U ovom projektu obraditi će se tema korištenja PowerShell-a za posteksploataciju. Specifično, obradit će se dva, popularna, alata koja koriste PowerShell u svrhu posteksploatacije: PowerSploit od grupe <i>PowerShell Mafia</i> i Empire od grupe <i>PowerShell Empire</i>.
+</p>
+<h1> <span class="mw-headline" id="O_PowerShell-u"> O PowerShell-u </span></h1>
+<p>PowerShell, prema dokumentaciji koju je napisao Microsoft[1], je naredbena ljuska i skriptni jezik koji je napravljen u .Net Framework-u i koji je dizajniran za sistemsku administraciju, odnosno pomaže korisnicima da automatiziraju administraciju Windows operacijskog sustava i Windows aplikacija. Osim same administracije, PowerShell omogućava korisnicima da kreiraju vlastite skripte, tj. module.
+</p><p>PowerShell se temelji na objektima, odnosno sve naredbe primaju objekte kao ulazne parametre i vraćaju objekte kao izlazne rezultate.[2]
+</p><p>Grupa <i>PowerShell Empire</i>[4] navodi da PowerShell nudi raznolike ofenzivne mogućnosti, na primjer: potpuni pristup .NET Framework-u, direktan pristup Win32 API-u, mogućnost slaganja malicioznog koda u memoriji, itd.
+</p>
+<h1> <span class="mw-headline" id="PowerSploit"> PowerSploit </span></h1>
+<p>PowerSploit je skup PowerShell modula koji se mogu koristiti u svrhu penetracijskog testiranja [3].Razvila ga je grupa zvana <i>PowerShell Mafia</i>.<br />
+Sastoji se od sljedećih modula [3]:
+</p>
+<dl><dd><ul><li> <i>CodeExecution</i> - izvršava DLL, EXE ili shellcode kodove,
+</li><li> <i>ScriptModification</i> - modificira skripte i/ili priprema skripte za izvršavanje na računalu,
+</li><li> <i>Persistence</i> - čini skripte perzistentnima,
+</li><li> <i>AntivirusBypass</i> - omogućuje zaobilaženje/skrivanje od anti-virusnih programa,
+</li><li> <i>Exfiltration</i> - omogućuje krađu podataka,
+</li><li> <i>Mayhem</i> - "<i>cause general mayhem with PowerShell</i>",
+</li><li> <i>Privesc</i> - unaprijeđuje/podiže povlastice,
+</li><li> <i>Recon</i> - alati za <i>recon</i> fazu penetracijskog testiranja.
+</li></ul>
+</dd></dl>
+<h2> <span class="mw-headline" id="Instalacija"> Instalacija </span></h2>
+<p>PowerSploit modul je dostupan na GitHub-u. Može se preuzeti ili normalno ili se može klonirati cijeli Git repozitorij koristeći <code>git pull</code> (trebate imate instalirani Git na računalu). Nakon preuzimanja treba u varijablama okruženja (engl. <i>environmental variables</i>) u varijablu <i>PSModulePath</i> dodati putanju do direktorija koji sadrži direktorij s PowerSploit modulima.
+</p><p>Primjer: ako je putanja do direktorija s modulima <code>C:\Modules\PowerSploit\</code>, tada u varijablu <i>PSModulePath</i> treba dodati <code>C:\Modules\</code>.
+</p><p>Nakon dodavanja putanje u varijablu okruženja <i>PSModulePath</i> modul se unutar PowerShell naredbene ljuske uključuje sljedećom naredbom:<br />
+</p>
+<pre>C:\&gt; Import-Module PowerSploit
+</pre>
+<h2> <span class="mw-headline" id="Primjer:_Keylogging"> Primjer: <i>Keylogging</i> </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-keylogging-PowerShell.png" class="image"><img alt="" src="../images/thumb/3/3c/DanijelFilipovic-SIS-keylogging-PowerShell.png/180px-DanijelFilipovic-SIS-keylogging-PowerShell.png" width="180" height="123" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-keylogging-PowerShell.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Zapisi u <i>log.txt</i></div></div></div>
+<p>Sljedeća naredba pokrenut će <i>keylogging</i> proces koji se zakači na PowerShell-ov proces, a koji će zapisivati sve tipke koje su stisnute u datoteku "log.txt".
+</p>
+<pre>C:\&gt; Get-KeyStrokes -LogPath "C:\log.txt" -PollingInterval 35
+</pre>
+<p>Parametar <i>PollingInterval</i> predstavlja vremenski razmak u milisekundama unutar kojeg će proces čekati prije nego zapiše sljedeću tipku.
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Primjer:_Tajmirani_sceenshot-i"> Primjer: Tajmirani sceenshot-i </span></h2>
+<div class="thumb tleft"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-screenshotiing-PowerShell.png" class="image"><img alt="" src="../images/thumb/6/64/DanijelFilipovic-SIS-screenshotiing-PowerShell.png/180px-DanijelFilipovic-SIS-screenshotiing-PowerShell.png" width="180" height="135" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-screenshotiing-PowerShell.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><i>Screenshot</i>-i koje je aplikacija uzela</div></div></div>
+<p>Sljedeća naredba pokreće proces, koji se zakači na PowerShell-ov proces, koji će svakih 20 sekundi uzeti <i>screenshot</i> i pohraniti u danu putanju. Parametar <i>EndTime</i> određuje vrijeme prestanka procesa.
+</p>
+<pre>C:\&gt; Get-TimedScreenshot -Path "C:\TEMP" -Interval 20 -EndTime 23:40
+</pre>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<h1> <span class="mw-headline" id="Empire"> Empire </span></h1>
+<p>Empire je kolekcija PowerShell modula za post-eksploataciju koju je napravila grupa zvana <i>PowerShell Empire</i> [4]. Oni navode da je Empire izgrađen na "kriptografsko-sigurnim komunikacijama" i "fleksibilnoj arhitekturi" [4]. Iako se radi o kolekciji PowerShell modulu, Empire se može jedino instalirati na GNU/Linux operacijskim sustavima.
+</p>
+<h2> <span class="mw-headline" id="Instalacija_2"> Instalacija </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-Empire-PowerShell.png" class="image"><img alt="" src="../images/thumb/d/d8/DanijelFilipovic-SIS-Empire-PowerShell.png/180px-DanijelFilipovic-SIS-Empire-PowerShell.png" width="180" height="103" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-Empire-PowerShell.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Početni meni Empire-a</div></div></div>
+<p>Da bi se instalirao Empire potrebno je imati GNU/Linux operacijski sustav. Instalacijske datoteke se preuzimaju sa GitHub repozitorija ovog projekta (može se preuzeti normalno ili korištenjem Git naredbe <code>git clone</code>.
+</p><p>Nakon preuzimanja treba navigirati u direktorij <code>[direktorij-gdje-je-preuzet-empire]/Empire/setup/</code> i unutar naredbene ljuske GNU/Linux operacijskog sustava pokrenuti naredbu <code>sudo ./install.sh</code>. Skripta će instalirati programske zavisnosti (engl. <i>dependencies</i>) o kojima Empire ovisi i konfigurirati <i>backend</i> bazu podataka.
+</p><p>Za pokretanje Empire-a treba navigirati u direktorij <code>Empire/</code> i u naredbenoj ljuski pokrenuti naredbu <code>./empire</code>. Prikazat će se početni meni od Empire-a kao na slici.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Primjer:_Kreiranje_oslu.C5.A1kiva.C4.8Da"> Primjer: Kreiranje osluškivača </span></h2>
+<p>[Primjer baziran na tutorijalu: <a href="https://www.youtube.com/watch?v=OpC8AC5cKT0" class="external free" rel="nofollow">https://www.youtube.com/watch?v=OpC8AC5cKT0</a>]
+</p><p><br />
+Unutar Empire-a upiše se sljedeća naredba:
+</p>
+<pre>(Empire)&gt; listeners
+</pre>
+<p>Naredba <code>listeners</code> otvorit će posebnu karticu koja omogućuje kreiranje, brisanje i ažuriranje prisluškivača. Ako se prvi put koristi Empire ili se osluškivaču nisu aktivirali, prilikom poziva ove naredbe pokazat će se sljedeća poruka:
+</p>
+<pre>[!] No listeners currently active.
+</pre>
+<p>To samo znači da ili osluškivači nisu aktivni ili nismo inficirali računalo s osluškivačem.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-Empire-ListenerInfo.png" class="image"><img alt="" src="../images/thumb/9/9d/DanijelFilipovic-SIS-Empire-ListenerInfo.png/180px-DanijelFilipovic-SIS-Empire-ListenerInfo.png" width="180" height="92" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DanijelFilipovic-SIS-Empire-ListenerInfo.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ispis naredbe <i>info</i></div></div></div>
+<p>Sljedeća naredba ispisat će popis svih kreiranih osluškivača (treba se nalaziti u kartici <i>listeners</i>):
+</p>
+<pre>(Empire: listeners)&gt; info
+</pre>
+<p>Na početku postoji samo jedan osluškivač zvan "test". Slika s lijeve strane ovog teksta pokazuje primjer ispisa naredba <code>info</code>.
+<br />
+<br />
+Osluskivač "test" se ne može koristiti jer Empire (zbog nekog razloga) ne dopušta kreiranje osluškivača s tim imenom. No, jednostavno možemo preimenovati postojeći osluškivač. Preimenovanje se vrši sa sljedeće dvije naredbe:
+</p>
+<pre>(Empire: listeners)&gt; set Name osluskivac
+(Empire: listeners)&gt; execute
+</pre>
+<p>Osluškivač "test" je u gornjem primjeru preimenovan u "osluskivac". Sa sljedeće dvije naredbe kreirat će se Windows Batch datoteka koja se pošalje računalu koje se želi inficirati:
+</p>
+<pre>(Empire: listeners)&gt; usestager launcher_bat osluskivac
+(Empire: stager/launcher_bat)&gt; execute
+</pre>
+<p>U mapi <code>/tmp/</code> kreirat će se <i>launcher.bat</i> datoteka. Kreirana Windows Batch datoteka otvoriti će nam pristup PowerShell naredbenoj ljuski na inficiranom računalu. Sada je potrebno jedino poslati tu datoteku računalu koje pokreće Windows operacijski sustav (7, 8 ili 10).
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-ACTIVELISTENER.png" class="image"><img alt="" src="../images/thumb/4/41/DFILIPOV-SIS-EMPIRE-ACTIVELISTENER.png/180px-DFILIPOV-SIS-EMPIRE-ACTIVELISTENER.png" width="180" height="131" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-ACTIVELISTENER.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Aktivan osluškivač</div></div></div>
+<p>Ako je računalo koje pokreće Windows operacijski sustav inficirano, Empire će pokazati poruku o aktivnom osluškivaču i dat će nam IP adresu inficiranog računala (slika lijevo, tekst sa zelenim slovima).
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-LISTENERPROOF.png" class="image"><img alt="" src="../images/thumb/b/bd/DFILIPOV-SIS-EMPIRE-LISTENERPROOF.png/180px-DFILIPOV-SIS-EMPIRE-LISTENERPROOF.png" width="180" height="103" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-LISTENERPROOF.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Dokaz IP adrese koju daje aktivni osluškivač</div></div></div>
+<p>U vlastitom primjeru autora ovog rada koristio se Windows 7 operacijski sustav pokrenut preko VirtualBox-a. Desna slika pokazuje ispis <code>ipconfig</code> naredbe kao dokaz da je operacijski sustav inficiran s osluškivačem.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Primjer:_Spajanje_na_remote_PowerShell"> Primjer: Spajanje na <i>remote</i> PowerShell </span></h2>
+<p>[Primjer baziran na tutorijalu: <a href="https://www.youtube.com/watch?v=dIKYl9hMJxQ" class="external free" rel="nofollow">https://www.youtube.com/watch?v=dIKYl9hMJxQ</a>]
+</p><p><br />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-ACTIVEAGENT.png" class="image"><img alt="" src="../images/thumb/b/b4/DFILIPOV-SIS-EMPIRE-ACTIVEAGENT.png/180px-DFILIPOV-SIS-EMPIRE-ACTIVEAGENT.png" width="180" height="131" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-ACTIVEAGENT.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Popis aktivnih agenata</div></div></div>
+<p>Nastavlja se sa prethodnog primjera, unosom sljedeće naredbe pokazat prebacit će se na <i>agents</i> karticu i ispisati će se popis aktivnih agenata, tj. osluškivača koji su uspostavili vezu za <i>remote</i> PowerShell-om i našim Empire-om (lijeva slika pokazuje taj popis):
+</p>
+<pre>(Empire)&gt; agents
+</pre>
+<p>Naredbom <code>interact</code> stvorit će se veza sa <i>remote</i> PowerShell-om. Kao parametar naredbi <code>interact</code> ide ime agenta koje se vidi u lijevoj slici, tako da će slušaj iz lijeve slike naredba izgledati ovako:
+</p>
+<pre>(Empire: agents)&gt; interact Y2KH2PwSWSUEKLSU
+</pre>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-SYSINFO.png" class="image"><img alt="" src="../images/thumb/9/95/DFILIPOV-SIS-EMPIRE-SYSINFO.png/180px-DFILIPOV-SIS-EMPIRE-SYSINFO.png" width="180" height="131" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-SYSINFO.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Sistemske informacije inficiranog računala</div></div></div>
+<p>Sada kada je ostvarena veza sa <i>remote</i> PowerShell-om mogu se pozivati naredbe iz njega, kao npr. <code>systeminfo</code> da vidimo sistemske informacije inficiranog računala. Unutar Empire-a naredba će izgledati ovako:
+</p>
+<pre>(Empire: Y2KH2PwSWSUEKLSU)&gt; shell systeminfo
+</pre>
+<p>Rezultat te naredbe vidi se na slici desno.
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Primjer:_Ispis_lozinki_sa_inficiranog_ra.C4.8Dunala"> Primjer: Ispis lozinki sa inficiranog računala </span></h2>
+<p>[Primjer baziran na tutorijalu: <a href="https://www.youtube.com/watch?v=dIKYl9hMJxQ" class="external free" rel="nofollow">https://www.youtube.com/watch?v=dIKYl9hMJxQ</a>]
+</p><p><br />
+Nastavlja se s prethodnim primjerom. Da bi se napravio ispis lozinki sa inficiranog računala treba pokrenuti <i>mimikatz</i> dok postoji veza s aktivnim agentom na inficiranom računalu. <i>Mimikatz</i> je mali alat koji dohvaća lozinke (u <i>plain-text</i> obliku), <i>hash</i>-eve, itd. iz memorije inficiranog računala.
+</p><p>No, da bi pokrenuli <i>mimikatz</i> trebamo zaobići <i>User Account Control</i> na inficiranom računalu jer, ako se ne zaobiđe UAC, dobivat ćemo poruku o preniskim privilegijama na računalu. U praksi se treba provjeritiima li inficirano računalo dobru "obranu" od našeg upada, ali kako se u ovom računalu radi o svježe instaliranom Windows 7 operacijskom sustavu na VirtualBox-u dovoljno je samo pozvati naredbu <code>bypassuac</code>. Naredba <code>bypassuac</code> kao parametar prima ime ili ID osluškivača koji se nalazi na inficiranom računalu.
+</p>
+<pre>(Empire: Y2KH2PwSWSUEKLSU)&gt; bypassuac osluskivac
+</pre>
+<div class="thumb tleft"><div class="thumbinner" style="width:182px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-MIMIKATZ.png" class="image"><img alt="" src="../images/thumb/e/e2/DFILIPOV-SIS-EMPIRE-MIMIKATZ.png/180px-DFILIPOV-SIS-EMPIRE-MIMIKATZ.png" width="180" height="131" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:DFILIPOV-SIS-EMPIRE-MIMIKATZ.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ispis koji je vratio <i>mimikatz</i></div></div></div>
+<p>Treba pričekati nekoliko sekundi da <code>bypassuac</code> izvrši svoje. Izvršavanjem ove naredbe kreirat će se novi aktivni agent koji je zaobišao UAC sa korisničkog računala. Na taj agent se jednostavno spojimo naredbom <code>interact</code> kao u prethodnom primjeru.
+</p><p>Nadalje, samo pokrenemo <i>mimikatz</i> i čekamo ispis. Slika s lijeve strane prikazuje ispis koji je autor ovog rada (Danijel Filipović) dobio.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p><p><br />
+<br />
+</p>
+<h1> <span class="mw-headline" id="Literatura"> Literatura </span></h1>
+<ol><li> Microsoft. <i>Scripting with Windows PowerShell</i>. [Online] Dostupno na: <a href="https://technet.microsoft.com/library/bb978526.aspx" class="external free" rel="nofollow">https://technet.microsoft.com/library/bb978526.aspx</a> (Pristupljeno: 16.01.2016.)
+</li><li> Microsoft. <i>About Windows PowerShell</i>. [Online] Dostupno na: <a href="https://technet.microsoft.com/en-us/library/dd315275.aspx" class="external free" rel="nofollow">https://technet.microsoft.com/en-us/library/dd315275.aspx</a> (Pristupljeno: 16.01.2016.)
+</li><li> PowerShell Mafia. GitHub repozitorij za <i>PowerSploit</i> projekt. Dostupna na: <a href="https://github.com/PowerShellMafia/PowerSploit" class="external free" rel="nofollow">https://github.com/PowerShellMafia/PowerSploit</a> (Pristupljeno: 16.01.2016.)
+</li><li> PowerShell Empire. <a href="http://www.powershellempire.com/" class="external free" rel="nofollow">http://www.powershellempire.com/</a> (Pristupljeno: 17.01.2016.)
+</li></ol>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Danijel.filipovic&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Danijel.filipovic (stranica ne postoji)">Danijel.filipovic</a> 09:15, 18. siječnja 2016. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 47/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8674-0!*!0!!hr!2!edit=0 and timestamp 20190203204222 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html">http://security.foi.hr/wiki/index.php/Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Korištenje_Windows_PowerShella_u_posteksploataciji.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Kori%C5%A1tenje_Windows_PowerShella_u_posteksploataciji&amp;oldid=37409" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 14:49, 18. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 365 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Korištenje_Windows_PowerShella_u_posteksploataciji", "wgTitle": "Korištenje Windows PowerShella u posteksploataciji", "wgAction": "view", "wgArticleId": 8674, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37409, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.359 secs. -->			</body>
+</html>

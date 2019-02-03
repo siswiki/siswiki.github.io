@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="hr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Analiza web prometa korištenjem Netflow alata - SIS Wiki</title>
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="shortcut icon" href="http://security.foi.hr/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="../opensearch_desc.php" title="SIS Wiki (hr)" />
+<link rel="EditURI" type="application/rsd+xml" href="../api.php%3Faction=rsd" />
+<link title="Creative Commons" type="application/rdf+xml" href="http://security.foi.hr/wiki/index.php?title=Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="SIS Wiki Atom izvor" href="../index.php%3Ftitle=Posebno:Nedavne_promjene&amp;feed=atom" />
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=mediawiki.legacy.commonPrint%252Cshared%257Cskins.vector&amp;only=styles&amp;skin=vector&amp;*.css" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Analiza_web_prometa_korištenjem_Netflow_alata skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Analiza web prometa korištenjem Netflow alata</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">Izvor: SIS Wiki</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Skoči na: <a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#mw-head">orijentacija</a>,
+					<a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#p-search">traži</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Sadržaj</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Traffic-Flow"><span class="tocnumber">1</span> <span class="toctext">Traffic-Flow</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Traffic-Flow_op.C4.87enito"><span class="tocnumber">1.1</span> <span class="toctext">Traffic-Flow općenito</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Izvoz_Traffic-Flow_podataka_s_Mikrotik_usmjeriva.C4.8Da"><span class="tocnumber">1.2</span> <span class="toctext">Izvoz Traffic-Flow podataka s Mikrotik usmjerivača</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Konfiguracija_Traffic-Flow_postavki_koriste.C4.87i_CLI"><span class="tocnumber">1.2.1</span> <span class="toctext">Konfiguracija Traffic-Flow postavki koristeći CLI</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Nadzor_mre.C5.BEnog_prometa"><span class="tocnumber">2</span> <span class="toctext">Nadzor mrežnog prometa</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Netflow_Analyzer_-_Windows_10"><span class="tocnumber">2.1</span> <span class="toctext">Netflow Analyzer - Windows 10</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Netflow_Analyzer_op.C4.87enito"><span class="tocnumber">2.1.1</span> <span class="toctext">Netflow Analyzer općenito</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Instalacija_i_konfiguracija_Netflow_Analyzer_programa"><span class="tocnumber">2.1.2</span> <span class="toctext">Instalacija i konfiguracija Netflow Analyzer programa</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Ntopng_-_Ubuntu_15.10"><span class="tocnumber">2.2</span> <span class="toctext">Ntopng - Ubuntu 15.10</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Ntopng_op.C4.87enito"><span class="tocnumber">2.2.1</span> <span class="toctext">Ntopng općenito</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Instalacija_ntopng_programa"><span class="tocnumber">2.2.2</span> <span class="toctext">Instalacija ntopng programa</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#Konfiguracija_ntopng_programa"><span class="tocnumber">2.2.3</span> <span class="toctext">Konfiguracija ntopng programa</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Traffic-Flow"> Traffic-Flow </span></h1>
+<h2> <span class="mw-headline" id="Traffic-Flow_op.C4.87enito"> Traffic-Flow općenito </span></h2>
+<p>Traffic-Flow je mogućnost usmjerivača koja služi za skupljanje mrežnog prometa na ulaznom ili izlaznom sučelju.  Osim za nadzor mreže koristi se i za identifikaciju problema i optimizaciju cjelokupnih mrežnih performansi. Analizirajući podatke, administrator mreže može dobiti informacije kao što su izvor i odredište prometa, korištene protokole, količinu preuzetih podataka i mnoge druge.  Mikrotik-ov Traffic-Flow je kompatibilan sa Netflow rješenjem iz vlasništva tvrtke Cisco, stoga ima podršku za sve opcije koje ono nudi. 
+Detaljnije informacije moguće je pronaći u <a href="http://wiki.mikrotik.com/wiki/Manual:IP/Traffic_Flow" class="external text" rel="nofollow">službenoj dokumentaciji</a>.
+</p>
+<h2> <span class="mw-headline" id="Izvoz_Traffic-Flow_podataka_s_Mikrotik_usmjeriva.C4.8Da"> Izvoz Traffic-Flow podataka s Mikrotik usmjerivača </span></h2>
+<p>Prilikom izrade ovog projekta korišten je usmjerivač Mikrotik RB951G-2HnD koji je konfiguriran na zadane (engl. default) postavke. 
+Nakon spajanja u upravljačko sučelje pomoću winbox-a ili web sučelja, potrebno je iz izbornika odabrati karticu IP &gt; Traffic Flow.  Postavke podesiti kao na sljedećoj slici.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf1.PNG" class="image"><img alt="Tf1.PNG" src="../images/thumb/5/55/Tf1.PNG/300px-Tf1.PNG" width="300" height="181" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf1.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Zatim je potrebno podesiti na kojoj adresi se nalazi kolektor podataka. Pritisnite tipku Targets, zatim plavi plus za dodavanje novog unosa, te postavke podesite kao na sljedećoj slici. 
+Napomena: postavite IP adresu Vašeg računala na kojem će se nalaziti kolektor podataka i port preko kojeg će komunicirati. Netflow Analyzer koristi port 9996.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf2.PNG" class="image"><img alt="Tf2.PNG" src="../images/thumb/2/29/Tf2.PNG/300px-Tf2.PNG" width="300" height="174" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf2.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Potvrdite unos pritiskom na tipku Apply, te OK. Zatvorite Traffic Flow Targets prozor, te u prozoru Trafic Flow Settings pritisnite tipku Apply. Sada možete provjeriti dali se Traffic-Flow podaci zaista šalju pritiskom na karticu Status. Nakon par trenutaka trebali bi vidjeti vrijednosti u Active i Finished Flows kako inkrementalno rastu.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf3.PNG" class="image"><img alt="Tf3.PNG" src="../images/thumb/b/be/Tf3.PNG/300px-Tf3.PNG" width="300" height="180" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf3.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p><b>Napomena</b>: potrebno je u vatrozid (engl. firewall) dodati pravilo koje odobrava korištenje porta 9996 u protivnom aplikacija za analizu neće dobivati podatke.
+</p><p><br />
+</p>
+<h3> <span class="mw-headline" id="Konfiguracija_Traffic-Flow_postavki_koriste.C4.87i_CLI"> Konfiguracija Traffic-Flow postavki koristeći CLI </span></h3>
+<p>TL;DR - Nakon pokretanja terminala unesite sljedeće naredbe:
+</p>
+<pre>    ip traffic-flow &lt; pritisni enter &gt;
+    ip traffic-flow&gt; set enabled=yes interface=all &lt; pritisni enter &gt;
+    ip traffic-flow&gt; target &lt; pritisni enter &gt;
+    ip traffic-flow target&gt; add address=x.x.x.x:9996 disabled=no version=9 &lt; pritisni enter &gt;
+</pre>
+<p>Napomena: Izmijeniti IP adresu na flow collector, dodati port u firewall.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf4.PNG" class="image"><img alt="Tf4.PNG" src="../images/thumb/5/52/Tf4.PNG/500px-Tf4.PNG" width="500" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Tf4.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<h1> <span class="mw-headline" id="Nadzor_mre.C5.BEnog_prometa"> Nadzor mrežnog prometa </span></h1>
+<p>Nadzor mrežnog prometa sastoji se od tri glavne komponente:
+</p>
+<ul><li>izvoznik protoka (engl. flow exporter)
+</li><li>kolektor protoka (engl. flow colletctor)
+</li><li>aplikacija za analizu (engl. analysis application)
+</li></ul>
+<p>Traffic-Flow je samo izvoznik protoka koji skuplja pakete, od njih stvara tokove podataka i šalje ih prema jednom ili više kolektora protoka. Kolektori skupljaju podatke, pohranjuju ih te vrše početnu obradu podataka. Na kraju procesa je aplikacija koja je zadužena za analiziranje i prikazivanje podataka.  
+Ponekad aplikacija može sadržavati i kolektor protoka što pojednostavljuje početnu konfiguraciju. Taj slučaj ćemo vidjeti na primjeru u nastavku gdje je korišten Netflow Analyzer.
+</p>
+<h2> <span class="mw-headline" id="Netflow_Analyzer_-_Windows_10">Netflow Analyzer - Windows 10</span></h2>
+<h3> <span class="mw-headline" id="Netflow_Analyzer_op.C4.87enito">Netflow Analyzer općenito</span></h3>
+<p>Netflow Analyzer je aplikacija za analizu mrežnog prometa. Koristi Traffic-Flow tehnologiju za snabdijevanje podacima te prikaz mrežne propusnosti u stvarnom vremenu. Osmišljeno je kao unificirano rješenje koje sakuplja, analizira i prikazuje za što se mrežni promet koristi i tko ga koristi.
+</p>
+<h3> <span class="mw-headline" id="Instalacija_i_konfiguracija_Netflow_Analyzer_programa">Instalacija i konfiguracija Netflow Analyzer programa</span></h3>
+<p>Potrebno je preuzeti i instalirati besplatnu verziju ManageEngine-ovog alata s njihove <a href="https://www.manageengine.com/products/netflow/download-free.html" class="external text" rel="nofollow">službene web stranice</a>. Ponuđena Vam je trial verzija koja traje 30 dana ili besplatna koja prati samo 2 sučelja. 
+</p><p>Tijekom instalacije nije potrebno mijenjati zadane vrijednosti. Nakon instalacije potrebno je pokrenuti aplikaciju pomoću kratice na radnoj površini ili navigiranjem na http://localhost:8080 . Ulogirajte se s korisničkim imenom: admin i lozinkom:admin. Ako Traffic-Flow nije prethodno podešen prikazat će se sljedeća poruka.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na1.png" class="image"><img alt="Na1.png" src="../images/thumb/d/dd/Na1.png/500px-Na1.png" width="500" height="93" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na1.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div></div>
+<p>Ako je Traffic-flow dobro podešen nakon par trenutaka možemo osvježiti stranicu i trebali bi dobiti: grafičke prikaze najkorištenijih aplikacija, protokola, konverzacija i QoS (engl. Quality of Service), te mnoge druge opcije na raspolaganju. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na2.PNG" class="image"><img alt="" src="../images/thumb/5/54/Na2.PNG/800px-Na2.PNG" width="800" height="427" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na2.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network Analyzer - Dashboard a)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na3.PNG" class="image"><img alt="" src="../images/thumb/3/38/Na3.PNG/800px-Na3.PNG" width="800" height="386" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na3.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network Analyzer - Dashboard b)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na4.png" class="image"><img alt="" src="../images/thumb/1/17/Na4.png/800px-Na4.png" width="800" height="431" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na4.png" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network Analyzer - Grafički prikaz Layer 4 korištenih portova i protokola</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na5.PNG" class="image"><img alt="" src="../images/thumb/9/98/Na5.PNG/800px-Na5.PNG" width="800" height="452" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Na5.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Network Analyzer - Prikaz Generiranog Reporta</div></div></div></div>
+<p><br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Ntopng_-_Ubuntu_15.10">Ntopng - Ubuntu 15.10</span></h2>
+<h3> <span class="mw-headline" id="Ntopng_op.C4.87enito"> Ntopng općenito </span></h3>
+<p>Ntopng je novija verzija programa <a href="http://www.ntop.org/products/traffic-analysis/ntop/" class="external text" rel="nofollow">ntop</a>, koji služi za analizu Gbit mrežnog prometa. Sastoji se od sljedečih programa neophodnih za rad (engl. dependancies):
+</p>
+<ul><li>nBox - mrežno sučelje za prikaz podataka
+</li><li>PF_RING - sakupljanje mrežnih paketa
+</li><li>n2disk - snimanje mrežnog prometa na disk
+</li><li>nProbe - sonda za distribuiranje po mreži koja šalje informacije o prometu (Netflow) centralnoj jednici na analizu (ntopng)
+</li></ul>
+<p><b>Napomena</b>: Za snimanje prometa na vlastitom interface-u, ntopng je dovoljan. Ukoliko želite snimati WAN mrežu neophodan vam je nProbe koji nije besplatan i potrebno je kupiti licencu za normalno funkconiranje. U beplatnom izdanju limitira se snimanje paketa na 20K i zatim prestaje raditi.
+</p>
+<h3> <span class="mw-headline" id="Instalacija_ntopng_programa">Instalacija ntopng programa</span></h3>
+<p>Korišena konfiguracija:
+</p>
+<ul><li>VM Oracle VirtualBox
+</li><li>OS Ubuntu 15.10 Wily Werewolf Desktop
+</li><li>Intel(R) Core(TM) i5-4210H CPU @ 2.90GHz
+</li><li>4GB RAM 20TB HDD
+</li></ul>
+<p>Najlakši način za instalaciju prema službenoj <a href="https://easyipv6.wordpress.com/2014/08/22/how-to-configure-ntopng-for-collecting-sflow-packets/" class="external text" rel="nofollow">dokumentaciji</a> je sljedeći: 
+</p>
+<pre>    wget <a href="http://www.nmon.net/apt-stable/12.04/all/apt-ntop.deb" class="external free" rel="nofollow">http://www.nmon.net/apt-stable/12.04/all/apt-ntop.deb</a>
+    sudo dpkg -i apt-ntop.deb
+</pre>
+<p>Zatim update package list
+</p>
+<pre>    apt-get clean all
+    apt-get update
+    sudo apt-get install ntopng pfring nprobe ntopng-data n2disk nbox
+</pre>
+<p>Ukoliko nedostaju neki od dependancie-a pokrenite
+</p>
+<pre>    sudo apt-get install libpcap-dev libglib2.0-dev libgeoip-dev redis-server libxml2-dev libnl-3-dev libhiredis0.10
+</pre>
+<p>Ako Vam još uvijek nešto nedostaje (kao što je meni nedostajalo) napravite sljedeće. U protivnom preskočite ovaj korak i nastavite sa pokretanjem ntopng programa. <br /> Recimo da nedostaje libhiredis0.10 potražite ga na ovom <a href="http://installion.co.uk/ubuntu/index.html" class="external text" rel="nofollow">linku</a>.
+Pronađite source od tog dependancie-a.
+</p>
+<pre>    deb <a href="http://us.archive.ubuntu.com/ubuntu" class="external free" rel="nofollow">http://us.archive.ubuntu.com/ubuntu</a> precise main universe
+</pre>
+<p>Te ga kopirajte i pospremite u sources.list
+</p>
+<pre>    sudo nano /etc/apt/sources.list
+</pre>
+<p>Sada osvježite apt-get i pokušajte ponovo sve instalirati
+</p>
+<pre>    sudo apt-get update
+    sudo apt-get install libhiredis0.10
+    sudo apt-get install ntopng pfring nprobe ntopng-data n2disk nbox
+</pre>
+<p><b>Pokretanje programa</b>
+</p><p>Sa naredbom ip addr, ifconfig ili ntopng -h pogledajte slobodne interface-e. Možemo postaviti i opciju any. <br /> Sada ćemo testirati dali ntop radi.
+</p>
+<pre>    sudo ntopng -i any -w 12345
+</pre>
+<p>U browseru idite na adresu localhost:12345 i ulogirajte se sa podacima username i password = admin. Kasnije ako želite u postavkama promijenite password.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:354px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_admin.PNG" class="image"><img alt="" src="../images/4/40/Ntopng_admin.PNG" width="352" height="425" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_admin.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - Login</div></div></div></div>
+<p>Kroz par trenutaka trebali bi vidjeti podatke koji pristižu te grafove koji se automatski ažuriraju.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_prvo_pokretanje.PNG" class="image"><img alt="" src="../images/thumb/4/4b/Ntopng_prvo_pokretanje.PNG/800px-Ntopng_prvo_pokretanje.PNG" width="800" height="447" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_prvo_pokretanje.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - prvo pokretanje Dashboard</div></div></div></div>
+<h3> <span class="mw-headline" id="Konfiguracija_ntopng_programa">Konfiguracija ntopng programa</span></h3>
+<p>Recimo da je IPv4 vašeg servera 192.168.1.55. Prvo pokrenite ntopng:
+</p>
+<pre>    ntopng -i tcp://127.0.0.1:5556 -d /var/tmp/ntopng -w 3000 -v &gt;&gt; /dev/null &amp;
+</pre>
+<p>Zatim nProbe kolektor: 
+</p>
+<pre>    nprobe --collector-port 6343 --zmq tcp://127.0.0.1:5556 &gt;&gt; /dev/null &amp;
+</pre>
+<p>Sada pokrenite traffic flow na vašem ruteru, podesite željeni interface i podesite kao target ip adresu vašeg servera i port 6343.
+</p><p>Idite na 192.168.1.55:3000 , ulogirajte se i podaci bi se trebali početi prikazivati.
+</p><p><br />
+<b>Opcionalno</b>
+Ukoliko ne želite kod svakog pokretanja ponovo konfigurirati programe, možemo  editirati njihove konfiguracijeske datoteke, npr.
+</p>
+<pre>    sudo nano /etc/ntopng/ntopng.conf
+</pre>
+<pre>    # /etc/ntopng/ntopng.conf
+    #
+    #        The  configuration  file is similar to the command line, with the exception that an equal
+    #        sign '=' must be used between key and value. Example:  -i=p1p2  or  --interface=p1p2  For
+    #        options with no value (e.g. -v) the equal is also necessary. Example: "-v=" must be used.
+    #
+    #
+    #       -G|--pid-path
+    #        Specifies the path where the PID (process ID) is saved.
+    #
+    -G=/var/tmp/ntopng.pid
+    #
+    #       -e|--daemon
+    #        This  parameter  causes ntop to become a daemon, i.e. a task which runs in the background
+    #        without connection to a specific terminal. To use ntop other than as a casual  monitoring
+    #        tool, you probably will want to use this option.
+    #
+    -e=
+    #
+    #       -i|--interface
+    #        Specifies  the  network  interface or collector endpoint to be used by ntopng for network
+    #        monitoring. On Unix you can specify both the interface name  (e.g.  lo)  or  the  numeric
+    #        interface id as shown by ntopng -h. On Windows you must use the interface number instead.
+    #        Note that you can specify -i multiple times in order to instruct ntopng to create  multi‐
+    #        ple interfaces.
+    #
+    -i=
+    #
+    #       -w|--http-port
+    #        Sets the HTTP port of the embedded web server.
+    #
+    -w=3000
+    #
+    #       -m|--local-networks
+    #        ntopng determines the ip addresses and netmasks for each active interface. Any traffic on
+    #        those  networks  is considered local. This parameter allows the user to define additional
+    #        networks and subnetworks whose traffic is also considered local in  ntopng  reports.  All
+    #        other hosts are considered remote. If not specified the default is set to 192.168.1.0/24.
+    #
+    #        Commas  separate  multiple  network  values.  Both netmask and CIDR notation may be used,
+    #        even mixed together, for instance "131.114.21.0/24,10.0.0.0/255.0.0.0".
+    #
+    -m=192.168.1.0/24
+    #
+    #       -n|--dns-mode
+    #        Sets the DNS address resolution mode: 0 - Decode DNS responses  and  resolve  only  local
+    #        (-m)  numeric  IPs  1  -  Decode DNS responses and resolve all numeric IPs 2 - Decode DNS
+    #        responses and don't resolve numeric IPs 3 - Don't decode DNS responses and don't  resolve
+    #
+    -n=1
+    #
+    #       -S|--sticky-hosts
+    #        ntopng  periodically purges idle hosts. With this option you can modify this behaviour by
+    #        telling ntopng not to purge the hosts specified by -S. This parameter requires  an  argu‐
+    #        ment  that  can  be  "all"  (Keep  all hosts in memory), "local" (Keep only local hosts),
+    #        "remote" (Keep only remote hosts), "none" (Flush hosts when idle).
+    #
+    -S=
+    #
+    #       -d|--data-dir
+    #        Specifies the data directory (it must be writable). Default directory is ./data
+    #
+    -d=/var/tmp/ntopng
+    #
+    #       -q|--disable-autologout
+    #        Disable web interface logout for inactivity.
+    #
+    -q=
+    -v=
+</pre>
+<p>Kreirajte ntopng.start:
+</p>
+<pre>    sudo nano /etc/ntopng/ntopng.start
+</pre>
+<p>Dodajte sljedeće:
+</p>
+<pre>    --local-networks "192.168.0.0/24"  ## give your local IP Ranges here.
+    --interface 1
+</pre>
+<p>Pokrenite ntopng:
+</p>
+<pre>    sudo service ntopng start
+</pre>
+<p><br />
+Ntopng nam daje odličan uvid u mrežno stanje. Prava je šteta što nije putpuno open source. Alternativa za korištenje može biti starija verzija - ntop ili neki drugi program kao npr. nfsen.
+</p><p><br />
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:459px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_menu.PNG" class="image"><img alt="" src="../images/1/16/Ntopng_menu.PNG" width="457" height="401" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_menu.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - izbornik</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_top_flow_talkers.PNG" class="image"><img alt="" src="../images/thumb/7/73/Ntopng_top_flow_talkers.PNG/800px-Ntopng_top_flow_talkers.PNG" width="800" height="498" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_top_flow_talkers.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - top flow talkers</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_ports.PNG" class="image"><img alt="" src="../images/thumb/8/89/Ntopng_ports.PNG/800px-Ntopng_ports.PNG" width="800" height="352" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_ports.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - ports</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_applications.PNG" class="image"><img alt="" src="../images/thumb/7/7c/Ntopng_applications.PNG/500px-Ntopng_applications.PNG" width="500" height="354" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_applications.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - applications</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_active_flows.PNG" class="image"><img alt="" src="../images/thumb/8/8c/Ntopng_active_flows.PNG/800px-Ntopng_active_flows.PNG" width="800" height="456" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_active_flows.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - active flows</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_hosts.PNG" class="image"><img alt="" src="../images/thumb/6/66/Ntopng_hosts.PNG/800px-Ntopng_hosts.PNG" width="800" height="335" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_hosts.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - all hosts</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_geolocation.PNG" class="image"><img alt="" src="../images/thumb/3/30/Ntopng_geolocation.PNG/500px-Ntopng_geolocation.PNG" width="500" height="405" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://security.foi.hr/wiki/index.php/Datoteka:Ntopng_geolocation.PNG" class="internal" title="Povećaj"><img src="../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Ntopng - geolokacija</div></div></div></div>
+<p><br />
+--<a href="http://security.foi.hr/wiki/index.php?title=Suradnik:Marko_Plaftari%C4%87&amp;action=edit&amp;redlink=1" class="new" title="Suradnik:Marko Plaftarić (stranica ne postoji)">Marko Plaftarić</a> 21:32, 24. siječnja 2016. (CET)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 55/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key sisds:pcache:idhash:8719-0!*!0!!hr!2!edit=0 and timestamp 20190203204217 -->
+<div class="printfooter">
+Dobavljeno iz "<a href="Analiza_web_prometa_korištenjem_Netflow_alata.html">http://security.foi.hr/wiki/index.php/Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Osobni alati</h5>
+	<ul>
+					<li  id="pt-login"><a href="http://security.foi.hr/wiki/index.php?title=Posebno:Prijava&amp;returnto=Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata" title="Predlažemo Vam da se prijavite, ali nije obvezno. [o]" accesskey="o">Prijavi se</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Imenski prostori</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html"  title="Pogledaj sadržaj [c]" accesskey="c">Članak</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://security.foi.hr/wiki/index.php?title=Razgovor:Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata&amp;action=edit&amp;redlink=1"  title="Razgovor o stranici [t]" accesskey="t">Razgovor</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Inačice</span><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Pogledi</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html" >Čitaj</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata&amp;action=edit"  title="Ova stranica je zaštićena. Možete pogledati izvorni kod. [e]" accesskey="e">Vidi izvor</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="http://security.foi.hr/wiki/index.php?title=Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata&amp;action=history"  title="Ranije izmjene na ovoj stranici. [h]" accesskey="h">Vidi stare izmjene</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Radnje</span><a href="Analiza_web_prometa_korištenjem_Netflow_alata.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Traži</label></h5>
+	<form action="http://security.foi.hr/wiki/index.php" id="searchform">
+		<input type='hidden' name="title" value="Posebno:Traži"/>
+				<input id="searchInput" name="search" type="text"  title="Pretraži ovaj wiki [f]" accesskey="f"  value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Kreni" title="Idi na stranicu s ovim imenom ako ona postoji" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Traži" title="Traži ovaj tekst na svim stranicama" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(../../images/osslogo.png);" href="../../wiki.html"  title="Glavna stranica"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Orijentacija</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="../../wiki.html" title="Posjeti glavnu stranicu [z]" accesskey="z">Glavna stranica</a></li>
+					<li id="n-portal"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Portal_zajednice" title="O projektu, što možete učiniti, gdje je što">Portal zajednice</a></li>
+					<li id="n-currentevents"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Novosti" title="O trenutačnim događajima">Aktualno</a></li>
+					<li id="n-recentchanges"><a href="./Posebno:Nedavne_promjene.html" title="Popis nedavnih promjena u wikiju. [r]" accesskey="r">Nedavne promjene</a></li>
+					<li id="n-randompage"><a href="./Posebno:Slučajna_stranica.html" title="Učitaj slučajnu stranicu [x]" accesskey="x">Slučajna stranica</a></li>
+					<li id="n-help"><a href="./Pomoć:Pomoć.html" title="Mjesto za pomoć suradnicima.">Pomoć</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Traka s alatima</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://security.foi.hr/wiki/index.php/Posebno:%C5%A0to_vodi_ovamo/Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata" title="Popis svih stranica koje sadrže poveznice ovamo [j]" accesskey="j">Što vodi ovamo</a></li>
+						<li id="t-recentchangeslinked"><a href="http://security.foi.hr/wiki/index.php/Posebno:Povezane_promjene/Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata" title="Nedavne promjene na stranicama na koje vode ovdašnje poveznice [k]" accesskey="k">Povezane stranice</a></li>
+																																										<li id="t-specialpages"><a href="./Posebno:Posebne_stranice.html" title="Popis posebnih stranica [q]" accesskey="q">Posebne stranice</a></li>
+									<li id="t-print"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata&amp;printable=yes" rel="alternate" title="Verzija za ispis ove stranice [p]" accesskey="p">Verzija za ispis</a></li>
+						<li id="t-permalink"><a href="http://security.foi.hr/wiki/index.php?title=Analiza_web_prometa_kori%C5%A1tenjem_Netflow_alata&amp;oldid=37996" title="Trajna poveznica na ovu verziju stranice">Trajna poveznica</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> Datum zadnje promjene na ovoj stranici: 20:39, 24. siječnja 2016.</li>
+																							<li id="footer-info-viewcount">Ova stranica je pogledana 1.689 puta.</li>
+																							<li id="footer-info-copyright">Sadržaji se koriste u skladu s <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external ">Creative Commons Attribution Share Alike</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:Za%C5%A1tita_privatnosti" title="SIS Wiki:Zaštita privatnosti">Zaštita privatnosti</a></li>
+																							<li id="footer-places-about"><a href="./SIS_Wiki:O_projektu_SIS_Wiki.html" title="SIS Wiki:O projektu SIS Wiki">O projektu SIS Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://security.foi.hr/wiki/index.php/SIS_Wiki:General_disclaimer" title="SIS Wiki:General disclaimer">Odricanje od odgovornosti</a></li>
+															</ul>
+											<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="../skins/common/images/cc-by-sa.png" alt="Creative Commons Attribution Share Alike" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="../load.php%3Fdebug=false&amp;lang=hr&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Analiza_web_prometa_korištenjem_Netflow_alata", "wgTitle": "Analiza web prometa korištenjem Netflow alata", "wgAction": "view", "wgArticleId": 8719, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 37996, "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"hr","language":"hr","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.469 secs. -->			</body>
+</html>
